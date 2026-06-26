@@ -1,0 +1,12 @@
+# Estadística Económica y Empresarial.
+
+*Tema 1: Análisis estadístico unidimensional. Apartado 1.1.*
+
+En este capítulo se presenta la **Estadística Económica y Empresarial** como
+rama aplicada de la Estadística, orientada al tratamiento cuantitativo de la
+información económica y empresarial. Se introducen las principales fuentes de
+información estadística de carácter económico-empresarial, así como las pautas
+básicas para su interpretación, análisis crítico y aprovechamiento en la toma
+de decisiones empresariales.
+
+<!-- Contenido pendiente de desarrollo. -->

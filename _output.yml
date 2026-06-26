@@ -1,0 +1,20 @@
+bookdown::bs4_book:
+  theme:
+    bootswatch: litera
+    primary: "#475569"
+    base_font:
+      google: "Source Serif 4"
+    heading_font:
+      google: "Source Sans 3"
+    code_font:
+      google: "JetBrains Mono"
+  css: assets/styles.css
+
+  # repo: https://github.com/teckel71/EstadisticaEmpresarial-book   # opcional
+
+
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  keep_tex: true

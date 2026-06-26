@@ -1,0 +1,13 @@
+# Variables aleatorias unidimensionales y bidimensionales.
+
+*Tema 4: Probabilidad y variables aleatorias. Apartado 4.2.*
+
+En este capítulo se formaliza el concepto de **variable aleatoria** como
+aplicación del espacio muestral en los números reales. Se distinguen las
+variables aleatorias **discretas** y **continuas**, introduciendo sus
+funciones de masa, de densidad y de distribución. Se extiende el análisis al
+caso **bidimensional**, presentando las distribuciones conjuntas, marginales
+y condicionadas, así como el concepto de **independencia** de variables
+aleatorias.
+
+<!-- Contenido pendiente de desarrollo. -->

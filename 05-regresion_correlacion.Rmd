@@ -1,0 +1,12 @@
+# Regresión y correlación.
+
+*Tema 2: Análisis estadístico multidimensional. Apartado 2.2.*
+
+En este capítulo se aborda el estudio de la **dependencia funcional** y
+**estocástica** entre variables. Se presentan los modelos de **regresión**
+(lineal simple y, brevemente, múltiple) y los principales coeficientes de
+**correlación**, así como las medidas de bondad del ajuste. Se discuten las
+hipótesis básicas y la interpretación económica de los resultados, con
+especial énfasis en su aplicación al análisis empresarial.
+
+<!-- Contenido pendiente de desarrollo. -->

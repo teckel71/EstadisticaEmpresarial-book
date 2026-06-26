@@ -1,0 +1,166 @@
+/* ===================================================
+   TIPOGRAFÍA PRINCIPAL — estilo editorial con serifa
+   =================================================== */
+
+/* Importar fuente serif elegante para el cuerpo */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap');
+
+html, body {
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-size: 17.5px;
+  line-height: 1.82;
+  color: #2d2b28;               /* gris oscuro cálido, no negro frío */
+}
+
+/* Ancho de lectura cómodo */
+.page-content .col-md-9 { max-width: 900px; }
+
+/* ===================================================
+   PÁRRAFOS: el texto narrativo en bronce/dorado oscuro
+   — esto es lo más característico de la imagen
+   =================================================== */
+.page-content p,
+.page-content li,
+.page-content td,
+.page-content th {
+  color: #7a5c1e;               /* bronce/dorado oscuro, como en la imagen */
+}
+
+/* El texto de código y preformateado permanece neutro */
+.page-content code,
+.page-content pre,
+.page-content pre code {
+  color: #2d2b28;
+}
+
+/* ===================================================
+   TÍTULOS — sans-serif sobria y moderna, en gris azulado
+   =================================================== */
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content h4,
+.page-content h5,
+.page-content h6 {
+  font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  color: #475569;
+  letter-spacing: 0.1px;
+}
+
+h1 { font-weight: 700; margin-top: .8rem;  font-size: 2rem; }
+h2 { font-weight: 700; margin-top: 2.2rem; font-size: 1.55rem; }
+h3 { font-weight: 600; margin-top: 1.5rem; font-size: 1.2rem; }
+
+/* Números de sección heredan el color */
+.page-content h1 .header-section-number,
+.page-content h2 .header-section-number,
+.page-content h3 .header-section-number,
+.page-content h4 .header-section-number,
+.page-content h5 .header-section-number,
+.page-content h6 .header-section-number {
+  color: inherit;
+}
+
+/* Enlaces dentro de títulos */
+.page-content h1 a,
+.page-content h2 a,
+.page-content h3 a,
+.page-content h4 a,
+.page-content h5 a,
+.page-content h6 a {
+  color: inherit;
+  text-decoration: none;
+}
+.page-content h1 a:hover,
+.page-content h2 a:hover,
+.page-content h3 a:hover,
+.page-content h4 a:hover,
+.page-content h5 a:hover,
+.page-content h6 a:hover {
+  color: #334155;
+  text-decoration: underline;
+}
+
+/* ===================================================
+   BOLD y STRONG — destaca bien en bronce oscuro
+   =================================================== */
+.page-content strong,
+.page-content b {
+  font-weight: 700;
+  color: #5a3e10;               /* bronce más oscuro para el negrita */
+}
+
+/* ===================================================
+   ENLACES
+   =================================================== */
+a, a:visited { color: #475569 !important; text-decoration: none; }
+a:hover, a:focus { color: #334155 !important; text-decoration: underline; }
+
+/* ===================================================
+   TOC LATERAL
+   =================================================== */
+.sidebar .book-toc a { opacity: .95; }
+.sidebar .book-toc a:hover { opacity: 1; text-decoration: underline; }
+.sidebar .book-toc .active > a { font-weight: 600; }
+
+/* ===================================================
+   CÓDIGO — monoespaciada clara
+   =================================================== */
+code, pre, pre code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: .92em;
+  color: #2d2b28;               /* el código siempre neutro oscuro */
+}
+
+/* ===================================================
+   TABLAS
+   =================================================== */
+.table, table {
+  font-variant-numeric: tabular-nums;
+  -moz-font-feature-settings: "tnum";
+  -webkit-font-feature-settings: "tnum";
+  font-feature-settings: "tnum";
+}
+.table td, .table th { vertical-align: middle; }
+
+/* ===================================================
+   CITAS
+   =================================================== */
+blockquote {
+  border-left: 4px solid #c9a84c; /* borde dorado, acorde con el tono bronce */
+  padding-left: 1rem;
+  color: #7a5c1e;
+  font-style: italic;
+}
+
+/* ===================================================
+   IMÁGENES
+   =================================================== */
+img { border-radius: 6px; }
+
+.portada-img {
+  width: 100%;
+  height: auto;
+  max-height: 50vh;
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .hero-img { max-height: 40vh; }
+}
+
+/* ===================================================
+   ICONOS EN ENCABEZADOS
+   =================================================== */
+h1 img.hicon, h2 img.hicon, h3 img.hicon,
+h4 img.hicon, h5 img.hicon, h6 img.hicon {
+  height: 1em;
+  width: auto;
+  vertical-align: -0.15em;
+  margin: 0 .35em 0 .35em;
+}
+
+img.block-spaced {
+  display: block;
+  margin-bottom: 1.5rem;
+}

@@ -1,0 +1,13 @@
+# Variable estadística unidimensional.
+
+*Tema 1: Análisis estadístico unidimensional. Apartado 1.2.*
+
+En este capítulo se aborda el análisis estadístico **unidimensional**: cómo
+representar, sintetizar y describir el comportamiento de una única variable
+estadística. Se estudian los conceptos de población, muestra, individuo y
+carácter; los distintos tipos de variables; las distribuciones de frecuencias
+(absolutas, relativas y acumuladas); las representaciones gráficas; y las
+medidas de **posición**, **dispersión**, **forma** (asimetría y curtosis) y
+**concentración**.
+
+<!-- Contenido pendiente de desarrollo. -->

@@ -1,0 +1,36 @@
+---
+title: "Estadística Empresarial"
+author: 'Miguel Ángel Tarancón Morán'
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography:
+- references.bib
+- packages.bib
+biblio-style: apalike
+link-citations: true
+url: https://teckel71.github.io/EstadisticaEmpresarial-book/
+description: |
+  Manual teórico-práctico de Estadística Empresarial para el Grado en
+  Administración y Dirección de Empresas.
+always_allow_html: true
+---
+
+#  {.unnumbered}
+
+**Autor:**
+
+| Miguel Ángel Tarancón Morán.
+
+| Catedrático de Economía Aplicada. Universidad de Castilla - La Mancha.
+
+```{r include=FALSE}
+# Crea automáticamente la base de datos bib para los paquetes de R
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+```{r include=FALSE}
+if (knitr:::is_html_output()) '# Bibliografía {-}'
+```
