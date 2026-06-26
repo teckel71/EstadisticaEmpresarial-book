@@ -10,6 +10,7 @@ bibliography:
 biblio-style: apalike
 link-citations: true
 url: https://teckel71.github.io/EstadisticaEmpresarial-book/
+cover-image: figuras/EE_portada.jpg     # <-- añade esta línea
 description: |
   Manual teórico-práctico de Estadística Empresarial para el Grado en
   Administración y Dirección de Empresas.
@@ -17,6 +18,8 @@ always_allow_html: true
 ---
 
 #  {.unnumbered}
+
+![](figuras/EE_portada.jpg){.portada-img width="100%"} 
 
 **Autor:**
 
