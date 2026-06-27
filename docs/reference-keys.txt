@@ -3,8 +3,8 @@ variable-estadística-unidimensional.
 variable-estadística-bidimensional-y-n-dimensional.
 regresión-y-correlación.
 números-índice.
-introducción-a-la-probabilidad.
-variables-aleatorias-unidimensionales-y-bidimensionales.
-modelos-de-distribución-de-probabilidad-discretos-univariantes.
-modelos-de-distribución-de-probabilidad-continuos-univariantes.
+probabilidad.
+variables-aleatorias.
+modelos-de-probabilidad-discretos-univariantes.
+modelos-de-probabilidad-continuos-univariantes.
 convergencia-y-teoremas-límite.

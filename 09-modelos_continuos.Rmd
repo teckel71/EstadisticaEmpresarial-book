@@ -1,4 +1,4 @@
-# Modelos de distribución de probabilidad continuos univariantes.
+# Modelos de probabilidad continuos univariantes.
 
 *Tema 5: Modelos de distribución de probabilidad. Apartado 5.2.*
 

@@ -1,4 +1,4 @@
-# Modelos de distribución de probabilidad discretos univariantes.
+# Modelos de probabilidad discretos univariantes.
 
 *Tema 5: Modelos de distribución de probabilidad. Apartado 5.1.*
 

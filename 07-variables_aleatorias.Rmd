@@ -1,4 +1,4 @@
-# Variables aleatorias unidimensionales y bidimensionales.
+# Variables aleatorias.
 
 *Tema 4: Probabilidad y variables aleatorias. Apartado 4.2.*
 
