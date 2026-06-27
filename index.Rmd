@@ -19,7 +19,7 @@ always_allow_html: true
 
 #  {.unnumbered}
 
-![](figuras/EE_portada.jpg){.portada-img width="100%"} 
+![](figuras/EE_portadaRS.jpg){.portada-img width="100%"}
 
 **Autor:**
 
