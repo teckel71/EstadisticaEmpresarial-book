@@ -1,4 +1,3 @@
-introducción.
 estadística-económica-y-empresarial.
 variable-estadística-unidimensional.
 variable-estadística-bidimensional-y-n-dimensional.
@@ -6,7 +5,6 @@ regresión-y-correlación.
 números-índice.
 introducción-a-la-probabilidad.
 variables-aleatorias-unidimensionales-y-bidimensionales.
-características-de-variables-aleatorias.
 modelos-de-distribución-de-probabilidad-discretos-univariantes.
 modelos-de-distribución-de-probabilidad-continuos-univariantes.
 convergencia-y-teoremas-límite.
