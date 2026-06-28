@@ -8,3 +8,4 @@ variables-aleatorias.
 modelos-de-probabilidad-discretos-univariantes.
 modelos-de-probabilidad-continuos-univariantes.
 convergencia-y-teoremas-límite.
+qué-es-la-estadística

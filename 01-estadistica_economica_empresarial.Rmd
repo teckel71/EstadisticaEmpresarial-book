@@ -1,12 +1,63 @@
 # Estadística Económica y Empresarial.
 
-*Tema 1: Análisis estadístico unidimensional. Apartado 1.1.*
+## ¿Qué es la Estadística?
 
-En este capítulo se presenta la **Estadística Económica y Empresarial** como
-rama aplicada de la Estadística, orientada al tratamiento cuantitativo de la
-información económica y empresarial. Se introducen las principales fuentes de
-información estadística de carácter económico-empresarial, así como las pautas
-básicas para su interpretación, análisis crítico y aprovechamiento en la toma
-de decisiones empresariales.
+Hoy en día, todo el mundo habla de las estadísticas. Constantemente se hace referencia a ellas en los medios de comunicación, dando la sensación de que todo está medido y estructurado por estos entes que convierten la realidad empírica en una amalgama de números. Esto es especialmente relevante en el campo del comportamiento humano y las *Ciencias Sociales*, donde a diario recibimos estadísticas sobre el crecimiento de la economía en términos del PIB, el comportamiento de los precios medido mediante la inflación, o la intención de voto ante unas elecciones.
 
-<!-- Contenido pendiente de desarrollo. -->
+En este contexto, podemos definir la Estadística no solo como una disciplina científica, sino fundamentalmente como una **ciencia instrumental**. Esto significa que, más que un fin en sí misma, actúa como una herramienta metodológica al servicio de otras disciplinas, como la Economía o la Administración de Empresas.
+
+Como ciencia instrumental, la estadística persigue un **doble objetivo** fundamental:
+
+1.  **Recogida y análisis de datos que describan la realidad:** Esta primera vertiente (que conforma la Estadística Descriptiva) se ocupa de la recopilación estructurada de los datos, su depuración y la caracterización de un conjunto de casos o individuos a través de dicha información empírica. Nos permite organizar la información para obtener una visión inicial, clara y concisa de lo que está ocurriendo.
+
+2.  **Modelizar el comportamiento de la realidad cuando existe incertidumbre:** El segundo gran objetivo consiste en aplicar modelos matemáticos para representar y entender el comportamiento de aquellos fenómenos económicos y empresariales que no son deterministas, es decir, que están sujetos a incertidumbre y al azar.
+
+Finalmente, todo este proceso estructurado de recopilación, descripción y modelización probabilística no es un mero ejercicio teórico, sino que tiene un **propósito final** muy claro: servir de ayuda y tecnología para la **toma de decisiones**. Al transformar datos complejos y entornos inciertos en información medible, la estadística proporciona a empresas e instituciones el rigor necesario para tomar decisiones fundamentadas.
+
+## Economía y Estadística
+
+La Estadística juega un papel fundamental en la estructuración y medición del comportamiento humano, siendo un pilar indispensable dentro de las **Ciencias Sociales**. En el ámbito particular de la Economía y la Administración de Empresas, esta disciplina actúa como el puente imprescindible que conecta los planteamientos abstractos de la Teoría Económica con la realidad palpable y observable.
+
+A través de la estadística, el entorno económico adquiere el grado de concreción necesario para ser medible. Esto lo comprobamos a diario cuando nos llega información sobre la salud del mercado a través de indicadores macroeconómicos, como el crecimiento de la economía expresado en términos del **PIB** o la evolución de los precios medida mediante el concepto de **inflación**.
+
+Dada la tremenda complejidad y variabilidad del comportamiento económico y empresarial, regido en gran medida por las decisiones humanas y el azar, resulta ineficaz tratar de explicar la realidad mediante modelos matemáticos deterministas o exactos. Surge así la necesidad de emplear **modelos estocásticos o probabilísticos**. La aplicación de estos modelos estadísticos a los datos empíricos permite obtener estimaciones que verdaderamente representen el comportamiento real de los casos estudiados, abordando la incertidumbre de forma rigurosa.
+
+Al construir estas representaciones matemáticas de la realidad económica, la estadística se rige por el **principio de parsimonia** de la modelización: el objetivo es conseguir un modelo que sea tan sencillo como resulte posible (sin añadir más parámetros de los estrictamente necesarios) pero que, al mismo tiempo, capture el comportamiento del mercado o de la empresa sin una pérdida significativa de calidad de información frente a modelos más complejos.
+
+Finalmente, todo este proceso culmina en la etapa de crítica, validación y contraste del modelo. Si tras esta evaluación el modelo se considera válido, apto y técnicamente correcto, pasa a cumplir su función primordial en la empresa: **ayudar a la toma de decisiones**. Esto se materializa proporcionando a los directivos y economistas herramientas fiables para realizar análisis estructurales profundos, plantear simulaciones ante diferentes escenarios de mercado y llevar a cabo previsiones.
+
+## El método estadístico
+
+Para que la estadística cumpla su propósito instrumental en la economía y la empresa, requiere de un procedimiento estructurado y riguroso conocido como el método estadístico. Este método nos permite avanzar desde la mera observación de unos datos concretos empíricos hasta la formulación de conclusiones robustas que expliquen el entorno en el que operamos.
+
+La investigación estadística sigue una serie de etapas lógicas y secuenciales. Una vez planteado el problema y organizada la información previa, el método estadístico se adentra en fases más analíticas y de modelización:
+
+1.  **Estimación del modelo estadístico:** Tras depurar y preparar los datos, se procede a aplicar las técnicas empíricas o el modelo probabilístico elegido. El objetivo de esta etapa es procesar la información empírica para obtener los resultados que contribuyan a cubrir y responder a los objetivos planteados inicialmente en la investigación.
+
+2.  **Validación y contraste:** Los resultados obtenidos no se asumen de manera automática, sino que deben someterse a una evaluación exhaustiva. En esta subetapa se analiza la *bondad del modelo*, valorando hasta qué punto las estimaciones representan verdaderamente el comportamiento real de los casos económicos estudiados. Además, se comprueba el grado de aptitud técnica del modelo, garantizando que cumple con las hipótesis básicas que dotan a los resultados de las mejores propiedades estadísticas (como la insesgadez, la eficiencia y la consistencia). Durante esta fase, es fundamental guiarse por el **principio de parsimonia**: el objetivo es lograr el modelo más sencillo posible (sin más parámetros de los estrictamente necesarios) que consiga representar la realidad sin una pérdida acusada de calidad frente a modelos más enrevesados.
+
+3.  **Crítica y diagnosis del modelo:** Esta etapa final es la que conecta el análisis estadístico con el mundo real de la gestión. Consiste en emitir un juicio definitivo: si el modelo se considera válido y técnicamente correcto, será adoptado como una herramienta fundamental para la **toma de decisiones**. A partir de este momento, permitirá a los economistas y directivos realizar análisis estructurales profundos, efectuar previsiones de futuro o plantear simulaciones ante distintos escenarios de mercado. Por el contrario, si la diagnosis determina que el modelo no es válido o representativo, se deberá reformular repitiendo las etapas anteriores hasta obtener uno que describa la realidad de manera adecuada.
+
+## Conceptos básicos
+
+En cualquier investigación estadística, antes de comenzar a recopilar y procesar la información empírica, es imprescindible definir con precisión una serie de conceptos fundamentales que estructurarán todo el análisis posterior.
+
+### **Población y Muestra**
+
+El primer paso en un estudio es delimitar sobre qué conjunto de elementos se va a investigar. Definimos como **población** al conjunto total de casos que poseen una determinada característica que deseamos estudiar. A cada uno de los elementos individuales que componen esta población se le denomina simplemente **individuo o caso**.
+
+Sin embargo, en el mundo económico y empresarial, analizar exhaustivamente a toda la población suele ser inviable debido a limitaciones de coste, tiempo o accesibilidad. Por este motivo, la estadística suele trabajar con una **muestra**, que se define como un subconjunto de la población elegido específicamente en términos de representatividad. La lógica metodológica detrás de este enfoque es sumamente práctica: seleccionamos una muestra representativa de la población, medimos la característica de interés en ella y, finalmente, extendemos las conclusiones obtenidas a la totalidad de la población original.
+
+### **Tipos de Datos: Variables y Atributos**
+
+Una vez definidos los casos o individuos que vamos a estudiar, la información que extraemos de ellos debe organizarse adecuadamente. En estadística, los datos empíricos se clasifican fundamentalmente en dos grandes categorías, dependiendo de su naturaleza: **variables y atributos**.
+
+-   Las **variables** representan aquellas características de los individuos en estudio que se plasman en valores numéricos y están expresadas en una **escala métrica**. Al tratarse de números reales, nos permiten realizar operaciones matemáticas complejas sobre ellas (por ejemplo, el salario de un empleado, el volumen de activos de una empresa o la rentabilidad económica).
+
+-   Los **atributos**, por el contrario, son características que no se pueden medir numéricamente de forma directa, sino que se concretan en diversas categorías o niveles. También suelen denominarse **variables categóricas, cualitativas o factores**. Dentro de los atributos, podemos distinguir dos tipos según su escala:
+
+    -   **Escala nominal:** Se utiliza cuando las diferentes categorías del atributo no admiten ningún criterio de orden natural o jerarquía lógica (por ejemplo, la galaxia de procedencia, el sector de actividad o la forma jurídica de una empresa).
+
+    -   **Escala ordinal:** Se emplea cuando los distintos niveles del atributo sí guardan un orden o gradación subyacente (por ejemplo, el estado de antigüedad de una flota: antigua, madura o renovada).
+
+De manera genérica, en las formulaciones estadísticas denotaremos usualmente como xi​ a los distintos valores numéricos (si es variable) o a las categorías/niveles (si es atributo) que puede llegar a tomar la característica analizada en nuestro grupo de casos.
