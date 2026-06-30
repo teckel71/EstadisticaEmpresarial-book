@@ -44,6 +44,8 @@ theme_libro <- function() {
 }
 ```
 
+![Estadística: quiénes somos y a dónde vamos...](figuras/01_ciudad_futura-2.jpg){.portada-img width="100%"}
+
 ## ¿Qué es la Estadística? {#que-es-la-estadistica}
 
 Hoy en día, todo el mundo habla de las estadísticas. Constantemente se hace referencia a ellas en los medios de comunicación, dando la sensación de que todo está medido y estructurado por estos entes que convierten la realidad empírica en una amalgama de números. Esto es especialmente relevante en el campo del comportamiento humano y las *Ciencias Sociales*, donde a diario recibimos estadísticas sobre el crecimiento de la economía en términos del PIB, el comportamiento de los precios medido mediante la inflación, o la intención de voto ante unas elecciones.

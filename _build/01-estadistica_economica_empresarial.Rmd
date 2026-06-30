@@ -44,6 +44,13 @@ theme_libro <- function() {
 }
 ```
 
+![](figuras/01_ciudad_futura-2.jpg){.portada-img width="100%"}
+
+::: {style="text-align: center;"}
+**Figura 1.1.** [Estadística: quiénes somos y a dónde vamos...]{.smallcaps}
+:::
+
+
 ## ¿Qué es la Estadística? {#que-es-la-estadistica}
 
 Hoy en día, todo el mundo habla de las estadísticas. Constantemente se hace referencia a ellas en los medios de comunicación, dando la sensación de que todo está medido y estructurado por estos entes que convierten la realidad empírica en una amalgama de números. Esto es especialmente relevante en el campo del comportamiento humano y las *Ciencias Sociales*, donde a diario recibimos estadísticas sobre el crecimiento de la economía en términos del PIB, el comportamiento de los precios medido mediante la inflación, o la intención de voto ante unas elecciones.
@@ -101,7 +108,7 @@ ggplot(pob, aes(x, y)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 1.1**
+**Figura 1.2**
 :::
 
 
@@ -444,7 +451,7 @@ g_barras + g_sectores
 ```
 
 ::: {style="text-align: center;"}
-**Figura 1.2**
+**Figura 1.3**
 :::
 
 
@@ -478,7 +485,7 @@ ggplot(pareto, aes(departamento)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 1.3**
+**Figura 1.4**
 :::
 
 
@@ -506,7 +513,7 @@ ggplot(empresa, aes(salario)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 1.4**
+**Figura 1.5**
 :::
 
 
@@ -584,7 +591,7 @@ g_mal + g_bien
 ```
 
 ::: {style="text-align: center;"}
-**Figura 1.5**
+**Figura 1.6**
 :::
 
 
