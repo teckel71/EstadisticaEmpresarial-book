@@ -1,0 +1,12 @@
+# Variable estadística bidimensional y n-dimensional.
+
+*Tema 2: Análisis estadístico multidimensional. Apartado 2.1.*
+
+Este capítulo amplía el análisis al caso en el que se observan **dos o más
+variables** simultáneamente sobre cada individuo. Se introducen las
+distribuciones bidimensionales (y, por extensión, n-dimensionales), las
+distribuciones marginales y condicionadas, el concepto de **independencia**
+estadística y las principales medidas de relación entre variables, sentando
+las bases para el estudio posterior de la regresión y la correlación.
+
+<!-- Contenido pendiente de desarrollo. -->

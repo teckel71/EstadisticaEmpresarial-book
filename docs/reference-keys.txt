@@ -1,4 +1,21 @@
-estadística-económica-y-empresarial.
+estadistica-economica-empresarial
+que-es-la-estadistica
+estadistica-y-economia
+poblacion-muestra-caso
+metodo-estadistico
+ejemplo-empresa
+variables-atributos-escalas
+distribuciones-de-frecuencias
+distribución-de-frecuencias-de-una-variable.
+distribución-de-frecuencias-de-un-atributo-ordinal.
+distribución-de-frecuencias-de-un-atributo-nominal.
+distribuciones-intervalos
+representaciones-graficas
+atributos-barras-sectores-y-pareto.
+variables-agrupadas-el-histograma.
+intervalos-de-igual-amplitud.
+intervalos-de-distinta-amplitud.
+recapitulacion-cap01
 variable-estadística-unidimensional.
 variable-estadística-bidimensional-y-n-dimensional.
 regresión-y-correlación.
@@ -8,4 +25,3 @@ variables-aleatorias.
 modelos-de-probabilidad-discretos-univariantes.
 modelos-de-probabilidad-continuos-univariantes.
 convergencia-y-teoremas-límite.
-qué-es-la-estadística

@@ -1,0 +1,14 @@
+# Convergencia y teoremas límite.
+
+*Tema 5: Modelos de distribución de probabilidad. Apartado 5.3.*
+
+En este último capítulo se estudian los conceptos de **convergencia** de
+sucesiones de variables aleatorias (convergencia en probabilidad, en
+distribución, casi segura y en media cuadrática) y los grandes **teoremas
+límite** de la teoría de la probabilidad: la **Ley de los Grandes Números**
+(en sus versiones débil y fuerte) y el **Teorema Central del Límite**. Se
+discute su interpretación intuitiva, su importancia práctica como
+fundamento de la inferencia estadística y sus implicaciones en el análisis
+de fenómenos económicos y empresariales.
+
+<!-- Contenido pendiente de desarrollo. -->

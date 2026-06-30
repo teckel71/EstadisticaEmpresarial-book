@@ -1,0 +1,14 @@
+# Números índice.
+
+*Tema 3.*
+
+En este capítulo se estudian los **números índice** como instrumento básico
+para medir la evolución temporal o las diferencias espaciales de una magnitud
+económica. Se presentan los conceptos de índice simple e índice complejo
+(ponderado y no ponderado), las principales fórmulas de Laspeyres, Paasche y
+Fisher, las propiedades deseables de un número índice, así como los problemas
+del **cambio de base**, **enlace de series** y **deflactación** de magnitudes
+económicas. Se incluyen las aplicaciones más habituales en el ámbito
+empresarial.
+
+<!-- Contenido pendiente de desarrollo. -->

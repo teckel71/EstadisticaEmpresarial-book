@@ -1,0 +1,21 @@
+# Prefacio {.unnumbered}
+
+Este libro recoge los contenidos teóricos y prácticos de la asignatura
+**Estadística Empresarial**, impartida en el primer curso del **Grado en
+Administración y Dirección de Empresas** de la Facultad de Derecho y Ciencias
+Sociales de Ciudad Real, perteneciente a la **Universidad de Castilla-La
+Mancha**.
+
+La asignatura aporta las herramientas fundamentales para la descripción
+cuantitativa de la realidad económico-empresarial y para la adecuada toma de
+decisiones en un ambiente de incertidumbre. Estas herramientas serán utilizadas
+de forma continua en otras materias del Grado, especialmente en Marketing,
+Macroeconomía, Microeconomía, Econometría, Finanzas y Análisis de Datos.
+
+El libro está estructurado siguiendo el temario oficial de la guía docente, con
+un capítulo introductorio y un capítulo por cada apartado del temario (o por
+cada tema, en aquellos casos en los que el tema no se divide en apartados).
+
+Pido disculpas anticipadas por los errores que, inevitablemente, encontraréis:
+se irán puliendo a base de constantes revisiones. Agradeceré cualquier
+sugerencia o aviso sobre fallos detectados.

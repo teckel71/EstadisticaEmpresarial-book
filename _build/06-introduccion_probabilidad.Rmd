@@ -1,0 +1,13 @@
+# Probabilidad.
+
+*Tema 4: Probabilidad y variables aleatorias. Apartado 4.1.*
+
+Este capítulo introduce los fundamentos del **Cálculo de Probabilidades**.
+Se presentan los conceptos de experimento aleatorio, espacio muestral y
+sucesos; las distintas concepciones de probabilidad (clásica o de Laplace,
+frecuencialista y axiomática de Kolmogorov); las reglas básicas de cálculo;
+la **probabilidad condicionada** e **independencia**; y los teoremas
+fundamentales (probabilidad total y teorema de Bayes), con aplicaciones al
+contexto empresarial.
+
+<!-- Contenido pendiente de desarrollo. -->

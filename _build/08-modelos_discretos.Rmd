@@ -1,0 +1,13 @@
+# Modelos de probabilidad discretos univariantes.
+
+*Tema 5: Modelos de distribución de probabilidad. Apartado 5.1.*
+
+En este capítulo se presentan los principales **modelos teóricos de
+distribución de probabilidad** para variables aleatorias **discretas**: las
+distribuciones de **Bernoulli**, **Binomial**, **Geométrica**, **Binomial
+Negativa**, **Hipergeométrica**, **Uniforme discreta** y **Poisson**. Para
+cada modelo se describe su función de masa, sus principales características
+(esperanza, varianza, función generatriz), las condiciones bajo las que
+surge y sus aplicaciones más habituales en el contexto económico-empresarial.
+
+<!-- Contenido pendiente de desarrollo. -->

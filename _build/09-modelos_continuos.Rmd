@@ -1,0 +1,13 @@
+# Modelos de probabilidad continuos univariantes.
+
+*Tema 5: Modelos de distribución de probabilidad. Apartado 5.2.*
+
+Este capítulo se dedica a los principales **modelos teóricos de distribución
+de probabilidad** para variables aleatorias **continuas**: las
+distribuciones **Uniforme continua**, **Exponencial**, **Gamma**, **Beta**,
+y, muy especialmente, la **distribución Normal**, eje central de la
+inferencia estadística. Se introducen también algunas distribuciones
+derivadas de la Normal de uso muy frecuente: la **Chi-cuadrado**, la **t de
+Student** y la **F de Snedecor**, con sus aplicaciones más relevantes.
+
+<!-- Contenido pendiente de desarrollo. -->
