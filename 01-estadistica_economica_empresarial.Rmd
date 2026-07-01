@@ -122,9 +122,9 @@ Esquemáticamente, el **método inferencial** consiste en avanzar **de lo partic
 
 En este primer capítulo, y a lo largo del Bloque I del libro, nos centramos en los pasos (1) a (4). El resto del proceso se irá construyendo en los bloques de Probabilidad e Inferencia.
 
-## Un ejemplo de referencia: *Bebop Stellar Cargo*. {#ejemplo-empresa}
+## Un ejemplo de referencia: *Hyperdrive Express*. {#ejemplo-empresa}
 
-Para ilustrar de forma uniforme los conceptos que siguen, utilizaremos un ejemplo extraído del universo R-Stars: la plantilla de **Bebop Stellar Cargo, S.G.**, una compañía de tamaño medio especializada en el transporte de mercancías entre el cinturón de asteroides y las lunas heladas de Júpiter, con sede en **Ganímedes**. La empresa fue fundada por un grupo de pilotos veteranos cansados de cobrar a destajo, y hoy la dirige *Faye Tachyeres*, antigua cazarrecompensas reconvertida —según ella misma admite, con cierta resignación— en directora financiera.
+Para ilustrar de forma uniforme los conceptos que siguen, utilizaremos un ejemplo extraído del universo R-Stars: la plantilla de **Hyperdrive Express**, una compañía galáctica (**C.G.**) de tamaño medio con sede en **Miranda**, en la **Gran Nube de Magallanes**. La empresa opera una flota renovada de 24 cargueros y algo más de un millar de rutas de largo alcance, y presenta un perfil financiero saneado —márgenes por encima del 60 % y una rentabilidad económica cercana al 45 %—, lo que la sitúa entre las medianas más rentables de su galaxia. Buena parte de su reputación se debe a las conexiones rápidas que enlazan Miranda con los sistemas más alejados del brazo exterior, aprovechando —y de ahí el nombre— los saltos de hipervelocidad que hace ya unas décadas dejaron de ser ciencia ficción.
 
 La empresa tiene `r 60` trabajadores en plantilla. De cada uno de ellos disponemos de tres características:
 
@@ -202,7 +202,7 @@ empresa |>
   select(`Cód.` = id_empleado, Nombre = nombre,
          `Salario` = salario, `N. Estudios` = nivel_estudios,
          Departamento = departamento) |>
-  kable(caption = "Primeros casos del fichero de empleados de Bebop Stellar Cargo.",
+  kable(caption = "Primeros casos del fichero de empleados de Hyperdrive Express.",
         align = "c") |>
   kable_styling(bootstrap_options = c("hover", "condensed"),
                 full_width = FALSE,
@@ -259,7 +259,7 @@ frec_salario <- empresa |>
   )
 
 frec_salario |>
-  kable(caption = "Distribución de frecuencias del salario en Bebop Stellar Cargo (cientos de PAVOs).",
+  kable(caption = "Distribución de frecuencias del salario en Hyperdrive Express (cientos de PAVOs).",
         col.names = c("$x_i$ (Salario)", "$n_i$", "$N_i$", "$f_i$", "$F_i$"),
         digits = c(0, 0, 0, 4, 4),
         align = "c",
@@ -456,7 +456,7 @@ ggplot(empresa, aes(salario)) +
                  fill = pal_acento, color = "white") +
   scale_x_continuous(breaks = cortes) +
   labs(title    = "Distribución del salario mensual",
-       subtitle = "Bebop Stellar Cargo. Intervalos de igual amplitud",
+       subtitle = "Hyperdrive Express. Intervalos de igual amplitud",
        x        = "Salario (cientos de PAVOs)",
        y        = expression(n[i])) +
   theme_libro()
@@ -466,7 +466,7 @@ Como todos los intervalos tienen la misma amplitud ($c_i = 5$ cientos de PAVOs),
 
 #### Intervalos de distinta amplitud.
 
-Cuando los datos están más concentrados en una zona, suele convenir usar intervalos más estrechos allí y más anchos en las colas. Para ilustrarlo, trabajaremos con una segunda muestra: el **importe anual de los contratos** (en miles de PAVOs) firmados con los 200 mayores clientes corporativos de Bebop Stellar Cargo a lo largo del último ejercicio.
+Cuando los datos están más concentrados en una zona, suele convenir usar intervalos más estrechos allí y más anchos en las colas. Para ilustrarlo, trabajaremos con una segunda muestra: el **importe anual de los contratos** (en miles de PAVOs) firmados con los 200 mayores clientes corporativos de Hyperdrive Express a lo largo del último ejercicio.
 
 ```{r ventas-datos}
 set.seed(2025)
@@ -541,4 +541,4 @@ En este capítulo hemos sentado las bases que utilizaremos durante todo el curso
 -   En cada individuo medimos **variables** (cuantitativas) o **atributos** (cualitativos), con sus respectivas **escalas de medida** (nominal, ordinal o métrica).
 -   El primer paso de cualquier análisis es construir **distribuciones de frecuencias**, eventualmente **agrupadas en intervalos**, e ilustrarlas con las **representaciones gráficas** adecuadas a la naturaleza de la característica.
 
-A partir de aquí, en el siguiente capítulo profundizaremos en cómo **resumir** una variable estadística unidimensional mediante medidas de posición, dispersión, forma y concentración. *Bebop Stellar Cargo* nos seguirá acompañando.
+A partir de aquí, en el siguiente capítulo profundizaremos en cómo **resumir** una variable estadística unidimensional mediante medidas de posición, dispersión, forma y concentración. *Hyperdrive Express* nos seguirá acompañando.
