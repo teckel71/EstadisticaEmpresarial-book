@@ -371,6 +371,49 @@ frec_int |>
 
 > **Por qué importa la densidad.** Cuando todos los intervalos tienen la misma amplitud, $n_i$ y $d_i$ se diferencian solo en un factor común y dan la misma idea visual. Pero cuando las amplitudes son **distintas**, comparar frecuencias absolutas resulta engañoso: un intervalo muy ancho puede contener muchos casos simplemente por ser ancho. La densidad $d_i$ corrige este efecto y permite comparar de forma honesta intervalos heterogéneos. Volveremos sobre esto al construir el histograma.
 
+### ¿Cuántos intervalos y de qué anchura?
+
+En el ejemplo anterior fijamos los intervalos "a ojo": cinco cortes de amplitud 5. Aunque la elección resulta razonable, cualquier lectura crítica preguntaría por qué cinco y no siete o diez. Existen criterios objetivos para responder.
+
+El más clásico es la **regla de Sturges**, que fija el número de intervalos como
+
+$$k = 1 + \log_2 N.$$
+
+La intuición subyacente es que, si los datos siguen una distribución aproximadamente simétrica y campaniforme, ese es el número de celdas que absorbe con soltura una binomial de $N$ ensayos. No es una demostración, sino una aproximación con base teórica, pero funciona sorprendentemente bien para tamaños muestrales pequeños o medianos (entre unas decenas y unos pocos cientos de casos).
+
+```{r sturges}
+k_sturges_raw <- 1 + log2(nrow(empresa))
+k_sturges     <- ceiling(k_sturges_raw)
+sal_min       <- min(empresa$salario)
+sal_max       <- max(empresa$salario)
+c_teor        <- (sal_max - sal_min) / k_sturges
+cortes_teor   <- seq(sal_min, sal_max, length.out = k_sturges + 1)
+
+fmt <- function(x, d = 2) {
+  format(round(x, d), decimal.mark = ",", nsmall = d, trim = TRUE)
+}
+```
+
+Aplicada a los $N = `r nrow(empresa)`$ empleados de Hyperdrive Express:
+
+$$k = 1 + \log_2 `r nrow(empresa)` \approx `r fmt(k_sturges_raw, 2)` \approx `r k_sturges` \text{ intervalos.}$$
+
+Una vez fijado $k$, los extremos se calculan dividiendo el recorrido de la variable ($\max - \min$) en $k$ partes iguales:
+
+$$c = \frac{\max - \min}{k}, \qquad L_0 = \min, \qquad L_i = L_{i-1} + c.$$
+
+Con salarios entre `r sal_min` y `r sal_max` cientos de PAVOs, la amplitud teórica sería $c \approx `r fmt(c_teor, 2)`$, y los cortes teóricos vendrían dados por $`r paste(fmt(cortes_teor, 2), collapse = ";\\ ")`$. Poco cómodos para presentar en un eje.
+
+Ese es exactamente el punto donde la teoría se encuentra con la práctica: **los cortes teóricos casi siempre se redondean a valores cómodos** —múltiplos de 5, 10 o 100, según la escala de la variable—, incluso a costa de mover $k$ en una unidad. Aquí, redondear a múltiplos de 5 lleva a los cortes $5;\ 10;\ 15;\ 20;\ 25;\ 30$ con los que ya hemos venido trabajando: $k = 5$ intervalos en lugar de 7, pero mucho más legibles. En estadística descriptiva, la comunicación pesa tanto como el criterio numérico.
+
+La regla de Sturges tiene un defecto conocido: **al depender solo de $N$, ignora la forma de la distribución**. Cuando los datos son fuertemente asimétricos o contienen valores atípicos, tiende a producir demasiados intervalos vacíos en las colas. Para esos casos existen alternativas basadas en la dispersión real de los datos. La más popular es la **regla de Freedman-Diaconis**, que fija la anchura del intervalo como
+
+$$c = 2\,\frac{\text{IQR}}{N^{1/3}},$$
+
+donde IQR es el recorrido intercuartílico (la distancia entre el primer y el tercer cuartil). Al sustituir el rango total por el IQR, la regla se vuelve robusta frente a colas y *outliers*. Una variante próxima, la **regla de Scott**, usa la desviación típica en lugar del IQR y funciona bien cuando la distribución es aproximadamente normal.
+
+Como estos dos últimos métodos requieren medidas de dispersión que definiremos en el capítulo siguiente, aplazaremos su cálculo hasta entonces. A partir del capítulo 2, cuando dispongamos de cuartiles y desviación típica sobre esta misma plantilla, la elección del número de intervalos podrá razonarse con cualquiera de las tres reglas.
+
 ## Representaciones gráficas. {#representaciones-graficas}
 
 Las distribuciones de frecuencias ofrecen una visión organizada de los datos, pero no siempre la más intuitiva. La **representación gráfica** completa la fotografía añadiendo una lectura inmediata. Los gráficos estándar dependen del tipo de característica que se está representando.

@@ -10,6 +10,7 @@ distribución-de-frecuencias-de-una-variable.
 distribución-de-frecuencias-de-un-atributo-ordinal.
 distribución-de-frecuencias-de-un-atributo-nominal.
 distribuciones-intervalos
+cuántos-intervalos-y-de-qué-anchura
 representaciones-graficas
 atributos-barras-sectores-y-pareto.
 variables-agrupadas-el-histograma.
