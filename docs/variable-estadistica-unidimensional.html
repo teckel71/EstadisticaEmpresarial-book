@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>2 Variable estadística unidimensional. | Estadística Empresarial</title>
+<meta name="author" content="Miguel Ángel Tarancón Morán">
+<meta name="description" content="Figura 2.1 Figura 2.1. Cuadros de mando y medidas de resumen: síntesis para decidir. En el capítulo anterior hemos aprendido a organizar la información: pasar de una tabla de casos y...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="2 Variable estadística unidimensional. | Estadística Empresarial">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://teckel71.github.io/EstadisticaEmpresarial-book/variable-estadistica-unidimensional.html">
+<meta property="og:image" content="https://teckel71.github.io/EstadisticaEmpresarial-book/figuras/EE_portada.jpg">
+<meta property="og:description" content="Figura 2.1 Figura 2.1. Cuadros de mando y medidas de resumen: síntesis para decidir. En el capítulo anterior hemos aprendido a organizar la información: pasar de una tabla de casos y...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2 Variable estadística unidimensional. | Estadística Empresarial">
+<meta name="twitter:description" content="Figura 2.1 Figura 2.1. Cuadros de mando y medidas de resumen: síntesis para decidir. En el capítulo anterior hemos aprendido a organizar la información: pasar de una tabla de casos y...">
+<meta name="twitter:image" content="https://teckel71.github.io/EstadisticaEmpresarial-book/figuras/EE_portada.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Serif_4-0.4.10/font.css" rel="stylesheet">
+<link href="libs/JetBrains_Mono-0.4.10/font.css" rel="stylesheet">
+<link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Estadística Empresarial</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li><a class="" href="prefacio.html">Prefacio</a></li>
+<li><a class="" href="estadistica-economica-empresarial.html"><span class="header-section-number">1</span> Estadística Económica y Empresarial.</a></li>
+<li><a class="active" href="variable-estadistica-unidimensional.html"><span class="header-section-number">2</span> Variable estadística unidimensional.</a></li>
+<li><a class="" href="variable-estad%C3%ADstica-bidimensional-y-n-dimensional..html"><span class="header-section-number">3</span> Variable estadística bidimensional y n-dimensional.</a></li>
+<li><a class="" href="regresi%C3%B3n-y-correlaci%C3%B3n..html"><span class="header-section-number">4</span> Regresión y correlación.</a></li>
+<li><a class="" href="n%C3%BAmeros-%C3%ADndice..html"><span class="header-section-number">5</span> Números índice.</a></li>
+<li><a class="" href="probabilidad..html"><span class="header-section-number">6</span> Probabilidad.</a></li>
+<li><a class="" href="variables-aleatorias..html"><span class="header-section-number">7</span> Variables aleatorias.</a></li>
+<li><a class="" href="modelos-de-probabilidad-discretos-univariantes..html"><span class="header-section-number">8</span> Modelos de probabilidad discretos univariantes.</a></li>
+<li><a class="" href="modelos-de-probabilidad-continuos-univariantes..html"><span class="header-section-number">9</span> Modelos de probabilidad continuos univariantes.</a></li>
+<li><a class="" href="convergencia-y-teoremas-l%C3%ADmite..html"><span class="header-section-number">10</span> Convergencia y teoremas límite.</a></li>
+<li><a class="" href="bibliograf%C3%ADa.html">Bibliografía</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="variable-estadistica-unidimensional" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Variable estadística unidimensional.<a class="anchor" aria-label="anchor" href="#variable-estadistica-unidimensional"><i class="fas fa-link"></i></a>
+</h1>
+<div class="inline-figure"><img src="figuras/02_puente_mando.jpg"></div>
+<div style="text-align: center;">
+<p><strong>Figura 2.1</strong></p>
+</div>
+<p><strong>Figura 2.1.</strong> Cuadros de mando y medidas de resumen: síntesis para decidir.</p>
+<p>En el capítulo anterior hemos aprendido a <strong>organizar</strong> la información: pasar de una tabla de casos y características a distribuciones de frecuencias, con sus gráficos asociados. Ese paso es imprescindible, pero rara vez suficiente. Una plantilla de 60 personas cabe en una tabla; una de 6.000 no, y un directivo que tenga que decidir sobre política salarial no querrá bucear cada semana en una nube de puntos. Necesitamos <strong>medidas de resumen</strong>: unos pocos números que capturen lo esencial de la distribución de una variable.</p>
+<p>Este capítulo se dedica precisamente a eso, al <strong>análisis univariante</strong> de una variable cuantitativa: cómo se sitúa (posición), cómo se reparte alrededor de esa posición (dispersión) y qué forma tiene (asimetría y curtosis). Antes de las cuentas, sin embargo, dedicaremos una sección al eterno paso previo que suele ausentarse de los manuales: <strong>preparar los datos</strong>. Ninguna medida por bonita que sea sobrevive a un fichero mal depurado.</p>
+<div id="del-dato-bruto-a-la-medida" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Del dato bruto a la medida: por qué necesitamos resumir.<a class="anchor" aria-label="anchor" href="#del-dato-bruto-a-la-medida"><i class="fas fa-link"></i></a>
+</h2>
+<p>Una <strong>medida estadística</strong> es un instrumento matemático que <strong>extrae y sintetiza</strong> la información contenida en una distribución de frecuencias. Con muy pocos números —a menudo uno o dos— intentamos responder a preguntas del tipo:</p>
+<ul>
+<li>¿Alrededor de qué valor se concentran los datos?</li>
+<li>¿Están todos parecidos entre sí o hay mucha diversidad?</li>
+<li>¿La distribución se reparte de forma equilibrada o hay una cola larga hacia un lado?</li>
+<li>¿Hay muchos casos extremos o casi todos rondan el valor central?</li>
+</ul>
+<p>La respuesta a cada una de estas preguntas corresponde a un tipo de medida:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="14%">
+<col width="45%">
+<col width="40%">
+</colgroup>
+<thead><tr class="header">
+<th>Tipo de medida</th>
+<th>Qué mide</th>
+<th>Ejemplos habituales</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Posición central</strong></td>
+<td>En torno a qué valor se sitúa la distribución</td>
+<td>Media aritmética, mediana, moda</td>
+</tr>
+<tr class="even">
+<td><strong>Posición no central</strong></td>
+<td>Puntos que dividen la distribución en grupos con el mismo número de casos</td>
+<td>Cuartiles, deciles, percentiles</td>
+</tr>
+<tr class="odd">
+<td><strong>Dispersión</strong></td>
+<td>Cuán separados están los valores de la medida central</td>
+<td>Varianza, desviación típica, coeficiente de variación</td>
+</tr>
+<tr class="even">
+<td><strong>Forma</strong></td>
+<td>Grado y sentido de la deformación respecto a un patrón simétrico y campaniforme</td>
+<td>Coeficientes de asimetría y de curtosis de Fisher</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 2.1</strong></p>
+</div>
+<p><strong>Tabla 2.1.</strong> Los cuatro grandes bloques de medidas para una variable.</p>
+<p>La mayor parte de estas medidas solo tienen sentido para <strong>variables</strong> en escala métrica. Algunas —como la mediana o la moda— pueden aplicarse también a <strong>atributos</strong> ordinales o nominales, con las adaptaciones oportunas. A lo largo del capítulo iremos indicando en cada caso el alcance.</p>
+</div>
+<div id="depuracion-datos" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Depurando los datos: valores perdidos y casos atípicos.<a class="anchor" aria-label="anchor" href="#depuracion-datos"><i class="fas fa-link"></i></a>
+</h2>
+<p>Antes de calcular nada conviene abrir el fichero y preguntarse: <em>¿los datos están en condiciones de ser resumidos?</em> La respuesta más honesta es casi siempre “no del todo”. Dos problemas recurrentes explican por qué:</p>
+<ul>
+<li>
+<strong>Valores perdidos</strong> (<em>missing values</em>): casos para los que, por el motivo que sea, no disponemos del valor de la variable.</li>
+<li>
+<strong>Casos atípicos</strong> (<em>outliers</em>): casos cuyo valor se aleja mucho del comportamiento general del resto.</li>
+</ul>
+<p>Ninguno de los dos es exclusivo de los conjuntos de datos “difíciles”. Aparecen en encuestas del INE, en registros contables de una pyme y, en el proyecto R-Stars, tanto en los balances de una compañía galáctica como en las nóminas de un carguero de reparto rápido.</p>
+<div id="missing-values" class="section level3" number="2.2.1">
+<h3>
+<span class="header-section-number">2.2.1</span> Valores perdidos (missing values).<a class="anchor" aria-label="anchor" href="#missing-values"><i class="fas fa-link"></i></a>
+</h3>
+<p>Supongamos que trabajamos con la plantilla de <em>Hyperdrive Express</em> que ya conocimos en el capítulo anterior. En su versión “real”, el departamento de Recursos Humanos exporta un fichero con 60 empleados y las variables <em>Salario</em>, <em>Nivel de estudios</em> y <em>Departamento</em>. Al abrir el fichero encontramos varias sorpresas: una empleada figura sin salario (aún estaba en periodo formativo), otro trabajador tiene el campo <em>Nivel de estudios</em> en blanco y una tercera casilla contiene el texto <code>"n.d."</code> (no disponible).</p>
+<p>Antes de tocar nada hay que <strong>identificar</strong> cómo aparecen esos huecos. Un mismo <em>missing</em> puede materializarse de varias formas incompatibles entre sí: celda en blanco, cero, <code>-</code>, <code>NA</code>, <code>n.d.</code>, <code>999</code>, <code>9999999999</code>… Confundirlos con datos reales es una de las formas más discretas —y más habituales— de contaminar un análisis: un <code>999</code> interpretado como valor válido convierte a un trabajador en el mejor pagado de la galaxia.</p>
+<p>Localizados los <em>missing</em>, hay que <strong>decidir qué hacer con ellos</strong>. Las tres estrategias principales son:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Recuperar el dato</strong>. La opción preferida cuando es factible: acudir a la fuente y completarlo. Si un empleado no tiene registrado el salario porque su alta se cursó tarde, quizá el sistema de nóminas del mes siguiente lo tenga.</li>
+<li>
+<strong>Imputar el dato</strong> por una estimación razonable. Se sustituye el hueco por un valor —la media, la mediana, el valor más frecuente en un grupo homogéneo— asumiendo que introducimos un sesgo controlado.</li>
+<li>
+<strong>Eliminar el caso</strong>. Si el porcentaje de <em>missing</em> es reducido y el problema no parece sistemático, se prescinde de esos individuos. Sencillo, pero pierde información y puede introducir sesgo si los que faltan no son “cualquiera”.</li>
+</ol>
+<p>Ninguna es universalmente buena. Un <em>missing</em> que aparece porque el dato <strong>no existe</strong> (no es que no lo tengamos, es que no procede: un becario sin salario contractual) no debería imputarse; simplemente delimita otra población. Un <em>missing</em> que aparece porque el encuestado <strong>no quiso</strong> contestar tampoco es aleatorio: quienes callan a la pregunta <em>“¿cuánto ganó usted el año pasado?”</em> no son un grupo cualquiera. La decisión no es puramente técnica, y merece la pena documentarla junto con el análisis.</p>
+<p>En nuestro ejemplo asumiremos, por sencillez, que Recursos Humanos completa el dato de la empleada en formación y que el resto de los huecos se han localizado y resuelto. Los 60 salarios de la plantilla quedan como en el capítulo anterior.</p>
+</div>
+<div id="outliers" class="section level3" number="2.2.2">
+<h3>
+<span class="header-section-number">2.2.2</span> Casos atípicos (outliers).<a class="anchor" aria-label="anchor" href="#outliers"><i class="fas fa-link"></i></a>
+</h3>
+<p>El segundo problema —los <em>outliers</em>— es más sutil, porque <strong>no siempre hay que “arreglarlos”</strong>. Un valor extremo puede ser:</p>
+<ul>
+<li>Un <strong>error</strong> (el operador tecleó <code>220</code> en lugar de <code>22</code>).</li>
+<li>Un <strong>caso legítimo pero excepcional</strong> (una compañía con una rentabilidad muy superior a la del resto del sector porque acaba de patentar un motor de curvatura eficiente).</li>
+<li>Un <strong>caso que pertenece a otra población</strong> (el salario del CEO no es realmente comparable con el del resto de la plantilla).</li>
+</ul>
+<p>Detectarlos requiere alguna medida de dispersión, así que dejaremos la definición formal —basada en el recorrido intercuartílico— para más adelante, cuando ya dispongamos de cuartiles. Baste por ahora con un ejemplo que utilizaremos como leitmotiv.</p>
+<p>Además de los 60 empleados en plantilla, <em>Hyperdrive Express</em> tiene, por supuesto, una directora ejecutiva: la <strong>CEO</strong>, cuyo salario bruto mensual asciende a <strong>100 cientos de PAVOs</strong>. Si añadiésemos su ficha al fichero de nóminas, obtendríamos 61 casos y una distribución con este aspecto:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>
+<span class="math inline">\(x_i\)</span> (Salario)</th>
+<th><span class="math inline">\(n_i\)</span></th>
+<th>
+<span class="math inline">\(x_i\)</span> (Salario)</th>
+<th><span class="math inline">\(n_i\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>8</td>
+<td>2</td>
+<td>20</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>2</td>
+<td>22</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>7</td>
+<td>25</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>5</td>
+<td>30</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>16</td>
+<td><strong>100</strong></td>
+<td><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>7</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 2.2</strong></p>
+</div>
+<p><strong>Tabla 2.2.</strong> Distribución de frecuencias del salario incluyendo a la CEO (<span class="math inline">\(N = 61\)</span>).</p>
+<p>Un solo caso, sí, pero que <strong>cambia radicalmente la fotografía</strong>. La media pasa de 17,20 a 18,56 cientos de PAVOs, y —como veremos— la varianza y los coeficientes de asimetría y curtosis se disparan. La mediana, en cambio, sigue siendo 15. La CEO no es un error de tecleo; es una observación legítima. Que la incluyamos o no en el análisis depende de la pregunta a la que queramos responder: si estudiamos <em>“la política salarial de la plantilla”</em>, sobra; si estudiamos <em>“el coste laboral total de la compañía”</em>, es imprescindible.</p>
+<p>Volveremos sobre este ejemplo en cuanto dispongamos de cuartiles para definir formalmente cuándo un caso es atípico. Hasta entonces, la lección es sencilla: <strong>antes de resumir, mire los datos</strong>.</p>
+</div>
+</div>
+<div id="medidas-de-posicion-central" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Medidas de posición central.<a class="anchor" aria-label="anchor" href="#medidas-de-posicion-central"><i class="fas fa-link"></i></a>
+</h2>
+<p>Las medidas de posición central intentan responder a la pregunta: <em>“si tuviese que elegir un único número que represente a toda la distribución, ¿cuál elegiría?”</em>. Las tres candidatas clásicas son la <strong>media aritmética</strong>, la <strong>mediana</strong> y la <strong>moda</strong>. Cada una responde a una intuición distinta, y por eso ninguna hace redundantes a las demás.</p>
+<p>Trabajaremos con la plantilla de 60 empleados de <em>Hyperdrive Express</em> del capítulo anterior. Reproducimos aquí, por comodidad, su distribución de frecuencias (Tabla 1.3).</p>
+<div id="media-aritmetica" class="section level3" number="2.3.1">
+<h3>
+<span class="header-section-number">2.3.1</span> Media aritmética.<a class="anchor" aria-label="anchor" href="#media-aritmetica"><i class="fas fa-link"></i></a>
+</h3>
+<p>La media aritmética de una distribución de frecuencias de una variable <span class="math inline">\(X\)</span> es</p>
+<p><span class="math display">\[
+\overline{x} = \frac{1}{N}\sum_{i=1}^{h} x_i \, n_i.
+\]</span></p>
+<p>Si cada valor aparece una sola vez (distribución de frecuencias unitarias), se reduce a la conocida <span class="math inline">\(\overline{x} = \frac{1}{N}\sum_{i=1}^{N} x_i\)</span>.</p>
+<p>Aplicada a la plantilla de <em>Hyperdrive Express</em>:</p>
+<p><span class="math display">\[
+\overline{x} = \frac{8\cdot 2 + 9\cdot 2 + 10\cdot 7 + \ldots + 30\cdot 5}{60} = \frac{1\,032}{60} = 17{,}20 \text{ cientos de PAVOs.}
+\]</span></p>
+<p>La cifra tiene una interpretación muy útil: es el <strong>centro de gravedad</strong> de la distribución. Si mañana la compañía decidiese pagar a todos los empleados exactamente lo mismo sin variar la masa salarial total, ese salario común sería 17,20 cientos de PAVOs. La media, dicho de otro modo, es el resultado del <strong>reparto igualitario</strong> de la variable entre todos los casos.</p>
+<p><strong>Ventajas:</strong></p>
+<ul>
+<li>Es <strong>única</strong> y <strong>siempre calculable</strong> en variables cuantitativas.</li>
+<li>Utiliza <strong>toda</strong> la información de la distribución.</li>
+<li>Se manipula bien algebraicamente, lo que la hace omnipresente en la Estadística Inferencial.</li>
+</ul>
+<p><strong>Inconveniente principal:</strong> es <strong>muy sensible a los valores extremos</strong>. Si añadimos a la CEO (100 cientos de PAVOs), la media salta a 18,56, aunque solo uno de los 61 empleados cobra más de 30. Un único <em>outlier</em> es suficiente para desplazar la media hacia una zona en la que no está prácticamente nadie.</p>
+<blockquote>
+<p><strong>Otras medias.</strong> Menos frecuentes pero útiles en contextos específicos son la <strong>media geométrica</strong>, adecuada para promediar variaciones acumulativas (típicamente tasas de crecimiento financieras), y la <strong>media armónica</strong>, adecuada cuando la variable es un cociente entre dos magnitudes (velocidades, productividades, precios por unidad). No las trabajaremos aquí, pero conviene saber que existen y que “la media” es en realidad una familia de medias.</p>
+</blockquote>
+</div>
+<div id="mediana" class="section level3" number="2.3.2">
+<h3>
+<span class="header-section-number">2.3.2</span> Mediana.<a class="anchor" aria-label="anchor" href="#mediana"><i class="fas fa-link"></i></a>
+</h3>
+<p>La mediana es el valor de la variable que ocupa la <strong>posición central</strong> una vez ordenados los casos de menor a mayor. Divide la distribución en dos mitades con el mismo número de individuos: la mitad con valores menores o iguales, y la mitad con valores mayores o iguales.</p>
+<p>Como el número total de empleados de <em>Hyperdrive Express</em> es par (<span class="math inline">\(N=60\)</span>), rigurosamente existen <strong>dos posiciones centrales</strong>, la 30 y la 31. Se toma como convenio el promedio de los valores que ocupan esas dos posiciones. Ayudándonos de la frecuencia absoluta acumulada, ambos casos caen en el valor <span class="math inline">\(x = 15\)</span>, por lo que</p>
+<p><span class="math display">\[
+\text{Me} = \frac{15 + 15}{2} = 15 \text{ cientos de PAVOs.}
+\]</span></p>
+<p>Cuando <span class="math inline">\(N\)</span> es impar la mediana coincide directamente con el valor del caso que ocupa la posición <span class="math inline">\(\frac{N+1}{2}\)</span>.</p>
+<p><strong>Ventajas:</strong></p>
+<ul>
+<li>Es <strong>robusta</strong> frente a valores extremos: al depender únicamente del orden y no de la magnitud, un <em>outlier</em> la desplaza como mucho una posición. En el ejemplo de la CEO, la mediana pasa de 15 a 15 (es decir, no se mueve).</li>
+<li>Se puede calcular también sobre <strong>atributos ordinales</strong>.</li>
+</ul>
+<p><strong>Inconvenientes:</strong> no siempre es única, y <strong>no utiliza toda la información</strong> numérica de la distribución (dos plantillas con valores muy distintos pueden tener la misma mediana).</p>
+</div>
+<div id="moda" class="section level3" number="2.3.3">
+<h3>
+<span class="header-section-number">2.3.3</span> Moda.<a class="anchor" aria-label="anchor" href="#moda"><i class="fas fa-link"></i></a>
+</h3>
+<p>La moda es, sencillamente, el valor de la variable con <strong>mayor frecuencia</strong>. En <em>Hyperdrive Express</em>:</p>
+<p><span class="math display">\[
+\text{Mo} = 15 \text{ cientos de PAVOs},
+\]</span></p>
+<p>pues es el valor que se repite más veces (16 empleados).</p>
+<p>Es la única medida de posición central que puede aplicarse <strong>también a atributos nominales</strong>, para los que ni “sumar” ni “ordenar” tienen sentido. En estos casos, la moda es el equivalente natural a “la categoría más frecuente” y en muchas ocasiones lo único razonable que se puede decir sobre la variable. Preguntar por el “departamento medio” o el “departamento mediano” de <em>Hyperdrive Express</em> no tiene mucho sentido; preguntar por el modal (<em>Almacén</em>) sí lo tiene.</p>
+<p><strong>Inconvenientes:</strong> puede no ser única. Cuando dos valores comparten el máximo, hablamos de una distribución <strong>bimodal</strong>; con más, de una distribución <strong>multimodal</strong>. Una distribución multimodal suele ser señal de que los datos ocultan varios subgrupos con comportamientos distintos: en el ejemplo, la plantilla podría estar mezclando de facto categorías profesionales muy diferentes, y quizá convenga separarlas antes de analizarlas juntas.</p>
+</div>
+<div id="datos-agrupados" class="section level3" number="2.3.4">
+<h3>
+<span class="header-section-number">2.3.4</span> Datos agrupados y error de agrupamiento.<a class="anchor" aria-label="anchor" href="#datos-agrupados"><i class="fas fa-link"></i></a>
+</h3>
+<p>Cuando la variable es continua o toma muchos valores distintos, la distribución suele presentarse <strong>agrupada en intervalos</strong> (como vimos en 1.7.4). En ese caso, ni la media ni la mediana ni la moda pueden calcularse directamente sobre los datos originales, porque <em>los datos originales ya no están</em>. En su lugar utilizamos las <strong>marcas de clase</strong> <span class="math inline">\(x_i = (L_{i-1}+L_i)/2\)</span> como representantes numéricos del intervalo. Esto introduce un pequeño precio a pagar: el <strong>error de agrupamiento</strong>.</p>
+<p>Retomemos la Tabla 1.6 del capítulo anterior, que agrupaba los salarios de <em>Hyperdrive Express</em> en intervalos de 5 cientos de PAVOs:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Intervalo</th>
+<th><span class="math inline">\(x_i\)</span></th>
+<th><span class="math inline">\(n_i\)</span></th>
+<th><span class="math inline">\(N_i\)</span></th>
+<th><span class="math inline">\(x_i \cdot n_i\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>[5,10]</td>
+<td>7,5</td>
+<td>11</td>
+<td>11</td>
+<td>82,5</td>
+</tr>
+<tr class="even">
+<td>(10,15]</td>
+<td>12,5</td>
+<td>21</td>
+<td>32</td>
+<td>262,5</td>
+</tr>
+<tr class="odd">
+<td>(15,20]</td>
+<td>17,5</td>
+<td>13</td>
+<td>45</td>
+<td>227,5</td>
+</tr>
+<tr class="even">
+<td>(20,25]</td>
+<td>22,5</td>
+<td>10</td>
+<td>55</td>
+<td>225,0</td>
+</tr>
+<tr class="odd">
+<td>(25,30]</td>
+<td>27,5</td>
+<td>5</td>
+<td>60</td>
+<td>137,5</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>60</strong></td>
+<td></td>
+<td><strong>935,0</strong></td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 2.3</strong></p>
+</div>
+<p><strong>Tabla 2.3.</strong> Cálculo de la media agrupada de los salarios de <em>Hyperdrive Express</em>.</p>
+<p>De aquí se obtiene la media agrupada</p>
+<p><span class="math display">\[
+\overline{x}_{\text{agr}} = \frac{935{,}0}{60} = 15{,}58 \text{ cientos de PAVOs}.
+\]</span></p>
+<p>Frente a la media “verdadera” (calculada sobre los datos sin agrupar) de 17,20, la agrupación nos ha <em>“comido”</em> casi 1,6 cientos de PAVOs por empleado. La razón es sencilla: el intervalo (10,15] contiene sobre todo salarios de 15 (16 casos) y unos pocos de 12 (5 casos), por lo que la marca de clase 12,5 lo infrarrepresenta. Con <strong>intervalos amplios y frecuencias muy desiguales dentro de cada intervalo</strong>, el error de agrupamiento crece.</p>
+<p>Análogas fórmulas existen para la mediana y la moda en distribuciones agrupadas. Localizado el <strong>intervalo mediano</strong> —aquel en el que caen los casos que ocupan las posiciones centrales—, la mediana se aproxima por interpolación lineal como</p>
+<p><span class="math display">\[
+\text{Me} \;=\; L_{i-1} \;+\; \frac{\dfrac{N}{2} - N_{i-1}}{n_i}\, c_i,
+\]</span></p>
+<p>donde <span class="math inline">\(L_{i-1}\)</span> es el extremo inferior del intervalo mediano, <span class="math inline">\(N_{i-1}\)</span> la frecuencia absoluta acumulada hasta el intervalo anterior, <span class="math inline">\(n_i\)</span> la frecuencia del intervalo mediano y <span class="math inline">\(c_i\)</span> su amplitud. En nuestro ejemplo, la posición 30 cae en (10,15] y</p>
+<p><span class="math display">\[
+\text{Me} = 10 + \frac{30 - 11}{21}\cdot 5 = 14{,}52,
+\]</span></p>
+<p>frente a los 15 exactos del cálculo sin agrupar.</p>
+<p>Para la moda, se localiza el <strong>intervalo modal</strong> (el de mayor <span class="math inline">\(n_i\)</span> si todos los intervalos tienen la misma amplitud, o el de mayor <strong>densidad de frecuencia</strong> <span class="math inline">\(d_i = n_i/c_i\)</span> si no la tienen) y se aplica una interpolación similar. No la trabajaremos aquí en detalle, pero es útil conocer su existencia y saber que arroja el mismo tipo de aproximación.</p>
+<blockquote>
+<p><strong>¿Cuándo importa el error de agrupamiento?</strong> Cuando dispongamos de los datos originales, siempre es preferible utilizarlos. La agrupación en intervalos tiene sentido cuando el fichero de partida ya viene resumido (fuentes secundarias, publicaciones que solo aportan la tabla), o cuando trabajamos con variables continuas donde los “valores originales” son en realidad medidas con muchos decimales. Pero conviene tener presente que las medidas calculadas sobre datos agrupados son <strong>aproximaciones</strong> de las que obtendríamos con los datos sin agrupar.</p>
+</blockquote>
+</div>
+</div>
+<div id="cuantiles" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Medidas de posición no central: los cuantiles.<a class="anchor" aria-label="anchor" href="#cuantiles"><i class="fas fa-link"></i></a>
+</h2>
+<p>La mediana es el valor que deja por debajo al 50 % de los casos. Nada nos impide preguntarnos por el valor que deja por debajo al 25 %, al 10 % o al 87 %. Esos valores son los <strong>cuantiles</strong>, y no son más que una generalización natural de la mediana.</p>
+<p>Formalmente, un <strong>cuantil</strong> <span class="math inline">\(x_p\)</span> (con <span class="math inline">\(0 &lt; p &lt; 1\)</span>) es el valor de la variable que deja por debajo (menor o igual) a una proporción <span class="math inline">\(p\)</span> de casos y, por diferencia, por encima al <span class="math inline">\(1-p\)</span> restante. Los tres bloques más habituales son:</p>
+<ul>
+<li>
+<strong>Cuartiles</strong>: dividen la distribución en 4 partes iguales. Hay 3: <span class="math inline">\(Q_1\)</span>, <span class="math inline">\(Q_2\)</span> y <span class="math inline">\(Q_3\)</span>, correspondientes a <span class="math inline">\(p = 0{,}25;\ 0{,}50;\ 0{,}75\)</span>. El segundo cuartil <span class="math inline">\(Q_2\)</span> coincide, por definición, con la mediana.</li>
+<li>
+<strong>Deciles</strong>: dividen en 10 partes iguales. Hay 9: <span class="math inline">\(D_1, D_2, \ldots, D_9\)</span>, correspondientes a <span class="math inline">\(p = 0{,}1;\ 0{,}2;\ \ldots;\ 0{,}9\)</span>.</li>
+<li>
+<strong>Percentiles</strong>: dividen en 100 partes iguales. Hay 99: <span class="math inline">\(P_1, P_2, \ldots, P_{99}\)</span>.</li>
+</ul>
+<p>Aplicados a la plantilla de <em>Hyperdrive Express</em>, los cuartiles son:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="9%">
+<col width="27%">
+<col width="63%">
+</colgroup>
+<thead><tr class="header">
+<th>Cuartil</th>
+<th>Valor (cientos de PAVOs)</th>
+<th>Interpretación</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(Q_1\)</span></td>
+<td>12</td>
+<td>El 25 % de la plantilla cobra 12 o menos</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Q_2\)</span></td>
+<td>15</td>
+<td>El 50 % cobra 15 o menos (mediana)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(Q_3\)</span></td>
+<td>20,5</td>
+<td>El 75 % cobra 20,5 o menos</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 2.4</strong></p>
+</div>
+<p><strong>Tabla 2.4.</strong> Cuartiles del salario en <em>Hyperdrive Express</em>.</p>
+<p>Una medida derivada muy útil es el <strong>recorrido intercuartílico</strong> o <em>interquartile range</em> (IQR):</p>
+<p><span class="math display">\[
+\text{IQR} = Q_3 - Q_1.
+\]</span></p>
+<p>En el ejemplo, IQR <span class="math inline">\(= 20{,}5 - 12 = 8{,}5\)</span> cientos de PAVOs. Podemos interpretarlo así: el “50 % central” de la plantilla se reparte en una franja salarial de 8,5 cientos de PAVOs de ancho. El IQR es una <strong>medida de dispersión robusta</strong> —al depender solo de los cuartiles y no de todos los datos, un <em>outlier</em> no lo altera— y aparecerá varias veces en lo que sigue.</p>
+<div id="boxplot" class="section level3" number="2.4.1">
+<h3>
+<span class="header-section-number">2.4.1</span> El box-plot: síntesis visual de posición y outliers.<a class="anchor" aria-label="anchor" href="#boxplot"><i class="fas fa-link"></i></a>
+</h3>
+<p>La forma canónica de visualizar todo lo anterior es el <strong>diagrama de caja</strong> o <em>box-plot</em>, propuesto por John Tukey en 1977. Su construcción es directa:</p>
+<ul>
+<li>La <strong>caja</strong> va de <span class="math inline">\(Q_1\)</span> a <span class="math inline">\(Q_3\)</span> (contiene, por tanto, el 50 % central de los casos).</li>
+<li>Una línea horizontal dentro de la caja marca la <strong>mediana</strong> (<span class="math inline">\(Q_2\)</span>).</li>
+<li>Dos segmentos (los <em>bigotes</em>) se extienden por arriba y por abajo hasta el mayor y el menor valor observado <strong>que no sean atípicos</strong>.</li>
+<li>Los casos atípicos, si los hay, se dibujan como puntos aislados.</li>
+</ul>
+<p>¿Y qué es “atípico” a estos efectos? Tukey propuso una regla operativa —hoy universal— basada precisamente en el IQR:</p>
+<ul>
+<li>Un caso es <strong>atípico por arriba</strong> si su valor supera <span class="math inline">\(Q_3 + 1{,}5\cdot \text{IQR}\)</span>.</li>
+<li>Un caso es <strong>atípico por abajo</strong> si su valor es inferior a <span class="math inline">\(Q_1 - 1{,}5\cdot \text{IQR}\)</span>.</li>
+</ul>
+<p>En la plantilla de 60 empleados de <em>Hyperdrive Express</em>, esos límites son <span class="math inline">\(12 - 1{,}5\cdot 8{,}5 = -0{,}75\)</span> y <span class="math inline">\(20{,}5 + 1{,}5\cdot 8{,}5 = 33{,}25\)</span>. Ningún trabajador queda fuera de la franja: la plantilla, tal como está, no tiene <em>outliers</em>.</p>
+<p>Ahora sí podemos volver a la <strong>CEO</strong> que mencionábamos en 2.2.2. Con ella dentro, <span class="math inline">\(N = 61\)</span>, <span class="math inline">\(Q_1 = 12\)</span>, <span class="math inline">\(Q_3 = 22\)</span>, IQR <span class="math inline">\(= 10\)</span> y el límite superior de la regla de Tukey pasa a ser 37. Un salario de 100 cientos de PAVOs queda muy por encima: la CEO <strong>es formalmente un outlier</strong>, tal como el sentido común anticipaba. El box-plot lo señalará con un punto solitario muy por encima de la caja, exactamente como una boya alertando de bajos fondos.</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/box-plot-hyperdrive-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 2.2</strong></p>
+</div>
+<p><strong>Figura 2.2.</strong> Diagramas de caja del salario en <em>Hyperdrive Express</em>. A la izquierda, la plantilla de 60 empleados; a la derecha, incluyendo a la CEO. La caja apenas se mueve; el bigote se estira ligeramente; pero el <em>outlier</em> que aparece en solitario en el segundo gráfico es toda la información visual que necesitábamos.</p>
+</div>
+<div id="tratamiento-outliers" class="section level3" number="2.4.2">
+<h3>
+<span class="header-section-number">2.4.2</span> ¿Qué hacer con los outliers detectados?<a class="anchor" aria-label="anchor" href="#tratamiento-outliers"><i class="fas fa-link"></i></a>
+</h3>
+<p>Detectar un <em>outlier</em> es solo el principio. La decisión sobre qué hacer con él es probablemente uno de los momentos más discutibles del análisis, y ni de lejos existe una receta única. Las opciones habituales son:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Corregirlo</strong>, si se demuestra que es un error de captura o registro (un dato mal tecleado, una unidad de medida cambiada).</li>
+<li>
+<strong>Eliminar el caso</strong>, si consideramos que pertenece a otra población o si su presencia distorsiona el análisis sin aportar información útil sobre la pregunta de fondo. Se justifica cuando los <em>outliers</em> son pocos y no aportan nueva información.</li>
+<li>
+<strong>Mantenerlo tal cual</strong>, si es un caso legítimo cuya inclusión importa. Suele acompañarse del uso de <strong>medidas robustas</strong> (mediana en lugar de media, IQR en lugar de desviación típica) que reducen el impacto del valor extremo sin ocultarlo.</li>
+<li>
+<strong>Modelizarlo aparte</strong>: separar el análisis en dos grupos —la plantilla y la dirección, en nuestro ejemplo— y reportar cada uno con sus propias medidas.</li>
+</ol>
+<p>En el caso de <em>Hyperdrive Express</em>, la CEO es un ejemplo casi de manual de la cuarta opción: la política salarial de la plantilla y la retribución de la dirección son dos fenómenos distintos, y mezclarlos en una única media anima a extraer conclusiones erróneas (“en esta empresa cobran de media 18,56 cientos de PAVOs”) que ni la mediana ni el sentido común respaldan. Trabajaremos, por tanto, con la plantilla de 60 empleados a lo largo del resto del capítulo.</p>
+</div>
+</div>
+<div id="momentos" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Momentos: la maquinaria común.<a class="anchor" aria-label="anchor" href="#momentos"><i class="fas fa-link"></i></a>
+</h2>
+<p>Antes de abordar las medidas de dispersión y de forma conviene detenerse un momento —nunca mejor dicho— en una construcción algebraica que subyace a todas ellas: los <strong>momentos</strong> de una distribución. Su utilidad es doble: unifican la notación, y permiten expresar unas medidas en función de otras sin arrastrar cuentas farragosas.</p>
+<p>Dado un origen arbitrario <span class="math inline">\(O_t\)</span> y un entero positivo <span class="math inline">\(r\)</span>, el <strong>momento de orden <span class="math inline">\(r\)</span> respecto al origen <span class="math inline">\(O_t\)</span></strong> de una distribución de frecuencias se define como</p>
+<p><span class="math display">\[
+M_r = \frac{1}{N}\sum_{i=1}^{h}(x_i - O_t)^r \, n_i.
+\]</span></p>
+<p>Dos elecciones de <span class="math inline">\(O_t\)</span> son especialmente relevantes.</p>
+<div id="momentos-origen" class="section level3" number="2.5.1">
+<h3>
+<span class="header-section-number">2.5.1</span> Momentos respecto al origen.<a class="anchor" aria-label="anchor" href="#momentos-origen"><i class="fas fa-link"></i></a>
+</h3>
+<p>Si tomamos <span class="math inline">\(O_t = 0\)</span> obtenemos los <strong>momentos respecto al origen</strong>:</p>
+<p><span class="math display">\[
+a_r = \frac{1}{N}\sum_{i=1}^{h} x_i^{\,r}\, n_i.
+\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(a_1\)</span> coincide con la <strong>media aritmética</strong>: <span class="math inline">\(a_1 = \overline{x}\)</span>.</li>
+<li>
+<span class="math inline">\(a_2\)</span> es el promedio de los valores al cuadrado; aparecerá al escribir la varianza.</li>
+<li>
+<span class="math inline">\(a_3\)</span> y <span class="math inline">\(a_4\)</span> intervienen en las medidas de forma.</li>
+</ul>
+</div>
+<div id="momentos-media" class="section level3" number="2.5.2">
+<h3>
+<span class="header-section-number">2.5.2</span> Momentos respecto a la media.<a class="anchor" aria-label="anchor" href="#momentos-media"><i class="fas fa-link"></i></a>
+</h3>
+<p>Si tomamos como origen la propia media, <span class="math inline">\(O_t = \overline{x}\)</span>, obtenemos los <strong>momentos centrales</strong>:</p>
+<p><span class="math display">\[
+m_r = \frac{1}{N}\sum_{i=1}^{h}(x_i - \overline{x})^r\, n_i.
+\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(m_1 = 0\)</span> siempre (por definición de media).</li>
+<li>
+<span class="math inline">\(m_2\)</span> es la <strong>varianza</strong> de la distribución.</li>
+<li>
+<span class="math inline">\(m_3\)</span> mide la asimetría (una vez normalizado).</li>
+<li>
+<span class="math inline">\(m_4\)</span> mide la curtosis (idem).</li>
+</ul>
+</div>
+<div id="relacion-momentos" class="section level3" number="2.5.3">
+<h3>
+<span class="header-section-number">2.5.3</span> Relación entre unos y otros.<a class="anchor" aria-label="anchor" href="#relacion-momentos"><i class="fas fa-link"></i></a>
+</h3>
+<p>Los momentos centrales pueden expresarse en función de los momentos respecto al origen mediante el desarrollo del binomio de Newton:</p>
+<p><span class="math display">\[
+m_r = \sum_{k=0}^{r} (-1)^k \binom{r}{k}\, a_1^{\,k}\, a_{r-k}.
+\]</span></p>
+<p>Los casos particulares que utilizaremos son:</p>
+<p><span class="math display">\[
+\begin{aligned}
+m_2 &amp;= a_2 - a_1^{\,2},\\[3pt]
+m_3 &amp;= a_3 - 3\,a_2\,a_1 + 2\,a_1^{\,3},\\[3pt]
+m_4 &amp;= a_4 - 4\,a_3\,a_1 + 6\,a_2\,a_1^{\,2} - 3\,a_1^{\,4}.
+\end{aligned}
+\]</span></p>
+<p>En la práctica, esto significa que basta con calcular una vez los momentos respecto al origen (<span class="math inline">\(a_1, a_2, a_3, a_4\)</span>) sobre la tabla de la distribución, y todas las medidas que siguen se obtienen combinándolos.</p>
+<p>Para <em>Hyperdrive Express</em>, los momentos respecto al origen son:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Momento</th>
+<th>Valor</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(a_1\)</span></td>
+<td>17,20</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(a_2\)</span></td>
+<td>331,37</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(a_3\)</span></td>
+<td>7 038,90</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(a_4\)</span></td>
+<td>161 964,37</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 2.5</strong></p>
+</div>
+<p><strong>Tabla 2.5.</strong> Momentos respecto al origen del salario en <em>Hyperdrive Express</em>.</p>
+<p>De donde se sigue <span class="math inline">\(m_2 = 331{,}37 - 17{,}20^{2} = 35{,}53\)</span>, <span class="math inline">\(m_3 = 117{,}28\)</span> y <span class="math inline">\(m_4 = 3\,313{,}22\)</span>. Los usaremos enseguida.</p>
+</div>
+</div>
+<div id="medidas-de-dispersion" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Medidas de dispersión.<a class="anchor" aria-label="anchor" href="#medidas-de-dispersion"><i class="fas fa-link"></i></a>
+</h2>
+<p>Consideremos dos plantillas de empresas galácticas, ambas con la misma media salarial. En la primera, todos los empleados cobran cifras cercanas al valor medio. En la segunda, la mitad cobra mucho menos y la otra mitad mucho más. La media es un dato incompleto: <strong>caracteriza dónde se sitúa la distribución, pero no cuánto se aparta cada individuo de esa posición</strong>. Las medidas de dispersión completan la fotografía, cuantificando <strong>cuán representativa</strong> es la medida central.</p>
+<p>Si la dispersión es baja, los valores están concentrados en torno a la media y esta la representa bien. Si es alta, los valores están muy repartidos y la media, aunque exista, describe pobremente lo que le ocurre a cada individuo.</p>
+<div id="varianza-desviacion" class="section level3" number="2.6.1">
+<h3>
+<span class="header-section-number">2.6.1</span> Varianza y desviación típica.<a class="anchor" aria-label="anchor" href="#varianza-desviacion"><i class="fas fa-link"></i></a>
+</h3>
+<p>La medida de dispersión por excelencia es la <strong>varianza</strong>, que promedia el <strong>cuadrado</strong> de las diferencias entre cada valor y la media:</p>
+<p><span class="math display">\[
+S^{2} = \frac{1}{N}\sum_{i=1}^{h}(x_i - \overline{x})^{2}\, n_i.
+\]</span></p>
+<p>Elevar al cuadrado evita que las diferencias positivas y negativas se cancelen entre sí; a cambio, las unidades de la varianza son las de la variable al cuadrado (aquí, “cientos de PAVOs al cuadrado”, un objeto conceptualmente correcto pero de escasa carrera comercial). Por eso se maneja tanto la <strong>desviación típica</strong>:</p>
+<p><span class="math display">\[
+S = +\sqrt{S^{\,2}},
+\]</span></p>
+<p>que vuelve a las unidades originales y admite una lectura intuitiva. En <em>Hyperdrive Express</em>:</p>
+<p><span class="math display">\[
+S^{2} = m_2 = a_2 - a_1^{\,2} = 331{,}37 - 17{,}20^{2} = 35{,}53 \quad;\quad S = \sqrt{35{,}53} = 5{,}96.
+\]</span></p>
+<p>La desviación típica es, aproximadamente, “cuántas unidades de la variable se aparta un caso <em>promedio</em> del valor medio”. Cuando decimos que <span class="math inline">\(S \approx 6\)</span> cientos de PAVOs, estamos diciendo que un salario típico en <em>Hyperdrive Express</em> está a unos 6 cientos de PAVOs de la media (17,20). Este orden de magnitud coincide con la impresión visual del histograma del capítulo anterior.</p>
+<p>Ambas medidas tienen dos limitaciones importantes:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>No están acotadas superiormente</strong>. Un valor de <span class="math inline">\(S = 5{,}96\)</span> no es “mucho” ni “poco” en abstracto; depende de la escala de la variable.</li>
+<li>Son <strong>medidas absolutas</strong>: si mañana la empresa cambia la unidad de sus salarios a euros (1 cientos de PAVOs = 100 euros), tanto la media como la desviación típica se multiplicarán por 100, sin que la estructura de la distribución haya cambiado un ápice.</li>
+</ol>
+<p>Para resolver ambos problemas se recurre a una medida relativa: el coeficiente de variación.</p>
+<blockquote>
+<p><strong>Un apunte técnico: cuasivarianza.</strong> En muchas aplicaciones —especialmente en Estadística Inferencial y Econometría, cuando la distribución que estamos analizando es una <strong>muestra</strong> y queremos generalizar a la <strong>población</strong> de origen— se utiliza la llamada <strong>cuasivarianza</strong> o <em>varianza insesgada</em>:
+<span class="math display">\[\widehat{S}^{\,2} = \frac{1}{N-1}\sum_{i=1}^{h}(x_i - \overline{x})^{2}\, n_i.\]</span>
+La única diferencia con la varianza es dividir entre <span class="math inline">\(N-1\)</span> en lugar de entre <span class="math inline">\(N\)</span>. En muestras grandes las dos cantidades son prácticamente indistinguibles; en muestras pequeñas la cuasivarianza corrige un sesgo sistemático a la baja de la varianza como estimador. En <em>Hyperdrive Express</em>: <span class="math inline">\(\widehat{S}^{\,2} = 36{,}13\)</span>, frente a <span class="math inline">\(S^{2} = 35{,}53\)</span>. En este capítulo trabajaremos con la varianza clásica <span class="math inline">\(S^{2}\)</span>; volveremos a la cuasivarianza en el bloque de Inferencia, cuando cobre pleno sentido.</p>
+</blockquote>
+</div>
+<div id="cv-pearson" class="section level3" number="2.6.2">
+<h3>
+<span class="header-section-number">2.6.2</span> Coeficiente de variación de Pearson.<a class="anchor" aria-label="anchor" href="#cv-pearson"><i class="fas fa-link"></i></a>
+</h3>
+<p>El <strong>coeficiente de variación de Pearson</strong> compara la desviación típica con la propia media:</p>
+<p><span class="math display">\[
+V = \frac{S}{|\overline{x}|}.
+\]</span></p>
+<p>Es una medida <strong>adimensional</strong> (sin unidades) y por tanto <strong>directamente comparable</strong> entre variables medidas en escalas o unidades distintas.</p>
+<p>En <em>Hyperdrive Express</em>, <span class="math inline">\(V = 5{,}96 / 17{,}20 = 0{,}346\)</span>, es decir, un <strong>34,6 %</strong>. Puede leerse así: la desviación típica del salario supone aproximadamente un tercio del salario medio. Una lectura equivalente: en la desviación típica <em>“cabe”</em> el 34,6 % de la media.</p>
+<p>¿Es eso mucho o poco? Como todas las medidas relativas, depende de con qué se compare. Un CV del 34,6 % en salarios de una plantilla parece razonable —hay categorías, antigüedades, cualificaciones—; el mismo CV en el tipo de interés interbancario sería descomunal. La utilidad del CV es sobre todo <strong>comparativa</strong>: contrastar la dispersión salarial de <em>Hyperdrive Express</em> con la de otra compañía, o la dispersión de dos variables completamente distintas (salarios y rentabilidades, por ejemplo) sin tener que preocuparse por las unidades.</p>
+<blockquote>
+<p><strong>Cuidado con el signo de la media.</strong> Cuando la media es cercana a cero (o cambia de signo entre grupos), el CV pierde interpretabilidad: pequeñas variaciones en la media generan CV desproporcionados. En esos casos se prefieren otras medidas relativas basadas en cuantiles, como el propio IQR normalizado por la mediana.</p>
+</blockquote>
+</div>
+<div id="comparando-cv" class="section level3" number="2.6.3">
+<h3>
+<span class="header-section-number">2.6.3</span> Comparando dos plantillas: un uso típico del CV.<a class="anchor" aria-label="anchor" href="#comparando-cv"><i class="fas fa-link"></i></a>
+</h3>
+<p>Supongamos que queremos comparar la dispersión salarial de <em>Hyperdrive Express</em> (Miranda, Gran Nube de Magallanes) con la de otra compañía galáctica del mismo tamaño operativo, <em>Shuttlepod Movers</em> (Arrakis, también en la Gran Nube de Magallanes). Los datos que resumen ambas plantillas son:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="27%">
+<col width="8%">
+<col width="44%">
+<col width="9%">
+<col width="10%">
+</colgroup>
+<thead><tr class="header">
+<th>Compañía</th>
+<th><span class="math inline">\(N\)</span></th>
+<th>
+<span class="math inline">\(\overline{x}\)</span> (cientos de PAVOs)</th>
+<th><span class="math inline">\(S\)</span></th>
+<th><span class="math inline">\(V\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><em>Hyperdrive Express</em></td>
+<td>60</td>
+<td>17,20</td>
+<td>5,96</td>
+<td>0,346</td>
+</tr>
+<tr class="even">
+<td><em>Shuttlepod Movers</em></td>
+<td>49</td>
+<td>16,04</td>
+<td>5,52</td>
+<td>0,344</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 2.6</strong></p>
+</div>
+<p><strong>Tabla 2.6.</strong> Comparación salarial de dos compañías R-Stars.</p>
+<p>En términos absolutos, <em>Hyperdrive Express</em> tiene una desviación típica mayor. Pero también una media mayor. El coeficiente de variación de ambas compañías es prácticamente idéntico: sus <strong>estructuras salariales relativas</strong> son gemelas, aunque los euros —perdón, los PAVOs— absolutos no lo sean. Este tipo de conclusión es el que hace del CV una medida imprescindible cuando queremos comparar la representatividad de la media entre distribuciones.</p>
+</div>
+</div>
+<div id="medidas-de-forma" class="section level2" number="2.7">
+<h2>
+<span class="header-section-number">2.7</span> Medidas de forma.<a class="anchor" aria-label="anchor" href="#medidas-de-forma"><i class="fas fa-link"></i></a>
+</h2>
+<p>Las últimas medidas del capítulo abordan la <strong>forma</strong> de la distribución de frecuencias, es decir, cómo se deforma el histograma con respecto a un patrón ideal simétrico y campaniforme (la distribución normal, que estudiaremos en detalle en el bloque de Probabilidad). Distinguimos dos ejes de deformación:</p>
+<ul>
+<li>
+<strong>Asimetría</strong>: deformación <strong>horizontal</strong> en torno al eje que pasa por la media.</li>
+<li>
+<strong>Apuntamiento o curtosis</strong>: deformación <strong>vertical</strong> en cuanto a lo apuntado o achatado del pico.</li>
+</ul>
+<p>Ambas medidas requieren, para tener sentido, que la distribución sea aproximadamente <strong>unimodal</strong> y <strong>campaniforme</strong>. Aplicadas a una distribución bimodal o con varias mesetas, sus resultados son técnicamente calculables pero conceptualmente engañosos: la moraleja es siempre mirar el histograma antes de fiarse del coeficiente.</p>
+<div id="asimetria" class="section level3" number="2.7.1">
+<h3>
+<span class="header-section-number">2.7.1</span> Asimetría.<a class="anchor" aria-label="anchor" href="#asimetria"><i class="fas fa-link"></i></a>
+</h3>
+<p>Una distribución es <strong>simétrica</strong> si su histograma se puede plegar por una línea vertical que pase por la media dejando ambas mitades como reflejos idénticos. En ese caso, media, mediana y moda coinciden en el mismo valor.</p>
+<p>Cuando esa simetría se rompe, hablamos de:</p>
+<ul>
+<li>
+<strong>Asimetría positiva</strong>: la cola larga se extiende hacia la derecha (valores altos). Suele cumplirse que Mo <span class="math inline">\(&lt;\)</span> Me <span class="math inline">\(&lt;\)</span> <span class="math inline">\(\overline{x}\)</span>.</li>
+<li>
+<strong>Asimetría negativa</strong>: la cola larga se extiende hacia la izquierda (valores bajos). Suele cumplirse que <span class="math inline">\(\overline{x}&lt;\)</span> Me <span class="math inline">\(&lt;\)</span> Mo.</li>
+</ul>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/asimetria-tipos-1.png" alt="" width="95%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 2.3</strong></p>
+</div>
+<p><strong>Figura 2.3.</strong> Tipos de asimetría en distribuciones unimodales campaniformes.</p>
+<p>Para cuantificarla, Fisher observó que el momento central de orden 3, <span class="math inline">\(m_3\)</span>, tiene precisamente esa propiedad: es cero si la distribución es simétrica, positivo si tiene cola a la derecha y negativo si la tiene a la izquierda. Pero <span class="math inline">\(m_3\)</span> tiene unidades (las de la variable al cubo) y no permite comparar distribuciones medidas en escalas distintas. Fisher lo normalizó dividiendo por <span class="math inline">\(S^{\,3}\)</span>, obteniendo el <strong>coeficiente de asimetría de Fisher</strong>:</p>
+<p><span class="math display">\[
+g_1 = \frac{m_3}{S^{\,3}}.
+\]</span></p>
+<ul>
+<li>
+<span class="math inline">\(g_1 &gt; 0\)</span> → asimetría positiva.</li>
+<li>
+<span class="math inline">\(g_1 = 0\)</span> → simetría (condición <strong>necesaria pero no suficiente</strong>: existen distribuciones asimétricas con <span class="math inline">\(g_1 = 0\)</span>).</li>
+<li>
+<span class="math inline">\(g_1 &lt; 0\)</span> → asimetría negativa.</li>
+</ul>
+<p>Como referencia rápida y sin pretensión de recetario universal, valores de <span class="math inline">\(|g_1|\)</span> por debajo de 0,5 suelen considerarse indicativos de “asimetría leve”; entre 0,5 y 1, “moderada”; y por encima de 1, “acusada”.</p>
+<p>Aplicado al salario de <em>Hyperdrive Express</em>, y usando los momentos ya calculados:</p>
+<p><span class="math display">\[
+g_1 = \frac{m_3}{S^{\,3}} = \frac{117{,}28}{5{,}96^{3}} = 0{,}55.
+\]</span></p>
+<p>La distribución presenta <strong>asimetría positiva moderada</strong>: la cola de salarios altos (los 25 y 30 cientos de PAVOs) empuja el valor medio (17,20) por encima de la mediana y la moda (ambas 15). Es una estructura típica de plantilla: muchos casos concentrados en niveles medios y bajos, y una cola relativamente corta de retribuciones altas.</p>
+<p><strong>El impacto de un outlier sobre la asimetría.</strong> Si volviéramos a incluir a la CEO en el análisis, con su salario de 100 cientos de PAVOs, el coeficiente saltaría hasta <span class="math inline">\(g_1 \approx 5{,}03\)</span>. Un solo caso extremo ha transformado una asimetría moderada en un valor que, en pura literalidad, sugeriría una distribución dramáticamente sesgada. En realidad la plantilla no ha cambiado; solo hemos mezclado en el saco un caso que pertenece a otra población. Este es el motivo por el que insistíamos en la sección 2.2.2: los coeficientes de forma son especialmente sensibles a la limpieza previa del fichero.</p>
+</div>
+<div id="curtosis" class="section level3" number="2.7.2">
+<h3>
+<span class="header-section-number">2.7.2</span> Apuntamiento o curtosis.<a class="anchor" aria-label="anchor" href="#curtosis"><i class="fas fa-link"></i></a>
+</h3>
+<p>La curtosis mide <strong>cuán apuntado</strong> es el pico central de la distribución respecto a un patrón concreto: la distribución <strong>normal</strong>. Distinguimos tres casos:</p>
+<ul>
+<li>
+<strong>Distribución mesocúrtica</strong>: apuntamiento similar al de la normal.</li>
+<li>
+<strong>Distribución leptocúrtica</strong>: más apuntada que la normal (mayor concentración de casos en torno al centro y colas más pesadas).</li>
+<li>
+<strong>Distribución platicúrtica</strong>: más aplastada que la normal (casos más repartidos y colas más ligeras).</li>
+</ul>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/curtosis-tipos-1.png" alt="" width="95%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 2.4</strong></p>
+</div>
+<p><strong>Figura 2.4.</strong> Tipos de apuntamiento o curtosis en distribuciones unimodales campaniformes.</p>
+<p>Fisher se dio cuenta de que, para una distribución normal, se cumple <span class="math inline">\(m_4 = 3 S^{4}\)</span>, lo que sugiere construir la medida</p>
+<p><span class="math display">\[
+g_2 = \frac{m_4}{S^{\,4}} - 3,
+\]</span></p>
+<p>el <strong>coeficiente de apuntamiento de Fisher</strong>. Con esta definición:</p>
+<ul>
+<li>
+<span class="math inline">\(g_2 &gt; 0\)</span> → distribución leptocúrtica.</li>
+<li>
+<span class="math inline">\(g_2 = 0\)</span> → distribución mesocúrtica (comparable a la normal).</li>
+<li>
+<span class="math inline">\(g_2 &lt; 0\)</span> → distribución platicúrtica.</li>
+</ul>
+<p>En <em>Hyperdrive Express</em>:</p>
+<p><span class="math display">\[
+g_2 = \frac{m_4}{S^{\,4}} - 3 = \frac{3\,313{,}22}{5{,}96^{4}} - 3 = -0{,}37.
+\]</span></p>
+<p>Un valor ligeramente negativo indica una distribución <strong>platicúrtica suave</strong>: el pico central es algo más aplanado que el de una normal, resultado del reparto relativamente equilibrado de la plantilla en varios niveles retributivos (los 15 son mayoritarios, pero 12, 18, 20, 22 tienen todos frecuencias notables). No hay una única categoría que domine con abrumadora concentración: la plantilla está estratificada.</p>
+<p>Como en el caso de <span class="math inline">\(g_1\)</span>, la interpretación cuantitativa depende del contexto y, sobre todo, requiere que la distribución sea <strong>aproximadamente simétrica</strong> para que la comparación con la normal tenga sentido. Con <span class="math inline">\(g_1 = 0{,}55\)</span>, nuestra distribución no lo es del todo, así que conviene tomar el valor de <span class="math inline">\(g_2\)</span> como orientación y no como veredicto.</p>
+<p><strong>Y de nuevo, el efecto CEO.</strong> Si incluimos a la CEO, <span class="math inline">\(g_2\)</span> se dispara hasta 31,2. Un solo caso extremo convierte una distribución razonablemente mesocúrtica en un artefacto de coeficientes gigantescos. Los coeficientes de asimetría y curtosis son quizá las medidas más sensibles a <em>outliers</em> de las que hemos visto, y por eso conviene calcularlos <strong>después</strong> de haber decidido conscientemente qué hacer con los casos extremos.</p>
+</div>
+</div>
+<div id="recapitulacion-cap02" class="section level2" number="2.8">
+<h2>
+<span class="header-section-number">2.8</span> Recapitulación.<a class="anchor" aria-label="anchor" href="#recapitulacion-cap02"><i class="fas fa-link"></i></a>
+</h2>
+<p>En este capítulo hemos aprendido a <strong>resumir</strong> una variable estadística unidimensional pasando de una tabla de frecuencias a un puñado de números interpretables. Los cuatro bloques de medidas son complementarios, no sustitutivos:</p>
+<ul>
+<li>
+<strong>Posición central</strong> (media, mediana, moda): dónde se sitúa la distribución.</li>
+<li>
+<strong>Posición no central</strong> (cuartiles y demás cuantiles): cómo se reparte por segmentos, con el box-plot como su representación visual insustituible.</li>
+<li>
+<strong>Dispersión</strong> (varianza, desviación típica, CV): cuán representativa es la posición central. El CV tiene la ventaja añadida de ser <strong>adimensional</strong>, y permite comparaciones entre distribuciones de escala distinta.</li>
+<li>
+<strong>Forma</strong> (asimetría y curtosis de Fisher): la forma del histograma respecto al patrón campaniforme simétrico.</li>
+</ul>
+<p>Un principio ha atravesado todo el capítulo: <strong>antes de resumir, mire los datos</strong>. Los valores perdidos deben identificarse y tratarse conscientemente. Los casos atípicos deben localizarse —el box-plot, apoyado en el IQR, es la herramienta estándar— y decidir si se corrigen, se eliminan, se conservan o se analizan por separado. Las medidas más elegantes son también, casi siempre, las más frágiles: media, varianza, coeficientes de forma… todas ellas se distorsionan con facilidad ante un puñado de valores extremos. La CEO de <em>Hyperdrive Express</em> nos lo ha ilustrado con creces.</p>
+<p>Con estas herramientas ya podemos caracterizar cualquier variable de una empresa, un sector o una galaxia. En el capítulo siguiente daremos el salto a <strong>dos variables</strong>: cómo se relacionan entre sí y qué medidas resumen esa relación. <em>Hyperdrive Express</em> seguirá con nosotros; y también empezaremos a asomarnos a la muestra completa de 300 compañías R-Stars que dan cuerpo al proyecto.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="estadistica-economica-empresarial.html"><span class="header-section-number">1</span> Estadística Económica y Empresarial.</a></div>
+<div class="next"><a href="variable-estad%C3%ADstica-bidimensional-y-n-dimensional..html"><span class="header-section-number">3</span> Variable estadística bidimensional y n-dimensional.</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#variable-estadistica-unidimensional"><span class="header-section-number">2</span> Variable estadística unidimensional.</a></li>
+<li><a class="nav-link" href="#del-dato-bruto-a-la-medida"><span class="header-section-number">2.1</span> Del dato bruto a la medida: por qué necesitamos resumir.</a></li>
+<li>
+<a class="nav-link" href="#depuracion-datos"><span class="header-section-number">2.2</span> Depurando los datos: valores perdidos y casos atípicos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#missing-values"><span class="header-section-number">2.2.1</span> Valores perdidos (missing values).</a></li>
+<li><a class="nav-link" href="#outliers"><span class="header-section-number">2.2.2</span> Casos atípicos (outliers).</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#medidas-de-posicion-central"><span class="header-section-number">2.3</span> Medidas de posición central.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#media-aritmetica"><span class="header-section-number">2.3.1</span> Media aritmética.</a></li>
+<li><a class="nav-link" href="#mediana"><span class="header-section-number">2.3.2</span> Mediana.</a></li>
+<li><a class="nav-link" href="#moda"><span class="header-section-number">2.3.3</span> Moda.</a></li>
+<li><a class="nav-link" href="#datos-agrupados"><span class="header-section-number">2.3.4</span> Datos agrupados y error de agrupamiento.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#cuantiles"><span class="header-section-number">2.4</span> Medidas de posición no central: los cuantiles.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#boxplot"><span class="header-section-number">2.4.1</span> El box-plot: síntesis visual de posición y outliers.</a></li>
+<li><a class="nav-link" href="#tratamiento-outliers"><span class="header-section-number">2.4.2</span> ¿Qué hacer con los outliers detectados?</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#momentos"><span class="header-section-number">2.5</span> Momentos: la maquinaria común.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#momentos-origen"><span class="header-section-number">2.5.1</span> Momentos respecto al origen.</a></li>
+<li><a class="nav-link" href="#momentos-media"><span class="header-section-number">2.5.2</span> Momentos respecto a la media.</a></li>
+<li><a class="nav-link" href="#relacion-momentos"><span class="header-section-number">2.5.3</span> Relación entre unos y otros.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#medidas-de-dispersion"><span class="header-section-number">2.6</span> Medidas de dispersión.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#varianza-desviacion"><span class="header-section-number">2.6.1</span> Varianza y desviación típica.</a></li>
+<li><a class="nav-link" href="#cv-pearson"><span class="header-section-number">2.6.2</span> Coeficiente de variación de Pearson.</a></li>
+<li><a class="nav-link" href="#comparando-cv"><span class="header-section-number">2.6.3</span> Comparando dos plantillas: un uso típico del CV.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#medidas-de-forma"><span class="header-section-number">2.7</span> Medidas de forma.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#asimetria"><span class="header-section-number">2.7.1</span> Asimetría.</a></li>
+<li><a class="nav-link" href="#curtosis"><span class="header-section-number">2.7.2</span> Apuntamiento o curtosis.</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#recapitulacion-cap02"><span class="header-section-number">2.8</span> Recapitulación.</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-07-02.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
