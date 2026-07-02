@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>3 Variable estadística bidimensional y n-dimensional. | Estadística Empresarial</title>
+<meta name="author" content="Miguel Ángel Tarancón Morán">
+<meta name="description" content="Figura 3.1. Cuando la información se cruza: dos variables, una historia. En los dos capítulos anteriores hemos aprendido a describir una característica cada vez. Ese análisis univariante es el...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="3 Variable estadística bidimensional y n-dimensional. | Estadística Empresarial">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://teckel71.github.io/EstadisticaEmpresarial-book/variable-estadistica-bidimensional.html">
+<meta property="og:image" content="https://teckel71.github.io/EstadisticaEmpresarial-book/figuras/EE_portada.jpg">
+<meta property="og:description" content="Figura 3.1. Cuando la información se cruza: dos variables, una historia. En los dos capítulos anteriores hemos aprendido a describir una característica cada vez. Ese análisis univariante es el...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3 Variable estadística bidimensional y n-dimensional. | Estadística Empresarial">
+<meta name="twitter:description" content="Figura 3.1. Cuando la información se cruza: dos variables, una historia. En los dos capítulos anteriores hemos aprendido a describir una característica cada vez. Ese análisis univariante es el...">
+<meta name="twitter:image" content="https://teckel71.github.io/EstadisticaEmpresarial-book/figuras/EE_portada.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Serif_4-0.4.10/font.css" rel="stylesheet">
+<link href="libs/JetBrains_Mono-0.4.10/font.css" rel="stylesheet">
+<link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Estadística Empresarial</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li><a class="" href="prefacio.html">Prefacio</a></li>
+<li><a class="" href="estadistica-economica-empresarial.html"><span class="header-section-number">1</span> Estadística Económica y Empresarial.</a></li>
+<li><a class="" href="variable-estadistica-unidimensional.html"><span class="header-section-number">2</span> Variable estadística unidimensional.</a></li>
+<li><a class="active" href="variable-estadistica-bidimensional.html"><span class="header-section-number">3</span> Variable estadística bidimensional y n-dimensional.</a></li>
+<li><a class="" href="regresi%C3%B3n-y-correlaci%C3%B3n..html"><span class="header-section-number">4</span> Regresión y correlación.</a></li>
+<li><a class="" href="n%C3%BAmeros-%C3%ADndice..html"><span class="header-section-number">5</span> Números índice.</a></li>
+<li><a class="" href="probabilidad..html"><span class="header-section-number">6</span> Probabilidad.</a></li>
+<li><a class="" href="variables-aleatorias..html"><span class="header-section-number">7</span> Variables aleatorias.</a></li>
+<li><a class="" href="modelos-de-probabilidad-discretos-univariantes..html"><span class="header-section-number">8</span> Modelos de probabilidad discretos univariantes.</a></li>
+<li><a class="" href="modelos-de-probabilidad-continuos-univariantes..html"><span class="header-section-number">9</span> Modelos de probabilidad continuos univariantes.</a></li>
+<li><a class="" href="convergencia-y-teoremas-l%C3%ADmite..html"><span class="header-section-number">10</span> Convergencia y teoremas límite.</a></li>
+<li><a class="" href="bibliograf%C3%ADa.html">Bibliografía</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="variable-estadistica-bidimensional" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Variable estadística bidimensional y n-dimensional.<a class="anchor" aria-label="anchor" href="#variable-estadistica-bidimensional"><i class="fas fa-link"></i></a>
+</h1>
+<div class="inline-figure"><img src="figuras/03_puente_cruce.jpg" class="portada-img" style="width:100.0%"></div>
+<div style="text-align: center;">
+<p><strong>Figura 3.1.</strong> <span class="smallcaps">Cuando la información se cruza: dos variables, una historia.</span></p>
+</div>
+<p>En los dos capítulos anteriores hemos aprendido a describir <strong>una</strong> característica cada vez. Ese análisis univariante es el punto de partida imprescindible, pero rara vez es el objetivo final. La mayor parte de las preguntas interesantes en Economía y Empresa nacen del cruce de dos o más variables: <em>¿ganan más los universitarios?</em>, <em>¿son las compañías más grandes también las más rentables?</em>, <em>¿los cargueros más antiguos tienen más tonelaje?</em>, <em>¿asocian los distintos astilleros sus bases operativas a las mismas galaxias?</em> En todos estos casos, la pregunta no puede contestarse mirando una única variable: hace falta poner <strong>dos características simultáneamente</strong> sobre cada individuo y estudiar cómo se relacionan.</p>
+<p>Este capítulo, y el siguiente, son el bloque del curso dedicado al análisis <strong>bidimensional</strong> (y, por extensión, <span class="math inline">\(n\)</span>-dimensional). La división del trabajo entre ambos es la siguiente:</p>
+<ul>
+<li><p>En este capítulo la pregunta es <strong>cualitativa</strong>: ¿existe o no existe relación estadística entre las dos variables? Aprenderemos a organizar la información en una tabla de doble entrada, a leer los distintos tipos de distribuciones que ella contiene, a definir formalmente la <strong>independencia estadística</strong> y a comprobar si nuestra tabla la satisface. Introduciremos también la <strong>covarianza</strong> —un primer resumen numérico del tipo de relación entre dos variables cuantitativas— y las <strong>tablas de contingencia</strong> entre atributos, con una descripción intuitiva de la <strong>prueba ji-cuadrado</strong>.</p></li>
+<li><p>En el capítulo 4, dando por hecho que existe algún tipo de relación, las preguntas serán <strong>cuantitativas</strong>: ¿cuán intensa es esa relación? ¿de qué forma es? Entrará entonces en escena el <strong>coeficiente de correlación lineal</strong> —una versión adimensional y acotada de la covarianza— y los modelos de <strong>regresión</strong> que permiten aproximar una variable a partir de otra.</p></li>
+</ul>
+<p>Este orden lógico —primero verificar la existencia de relación, después medir su intensidad y su forma— es el mismo que sigue cualquier análisis empírico serio. Un buen econometrista jamás ajusta una regresión sin explorar antes si tiene sentido hacerlo.</p>
+<div id="tabla-correlacion" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> De una a dos variables: la tabla de correlación.<a class="anchor" aria-label="anchor" href="#tabla-correlacion"><i class="fas fa-link"></i></a>
+</h2>
+<p>Cuando en cada individuo medimos <strong>dos</strong> características, la distribución de frecuencias se organiza en una tabla de doble entrada. Cada fila corresponde a un valor (o clase de valores) de la primera variable, cada columna a un valor de la segunda, y cada casilla anota <strong>cuántos casos</strong> presentan simultáneamente esa combinación. A esa tabla la llamaremos <strong>tabla de correlación</strong> —cuando ambas variables son cuantitativas— o, más genéricamente y sobre todo cuando alguna de las dos es cualitativa, <strong>tabla de contingencia</strong>. Ambas comparten estructura y notación.</p>
+<p>Denotemos por <span class="math inline">\(x_1, x_2, \ldots, x_h\)</span> los <span class="math inline">\(h\)</span> valores distintos que toma la variable <span class="math inline">\(X\)</span> y por <span class="math inline">\(y_1, y_2, \ldots, y_k\)</span> los <span class="math inline">\(k\)</span> valores que toma la variable <span class="math inline">\(Y\)</span>. La tabla resultante tiene <span class="math inline">\(h\)</span> filas y <span class="math inline">\(k\)</span> columnas. En su celda <span class="math inline">\((i, j)\)</span> aparece la <strong>frecuencia absoluta conjunta</strong> <span class="math inline">\(n_{ij}\)</span>, definida como</p>
+<p><span class="math display">\[
+n_{ij} \;=\; \text{número de casos que presentan simultáneamente } x_i \text{ e } y_j.
+\]</span></p>
+<p>Sumando por filas obtenemos las <strong>frecuencias marginales de <span class="math inline">\(X\)</span></strong>,</p>
+<p><span class="math display">\[
+n_{i\bullet} \;=\; \sum_{j=1}^{k} n_{ij},
+\]</span></p>
+<p>que indican cuántos casos toman el valor <span class="math inline">\(x_i\)</span> <strong>con independencia</strong> del valor que tomen en <span class="math inline">\(Y\)</span>. Análogamente, sumando por columnas obtenemos las <strong>frecuencias marginales de <span class="math inline">\(Y\)</span></strong>,</p>
+<p><span class="math display">\[
+n_{\bullet j} \;=\; \sum_{i=1}^{h} n_{ij}.
+\]</span></p>
+<p>Y como ningún caso puede escaparse por ninguna de las dos vías, se cumple</p>
+<p><span class="math display">\[
+\sum_{i=1}^{h} n_{i\bullet} \;=\; \sum_{j=1}^{k} n_{\bullet j} \;=\; \sum_{i=1}^{h}\sum_{j=1}^{k} n_{ij} \;=\; N.
+\]</span></p>
+<p>Esquemáticamente, la tabla tiene el siguiente aspecto:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="18%">
+<col width="17%">
+<col width="17%">
+<col width="10%">
+<col width="17%">
+<col width="19%">
+</colgroup>
+<thead><tr class="header">
+<th align="center"><span class="math inline">\(X \setminus Y\)</span></th>
+<th align="center"><span class="math inline">\(y_1\)</span></th>
+<th align="center"><span class="math inline">\(y_2\)</span></th>
+<th align="center"><span class="math inline">\(\cdots\)</span></th>
+<th align="center"><span class="math inline">\(y_k\)</span></th>
+<th align="center">Marg. <span class="math inline">\(X\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x_1\)</span></td>
+<td align="center"><span class="math inline">\(n_{11}\)</span></td>
+<td align="center"><span class="math inline">\(n_{12}\)</span></td>
+<td align="center"><span class="math inline">\(\cdots\)</span></td>
+<td align="center"><span class="math inline">\(n_{1k}\)</span></td>
+<td align="center"><span class="math inline">\(n_{1\bullet}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_2\)</span></td>
+<td align="center"><span class="math inline">\(n_{21}\)</span></td>
+<td align="center"><span class="math inline">\(n_{22}\)</span></td>
+<td align="center"><span class="math inline">\(\cdots\)</span></td>
+<td align="center"><span class="math inline">\(n_{2k}\)</span></td>
+<td align="center"><span class="math inline">\(n_{2\bullet}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\ddots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_h\)</span></td>
+<td align="center"><span class="math inline">\(n_{h1}\)</span></td>
+<td align="center"><span class="math inline">\(n_{h2}\)</span></td>
+<td align="center"><span class="math inline">\(\cdots\)</span></td>
+<td align="center"><span class="math inline">\(n_{hk}\)</span></td>
+<td align="center"><span class="math inline">\(n_{h\bullet}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Marg. <span class="math inline">\(Y\)</span></strong></td>
+<td align="center"><span class="math inline">\(n_{\bullet 1}\)</span></td>
+<td align="center"><span class="math inline">\(n_{\bullet 2}\)</span></td>
+<td align="center"><span class="math inline">\(\cdots\)</span></td>
+<td align="center"><span class="math inline">\(n_{\bullet k}\)</span></td>
+<td align="center"><span class="math inline">\(N\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.1</strong></p>
+</div>
+<p>Las <strong>distribuciones marginales</strong> son, sencillamente, las distribuciones univariantes de <span class="math inline">\(X\)</span> y de <span class="math inline">\(Y\)</span> vistas por separado, ignorando la otra variable. Toda la maquinaria del capítulo anterior —medidas de posición, dispersión y forma— sigue aplicándose sobre ellas.</p>
+<div id="ejemplo-shuttlepod" class="section level3" number="3.1.1">
+<h3>
+<span class="header-section-number">3.1.1</span> Un ejemplo: la plantilla de <em>Shuttlepod Movers</em>.<a class="anchor" aria-label="anchor" href="#ejemplo-shuttlepod"><i class="fas fa-link"></i></a>
+</h3>
+<p>Retomamos una vieja conocida: la plantilla de <strong>Shuttlepod Movers</strong>, la compañía galáctica con sede en Arrakis a la que ya nos asomamos en el capítulo 2 para comparar su dispersión salarial con la de <em>Hyperdrive Express</em>. De sus <span class="math inline">\(N = 49\)</span> empleados disponemos ahora, además del <strong>salario mensual</strong> (en cientos de PAVOs), de su <strong>nivel de estudios</strong>: Básicos, Medios o Universitarios. La pregunta natural, la que su departamento de recursos humanos podría hacerle a cualquier analista, es: <em>¿tienen algo que ver salario y estudios en esta plantilla?</em>.</p>
+<p>Antes de contestar necesitamos organizar la información. Las primeras filas del fichero se ven así:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+Empleado
+</th>
+<th style="text-align:center;">
+Salario
+</th>
+<th style="text-align:center;">
+Nivel de estudios
+</th>
+<th style="text-align:center;">
+Departamento
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Luke Diomedea
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+Básicos
+</td>
+<td style="text-align:center;">
+Almacén
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Han Bubo
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+Medios
+</td>
+<td style="text-align:center;">
+Almacén
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Anakin Falco
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+Básicos
+</td>
+<td style="text-align:center;">
+Almacén
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Spock Phoenicopterus
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+Básicos
+</td>
+<td style="text-align:center;">
+Almacén
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+James Larus
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+Medios
+</td>
+<td style="text-align:center;">
+Gestión Interna
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>Como el salario toma bastantes valores distintos —tantos como niveles retributivos hay en la compañía—, empezamos por una versión <strong>agrupada</strong> en tres intervalos salariales cómodos, que facilitan la vista sin distorsionar la estructura:</p>
+<ul>
+<li>Salario <strong>Bajo</strong>: <span class="math inline">\(\le 12\)</span> cientos de PAVOs.</li>
+<li>Salario <strong>Medio</strong>: entre <span class="math inline">\(13\)</span> y <span class="math inline">\(20\)</span> cientos de PAVOs.</li>
+<li>Salario <strong>Alto</strong>: <span class="math inline">\(&gt; 20\)</span> cientos de PAVOs.</li>
+</ul>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+<span class="math inline">\(X \setminus Y\)</span>
+</th>
+<th style="text-align:center;">
+Básicos
+</th>
+<th style="text-align:center;">
+Medios
+</th>
+<th style="text-align:center;">
+Universitarios
+</th>
+<th style="text-align:center;">
+Marg. <span class="math inline">\(X\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Bajo (≤ 12)
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Medio (13–20)
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Alto (&gt; 20)
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<strong>Marg. Y</strong>
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+49
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.2.</strong> Salario (<span class="math inline">\(X\)</span>) y nivel de estudios (<span class="math inline">\(Y\)</span>) en la plantilla de Shuttlepod Movers. Frecuencias absolutas conjuntas y marginales.</p>
+</div>
+<p>La estructura de la tabla salta a la vista. Los <span class="math inline">\(49\)</span> empleados se reparten en <span class="math inline">\(3\times 3 = 9\)</span> celdas conjuntas; las <strong>marginales de <span class="math inline">\(X\)</span></strong> (última columna) dicen cuántos empleados hay en cada tramo salarial, con independencia de sus estudios; las <strong>marginales de <span class="math inline">\(Y\)</span></strong> (última fila) cuentan cuántos empleados hay en cada nivel formativo, con independencia del salario que perciban.</p>
+</div>
+<div id="frecuencias-relativas-2d" class="section level3" number="3.1.2">
+<h3>
+<span class="header-section-number">3.1.2</span> Frecuencias relativas.<a class="anchor" aria-label="anchor" href="#frecuencias-relativas-2d"><i class="fas fa-link"></i></a>
+</h3>
+<p>Como en el caso univariante, las frecuencias absolutas admiten una segunda lectura en términos <strong>relativos</strong>. Cada casilla se divide por el total <span class="math inline">\(N\)</span> para obtener la proporción del colectivo que satisface esa combinación:</p>
+<p><span class="math display">\[
+f_{ij} \;=\; \frac{n_{ij}}{N}, \qquad
+f_{i\bullet} \;=\; \frac{n_{i\bullet}}{N}, \qquad
+f_{\bullet j} \;=\; \frac{n_{\bullet j}}{N}.
+\]</span></p>
+<p>Todas las frecuencias relativas conjuntas suman uno, igual que sumaban uno las de una distribución unidimensional; el añadido es que aquí lo hacen extendidas sobre las nueve celdas:</p>
+<p><span class="math display">\[
+\sum_{i=1}^{h}\sum_{j=1}^{k} f_{ij} \;=\; 1.
+\]</span></p>
+<p>Para Shuttlepod:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+<span class="math inline">\(X \setminus Y\)</span>
+</th>
+<th style="text-align:center;">
+Básicos
+</th>
+<th style="text-align:center;">
+Medios
+</th>
+<th style="text-align:center;">
+Universitarios
+</th>
+<th style="text-align:center;">
+Marg. <span class="math inline">\(X\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Bajo (≤ 12)
+</td>
+<td style="text-align:center;">
+0.1224
+</td>
+<td style="text-align:center;">
+0.2245
+</td>
+<td style="text-align:center;">
+0.0408
+</td>
+<td style="text-align:center;">
+0.3878
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Medio (13–20)
+</td>
+<td style="text-align:center;">
+0.0408
+</td>
+<td style="text-align:center;">
+0.1429
+</td>
+<td style="text-align:center;">
+0.2041
+</td>
+<td style="text-align:center;">
+0.3878
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Alto (&gt; 20)
+</td>
+<td style="text-align:center;">
+0.0000
+</td>
+<td style="text-align:center;">
+0.0000
+</td>
+<td style="text-align:center;">
+0.2245
+</td>
+<td style="text-align:center;">
+0.2245
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<strong>Marg. Y</strong>
+</td>
+<td style="text-align:center;">
+0.1633
+</td>
+<td style="text-align:center;">
+0.3673
+</td>
+<td style="text-align:center;">
+0.4694
+</td>
+<td style="text-align:center;">
+1.0000
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.3.</strong> Frecuencias relativas conjuntas y marginales en Shuttlepod Movers.</p>
+</div>
+<p>Lectura: aproximadamente el <span class="math inline">\(20{,}4\,\%\)</span> de la plantilla (proporción <span class="math inline">\(0{,}2041\)</span>) cobra un salario medio y tiene estudios universitarios; algo más del <span class="math inline">\(46\,\%\)</span> tiene estudios universitarios y el <span class="math inline">\(16\,\%\)</span> estudios básicos, con independencia del salario. Etcétera.</p>
+</div>
+<div id="distribuciones-condicionadas" class="section level3" number="3.1.3">
+<h3>
+<span class="header-section-number">3.1.3</span> Distribuciones condicionadas.<a class="anchor" aria-label="anchor" href="#distribuciones-condicionadas"><i class="fas fa-link"></i></a>
+</h3>
+<p>Las marginales resumen cada variable por separado; las conjuntas indican cómo se cruzan. Falta una tercera lectura, la más útil para explorar relaciones: la de las <strong>distribuciones condicionadas</strong>. Preguntémonos: <em>dado que un empleado tiene estudios universitarios, ¿cómo se reparte su salario?</em> La respuesta requiere fijar <span class="math inline">\(Y = \text{Universitarios}\)</span> y calcular la proporción de casos que caen en cada tramo salarial <strong>entre los universitarios</strong>.</p>
+<p>Formalmente, la <strong>frecuencia condicionada</strong> de <span class="math inline">\(X = x_i\)</span> dado que <span class="math inline">\(Y = y_j\)</span> se define como</p>
+<p><span class="math display">\[
+f_{X = x_i \mid Y = y_j} \;=\; \frac{n_{ij}}{n_{\bullet j}}.
+\]</span></p>
+<p>Simétricamente, la frecuencia condicionada de <span class="math inline">\(Y = y_j\)</span> dado que <span class="math inline">\(X = x_i\)</span> es</p>
+<p><span class="math display">\[
+f_{Y = y_j \mid X = x_i} \;=\; \frac{n_{ij}}{n_{i\bullet}}.
+\]</span></p>
+<p>En cada caso el denominador es la frecuencia marginal correspondiente: en el primero, dividimos por el total de la <strong>columna</strong> <span class="math inline">\(j\)</span> (los casos que satisfacen la condición <span class="math inline">\(Y = y_j\)</span>); en el segundo, por el total de la <strong>fila</strong> <span class="math inline">\(i\)</span>. Las condicionadas suman uno <strong>dentro</strong> del grupo condicionante, no globalmente:</p>
+<p><span class="math display">\[
+\sum_{i=1}^{h} f_{X = x_i \mid Y = y_j} = 1 \quad \text{para cada } j, \qquad
+\sum_{j=1}^{k} f_{Y = y_j \mid X = x_i} = 1 \quad \text{para cada } i.
+\]</span></p>
+<p>En <em>Shuttlepod Movers</em>, las distribuciones de salario <strong>condicionadas al nivel de estudios</strong> son:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+Salario
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(Y=\)</span> Básicos
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(Y=\)</span> Medios
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(Y=\)</span> Universitarios
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Bajo (≤ 12)
+</td>
+<td style="text-align:center;">
+0.75
+</td>
+<td style="text-align:center;">
+0.6111
+</td>
+<td style="text-align:center;">
+0.0870
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Medio (13–20)
+</td>
+<td style="text-align:center;">
+0.25
+</td>
+<td style="text-align:center;">
+0.3889
+</td>
+<td style="text-align:center;">
+0.4348
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Alto (&gt; 20)
+</td>
+<td style="text-align:center;">
+0.00
+</td>
+<td style="text-align:center;">
+0.0000
+</td>
+<td style="text-align:center;">
+0.4783
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.4.</strong> Distribución del salario condicionada al nivel de estudios (cada columna suma 1).</p>
+</div>
+<p>La lectura es reveladora: entre los empleados con estudios <strong>básicos</strong>, el <span class="math inline">\(75\,\%\)</span> está en el tramo salarial bajo y ninguno en el tramo alto; entre los <strong>universitarios</strong>, ninguno está en el tramo bajo y prácticamente la mitad en el alto. Las tres columnas —los tres perfiles retributivos condicionados al nivel de estudios— son <strong>distintas entre sí</strong> y también distintas de la marginal de salario. Esa desigualdad de perfiles es lo que enseguida caracterizaremos formalmente como <strong>dependencia estadística</strong>.</p>
+</div>
+</div>
+<div id="independencia-dependencia" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Independencia y dependencia estadística.<a class="anchor" aria-label="anchor" href="#independencia-dependencia"><i class="fas fa-link"></i></a>
+</h2>
+<p>Con la tabla anterior ya hemos hecho, de manera intuitiva, la comprobación central del capítulo. Vamos ahora a formalizarla.</p>
+<p>Diremos que dos características <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son <strong>estadísticamente independientes</strong> cuando conocer el valor de una <strong>no aporta información</strong> sobre el valor que tomará la otra. En términos operativos: si <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son independientes, la distribución de <span class="math inline">\(X\)</span> condicionada a cualquier valor de <span class="math inline">\(Y\)</span> es idéntica a la marginal de <span class="math inline">\(X\)</span>. Da igual el grupo de <span class="math inline">\(Y\)</span> del que provenga el individuo: la distribución de <span class="math inline">\(X\)</span> es la misma.</p>
+<p><span class="math display">\[
+\underbrace{f_{X = x_i \mid Y = y_j}}_{\text{condicionada}} \;=\; \underbrace{f_{i\bullet}}_{\text{marginal}}, \qquad \forall\, i, j.
+\]</span></p>
+<p>Igualdades análogas se cumplen intercambiando los papeles de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>: si conocer <span class="math inline">\(Y\)</span> no informa sobre <span class="math inline">\(X\)</span>, tampoco conocer <span class="math inline">\(X\)</span> informa sobre <span class="math inline">\(Y\)</span>. La independencia es, por tanto, una propiedad <strong>simétrica</strong>.</p>
+<p>Cuando la definición anterior <strong>no</strong> se cumple —es decir, cuando la distribución de <span class="math inline">\(X\)</span> cambia según el valor de <span class="math inline">\(Y\)</span>, o cuando el perfil condicionado difiere del marginal en al menos una celda— diremos que <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> presentan <strong>dependencia estadística</strong>. Esa dependencia puede ser leve o intensa, sistemática o irregular; en este capítulo nos limitaremos a detectarla. Su cuantificación es la tarea del capítulo siguiente.</p>
+<div id="condicion-independencia" class="section level3" number="3.2.1">
+<h3>
+<span class="header-section-number">3.2.1</span> La condición operativa: producto de marginales.<a class="anchor" aria-label="anchor" href="#condicion-independencia"><i class="fas fa-link"></i></a>
+</h3>
+<p>Manipulando algebraicamente la definición anterior se llega a una versión mucho más cómoda de comprobar. Partiendo de</p>
+<p><span class="math display">\[
+\frac{n_{ij}}{n_{\bullet j}} \;=\; \frac{n_{i\bullet}}{N},
+\]</span></p>
+<p>despejamos:</p>
+<p><span class="math display">\[
+n_{ij} \;=\; \frac{n_{i\bullet}\cdot n_{\bullet j}}{N},
+\]</span></p>
+<p>y, dividiendo ambos lados por <span class="math inline">\(N\)</span>,</p>
+<p><span class="math display">\[
+\boxed{\,f_{ij} \;=\; f_{i\bullet}\cdot f_{\bullet j}, \qquad \forall\, i, j.\,}
+\]</span></p>
+<p>Es decir: <strong>hay independencia si, y solo si, cada frecuencia relativa conjunta es igual al producto de las marginales correspondientes</strong>. Esta es la formulación con la que trabajaremos en la práctica. Repárese en el “<strong>y solo si</strong>”: la igualdad debe cumplirse en <strong>todas</strong> las celdas de la tabla. Basta con que una sola se aparte para que la relación deje de ser independencia y aparezca —como enseguida veremos— algún tipo de dependencia.</p>
+<p>De la condición anterior se deduce también una manera muy útil de leerla: si hay independencia, la frecuencia conjunta <strong>esperada</strong> en la celda <span class="math inline">\((i,j)\)</span>, dada la información marginal, sería</p>
+<p><span class="math display">\[
+n^{*}_{ij} \;=\; \frac{n_{i\bullet}\cdot n_{\bullet j}}{N}.
+\]</span></p>
+<p>Estas <strong>frecuencias esperadas bajo independencia</strong> volverán a aparecer, con el mismo protagonismo, cuando hablemos de tablas de contingencia y de la prueba ji-cuadrado.</p>
+</div>
+<div id="ejemplo-independencia" class="section level3" number="3.2.2">
+<h3>
+<span class="header-section-number">3.2.2</span> Un ejemplo pedagógico: independencia “perfecta”.<a class="anchor" aria-label="anchor" href="#ejemplo-independencia"><i class="fas fa-link"></i></a>
+</h3>
+<p>Para ver cómo se comporta la condición cuando sí se cumple, hagamos un pequeño desvío por la contabilidad de <strong>Corellian Freightworks</strong>, la mayor compañía de carga del sector R-Stars con sede en Qo’noS (Galaxia del Triángulo). Tras la reciente absorción de dos operadores menores, su directora financiera —convencida de que armonizar la política retributiva mejoraría la moral general de la plantilla combinada— ha encargado un breve informe cruzando, para sus <span class="math inline">\(N = 259\)</span> empleados, el <strong>salario mensual</strong> <span class="math inline">\(X\)</span> (en cientos de PAVOs) con el <strong>gasto mensual</strong> <span class="math inline">\(Y\)</span> en la cantina corporativa (hologames, bebidas de dudoso color y espectáculo en vivo, todo incluido; también en cientos de PAVOs). La hipótesis de partida parecía razonable: quien más cobra, más se deja en la cantina. La tabla que ha aterrizado en el despacho de la directora es esta:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+<span class="math inline">\(X \setminus Y\)</span>
+</th>
+<th style="text-align:center;">
+1
+</th>
+<th style="text-align:center;">
+2
+</th>
+<th style="text-align:center;">
+3
+</th>
+<th style="text-align:center;">
+Marg. <span class="math inline">\(X\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+40
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+70
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+60
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+105
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+40
+</td>
+<td style="text-align:center;">
+24
+</td>
+<td style="text-align:center;">
+48
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+84
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<strong>Marg. Y</strong>
+</td>
+<td style="text-align:center;">
+74
+</td>
+<td style="text-align:center;">
+148
+</td>
+<td style="text-align:center;">
+37
+</td>
+<td style="text-align:center;">
+259
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.5.</strong> Salario (<span class="math inline">\(X\)</span>) y gasto mensual en la cantina corporativa (<span class="math inline">\(Y\)</span>) en la plantilla combinada de Corellian Freightworks.</p>
+</div>
+<p>¿Cumple la tabla la condición de independencia? Comprobemos la primera celda:</p>
+<p><span class="math display">\[
+f_{11} \;=\; \frac{20}{259} \;\approx\; 0{,}0772, \qquad
+f_{1\bullet}\cdot f_{\bullet 1} \;=\; \frac{70}{259}\cdot \frac{74}{259} \;\approx\; 0{,}2703 \cdot 0{,}2857 \;\approx\; 0{,}0772.
+\]</span></p>
+<p>Coinciden. Y si repetimos el ejercicio en las nueve celdas, la igualdad se cumple <strong>en todas ellas</strong>. Podemos concluir que salario y gasto en cantina son, en Corellian Freightworks, estadísticamente independientes: saber cuánto cobra un empleado no aporta ninguna información sobre cuánto se dejará el mes que viene entre hologames y bebidas de la cantina.</p>
+<p>Un modo más rápido de verlo, sin repetir la comprobación celda a celda, es contrastar la tabla de condicionadas con la marginal:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+Salario
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(Y=1\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(Y=2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(Y=3\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+0.2703
+</td>
+<td style="text-align:center;">
+0.2703
+</td>
+<td style="text-align:center;">
+0.2703
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+0.4054
+</td>
+<td style="text-align:center;">
+0.4054
+</td>
+<td style="text-align:center;">
+0.4054
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+40
+</td>
+<td style="text-align:center;">
+0.3243
+</td>
+<td style="text-align:center;">
+0.3243
+</td>
+<td style="text-align:center;">
+0.3243
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.6.</strong> Distribución del salario (<span class="math inline">\(X\)</span>) condicionada al gasto en cantina (<span class="math inline">\(Y\)</span>) en Corellian Freightworks. Todas las columnas son idénticas.</p>
+</div>
+<p>Todas las columnas son <strong>iguales entre sí</strong> y coinciden con la marginal de <span class="math inline">\(X\)</span> (<span class="math inline">\(0{,}2703;\ 0{,}4054;\ 0{,}3243\)</span>). Es la traducción visual exacta de la independencia: el perfil salarial no cambia entre los tres grupos de consumo cantinero. La directora financiera de Corellian, a la vista de los números, ha tenido que revisar sus premisas: en su plantilla, la propensión a fundirse el sueldo en la cantina parece ser una constante universal, insensible al importe de la nómina. El ajuste retributivo tendrá que buscar otra justificación.</p>
+</div>
+<div id="ejemplo-dependencia" class="section level3" number="3.2.3">
+<h3>
+<span class="header-section-number">3.2.3</span> Un ejemplo real: la plantilla de <em>Shuttlepod Movers</em>.<a class="anchor" aria-label="anchor" href="#ejemplo-dependencia"><i class="fas fa-link"></i></a>
+</h3>
+<p>Comparemos ahora la situación anterior con lo que ocurre en <em>Shuttlepod Movers</em>. Retomamos la tabla de frecuencias conjuntas y calculamos, para cada celda, el producto de marginales que <strong>debería</strong> aparecer bajo independencia:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+Salario
+</th>
+<th style="text-align:center;">
+Estudios
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_{ij}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n^{*}_{ij}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_{ij} - n^{*}_{ij}\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Bajo (≤ 12)
+</td>
+<td style="text-align:center;">
+Básicos
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+3.10
+</td>
+<td style="text-align:center;">
+2.90
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Bajo (≤ 12)
+</td>
+<td style="text-align:center;">
+Medios
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+6.98
+</td>
+<td style="text-align:center;">
+4.02
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Bajo (≤ 12)
+</td>
+<td style="text-align:center;">
+Universitarios
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+8.92
+</td>
+<td style="text-align:center;">
+-6.92
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Medio (13–20)
+</td>
+<td style="text-align:center;">
+Básicos
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+3.10
+</td>
+<td style="text-align:center;">
+-1.10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Medio (13–20)
+</td>
+<td style="text-align:center;">
+Medios
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+6.98
+</td>
+<td style="text-align:center;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Medio (13–20)
+</td>
+<td style="text-align:center;">
+Universitarios
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+8.92
+</td>
+<td style="text-align:center;">
+1.08
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Alto (&gt; 20)
+</td>
+<td style="text-align:center;">
+Básicos
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+1.80
+</td>
+<td style="text-align:center;">
+-1.80
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Alto (&gt; 20)
+</td>
+<td style="text-align:center;">
+Medios
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+4.04
+</td>
+<td style="text-align:center;">
+-4.04
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Alto (&gt; 20)
+</td>
+<td style="text-align:center;">
+Universitarios
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+5.16
+</td>
+<td style="text-align:center;">
+5.84
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.7.</strong> Frecuencias observadas (<span class="math inline">\(n_{ij}\)</span>) frente a esperadas bajo independencia (<span class="math inline">\(n^{*}_{ij}\)</span>) en Shuttlepod Movers.</p>
+</div>
+<p>La lectura es contundente. Bajo independencia, en el cruce de “salario bajo” y “estudios universitarios” deberíamos observar unas <span class="math inline">\(8{,}92\)</span> personas; observamos <span class="math inline">\(2\)</span>. En el cruce de “salario alto” y “estudios universitarios” esperaríamos <span class="math inline">\(5{,}16\)</span>; observamos <span class="math inline">\(11\)</span>. Las diferencias entre lo observado y lo esperado son <strong>sistemáticas</strong>: sobran universitarios en salarios altos, sobran empleados con estudios básicos en salarios bajos, y faltan casos en las combinaciones “cruzadas”. No es lo que produciría una asignación aleatoria en la que salario y estudios fueran independientes.</p>
+<p>Diremos entonces que salario y nivel de estudios en <em>Shuttlepod Movers</em> presentan <strong>dependencia estadística</strong>.</p>
+</div>
+<div id="dependencia-no-causalidad" class="section level3" number="3.2.4">
+<h3>
+<span class="header-section-number">3.2.4</span> Dependencia estadística y causalidad.<a class="anchor" aria-label="anchor" href="#dependencia-no-causalidad"><i class="fas fa-link"></i></a>
+</h3>
+<p>Antes de seguir es importante aclarar un punto que suele confundirse. La sola tabla no nos dice si esa dependencia se debe a un efecto causal (los estudios abren puertas a puestos mejor pagados), a un efecto indirecto (los universitarios ocupan puestos que además exigen antigüedad, y es la antigüedad la que retribuye mejor), o a una combinación de ambos. La distinción merece un aviso claro:</p>
+<blockquote>
+<p><strong>Dependencia estadística no es causalidad.</strong> Que salario y estudios se muevan juntos en el fichero no implica que estudiar más <em>cause</em> cobrar más. La causa podría estar en una tercera variable no observada, o el sentido causal podría ser el opuesto al que sugiere el sentido común. La estadística descriptiva detecta <strong>coincidencias sistemáticas</strong> entre variables; determinar si esas coincidencias reflejan una relación causal es una tarea distinta, que exige un diseño de investigación adicional (experimental o cuasi-experimental).</p>
+</blockquote>
+<p>Este matiz volverá a aparecer, con más fuerza aún, en el capítulo siguiente al hablar de regresión.</p>
+</div>
+</div>
+<div id="momentos-bidimensionales" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Momentos bidimensionales.<a class="anchor" aria-label="anchor" href="#momentos-bidimensionales"><i class="fas fa-link"></i></a>
+</h2>
+<p>Si ambas variables son <strong>cuantitativas</strong>, podemos ir un paso más allá de la comprobación celda a celda y <strong>resumir la relación con un número</strong>. Igual que en el análisis univariante los momentos (<span class="math inline">\(a_1, a_2, m_2, \ldots\)</span>) nos permitían compactar toda una distribución en unos pocos indicadores, los <strong>momentos bidimensionales</strong> hacen lo propio con la distribución conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.</p>
+<div id="momentos-origen-2d" class="section level3" number="3.3.1">
+<h3>
+<span class="header-section-number">3.3.1</span> Momentos respecto al origen.<a class="anchor" aria-label="anchor" href="#momentos-origen-2d"><i class="fas fa-link"></i></a>
+</h3>
+<p>Dado un par de enteros no negativos <span class="math inline">\(r\)</span> y <span class="math inline">\(s\)</span>, el <strong>momento bidimensional de orden <span class="math inline">\((r, s)\)</span> respecto al origen</strong> se define como</p>
+<p><span class="math display">\[
+a_{rs} \;=\; \frac{1}{N}\sum_{i=1}^{h}\sum_{j=1}^{k} x_i^{\,r}\, y_j^{\,s}\, n_{ij}.
+\]</span></p>
+<p>Los casos particulares que utilizaremos son cuatro y todos son ya viejos conocidos, adaptados al escenario bidimensional:</p>
+<ul>
+<li>
+<span class="math inline">\(a_{10} = \dfrac{1}{N}\sum_{i,j} x_i\, n_{ij} = \dfrac{1}{N}\sum_{i} x_i\, n_{i\bullet} = \overline{x}\)</span> (media aritmética de <span class="math inline">\(X\)</span>).</li>
+<li>
+<span class="math inline">\(a_{01} = \dfrac{1}{N}\sum_{i,j} y_j\, n_{ij} = \dfrac{1}{N}\sum_{j} y_j\, n_{\bullet j} = \overline{y}\)</span> (media aritmética de <span class="math inline">\(Y\)</span>).</li>
+<li>
+<span class="math inline">\(a_{20} = \dfrac{1}{N}\sum_{i,j} x_i^{\,2}\, n_{ij}\)</span> (media de los cuadrados de <span class="math inline">\(X\)</span>).</li>
+<li>
+<span class="math inline">\(a_{11} = \dfrac{1}{N}\sum_{i,j} x_i\, y_j\, n_{ij}\)</span> (media del <strong>producto</strong> <span class="math inline">\(XY\)</span>).</li>
+</ul>
+<p>Los dos primeros son las medias marginales, ya conocidas; el tercero interviene en la varianza de <span class="math inline">\(X\)</span>; y el cuarto es el que aporta información <strong>específicamente bidimensional</strong>: la media del producto de las dos variables.</p>
+</div>
+<div id="momentos-media-2d" class="section level3" number="3.3.2">
+<h3>
+<span class="header-section-number">3.3.2</span> Momentos respecto a las medias: varianzas y covarianza.<a class="anchor" aria-label="anchor" href="#momentos-media-2d"><i class="fas fa-link"></i></a>
+</h3>
+<p>Si en lugar de tomar como referencia el cero tomamos como centros a las medias marginales, obtenemos los <strong>momentos centrales</strong>:</p>
+<p><span class="math display">\[
+m_{rs} \;=\; \frac{1}{N}\sum_{i=1}^{h}\sum_{j=1}^{k} (x_i - \overline{x})^{r}\, (y_j - \overline{y})^{s}\, n_{ij}.
+\]</span></p>
+<p>Tres de ellos son los que aparecen constantemente en los libros y en la práctica:</p>
+<ul>
+<li>
+<span class="math inline">\(m_{20} = \dfrac{1}{N}\sum_{i,j} (x_i - \overline{x})^{2}\, n_{ij} = S_x^{\,2}\)</span> (varianza de <span class="math inline">\(X\)</span>).</li>
+<li>
+<span class="math inline">\(m_{02} = \dfrac{1}{N}\sum_{i,j} (y_j - \overline{y})^{2}\, n_{ij} = S_y^{\,2}\)</span> (varianza de <span class="math inline">\(Y\)</span>).</li>
+<li>
+<span class="math inline">\(m_{11} = \dfrac{1}{N}\sum_{i,j} (x_i - \overline{x})(y_j - \overline{y})\, n_{ij} \;\equiv\; S_{xy}\)</span> (<strong>covarianza</strong> de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>).</li>
+</ul>
+<p>Los dos primeros son sencillamente las varianzas de cada variable calculadas sobre sus distribuciones marginales: nada nuevo respecto al capítulo anterior. La verdadera novedad es la <strong>covarianza</strong> <span class="math inline">\(S_{xy}\)</span>, que aparece por primera vez y merece un momento de atención.</p>
+<p>Como en el caso univariante, los momentos centrales se pueden calcular a partir de los momentos respecto al origen, evitando restar la media dentro del sumatorio:</p>
+<p><span class="math display">\[
+\begin{aligned}
+S_x^{\,2} &amp;= a_{20} - a_{10}^{\,2},\\[4pt]
+S_y^{\,2} &amp;= a_{02} - a_{01}^{\,2},\\[4pt]
+S_{xy}    &amp;= a_{11} - a_{10}\cdot a_{01}.
+\end{aligned}
+\]</span></p>
+<p>En la práctica, esto significa que para calcular la covarianza a mano basta con obtener tres cantidades sobre la tabla —<span class="math inline">\(a_{10}\)</span>, <span class="math inline">\(a_{01}\)</span> y <span class="math inline">\(a_{11}\)</span>— y combinarlas.</p>
+</div>
+<div id="interpretacion-covarianza" class="section level3" number="3.3.3">
+<h3>
+<span class="header-section-number">3.3.3</span> El signo (y la magnitud) de la covarianza.<a class="anchor" aria-label="anchor" href="#interpretacion-covarianza"><i class="fas fa-link"></i></a>
+</h3>
+<p>Antes de aplicar la fórmula a un ejemplo, conviene entender qué está midiendo. La covarianza es el promedio de los productos <span class="math inline">\((x_i - \overline{x})(y_j - \overline{y})\)</span>:</p>
+<ul>
+<li>Si en un caso <span class="math inline">\(x_i\)</span> está <strong>por encima</strong> de su media y <span class="math inline">\(y_j\)</span> también, el producto es positivo.</li>
+<li>Si ambos están <strong>por debajo</strong> de sus medias, el producto vuelve a ser positivo.</li>
+<li>Si uno está por encima y el otro por debajo, el producto es negativo.</li>
+</ul>
+<p>La covarianza recoge, por tanto, el <strong>balance</strong> entre esos productos:</p>
+<ul>
+<li>
+<span class="math inline">\(S_{xy} &gt; 0\)</span>: los desvíos de <span class="math inline">\(X\)</span> y de <span class="math inline">\(Y\)</span> tienden a coincidir en signo. Cuando <span class="math inline">\(X\)</span> está por encima de su media, <span class="math inline">\(Y\)</span> también suele estarlo. Se habla de <strong>relación directa</strong> o <strong>positiva</strong>.</li>
+<li>
+<span class="math inline">\(S_{xy} &lt; 0\)</span>: los desvíos tienden a ir en sentidos opuestos. Cuando <span class="math inline">\(X\)</span> está por encima de su media, <span class="math inline">\(Y\)</span> suele estar por debajo. Se habla de <strong>relación inversa</strong> o <strong>negativa</strong>.</li>
+<li>
+<span class="math inline">\(S_{xy} \approx 0\)</span>: no se detecta ese tipo de coincidencia sistemática.</li>
+</ul>
+<p>La <strong>magnitud</strong> de <span class="math inline">\(S_{xy}\)</span>, en cambio, es difícil de interpretar por sí sola: sus unidades son el producto de las unidades de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> (por ejemplo, “cientos de PAVOs <span class="math inline">\(\times\)</span> años”), y su valor depende de la escala en que estén medidas ambas variables. Igual que la desviación típica tenía como versión “adimensional” el coeficiente de variación, la covarianza tendrá en el próximo capítulo su versión normalizada: el <strong>coeficiente de correlación lineal</strong>. Aquí nos limitaremos a su interpretación cualitativa (signo y comparación entre pares de variables medidas en las mismas unidades).</p>
+</div>
+<div id="ejemplo-covarianza" class="section level3" number="3.3.4">
+<h3>
+<span class="header-section-number">3.3.4</span> Un ejemplo cuantitativo: antigüedad y tonelaje en la flota R-Stars.<a class="anchor" aria-label="anchor" href="#ejemplo-covarianza"><i class="fas fa-link"></i></a>
+</h3>
+<p>Un buen escenario para calcular una covarianza es la muestra de <strong>48 cargueros</strong> del sector R-Stars, cada uno construido por uno de los tres grandes astilleros galácticos (<em>KORRIGAN</em>, <em>SELENE</em> y <em>ARCTURUS</em>). De cada nave conocemos, entre otras cosas, la <strong>antigüedad</strong> en años y el <strong>tonelaje</strong> máximo de carga útil (en miles de toneladas). ¿Es cierto que las naves más viejas tienden a ser más grandes, como sugeriría la impresión de que los astilleros se han ido especializando en cargueros cada vez más ligeros?</p>
+<p>Para poder trabajar con una tabla de correlación al estilo de las que hemos venido usando, agrupamos ambas variables en unos pocos intervalos:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+<span class="math inline">\(X \setminus Y\)</span>
+</th>
+<th style="text-align:center;">
+(500, 650]
+</th>
+<th style="text-align:center;">
+(650, 750]
+</th>
+<th style="text-align:center;">
+(750, 850]
+</th>
+<th style="text-align:center;">
+(850, 950]
+</th>
+<th style="text-align:center;">
+Marg. <span class="math inline">\(X\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+(0, 5]
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+(5, 10]
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+(10, 15]
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+(15, 20]
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+(20, 30]
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<strong>Marg. Y</strong>
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+48
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>Usando las marcas de clase <span class="math inline">\(x_i \in \{2{,}5;\ 7{,}5;\ 12{,}5;\ 17{,}5;\ 25\}\)</span> e <span class="math inline">\(y_j \in \{575;\ 700;\ 800;\ 900\}\)</span>, los momentos respecto al origen sobre la tabla agrupada se calculan de forma directa:</p>
+<p>Los momentos respecto al origen que necesitamos son:</p>
+<p><span class="math display">\[
+a_{10} \;=\; 9,010, \qquad
+a_{01} \;=\; 732,81, \qquad
+a_{20} \;=\; 113,93, \qquad
+a_{02} \;=\; 551.002,6, \qquad
+a_{11} \;=\; 6.983,07.
+\]</span></p>
+<p>Aplicando las fórmulas de cálculo, obtenemos:</p>
+<p><span class="math display">\[
+\begin{aligned}
+S_x^{\,2} &amp;\;=\; a_{20} - a_{10}^{\,2} \;=\; 32,74\ \text{(años)}^{2},\\[3pt]
+S_y^{\,2} &amp;\;=\; a_{02} - a_{01}^{\,2} \;=\; 13.988,4\ \text{(miles de t)}^{2},\\[3pt]
+S_{xy}   &amp;\;=\; a_{11} - a_{10}\cdot a_{01} \;=\; 380,13\ \text{años}\cdot\text{miles de t}.
+\end{aligned}
+\]</span></p>
+<p>La covarianza es <strong>positiva y grande</strong>: hay una relación directa entre antigüedad y tonelaje, en la línea de la intuición previa. Las naves más antiguas tienden a ser cargueros pesados; las más nuevas, más ligeras. La magnitud concreta no admite todavía una lectura intuitiva; la dejaremos para el próximo capítulo, cuando la traduzcamos en un coeficiente de correlación entre <span class="math inline">\(-1\)</span> y <span class="math inline">\(1\)</span>.</p>
+<p>Podemos visualizar la relación con una nube de puntos, la representación gráfica canónica de una distribución bidimensional cuando ambas variables son cuantitativas:</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/astilleros-scatter-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 3.2</strong></p>
+</div>
+<p>El <strong>diagrama de dispersión</strong> —o <em>nube de puntos</em>, o <em>scatter plot</em>— será el compañero inseparable de la próxima etapa. Por ahora nos basta con constatar que la nube dibuja una tendencia ascendente coherente con el signo positivo de la covarianza.</p>
+</div>
+<div id="covarianza-independencia" class="section level3" number="3.3.5">
+<h3>
+<span class="header-section-number">3.3.5</span> La covarianza y la independencia: una relación asimétrica.<a class="anchor" aria-label="anchor" href="#covarianza-independencia"><i class="fas fa-link"></i></a>
+</h3>
+<p>La covarianza tiene una propiedad importante que conviene enunciar con cuidado:</p>
+<blockquote>
+<p><strong>Propiedad.</strong> Si <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son estadísticamente independientes, entonces <span class="math inline">\(S_{xy} = 0\)</span>.</p>
+</blockquote>
+<p>El razonamiento es sencillo: bajo independencia, <span class="math inline">\(n_{ij} = n_{i\bullet}\cdot n_{\bullet j}/N\)</span>, y sustituyendo esto en la expresión de <span class="math inline">\(S_{xy}\)</span> se llega, con un poco de álgebra, a que la suma resulta nula. Es un resultado natural: si conocer <span class="math inline">\(X\)</span> no informa sobre <span class="math inline">\(Y\)</span>, los desvíos de una y otra alrededor de sus medias no pueden estar sistemáticamente coordinados, y en promedio los productos <span class="math inline">\((x_i - \overline{x})(y_j - \overline{y})\)</span> se cancelan.</p>
+<p>Lo importante es la lectura recíproca —o, mejor dicho, la ausencia de ella:</p>
+<blockquote>
+<p><strong>Advertencia.</strong> Que <span class="math inline">\(S_{xy} = 0\)</span> <strong>no implica</strong> que <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> sean independientes.</p>
+</blockquote>
+<p>La covarianza es una medida de tipo <strong>lineal</strong>: solo capta el tipo de “coincidencia direccional” que hemos descrito. Puede existir una relación estadística fuerte pero no lineal —una curva en forma de <span class="math inline">\(U\)</span>, por ejemplo— en la que los desvíos positivos y negativos se cancelen entre sí y produzcan una covarianza nula. Independencia <span class="math inline">\(\Rightarrow S_{xy}=0\)</span>, pero <span class="math inline">\(S_{xy} = 0 \nRightarrow\)</span> independencia. Esta asimetría es una de las razones por las que, al hablar de correlación en el próximo capítulo, será importante recordar que una correlación nula descarta relaciones lineales, pero no todas las relaciones concebibles.</p>
+</div>
+</div>
+<div id="tablas-contingencia" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Tablas de contingencia y asociación entre atributos.<a class="anchor" aria-label="anchor" href="#tablas-contingencia"><i class="fas fa-link"></i></a>
+</h2>
+<p>Todo lo anterior se aplica igual de bien —salvo la covarianza, que solo tiene sentido para variables cuantitativas— cuando <span class="math inline">\(X\)</span> o <span class="math inline">\(Y\)</span> (o las dos) son <strong>atributos</strong>. En la muestra de <span class="math inline">\(300\)</span> compañías R-Stars, la <strong>forma jurídica</strong> y el <strong>estado de la flota</strong> son ambos atributos, y cabe preguntarse si están asociados. En la flota de <span class="math inline">\(48\)</span> astilleros, el astillero constructor y la sede base son categorías puras. Y en la propia plantilla de <em>Shuttlepod Movers</em>, salario y nivel de estudios se han cruzado como si fueran atributos ordinales.</p>
+<p>Cuando ambos cruces son cualitativos, la tabla de doble entrada recibe el nombre específico de <strong>tabla de contingencia</strong>, y en lugar de hablar de <em>dependencia estadística</em> se habla, por matiz, de <strong>asociación</strong> entre atributos. La distinción es sutil pero útil: la palabra “dependencia” evoca cierta noción de precedencia (una variable “depende” de la otra), mientras que “asociación” es simétrica y sugiere solo que ambas categorías tienden a aparecer juntas con más o menos frecuencia de la que correspondería al azar.</p>
+<p>La condición operativa es exactamente la misma que ya vimos:</p>
+<p><span class="math display">\[
+n^{*}_{ij} \;=\; \frac{n_{i\bullet}\cdot n_{\bullet j}}{N}.
+\]</span></p>
+<p>Si las frecuencias observadas <span class="math inline">\(n_{ij}\)</span> coinciden con las esperadas <span class="math inline">\(n^{*}_{ij}\)</span> (o quedan muy cerca), diremos que no hay evidencia de asociación entre los atributos; si hay diferencias sistemáticas, sí la hay.</p>
+<div id="problema-chi-cuadrado" class="section level3" number="3.4.1">
+<h3>
+<span class="header-section-number">3.4.1</span> Un problema práctico: ¿cuánto es “cerca”?<a class="anchor" aria-label="anchor" href="#problema-chi-cuadrado"><i class="fas fa-link"></i></a>
+</h3>
+<p>En los ejemplos anteriores hemos comprobado la independencia examinando la tabla celda a celda. Cuando las diferencias entre observadas y esperadas son enormes —como en <em>Shuttlepod Movers</em>— el veredicto es evidente. En muchas situaciones reales, sin embargo, las diferencias son pequeñas y podrían deberse simplemente al azar de la muestra: si extraemos <span class="math inline">\(300\)</span> compañías al azar, no obtendremos jamás una tabla exactamente proporcional aunque en la población de fondo hubiera independencia perfecta.</p>
+<p>Necesitamos, entonces, una manera de resumir en un solo número cuán lejos está la tabla observada de la que produciría la independencia. Ese número es el <strong>estadístico ji-cuadrado</strong>, propuesto por Karl Pearson en 1900:</p>
+<p><span class="math display">\[
+\chi^{2} \;=\; \sum_{i=1}^{h}\sum_{j=1}^{k} \frac{(n_{ij} - n^{*}_{ij})^{2}}{n^{*}_{ij}}.
+\]</span></p>
+<p>Su construcción es la más razonable que uno podría imaginar. En cada celda, se calcula la diferencia entre lo observado y lo esperado bajo independencia, se <strong>eleva al cuadrado</strong> (para que las diferencias positivas y negativas no se cancelen entre sí) y se <strong>normaliza dividiendo por lo esperado</strong> (para que una diferencia de <span class="math inline">\(10\)</span> no pese lo mismo en una celda con <span class="math inline">\(n^{*}_{ij} = 100\)</span> que en otra con <span class="math inline">\(n^{*}_{ij} = 5\)</span>, cosa que sería absurda). Finalmente, se suma sobre todas las celdas. El resultado tiene tres propiedades atractivas:</p>
+<ul>
+<li>
+<span class="math inline">\(\chi^{2} \ge 0\)</span> siempre, con igualdad <strong>si y solo si</strong> las observadas coinciden exactamente con las esperadas: independencia perfecta.</li>
+<li>Cuanto <strong>mayor</strong> sea <span class="math inline">\(\chi^{2}\)</span>, mayor es la evidencia de asociación entre los dos atributos.</li>
+<li>La magnitud del estadístico es sensible al tamaño de la tabla y al total <span class="math inline">\(N\)</span>: no podemos aplicar un umbral universal —“a partir de <span class="math inline">\(\chi^{2} = 5\)</span> hay asociación”— sin más consideraciones.</li>
+</ul>
+<p>Este último punto es el que impide, por ahora, cerrar el círculo. Para transformar el valor de <span class="math inline">\(\chi^{2}\)</span> en una decisión formal (“<strong>hay</strong> asociación”, “<strong>no hay</strong> evidencia de asociación”) necesitaríamos un modelo de probabilidad que nos dijese qué valores de <span class="math inline">\(\chi^{2}\)</span> son “grandes” y cuáles no. Ese modelo —la <strong>distribución</strong> ji-cuadrado— lo estudiaremos en el bloque de Probabilidad e Inferencia. De momento, nos quedamos con una lectura intuitiva:</p>
+<blockquote>
+<p><strong>Regla del pulgar.</strong> Si <span class="math inline">\(\chi^{2}\)</span> es <strong>cercano a cero</strong>, no hay evidencia de asociación. Si es <strong>claramente mayor que cero</strong> —y especialmente si supera con holgura el número de casillas de la tabla— sí la hay. Cuanto mayor, más contundente.</p>
+</blockquote>
+<p>Ilustraremos estas ideas con tres cruces del universo R-Stars que abarcan todo el espectro: uno sin evidencia de asociación, uno con dependencia intermedia y uno con asociación absoluta.</p>
+</div>
+<div id="chi-fjur-eflo" class="section level3" number="3.4.2">
+<h3>
+<span class="header-section-number">3.4.2</span> Ejemplo 1: forma jurídica y estado de la flota (R-Stars).<a class="anchor" aria-label="anchor" href="#chi-fjur-eflo"><i class="fas fa-link"></i></a>
+</h3>
+<p>Uno de los cruces recurrentes en el análisis del sector R-Stars es la relación entre la <strong>forma jurídica</strong> de una compañía —CG (Compañía Galáctica), SLG (Sociedad Limitada Galáctica), SAG (Sociedad Anónima Galáctica)— y el <strong>estado de su flota</strong> —Antigua, Madura o Renovada—. ¿Tienden las CGs a operar flotas más renovadas que las SLGs? ¿O son los tres tipos de sociedades indistinguibles en su política de inversión?</p>
+<p>Sobre las <span class="math inline">\(N = 300\)</span> compañías del fichero:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+Forma jur.
+</th>
+<th style="text-align:center;">
+Antigua
+</th>
+<th style="text-align:center;">
+Madura
+</th>
+<th style="text-align:center;">
+Renovada
+</th>
+<th style="text-align:center;">
+Marg. <span class="math inline">\(X\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+CG
+</td>
+<td style="text-align:center;">
+34
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+82
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+SAG
+</td>
+<td style="text-align:center;">
+42
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
+19
+</td>
+<td style="text-align:center;">
+87
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+SLG
+</td>
+<td style="text-align:center;">
+72
+</td>
+<td style="text-align:center;">
+36
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+131
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<strong>Marg. Y</strong>
+</td>
+<td style="text-align:center;">
+148
+</td>
+<td style="text-align:center;">
+90
+</td>
+<td style="text-align:center;">
+62
+</td>
+<td style="text-align:center;">
+300
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.8.</strong> Forma jurídica y estado de la flota en las 300 compañías R-Stars. Frecuencias observadas.</p>
+</div>
+<p>Calculamos las frecuencias esperadas bajo independencia y el estadístico:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+FJUR
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_{i,\text{Ant}}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n^{*}_{i,\text{Ant}}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_{i,\text{Mad}}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n^{*}_{i,\text{Mad}}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_{i,\text{Ren}}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n^{*}_{i,\text{Ren}}\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+CG
+</td>
+<td style="text-align:center;">
+34
+</td>
+<td style="text-align:center;">
+40.45
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+24.6
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+16.95
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+SAG
+</td>
+<td style="text-align:center;">
+42
+</td>
+<td style="text-align:center;">
+42.92
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
+26.1
+</td>
+<td style="text-align:center;">
+19
+</td>
+<td style="text-align:center;">
+17.98
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+SLG
+</td>
+<td style="text-align:center;">
+72
+</td>
+<td style="text-align:center;">
+64.63
+</td>
+<td style="text-align:center;">
+36
+</td>
+<td style="text-align:center;">
+39.3
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+27.07
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.9.</strong> Frecuencias observadas y esperadas bajo independencia para FJUR <span class="math inline">\(\\times\)</span> EFLO.</p>
+</div>
+<p>Las diferencias entre observadas y esperadas son pequeñas, del orden de tres o cuatro casos por celda a lo sumo. Al aplicar la fórmula de Pearson,</p>
+<p><span class="math display">\[
+\chi^{2} \;=\; \sum_{i,j} \frac{(n_{ij} - n^{*}_{ij})^{2}}{n^{*}_{ij}} \;=\; 3,86,
+\]</span></p>
+<p>obtenemos un valor <strong>modesto</strong> para una tabla de <span class="math inline">\(3\times 3\)</span> con <span class="math inline">\(300\)</span> observaciones. Aunque todavía no dispongamos de un umbral formal, la magnitud sugiere que <strong>no hay evidencia clara de asociación</strong> entre la forma jurídica y el estado de la flota: las tres formas jurídicas parecen distribuir sus flotas entre los tres estados aproximadamente en las mismas proporciones. Cuando en el bloque de Inferencia estudiemos formalmente la prueba ji-cuadrado, veremos que esta tabla efectivamente no permite rechazar la hipótesis de independencia.</p>
+</div>
+<div id="chi-shuttlepod" class="section level3" number="3.4.3">
+<h3>
+<span class="header-section-number">3.4.3</span> Ejemplo 2: dependencia intermedia (Shuttlepod Movers).<a class="anchor" aria-label="anchor" href="#chi-shuttlepod"><i class="fas fa-link"></i></a>
+</h3>
+<p>Volvamos a <em>Shuttlepod Movers</em> y calculemos ahora el estadístico de Pearson para el cruce salario <span class="math inline">\(\times\)</span> estudios. Sobre las tablas observada y esperada que ya hemos manejado:</p>
+<p><span class="math display">\[
+\chi^{2}_{\text{Shuttlepod}} \;=\; 23,35.
+\]</span></p>
+<p>En una tabla de <span class="math inline">\(3\times 3\)</span> con <span class="math inline">\(49\)</span> casos, este valor es netamente mayor que el que obtuvimos en R-Stars (<span class="math inline">\(3,86\)</span> para <span class="math inline">\(300\)</span> casos y la misma dimensión) y perfectamente detectable. Estamos ante una <strong>dependencia real y graduada</strong>: los tres colectivos de estudios se separan, pero no de manera excluyente (todavía hay universitarios con salario medio, empleados con estudios medios en los tres tramos, etc.). En el próximo capítulo veremos cómo cuantificar la intensidad de esta asociación con medidas específicas.</p>
+</div>
+<div id="chi-astillero-sede" class="section level3" number="3.4.4">
+<h3>
+<span class="header-section-number">3.4.4</span> Ejemplo 3: asociación absoluta (astilleros y sedes).<a class="anchor" aria-label="anchor" href="#chi-astillero-sede"><i class="fas fa-link"></i></a>
+</h3>
+<p>El extremo opuesto lo encontramos, también en la muestra R-Stars, al cruzar el <strong>astillero constructor</strong> de cada nave (KORRIGAN, SELENE, ARCTURUS) con la <strong>sede base</strong> desde la que opera:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+Astillero
+</th>
+<th style="text-align:center;">
+Klendathu
+</th>
+<th style="text-align:center;">
+Mustafar
+</th>
+<th style="text-align:center;">
+Coruscant
+</th>
+<th style="text-align:center;">
+Risa
+</th>
+<th style="text-align:center;">
+Arrakis
+</th>
+<th style="text-align:center;">
+Tatooine
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+ARCTURUS
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+KORRIGAN
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+SELENE
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.10.</strong> Astillero constructor <span class="math inline">\(\\times\)</span> sede base (fragmento representativo). Cada astillero opera desde un conjunto disjunto de sedes.</p>
+</div>
+<p>Aquí la estructura es diametralmente opuesta: cada astillero opera <strong>exclusivamente</strong> desde un conjunto propio de sedes. KORRIGAN construye sus cargueros y los estaciona en Klendathu, Mustafar, Hoth y Romulus; SELENE, en Coruscant, Fhloston, Risa y Pandora; ARCTURUS, en Arrakis, Tatooine, Vulcano y Qo’noS. Bajo independencia, cada celda debería contener aproximadamente <span class="math inline">\(16 \cdot 4 / 48 \approx 1{,}33\)</span> cargueros; observamos, en cada casilla, o bien <span class="math inline">\(4\)</span> o bien <span class="math inline">\(0\)</span>. El estadístico de Pearson se dispara:</p>
+<p><span class="math display">\[
+\chi^{2}_{\text{astilleros}} \;=\; 96.
+\]</span></p>
+<p>Un valor muy elevado incluso para una tabla de <span class="math inline">\(3 \times 12\)</span>: existe una <strong>asociación estadística absoluta</strong> entre astillero y sede, en el sentido literal de que conocer un valor determina completamente el otro. En términos económicos, la lectura es transparente: los tres astilleros han construido su red logística de bases operativas en zonas geográficas exclusivas, sin solaparse.</p>
+<p>Los tres ejemplos, resumidos, componen una escala clara:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="23%">
+<col width="14%">
+<col width="6%">
+<col width="27%">
+<col width="28%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Cruce</th>
+<th align="center">Tamaño</th>
+<th align="center"><span class="math inline">\(N\)</span></th>
+<th align="center"><span class="math inline">\(\chi^{2}\)</span></th>
+<th align="center">Lectura</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">FJUR <span class="math inline">\(\times\)</span> EFLO</td>
+<td align="center"><span class="math inline">\(3\times 3\)</span></td>
+<td align="center"><span class="math inline">\(300\)</span></td>
+<td align="center"><span class="math inline">\(3,86\)</span></td>
+<td align="center">Sin evidencia de asociación</td>
+</tr>
+<tr class="even">
+<td align="center">Salario <span class="math inline">\(\times\)</span> estudios</td>
+<td align="center"><span class="math inline">\(3\times 3\)</span></td>
+<td align="center"><span class="math inline">\(49\)</span></td>
+<td align="center"><span class="math inline">\(23,35\)</span></td>
+<td align="center">Dependencia intermedia</td>
+</tr>
+<tr class="odd">
+<td align="center">Astillero <span class="math inline">\(\times\)</span> sede</td>
+<td align="center"><span class="math inline">\(3\times 12\)</span></td>
+<td align="center"><span class="math inline">\(48\)</span></td>
+<td align="center"><span class="math inline">\(96\)</span></td>
+<td align="center">Asociación absoluta</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.11</strong></p>
+</div>
+</div>
+</div>
+<div id="n-dimensional" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Extensión al caso <span class="math inline">\(n\)</span>-dimensional.<a class="anchor" aria-label="anchor" href="#n-dimensional"><i class="fas fa-link"></i></a>
+</h2>
+<p>Todo cuanto hemos hecho para dos variables se generaliza al caso de <span class="math inline">\(n\)</span> variables medidas simultáneamente sobre cada individuo. La tabla de correlación deja de ser un rectángulo para convertirse en un objeto de <span class="math inline">\(n\)</span> dimensiones (imposible de dibujar cuando <span class="math inline">\(n &gt; 3\)</span>, pero perfectamente manejable numéricamente); las frecuencias marginales se pueden calcular sobre cualquier subconjunto de variables; y las condicionadas admiten condicionar sobre uno o varios valores simultáneamente.</p>
+<p>En la muestra R-Stars, por ejemplo, tenemos casi treinta variables por compañía. Podríamos estudiar el cruce <strong>triple</strong> de forma jurídica <span class="math inline">\(\times\)</span> estado de la flota <span class="math inline">\(\times\)</span> galaxia de sede, o el cruce de todas las variables cuantitativas simultáneamente. Los conceptos son los mismos —independencia, dependencia, momentos, covarianza— pero su formalización se vuelve engorrosa y, sobre todo, la <strong>interpretación</strong> se vuelve exponencialmente más difícil. Una tabla de <span class="math inline">\(3\times 3\times 5\)</span> ya tiene <span class="math inline">\(45\)</span> casillas; una de <span class="math inline">\(5\times 5\times 5\times 5\)</span>, seiscientas veinticinco.</p>
+<p>La respuesta habitual en el análisis multivariante consiste en pasar de “mirar la tabla entera” a construir <strong>indicadores globales</strong> que resuman la estructura de dependencias. La <strong>matriz de covarianzas</strong>, por ejemplo, condensa en una tabla <span class="math inline">\(n\times n\)</span> la covarianza de cada par de variables cuantitativas; y a partir de ella (y de las varianzas), la <strong>matriz de correlaciones</strong>, con la que tantas veces se abre un informe econométrico. Ambas herramientas serán utilizadas cuando estudiemos regresión lineal en el capítulo siguiente y, sobre todo, en el bloque de Inferencia.</p>
+</div>
+<div id="recapitulacion-cap03" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> Recapitulación.<a class="anchor" aria-label="anchor" href="#recapitulacion-cap03"><i class="fas fa-link"></i></a>
+</h2>
+<p>En este capítulo hemos dado el salto de una a dos variables (y hemos apuntado el paso a <span class="math inline">\(n\)</span>). Los conceptos que quedan como equipaje mínimo son:</p>
+<ul>
+<li>Los datos se organizan en una <strong>tabla de correlación</strong> (o de contingencia) con frecuencias absolutas conjuntas <span class="math inline">\(n_{ij}\)</span> y marginales <span class="math inline">\(n_{i\bullet}\)</span>, <span class="math inline">\(n_{\bullet j}\)</span>.</li>
+<li>Las <strong>frecuencias condicionadas</strong> —perfiles de una variable dentro de cada grupo de la otra— son la lectura más útil para explorar relaciones.</li>
+<li>
+<strong>Independencia estadística</strong> significa que conocer una variable no aporta información sobre la otra. La condición operativa es <span class="math inline">\(f_{ij} = f_{i\bullet}\cdot f_{\bullet j}\)</span> en todas las celdas, o equivalentemente <span class="math inline">\(n_{ij} = n^{*}_{ij} = n_{i\bullet}\, n_{\bullet j}/N\)</span>.</li>
+<li>Si no se cumple esa condición, hay <strong>dependencia estadística</strong> (variables cuantitativas) o <strong>asociación</strong> (atributos). Dependencia estadística <strong>no es causalidad</strong>.</li>
+<li>La <strong>covarianza</strong> <span class="math inline">\(S_{xy}\)</span> resume, en un solo número, la relación <em>lineal</em> entre dos variables cuantitativas. Es positiva si la relación es directa y negativa si es inversa. Independencia <span class="math inline">\(\Rightarrow S_{xy} = 0\)</span>, pero el recíproco no es cierto.</li>
+<li>En <strong>tablas de contingencia</strong> entre atributos, se compara la tabla observada con la que produciría la independencia. El <strong>estadístico ji-cuadrado de Pearson</strong> resume esa comparación en un solo número: cerca de cero, no hay evidencia de asociación; muy grande, sí la hay.</li>
+</ul>
+<p>Este capítulo se ha limitado a la pregunta <strong>cualitativa</strong>: ¿existe o no existe relación estadística? En el próximo daremos el siguiente paso lógico. Cuando la relación exista, será importante medir <strong>cuán intensa</strong> es (mediante el <strong>coeficiente de correlación</strong>), y <strong>qué forma</strong> tiene, es decir, cómo se puede aproximar una variable a partir de la otra (mediante la <strong>regresión</strong>). <em>Hyperdrive Express</em>, <em>Shuttlepod Movers</em>, la flota de astilleros y la muestra completa de <span class="math inline">\(300\)</span> compañías R-Stars nos seguirán acompañando: ya conocemos su fotografía univariante y bidimensional; toca cuantificar lo que se ve.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="variable-estadistica-unidimensional.html"><span class="header-section-number">2</span> Variable estadística unidimensional.</a></div>
+<div class="next"><a href="regresi%C3%B3n-y-correlaci%C3%B3n..html"><span class="header-section-number">4</span> Regresión y correlación.</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#variable-estadistica-bidimensional"><span class="header-section-number">3</span> Variable estadística bidimensional y n-dimensional.</a></li>
+<li>
+<a class="nav-link" href="#tabla-correlacion"><span class="header-section-number">3.1</span> De una a dos variables: la tabla de correlación.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#ejemplo-shuttlepod"><span class="header-section-number">3.1.1</span> Un ejemplo: la plantilla de Shuttlepod Movers.</a></li>
+<li><a class="nav-link" href="#frecuencias-relativas-2d"><span class="header-section-number">3.1.2</span> Frecuencias relativas.</a></li>
+<li><a class="nav-link" href="#distribuciones-condicionadas"><span class="header-section-number">3.1.3</span> Distribuciones condicionadas.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#independencia-dependencia"><span class="header-section-number">3.2</span> Independencia y dependencia estadística.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#condicion-independencia"><span class="header-section-number">3.2.1</span> La condición operativa: producto de marginales.</a></li>
+<li><a class="nav-link" href="#ejemplo-independencia"><span class="header-section-number">3.2.2</span> Un ejemplo pedagógico: independencia “perfecta”.</a></li>
+<li><a class="nav-link" href="#ejemplo-dependencia"><span class="header-section-number">3.2.3</span> Un ejemplo real: la plantilla de Shuttlepod Movers.</a></li>
+<li><a class="nav-link" href="#dependencia-no-causalidad"><span class="header-section-number">3.2.4</span> Dependencia estadística y causalidad.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#momentos-bidimensionales"><span class="header-section-number">3.3</span> Momentos bidimensionales.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#momentos-origen-2d"><span class="header-section-number">3.3.1</span> Momentos respecto al origen.</a></li>
+<li><a class="nav-link" href="#momentos-media-2d"><span class="header-section-number">3.3.2</span> Momentos respecto a las medias: varianzas y covarianza.</a></li>
+<li><a class="nav-link" href="#interpretacion-covarianza"><span class="header-section-number">3.3.3</span> El signo (y la magnitud) de la covarianza.</a></li>
+<li><a class="nav-link" href="#ejemplo-covarianza"><span class="header-section-number">3.3.4</span> Un ejemplo cuantitativo: antigüedad y tonelaje en la flota R-Stars.</a></li>
+<li><a class="nav-link" href="#covarianza-independencia"><span class="header-section-number">3.3.5</span> La covarianza y la independencia: una relación asimétrica.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#tablas-contingencia"><span class="header-section-number">3.4</span> Tablas de contingencia y asociación entre atributos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#problema-chi-cuadrado"><span class="header-section-number">3.4.1</span> Un problema práctico: ¿cuánto es “cerca”?</a></li>
+<li><a class="nav-link" href="#chi-fjur-eflo"><span class="header-section-number">3.4.2</span> Ejemplo 1: forma jurídica y estado de la flota (R-Stars).</a></li>
+<li><a class="nav-link" href="#chi-shuttlepod"><span class="header-section-number">3.4.3</span> Ejemplo 2: dependencia intermedia (Shuttlepod Movers).</a></li>
+<li><a class="nav-link" href="#chi-astillero-sede"><span class="header-section-number">3.4.4</span> Ejemplo 3: asociación absoluta (astilleros y sedes).</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#n-dimensional"><span class="header-section-number">3.5</span> Extensión al caso \(n\)-dimensional.</a></li>
+<li><a class="nav-link" href="#recapitulacion-cap03"><span class="header-section-number">3.6</span> Recapitulación.</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-07-02.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
