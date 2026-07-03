@@ -64,7 +64,7 @@ astilleros <- read_excel("data/astilleros_48.xlsx",    sheet = "Datos") %>%
   rename(ANTIG = `ANTIGÜEDAD`)
 ```
 
-![Cuando la información se cruza: dos variables, una historia.](figuras/03_puente_cruce.jpg){.portada-img width="100%"}
+![Cuando la información se cruza: dos variables, una historia.](figuras/03_astronautas.jpg){.portada-img width="100%"}
 
 En los dos capítulos anteriores hemos aprendido a describir **una** característica cada vez. Ese análisis univariante es el punto de partida imprescindible, pero rara vez es el objetivo final. La mayor parte de las preguntas interesantes en Economía y Empresa nacen del cruce de dos o más variables: *¿ganan más los universitarios?*, *¿son las compañías más grandes también las más rentables?*, *¿los cargueros más antiguos tienen más tonelaje?*, *¿asocian los distintos astilleros sus bases operativas a las mismas galaxias?* En todos estos casos, la pregunta no puede contestarse mirando una única variable: hace falta poner **dos características simultáneamente** sobre cada individuo y estudiar cómo se relacionan.
 

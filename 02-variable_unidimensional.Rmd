@@ -22,7 +22,7 @@ hyperdrive <- data.frame(
 hyperdrive_ceo <- rbind(hyperdrive, data.frame(salario = 100))
 ```
 
-![](figuras/02_puente_mando.jpg)
+![Una característica, una variable. Y mucha información.](figuras/02_aterrizaje.jpg){.portada-img width="100%"}
 
 **Figura 2.1.** Cuadros de mando y medidas de resumen: síntesis para decidir.
 

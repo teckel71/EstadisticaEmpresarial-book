@@ -64,7 +64,7 @@ astilleros <- read_excel("data/astilleros_48.xlsx",    sheet = "Datos") %>%
   rename(ANTIG = `ANTIGÜEDAD`)
 ```
 
-![](figuras/03_puente_cruce.jpg){.portada-img width="100%"}
+![](figuras/03_astronautas.jpg){.portada-img width="100%"}
 
 ::: {style="text-align: center;"}
 **Figura 3.1.** [Cuando la información se cruza: dos variables, una historia.]{.smallcaps}

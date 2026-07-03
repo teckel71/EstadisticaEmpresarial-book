@@ -22,10 +22,10 @@ hyperdrive <- data.frame(
 hyperdrive_ceo <- rbind(hyperdrive, data.frame(salario = 100))
 ```
 
-![](figuras/02_puente_mando.jpg)
+![](figuras/02_aterrizaje.jpg){.portada-img width="100%"}
 
 ::: {style="text-align: center;"}
-**Figura 2.1**
+**Figura 2.1.** [Una característica, una variable. Y mucha información.]{.smallcaps}
 :::
 
 
