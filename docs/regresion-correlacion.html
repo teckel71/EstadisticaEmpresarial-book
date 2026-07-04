@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>4 Regresión y correlación. | Estadística Empresarial</title>
+<meta name="author" content="Miguel Ángel Tarancón Morán">
+<meta name="description" content="Figura 4.1. Cuando la relación existe, toca ponerle números: intensidad y forma. En el capítulo anterior aprendimos a plantearnos una pregunta binaria —¿existe o no existe relación estadística...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="4 Regresión y correlación. | Estadística Empresarial">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://teckel71.github.io/EstadisticaEmpresarial-book/regresion-correlacion.html">
+<meta property="og:image" content="https://teckel71.github.io/EstadisticaEmpresarial-book/figuras/EE_portada.jpg">
+<meta property="og:description" content="Figura 4.1. Cuando la relación existe, toca ponerle números: intensidad y forma. En el capítulo anterior aprendimos a plantearnos una pregunta binaria —¿existe o no existe relación estadística...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4 Regresión y correlación. | Estadística Empresarial">
+<meta name="twitter:description" content="Figura 4.1. Cuando la relación existe, toca ponerle números: intensidad y forma. En el capítulo anterior aprendimos a plantearnos una pregunta binaria —¿existe o no existe relación estadística...">
+<meta name="twitter:image" content="https://teckel71.github.io/EstadisticaEmpresarial-book/figuras/EE_portada.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Serif_4-0.4.10/font.css" rel="stylesheet">
+<link href="libs/JetBrains_Mono-0.4.10/font.css" rel="stylesheet">
+<link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Estadística Empresarial</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">4</span> Regresión y correlación.</a></li></ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="regresion-correlacion" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Regresión y correlación.<a class="anchor" aria-label="anchor" href="#regresion-correlacion"><i class="fas fa-link"></i></a>
+</h1>
+<div class="inline-figure"><img src="figuras/04_regresion.jpg" class="portada-img" style="width:100.0%"></div>
+<div style="text-align: center;">
+<p><strong>Figura 4.1.</strong> <span class="smallcaps">Cuando la relación existe, toca ponerle números: intensidad y forma.</span></p>
+</div>
+<p>En el capítulo anterior aprendimos a plantearnos una pregunta binaria —<em>¿existe o no existe relación estadística entre estas dos variables?</em>— y a contestarla con la ayuda de la tabla de correlación, las frecuencias condicionadas, el signo de la covarianza y, cuando ambas eran atributos, el estadístico ji-cuadrado. Terminamos la película con un puñado de casos en los que la respuesta era claramente afirmativa: en la plantilla de <em>Shuttlepod Movers</em> estudios y salario se movían juntos, en la flota de <span class="math inline">\(48\)</span> cargueros la antigüedad iba de la mano del tonelaje, en los tres astilleros galácticos la sede base dependía por completo del constructor.</p>
+<p>Detectada la dependencia, entramos ahora en el terreno de las preguntas <strong>cuantitativas</strong>. Aceptemos que las dos variables se relacionan y planteemos, con toda la sangre fría:</p>
+<ul>
+<li>¿Con qué <strong>intensidad</strong> se relacionan? ¿Es una relación férrea, casi determinista, o apenas una tendencia con mucho ruido? Ese es el terreno del <strong>análisis de correlación</strong>.</li>
+<li>¿Qué <strong>forma</strong> toma esa relación? ¿Podemos escribir una fórmula sencilla —una recta, una curva— que aproxime una variable a partir de la otra y permita <strong>prever</strong> valores? Ese es el terreno del <strong>análisis de regresión</strong>.</li>
+</ul>
+<p>Correlación y regresión son las dos caras de la misma moneda: la primera mide <em>cuánto</em> se parecen dos variables en su comportamiento; la segunda propone <em>cómo</em> se parecen. Ambas dan por sentado —y este es un requisito irrenunciable— que en la etapa anterior hemos comprobado que hay algo que medir. Ajustar una regresión a dos variables independientes es como calcular la media geométrica de un conjunto de temperaturas: técnicamente posible, epistemológicamente estéril.</p>
+<p>Advertimos ya un punto que reaparecerá en varios sitios del capítulo. Como en el anterior, <strong>relación estadística no es relación causal</strong>. La regresión que ajustemos entre dos variables y el coeficiente de correlación que resumamos entre ellas son descripciones matemáticas de un patrón común de comportamiento; nada nos dice, por sí mismos, que una variable esté <em>causando</em> a la otra. La tentación de leer una regresión como una explicación causal es probablemente el error más frecuente entre quienes empiezan —y también, todo hay que decirlo, entre bastantes que ya deberían haber dejado de empezar.</p>
+<div id="regresion-idea" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Regresión: idea general.<a class="anchor" aria-label="anchor" href="#regresion-idea"><i class="fas fa-link"></i></a>
+</h2>
+<p>Supongamos que sobre cada individuo hemos medido dos variables cuantitativas <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> y que, tras la exploración del capítulo anterior, sabemos que existe alguna dependencia estadística entre ellas. Uno de los papeles puede desempeñarlo cualquiera, pero en la práctica solemos designar a una de ellas como <strong>variable explicada</strong> o <strong>dependiente</strong> (habitualmente <span class="math inline">\(Y\)</span>, la que queremos aproximar o predecir) y a la otra como <strong>variable explicativa</strong> o <strong>independiente</strong> (habitualmente <span class="math inline">\(X\)</span>, aquella que consideramos “informativa” sobre la primera).</p>
+<p>El <strong>análisis de regresión</strong> consiste en encontrar una función matemática</p>
+<p><span class="math display">\[
+\hat{y}_i \;=\; f(x_i)
+\]</span></p>
+<p>que aproxime, lo mejor posible, los valores observados de <span class="math inline">\(Y\)</span> a partir de los de <span class="math inline">\(X\)</span>. El sombrero sobre la <span class="math inline">\(y\)</span> es una advertencia tipográfica útil: <span class="math inline">\(\hat{y}_i\)</span> no es un valor observado, sino un valor <em>propuesto</em> por el modelo; el valor observado —el que aparece en el fichero, el que registra la nave, el que cobra el empleado— seguirá siendo <span class="math inline">\(y_j\)</span>.</p>
+<p>Como ninguna función <span class="math inline">\(f\)</span> podrá pasar por todos los puntos a la vez (el capítulo anterior nos advirtió que la vida no suele ser tan ordenada), la aproximación cometerá <strong>errores</strong>, uno por cada caso observado, que llamaremos <strong>residuos</strong>:</p>
+<p><span class="math display">\[
+e_{ij} \;=\; y_j - \hat{y}_i \;\;\Longleftrightarrow\;\; y_j \;=\; \hat{y}_i + e_{ij}.
+\]</span></p>
+<p>La descomposición anterior es la más importante del capítulo y conviene fijarla desde ya: <strong>valor observado = valor previsto por la regresión + residuo</strong>. La regresión será tanto más útil cuanto más pequeños sean, en promedio, esos residuos.</p>
+<div id="regresion-tipos" class="section level3" number="4.1.1">
+<h3>
+<span class="header-section-number">4.1.1</span> Regresión simple, regresión múltiple y tipos.<a class="anchor" aria-label="anchor" href="#regresion-tipos"><i class="fas fa-link"></i></a>
+</h3>
+<p>Cuando la variable explicativa es una sola —el caso al que dedicaremos casi todo el capítulo— hablamos de <strong>regresión simple</strong>. Si hay varias, <span class="math inline">\(X_1, X_2, \ldots, X_p\)</span>, hablamos de <strong>regresión múltiple</strong>: la trataremos con brevedad al final, sin entrar en su maquinaria matricial.</p>
+<p>Hay además una distinción clásica en la literatura entre dos tipos de regresión, según qué se persiga con el ajuste:</p>
+<ul>
+<li>
+<strong>Regresión tipo I.</strong> Se busca la función matemática que mejor represente la nube de puntos observada, sin ninguna pretensión probabilística. La regresión es una <strong>descripción</strong>: un resumen gráfico y numérico de la relación entre las dos variables.</li>
+<li>
+<strong>Regresión tipo II.</strong> Se asume un modelo probabilístico subyacente —que los datos vienen de una población en la que <span class="math inline">\(Y\)</span> y <span class="math inline">\(X\)</span> se relacionan de cierta forma más la aleatoriedad del muestreo— y se estima ese modelo. La regresión se convierte en una herramienta de <strong>inferencia</strong>: sirve para extraer conclusiones sobre la población y no sólo sobre los datos que tenemos delante.</li>
+</ul>
+<p>En este capítulo trabajaremos exclusivamente con regresión de tipo I. La versión inferencial aparecerá, en el bloque de Inferencia y Econometría, cuando dispongamos de las herramientas probabilísticas necesarias.</p>
+</div>
+<div id="forma-funcional" class="section level3" number="4.1.2">
+<h3>
+<span class="header-section-number">4.1.2</span> Forma funcional y parámetros.<a class="anchor" aria-label="anchor" href="#forma-funcional"><i class="fas fa-link"></i></a>
+</h3>
+<p>Toda regresión consta de dos ingredientes que conviene distinguir con cuidado:</p>
+<ul>
+<li>La <strong>forma funcional</strong>, es decir, el tipo de función matemática que proponemos. Una recta, una parábola, una exponencial, una función logística… la elección es previa y refleja la hipótesis que hacemos sobre cómo se relacionan <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.</li>
+<li>Los <strong>parámetros</strong>, esto es, las constantes que aparecen en la forma funcional (los coeficientes de la recta, los de la parábola, la base de la exponencial…), cuyos valores concretos hay que <strong>estimar</strong> a partir de los datos.</li>
+</ul>
+<p>Un puñado de ejemplos ilustra la variedad de formas funcionales que podemos plantear:</p>
+<p><span class="math display">\[
+\begin{array}{ll}
+\hat{y}_i = a + b\, x_i                       &amp; \text{(lineal)},\\[4pt]
+\hat{y}_i = a + b\, x_i + c\, x_i^{\,2}       &amp; \text{(parabólica)},\\[4pt]
+\hat{y}_i = a\cdot x_i^{\,b}                  &amp; \text{(potencial)},\\[4pt]
+\hat{y}_i = a\cdot b^{\,x_i}                  &amp; \text{(exponencial)},\\[4pt]
+\hat{y}_i = \dfrac{1}{1 + e^{-(a + b\, x_i)}} &amp; \text{(logística)}.
+\end{array}
+\]</span></p>
+<p>En cada forma, las letras <span class="math inline">\(a, b, c, \ldots\)</span> son los parámetros a estimar. En la lineal hay dos (<span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span>), en la parabólica tres, en la potencial y en la exponencial dos… La forma la propone el analista (a menudo mirando la nube de puntos); los parámetros los proponen los datos.</p>
+<div class="callout-tip">
+<p>La elección de la forma funcional es probablemente el momento más creativo —y más peligroso— del análisis. Una nube de puntos con forma de curva mansa se puede aproximar bien con una recta si uno cierra un ojo, o con un polinomio de grado siete si uno tiene menos escrúpulos que datos. La virtud del analista consiste en encontrar el equilibrio entre <strong>simplicidad</strong> (pocos parámetros, interpretación clara) y <strong>fidelidad</strong> (residuos pequeños). La regla del pulgar es preferir la forma más simple compatible con la estructura visible en la nube.</p>
+</div>
+</div>
+<div id="minimos-cuadrados" class="section level3" number="4.1.3">
+<h3>
+<span class="header-section-number">4.1.3</span> El criterio de estimación: mínimos cuadrados.<a class="anchor" aria-label="anchor" href="#minimos-cuadrados"><i class="fas fa-link"></i></a>
+</h3>
+<p>Fijada la forma funcional, quedan por concretar los valores de los parámetros. ¿Qué criterio nos dice que unos valores son mejores que otros? La respuesta —clásica, sencilla, y con el sello de Gauss y Legendre desde principios del siglo XIX— es el <strong>criterio de mínimos cuadrados</strong>: elegir aquellos parámetros que hagan <strong>mínima la suma de los cuadrados de los residuos</strong>, ponderados por la frecuencia de cada caso:</p>
+<p><span class="math display">\[
+\min_{\text{parámetros}} \;\; \sum_{i=1}^{h}\sum_{j=1}^{k} e_{ij}^{\,2}\, n_{ij}
+\;\;=\;\;
+\min_{\text{parámetros}} \;\; \sum_{i=1}^{h}\sum_{j=1}^{k} \bigl(y_j - \hat{y}_i\bigr)^{2}\, n_{ij}.
+\]</span></p>
+<p>La elección del cuadrado no es caprichosa. Si sumásemos los residuos con su signo, los positivos y los negativos se cancelarían y el criterio sería trivialmente satisfecho por cualquier recta que pasara por el centro de la nube. Sumar los cuadrados evita esas cancelaciones, penaliza especialmente los residuos grandes (un residuo de <span class="math inline">\(10\)</span> pesa cuatro veces más que uno de <span class="math inline">\(5\)</span>) y —esto es lo que lo hace matemáticamente maravilloso— da lugar a un problema de minimización con solución cerrada, casi mágica, que se puede escribir con lápiz y papel. Otros criterios son concebibles (minimizar la suma de valores absolutos, minimizar el residuo máximo, etc.), pero el mínimo-cuadrático es el estándar universal y el que emplearemos.</p>
+</div>
+</div>
+<div id="regresion-lineal-simple" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Regresión lineal simple.<a class="anchor" aria-label="anchor" href="#regresion-lineal-simple"><i class="fas fa-link"></i></a>
+</h2>
+<p>De todas las formas funcionales posibles, la más simple —y la que utilizaremos de referencia durante todo el capítulo— es la <strong>recta</strong>:</p>
+<p><span class="math display">\[
+\hat{y}_i \;=\; a + b\, x_i.
+\]</span></p>
+<p>Los parámetros a estimar son el <strong>término independiente</strong> <span class="math inline">\(a\)</span> (el valor que la regresión asigna a <span class="math inline">\(\hat{y}\)</span> cuando <span class="math inline">\(x = 0\)</span>) y la <strong>pendiente</strong> <span class="math inline">\(b\)</span> (la variación de <span class="math inline">\(\hat{y}\)</span> ante un incremento unitario de <span class="math inline">\(x\)</span>). Aplicando el criterio de mínimos cuadrados,</p>
+<p><span class="math display">\[
+\min_{a, b} \;\; \sum_{i, j} \bigl(y_j - a - b\, x_i\bigr)^{2}\, n_{ij},
+\]</span></p>
+<p>y derivando respecto a <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> e igualando a cero, se obtiene el par de fórmulas que constituye la columna vertebral del capítulo:</p>
+<p><span class="math display">\[
+\boxed{\;\; \hat{b} \;=\; \dfrac{S_{xy}}{S_x^{\,2}}, \qquad
+              \hat{a} \;=\; \overline{y} \;-\; \hat{b}\cdot \overline{x} \;\;}
+\]</span></p>
+<p>Merece la pena leerlas despacio.</p>
+<p>La pendiente <span class="math inline">\(\hat{b}\)</span> es un cociente entre la <strong>covarianza</strong> <span class="math inline">\(S_{xy}\)</span> —esa medida bidimensional que introdujimos en el capítulo anterior— y la <strong>varianza de la variable explicativa</strong> <span class="math inline">\(S_x^{\,2}\)</span>. La covarianza aporta el signo y el “acoplamiento direccional” entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>; la varianza de <span class="math inline">\(X\)</span> normaliza para que el resultado esté expresado en unidades correctas (unidades de <span class="math inline">\(Y\)</span> por cada unidad de <span class="math inline">\(X\)</span>). Por eso <span class="math inline">\(\hat{b}\)</span> hereda el signo de la covarianza: si <span class="math inline">\(S_{xy} &gt; 0\)</span>, la recta sube; si <span class="math inline">\(S_{xy} &lt; 0\)</span>, la recta baja.</p>
+<p>El término independiente <span class="math inline">\(\hat{a}\)</span>, por su parte, se define de tal modo que la recta pase por el <strong>punto medio de la nube</strong>: el par <span class="math inline">\((\overline{x},\, \overline{y})\)</span>. Se comprueba en un segundo: si en <span class="math inline">\(\hat{y} = \hat{a} + \hat{b}\, x\)</span> sustituimos <span class="math inline">\(x = \overline{x}\)</span>, obtenemos</p>
+<p><span class="math display">\[
+\hat{a} + \hat{b}\, \overline{x} \;=\; \overline{y} - \hat{b}\, \overline{x} + \hat{b}\, \overline{x} \;=\; \overline{y}.
+\]</span></p>
+<p>Toda recta de regresión mínimo-cuadrática pasa por el centro de gravedad de la nube de puntos. Es una propiedad estética y práctica: la recta se ancla en el “punto promedio” y desde ahí gira para acomodarse lo mejor posible al resto.</p>
+<div id="interpretacion-coeficientes" class="section level3" number="4.2.1">
+<h3>
+<span class="header-section-number">4.2.1</span> Interpretación de los coeficientes.<a class="anchor" aria-label="anchor" href="#interpretacion-coeficientes"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>
+<span class="math inline">\(\hat{b}\)</span>: cuando <span class="math inline">\(x\)</span> aumenta en una unidad, <span class="math inline">\(\hat{y}\)</span> aumenta en <span class="math inline">\(\hat{b}\)</span> unidades. Es la <strong>variación media</strong> de la variable explicada asociada a un incremento unitario de la explicativa. Se lee en unidades de <span class="math inline">\(Y\)</span> por unidad de <span class="math inline">\(X\)</span>.</li>
+<li>
+<span class="math inline">\(\hat{a}\)</span>: valor que la regresión asigna a <span class="math inline">\(\hat{y}\)</span> cuando <span class="math inline">\(x = 0\)</span>. Su interpretación <em>literal</em> muchas veces no tiene sentido económico (¿qué es una empresa con “cero ingresos”?), y en la práctica se usa sobre todo como parámetro de ajuste que permite fijar la recta.</li>
+</ul>
+<p>Vale la pena insistir: el “<span class="math inline">\(+\)</span>” o el “<span class="math inline">\(-\)</span>” de <span class="math inline">\(\hat{b}\)</span> no habla de causalidad, sino de la dirección conjunta del movimiento. Y su magnitud depende de las unidades: si cambiamos <span class="math inline">\(X\)</span> de años a meses, <span class="math inline">\(\hat{b}\)</span> se dividirá por doce. Para leer intensidades sin la tiranía de las unidades tendremos que esperar al coeficiente de correlación.</p>
+</div>
+<div id="ejemplo-astilleros-reg" class="section level3" number="4.2.2">
+<h3>
+<span class="header-section-number">4.2.2</span> Un ejemplo completo: antigüedad y tonelaje en la flota de astilleros.<a class="anchor" aria-label="anchor" href="#ejemplo-astilleros-reg"><i class="fas fa-link"></i></a>
+</h3>
+<p>Volvamos a la muestra de <strong>48 cargueros</strong> del sector R-Stars construidos por <em>KORRIGAN</em>, <em>SELENE</em> y <em>ARCTURUS</em> que ya nos sirvió en el capítulo anterior para introducir la covarianza. Recordamos el escenario: para cada nave conocemos su <strong>antigüedad</strong> <span class="math inline">\(X\)</span> en años y su <strong>tonelaje</strong> máximo de carga útil <span class="math inline">\(Y\)</span> en miles de toneladas, y calculamos, sobre la tabla agrupada, una covarianza <span class="math inline">\(S_{xy}\)</span> claramente positiva. La pregunta que quedaba en el aire era: <em>¿podemos escribir una recta que resuma esa relación?</em></p>
+<p>Aquí está la tabla de correlación (la misma con la que trabajamos en el capítulo anterior al introducir la covarianza), enriquecida ahora con las columnas y filas auxiliares que necesitamos para la regresión:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+<span class="math inline">\(x_i \setminus y_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(575\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(700\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(800\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(900\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_{i\bullet}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x_i n_{i\bullet}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x_i^{2} n_{i\bullet}\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+2.5
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+14
+</td>
+<td style="text-align:center;">
+35,00
+</td>
+<td style="text-align:center;">
+87,50
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7.5
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+120,00
+</td>
+<td style="text-align:center;">
+900,00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+12.5
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+112,50
+</td>
+<td style="text-align:center;">
+1.406,25
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+17.5
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+140,00
+</td>
+<td style="text-align:center;">
+2.450,00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+25,00
+</td>
+<td style="text-align:center;">
+625,00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(n_{\bullet j}\)</span>
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+48
+</td>
+<td style="text-align:center;">
+432,50
+</td>
+<td style="text-align:center;">
+5.468,75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(y_j\, n_{\bullet j}\)</span>
+</td>
+<td style="text-align:center;">
+7.475
+</td>
+<td style="text-align:center;">
+9.100
+</td>
+<td style="text-align:center;">
+9.600
+</td>
+<td style="text-align:center;">
+9.000
+</td>
+<td style="text-align:center;">
+35.175
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(y_j^{2}\, n_{\bullet j}\)</span>
+</td>
+<td style="text-align:center;">
+4.298.125
+</td>
+<td style="text-align:center;">
+6.370.000
+</td>
+<td style="text-align:center;">
+7.680.000
+</td>
+<td style="text-align:center;">
+8.100.000
+</td>
+<td style="text-align:center;">
+26.448.125
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 4.1.</strong> Tabla de correlación de antigüedad (<span class="math inline">\(X\)</span>) y tonelaje (<span class="math inline">\(Y\)</span>) con las columnas y filas auxiliares para el cálculo directo de los momentos.</p>
+</div>
+<p>Con las marcas de clase <span class="math inline">\(x_i \in \{2{,}5;\ 7{,}5;\ 12{,}5;\ 17{,}5;\ 25\}\)</span> e <span class="math inline">\(y_j \in \{575;\ 700;\ 800;\ 900\}\)</span>, los momentos respecto al origen son los que ya calculamos en el capítulo 3, cuando obtuvimos la covarianza:</p>
+<p><span class="math display">\[
+a_{10} \;=\; 9,0104, \qquad
+a_{01} \;=\; 732,8125, \qquad
+a_{20} \;=\; 113,9323,
+\]</span>
+<span class="math display">\[
+a_{02} \;=\; 551.002,6042, \qquad
+a_{11} \;=\; 6.983,0729.
+\]</span></p>
+<p>Los momentos centrales que nos interesan son la varianza de <span class="math inline">\(X\)</span>, la varianza de <span class="math inline">\(Y\)</span> y la covarianza:</p>
+<p><span class="math display">\[
+S_x^{\,2} \;=\; a_{20} - a_{10}^{\,2} \;=\; 32,7447,\qquad
+S_y^{\,2} \;=\; a_{02} - a_{01}^{\,2} \;=\; 13.988,44,
+\]</span>
+<span class="math display">\[
+S_{xy}   \;=\; a_{11} - a_{10}\cdot a_{01} \;=\; 380,1270.
+\]</span></p>
+<p>Aplicando ahora las fórmulas de la recta mínimo-cuadrática,</p>
+<p><span class="math display">\[
+\hat{b} \;=\; \dfrac{S_{xy}}{S_x^{\,2}} \;=\; \dfrac{380,1270}{32,7447} \;=\; 11,6088,
+\]</span></p>
+<p><span class="math display">\[
+\hat{a} \;=\; \overline{y} - \hat{b}\cdot \overline{x} \;=\; 732,8125 \;-\; 11,6088\cdot 9,0104 \;=\; 628,2122.
+\]</span></p>
+<p>La recta de regresión de tonelaje sobre antigüedad es, por tanto,</p>
+<p><span class="math display">\[
+\boxed{\;\; \hat{y}_i \;=\; 628,21 \;+\; 11,61\cdot x_i \;\;}
+\]</span></p>
+<p>y su lectura práctica es transparente: cada año adicional de antigüedad se asocia, en promedio, con unos <strong>11,61 miles de toneladas más de capacidad de carga</strong>. Un carguero recién estrenado (<span class="math inline">\(x=0\)</span>) tendría, según la recta, unas <span class="math inline">\(628\)</span> mil toneladas de tonelaje típico; un carguero de <span class="math inline">\(10\)</span> años se acerca a las <span class="math inline">\(744\)</span> mil; uno de <span class="math inline">\(20\)</span>, a las <span class="math inline">\(860\)</span>. La flota galáctica se ha ido —dicho llanamente— <em>aligerando</em>.</p>
+<p>Podemos comprobar visualmente el ajuste sobre la nube de puntos original (los <span class="math inline">\(48\)</span> cargueros sin agrupar):</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/astilleros-scatter-reg-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 4.2.</strong> Diagrama de dispersión de la flota y recta ajustada por mínimos cuadrados.</p>
+</div>
+<p>La recta atraviesa la nube con obediencia razonable, pero es evidente que la dispersión alrededor de ella no es despreciable: hay cargueros viejos y ligeros, cargueros nuevos y pesados. La nube tiene una tendencia clara, sí; pero también un ruido considerable. Cuantificar cuán bien —o cuán mal— la recta representa a la nube es la tarea de la sección siguiente.</p>
+</div>
+<div id="prediccion-extrapolacion" class="section level3" number="4.2.3">
+<h3>
+<span class="header-section-number">4.2.3</span> Predicción y una advertencia importante.<a class="anchor" aria-label="anchor" href="#prediccion-extrapolacion"><i class="fas fa-link"></i></a>
+</h3>
+<p>Una vez estimada la recta, uno de sus usos naturales es <strong>prever</strong> el valor de <span class="math inline">\(Y\)</span> para valores de <span class="math inline">\(X\)</span> no observados directamente. Si un potencial cliente pregunta cuál sería el tonelaje típico de un carguero con <span class="math inline">\(22\)</span> años de servicio, la recta responde sin dudar:</p>
+<p><span class="math display">\[
+\hat{y}(22) \;=\; 628,21 + 11,61\cdot 22 \;=\; 883,61 \ \text{miles de toneladas}.
+\]</span></p>
+<p>Predicción y previsión son la aplicación más popular de la regresión: no en vano media econometría del mundo se dedica a estimar rectas para preguntarles cosas después. Ahora bien, un aviso que las guías galácticas de buenas prácticas repiten cada mes en su portada:</p>
+<blockquote>
+<p><strong>Advertencia sobre la extrapolación.</strong> La recta se ha ajustado sobre un rango de valores concreto de la variable explicativa. En nuestro caso, la antigüedad de los cargueros observados va aproximadamente de <span class="math inline">\(2\)</span> a <span class="math inline">\(22\)</span> años. <strong>Fuera de ese rango, la regresión pierde toda garantía.</strong> Preguntar por el tonelaje de un carguero de <span class="math inline">\(80\)</span> años no es hacer una previsión; es hacer un acto de fe. La estructura que hemos observado puede quebrarse en los extremos, aparecer cambios de régimen, o senc­illamente entrar en zonas donde no hay datos que respalden la extrapolación.</p>
+</blockquote>
+<p>Por otro lado, la recta <em>no es</em> una promesa sobre casos individuales: para un carguero concreto de <span class="math inline">\(22\)</span> años, el tonelaje real puede desviarse notablemente del pronóstico. La regresión predice <strong>promedios</strong>, no individuos. Si el residuo típico es de <span class="math inline">\(70\)</span> mil toneladas, el pronóstico “<span class="math inline">\(893\)</span>” hay que leerlo como “en torno a <span class="math inline">\(893\)</span>, con un margen de error del orden de decenas de miles de toneladas”.</p>
+</div>
+</div>
+<div id="bondad-ajuste" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Bondad del ajuste: el coeficiente de determinación.<a class="anchor" aria-label="anchor" href="#bondad-ajuste"><i class="fas fa-link"></i></a>
+</h2>
+<p>Ya sabemos ajustar una recta a una nube de puntos. La pregunta pendiente es: <strong>¿lo hace bien?</strong> Dicho de otro modo: ¿en qué medida los valores previstos <span class="math inline">\(\hat{y}_i\)</span> reproducen los valores realmente observados <span class="math inline">\(y_j\)</span>? Necesitamos una medida numérica de la <strong>calidad del ajuste</strong> que sea comparable entre distintas regresiones y no dependa de las unidades de las variables.</p>
+<p>La idea que hay debajo es tan intuitiva que casi resulta demasiado simple. Descompongamos el desvío de cada observación respecto a la media de <span class="math inline">\(Y\)</span>:</p>
+<p><span class="math display">\[
+y_j - \overline{y} \;=\; \underbrace{\hat{y}_i - \overline{y}}_{\text{parte explicada}} \;+\; \underbrace{e_{ij}}_{\text{parte no explicada}}.
+\]</span></p>
+<p>La lectura es la que sugiere el diagrama: parte de lo que un valor observado se aparta de la media global la “explica” la regresión (la recta lo lleva desde el nivel <span class="math inline">\(\overline{y}\)</span> hasta <span class="math inline">\(\hat{y}_i\)</span>), y otra parte queda sin explicar (el residuo <span class="math inline">\(e_{ij}\)</span>, el trecho que queda entre el pronóstico y el valor real). Elevando al cuadrado, sumando sobre todos los casos con sus frecuencias, dividiendo por <span class="math inline">\(N\)</span> y aprovechando una propiedad que la regresión mínimo-cuadrática garantiza —el término cruzado se anula— se llega a la <strong>descomposición de la varianza</strong>:</p>
+<p><span class="math display">\[
+\underbrace{\dfrac{\sum_j (y_j - \overline{y})^{2}\, n_{\bullet j}}{N}}_{S_y^{\,2}\ \text{(varianza total)}}
+\;\;=\;\;
+\underbrace{\dfrac{\sum_i (\hat{y}_i - \overline{y})^{2}\, n_{i\bullet}}{N}}_{S_{\hat{y}}^{\,2}\ \text{(varianza explicada)}}
+\;\;+\;\;
+\underbrace{\dfrac{\sum_{i,j} e_{ij}^{\,2}\, n_{ij}}{N}}_{S_e^{\,2}\ \text{(varianza residual)}}.
+\]</span></p>
+<p>En palabras: la varianza total de <span class="math inline">\(Y\)</span> se descompone en la parte que la regresión es capaz de reproducir (la varianza de los pronósticos <span class="math inline">\(\hat{y}_i\)</span>) más la parte que queda como ruido (la varianza de los residuos). Como los tres términos son cantidades positivas y la primera es fija —depende solo de los datos— el problema de ajustar la regresión se puede releer así: cuanto <strong>mayor</strong> sea <span class="math inline">\(S_{\hat{y}}^{\,2}\)</span>, <strong>mejor</strong> el ajuste; cuanto <strong>menor</strong> sea <span class="math inline">\(S_e^{\,2}\)</span>, mejor también. Y estas dos cantidades varían al unísono.</p>
+<p>De ahí la definición canónica del <strong>coeficiente de determinación</strong>:</p>
+<p><span class="math display">\[
+\boxed{\;\; R^{2} \;=\; \dfrac{S_{\hat{y}}^{\,2}}{S_y^{\,2}} \;=\; 1 - \dfrac{S_e^{\,2}}{S_y^{\,2}} \;\;}
+\]</span></p>
+<p><span class="math inline">\(R^2\)</span> es, sin más, la <strong>proporción de la varianza de <span class="math inline">\(Y\)</span> que la regresión es capaz de reproducir</strong>. Como cociente de dos varianzas positivas —una menor o igual que la otra— cumple <span class="math inline">\(0 \le R^2 \le 1\)</span>. Y su lectura no puede ser más agradecida:</p>
+<ul>
+<li>
+<span class="math inline">\(R^{2}\)</span> próximo a <span class="math inline">\(1\)</span>: la regresión captura casi toda la variabilidad de <span class="math inline">\(Y\)</span>. El ajuste es excelente.</li>
+<li>
+<span class="math inline">\(R^{2}\)</span> próximo a <span class="math inline">\(0\)</span>: la regresión no captura nada. La recta es prácticamente horizontal y pasa por <span class="math inline">\(\overline{y}\)</span>; conocer <span class="math inline">\(X\)</span> no ayuda a predecir <span class="math inline">\(Y\)</span>.</li>
+<li>Valores intermedios se interpretan como porcentajes: un <span class="math inline">\(R^{2}\)</span> de <span class="math inline">\(0{,}70\)</span> significa que el modelo reproduce el <span class="math inline">\(70\,\%\)</span> de la variabilidad observada.</li>
+</ul>
+<p>En el caso lineal, un pequeño desarrollo algebraico entrega una fórmula compacta muy útil para calcular <span class="math inline">\(R^{2}\)</span> directamente a partir de los momentos:</p>
+<p><span class="math display">\[
+R^{2} \;=\; \dfrac{S_{xy}^{\,2}}{S_x^{\,2}\cdot S_y^{\,2}}.
+\]</span></p>
+<div id="R2-astilleros" class="section level3" number="4.3.1">
+<h3>
+<span class="header-section-number">4.3.1</span> Vuelta a la flota.<a class="anchor" aria-label="anchor" href="#R2-astilleros"><i class="fas fa-link"></i></a>
+</h3>
+<p>Con los momentos que ya tenemos calculados para el ejemplo de los astilleros:</p>
+<p><span class="math display">\[
+R^{2} \;=\; \dfrac{S_{xy}^{\,2}}{S_x^{\,2}\cdot S_y^{\,2}} \;=\;
+\dfrac{380,1270^{2}}{32,7447\cdot 13.988,44} \;=\; 0,3155.
+\]</span></p>
+<p>Interpretación: la recta que hemos estimado reproduce, aproximadamente, el <strong>31,5,%</strong> de la variabilidad del tonelaje de la flota. No es un mal resultado —hay un patrón claro, y una recta lo captura razonablemente— pero tampoco es un ajuste espectacular: casi <strong>dos tercios</strong> de la variabilidad observada del tonelaje son atribuibles a factores distintos de la antigüedad. Basta con mirar el gráfico anterior para comprender por qué: cargueros del mismo astillero y de antigüedades similares tienen tonelajes muy distintos, y hay una segmentación evidente por astillero (KORRIGAN construye típicamente más pesado que ARCTURUS). Una regresión de tonelaje sobre astillero, o una regresión múltiple que incluya ambos factores, mejoraría muy probablemente el ajuste.</p>
+<div class="callout-tip">
+<p>Un <span class="math inline">\(R^{2}\)</span> moderado no es sinónimo de “regresión mala”: es sinónimo de “conocer <span class="math inline">\(X\)</span> no basta para saberlo todo sobre <span class="math inline">\(Y\)</span>”. En Ciencias Sociales, un <span class="math inline">\(R^{2}\)</span> de <span class="math inline">\(0{,}3\)</span> suele ser un logro respetable —los seres humanos son notoriamente ruidosos— mientras que en Física un <span class="math inline">\(R^{2}\)</span> de <span class="math inline">\(0{,}9\)</span> puede indicar un error de calibración. Todo depende del terreno de juego.</p>
+</div>
+</div>
+</div>
+<div id="correlacion" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> Correlación.<a class="anchor" aria-label="anchor" href="#correlacion"><i class="fas fa-link"></i></a>
+</h2>
+<p>El coeficiente de determinación <span class="math inline">\(R^{2}\)</span> nos dice, en un solo número entre <span class="math inline">\(0\)</span> y <span class="math inline">\(1\)</span>, con qué calidad la regresión reproduce los datos. Ahora bien, esa calidad depende de dos cosas distintas que conviene no confundir:</p>
+<ol style="list-style-type: decimal">
+<li>Si la <strong>forma funcional</strong> propuesta es adecuada. Con datos que se distribuyen en forma de <span class="math inline">\(U\)</span>, una recta obtendrá un <span class="math inline">\(R^{2}\)</span> paupérrimo aunque la relación estadística sea muy intensa: el problema está en la elección de la forma, no en la relación.</li>
+<li>Si la <strong>relación estadística real</strong> entre las dos variables es intensa o débil. Con datos que se dispersan mucho alrededor de la mejor recta posible, el <span class="math inline">\(R^{2}\)</span> será bajo aunque la forma funcional sea la correcta.</li>
+</ol>
+<p>En el análisis de <strong>correlación</strong> damos por supuesto lo primero —hemos elegido bien la forma funcional, típicamente la lineal— y usamos el ajuste para medir lo segundo: cuán intensa es la relación. La medida canónica es el <strong>coeficiente de correlación lineal</strong>, que definimos como</p>
+<p><span class="math display">\[
+R \;=\; \pm\sqrt{R^{2}} \;=\; \pm\sqrt{\,1 - \dfrac{S_e^{\,2}}{S_y^{\,2}}\,},
+\]</span></p>
+<p>con el signo de la covarianza (positivo si <span class="math inline">\(S_{xy} &gt; 0\)</span>, negativo si <span class="math inline">\(S_{xy} &lt; 0\)</span>). En el caso lineal, la expresión se compacta hasta la elegantísima forma cerrada</p>
+<p><span class="math display">\[
+\boxed{\;\; R \;=\; \dfrac{S_{xy}}{S_x \cdot S_y} \;\;}
+\]</span></p>
+<p>donde <span class="math inline">\(S_x\)</span> y <span class="math inline">\(S_y\)</span> son las desviaciones típicas marginales. La lectura es doble:</p>
+<ul>
+<li>
+<strong>Signo:</strong> heredado de la covarianza. Positivo cuando las dos variables tienden a moverse en el mismo sentido; negativo cuando lo hacen en sentidos opuestos.</li>
+<li>
+<strong>Magnitud:</strong> el valor absoluto de <span class="math inline">\(R\)</span> mide la intensidad de la relación lineal. Por construcción, <span class="math inline">\(-1 \le R \le +1\)</span>. Los extremos representan situaciones ideales:
+<ul>
+<li>
+<span class="math inline">\(R = +1\)</span>: todos los puntos caen exactamente sobre una recta de pendiente positiva. Dependencia lineal perfecta y directa.</li>
+<li>
+<span class="math inline">\(R = -1\)</span>: todos los puntos caen exactamente sobre una recta de pendiente negativa. Dependencia lineal perfecta e inversa.</li>
+<li>
+<span class="math inline">\(R = 0\)</span>: no hay relación lineal (aunque, cuidado, sí puede haber relaciones no lineales que <span class="math inline">\(R\)</span> no ve).</li>
+</ul>
+</li>
+</ul>
+<p>Una escala orientativa —no un tribunal universal— que suele emplearse para calificar la intensidad de <span class="math inline">\(R\)</span>:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="20%">
+<col width="79%">
+</colgroup>
+<thead><tr class="header">
+<th align="center"><span class="math inline">\(|R|\)</span></th>
+<th align="left">Lectura habitual</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">
+<span class="math inline">\(0{,}0\)</span>–<span class="math inline">\(0{,}2\)</span>
+</td>
+<td align="left">Relación lineal muy débil o inexistente.</td>
+</tr>
+<tr class="even">
+<td align="center">
+<span class="math inline">\(0{,}2\)</span>–<span class="math inline">\(0{,}5\)</span>
+</td>
+<td align="left">Relación lineal débil.</td>
+</tr>
+<tr class="odd">
+<td align="center">
+<span class="math inline">\(0{,}5\)</span>–<span class="math inline">\(0{,}7\)</span>
+</td>
+<td align="left">Relación lineal moderada.</td>
+</tr>
+<tr class="even">
+<td align="center">
+<span class="math inline">\(0{,}7\)</span>–<span class="math inline">\(0{,}9\)</span>
+</td>
+<td align="left">Relación lineal fuerte.</td>
+</tr>
+<tr class="odd">
+<td align="center">
+<span class="math inline">\(0{,}9\)</span>–<span class="math inline">\(1{,}0\)</span>
+</td>
+<td align="left">Relación lineal muy fuerte, casi determinista.</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 4.2.</strong> Escala orientativa para <span class="math inline">\(|R|\)</span> en el análisis descriptivo.</p>
+</div>
+<div id="R-astilleros" class="section level3" number="4.4.1">
+<h3>
+<span class="header-section-number">4.4.1</span> El coeficiente de correlación en la flota.<a class="anchor" aria-label="anchor" href="#R-astilleros"><i class="fas fa-link"></i></a>
+</h3>
+<p>Retomamos, por última vez en esta sección, la flota de astilleros. Como <span class="math inline">\(S_{xy} &gt; 0\)</span>, el signo de <span class="math inline">\(R\)</span> es positivo, y</p>
+<p><span class="math display">\[
+R \;=\; \dfrac{S_{xy}}{S_x \cdot S_y} \;=\;
+\dfrac{380,1270}{\sqrt{32,7447}\cdot \sqrt{13.988,44}} \;=\; 0,5617.
+\]</span></p>
+<p>Un <span class="math inline">\(R = 0,56\)</span> cae en el terreno de las relaciones <strong>moderadas</strong>: coherente con lo que ya sabíamos —la nube de puntos tenía tendencia clara pero considerable dispersión— y con el <span class="math inline">\(R^{2}\)</span> que habíamos calculado, del que este <span class="math inline">\(R\)</span> es literalmente la raíz cuadrada con el signo de la covarianza.</p>
+<p>Un detalle numérico digno de mención: si comparamos el <span class="math inline">\(R^{2}\)</span> que hemos obtenido sobre la tabla <strong>agrupada</strong> (<span class="math inline">\(R^{2} = 0,315\)</span>) con el que se obtendría sobre los <strong>datos individuales</strong> de los <span class="math inline">\(48\)</span> cargueros sin agrupar (aproximadamente <span class="math inline">\(0{,}39\)</span>), veremos que el segundo es ligeramente mayor. La razón es sencilla: al agrupar en intervalos, sustituimos cada valor por la marca de clase de su intervalo y con ello perdemos algo de información sobre la variabilidad. En estadística descriptiva es un compromiso habitual —ganamos en manejabilidad, perdemos algo en precisión— y forma parte de la mecánica de trabajar con tablas.</p>
+</div>
+<div id="R-rstars-ing-costop" class="section level3" number="4.4.2">
+<h3>
+<span class="header-section-number">4.4.2</span> Un ejemplo con ajuste excelente: ingresos y costos operativos en R-Stars.<a class="anchor" aria-label="anchor" href="#R-rstars-ing-costop"><i class="fas fa-link"></i></a>
+</h3>
+<p>Un <span class="math inline">\(R^{2}\)</span> moderado como el de la flota puede dejarnos con dudas legítimas sobre si la regresión “vale la pena”. Para calibrar, echemos un vistazo a un cruce en el que la relación lineal es contundente. Sobre las <span class="math inline">\(N = 300\)</span> compañías del sector R-Stars, dispongamos en un lado los <strong>ingresos</strong> de cada compañía (<code>ING</code>, en miles de PAVOs) y en el otro sus <strong>costos operativos</strong> (<code>COSTOP</code>, también en miles de PAVOs). La intuición económica es clara —a mayor volumen de actividad, mayores costes de operación— y los datos, esta vez, no van a discutirle nada al intuición.</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/rstars-ing-costop-scatter-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 4.3.</strong> Nube de puntos y recta de regresión sobre las 300 compañías de la muestra R-Stars.</p>
+</div>
+<p>Los coeficientes de la recta ajustada son</p>
+<p><span class="math display">\[
+\hat{a} \;=\; -9,41, \qquad
+\hat{b} \;=\; 0,4909,
+\]</span></p>
+<p>es decir,</p>
+<p><span class="math display">\[
+\hat{y}_i \;=\; -9,41 \;+\; 0,4909\cdot x_i,
+\]</span></p>
+<p>y por cada mil PAVOs adicionales de ingresos, los costos operativos se elevan, en promedio, unos <span class="math inline">\(491\)</span> PAVOs (dicho en corto: cerca de la mitad de cada PAVO facturado acaba absorbido por el coste operativo, un margen bruto que en el sector interestelar no sorprende a nadie). El coeficiente de correlación y el de determinación,</p>
+<p><span class="math display">\[
+R^{2} \;=\; 0,8968, \qquad
+R \;=\; 0,9470,
+\]</span></p>
+<p>reflejan una relación lineal <strong>muy fuerte, casi determinista</strong>: la recta reproduce el <span class="math inline">\(89,7\,\%\)</span> de la variabilidad de los costes. Es lo que en la práctica se llama, con toda propiedad, una relación <em>bien portada</em>.</p>
+</div>
+<div id="correlacion-no-causal" class="section level3" number="4.4.3">
+<h3>
+<span class="header-section-number">4.4.3</span> Correlación no implica causalidad (bis).<a class="anchor" aria-label="anchor" href="#correlacion-no-causal"><i class="fas fa-link"></i></a>
+</h3>
+<p>El aviso ya lo dimos en el capítulo anterior, pero conviene actualizarlo con la munición del presente. Un coeficiente de correlación alto entre dos variables no permite —por sí mismo— extraer ninguna conclusión sobre relaciones de causa a efecto. Es fácil imaginarse el desastre argumental que se puede montar con un <span class="math inline">\(R\)</span> elevado y un poco de mala fe:</p>
+<ul>
+<li>Ingresos y costos operativos de las compañías R-Stars tienen <span class="math inline">\(R = 0,95\)</span>. ¿Los ingresos “causan” los costos? Uno podría defenderlo. ¿Los costos “causan” los ingresos? Otro podría defender lo contrario con la misma insolencia. La verdad prosaica es que ambos crecen porque las compañías crecen: los dos son manifestaciones de una tercera variable —el <strong>tamaño</strong> de la actividad— que actúa como causa común.</li>
+<li>La antigüedad y el tonelaje de los cargueros correlacionan positivamente. Pero la antigüedad no <em>causa</em> el tonelaje (los cargueros no engordan con los años); lo que ocurre es que los astilleros galácticos han cambiado su cartera de productos con el tiempo, y hoy fabrican más ligero que hace dos décadas. La causa vuelve a estar en una variable externa, la política comercial del sector.</li>
+</ul>
+<p>En la literatura anglosajona se ha popularizado la expresión <em>“correlation is not causation”</em> hasta convertirla casi en un cliché de sobremesa; el cliché, sin embargo, protege de errores muy caros. La regla operativa que interesa recordar es que la correlación —y la regresión que la acompaña— <strong>describen</strong> un patrón de comportamiento común entre dos variables. Interpretarlo causalmente exige, además, un modelo teórico y un diseño de investigación que permitan descartar otras explicaciones. La estadística descriptiva es un observador imparcial: no señala culpables.</p>
+</div>
+</div>
+<div id="generalizacion" class="section level2" number="4.5">
+<h2>
+<span class="header-section-number">4.5</span> Generalización de la regresión.<a class="anchor" aria-label="anchor" href="#generalizacion"><i class="fas fa-link"></i></a>
+</h2>
+<p>Hasta aquí hemos jugado en un tablero cómodo: una única variable explicativa y una recta como forma funcional. Los dos supuestos se pueden —y se deben— relajar en muchas situaciones reales. Cerramos el capítulo con dos vías de generalización.</p>
+<div id="no-lineales" class="section level3" number="4.5.1">
+<h3>
+<span class="header-section-number">4.5.1</span> Casos no lineales: linealización.<a class="anchor" aria-label="anchor" href="#no-lineales"><i class="fas fa-link"></i></a>
+</h3>
+<p>Cuando la nube de puntos no dibuja una tendencia rectilínea sino claramente curvada, ajustar una recta puede ser un ejercicio de estoicismo estadístico: el <span class="math inline">\(R^{2}\)</span> se resiente, los residuos muestran un patrón sistemático (por ejemplo, primero positivos, luego negativos, luego positivos otra vez) y la interpretación pierde solidez. En muchas ocasiones, sin embargo, la relación no lineal se puede <strong>linealizar</strong> —transformar los valores de una o de ambas variables— de modo que sobre las nuevas variables sí quepa una recta.</p>
+<p>Los dos casos clásicos son:</p>
+<ul>
+<li>
+<strong>Potencial:</strong> <span class="math inline">\(\hat{y}_i = a\cdot x_i^{\,b}\)</span>. Tomando logaritmos, <span class="math inline">\(\log \hat{y}_i = \log a + b\cdot \log x_i\)</span>: si sustituimos <span class="math inline">\(x_i^{*} = \log x_i\)</span> e <span class="math inline">\(y_j^{*} = \log y_j\)</span>, obtenemos una recta con pendiente <span class="math inline">\(b\)</span> y ordenada <span class="math inline">\(\log a\)</span>. Los parámetros <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> se recuperan al final (<span class="math inline">\(a = e^{\log a}\)</span>, <span class="math inline">\(b\)</span> tal cual).</li>
+<li>
+<strong>Exponencial:</strong> <span class="math inline">\(\hat{y}_i = a\cdot b^{\,x_i}\)</span>. Tomando logaritmos, <span class="math inline">\(\log \hat{y}_i = \log a + x_i\cdot \log b\)</span>: una recta sobre <span class="math inline">\(x\)</span> y <span class="math inline">\(\log y\)</span>.</li>
+</ul>
+<p>La estrategia es siempre la misma: se transforman los datos, se ajusta una regresión lineal mínimo-cuadrática sobre las variables transformadas, y se <strong>deshace</strong> la transformación para leer los parámetros originales. El <span class="math inline">\(R^{2}\)</span> del ajuste linealizado suele ser mucho más alto que el del ajuste directo, y refleja la calidad real de la aproximación.</p>
+</div>
+<div id="curva-aprendizaje" class="section level3" number="4.5.2">
+<h3>
+<span class="header-section-number">4.5.2</span> Un caso ilustrativo: la curva de aprendizaje en <em>Hyperdrive Express</em>.<a class="anchor" aria-label="anchor" href="#curva-aprendizaje"><i class="fas fa-link"></i></a>
+</h3>
+<p>La compañía <strong>Hyperdrive Express</strong> —que ya nos ha acompañado en varios capítulos como paradigma de gran operador galáctico— acaba de incorporar a su hangar central un módulo experimental de revisión de motores de curvatura. Sus ingenieros han cronometrado el <strong>tiempo</strong> (en minutos) que un tripulante recién incorporado tarda en completar una revisión completa a medida que <strong>acumula operaciones</strong>. Los datos, sobre diez fases de la formación de un tripulante representativo, son:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+Operaciones acumuladas (<span class="math inline">\(x_i\)</span>)
+</th>
+<th style="text-align:center;">
+Tiempo por revisión (<span class="math inline">\(y_j\)</span>, min)
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+61.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+46.8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+42.2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+36.9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+30.0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+26.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+25.2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+21.9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+17.8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+50
+</td>
+<td style="text-align:center;">
+15.7
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 4.3.</strong> Curva de aprendizaje de un tripulante en el módulo de revisión de motores de Hyperdrive Express.</p>
+</div>
+<p>La lectura intuitiva es la de siempre en estos casos: al principio se aprende mucho por cada operación (la caída inicial es abrupta) y, con el tiempo, la mejora se vuelve marginal. La nube de puntos, en efecto, dibuja una curva de descenso rápido que luego se aplana. Ajustar una recta directamente da un <span class="math inline">\(R^{2}\)</span> modesto y unos residuos con patrón sistemático:</p>
+<p><span class="math display">\[
+\hat{y}_i \;=\; 42,77 \;+\; (-0,721)\cdot x_i, \qquad R^{2} \;=\; 0,605.
+\]</span></p>
+<p>Un <span class="math inline">\(R^{2}\)</span> del <span class="math inline">\(61\,\%\)</span> es razonable, pero si observamos la nube y la recta se aprecia el problema: la recta sobreestima al principio, subestima en la parte media y vuelve a fallar en la cola. La curvatura de los datos pide, sencillamente, otra forma funcional.</p>
+<p>Proponemos entonces una <strong>regresión potencial</strong>: <span class="math inline">\(\hat{y}_i = a\cdot x_i^{\,b}\)</span>. Tomando logaritmos y ajustando por mínimos cuadrados sobre las variables transformadas, obtenemos</p>
+<p><span class="math display">\[
+\log \hat{y}_i \;=\; 4,118 \;+\; (-0,350)\cdot \log x_i, \qquad R^{2}_{\log} \;=\; 0,9929,
+\]</span></p>
+<p>que deshaciendo la transformación se lee como</p>
+<p><span class="math display">\[
+\boxed{\;\; \hat{y}_i \;=\; 61,42\cdot x_i^{\,-0,350} \;\;}
+\]</span></p>
+<p>Un <span class="math inline">\(R^{2}\)</span> del <span class="math inline">\(99,3\,\%\)</span>: es la relación <strong>casi determinista</strong> que el fenómeno pedía. La exponente <span class="math inline">\(b = -0,350\)</span> (negativa, en el rango típico de las curvas de aprendizaje industriales) nos dice que cada vez que las operaciones acumuladas se duplican, el tiempo por revisión se reduce en un factor <span class="math inline">\(2^{-0,350} \approx 0,785\)</span>, esto es, aproximadamente un <span class="math inline">\(22\,\%\)</span>. Es la clásica “tasa de aprendizaje” que los responsables de operaciones citan en sus informes anuales, y que ahora podemos leer directamente en la pendiente linealizada.</p>
+<p>Comparemos gráficamente ambos ajustes:</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/curva-scatter-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 4.4.</strong> Datos de la Tabla 4.3 con dos ajustes: lineal (gris, discontinuo) y potencial (negro, continuo).</p>
+</div>
+<p>La lección que sacamos es doble. Primera: <strong>no toda relación estadística es lineal</strong>, y forzar una recta cuando la nube pide una curva penaliza el ajuste. Segunda: <strong>muchas relaciones no lineales son linealizables</strong>, y basta con transformar las variables (típicamente con logaritmos) para volver al terreno confortable de la regresión lineal. La forma final del modelo es no lineal —<span class="math inline">\(\hat{y} = a\cdot x^{b}\)</span>— pero la estimación se ha hecho con la misma maquinaria mínimo-cuadrática que veníamos utilizando.</p>
+</div>
+<div id="regresion-multiple" class="section level3" number="4.5.3">
+<h3>
+<span class="header-section-number">4.5.3</span> Regresión múltiple.<a class="anchor" aria-label="anchor" href="#regresion-multiple"><i class="fas fa-link"></i></a>
+</h3>
+<p>La segunda vía de generalización es admitir <strong>varias variables explicativas</strong> simultáneamente. Cuando la variable explicada <span class="math inline">\(Y\)</span> depende de <span class="math inline">\(p\)</span> variables <span class="math inline">\(X_1, X_2, \ldots, X_p\)</span>, el modelo lineal más natural es</p>
+<p><span class="math display">\[
+\hat{y}_i \;=\; b_0 + b_1\cdot x_{1i} + b_2\cdot x_{2i} + \cdots + b_p\cdot x_{pi},
+\]</span></p>
+<p>con <span class="math inline">\(p+1\)</span> parámetros a estimar. El criterio de mínimos cuadrados sigue siendo el mismo —minimizar la suma de los cuadrados de los residuos—, pero su resolución requiere ya álgebra lineal (matrices de datos, sistemas de ecuaciones normales…) y se aborda con propiedad en un curso posterior de Econometría.</p>
+<p>La motivación práctica, sin embargo, se comprende de inmediato con el ejemplo de la flota. Habíamos visto que la antigüedad, por sí sola, explicaba un <span class="math inline">\(32\,\%\)</span> de la variabilidad del tonelaje: no está mal, pero deja mucho fuera. Si añadimos al modelo la <strong>identidad del astillero</strong> —una variable categórica que podríamos codificar como <em>dummies</em>— es plausible que el <span class="math inline">\(R^{2}\)</span> crezca sustancialmente, porque en el gráfico de la Figura 4.2 se percibe con claridad que cada astillero ocupa una franja de tonelajes distinta. Y si añadimos, además, el <strong>indicador de rendimiento energético</strong> (IRE), el modelo podría aún mejorar.</p>
+<p>De manera más general, en la muestra de <span class="math inline">\(300\)</span> compañías R-Stars uno puede plantear regresiones múltiples sofisticadas para explicar, por ejemplo, los costes operativos en función de los ingresos, del número de empleados, de la flota, del número de rutas y del apalancamiento; o la rentabilidad económica en función de la digitalización, la diversificación, la fidelización y el tamaño de la empresa. Todo lo que hemos aprendido en este capítulo —el criterio de estimación, la descomposición de la varianza, el coeficiente de determinación— tiene su análogo natural en el caso múltiple.</p>
+<p>Un aviso final: pasar de una a varias variables explicativas no es solo una cuestión técnica. Aparecen problemas nuevos —correlaciones altas entre las propias explicativas (la temida <em>multicolinealidad</em>), interpretaciones parciales que exigen fijar mentalmente el resto de variables, riesgo de sobreajuste cuando <span class="math inline">\(p\)</span> crece— que la regresión simple no plantea. La regresión múltiple es una herramienta enormemente potente y merecerá, en su momento, capítulo propio.</p>
+</div>
+</div>
+<div id="recapitulacion-cap04" class="section level2" number="4.6">
+<h2>
+<span class="header-section-number">4.6</span> Recapitulación.<a class="anchor" aria-label="anchor" href="#recapitulacion-cap04"><i class="fas fa-link"></i></a>
+</h2>
+<p>Este capítulo ha cerrado el bloque bidimensional. Hemos pasado de comprobar <em>si</em> dos variables se relacionan a describir <em>cómo</em> y <em>cuánto</em>. Como equipaje mínimo llevaremos:</p>
+<ul>
+<li>La regresión propone una función matemática <span class="math inline">\(\hat{y}_i = f(x_i)\)</span> que aproxima <span class="math inline">\(Y\)</span> a partir de <span class="math inline">\(X\)</span>, con residuos <span class="math inline">\(e_{ij} = y_j - \hat{y}_i\)</span>. La descomposición <span class="math inline">\(y_j = \hat{y}_i + e_{ij}\)</span> es la fórmula fundamental del capítulo.</li>
+<li>La estimación de los parámetros se realiza por <strong>mínimos cuadrados</strong>: se eligen los valores que minimizan <span class="math inline">\(\sum e_{ij}^{\,2}\, n_{ij}\)</span>.</li>
+<li>En el <strong>caso lineal</strong> <span class="math inline">\(\hat{y}_i = a + b\, x_i\)</span>, las fórmulas son <span class="math inline">\(\hat{b} = S_{xy}/S_x^{\,2}\)</span> y <span class="math inline">\(\hat{a} = \overline{y} - \hat{b}\, \overline{x}\)</span>. La recta pasa siempre por el centro de gravedad de la nube.</li>
+<li>La <strong>bondad del ajuste</strong> se mide con el <strong>coeficiente de determinación</strong> <span class="math inline">\(R^{2} = S_{\hat{y}}^{\,2}/S_y^{\,2} = 1 - S_e^{\,2}/S_y^{\,2}\)</span>, comprendido entre <span class="math inline">\(0\)</span> y <span class="math inline">\(1\)</span> y leído como proporción de varianza de <span class="math inline">\(Y\)</span> recogida por la regresión.</li>
+<li>Con la forma funcional dada por buena, la <strong>intensidad</strong> de la relación se mide con el <strong>coeficiente de correlación lineal</strong> <span class="math inline">\(R = S_{xy}/(S_x\cdot S_y)\)</span>, entre <span class="math inline">\(-1\)</span> y <span class="math inline">\(+1\)</span>. El signo indica el sentido de la relación; el valor absoluto, su intensidad.</li>
+<li>
+<strong>Correlación no es causalidad.</strong> Un <span class="math inline">\(R\)</span> elevado señala coincidencias sistemáticas de comportamiento; identificar relaciones causales exige un modelo teórico y un diseño de investigación específicos.</li>
+<li>Muchas relaciones no lineales son <strong>linealizables</strong>: transformando los valores (típicamente con logaritmos) se accede a un ajuste lineal excelente que, al deshacer la transformación, entrega una regresión no lineal.</li>
+<li>La <strong>regresión múltiple</strong> generaliza el planteamiento cuando hay varias variables explicativas. Su tratamiento riguroso —maquinaria matricial y problemas específicos como la multicolinealidad— corresponde a un curso de Econometría.</li>
+</ul>
+<p>Con esto damos por cerrado el bloque de estadística descriptiva bidimensional. El siguiente bloque del curso da un giro conceptual: dejamos por un tiempo el análisis de datos observados y entramos en el terreno de la <strong>probabilidad</strong>, la herramienta que permitirá, más adelante, transformar todas estas descripciones en instrumentos de <strong>inferencia</strong> sobre poblaciones. Cuando volvamos a los datos, ya no serán solo los que tenemos delante: serán una ventana estadísticamente honesta a lo que ocurre en el universo del que provienen.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="empty"></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-07-03.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
