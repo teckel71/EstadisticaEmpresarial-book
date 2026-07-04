@@ -65,13 +65,6 @@ chi-shuttlepod
 chi-astillero-sede
 n-dimensional
 recapitulacion-cap03
-regresión-y-correlación.
-números-índice.
-probabilidad.
-variables-aleatorias.
-modelos-de-probabilidad-discretos-univariantes.
-modelos-de-probabilidad-continuos-univariantes.
-convergencia-y-teoremas-límite.
 regresion-correlacion
 regresion-idea
 regresion-tipos
@@ -92,3 +85,9 @@ no-lineales
 curva-aprendizaje
 regresion-multiple
 recapitulacion-cap04
+números-índice.
+probabilidad.
+variables-aleatorias.
+modelos-de-probabilidad-discretos-univariantes.
+modelos-de-probabilidad-continuos-univariantes.
+convergencia-y-teoremas-límite.

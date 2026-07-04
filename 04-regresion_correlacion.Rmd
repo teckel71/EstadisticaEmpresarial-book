@@ -59,19 +59,18 @@ astilleros <- read_excel("data/astilleros_48.xlsx",    sheet = "Datos") %>%
   rename(ANTIG = `ANTIGÜEDAD`)
 ```
 
-![](figuras/04_regresion.jpg){.portada-img width="100%"}
+![](figuras/04_estelas.jpg){.portada-img width="100%"}
 
 ::: {style="text-align: center;"}
 **Figura 4.1.** [Cuando la relación existe, toca ponerle números: intensidad y forma.]{.smallcaps}
 :::
 
-
 En el capítulo anterior aprendimos a plantearnos una pregunta binaria —*¿existe o no existe relación estadística entre estas dos variables?*— y a contestarla con la ayuda de la tabla de correlación, las frecuencias condicionadas, el signo de la covarianza y, cuando ambas eran atributos, el estadístico ji-cuadrado. Terminamos la película con un puñado de casos en los que la respuesta era claramente afirmativa: en la plantilla de *Shuttlepod Movers* estudios y salario se movían juntos, en la flota de $48$ cargueros la antigüedad iba de la mano del tonelaje, en los tres astilleros galácticos la sede base dependía por completo del constructor.
 
 Detectada la dependencia, entramos ahora en el terreno de las preguntas **cuantitativas**. Aceptemos que las dos variables se relacionan y planteemos, con toda la sangre fría:
 
-- ¿Con qué **intensidad** se relacionan? ¿Es una relación férrea, casi determinista, o apenas una tendencia con mucho ruido? Ese es el terreno del **análisis de correlación**.
-- ¿Qué **forma** toma esa relación? ¿Podemos escribir una fórmula sencilla —una recta, una curva— que aproxime una variable a partir de la otra y permita **prever** valores? Ese es el terreno del **análisis de regresión**.
+-   ¿Con qué **intensidad** se relacionan? ¿Es una relación férrea, casi determinista, o apenas una tendencia con mucho ruido? Ese es el terreno del **análisis de correlación**.
+-   ¿Qué **forma** toma esa relación? ¿Podemos escribir una fórmula sencilla —una recta, una curva— que aproxime una variable a partir de la otra y permita **prever** valores? Ese es el terreno del **análisis de regresión**.
 
 Correlación y regresión son las dos caras de la misma moneda: la primera mide *cuánto* se parecen dos variables en su comportamiento; la segunda propone *cómo* se parecen. Ambas dan por sentado —y este es un requisito irrenunciable— que en la etapa anterior hemos comprobado que hay algo que medir. Ajustar una regresión a dos variables independientes es como calcular la media geométrica de un conjunto de temperaturas: técnicamente posible, epistemológicamente estéril.
 
@@ -103,8 +102,8 @@ Cuando la variable explicativa es una sola —el caso al que dedicaremos casi to
 
 Hay además una distinción clásica en la literatura entre dos tipos de regresión, según qué se persiga con el ajuste:
 
-- **Regresión tipo I.** Se busca la función matemática que mejor represente la nube de puntos observada, sin ninguna pretensión probabilística. La regresión es una **descripción**: un resumen gráfico y numérico de la relación entre las dos variables.
-- **Regresión tipo II.** Se asume un modelo probabilístico subyacente —que los datos vienen de una población en la que $Y$ y $X$ se relacionan de cierta forma más la aleatoriedad del muestreo— y se estima ese modelo. La regresión se convierte en una herramienta de **inferencia**: sirve para extraer conclusiones sobre la población y no sólo sobre los datos que tenemos delante.
+-   **Regresión tipo I.** Se busca la función matemática que mejor represente la nube de puntos observada, sin ninguna pretensión probabilística. La regresión es una **descripción**: un resumen gráfico y numérico de la relación entre las dos variables.
+-   **Regresión tipo II.** Se asume un modelo probabilístico subyacente —que los datos vienen de una población en la que $Y$ y $X$ se relacionan de cierta forma más la aleatoriedad del muestreo— y se estima ese modelo. La regresión se convierte en una herramienta de **inferencia**: sirve para extraer conclusiones sobre la población y no sólo sobre los datos que tenemos delante.
 
 En este capítulo trabajaremos exclusivamente con regresión de tipo I. La versión inferencial aparecerá, en el bloque de Inferencia y Econometría, cuando dispongamos de las herramientas probabilísticas necesarias.
 
@@ -112,8 +111,8 @@ En este capítulo trabajaremos exclusivamente con regresión de tipo I. La versi
 
 Toda regresión consta de dos ingredientes que conviene distinguir con cuidado:
 
-- La **forma funcional**, es decir, el tipo de función matemática que proponemos. Una recta, una parábola, una exponencial, una función logística… la elección es previa y refleja la hipótesis que hacemos sobre cómo se relacionan $X$ e $Y$.
-- Los **parámetros**, esto es, las constantes que aparecen en la forma funcional (los coeficientes de la recta, los de la parábola, la base de la exponencial…), cuyos valores concretos hay que **estimar** a partir de los datos.
+-   La **forma funcional**, es decir, el tipo de función matemática que proponemos. Una recta, una parábola, una exponencial, una función logística… la elección es previa y refleja la hipótesis que hacemos sobre cómo se relacionan $X$ e $Y$.
+-   Los **parámetros**, esto es, las constantes que aparecen en la forma funcional (los coeficientes de la recta, los de la parábola, la base de la exponencial…), cuyos valores concretos hay que **estimar** a partir de los datos.
 
 Un puñado de ejemplos ilustra la variedad de formas funcionales que podemos plantear:
 
@@ -129,7 +128,7 @@ $$
 
 En cada forma, las letras $a, b, c, \ldots$ son los parámetros a estimar. En la lineal hay dos ($a$ y $b$), en la parabólica tres, en la potencial y en la exponencial dos… La forma la propone el analista (a menudo mirando la nube de puntos); los parámetros los proponen los datos.
 
-::: {.callout-tip}
+::: callout-tip
 La elección de la forma funcional es probablemente el momento más creativo —y más peligroso— del análisis. Una nube de puntos con forma de curva mansa se puede aproximar bien con una recta si uno cierra un ojo, o con un polinomio de grado siete si uno tiene menos escrúpulos que datos. La virtud del analista consiste en encontrar el equilibrio entre **simplicidad** (pocos parámetros, interpretación clara) y **fidelidad** (residuos pequeños). La regla del pulgar es preferir la forma más simple compatible con la estructura visible en la nube.
 :::
 
@@ -180,8 +179,8 @@ Toda recta de regresión mínimo-cuadrática pasa por el centro de gravedad de l
 
 ### Interpretación de los coeficientes. {#interpretacion-coeficientes}
 
-- $\hat{b}$: cuando $x$ aumenta en una unidad, $\hat{y}$ aumenta en $\hat{b}$ unidades. Es la **variación media** de la variable explicada asociada a un incremento unitario de la explicativa. Se lee en unidades de $Y$ por unidad de $X$.
-- $\hat{a}$: valor que la regresión asigna a $\hat{y}$ cuando $x = 0$. Su interpretación *literal* muchas veces no tiene sentido económico (¿qué es una empresa con "cero ingresos"?), y en la práctica se usa sobre todo como parámetro de ajuste que permite fijar la recta.
+-   $\hat{b}$: cuando $x$ aumenta en una unidad, $\hat{y}$ aumenta en $\hat{b}$ unidades. Es la **variación media** de la variable explicada asociada a un incremento unitario de la explicativa. Se lee en unidades de $Y$ por unidad de $X$.
+-   $\hat{a}$: valor que la regresión asigna a $\hat{y}$ cuando $x = 0$. Su interpretación *literal* muchas veces no tiene sentido económico (¿qué es una empresa con "cero ingresos"?), y en la práctica se usa sobre todo como parámetro de ajuste que permite fijar la recta.
 
 Vale la pena insistir: el "$+$" o el "$-$" de $\hat{b}$ no habla de causalidad, sino de la dirección conjunta del movimiento. Y su magnitud depende de las unidades: si cambiamos $X$ de años a meses, $\hat{b}$ se dividirá por doce. Para leer intensidades sin la tiranía de las unidades tendremos que esperar al coeficiente de correlación.
 
@@ -294,15 +293,13 @@ kable(as.data.frame(tabla_reg),
 **Tabla 4.1.** Tabla de correlación de antigüedad ($X$) y tonelaje ($Y$) con las columnas y filas auxiliares para el cálculo directo de los momentos.
 :::
 
-
 Con las marcas de clase $x_i \in \{2{,}5;\ 7{,}5;\ 12{,}5;\ 17{,}5;\ 25\}$ e $y_j \in \{575;\ 700;\ 800;\ 900\}$, los momentos respecto al origen son los que ya calculamos en el capítulo 3, cuando obtuvimos la covarianza:
 
 $$
 a_{10} \;=\; `r fmt(a10, 4)`, \qquad
 a_{01} \;=\; `r fmt(a01, 4)`, \qquad
 a_{20} \;=\; `r fmt(a20, 4)`,
-$$
-$$
+$$ $$
 a_{02} \;=\; `r fmt(a02, 4)`, \qquad
 a_{11} \;=\; `r fmt(a11, 4)`.
 $$
@@ -312,8 +309,7 @@ Los momentos centrales que nos interesan son la varianza de $X$, la varianza de 
 $$
 S_x^{\,2} \;=\; a_{20} - a_{10}^{\,2} \;=\; `r fmt(Sx2, 4)`,\qquad
 S_y^{\,2} \;=\; a_{02} - a_{01}^{\,2} \;=\; `r fmt(Sy2, 2)`,
-$$
-$$
+$$ $$
 S_{xy}   \;=\; a_{11} - a_{10}\cdot a_{01} \;=\; `r fmt(Sxy, 4)`.
 $$
 
@@ -356,7 +352,6 @@ ggplot(astilleros, aes(ANTIG, TONELAJE)) +
 ::: {style="text-align: center;"}
 **Figura 4.2.** Diagrama de dispersión de la flota y recta ajustada por mínimos cuadrados.
 :::
-
 
 La recta atraviesa la nube con obediencia razonable, pero es evidente que la dispersión alrededor de ella no es despreciable: hay cargueros viejos y ligeros, cargueros nuevos y pesados. La nube tiene una tendencia clara, sí; pero también un ruido considerable. Cuantificar cuán bien —o cuán mal— la recta representa a la nube es la tarea de la sección siguiente.
 
@@ -402,11 +397,11 @@ $$
 \boxed{\;\; R^{2} \;=\; \dfrac{S_{\hat{y}}^{\,2}}{S_y^{\,2}} \;=\; 1 - \dfrac{S_e^{\,2}}{S_y^{\,2}} \;\;}
 $$
 
-$R^2$ es, sin más, la **proporción de la varianza de $Y$ que la regresión es capaz de reproducir**. Como cociente de dos varianzas positivas —una menor o igual que la otra— cumple $0 \le R^2 \le 1$. Y su lectura no puede ser más agradecida:
+$R^2$ es, sin más, la **proporción de la varianza de** $Y$ que la regresión es capaz de reproducir. Como cociente de dos varianzas positivas —una menor o igual que la otra— cumple $0 \le R^2 \le 1$. Y su lectura no puede ser más agradecida:
 
-- $R^{2}$ próximo a $1$: la regresión captura casi toda la variabilidad de $Y$. El ajuste es excelente.
-- $R^{2}$ próximo a $0$: la regresión no captura nada. La recta es prácticamente horizontal y pasa por $\overline{y}$; conocer $X$ no ayuda a predecir $Y$.
-- Valores intermedios se interpretan como porcentajes: un $R^{2}$ de $0{,}70$ significa que el modelo reproduce el $70\,\%$ de la variabilidad observada.
+-   $R^{2}$ próximo a $1$: la regresión captura casi toda la variabilidad de $Y$. El ajuste es excelente.
+-   $R^{2}$ próximo a $0$: la regresión no captura nada. La recta es prácticamente horizontal y pasa por $\overline{y}$; conocer $X$ no ayuda a predecir $Y$.
+-   Valores intermedios se interpretan como porcentajes: un $R^{2}$ de $0{,}70$ significa que el modelo reproduce el $70\,\%$ de la variabilidad observada.
 
 En el caso lineal, un pequeño desarrollo algebraico entrega una fórmula compacta muy útil para calcular $R^{2}$ directamente a partir de los momentos:
 
@@ -423,9 +418,9 @@ R^{2} \;=\; \dfrac{S_{xy}^{\,2}}{S_x^{\,2}\cdot S_y^{\,2}} \;=\;
 \dfrac{`r fmt(Sxy, 4)`^{2}}{`r fmt(Sx2, 4)`\cdot `r fmt(Sy2, 2)`} \;=\; `r fmt(R2, 4)`.
 $$
 
-Interpretación: la recta que hemos estimado reproduce, aproximadamente, el **`r fmt(100*R2, 1)`\,%** de la variabilidad del tonelaje de la flota. No es un mal resultado —hay un patrón claro, y una recta lo captura razonablemente— pero tampoco es un ajuste espectacular: casi **dos tercios** de la variabilidad observada del tonelaje son atribuibles a factores distintos de la antigüedad. Basta con mirar el gráfico anterior para comprender por qué: cargueros del mismo astillero y de antigüedades similares tienen tonelajes muy distintos, y hay una segmentación evidente por astillero (KORRIGAN construye típicamente más pesado que ARCTURUS). Una regresión de tonelaje sobre astillero, o una regresión múltiple que incluya ambos factores, mejoraría muy probablemente el ajuste.
+Interpretación: la recta que hemos estimado reproduce, aproximadamente, el **`r fmt(100*R2, 1)`,%** de la variabilidad del tonelaje de la flota. No es un mal resultado —hay un patrón claro, y una recta lo captura razonablemente— pero tampoco es un ajuste espectacular: casi **dos tercios** de la variabilidad observada del tonelaje son atribuibles a factores distintos de la antigüedad. Basta con mirar el gráfico anterior para comprender por qué: cargueros del mismo astillero y de antigüedades similares tienen tonelajes muy distintos, y hay una segmentación evidente por astillero (KORRIGAN construye típicamente más pesado que ARCTURUS). Una regresión de tonelaje sobre astillero, o una regresión múltiple que incluya ambos factores, mejoraría muy probablemente el ajuste.
 
-::: {.callout-tip}
+::: callout-tip
 Un $R^{2}$ moderado no es sinónimo de "regresión mala": es sinónimo de "conocer $X$ no basta para saberlo todo sobre $Y$". En Ciencias Sociales, un $R^{2}$ de $0{,}3$ suele ser un logro respetable —los seres humanos son notoriamente ruidosos— mientras que en Física un $R^{2}$ de $0{,}9$ puede indicar un error de calibración. Todo depende del terreno de juego.
 :::
 
@@ -433,8 +428,8 @@ Un $R^{2}$ moderado no es sinónimo de "regresión mala": es sinónimo de "conoc
 
 El coeficiente de determinación $R^{2}$ nos dice, en un solo número entre $0$ y $1$, con qué calidad la regresión reproduce los datos. Ahora bien, esa calidad depende de dos cosas distintas que conviene no confundir:
 
-1. Si la **forma funcional** propuesta es adecuada. Con datos que se distribuyen en forma de $U$, una recta obtendrá un $R^{2}$ paupérrimo aunque la relación estadística sea muy intensa: el problema está en la elección de la forma, no en la relación.
-2. Si la **relación estadística real** entre las dos variables es intensa o débil. Con datos que se dispersan mucho alrededor de la mejor recta posible, el $R^{2}$ será bajo aunque la forma funcional sea la correcta.
+1.  Si la **forma funcional** propuesta es adecuada. Con datos que se distribuyen en forma de $U$, una recta obtendrá un $R^{2}$ paupérrimo aunque la relación estadística sea muy intensa: el problema está en la elección de la forma, no en la relación.
+2.  Si la **relación estadística real** entre las dos variables es intensa o débil. Con datos que se dispersan mucho alrededor de la mejor recta posible, el $R^{2}$ será bajo aunque la forma funcional sea la correcta.
 
 En el análisis de **correlación** damos por supuesto lo primero —hemos elegido bien la forma funcional, típicamente la lineal— y usamos el ajuste para medir lo segundo: cuán intensa es la relación. La medida canónica es el **coeficiente de correlación lineal**, que definimos como
 
@@ -450,21 +445,21 @@ $$
 
 donde $S_x$ y $S_y$ son las desviaciones típicas marginales. La lectura es doble:
 
-- **Signo:** heredado de la covarianza. Positivo cuando las dos variables tienden a moverse en el mismo sentido; negativo cuando lo hacen en sentidos opuestos.
-- **Magnitud:** el valor absoluto de $R$ mide la intensidad de la relación lineal. Por construcción, $-1 \le R \le +1$. Los extremos representan situaciones ideales:
-  - $R = +1$: todos los puntos caen exactamente sobre una recta de pendiente positiva. Dependencia lineal perfecta y directa.
-  - $R = -1$: todos los puntos caen exactamente sobre una recta de pendiente negativa. Dependencia lineal perfecta e inversa.
-  - $R = 0$: no hay relación lineal (aunque, cuidado, sí puede haber relaciones no lineales que $R$ no ve).
+-   **Signo:** heredado de la covarianza. Positivo cuando las dos variables tienden a moverse en el mismo sentido; negativo cuando lo hacen en sentidos opuestos.
+-   **Magnitud:** el valor absoluto de $R$ mide la intensidad de la relación lineal. Por construcción, $-1 \le R \le +1$. Los extremos representan situaciones ideales:
+    -   $R = +1$: todos los puntos caen exactamente sobre una recta de pendiente positiva. Dependencia lineal perfecta y directa.
+    -   $R = -1$: todos los puntos caen exactamente sobre una recta de pendiente negativa. Dependencia lineal perfecta e inversa.
+    -   $R = 0$: no hay relación lineal (aunque, cuidado, sí puede haber relaciones no lineales que $R$ no ve).
 
 Una escala orientativa —no un tribunal universal— que suele emplearse para calificar la intensidad de $R$:
 
-| $|R|$          | Lectura habitual                                             |
-|:--------------:|:-------------------------------------------------------------|
-| $0{,}0$–$0{,}2$ | Relación lineal muy débil o inexistente.                    |
-| $0{,}2$–$0{,}5$ | Relación lineal débil.                                      |
-| $0{,}5$–$0{,}7$ | Relación lineal moderada.                                   |
-| $0{,}7$–$0{,}9$ | Relación lineal fuerte.                                     |
-| $0{,}9$–$1{,}0$ | Relación lineal muy fuerte, casi determinista.              |
+|      $|R|$      | Lectura habitual                               |
+|:---------------:|:-----------------------------------------------|
+| $0{,}0$–$0{,}2$ | Relación lineal muy débil o inexistente.       |
+| $0{,}2$–$0{,}5$ | Relación lineal débil.                         |
+| $0{,}5$–$0{,}7$ | Relación lineal moderada.                      |
+| $0{,}7$–$0{,}9$ | Relación lineal fuerte.                        |
+| $0{,}9$–$1{,}0$ | Relación lineal muy fuerte, casi determinista. |
 
 ::: {style="text-align: center;"}
 **Tabla 4.2.** Escala orientativa para $|R|$ en el análisis descriptivo.
@@ -516,7 +511,6 @@ ggplot(rstars, aes(ING, COSTOP)) +
 **Figura 4.3.** Nube de puntos y recta de regresión sobre las 300 compañías de la muestra R-Stars.
 :::
 
-
 Los coeficientes de la recta ajustada son
 
 $$
@@ -543,8 +537,8 @@ reflejan una relación lineal **muy fuerte, casi determinista**: la recta reprod
 
 El aviso ya lo dimos en el capítulo anterior, pero conviene actualizarlo con la munición del presente. Un coeficiente de correlación alto entre dos variables no permite —por sí mismo— extraer ninguna conclusión sobre relaciones de causa a efecto. Es fácil imaginarse el desastre argumental que se puede montar con un $R$ elevado y un poco de mala fe:
 
-- Ingresos y costos operativos de las compañías R-Stars tienen $R = `r fmt(R_rs, 2)`$. ¿Los ingresos "causan" los costos? Uno podría defenderlo. ¿Los costos "causan" los ingresos? Otro podría defender lo contrario con la misma insolencia. La verdad prosaica es que ambos crecen porque las compañías crecen: los dos son manifestaciones de una tercera variable —el **tamaño** de la actividad— que actúa como causa común.
-- La antigüedad y el tonelaje de los cargueros correlacionan positivamente. Pero la antigüedad no *causa* el tonelaje (los cargueros no engordan con los años); lo que ocurre es que los astilleros galácticos han cambiado su cartera de productos con el tiempo, y hoy fabrican más ligero que hace dos décadas. La causa vuelve a estar en una variable externa, la política comercial del sector.
+-   Ingresos y costos operativos de las compañías R-Stars tienen $R = `r fmt(R_rs, 2)`$. ¿Los ingresos "causan" los costos? Uno podría defenderlo. ¿Los costos "causan" los ingresos? Otro podría defender lo contrario con la misma insolencia. La verdad prosaica es que ambos crecen porque las compañías crecen: los dos son manifestaciones de una tercera variable —el **tamaño** de la actividad— que actúa como causa común.
+-   La antigüedad y el tonelaje de los cargueros correlacionan positivamente. Pero la antigüedad no *causa* el tonelaje (los cargueros no engordan con los años); lo que ocurre es que los astilleros galácticos han cambiado su cartera de productos con el tiempo, y hoy fabrican más ligero que hace dos décadas. La causa vuelve a estar en una variable externa, la política comercial del sector.
 
 En la literatura anglosajona se ha popularizado la expresión *"correlation is not causation"* hasta convertirla casi en un cliché de sobremesa; el cliché, sin embargo, protege de errores muy caros. La regla operativa que interesa recordar es que la correlación —y la regresión que la acompaña— **describen** un patrón de comportamiento común entre dos variables. Interpretarlo causalmente exige, además, un modelo teórico y un diseño de investigación que permitan descartar otras explicaciones. La estadística descriptiva es un observador imparcial: no señala culpables.
 
@@ -558,8 +552,8 @@ Cuando la nube de puntos no dibuja una tendencia rectilínea sino claramente cur
 
 Los dos casos clásicos son:
 
-- **Potencial:** $\hat{y}_i = a\cdot x_i^{\,b}$. Tomando logaritmos, $\log \hat{y}_i = \log a + b\cdot \log x_i$: si sustituimos $x_i^{*} = \log x_i$ e $y_j^{*} = \log y_j$, obtenemos una recta con pendiente $b$ y ordenada $\log a$. Los parámetros $a$ y $b$ se recuperan al final ($a = e^{\log a}$, $b$ tal cual).
-- **Exponencial:** $\hat{y}_i = a\cdot b^{\,x_i}$. Tomando logaritmos, $\log \hat{y}_i = \log a + x_i\cdot \log b$: una recta sobre $x$ y $\log y$.
+-   **Potencial:** $\hat{y}_i = a\cdot x_i^{\,b}$. Tomando logaritmos, $\log \hat{y}_i = \log a + b\cdot \log x_i$: si sustituimos $x_i^{*} = \log x_i$ e $y_j^{*} = \log y_j$, obtenemos una recta con pendiente $b$ y ordenada $\log a$. Los parámetros $a$ y $b$ se recuperan al final ($a = e^{\log a}$, $b$ tal cual).
+-   **Exponencial:** $\hat{y}_i = a\cdot b^{\,x_i}$. Tomando logaritmos, $\log \hat{y}_i = \log a + x_i\cdot \log b$: una recta sobre $x$ y $\log y$.
 
 La estrategia es siempre la misma: se transforman los datos, se ajusta una regresión lineal mínimo-cuadrática sobre las variables transformadas, y se **deshace** la transformación para leer los parámetros originales. El $R^{2}$ del ajuste linealizado suele ser mucho más alto que el del ajuste directo, y refleja la calidad real de la aproximación.
 
@@ -585,7 +579,6 @@ data.frame(Operaciones = xs, Tiempo = ys) %>%
 ::: {style="text-align: center;"}
 **Tabla 4.3.** Curva de aprendizaje de un tripulante en el módulo de revisión de motores de Hyperdrive Express.
 :::
-
 
 La lectura intuitiva es la de siempre en estos casos: al principio se aprende mucho por cada operación (la caída inicial es abrupta) y, con el tiempo, la mejora se vuelve marginal. La nube de puntos, en efecto, dibuja una curva de descenso rápido que luego se aplana. Ajustar una recta directamente da un $R^{2}$ modesto y unos residuos con patrón sistemático:
 
@@ -667,7 +660,6 @@ ggplot() +
 **Figura 4.4.** Datos de la Tabla 4.3 con dos ajustes: lineal (gris, discontinuo) y potencial (negro, continuo).
 :::
 
-
 La lección que sacamos es doble. Primera: **no toda relación estadística es lineal**, y forzar una recta cuando la nube pide una curva penaliza el ajuste. Segunda: **muchas relaciones no lineales son linealizables**, y basta con transformar las variables (típicamente con logaritmos) para volver al terreno confortable de la regresión lineal. La forma final del modelo es no lineal —$\hat{y} = a\cdot x^{b}$— pero la estimación se ha hecho con la misma maquinaria mínimo-cuadrática que veníamos utilizando.
 
 ### Regresión múltiple. {#regresion-multiple}
@@ -690,13 +682,13 @@ Un aviso final: pasar de una a varias variables explicativas no es solo una cues
 
 Este capítulo ha cerrado el bloque bidimensional. Hemos pasado de comprobar *si* dos variables se relacionan a describir *cómo* y *cuánto*. Como equipaje mínimo llevaremos:
 
-- La regresión propone una función matemática $\hat{y}_i = f(x_i)$ que aproxima $Y$ a partir de $X$, con residuos $e_{ij} = y_j - \hat{y}_i$. La descomposición $y_j = \hat{y}_i + e_{ij}$ es la fórmula fundamental del capítulo.
-- La estimación de los parámetros se realiza por **mínimos cuadrados**: se eligen los valores que minimizan $\sum e_{ij}^{\,2}\, n_{ij}$.
-- En el **caso lineal** $\hat{y}_i = a + b\, x_i$, las fórmulas son $\hat{b} = S_{xy}/S_x^{\,2}$ y $\hat{a} = \overline{y} - \hat{b}\, \overline{x}$. La recta pasa siempre por el centro de gravedad de la nube.
-- La **bondad del ajuste** se mide con el **coeficiente de determinación** $R^{2} = S_{\hat{y}}^{\,2}/S_y^{\,2} = 1 - S_e^{\,2}/S_y^{\,2}$, comprendido entre $0$ y $1$ y leído como proporción de varianza de $Y$ recogida por la regresión.
-- Con la forma funcional dada por buena, la **intensidad** de la relación se mide con el **coeficiente de correlación lineal** $R = S_{xy}/(S_x\cdot S_y)$, entre $-1$ y $+1$. El signo indica el sentido de la relación; el valor absoluto, su intensidad.
-- **Correlación no es causalidad.** Un $R$ elevado señala coincidencias sistemáticas de comportamiento; identificar relaciones causales exige un modelo teórico y un diseño de investigación específicos.
-- Muchas relaciones no lineales son **linealizables**: transformando los valores (típicamente con logaritmos) se accede a un ajuste lineal excelente que, al deshacer la transformación, entrega una regresión no lineal.
-- La **regresión múltiple** generaliza el planteamiento cuando hay varias variables explicativas. Su tratamiento riguroso —maquinaria matricial y problemas específicos como la multicolinealidad— corresponde a un curso de Econometría.
+-   La regresión propone una función matemática $\hat{y}_i = f(x_i)$ que aproxima $Y$ a partir de $X$, con residuos $e_{ij} = y_j - \hat{y}_i$. La descomposición $y_j = \hat{y}_i + e_{ij}$ es la fórmula fundamental del capítulo.
+-   La estimación de los parámetros se realiza por **mínimos cuadrados**: se eligen los valores que minimizan $\sum e_{ij}^{\,2}\, n_{ij}$.
+-   En el **caso lineal** $\hat{y}_i = a + b\, x_i$, las fórmulas son $\hat{b} = S_{xy}/S_x^{\,2}$ y $\hat{a} = \overline{y} - \hat{b}\, \overline{x}$. La recta pasa siempre por el centro de gravedad de la nube.
+-   La **bondad del ajuste** se mide con el **coeficiente de determinación** $R^{2} = S_{\hat{y}}^{\,2}/S_y^{\,2} = 1 - S_e^{\,2}/S_y^{\,2}$, comprendido entre $0$ y $1$ y leído como proporción de varianza de $Y$ recogida por la regresión.
+-   Con la forma funcional dada por buena, la **intensidad** de la relación se mide con el **coeficiente de correlación lineal** $R = S_{xy}/(S_x\cdot S_y)$, entre $-1$ y $+1$. El signo indica el sentido de la relación; el valor absoluto, su intensidad.
+-   **Correlación no es causalidad.** Un $R$ elevado señala coincidencias sistemáticas de comportamiento; identificar relaciones causales exige un modelo teórico y un diseño de investigación específicos.
+-   Muchas relaciones no lineales son **linealizables**: transformando los valores (típicamente con logaritmos) se accede a un ajuste lineal excelente que, al deshacer la transformación, entrega una regresión no lineal.
+-   La **regresión múltiple** generaliza el planteamiento cuando hay varias variables explicativas. Su tratamiento riguroso —maquinaria matricial y problemas específicos como la multicolinealidad— corresponde a un curso de Econometría.
 
 Con esto damos por cerrado el bloque de estadística descriptiva bidimensional. El siguiente bloque del curso da un giro conceptual: dejamos por un tiempo el análisis de datos observados y entramos en el terreno de la **probabilidad**, la herramienta que permitirá, más adelante, transformar todas estas descripciones en instrumentos de **inferencia** sobre poblaciones. Cuando volvamos a los datos, ya no serán solo los que tenemos delante: serán una ventana estadísticamente honesta a lo que ocurre en el universo del que provienen.

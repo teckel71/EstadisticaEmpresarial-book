@@ -248,7 +248,7 @@ Lectura: aproximadamente el $20{,}4\,\%$ de la plantilla (proporción $0{,}2041$
 
 ### Distribuciones condicionadas. {#distribuciones-condicionadas}
 
-Las marginales resumen cada variable por separado; las conjuntas indican cómo se cruzan. Falta una tercera lectura, la más útil para explorar relaciones: la de las **distribuciones condicionadas**. Preguntémonos: *dado que un empleado tiene estudios universitarios, ¿cómo se reparte su salario?* La respuesta requiere fijar $Y = \text{Universitarios}$ y calcular la proporción de casos que caen en cada tramo salarial **entre los universitarios**.
+Las frecuencias marginales resumen cada variable por separado; las conjuntas indican cómo se cruzan. Falta una tercera lectura, la más útil para explorar relaciones: la de las **distribuciones condicionadas**. Preguntémonos: *dado que un empleado tiene estudios universitarios, ¿cómo se reparte su salario?* La respuesta requiere fijar $Y = \text{Universitarios}$ y calcular la proporción de casos que caen en cada tramo salarial **entre los universitarios**.
 
 Formalmente, la **frecuencia condicionada** de $X = x_i$ dado que $Y = y_j$ se define como
 
