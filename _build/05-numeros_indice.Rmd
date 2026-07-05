@@ -87,7 +87,7 @@ Empecemos con un caso muy pequeño y muy familiar. La compañía **Arrakis Freig
 
 ```{r tabla-arrakis-cap05}
 arrakis <- tibble(
-  Anio       = 2020:2023,
+  Anio       = 2210:2213,
   Precio     = c(30, 33, 45, 54),
   Cantidad   = c(1200, 1500, 1800, 2100),
   Valor      = Precio * Cantidad
@@ -114,7 +114,7 @@ arrakis %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 5.1.** Ruta Arrakis–Coruscant de Arrakis Freight, 2020–2023.
+**Tabla 5.1.** Ruta Arrakis–Coruscant de Arrakis Freight, 2210–2213.
 :::
 
 
@@ -124,7 +124,7 @@ Ante estos datos, las tres preguntas que un directivo de la compañía suele for
 - ¿**Cuánto ha crecido la cantidad transportada** en ese mismo período?
 - Y, sobre todo, dado que ambas cosas ocurren simultáneamente, ¿**cuánto ha cambiado el valor total facturado**, y en qué medida se debe al precio y en qué medida a la cantidad?
 
-Podríamos limitarnos a mirar los números en bruto, pero comparar $54$ PAVOs frente a $30$ PAVOs, o $2\,100$ frente a $1\,200$ mil toneladas, no da una idea rápida y homogénea. Lo que sí la da es medir el precio (o la cantidad, o el valor) de $2023$ como **múltiplo** del de $2020$: $54/30 = 1{,}80$. El precio ha pasado a valer $1{,}80$ veces lo que valía en $2020$; o, equivalentemente, ha subido un $80\,\%$. Ese cociente, $1{,}80$, es un **número índice**.
+Podríamos limitarnos a mirar los números en bruto, pero comparar $54$ PAVOs frente a $30$ PAVOs, o $2\,100$ frente a $1\,200$ mil toneladas, no da una idea rápida y homogénea. Lo que sí la da es medir el precio (o la cantidad, o el valor) de $2213$ como **múltiplo** del de $2210$: $54/30 = 1{,}80$. El precio ha pasado a valer $1{,}80$ veces lo que valía en $2210$; o, equivalentemente, ha subido un $80\,\%$. Ese cociente, $1{,}80$, es un **número índice**.
 
 ::: {.definicion}
 Un **número índice** es una medida estadística que resume, mediante un cociente, los cambios que experimenta una magnitud —simple o compleja— a lo largo del **tiempo** o a través del **espacio**.
@@ -143,7 +143,7 @@ Un número índice **simple** compara los valores de **una única** magnitud a l
 
 ### Base fija. {#indices-simples-base-fija}
 
-Cuando el período base es siempre el mismo, hablamos de números índice **de base fija**. Sobre nuestro ejemplo, tomando como base el año $2020$:
+Cuando el período base es siempre el mismo, hablamos de números índice **de base fija**. Sobre nuestro ejemplo, tomando como base el año $2210$:
 
 $$
 p_{0}^{t} \;=\; \frac{p_{t}}{p_{0}},
@@ -187,11 +187,11 @@ arr_idx_bf %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 5.2.** Índices simples de base fija (base = 2020) para la ruta Arrakis–Coruscant.
+**Tabla 5.2.** Índices simples de base fija (base = 2210) para la ruta Arrakis–Coruscant.
 :::
 
 
-La lectura es directa. Entre $2020$ y $2023$, el precio del servicio de carga en la ruta Arrakis–Coruscant se ha multiplicado por $1{,}80$ (ha subido un $80\,\%$); la cantidad transportada, por $1{,}75$ (ha subido un $75\,\%$); y el valor facturado, por $3{,}15$ (ha subido un $215\,\%$). Y, como es fácil comprobar, $1{,}80 \times 1{,}75 = 3{,}15$: el fuerte tirón de las ventas es fruto de que precio y cantidad han crecido a la vez.
+La lectura es directa. Entre $2210$ y $2213$, el precio del servicio de carga en la ruta Arrakis–Coruscant se ha multiplicado por $1{,}80$ (ha subido un $80\,\%$); la cantidad transportada, por $1{,}75$ (ha subido un $75\,\%$); y el valor facturado, por $3{,}15$ (ha subido un $215\,\%$). Y, como es fácil comprobar, $1{,}80 \times 1{,}75 = 3{,}15$: el fuerte tirón de las ventas es fruto de que precio y cantidad han crecido a la vez.
 
 ### Encadenados. {#indices-simples-encadenados}
 
@@ -239,7 +239,7 @@ arr_idx_enc %>%
 :::
 
 
-La lectura ahora es distinta y complementaria: cada valor mide la variación **respecto al año inmediatamente anterior**. Un dato de $1{,}3636$ en el índice de precios de $2022$ indica que en ese año el precio subió un $36{,}36\,\%$ con respecto a $2021$. Y el índice del año $2020$ no puede calcularse: no existe $2019$ en la serie, así que el denominador falla y se representa como un guion.
+La lectura ahora es distinta y complementaria: cada valor mide la variación **respecto al año inmediatamente anterior**. Un dato de $1{,}3636$ en el índice de precios de $2212$ indica que en ese año el precio subió un $36{,}36\,\%$ con respecto a $2211$. Y el índice del año $2210$ no puede calcularse: no existe $2209$ en la serie, así que el denominador falla y se representa como un guion.
 
 ### Sobre la presentación de un número índice. {#indices-presentacion}
 
@@ -256,13 +256,13 @@ p1 <- ggplot(arr_idx_bf, aes(Anio)) +
   geom_line(aes(y = Iv * 100), color = pal_alerta, linewidth = 1, linetype = "dotted") +
   geom_point(aes(y = Iv * 100), color = pal_alerta, size = 2.4) +
   geom_hline(yintercept = 100, color = "#94a3b8", linewidth = 0.4) +
-  labs(title    = "Índices simples de base fija (2020 = 100)",
+  labs(title    = "Índices simples de base fija (2210 = 100)",
        subtitle = "Arrakis Freight, ruta Arrakis–Coruscant",
        x = NULL, y = "Índice") +
-  annotate("text", x = 2023.1, y = 315, label = "Valor",     hjust = 0, color = pal_alerta, size = 3.2) +
-  annotate("text", x = 2023.1, y = 188, label = "Precio",    hjust = 0, color = pal_libro[1], size = 3.2) +
-  annotate("text", x = 2023.1, y = 167, label = "Cantidad",  hjust = 0, color = pal_libro[2], size = 3.2) +
-  scale_x_continuous(breaks = 2020:2023, limits = c(2020, 2024)) +
+  annotate("text", x = 2213.1, y = 315, label = "Valor",     hjust = 0, color = pal_alerta, size = 3.2) +
+  annotate("text", x = 2213.1, y = 188, label = "Precio",    hjust = 0, color = pal_libro[1], size = 3.2) +
+  annotate("text", x = 2213.1, y = 167, label = "Cantidad",  hjust = 0, color = pal_libro[2], size = 3.2) +
+  scale_x_continuous(breaks = 2210:2213, limits = c(2210, 2214)) +
   theme_libro()
 p1
 ```
@@ -278,7 +278,7 @@ Con la representación gráfica el patrón se ve de una sola ojeada: la evoluci�
 
 Todo número índice bien definido debería cumplir un puñado de propiedades naturales, esto es, propiedades que uno esperaría de cualquier cociente que pretenda medir cambios relativos. Las enunciamos para el caso del índice de precios; valen igual para los de cantidad y de valor.
 
-**Unicidad.** Todo número índice debe **existir**. Traducido: el denominador nunca puede ser cero. Aunque parezca una obviedad, no es un caso hipotético: un producto que no se comercializara en el período base, o un componente que aún no existiera (piénsese en el precio del combustible de fusión antimateria en el año $1990$), inutilizaría cualquier intento de tomar ese período como base para ese componente.
+**Unicidad.** Todo número índice debe **existir**. Traducido: el denominador nunca puede ser cero. Aunque parezca una obviedad, no es un caso hipotético: un producto que no se comercializara en el período base, o un componente que aún no existiera (piénsese en el precio del combustible de fusión antimateria en el año $2100$), inutilizaría cualquier intento de tomar ese período como base para ese componente.
 
 **Identidad.** Cuando el período actual coincide con el período base, el índice debe valer $1$ (o $100$, en escala porcentual):
 
@@ -292,7 +292,7 @@ $$
 p_{b}^{a} \;=\; \frac{p_{a}}{p_{b}} \;=\; z \quad\Longrightarrow\quad p_{a}^{b} \;=\; \frac{p_{b}}{p_{a}} \;=\; \frac{1}{z}.
 $$
 
-Si en la ruta Arrakis–Coruscant el precio de $2023$ es $1{,}80$ veces el de $2020$, entonces, mirado en sentido inverso, el precio de $2020$ es $1/1{,}80 \approx 0{,}556$ veces el de $2023$. Coherencia elemental que un índice serio jamás debería romper.
+Si en la ruta Arrakis–Coruscant el precio de $2213$ es $1{,}80$ veces el de $2210$, entonces, mirado en sentido inverso, el precio de $2210$ es $1/1{,}80 \approx 0{,}556$ veces el de $2213$. Coherencia elemental que un índice serio jamás debería romper.
 
 **Proporcionalidad constante independiente de la base.** Si dividimos dos números índice con la misma base y períodos actuales $a$ y $b$, respectivamente, el resultado debe ser el número índice de base $b$ y período actual $a$:
 
@@ -374,7 +374,7 @@ Volvemos a un actor conocido: la compañía **Hyperdrive Express**, con sede en 
 
 ```{r hyperdrive-tabla}
 hyper <- tibble(
-  Anio  = c(2020, 2023),
+  Anio  = c(2210, 2213),
   p_A   = c(5, 10),
   q_A   = c(6000, 7500),
   p_B   = c(12, 20),
@@ -404,11 +404,11 @@ hyper %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 5.4.** Hyperdrive Express: precios y cantidades de dos servicios en 2020 (base) y 2023.
+**Tabla 5.4.** Hyperdrive Express: precios y cantidades de dos servicios en 2210 (base) y 2213.
 :::
 
 
-Con estos datos, tomando $2020$ como período base y $2023$ como actual, los tres índices complejos de **precios** salen:
+Con estos datos, tomando $2210$ como período base y $2213$ como actual, los tres índices complejos de **precios** salen:
 
 ```{r complejos-precios-calc}
 p_A0 <- hyper$p_A[1]; q_A0 <- hyper$q_A[1]
@@ -480,11 +480,11 @@ tibble(
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 5.5.** Índices complejos de Hyperdrive Express, $2020 \\rightarrow 2023$ (base $2020=100$).
+**Tabla 5.5.** Índices complejos de Hyperdrive Express, del año 2210 al 2213 (base 2210 = 100).
 :::
 
 
-Sea cual sea el índice que elija el analista, la lectura es unívoca: entre $2020$ y $2023$, el conjunto de precios de los dos servicios de *Hyperdrive Express* subió alrededor de un $80\text{–}85\,\%$ y el conjunto de cantidades comercializadas alrededor de un $75\text{–}80\,\%$. Es también interesante observar la relación **valor = precio $\times$ cantidad** solo para los índices de Fisher:
+Sea cual sea el índice que elija el analista, la lectura es unívoca: entre $2210$ y $2213$, el conjunto de precios de los dos servicios de *Hyperdrive Express* subió alrededor de un $80\text{–}85\,\%$ y el conjunto de cantidades comercializadas alrededor de un $75\text{–}80\,\%$. Es también interesante observar la relación **valor = precio $\times$ cantidad** solo para los índices de Fisher:
 
 $$
 F_{p}\cdot F_{q} \;=\; `r fmt(Fp, 4)`\cdot `r fmt(Fq, 4)` \;=\; `r fmt(Fp*Fq, 4)`
@@ -495,7 +495,7 @@ El valor total facturado por los dos servicios se ha multiplicado por $`r fmt(V,
 
 ## Enlace y cambios de base. {#enlace-cambios-base}
 
-Los números índice de base fija sufren un problema estructural: la elección del período base envejece. Con el tiempo, la estructura económica, los patrones de consumo y los propios productos cambian tanto que un año base demasiado lejano deja de ser una referencia comparable. En el ámbito galáctico, tomar como base $1950$ para medir el nivel de precios de $2026$ tendría un aire similar a tomar el precio del pergamino para medir el coste de las suscripciones a servicios en la nube: técnicamente posible, informativamente inútil.
+Los números índice de base fija sufren un problema estructural: la elección del período base envejece. Con el tiempo, la estructura económica, los patrones de consumo y los propios productos cambian tanto que un año base demasiado lejano deja de ser una referencia comparable. En el ámbito galáctico, tomar como base el año $2050$ para medir el nivel de precios de $2216$ tendría un aire similar a tomar el precio del pergamino para medir el coste de las suscripciones a servicios en la nube: técnicamente posible, informativamente inútil.
 
 Hay dos maneras razonables de convivir con este problema:
 
@@ -504,37 +504,37 @@ Hay dos maneras razonables de convivir con este problema:
 
 La segunda opción es la habitual en organismos estadísticos como el INE terrestre o el (ficticio) *Consejo Estelar de Estadística Galáctica*: cada $5$ o $10$ años se actualiza la base del IPC, y se ofrece la serie histórica ya reexpresada en la nueva base. Vamos a ver cómo se hace ese cambio de base con nuestras propias manos, apoyándonos en la propiedad de **proporcionalidad constante independiente de la base** que enunciamos en la sección de propiedades.
 
-Supongamos que disponemos de una serie de índice de precios de un conjunto de bienes de consumo galácticos con base en el año $2018$, y que queremos reexpresarla con base en $2022$. La expresión del enlace técnico es:
+Supongamos que disponemos de una serie de índice de precios de un conjunto de bienes de consumo galácticos con base en el año $2208$, y que queremos reexpresarla con base en $2212$. La expresión del enlace técnico es:
 
 $$
 p_{h}^{t} \;=\; \frac{p_{0}^{t}}{p_{0}^{h}},
 $$
 
-que sale directamente de aplicar la propiedad ya mencionada tomando como "base antigua" el período $0$ (aquí, $2018$) y como "base nueva" el período $h$ (aquí, $2022$). Ilustrémoslo con datos concretos.
+que sale directamente de aplicar la propiedad ya mencionada tomando como "base antigua" el período $0$ (aquí, $2208$) y como "base nueva" el período $h$ (aquí, $2212$). Ilustrémoslo con datos concretos.
 
 ```{r cambio-base-tabla}
 cambio_base <- tibble(
-  Anio   = 2018:2026,
-  base18 = c(100, 130, 160, 190, 220, NA, NA, NA, NA),
-  base22 = c(NA, NA, NA, NA, 100, 130, 180, 240, 250)
+  Anio   = 2208:2216,
+  base08 = c(100, 130, 160, 190, 220, NA, NA, NA, NA),
+  base12 = c(NA, NA, NA, NA, 100, 130, 180, 240, 250)
 )
 
 # Enlace hacia atrás usando p_h^t = p_0^t / p_0^h
-p0h <- 220  # valor de la base antigua en el nuevo año base (2022)
+p0h <- 220  # valor de la base antigua en el nuevo año base (2212)
 cambio_base <- cambio_base %>%
   mutate(
-    enlace22 = case_when(
-      !is.na(base22) ~ base22,
-      TRUE           ~ base18 / p0h * 100
+    enlace12 = case_when(
+      !is.na(base12) ~ base12,
+      TRUE           ~ base08 / p0h * 100
     )
   )
 
 cambio_base %>%
   transmute(
     `Año` = Anio,
-    `Índice base 2018`  = ifelse(is.na(base18), "—", fmt(base18, 2)),
-    `Índice base 2022`  = ifelse(is.na(base22), "—", fmt(base22, 2)),
-    `Índice enlazado (base 2022)` = fmt(enlace22, 4)
+    `Índice base 2208`  = ifelse(is.na(base08), "—", fmt(base08, 2)),
+    `Índice base 2212`  = ifelse(is.na(base12), "—", fmt(base12, 2)),
+    `Índice enlazado (base 2212)` = fmt(enlace12, 4)
   ) %>%
   kable(
     
@@ -551,21 +551,21 @@ cambio_base %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 5.6.** Cambio de base de un índice de precios: enlace técnico $2018 \\rightarrow 2022$.
+**Tabla 5.6.** Cambio de base de un índice de precios: enlace técnico de la base 2208 a la base 2212.
 :::
 
 
 Ejemplos de cálculo, sobre la parte antigua de la serie:
 
 $$
-p_{2022}^{2018} \;=\; \frac{p_{2018}^{2018}}{p_{2018}^{2022}} \cdot 100 \;=\; \frac{100}{220}\cdot 100 \;=\; `r fmt(100/220*100, 4)`.
+p_{2212}^{2208} \;=\; \frac{p_{2208}^{2208}}{p_{2208}^{2212}} \cdot 100 \;=\; \frac{100}{220}\cdot 100 \;=\; `r fmt(100/220*100, 4)`.
 $$
 
 $$
-p_{2022}^{2020} \;=\; \frac{p_{2018}^{2020}}{p_{2018}^{2022}} \cdot 100 \;=\; \frac{160}{220}\cdot 100 \;=\; `r fmt(160/220*100, 4)`.
+p_{2212}^{2210} \;=\; \frac{p_{2208}^{2210}}{p_{2208}^{2212}} \cdot 100 \;=\; \frac{160}{220}\cdot 100 \;=\; `r fmt(160/220*100, 4)`.
 $$
 
-El resultado se lee así: con la nueva base $2022=100$, el nivel de precios de $2018$ era $`r fmt(100/220*100, 2)`$ (es decir, un $`r fmt(100 - 100/220*100, 1)`\,\%$ inferior al de $2022$); y el de $2020$ era $`r fmt(160/220*100, 2)`$ (un $`r fmt(100 - 160/220*100, 1)`\,\%$ inferior). La serie enlazada ofrece ahora una única lectura, con la misma escala de referencia, tanto para los años antiguos como para los nuevos.
+El resultado se lee así: con la nueva base $2212=100$, el nivel de precios de $2208$ era $`r fmt(100/220*100, 2)`$ (es decir, un $`r fmt(100 - 100/220*100, 1)`\,\%$ inferior al de $2212$); y el de $2210$ era $`r fmt(160/220*100, 2)`$ (un $`r fmt(100 - 160/220*100, 1)`\,\%$ inferior). La serie enlazada ofrece ahora una única lectura, con la misma escala de referencia, tanto para los años antiguos como para los nuevos.
 
 ## Deflactación de series económicas. {#deflactacion}
 
@@ -649,7 +649,7 @@ Vt_tot <- sum(isla_t$Vt)
 tasa_nominal <- (Vt_tot - V0_tot) / V0_tot * 100
 ```
 
-Un directivo apresurado, que se limitara a comparar el valor total de $2020$ ($`r fmtint(V0_tot)`$ PAVOs) con el del año $t$ ($`r fmtint(Vt_tot)`$ PAVOs), anunciaría —con un ligero tinte triunfalista— que la producción de Isla Cinturón ha crecido un $`r fmt(tasa_nominal, 2)`\,\%$. Pero no ha comparado producciones: ha comparado **facturaciones**. Y facturar más no siempre es producir más.
+Un directivo apresurado, que se limitara a comparar el valor total del año $0$ ($`r fmtint(V0_tot)`$ PAVOs) con el del año $t$ ($`r fmtint(Vt_tot)`$ PAVOs), anunciaría —con un ligero tinte triunfalista— que la producción de Isla Cinturón ha crecido un $`r fmt(tasa_nominal, 2)`\,\%$. Pero no ha comparado producciones: ha comparado **facturaciones**. Y facturar más no siempre es producir más.
 
 Para ver qué ha ocurrido realmente con las **cantidades** producidas, hay que valorar la producción del año $t$ **a los precios del año $0$**, no a los precios del año $t$. Es decir, quitar el efecto de la subida (y la bajada) de precios:
 
@@ -710,24 +710,24 @@ Elegir bien el deflactor no es trivial: para un gasto en consumo, el deflactor n
 
 ### Un ejemplo con datos anuales. {#deflactacion-ejemplo}
 
-Supongamos que el *Consejo Estelar de Estadística Galáctica* publica anualmente el gasto en consumo final del Sistema Astolat (en millones de PAVOs corrientes) y, en paralelo, un **Índice General de Precios Galácticos** (IPGG) con base $2020 = 100$, que resume la evolución del nivel de precios del conjunto de bienes y servicios de consumo. Los datos publicados son:
+Supongamos que el *Consejo Estelar de Estadística Galáctica* publica anualmente el gasto en consumo final del Sistema Astolat (en millones de PAVOs corrientes) y, en paralelo, un **Índice General de Precios Galácticos** (IPGG) con base $2210 = 100$, que resume la evolución del nivel de precios del conjunto de bienes y servicios de consumo. Los datos publicados son:
 
 ```{r deflactar-serie}
 serie <- tibble(
-  Anio      = 2019:2024,
+  Anio      = 2209:2214,
   Nominal   = c(4500, 4800, 5200, 5900, 6300, 6600),
   IPGG      = c(95.5, 100.0, 106.2, 118.4, 125.7, 130.3)
 ) %>%
   mutate(
-    Real2020 = Nominal / IPGG * 100
+    Real2210 = Nominal / IPGG * 100
   )
 
 serie %>%
   transmute(
     `Año` = Anio,
     `Gasto nominal (millones PAVOs)` = fmtint(Nominal),
-    `IPGG (base 2020 = 100)` = fmt(IPGG, 2),
-    `Gasto real (millones PAVOs de 2020)` = fmt(Real2020, 2)
+    `IPGG (base 2210 = 100)` = fmt(IPGG, 2),
+    `Gasto real (millones PAVOs de 2210)` = fmt(Real2210, 2)
   ) %>%
   kable(
     
@@ -747,10 +747,10 @@ serie %>%
 :::
 
 
-Un ejemplo de cálculo, para el año $2023$:
+Un ejemplo de cálculo, para el año $2213$:
 
 $$
-\text{Gasto}_{2023}^{\text{real (a precios de 2020)}} \;=\; \frac{6\,300}{125{,}7}\cdot 100 \;=\; `r fmt(6300/125.7*100, 2)` \ \text{millones de PAVOs de 2020}.
+\text{Gasto}_{2213}^{\text{real (a precios de 2210)}} \;=\; \frac{6\,300}{125{,}7}\cdot 100 \;=\; `r fmt(6300/125.7*100, 2)` \ \text{millones de PAVOs de 2210}.
 $$
 
 Y, graficando las dos series juntas:
@@ -760,7 +760,7 @@ serie_long <- serie %>%
   transmute(
     Anio,
     `Nominal (PAVOs corrientes)`      = Nominal,
-    `Real (PAVOs constantes de 2020)` = Real2020
+    `Real (PAVOs constantes de 2210)` = Real2210
   ) %>%
   pivot_longer(-Anio, names_to = "Serie", values_to = "Valor")
 
@@ -769,9 +769,9 @@ ggplot(serie_long, aes(Anio, Valor, color = Serie, shape = Serie)) +
   geom_point(size = 2.6) +
   scale_color_manual(values = c(pal_libro[1], pal_alerta)) +
   scale_y_continuous(labels = label_number(big.mark = ".", decimal.mark = ",")) +
-  scale_x_continuous(breaks = 2019:2024) +
+  scale_x_continuous(breaks = 2209:2214) +
   labs(title    = "Gasto en consumo final del Sistema Astolat",
-       subtitle = "Nominal vs. real (deflactado con el IPGG, base 2020)",
+       subtitle = "Nominal vs. real (deflactado con el IPGG, base 2210)",
        x = NULL, y = "Millones de PAVOs",
        color = NULL, shape = NULL) +
   theme_libro()
@@ -784,10 +784,10 @@ ggplot(serie_long, aes(Anio, Valor, color = Serie, shape = Serie)) +
 
 ```{r crec-nominal-real}
 crec_nominal <- (serie$Nominal[6] / serie$Nominal[1] - 1) * 100
-crec_real    <- (serie$Real2020[6] / serie$Real2020[1] - 1) * 100
+crec_real    <- (serie$Real2210[6] / serie$Real2210[1] - 1) * 100
 ```
 
-Las dos series cuentan historias distintas. En términos nominales, el gasto en consumo del Sistema Astolat pasó de $`r fmtint(serie$Nominal[1])`$ millones en $2019$ a $`r fmtint(serie$Nominal[6])`$ millones en $2024$: un aumento del $`r fmt(crec_nominal, 1)`\,\%$. En términos reales, sin embargo, el gasto solo creció un $`r fmt(crec_real, 1)`\,\%$ (de $`r fmt(serie$Real2020[1], 0)`$ a $`r fmt(serie$Real2020[6], 0)`$ millones de PAVOs de $2020$). La diferencia entre ambas cifras —aproximadamente $`r fmt(crec_nominal - crec_real, 1)`$ puntos porcentuales— corresponde íntegramente al efecto de la inflación galáctica: no es que Astolat consuma mucho más, es que las cosas cuestan considerablemente más caras.
+Las dos series cuentan historias distintas. En términos nominales, el gasto en consumo del Sistema Astolat pasó de $`r fmtint(serie$Nominal[1])`$ millones en $2209$ a $`r fmtint(serie$Nominal[6])`$ millones en $2214$: un aumento del $`r fmt(crec_nominal, 1)`\,\%$. En términos reales, sin embargo, el gasto solo creció un $`r fmt(crec_real, 1)`\,\%$ (de $`r fmt(serie$Real2210[1], 0)`$ a $`r fmt(serie$Real2210[6], 0)`$ millones de PAVOs de $2210$). La diferencia entre ambas cifras —aproximadamente $`r fmt(crec_nominal - crec_real, 1)`$ puntos porcentuales— corresponde íntegramente al efecto de la inflación galáctica: no es que Astolat consuma mucho más, es que las cosas cuestan considerablemente más caras.
 
 Y esa distinción, tan sencilla y tan a menudo obviada, es lo que le da a este bloque de la asignatura toda su importancia práctica: cualquier decisión empresarial o de política económica basada en cifras nominales sin deflactar corre el riesgo de estar comparando cosas que, sencillamente, ya no comparten unidad de medida.
 
