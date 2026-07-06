@@ -37,12 +37,13 @@ theme_libro <- function(base_size = 11) {
 fmt <- function(x, d = 4) formatC(x, format = "f", digits = d, decimal.mark = ",")
 ```
 
-```{r portada-cap08}
-knitr::include_graphics("figuras/08_discreto.jpg")
-```
+![](figuras/08_discreto.jpg){.portada-img width="100%"}
 
-> *«Nadie ha lanzado nunca una moneda infinitas veces. Pero cada vez que lanzamos una, la distribución binomial aparece puntual, como si supiera que la habíamos convocado.»*
->
+::: {style="text-align: center;"}
+**Figura 8.1.** [Nadie ha lanzado nunca una moneda infinitas veces. Pero cada vez que lanzamos una, la distribución binomial aparece puntual, como si supiera que la habíamos convocado.]{.smallcaps}
+:::
+
+
 > — De un cuaderno de un ingeniero de flotas de *arrakis freight*, encontrado (dicen) entre dos manuales de mantenimiento.
 
 ## Introducción {#intro-cap08}
@@ -540,7 +541,7 @@ ggplot(df_hyp, aes(x = x, y = p)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 8.1.** Función de cuantía de $\\xi \\to H(300;\\, 10;\\, 62/300)$: número de empresas con flota renovada en una muestra aleatoria de 10 empresas auditadas.
+**Figura 8.2.** Función de cuantía de $\\xi \\to H(300;\\, 10;\\, 62/300)$: número de empresas con flota renovada en una muestra aleatoria de 10 empresas auditadas.
 :::
 
 
