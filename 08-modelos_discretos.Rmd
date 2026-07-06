@@ -1,13 +1,636 @@
-# Modelos de probabilidad discretos univariantes.
+# Modelos de probabilidad discretos {#modelos-discretos}
 
-*Tema 5: Modelos de distribución de probabilidad. Apartado 5.1.*
+```{r setup-cap08, include=FALSE}
+knitr::opts_chunk$set(
+  echo      = FALSE,
+  warning   = FALSE,
+  message   = FALSE,
+  fig.align = "center",
+  out.width = "85%"
+)
 
-En este capítulo se presentan los principales **modelos teóricos de
-distribución de probabilidad** para variables aleatorias **discretas**: las
-distribuciones de **Bernoulli**, **Binomial**, **Geométrica**, **Binomial
-Negativa**, **Hipergeométrica**, **Uniforme discreta** y **Poisson**. Para
-cada modelo se describe su función de masa, sus principales características
-(esperanza, varianza, función generatriz), las condiciones bajo las que
-surge y sus aplicaciones más habituales en el contexto económico-empresarial.
+library(tidyverse)
+library(readxl)
+library(knitr)
+library(kableExtra)
+library(scales)
 
-<!-- Contenido pendiente de desarrollo. -->
+# Paleta coherente con capítulos previos.
+pal_libro  <- c("#2C6E91", "#B85450", "#E4B363", "#6A8E7F", "#8E6C88")
+pal_acento <- "#B85450"
+pal_apoyo  <- "#2C6E91"
+pal_gris   <- "grey60"
+
+theme_libro <- function(base_size = 11) {
+  theme_minimal(base_size = base_size) +
+    theme(
+      plot.title       = element_text(face = "bold", size = rel(1.05)),
+      plot.subtitle    = element_text(color = "grey30"),
+      panel.grid.minor = element_blank(),
+      panel.grid.major = element_line(color = "grey90"),
+      axis.title       = element_text(color = "grey20"),
+      strip.text       = element_text(face = "bold")
+    )
+}
+
+# Formateador de números con coma decimal española.
+fmt <- function(x, d = 4) formatC(x, format = "f", digits = d, decimal.mark = ",")
+```
+
+```{r portada-cap08, fig.cap="Cada modelo discreto es un molde: un patrón matemático que sirve para muchos experimentos diferentes."}
+knitr::include_graphics("figuras/08_discreto.jpg")
+```
+
+> *«Nadie ha lanzado nunca una moneda infinitas veces. Pero cada vez que lanzamos una, la distribución binomial aparece puntual, como si supiera que la habíamos convocado.»*
+>
+> — De un cuaderno de un ingeniero de flotas de *arrakis freight*, encontrado (dicen) entre dos manuales de mantenimiento.
+
+## Introducción {#intro-cap08}
+
+En el capítulo anterior definimos qué es una **variable aleatoria** y aprendimos a describirla mediante su función de distribución y, según fuera discreta o continua, mediante su **función de cuantía** o su **función de densidad**. Con esas herramientas basta, en teoría, para modelar cualquier fenómeno aleatorio: uno se sienta con lápiz y papel, se pregunta qué valores puede tomar la variable y con qué probabilidad, y ya tiene un modelo.
+
+En la práctica, hay algo mejor. Muchos fenómenos aleatorios comparten **exactamente la misma estructura probabilística**, aunque su naturaleza sea distinta. El número de contratos que gana *vader and company* en las próximas diez licitaciones, el número de cargueros de *excalibur freight systems* que llegan a tiempo hoy y el número de veces que el auditor Han Bubo detecta una irregularidad en veinte inspecciones… son variables aleatorias que viven en universos muy distintos, pero se comportan probabilísticamente igual. Los tres casos responden a la misma pregunta: "en $n$ intentos, ¿cuántos éxitos?". Y la respuesta, sea cual sea el disfraz, tiene la misma función de cuantía.
+
+Este capítulo cataloga los principales **modelos discretos**: las plantillas matemáticas que, bien identificadas, permiten resolver de un plumazo situaciones aparentemente muy dispares. Cada modelo se puede pensar como un **molde** con un pequeño número de parámetros ajustables. Detectar el molde adecuado —no confundir un experimento binomial con uno hipergeométrico, ni una Poisson con una binomial— es la mitad del trabajo. La otra mitad, aplicar la fórmula, es lo fácil.
+
+Nos ocuparemos aquí de las siguientes distribuciones, en este orden:
+
+1. El **experimento de Bernoulli**, que es la piedra angular sobre la que se apoyan todas las demás.
+2. La **distribución binomial**, para contar éxitos en $n$ intentos independientes.
+3. La **distribución de Poisson**, apropiada para contar sucesos raros que ocurren en un intervalo de tiempo o de espacio.
+4. La **distribución binomial negativa**, que da la vuelta a la pregunta binomial: en lugar de fijar el número de intentos, fija el número de éxitos y cuenta cuántos fracasos aparecen por el camino. Como caso particular, aparecerá la **distribución geométrica**.
+5. La **distribución hipergeométrica**, para el conteo de éxitos en muestreos sin reemplazamiento.
+
+Omitiremos deliberadamente las funciones generatrices; no las echaremos de menos.
+
+::: {.callout-tip}
+**Cómo leer este capítulo.** Para cada modelo se sigue el mismo guion: primero, el *experimento canónico* que da lugar al modelo (la intuición); a continuación, la *variable aleatoria* que se modela y sus *parámetros*; después, la *función de cuantía*, la media y la varianza; y por último, uno o varios *ejemplos* pensados para que se distinga en qué situaciones aplicar cada distribución. Al final del capítulo hay una guía rápida de decisión que responde a la pregunta clave: "¿qué modelo uso?".
+:::
+
+## Experimento de Bernoulli {#bernoulli}
+
+### La intuición: éxito o fracaso {#bernoulli-intuicion}
+
+Todo empieza con la situación más simple imaginable: **un experimento que solo puede dar dos resultados**. Nada de matices, nada de terceras vías. Es lo que se conoce como un **experimento de Bernoulli**, en honor a Jacob Bernoulli, quien lo formalizó hacia finales del siglo XVII y con ello dejó, sin saberlo, el andamio matemático para todo lo que sigue.
+
+Un carguero de *arrakis freight* sale esta madrugada de Arrakis con destino a Klendathu. Al aterrizar mañana en el astropuerto de destino, solo pueden pasar dos cosas: que llegue a tiempo (llamémoslo **éxito**) o que no lo haga (llamémoslo **fracaso**). No hay medias tintas: o cumple ventana o no la cumple.[^bernoulli-etiqueta] Ese es, entero y verdadero, un experimento de Bernoulli.
+
+[^bernoulli-etiqueta]: *Éxito* y *fracaso* son etiquetas convencionales. En un control de calidad, "éxito" suele significar "detectar el defecto", que es socialmente lo contrario de un éxito. Nada nuevo: los estadísticos llevamos siglos llamando "éxito" a lo que le arruina el día a un ingeniero.
+
+Otros ejemplos, con el mismo esqueleto: el auditor Luke Diomedea abre un contenedor al azar y lo declara conforme o no conforme; una nave del astillero KORRIGAN se somete a inspección técnica y la supera o no la supera; un cliente potencial en Tatooine recibe una oferta comercial y contrata o no contrata.
+
+### Definición formal {#bernoulli-formal}
+
+Sea un experimento con dos resultados posibles, **éxito** y **fracaso**. Codifiquemos el resultado con una variable numérica: $\xi = 1$ si sale éxito, $\xi = 0$ si sale fracaso. Sea $p \in (0, 1)$ la probabilidad de éxito (y por tanto $q = 1 - p$ la de fracaso). La variable $\xi$ así definida sigue una **distribución de Bernoulli** de parámetro $p$, y escribimos:
+
+$$
+\xi \to B(1; p).
+$$
+
+El único parámetro del modelo es $p$, la probabilidad de éxito. Con él queda todo dicho.
+
+**Función de cuantía.** La probabilidad de cada uno de los dos únicos valores posibles se puede escribir de forma compacta:
+
+$$
+P(\xi = x) = p^{x} \cdot q^{\,1-x}, \qquad x \in \{0, 1\}.
+$$
+
+Es un truco de notación: si $x = 1$, la fórmula devuelve $p$; si $x = 0$, devuelve $q$. Nada más.
+
+**Media y varianza.** Para un Bernoulli son extremadamente sencillas —y merecen quedar grabadas:
+
+$$
+\mu = E(\xi) = p, \qquad \sigma^{2} = \operatorname{Var}(\xi) = p \cdot q.
+$$
+
+La media, $p$, se puede leer literalmente como "la proporción esperada de éxitos si se repitiese el experimento muchas veces". La varianza alcanza su máximo, $0{,}25$, cuando $p = 0{,}5$ —cuando el resultado es más incierto— y se anula en los extremos $p = 0$ o $p = 1$, donde ya no hay azar del que hablar.
+
+### Un ejemplo mínimo {#bernoulli-ejemplo}
+
+Basándonos en los registros históricos de puntualidad de *arrakis freight*, el 85 % de sus cargueros llegan a tiempo a la ventana comprometida. Sea $\xi$ la variable "el carguero de esta madrugada llega a tiempo". Entonces $\xi \to B(1; 0{,}85)$, y:
+
+- $P(\xi = 1) = 0{,}85$ (probabilidad de éxito).
+- $P(\xi = 0) = 0{,}15$ (probabilidad de fracaso).
+- $E(\xi) = 0{,}85$; $\operatorname{Var}(\xi) = 0{,}85 \cdot 0{,}15 = 0{,}1275$.
+
+Con un solo carguero, el Bernoulli agota el problema. Pero raras veces despacha una compañía un solo carguero: normalmente despacha muchos, y de ahí nace el modelo binomial.
+
+## Distribución binomial {#binomial}
+
+### La intuición: contar éxitos en $n$ intentos {#binomial-intuicion}
+
+Si el Bernoulli describe un solo intento, la **distribución binomial** describe lo que ocurre cuando *repetimos $n$ veces* ese mismo intento, en condiciones idénticas y sin que unos resultados influyan sobre otros. Esas dos condiciones —**idénticas** y **sin influencia mutua**, es decir, **independientes**— son la carta de identidad del modelo. Si fallan, el modelo binomial también.
+
+Volvamos a *arrakis freight*. Según el fichero `interestelar_300.xlsx`, esta compañía dispone de una flota de 24 cargueros. Suponga el lector que esta madrugada despachan 12 de ellos, todos hacia Klendathu, cada uno de manera independiente (naves distintas, tripulaciones distintas, ventanas distintas). Cada carguero llega a tiempo con probabilidad $p = 0{,}85$. La variable
+
+$$
+\xi = \text{“número de cargueros de los 12 que llegan a tiempo”}
+$$
+
+toma valores en $\{0, 1, 2, \ldots, 12\}$, y sigue una distribución binomial. Escribimos $\xi \to B(12; 0{,}85)$. La misma matemática vale, sin cambiar una coma, para "número de aciertos en 12 lanzamientos de una moneda cargada", "número de aprobados de 12 alumnos en un examen" o "número de reactores conformes de 12 tests en la línea de montaje". El molde es el mismo.
+
+### Definición formal {#binomial-formal}
+
+Un experimento binomial es la repetición de $n$ ensayos independientes de Bernoulli, todos con la misma probabilidad de éxito $p$. La variable aleatoria "número total de éxitos en los $n$ ensayos" sigue una distribución **binomial** de parámetros $n$ y $p$:
+
+$$
+\xi \to B(n; p).
+$$
+
+**Función de cuantía:**
+
+$$
+P(\xi = x) \;=\; \binom{n}{x} \, p^{x} \, q^{\,n-x}, \qquad x = 0, 1, 2, \ldots, n,
+$$
+
+donde $q = 1 - p$. El coeficiente binomial $\binom{n}{x}$ cuenta las maneras distintas de que los $x$ éxitos aparezcan repartidos entre los $n$ intentos; el producto $p^{x} q^{n-x}$ mide la probabilidad de una de esas maneras concretas.
+
+**Media y varianza:**
+
+$$
+\mu = E(\xi) = n \cdot p, \qquad \sigma^{2} = \operatorname{Var}(\xi) = n \cdot p \cdot q.
+$$
+
+La media es coherente con el sentido común: si cada intento aporta $p$ éxitos "en promedio", $n$ intentos aportan $n \cdot p$.
+
+**Propiedad reproductiva.** Si $\xi_1 \to B(n_1; p)$, $\xi_2 \to B(n_2; p)$… son variables binomiales independientes **con el mismo $p$**, su suma también es binomial: $\xi_1 + \xi_2 + \cdots + \xi_m \to B(n_1 + n_2 + \cdots + n_m; p)$. En términos operativos: da lo mismo mirar los cargueros que despachan hoy tres delegaciones distintas de la empresa por separado o agregados, siempre que la puntualidad se rija por la misma $p$ en todas.
+
+### Ejemplo: los 12 cargueros de arrakis freight {#binomial-ejemplo}
+
+Retomamos el escenario anterior. $\xi \to B(12; 0{,}85)$. La media es $\mu = 12 \cdot 0{,}85 = 10{,}2$ cargueros a tiempo (en promedio, si la operación se repitiese muchos días), y la desviación típica ronda los $1{,}24$. Algunas preguntas concretas:
+
+- **Que los 12 lleguen a tiempo.**
+
+  $$
+  P(\xi = 12) = \binom{12}{12} \cdot 0{,}85^{12} \cdot 0{,}15^{0} = 0{,}85^{12} \approx `r fmt(0.85^12)`.
+  $$
+
+  Es decir, unas 14 madrugadas de cada 100. Suficientemente frecuente para que un jefe de operaciones no se sorprenda; suficientemente raro para no darlo por hecho.
+
+- **Que al menos 10 lleguen a tiempo.**
+
+```{r calc-binom-arrakis}
+p_al_menos_10 <- sum(dbinom(10:12, size = 12, prob = 0.85))
+p_a_lo_sumo_8 <- sum(dbinom(0:8,   size = 12, prob = 0.85))
+```
+
+  $$
+  P(\xi \geq 10) = \sum_{x=10}^{12} \binom{12}{x} \, 0{,}85^{x} \, 0{,}15^{\,12-x} \approx `r fmt(p_al_menos_10)`.
+  $$
+
+  Casi tres de cada cuatro madrugadas se llega a este umbral.
+
+- **Que a lo sumo 8 lleguen a tiempo.** Un mal día operativo, vamos.
+
+  $$
+  P(\xi \leq 8) \approx `r fmt(p_a_lo_sumo_8)`.
+  $$
+
+  Alrededor de una madrugada de cada once. Poco frecuente; y cuando ocurre, en la oficina se abre la investigación.
+
+La figura \@ref(fig:fig-binom-arrakis) muestra la forma completa de la distribución. Concentrada en torno a la media $10{,}2$, con colas rápidamente amortiguadas, es el retrato típico de una binomial con $p$ alta.
+
+```{r fig-binom-arrakis, fig.cap="Función de cuantía de la variable $\\xi \\to B(12; 0{,}85)$: número de cargueros (de 12) de *arrakis freight* que llegan a tiempo. La probabilidad se concentra en la zona alta del rango porque los cargueros suelen cumplir la ventana.", fig.height=3.6}
+df_bin <- tibble(
+  x = 0:12,
+  p = dbinom(0:12, size = 12, prob = 0.85)
+)
+
+ggplot(df_bin, aes(x = x, y = p)) +
+  geom_col(fill = pal_apoyo, alpha = 0.9, width = 0.65) +
+  geom_text(aes(label = ifelse(p >= 0.02, sprintf("%.3f", p), "")),
+            vjust = -0.5, size = 3, color = "grey30") +
+  scale_x_continuous(breaks = 0:12) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = expression("Número de cargueros a tiempo, "*xi),
+       y = expression(P(xi==x))) +
+  theme_libro()
+```
+
+### Un aviso importante sobre la independencia {#binomial-aviso}
+
+La binomial funciona *solo* cuando los ensayos son independientes y la probabilidad $p$ es la misma en todos. Si los 12 cargueros tuvieran que atravesar la misma tormenta ionizante en el sector Klendathu, los fracasos ya no serían independientes y la binomial infraestimaría la probabilidad de un desastre colectivo. Del mismo modo, si tres de los doce cargueros son antiguos —con tasas de puntualidad distintas—, tampoco vale la binomial pura. La estadística no tiene reparo en dar respuestas equivocadas: las da cuando le pedimos que aplique el modelo equivocado.
+
+## Distribución de Poisson {#poisson}
+
+### La intuición: sucesos raros en un intervalo {#poisson-intuicion}
+
+La **distribución de Poisson** aparece cuando se cuenta el número de veces que sucede un evento **raro**, pero con **muchísimas oportunidades** de suceder. El ejemplo prototípico: no cuentan a los cargueros que llegan a tiempo, sino a los que sufren una **avería grave** durante un viaje. La avería es rara, sí; pero se dispone de un año entero, con decenas de miles de trayectos, para que ocurra. ¿Cuántas averías ocurrirán este año?
+
+Estrictamente hablando, cualquier proceso de conteo de este tipo es una binomial: si hay $n = 250{,}000$ oportunidades y en cada una la probabilidad de avería es $p = 8 \cdot 10^{-6}$, el número de averías es $B(n; p)$. Pero calcular $\binom{250{,}000}{x} \cdot p^{x} \cdot q^{n-x}$ es incómodo (por decirlo suavemente) y, cuando $n$ es grande y $p$ pequeño, hay una fórmula mucho más ligera que da prácticamente el mismo resultado: la de Poisson.
+
+### Definición formal {#poisson-formal}
+
+Sea $\xi$ una variable aleatoria que cuenta el número de sucesos raros que ocurren en un intervalo (de tiempo, de espacio, de oportunidades). Si el proceso subyacente es binomial con $n$ grande y $p$ pequeño, tales que $n \cdot p$ se mantiene en un valor $\lambda$ moderado, entonces $\xi$ se aproxima muy bien por una distribución de **Poisson** de parámetro $\lambda$:
+
+$$
+\xi \to \mathrm{Po}(\lambda).
+$$
+
+El único parámetro, $\lambda$, es simplemente el **número esperado de sucesos por intervalo**. Su interpretación es tan directa que es difícil confundirse: si $\lambda = 2{,}3$, se esperan $2{,}3$ sucesos por intervalo. La rareza se codifica en la aritmética: si $\lambda$ es pequeño, la mayor parte de la masa se concentra en torno a $x = 0$; si $\lambda$ es grande, la distribución se desplaza y ensancha.
+
+**Función de cuantía:**
+
+$$
+P(\xi = x) \;=\; \frac{e^{-\lambda} \, \lambda^{x}}{x!}, \qquad x = 0, 1, 2, 3, \ldots
+$$
+
+Un detalle a menudo pasado por alto: **la Poisson no tiene tope**. La variable puede tomar cualquier valor entero no negativo, por grande que sea. En la práctica, con $\lambda$ pequeño, las probabilidades caen tan rápido que valores altos son irrelevantes.
+
+**Media y varianza:**
+
+$$
+\mu = E(\xi) = \lambda, \qquad \sigma^{2} = \operatorname{Var}(\xi) = \lambda.
+$$
+
+Una de las señas de identidad de la Poisson es que **su media coincide con su varianza**. Este hecho, que no tiene análogo en la binomial, sirve incluso como test empírico: si en unos datos de conteo la varianza es aproximadamente igual a la media, la Poisson es una candidata razonable; si es mucho mayor (sobre-dispersión), no lo es.
+
+**Propiedad reproductiva.** La Poisson también se suma bien: si $\xi_1 \to \mathrm{Po}(\lambda_1)$ y $\xi_2 \to \mathrm{Po}(\lambda_2)$ son independientes, entonces $\xi_1 + \xi_2 \to \mathrm{Po}(\lambda_1 + \lambda_2)$. Traducido a operaciones: si en el sector A del hipercorredor Coruscant–Naboo se avistan piratas espaciales con tasa $1{,}0$ por semana, y en el sector B con tasa $1{,}3$, entonces en el corredor completo se avistan con tasa $2{,}3$ por semana.
+
+### Ejemplo 1: piratas espaciales en la ruta Coruscant–Naboo {#poisson-ejemplo-piratas}
+
+*vader and company* opera cargueros de gran tonelaje en el corredor Coruscant–Naboo (Vía Láctea). Los registros de los últimos años cifran en $\lambda = 2{,}3$ el número medio de **avistamientos de piratas** por semana en toda la ruta. Como $\lambda$ es moderado y estable, es razonable modelar $\xi = \text{“avistamientos en una semana”}$ como $\xi \to \mathrm{Po}(2{,}3)$.
+
+Algunas probabilidades de interés:
+
+- **Semana tranquila (cero avistamientos).**
+
+  $$
+  P(\xi = 0) = \frac{e^{-2{,}3} \, 2{,}3^{0}}{0!} = e^{-2{,}3} \approx `r fmt(exp(-2.3))`.
+  $$
+
+  Alrededor de una de cada diez semanas.
+
+- **Semana movida (tres o más avistamientos).**
+
+```{r calc-poisson-piratas}
+p_al_menos_3 <- 1 - ppois(2, lambda = 2.3)
+```
+
+  $$
+  P(\xi \geq 3) = 1 - P(\xi \leq 2) \approx `r fmt(p_al_menos_3)`.
+  $$
+
+  Alrededor del 40 % de las semanas hay tres o más avistamientos: llamar a esto "raro" es cuestión de perspectiva.
+
+La figura \@ref(fig:fig-poisson-piratas) muestra la cuantía completa. Nótese la asimetría a la derecha, típica de las Poisson con $\lambda$ pequeño o moderado: es más difícil bajar de la media (limitada por el cero) que subir por encima.
+
+```{r fig-poisson-piratas, fig.cap="Función de cuantía de $\\xi \\to \\mathrm{Po}(2{,}3)$: avistamientos de piratas por semana en el corredor Coruscant–Naboo. La media coincide con la varianza; ambas valen $2{,}3$.", fig.height=3.6}
+df_poi <- tibble(
+  x = 0:10,
+  p = dpois(0:10, lambda = 2.3)
+)
+
+ggplot(df_poi, aes(x = x, y = p)) +
+  geom_col(fill = pal_libro[4], alpha = 0.9, width = 0.65) +
+  geom_text(aes(label = ifelse(p >= 0.02, sprintf("%.3f", p), "")),
+            vjust = -0.5, size = 3, color = "grey30") +
+  geom_vline(xintercept = 2.3, linetype = "dashed", color = pal_acento) +
+  annotate("text", x = 2.3, y = max(df_poi$p) * 1.1,
+           label = "media = 2,3", color = pal_acento, hjust = -0.05, size = 3.2) +
+  scale_x_continuous(breaks = 0:10) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = expression("Avistamientos por semana, "*xi),
+       y = expression(P(xi==x))) +
+  theme_libro()
+```
+
+### Ejemplo 2: la Poisson como aproximación de la binomial {#poisson-ejemplo-aprox}
+
+El astillero KORRIGAN monta cada casco con $n = 2\,000$ remaches de aleación de titanio-Aldenaanaano. Cada remache tiene una probabilidad $p = 0{,}001$ de salir defectuoso, independiente del resto. Sea $\xi$ el número de remaches defectuosos por casco.
+
+Estrictamente, $\xi \to B(2\,000;\, 0{,}001)$. Pero $n$ es grande y $p$ es pequeño; su producto $\lambda = n \cdot p = 2$ es modesto. En esas condiciones, la Poisson $\mathrm{Po}(2)$ da una respuesta prácticamente idéntica a la binomial:
+
+```{r calc-aprox-poisson}
+p_bin <- dbinom(3, size = 2000, prob = 0.001)
+p_poi <- dpois(3, lambda = 2)
+```
+
+$$
+P(\xi = 3) \;\text{ (Binomial exacta) } = `r fmt(p_bin, 6)`, \qquad
+P(\xi = 3) \;\text{ (Poisson aprox.) } = `r fmt(p_poi, 6)`.
+$$
+
+La coincidencia hasta la quinta cifra decimal no es casualidad: se puede demostrar que la binomial converge a la Poisson cuando $n \to \infty$, $p \to 0$ y $n \cdot p = \lambda$ permanece constante. En términos operativos, la regla práctica que suele darse en manuales de ingeniería es:
+
+::: {.callout-tip}
+**Regla práctica (Binomial → Poisson).** Si $n \geq 30$ y $p \leq 0{,}05$ (idealmente $p \leq 0{,}01$), la aproximación $B(n; p) \approx \mathrm{Po}(n \cdot p)$ suele ser excelente. Cuanto más grande sea $n$ y más pequeña sea $p$, mejor.
+:::
+
+### Cómo distinguir binomial de Poisson {#binomial-vs-poisson}
+
+Estas dos son las distribuciones que más se confunden entre sí, porque ambas cuentan éxitos. La diferencia está en **qué es lo que se cuenta y cómo está delimitado el experimento**. Esta tabla condensa el criterio:
+
+```{r tab-bin-vs-poi}
+tab <- tribble(
+  ~Criterio,
+  ~Binomial, ~Poisson,
+  "Número de ensayos",           "Fijo y conocido: $n$.",       "No hay un $n$ fijo; se cuenta sobre un intervalo (tiempo, espacio, oportunidades).",
+  "Probabilidad de éxito",       "Constante y no muy pequeña.",  "Se traduce en una tasa $\\lambda$; los sucesos son raros pero el intervalo es amplio.",
+  "Máximo posible",              "El total de ensayos, $n$.",    "No hay máximo teórico.",
+  "Media y varianza",            "$\\mu = np,\\; \\sigma^2 = npq$.", "$\\mu = \\lambda,\\; \\sigma^2 = \\lambda$ (iguales).",
+  "Ejemplo típico",              "Cargueros a tiempo de 12 despachados.", "Averías al año en toda una flota."
+)
+
+kable(tab,
+      align   = "lll",
+      caption = "Cómo distinguir un experimento binomial de uno de Poisson: qué está fijado, qué es raro y qué se cuenta.",
+      escape  = FALSE) |>
+  kable_styling(
+    bootstrap_options = c("hover", "condensed"),
+    full_width        = FALSE,
+    position          = "center",
+    font_size         = 13
+  )
+```
+
+En una palabra: **si podemos poner un número $n$ de intentos por delante, es binomial; si contamos sucesos en un continuo, es Poisson**. Y si $n$ es tan grande y $p$ tan pequeño que da lo mismo cuál usemos, use la Poisson: le ahorrará cálculos.
+
+## Distribución binomial negativa {#binomial-negativa}
+
+### La intuición: éxitos fijos, fracasos por contar {#bn-intuicion}
+
+La distribución binomial se hacía una pregunta: **fijado el número de intentos $n$, ¿cuántos éxitos?** La **binomial negativa** invierte el papel: **fijado el número de éxitos $r$, ¿cuántos fracasos aparecen antes de completar los $r$ éxitos?**
+
+Un caso pedagógico: la fábrica de reactores de *corellian freightworks*, en Qo'noS, certifica una tanda de motores sólo cuando **tres reactores consecutivos —no necesariamente seguidos, sino tres reactores válidos en total— pasan el banco de pruebas**. Cada reactor pasa la prueba con probabilidad $p = 0{,}8$ (fracaso $q = 0{,}2$). El ingeniero jefe Anakin Falco necesita saber, antes de encargar la tanda siguiente, cuántos reactores defectuosos previsiblemente tendrá que apartar antes de completar la certificación. Es decir, cuántos **fracasos** verá antes del **tercer éxito**. Esa es la variable binomial negativa.
+
+Otros ejemplos análogos: cuántos clientes rechazan una oferta comercial antes de que un vendedor cierre sus dos primeros contratos del mes; cuántas rutas hay que probar antes de dar con las tres primeras en las que la meteo permite despegar; cuántos aterrizajes fallidos acumula un piloto novato antes de conseguir cinco aterrizajes válidos.
+
+### Definición formal {#bn-formal}
+
+Sea un experimento de Bernoulli con probabilidad de éxito $p$ que se repite indefinidamente hasta acumular $r$ éxitos. La variable
+
+$$
+\xi = \text{“número de fracasos observados antes de alcanzar el $r$-ésimo éxito”}
+$$
+
+sigue una **distribución binomial negativa** de parámetros $r$ y $p$:
+
+$$
+\xi \to \mathrm{BN}(r; p).
+$$
+
+**Función de cuantía:**
+
+$$
+P(\xi = x) \;=\; \binom{x + r - 1}{x} \, p^{r} \, q^{x}, \qquad x = 0, 1, 2, 3, \ldots,
+$$
+
+donde $q = 1 - p$. Intuitivamente, el último ensayo *tiene que ser* un éxito (el $r$-ésimo); en los $x + r - 1$ ensayos anteriores hay que colocar los $x$ fracasos, de ahí el coeficiente binomial.
+
+**Media y varianza:**
+
+$$
+\mu = E(\xi) = r \cdot \frac{q}{p}, \qquad \sigma^{2} = \operatorname{Var}(\xi) = r \cdot \frac{q}{p^{2}}.
+$$
+
+Que la media dependa de $q/p$ tiene una interpretación transparente: si $p$ es alto, $q/p$ es pequeño y los fracasos previsiblemente serán pocos; si $p$ es bajo, se acumularán muchos fracasos por cada éxito conseguido.
+
+**Propiedad reproductiva.** Si $\xi_1 \to \mathrm{BN}(r_1; p)$, $\xi_2 \to \mathrm{BN}(r_2; p)$ son independientes con **la misma $p$**, entonces $\xi_1 + \xi_2 \to \mathrm{BN}(r_1 + r_2; p)$.
+
+### Ejemplo: la certificación de reactores en Qo'noS {#bn-ejemplo}
+
+Recuperemos el caso de *corellian freightworks*. La variable $\xi = \text{“reactores defectuosos apartados antes del tercer reactor válido”}$ sigue $\xi \to \mathrm{BN}(3;\, 0{,}8)$. La media es
+
+$$
+\mu = 3 \cdot \frac{0{,}2}{0{,}8} = 0{,}75 \text{ reactores defectuosos.}
+$$
+
+Anakin Falco espera, en promedio, tener que descartar tres cuartos de reactor —lo que en la práctica significa: casi ninguno o, con mala suerte, uno—. La probabilidad de que descarte **exactamente dos** reactores defectuosos antes de certificar la tanda es
+
+$$
+P(\xi = 2) = \binom{2 + 3 - 1}{2} \cdot 0{,}8^{3} \cdot 0{,}2^{2} = 6 \cdot 0{,}512 \cdot 0{,}04 \approx `r fmt(dnbinom(2, size = 3, prob = 0.8))`.
+$$
+
+La figura \@ref(fig:fig-bn-corellian) ilustra la distribución completa. La probabilidad se concentra en valores muy bajos (0 o 1 fracasos), coherente con una $p$ alta.
+
+```{r fig-bn-corellian, fig.cap="Función de cuantía de $\\xi \\to \\mathrm{BN}(3;\\, 0{,}8)$: número de reactores defectuosos apartados antes del tercer reactor válido en la fábrica de *corellian freightworks*.", fig.height=3.6}
+df_bn <- tibble(
+  x = 0:10,
+  p = dnbinom(0:10, size = 3, prob = 0.8)
+)
+
+ggplot(df_bn, aes(x = x, y = p)) +
+  geom_col(fill = pal_libro[5], alpha = 0.9, width = 0.65) +
+  geom_text(aes(label = ifelse(p >= 0.02, sprintf("%.3f", p), "")),
+            vjust = -0.5, size = 3, color = "grey30") +
+  scale_x_continuous(breaks = 0:10) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = expression("Fracasos antes del 3er éxito, "*xi),
+       y = expression(P(xi==x))) +
+  theme_libro()
+```
+
+### Caso particular: la distribución geométrica {#geometrica}
+
+Cuando $r = 1$ —esto es, cuando lo que interesa es cuántos fracasos aparecen **antes del primer éxito**— la binomial negativa recibe un nombre propio: **distribución geométrica**. Se denota
+
+$$
+\xi \to G(p),
+$$
+
+y su función de cuantía se simplifica notablemente:
+
+$$
+P(\xi = x) = p \cdot q^{x}, \qquad x = 0, 1, 2, 3, \ldots
+$$
+
+**Media y varianza** (heredadas de la binomial negativa con $r = 1$):
+
+$$
+\mu = \frac{q}{p}, \qquad \sigma^{2} = \frac{q}{p^{2}}.
+$$
+
+Un ejemplo doméstico: el piloto novato Rey Solo se está sacando la licencia de aterrizaje en el complejo hotelero Fhloston Paradise. Cada intento tiene una probabilidad $p = 0{,}6$ de terminar con el carguero suavemente posado sobre la plataforma flotante (y $q = 0{,}4$ de terminar en el mar). Sea $\xi$ el número de intentos fallidos antes del primer aterrizaje exitoso. Entonces $\xi \to G(0{,}6)$, y por ejemplo:
+
+$$
+P(\xi = 2) = 0{,}6 \cdot 0{,}4^{2} = 0{,}0960.
+$$
+
+En promedio, Rey esperará $q/p = 0{,}67$ intentos fallidos —casi ninguno, aunque estos casos casi nunca van "casi bien"— antes de coronar el aterrizaje.
+
+::: {.callout-note}
+**Cuidado con la convención.** Algunos textos llaman "distribución geométrica" al número de **intentos totales** hasta el primer éxito, no al número de fracasos previos. Ambas convenciones son legítimas, se relacionan por un desfase de una unidad, pero sus medias son distintas ($1/p$ frente a $q/p$). En este manual seguimos la convención "fracasos previos", coherente con la binomial negativa que la contiene.
+:::
+
+## Distribución hipergeométrica {#hipergeometrica}
+
+### La intuición: contar éxitos en una muestra sin reemplazamiento {#hg-intuicion}
+
+Todas las distribuciones anteriores compartían un supuesto tácito: los ensayos eran independientes. Cada carguero llega a tiempo con la misma probabilidad, sin que el destino de los demás influya. Ese supuesto se rompe en cuanto un muestreo se hace **sin reemplazamiento** sobre una población finita: cada extracción cambia la composición de las que quedan, y con ella las probabilidades del siguiente ensayo.
+
+El ejemplo canónico es la **auditoría**. La Comisión Interestelar de Transporte va a auditar $n$ empresas de las 300 registradas en el fichero `interestelar_300.xlsx`. Sabemos que de esas 300, hay $N_1 = 62$ con flota renovada (categoría RENOVADA de la variable EFLO) y las $238$ restantes tienen flota antigua o madura. La Comisión selecciona 10 empresas al azar, **sin reemplazamiento** (evidentemente: nadie audita dos veces a la misma), y quiere saber cuántas de las 10 tendrán flota renovada. Esa variable no es binomial —los ensayos no son independientes— sino **hipergeométrica**.
+
+### Definición formal {#hg-formal}
+
+Sea una población finita de $N$ elementos, de los cuales $N_1$ son de un tipo (llamémoslo *éxito*) y los restantes $N - N_1$ del otro (*fracaso*). Se extrae al azar y sin reemplazamiento una muestra de $n$ elementos. La variable
+
+$$
+\xi = \text{“número de éxitos en la muestra de $n$”}
+$$
+
+sigue una **distribución hipergeométrica** de parámetros $N$, $n$ y $p = N_1 / N$:
+
+$$
+\xi \to H(N; n; p).
+$$
+
+Nótese que el parámetro $p = N_1 / N$ codifica la proporción de éxitos **en la población**, no en la muestra.
+
+**Función de cuantía:**
+
+$$
+P(\xi = x) \;=\; \frac{\dbinom{N_1}{x} \cdot \dbinom{N - N_1}{n - x}}{\dbinom{N}{n}}, \qquad x = 0, 1, 2, \ldots, n.
+$$
+
+La fórmula tiene una lectura combinatoria muy limpia: entre las $\binom{N}{n}$ maneras posibles de extraer una muestra de $n$ elementos, cuento aquellas que contienen exactamente $x$ elementos "éxito" (elegidos entre los $N_1$ disponibles, $\binom{N_1}{x}$ maneras) y $n - x$ elementos "fracaso" (elegidos entre los $N - N_1$ disponibles).
+
+**Media y varianza:**
+
+$$
+\mu = E(\xi) = n \cdot p, \qquad \sigma^{2} = \operatorname{Var}(\xi) = n \cdot p \cdot q \cdot \frac{N - n}{N - 1}.
+$$
+
+La media es **idéntica** a la de la binomial. La varianza, no: aparece un factor extra $\frac{N - n}{N - 1}$, conocido como **factor de corrección de población finita**. Ese factor siempre es menor o igual que $1$, y refleja el hecho de que un muestreo sin reemplazamiento es **más informativo** que uno con reemplazamiento: al no repetirse elementos, la variabilidad se reduce.
+
+### Ejemplo: auditoría de flotas {#hg-ejemplo}
+
+Retomemos la Comisión Interestelar. $\xi \to H(300;\, 10;\, 62/300) = H(300;\, 10;\, 0{,}2067)$. La media es
+
+$$
+\mu = 10 \cdot \frac{62}{300} \approx 2{,}07 \text{ empresas con flota renovada.}
+$$
+
+Algunas probabilidades relevantes:
+
+```{r calc-hyper}
+p0 <- dhyper(0, m = 62, n = 300 - 62, k = 10)
+p1 <- dhyper(1, m = 62, n = 300 - 62, k = 10)
+p2 <- dhyper(2, m = 62, n = 300 - 62, k = 10)
+p3 <- dhyper(3, m = 62, n = 300 - 62, k = 10)
+p_al_menos_3 <- 1 - phyper(2, m = 62, n = 300 - 62, k = 10)
+```
+
+- $P(\xi = 0) \approx `r fmt(p0)`$: que ninguna empresa auditada tenga flota renovada.
+- $P(\xi = 2) \approx `r fmt(p2)`$: el resultado más probable.
+- $P(\xi \geq 3) \approx `r fmt(p_al_menos_3)`$: probabilidad de encontrar tres o más empresas con flota renovada, alrededor del 34 %.
+
+La figura \@ref(fig:fig-hyper-audit) muestra la distribución completa. Es asimétrica a la derecha porque la proporción de éxitos en la población, $p \approx 0{,}21$, es baja.
+
+```{r fig-hyper-audit, fig.cap="Función de cuantía de $\\xi \\to H(300;\\, 10;\\, 62/300)$: número de empresas con flota renovada en una muestra aleatoria de 10 empresas auditadas.", fig.height=3.6}
+df_hyp <- tibble(
+  x = 0:10,
+  p = dhyper(0:10, m = 62, n = 300 - 62, k = 10)
+)
+
+ggplot(df_hyp, aes(x = x, y = p)) +
+  geom_col(fill = pal_libro[3], alpha = 0.9, width = 0.65) +
+  geom_text(aes(label = ifelse(p >= 0.02, sprintf("%.3f", p), "")),
+            vjust = -0.5, size = 3, color = "grey30") +
+  scale_x_continuous(breaks = 0:10) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = expression("Empresas RENOVADA en la muestra, "*xi),
+       y = expression(P(xi==x))) +
+  theme_libro()
+```
+
+### Cómo distinguir binomial de hipergeométrica {#binomial-vs-hyper}
+
+Esta es la otra confusión frecuente: binomial e hipergeométrica cuentan la misma cosa (éxitos en una muestra), y difieren solo en un detalle **crítico**: el muestreo. La regla es simple:
+
+::: {.callout-tip}
+**Regla mnemónica.** Si se muestrea **con reemplazamiento** (o de una población tan grande que da lo mismo), es **binomial**. Si se muestrea **sin reemplazamiento** de una población finita, es **hipergeométrica**.
+:::
+
+Ahora bien, cuando la muestra es una fracción muy pequeña de la población, el hecho de reemplazar o no apenas cambia las probabilidades. Se puede demostrar formalmente que:
+
+$$
+H(N;\, n;\, p) \;\xrightarrow[\;p \text{ pequeño}\;]{}\; B(n;\, p).
+$$
+
+En la práctica se suele aceptar esta aproximación cuando $p = N_1 / N < 0{,}1$; un criterio alternativo, también habitual, es exigir que la muestra represente menos del 5–10 % de la población, esto es, $n / N < 0{,}1$. La tabla \@ref(tab:tab-hyp-vs-bin) lo hace evidente en nuestro caso de la auditoría: con $p \approx 0{,}21$ (algo alto para la aproximación), las diferencias entre las probabilidades hipergeométricas exactas y las binomiales aproximadas son moderadas pero perceptibles.
+
+```{r tab-hyp-vs-bin}
+comp <- tibble(
+  x    = 0:5,
+  Hyp  = dhyper(0:5, m = 62, n = 300 - 62, k = 10),
+  Bin  = dbinom(0:5, size = 10, prob = 62 / 300)
+) |>
+  mutate(
+    Diferencia = Hyp - Bin,
+    x   = as.character(x),
+    Hyp = sprintf("%.4f", Hyp),
+    Bin = sprintf("%.4f", Bin),
+    Diferencia = sprintf("%+.4f", Diferencia)
+  )
+
+kable(comp,
+      align   = "cccc",
+      col.names = c("$x$", "Hipergeométrica $H(300; 10; 0{,}207)$",
+                    "Binomial $B(10; 0{,}207)$", "Diferencia"),
+      caption = "Comparación entre las probabilidades exactas hipergeométricas y su aproximación binomial en el ejemplo de la auditoría de flotas. Con $p \\approx 0{,}21$ las diferencias son pequeñas pero visibles; para $p<0{,}1$ serían despreciables.",
+      escape  = FALSE) |>
+  kable_styling(
+    bootstrap_options = c("hover", "condensed"),
+    full_width        = FALSE,
+    position          = "center",
+    font_size         = 13
+  )
+```
+
+Cuando la aproximación es válida, se prefiere la binomial por dos motivos: la fórmula es más sencilla y no requiere conocer el tamaño de la población $N$, solo la proporción de éxitos.
+
+## Guía rápida de decisión {#guia-rapida}
+
+Con cinco modelos sobre la mesa, la pregunta operativa que un lector debe hacerse cuando se enfrenta a un problema real es: **"¿qué modelo aplico?"**. La tabla \@ref(tab:tab-decision) responde a esta pregunta con un pequeño árbol de decisión textual.
+
+```{r tab-decision}
+guia <- tribble(
+  ~Situación, ~Modelo, ~Ejemplo,
+  "Un único ensayo con dos resultados posibles.", "Bernoulli, $B(1; p)$.",
+  "Un carguero llega a tiempo o no llega.",
+  "Número fijo $n$ de ensayos independientes con misma $p$; se cuentan éxitos.",
+  "Binomial, $B(n; p)$.",
+  "Cargueros a tiempo de 12 despachados.",
+  "Muchos ensayos, éxitos raros; se cuentan sucesos por unidad de tiempo o espacio.",
+  "Poisson, $\\mathrm{Po}(\\lambda)$.",
+  "Avistamientos de piratas por semana en una ruta.",
+  "Se fija el número $r$ de éxitos; se cuentan los fracasos previos.",
+  "Binomial negativa, $\\mathrm{BN}(r; p)$.",
+  "Reactores defectuosos antes del 3.º válido.",
+  "Caso particular: $r = 1$ (fracasos antes del primer éxito).",
+  "Geométrica, $G(p)$.",
+  "Aterrizajes fallidos antes del primero exitoso.",
+  "Muestreo sin reemplazamiento en población finita $N$; se cuentan éxitos en la muestra.",
+  "Hipergeométrica, $H(N; n; p)$.",
+  "Empresas RENOVADA en una auditoría de 10 sobre 300."
+)
+
+kable(guia,
+      align   = "lll",
+      caption = "Guía de decisión: qué modelo discreto aplicar según la naturaleza del experimento.",
+      escape  = FALSE) |>
+  kable_styling(
+    bootstrap_options = c("hover", "condensed"),
+    full_width        = FALSE,
+    position          = "center",
+    font_size         = 12
+  )
+```
+
+Y las dos relaciones-puente entre modelos, que conviene tener en la cabeza:
+
+- **Binomial → Poisson** cuando $n$ es grande y $p$ pequeño (regla práctica: $n \geq 30$, $p \leq 0{,}05$).
+- **Hipergeométrica → Binomial** cuando $p = N_1 / N$ es pequeño (regla práctica: $p < 0{,}1$) o cuando la muestra es una fracción reducida de la población.
+
+Ambas aproximaciones se enseñan como atajos de cálculo, pero también son conceptualmente reveladoras: la Poisson es una binomial "muy diluida", y la binomial es una hipergeométrica "sobre una población inagotable". Los tres modelos, al final del día, son variaciones sobre el mismo tema: **contar éxitos**.
+
+## Recapitulación {#recap-cap08}
+
+Este capítulo ha catalogado cinco distribuciones discretas y las relaciones que las enlazan. Las dos ideas que conviene retener por encima de las demás son:
+
+1. **Cada modelo es un patrón, no una fórmula**. La fórmula solo aparece después, cuando ya hemos identificado bien qué se cuenta, cuántos ensayos hay y si son o no independientes. Elegir el modelo correcto es lo verdaderamente importante; la aritmética viene rodada.
+
+2. **Los modelos no son excluyentes**. La Poisson es una binomial en el límite; la hipergeométrica se colapsa en una binomial cuando la población es grande; la binomial es el resultado de sumar Bernoullis. Verlos como una familia, y no como una lista arbitraria, hace que se recuerden mucho mejor.
+
+Nos falta todavía una gran clase de variables aleatorias por modelar: las **continuas**. En el próximo capítulo entraremos en el modelo continuo por antonomasia —la distribución normal—, y con ella el fenómeno más asombroso de toda la estadística clásica: el **teorema central del límite**, ese que hace que cargueros, reactores, piratas y auditorías conspiren, en el largo plazo, para producir la misma campana. Preparen el hipermotor.

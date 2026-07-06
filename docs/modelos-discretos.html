@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>8 Modelos de probabilidad discretos | Estadística Empresarial</title>
+<meta name="author" content="Miguel Ángel Tarancón Morán">
+<meta name="description" content="«Nadie ha lanzado nunca una moneda infinitas veces. Pero cada vez que lanzamos una, la distribución binomial aparece puntual, como si supiera que la habíamos convocado.» — De un cuaderno de un...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="8 Modelos de probabilidad discretos | Estadística Empresarial">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://teckel71.github.io/EstadisticaEmpresarial-book/modelos-discretos.html">
+<meta property="og:image" content="https://teckel71.github.io/EstadisticaEmpresarial-book/figuras/EE_portada.jpg">
+<meta property="og:description" content="«Nadie ha lanzado nunca una moneda infinitas veces. Pero cada vez que lanzamos una, la distribución binomial aparece puntual, como si supiera que la habíamos convocado.» — De un cuaderno de un...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="8 Modelos de probabilidad discretos | Estadística Empresarial">
+<meta name="twitter:description" content="«Nadie ha lanzado nunca una moneda infinitas veces. Pero cada vez que lanzamos una, la distribución binomial aparece puntual, como si supiera que la habíamos convocado.» — De un cuaderno de un...">
+<meta name="twitter:image" content="https://teckel71.github.io/EstadisticaEmpresarial-book/figuras/EE_portada.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Serif_4-0.4.10/font.css" rel="stylesheet">
+<link href="libs/JetBrains_Mono-0.4.10/font.css" rel="stylesheet">
+<link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Estadística Empresarial</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li><a class="" href="prefacio.html">Prefacio</a></li>
+<li><a class="" href="estadistica-economica-empresarial.html"><span class="header-section-number">1</span> Estadística Económica y Empresarial.</a></li>
+<li><a class="" href="variable-estadistica-unidimensional.html"><span class="header-section-number">2</span> Variable estadística unidimensional.</a></li>
+<li><a class="" href="variable-estadistica-bidimensional.html"><span class="header-section-number">3</span> Variable estadística bidimensional y n-dimensional.</a></li>
+<li><a class="" href="regresion-correlacion.html"><span class="header-section-number">4</span> Regresión y correlación.</a></li>
+<li><a class="" href="numeros-indice.html"><span class="header-section-number">5</span> Números índice.</a></li>
+<li><a class="" href="introduccion-probabilidad.html"><span class="header-section-number">6</span> Introducción a la probabilidad.</a></li>
+<li><a class="" href="variables-aleatorias.html"><span class="header-section-number">7</span> Variables aleatorias</a></li>
+<li><a class="active" href="modelos-discretos.html"><span class="header-section-number">8</span> Modelos de probabilidad discretos</a></li>
+<li><a class="" href="modelos-de-probabilidad-continuos-univariantes..html"><span class="header-section-number">9</span> Modelos de probabilidad continuos univariantes.</a></li>
+<li><a class="" href="convergencia-y-teoremas-l%C3%ADmite..html"><span class="header-section-number">10</span> Convergencia y teoremas límite.</a></li>
+<li><a class="" href="bibliograf%C3%ADa.html">Bibliografía</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="modelos-discretos" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> Modelos de probabilidad discretos<a class="anchor" aria-label="anchor" href="#modelos-discretos"><i class="fas fa-link"></i></a>
+</h1>
+<div class="inline-figure"><img src="figuras/08_discreto.jpg" alt="" width="85%" style="display: block; margin: auto;"></div>
+<blockquote>
+<p><em>«Nadie ha lanzado nunca una moneda infinitas veces. Pero cada vez que lanzamos una, la distribución binomial aparece puntual, como si supiera que la habíamos convocado.»</em></p>
+<p>— De un cuaderno de un ingeniero de flotas de <em>arrakis freight</em>, encontrado (dicen) entre dos manuales de mantenimiento.</p>
+</blockquote>
+<div id="intro-cap08" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> Introducción<a class="anchor" aria-label="anchor" href="#intro-cap08"><i class="fas fa-link"></i></a>
+</h2>
+<p>En el capítulo anterior definimos qué es una <strong>variable aleatoria</strong> y aprendimos a describirla mediante su función de distribución y, según fuera discreta o continua, mediante su <strong>función de cuantía</strong> o su <strong>función de densidad</strong>. Con esas herramientas basta, en teoría, para modelar cualquier fenómeno aleatorio: uno se sienta con lápiz y papel, se pregunta qué valores puede tomar la variable y con qué probabilidad, y ya tiene un modelo.</p>
+<p>En la práctica, hay algo mejor. Muchos fenómenos aleatorios comparten <strong>exactamente la misma estructura probabilística</strong>, aunque su naturaleza sea distinta. El número de contratos que gana <em>vader and company</em> en las próximas diez licitaciones, el número de cargueros de <em>excalibur freight systems</em> que llegan a tiempo hoy y el número de veces que el auditor Han Bubo detecta una irregularidad en veinte inspecciones… son variables aleatorias que viven en universos muy distintos, pero se comportan probabilísticamente igual. Los tres casos responden a la misma pregunta: “en <span class="math inline">\(n\)</span> intentos, ¿cuántos éxitos?”. Y la respuesta, sea cual sea el disfraz, tiene la misma función de cuantía.</p>
+<p>Este capítulo cataloga los principales <strong>modelos discretos</strong>: las plantillas matemáticas que, bien identificadas, permiten resolver de un plumazo situaciones aparentemente muy dispares. Cada modelo se puede pensar como un <strong>molde</strong> con un pequeño número de parámetros ajustables. Detectar el molde adecuado —no confundir un experimento binomial con uno hipergeométrico, ni una Poisson con una binomial— es la mitad del trabajo. La otra mitad, aplicar la fórmula, es lo fácil.</p>
+<p>Nos ocuparemos aquí de las siguientes distribuciones, en este orden:</p>
+<ol style="list-style-type: decimal">
+<li>El <strong>experimento de Bernoulli</strong>, que es la piedra angular sobre la que se apoyan todas las demás.</li>
+<li>La <strong>distribución binomial</strong>, para contar éxitos en <span class="math inline">\(n\)</span> intentos independientes.</li>
+<li>La <strong>distribución de Poisson</strong>, apropiada para contar sucesos raros que ocurren en un intervalo de tiempo o de espacio.</li>
+<li>La <strong>distribución binomial negativa</strong>, que da la vuelta a la pregunta binomial: en lugar de fijar el número de intentos, fija el número de éxitos y cuenta cuántos fracasos aparecen por el camino. Como caso particular, aparecerá la <strong>distribución geométrica</strong>.</li>
+<li>La <strong>distribución hipergeométrica</strong>, para el conteo de éxitos en muestreos sin reemplazamiento.</li>
+</ol>
+<p>Omitiremos deliberadamente las funciones generatrices; no las echaremos de menos.</p>
+<div class="callout-tip">
+<p><strong>Cómo leer este capítulo.</strong> Para cada modelo se sigue el mismo guion: primero, el <em>experimento canónico</em> que da lugar al modelo (la intuición); a continuación, la <em>variable aleatoria</em> que se modela y sus <em>parámetros</em>; después, la <em>función de cuantía</em>, la media y la varianza; y por último, uno o varios <em>ejemplos</em> pensados para que se distinga en qué situaciones aplicar cada distribución. Al final del capítulo hay una guía rápida de decisión que responde a la pregunta clave: “¿qué modelo uso?”.</p>
+</div>
+</div>
+<div id="bernoulli" class="section level2" number="8.2">
+<h2>
+<span class="header-section-number">8.2</span> Experimento de Bernoulli<a class="anchor" aria-label="anchor" href="#bernoulli"><i class="fas fa-link"></i></a>
+</h2>
+<div id="bernoulli-intuicion" class="section level3" number="8.2.1">
+<h3>
+<span class="header-section-number">8.2.1</span> La intuición: éxito o fracaso<a class="anchor" aria-label="anchor" href="#bernoulli-intuicion"><i class="fas fa-link"></i></a>
+</h3>
+<p>Todo empieza con la situación más simple imaginable: <strong>un experimento que solo puede dar dos resultados</strong>. Nada de matices, nada de terceras vías. Es lo que se conoce como un <strong>experimento de Bernoulli</strong>, en honor a Jacob Bernoulli, quien lo formalizó hacia finales del siglo XVII y con ello dejó, sin saberlo, el andamio matemático para todo lo que sigue.</p>
+<p>Un carguero de <em>arrakis freight</em> sale esta madrugada de Arrakis con destino a Klendathu. Al aterrizar mañana en el astropuerto de destino, solo pueden pasar dos cosas: que llegue a tiempo (llamémoslo <strong>éxito</strong>) o que no lo haga (llamémoslo <strong>fracaso</strong>). No hay medias tintas: o cumple ventana o no la cumple.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;em&gt;Éxito&lt;/em&gt; y &lt;em&gt;fracaso&lt;/em&gt; son etiquetas convencionales. En un control de calidad, “éxito” suele significar “detectar el defecto”, que es socialmente lo contrario de un éxito. Nada nuevo: los estadísticos llevamos siglos llamando “éxito” a lo que le arruina el día a un ingeniero.&lt;/p&gt;"><sup>1</sup></a> Ese es, entero y verdadero, un experimento de Bernoulli.</p>
+<p>Otros ejemplos, con el mismo esqueleto: el auditor Luke Diomedea abre un contenedor al azar y lo declara conforme o no conforme; una nave del astillero KORRIGAN se somete a inspección técnica y la supera o no la supera; un cliente potencial en Tatooine recibe una oferta comercial y contrata o no contrata.</p>
+</div>
+<div id="bernoulli-formal" class="section level3" number="8.2.2">
+<h3>
+<span class="header-section-number">8.2.2</span> Definición formal<a class="anchor" aria-label="anchor" href="#bernoulli-formal"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sea un experimento con dos resultados posibles, <strong>éxito</strong> y <strong>fracaso</strong>. Codifiquemos el resultado con una variable numérica: <span class="math inline">\(\xi = 1\)</span> si sale éxito, <span class="math inline">\(\xi = 0\)</span> si sale fracaso. Sea <span class="math inline">\(p \in (0, 1)\)</span> la probabilidad de éxito (y por tanto <span class="math inline">\(q = 1 - p\)</span> la de fracaso). La variable <span class="math inline">\(\xi\)</span> así definida sigue una <strong>distribución de Bernoulli</strong> de parámetro <span class="math inline">\(p\)</span>, y escribimos:</p>
+<p><span class="math display">\[
+\xi \to B(1; p).
+\]</span></p>
+<p>El único parámetro del modelo es <span class="math inline">\(p\)</span>, la probabilidad de éxito. Con él queda todo dicho.</p>
+<p><strong>Función de cuantía.</strong> La probabilidad de cada uno de los dos únicos valores posibles se puede escribir de forma compacta:</p>
+<p><span class="math display">\[
+P(\xi = x) = p^{x} \cdot q^{\,1-x}, \qquad x \in \{0, 1\}.
+\]</span></p>
+<p>Es un truco de notación: si <span class="math inline">\(x = 1\)</span>, la fórmula devuelve <span class="math inline">\(p\)</span>; si <span class="math inline">\(x = 0\)</span>, devuelve <span class="math inline">\(q\)</span>. Nada más.</p>
+<p><strong>Media y varianza.</strong> Para un Bernoulli son extremadamente sencillas —y merecen quedar grabadas:</p>
+<p><span class="math display">\[
+\mu = E(\xi) = p, \qquad \sigma^{2} = \operatorname{Var}(\xi) = p \cdot q.
+\]</span></p>
+<p>La media, <span class="math inline">\(p\)</span>, se puede leer literalmente como “la proporción esperada de éxitos si se repitiese el experimento muchas veces”. La varianza alcanza su máximo, <span class="math inline">\(0{,}25\)</span>, cuando <span class="math inline">\(p = 0{,}5\)</span> —cuando el resultado es más incierto— y se anula en los extremos <span class="math inline">\(p = 0\)</span> o <span class="math inline">\(p = 1\)</span>, donde ya no hay azar del que hablar.</p>
+</div>
+<div id="bernoulli-ejemplo" class="section level3" number="8.2.3">
+<h3>
+<span class="header-section-number">8.2.3</span> Un ejemplo mínimo<a class="anchor" aria-label="anchor" href="#bernoulli-ejemplo"><i class="fas fa-link"></i></a>
+</h3>
+<p>Basándonos en los registros históricos de puntualidad de <em>arrakis freight</em>, el 85 % de sus cargueros llegan a tiempo a la ventana comprometida. Sea <span class="math inline">\(\xi\)</span> la variable “el carguero de esta madrugada llega a tiempo”. Entonces <span class="math inline">\(\xi \to B(1; 0{,}85)\)</span>, y:</p>
+<ul>
+<li>
+<span class="math inline">\(P(\xi = 1) = 0{,}85\)</span> (probabilidad de éxito).</li>
+<li>
+<span class="math inline">\(P(\xi = 0) = 0{,}15\)</span> (probabilidad de fracaso).</li>
+<li>
+<span class="math inline">\(E(\xi) = 0{,}85\)</span>; <span class="math inline">\(\operatorname{Var}(\xi) = 0{,}85 \cdot 0{,}15 = 0{,}1275\)</span>.</li>
+</ul>
+<p>Con un solo carguero, el Bernoulli agota el problema. Pero raras veces despacha una compañía un solo carguero: normalmente despacha muchos, y de ahí nace el modelo binomial.</p>
+</div>
+</div>
+<div id="binomial" class="section level2" number="8.3">
+<h2>
+<span class="header-section-number">8.3</span> Distribución binomial<a class="anchor" aria-label="anchor" href="#binomial"><i class="fas fa-link"></i></a>
+</h2>
+<div id="binomial-intuicion" class="section level3" number="8.3.1">
+<h3>
+<span class="header-section-number">8.3.1</span> La intuición: contar éxitos en <span class="math inline">\(n\)</span> intentos<a class="anchor" aria-label="anchor" href="#binomial-intuicion"><i class="fas fa-link"></i></a>
+</h3>
+<p>Si el Bernoulli describe un solo intento, la <strong>distribución binomial</strong> describe lo que ocurre cuando <em>repetimos <span class="math inline">\(n\)</span> veces</em> ese mismo intento, en condiciones idénticas y sin que unos resultados influyan sobre otros. Esas dos condiciones —<strong>idénticas</strong> y <strong>sin influencia mutua</strong>, es decir, <strong>independientes</strong>— son la carta de identidad del modelo. Si fallan, el modelo binomial también.</p>
+<p>Volvamos a <em>arrakis freight</em>. Según el fichero <code>interestelar_300.xlsx</code>, esta compañía dispone de una flota de 24 cargueros. Suponga el lector que esta madrugada despachan 12 de ellos, todos hacia Klendathu, cada uno de manera independiente (naves distintas, tripulaciones distintas, ventanas distintas). Cada carguero llega a tiempo con probabilidad <span class="math inline">\(p = 0{,}85\)</span>. La variable</p>
+<p><span class="math display">\[
+\xi = \text{“número de cargueros de los 12 que llegan a tiempo”}
+\]</span></p>
+<p>toma valores en <span class="math inline">\(\{0, 1, 2, \ldots, 12\}\)</span>, y sigue una distribución binomial. Escribimos <span class="math inline">\(\xi \to B(12; 0{,}85)\)</span>. La misma matemática vale, sin cambiar una coma, para “número de aciertos en 12 lanzamientos de una moneda cargada”, “número de aprobados de 12 alumnos en un examen” o “número de reactores conformes de 12 tests en la línea de montaje”. El molde es el mismo.</p>
+</div>
+<div id="binomial-formal" class="section level3" number="8.3.2">
+<h3>
+<span class="header-section-number">8.3.2</span> Definición formal<a class="anchor" aria-label="anchor" href="#binomial-formal"><i class="fas fa-link"></i></a>
+</h3>
+<p>Un experimento binomial es la repetición de <span class="math inline">\(n\)</span> ensayos independientes de Bernoulli, todos con la misma probabilidad de éxito <span class="math inline">\(p\)</span>. La variable aleatoria “número total de éxitos en los <span class="math inline">\(n\)</span> ensayos” sigue una distribución <strong>binomial</strong> de parámetros <span class="math inline">\(n\)</span> y <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[
+\xi \to B(n; p).
+\]</span></p>
+<p><strong>Función de cuantía:</strong></p>
+<p><span class="math display">\[
+P(\xi = x) \;=\; \binom{n}{x} \, p^{x} \, q^{\,n-x}, \qquad x = 0, 1, 2, \ldots, n,
+\]</span></p>
+<p>donde <span class="math inline">\(q = 1 - p\)</span>. El coeficiente binomial <span class="math inline">\(\binom{n}{x}\)</span> cuenta las maneras distintas de que los <span class="math inline">\(x\)</span> éxitos aparezcan repartidos entre los <span class="math inline">\(n\)</span> intentos; el producto <span class="math inline">\(p^{x} q^{n-x}\)</span> mide la probabilidad de una de esas maneras concretas.</p>
+<p><strong>Media y varianza:</strong></p>
+<p><span class="math display">\[
+\mu = E(\xi) = n \cdot p, \qquad \sigma^{2} = \operatorname{Var}(\xi) = n \cdot p \cdot q.
+\]</span></p>
+<p>La media es coherente con el sentido común: si cada intento aporta <span class="math inline">\(p\)</span> éxitos “en promedio”, <span class="math inline">\(n\)</span> intentos aportan <span class="math inline">\(n \cdot p\)</span>.</p>
+<p><strong>Propiedad reproductiva.</strong> Si <span class="math inline">\(\xi_1 \to B(n_1; p)\)</span>, <span class="math inline">\(\xi_2 \to B(n_2; p)\)</span>… son variables binomiales independientes <strong>con el mismo <span class="math inline">\(p\)</span></strong>, su suma también es binomial: <span class="math inline">\(\xi_1 + \xi_2 + \cdots + \xi_m \to B(n_1 + n_2 + \cdots + n_m; p)\)</span>. En términos operativos: da lo mismo mirar los cargueros que despachan hoy tres delegaciones distintas de la empresa por separado o agregados, siempre que la puntualidad se rija por la misma <span class="math inline">\(p\)</span> en todas.</p>
+</div>
+<div id="binomial-ejemplo" class="section level3" number="8.3.3">
+<h3>
+<span class="header-section-number">8.3.3</span> Ejemplo: los 12 cargueros de arrakis freight<a class="anchor" aria-label="anchor" href="#binomial-ejemplo"><i class="fas fa-link"></i></a>
+</h3>
+<p>Retomamos el escenario anterior. <span class="math inline">\(\xi \to B(12; 0{,}85)\)</span>. La media es <span class="math inline">\(\mu = 12 \cdot 0{,}85 = 10{,}2\)</span> cargueros a tiempo (en promedio, si la operación se repitiese muchos días), y la desviación típica ronda los <span class="math inline">\(1{,}24\)</span>. Algunas preguntas concretas:</p>
+<ul>
+<li>
+<p><strong>Que los 12 lleguen a tiempo.</strong></p>
+<p><span class="math display">\[
+P(\xi = 12) = \binom{12}{12} \cdot 0{,}85^{12} \cdot 0{,}15^{0} = 0{,}85^{12} \approx 0,1422.
+\]</span></p>
+<p>Es decir, unas 14 madrugadas de cada 100. Suficientemente frecuente para que un jefe de operaciones no se sorprenda; suficientemente raro para no darlo por hecho.</p>
+</li>
+<li>
+<p><strong>Que al menos 10 lleguen a tiempo.</strong></p>
+<p><span class="math display">\[
+P(\xi \geq 10) = \sum_{x=10}^{12} \binom{12}{x} \, 0{,}85^{x} \, 0{,}15^{\,12-x} \approx 0,7358.
+\]</span></p>
+<p>Casi tres de cada cuatro madrugadas se llega a este umbral.</p>
+</li>
+<li>
+<p><strong>Que a lo sumo 8 lleguen a tiempo.</strong> Un mal día operativo, vamos.</p>
+<p><span class="math display">\[
+P(\xi \leq 8) \approx 0,0922.
+\]</span></p>
+<p>Alrededor de una madrugada de cada once. Poco frecuente; y cuando ocurre, en la oficina se abre la investigación.</p>
+</li>
+</ul>
+<p>La figura <a href="modelos-discretos.html#fig:fig-binom-arrakis">8.1</a> muestra la forma completa de la distribución. Concentrada en torno a la media <span class="math inline">\(10{,}2\)</span>, con colas rápidamente amortiguadas, es el retrato típico de una binomial con <span class="math inline">\(p\)</span> alta.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:fig-binom-arrakis"></span>
+<img src="EstadisticaEmpresarial_files/figure-html/fig-binom-arrakis-1.png" alt="Función de cuantía de la variable $\xi \to B(12; 0{,}85)$: número de cargueros (de 12) de *arrakis freight* que llegan a tiempo. La probabilidad se concentra en la zona alta del rango porque los cargueros suelen cumplir la ventana." width="85%"><p class="caption">
+Figure 8.1: Función de cuantía de la variable <span class="math inline">\(\xi \to B(12; 0{,}85)\)</span>: número de cargueros (de 12) de <em>arrakis freight</em> que llegan a tiempo. La probabilidad se concentra en la zona alta del rango porque los cargueros suelen cumplir la ventana.
+</p>
+</div>
+</div>
+<div id="binomial-aviso" class="section level3" number="8.3.4">
+<h3>
+<span class="header-section-number">8.3.4</span> Un aviso importante sobre la independencia<a class="anchor" aria-label="anchor" href="#binomial-aviso"><i class="fas fa-link"></i></a>
+</h3>
+<p>La binomial funciona <em>solo</em> cuando los ensayos son independientes y la probabilidad <span class="math inline">\(p\)</span> es la misma en todos. Si los 12 cargueros tuvieran que atravesar la misma tormenta ionizante en el sector Klendathu, los fracasos ya no serían independientes y la binomial infraestimaría la probabilidad de un desastre colectivo. Del mismo modo, si tres de los doce cargueros son antiguos —con tasas de puntualidad distintas—, tampoco vale la binomial pura. La estadística no tiene reparo en dar respuestas equivocadas: las da cuando le pedimos que aplique el modelo equivocado.</p>
+</div>
+</div>
+<div id="poisson" class="section level2" number="8.4">
+<h2>
+<span class="header-section-number">8.4</span> Distribución de Poisson<a class="anchor" aria-label="anchor" href="#poisson"><i class="fas fa-link"></i></a>
+</h2>
+<div id="poisson-intuicion" class="section level3" number="8.4.1">
+<h3>
+<span class="header-section-number">8.4.1</span> La intuición: sucesos raros en un intervalo<a class="anchor" aria-label="anchor" href="#poisson-intuicion"><i class="fas fa-link"></i></a>
+</h3>
+<p>La <strong>distribución de Poisson</strong> aparece cuando se cuenta el número de veces que sucede un evento <strong>raro</strong>, pero con <strong>muchísimas oportunidades</strong> de suceder. El ejemplo prototípico: no cuentan a los cargueros que llegan a tiempo, sino a los que sufren una <strong>avería grave</strong> durante un viaje. La avería es rara, sí; pero se dispone de un año entero, con decenas de miles de trayectos, para que ocurra. ¿Cuántas averías ocurrirán este año?</p>
+<p>Estrictamente hablando, cualquier proceso de conteo de este tipo es una binomial: si hay <span class="math inline">\(n = 250{,}000\)</span> oportunidades y en cada una la probabilidad de avería es <span class="math inline">\(p = 8 \cdot 10^{-6}\)</span>, el número de averías es <span class="math inline">\(B(n; p)\)</span>. Pero calcular <span class="math inline">\(\binom{250{,}000}{x} \cdot p^{x} \cdot q^{n-x}\)</span> es incómodo (por decirlo suavemente) y, cuando <span class="math inline">\(n\)</span> es grande y <span class="math inline">\(p\)</span> pequeño, hay una fórmula mucho más ligera que da prácticamente el mismo resultado: la de Poisson.</p>
+</div>
+<div id="poisson-formal" class="section level3" number="8.4.2">
+<h3>
+<span class="header-section-number">8.4.2</span> Definición formal<a class="anchor" aria-label="anchor" href="#poisson-formal"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sea <span class="math inline">\(\xi\)</span> una variable aleatoria que cuenta el número de sucesos raros que ocurren en un intervalo (de tiempo, de espacio, de oportunidades). Si el proceso subyacente es binomial con <span class="math inline">\(n\)</span> grande y <span class="math inline">\(p\)</span> pequeño, tales que <span class="math inline">\(n \cdot p\)</span> se mantiene en un valor <span class="math inline">\(\lambda\)</span> moderado, entonces <span class="math inline">\(\xi\)</span> se aproxima muy bien por una distribución de <strong>Poisson</strong> de parámetro <span class="math inline">\(\lambda\)</span>:</p>
+<p><span class="math display">\[
+\xi \to \mathrm{Po}(\lambda).
+\]</span></p>
+<p>El único parámetro, <span class="math inline">\(\lambda\)</span>, es simplemente el <strong>número esperado de sucesos por intervalo</strong>. Su interpretación es tan directa que es difícil confundirse: si <span class="math inline">\(\lambda = 2{,}3\)</span>, se esperan <span class="math inline">\(2{,}3\)</span> sucesos por intervalo. La rareza se codifica en la aritmética: si <span class="math inline">\(\lambda\)</span> es pequeño, la mayor parte de la masa se concentra en torno a <span class="math inline">\(x = 0\)</span>; si <span class="math inline">\(\lambda\)</span> es grande, la distribución se desplaza y ensancha.</p>
+<p><strong>Función de cuantía:</strong></p>
+<p><span class="math display">\[
+P(\xi = x) \;=\; \frac{e^{-\lambda} \, \lambda^{x}}{x!}, \qquad x = 0, 1, 2, 3, \ldots
+\]</span></p>
+<p>Un detalle a menudo pasado por alto: <strong>la Poisson no tiene tope</strong>. La variable puede tomar cualquier valor entero no negativo, por grande que sea. En la práctica, con <span class="math inline">\(\lambda\)</span> pequeño, las probabilidades caen tan rápido que valores altos son irrelevantes.</p>
+<p><strong>Media y varianza:</strong></p>
+<p><span class="math display">\[
+\mu = E(\xi) = \lambda, \qquad \sigma^{2} = \operatorname{Var}(\xi) = \lambda.
+\]</span></p>
+<p>Una de las señas de identidad de la Poisson es que <strong>su media coincide con su varianza</strong>. Este hecho, que no tiene análogo en la binomial, sirve incluso como test empírico: si en unos datos de conteo la varianza es aproximadamente igual a la media, la Poisson es una candidata razonable; si es mucho mayor (sobre-dispersión), no lo es.</p>
+<p><strong>Propiedad reproductiva.</strong> La Poisson también se suma bien: si <span class="math inline">\(\xi_1 \to \mathrm{Po}(\lambda_1)\)</span> y <span class="math inline">\(\xi_2 \to \mathrm{Po}(\lambda_2)\)</span> son independientes, entonces <span class="math inline">\(\xi_1 + \xi_2 \to \mathrm{Po}(\lambda_1 + \lambda_2)\)</span>. Traducido a operaciones: si en el sector A del hipercorredor Coruscant–Naboo se avistan piratas espaciales con tasa <span class="math inline">\(1{,}0\)</span> por semana, y en el sector B con tasa <span class="math inline">\(1{,}3\)</span>, entonces en el corredor completo se avistan con tasa <span class="math inline">\(2{,}3\)</span> por semana.</p>
+</div>
+<div id="poisson-ejemplo-piratas" class="section level3" number="8.4.3">
+<h3>
+<span class="header-section-number">8.4.3</span> Ejemplo 1: piratas espaciales en la ruta Coruscant–Naboo<a class="anchor" aria-label="anchor" href="#poisson-ejemplo-piratas"><i class="fas fa-link"></i></a>
+</h3>
+<p><em>vader and company</em> opera cargueros de gran tonelaje en el corredor Coruscant–Naboo (Vía Láctea). Los registros de los últimos años cifran en <span class="math inline">\(\lambda = 2{,}3\)</span> el número medio de <strong>avistamientos de piratas</strong> por semana en toda la ruta. Como <span class="math inline">\(\lambda\)</span> es moderado y estable, es razonable modelar <span class="math inline">\(\xi = \text{“avistamientos en una semana”}\)</span> como <span class="math inline">\(\xi \to \mathrm{Po}(2{,}3)\)</span>.</p>
+<p>Algunas probabilidades de interés:</p>
+<ul>
+<li>
+<p><strong>Semana tranquila (cero avistamientos).</strong></p>
+<p><span class="math display">\[
+P(\xi = 0) = \frac{e^{-2{,}3} \, 2{,}3^{0}}{0!} = e^{-2{,}3} \approx 0,1003.
+\]</span></p>
+<p>Alrededor de una de cada diez semanas.</p>
+</li>
+<li>
+<p><strong>Semana movida (tres o más avistamientos).</strong></p>
+<p><span class="math display">\[
+P(\xi \geq 3) = 1 - P(\xi \leq 2) \approx 0,4040.
+\]</span></p>
+<p>Alrededor del 40 % de las semanas hay tres o más avistamientos: llamar a esto “raro” es cuestión de perspectiva.</p>
+</li>
+</ul>
+<p>La figura <a href="modelos-discretos.html#fig:fig-poisson-piratas">8.2</a> muestra la cuantía completa. Nótese la asimetría a la derecha, típica de las Poisson con <span class="math inline">\(\lambda\)</span> pequeño o moderado: es más difícil bajar de la media (limitada por el cero) que subir por encima.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:fig-poisson-piratas"></span>
+<img src="EstadisticaEmpresarial_files/figure-html/fig-poisson-piratas-1.png" alt="Función de cuantía de $\xi \to \mathrm{Po}(2{,}3)$: avistamientos de piratas por semana en el corredor Coruscant–Naboo. La media coincide con la varianza; ambas valen $2{,}3$." width="85%"><p class="caption">
+Figure 8.2: Función de cuantía de <span class="math inline">\(\xi \to \mathrm{Po}(2{,}3)\)</span>: avistamientos de piratas por semana en el corredor Coruscant–Naboo. La media coincide con la varianza; ambas valen <span class="math inline">\(2{,}3\)</span>.
+</p>
+</div>
+</div>
+<div id="poisson-ejemplo-aprox" class="section level3" number="8.4.4">
+<h3>
+<span class="header-section-number">8.4.4</span> Ejemplo 2: la Poisson como aproximación de la binomial<a class="anchor" aria-label="anchor" href="#poisson-ejemplo-aprox"><i class="fas fa-link"></i></a>
+</h3>
+<p>El astillero KORRIGAN monta cada casco con <span class="math inline">\(n = 2\,000\)</span> remaches de aleación de titanio-Aldenaanaano. Cada remache tiene una probabilidad <span class="math inline">\(p = 0{,}001\)</span> de salir defectuoso, independiente del resto. Sea <span class="math inline">\(\xi\)</span> el número de remaches defectuosos por casco.</p>
+<p>Estrictamente, <span class="math inline">\(\xi \to B(2\,000;\, 0{,}001)\)</span>. Pero <span class="math inline">\(n\)</span> es grande y <span class="math inline">\(p\)</span> es pequeño; su producto <span class="math inline">\(\lambda = n \cdot p = 2\)</span> es modesto. En esas condiciones, la Poisson <span class="math inline">\(\mathrm{Po}(2)\)</span> da una respuesta prácticamente idéntica a la binomial:</p>
+<p><span class="math display">\[
+P(\xi = 3) \;\text{ (Binomial exacta) } = 0,180537, \qquad
+P(\xi = 3) \;\text{ (Poisson aprox.) } = 0,180447.
+\]</span></p>
+<p>La coincidencia hasta la quinta cifra decimal no es casualidad: se puede demostrar que la binomial converge a la Poisson cuando <span class="math inline">\(n \to \infty\)</span>, <span class="math inline">\(p \to 0\)</span> y <span class="math inline">\(n \cdot p = \lambda\)</span> permanece constante. En términos operativos, la regla práctica que suele darse en manuales de ingeniería es:</p>
+<div class="callout-tip">
+<p><strong>Regla práctica (Binomial → Poisson).</strong> Si <span class="math inline">\(n \geq 30\)</span> y <span class="math inline">\(p \leq 0{,}05\)</span> (idealmente <span class="math inline">\(p \leq 0{,}01\)</span>), la aproximación <span class="math inline">\(B(n; p) \approx \mathrm{Po}(n \cdot p)\)</span> suele ser excelente. Cuanto más grande sea <span class="math inline">\(n\)</span> y más pequeña sea <span class="math inline">\(p\)</span>, mejor.</p>
+</div>
+</div>
+<div id="binomial-vs-poisson" class="section level3" number="8.4.5">
+<h3>
+<span class="header-section-number">8.4.5</span> Cómo distinguir binomial de Poisson<a class="anchor" aria-label="anchor" href="#binomial-vs-poisson"><i class="fas fa-link"></i></a>
+</h3>
+<p>Estas dos son las distribuciones que más se confunden entre sí, porque ambas cuentan éxitos. La diferencia está en <strong>qué es lo que se cuenta y cómo está delimitado el experimento</strong>. Esta tabla condensa el criterio:</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+Criterio
+</th>
+<th style="text-align:left;">
+Binomial
+</th>
+<th style="text-align:left;">
+Poisson
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Número de ensayos
+</td>
+<td style="text-align:left;">
+Fijo y conocido: <span class="math inline">\(n\)</span>.
+</td>
+<td style="text-align:left;">
+No hay un <span class="math inline">\(n\)</span> fijo; se cuenta sobre un intervalo (tiempo, espacio, oportunidades).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Probabilidad de éxito
+</td>
+<td style="text-align:left;">
+Constante y no muy pequeña.
+</td>
+<td style="text-align:left;">
+Se traduce en una tasa <span class="math inline">\(\lambda\)</span>; los sucesos son raros pero el intervalo es amplio.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Máximo posible
+</td>
+<td style="text-align:left;">
+El total de ensayos, <span class="math inline">\(n\)</span>.
+</td>
+<td style="text-align:left;">
+No hay máximo teórico.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Media y varianza
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\mu = np,\; \sigma^2 = npq\)</span>.
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\mu = \lambda,\; \sigma^2 = \lambda\)</span> (iguales).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ejemplo típico
+</td>
+<td style="text-align:left;">
+Cargueros a tiempo de 12 despachados.
+</td>
+<td style="text-align:left;">
+Averías al año en toda una flota.
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 8.1</strong></p>
+</div>
+<p>En una palabra: <strong>si podemos poner un número <span class="math inline">\(n\)</span> de intentos por delante, es binomial; si contamos sucesos en un continuo, es Poisson</strong>. Y si <span class="math inline">\(n\)</span> es tan grande y <span class="math inline">\(p\)</span> tan pequeño que da lo mismo cuál usemos, use la Poisson: le ahorrará cálculos.</p>
+</div>
+</div>
+<div id="binomial-negativa" class="section level2" number="8.5">
+<h2>
+<span class="header-section-number">8.5</span> Distribución binomial negativa<a class="anchor" aria-label="anchor" href="#binomial-negativa"><i class="fas fa-link"></i></a>
+</h2>
+<div id="bn-intuicion" class="section level3" number="8.5.1">
+<h3>
+<span class="header-section-number">8.5.1</span> La intuición: éxitos fijos, fracasos por contar<a class="anchor" aria-label="anchor" href="#bn-intuicion"><i class="fas fa-link"></i></a>
+</h3>
+<p>La distribución binomial se hacía una pregunta: <strong>fijado el número de intentos <span class="math inline">\(n\)</span>, ¿cuántos éxitos?</strong> La <strong>binomial negativa</strong> invierte el papel: <strong>fijado el número de éxitos <span class="math inline">\(r\)</span>, ¿cuántos fracasos aparecen antes de completar los <span class="math inline">\(r\)</span> éxitos?</strong></p>
+<p>Un caso pedagógico: la fábrica de reactores de <em>corellian freightworks</em>, en Qo’noS, certifica una tanda de motores sólo cuando <strong>tres reactores consecutivos —no necesariamente seguidos, sino tres reactores válidos en total— pasan el banco de pruebas</strong>. Cada reactor pasa la prueba con probabilidad <span class="math inline">\(p = 0{,}8\)</span> (fracaso <span class="math inline">\(q = 0{,}2\)</span>). El ingeniero jefe Anakin Falco necesita saber, antes de encargar la tanda siguiente, cuántos reactores defectuosos previsiblemente tendrá que apartar antes de completar la certificación. Es decir, cuántos <strong>fracasos</strong> verá antes del <strong>tercer éxito</strong>. Esa es la variable binomial negativa.</p>
+<p>Otros ejemplos análogos: cuántos clientes rechazan una oferta comercial antes de que un vendedor cierre sus dos primeros contratos del mes; cuántas rutas hay que probar antes de dar con las tres primeras en las que la meteo permite despegar; cuántos aterrizajes fallidos acumula un piloto novato antes de conseguir cinco aterrizajes válidos.</p>
+</div>
+<div id="bn-formal" class="section level3" number="8.5.2">
+<h3>
+<span class="header-section-number">8.5.2</span> Definición formal<a class="anchor" aria-label="anchor" href="#bn-formal"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sea un experimento de Bernoulli con probabilidad de éxito <span class="math inline">\(p\)</span> que se repite indefinidamente hasta acumular <span class="math inline">\(r\)</span> éxitos. La variable</p>
+<p><span class="math display">\[
+\xi = \text{“número de fracasos observados antes de alcanzar el $r$-ésimo éxito”}
+\]</span></p>
+<p>sigue una <strong>distribución binomial negativa</strong> de parámetros <span class="math inline">\(r\)</span> y <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[
+\xi \to \mathrm{BN}(r; p).
+\]</span></p>
+<p><strong>Función de cuantía:</strong></p>
+<p><span class="math display">\[
+P(\xi = x) \;=\; \binom{x + r - 1}{x} \, p^{r} \, q^{x}, \qquad x = 0, 1, 2, 3, \ldots,
+\]</span></p>
+<p>donde <span class="math inline">\(q = 1 - p\)</span>. Intuitivamente, el último ensayo <em>tiene que ser</em> un éxito (el <span class="math inline">\(r\)</span>-ésimo); en los <span class="math inline">\(x + r - 1\)</span> ensayos anteriores hay que colocar los <span class="math inline">\(x\)</span> fracasos, de ahí el coeficiente binomial.</p>
+<p><strong>Media y varianza:</strong></p>
+<p><span class="math display">\[
+\mu = E(\xi) = r \cdot \frac{q}{p}, \qquad \sigma^{2} = \operatorname{Var}(\xi) = r \cdot \frac{q}{p^{2}}.
+\]</span></p>
+<p>Que la media dependa de <span class="math inline">\(q/p\)</span> tiene una interpretación transparente: si <span class="math inline">\(p\)</span> es alto, <span class="math inline">\(q/p\)</span> es pequeño y los fracasos previsiblemente serán pocos; si <span class="math inline">\(p\)</span> es bajo, se acumularán muchos fracasos por cada éxito conseguido.</p>
+<p><strong>Propiedad reproductiva.</strong> Si <span class="math inline">\(\xi_1 \to \mathrm{BN}(r_1; p)\)</span>, <span class="math inline">\(\xi_2 \to \mathrm{BN}(r_2; p)\)</span> son independientes con <strong>la misma <span class="math inline">\(p\)</span></strong>, entonces <span class="math inline">\(\xi_1 + \xi_2 \to \mathrm{BN}(r_1 + r_2; p)\)</span>.</p>
+</div>
+<div id="bn-ejemplo" class="section level3" number="8.5.3">
+<h3>
+<span class="header-section-number">8.5.3</span> Ejemplo: la certificación de reactores en Qo’noS<a class="anchor" aria-label="anchor" href="#bn-ejemplo"><i class="fas fa-link"></i></a>
+</h3>
+<p>Recuperemos el caso de <em>corellian freightworks</em>. La variable <span class="math inline">\(\xi = \text{“reactores defectuosos apartados antes del tercer reactor válido”}\)</span> sigue <span class="math inline">\(\xi \to \mathrm{BN}(3;\, 0{,}8)\)</span>. La media es</p>
+<p><span class="math display">\[
+\mu = 3 \cdot \frac{0{,}2}{0{,}8} = 0{,}75 \text{ reactores defectuosos.}
+\]</span></p>
+<p>Anakin Falco espera, en promedio, tener que descartar tres cuartos de reactor —lo que en la práctica significa: casi ninguno o, con mala suerte, uno—. La probabilidad de que descarte <strong>exactamente dos</strong> reactores defectuosos antes de certificar la tanda es</p>
+<p><span class="math display">\[
+P(\xi = 2) = \binom{2 + 3 - 1}{2} \cdot 0{,}8^{3} \cdot 0{,}2^{2} = 6 \cdot 0{,}512 \cdot 0{,}04 \approx 0,1229.
+\]</span></p>
+<p>La figura <a href="modelos-discretos.html#fig:fig-bn-corellian">8.3</a> ilustra la distribución completa. La probabilidad se concentra en valores muy bajos (0 o 1 fracasos), coherente con una <span class="math inline">\(p\)</span> alta.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:fig-bn-corellian"></span>
+<img src="EstadisticaEmpresarial_files/figure-html/fig-bn-corellian-1.png" alt="Función de cuantía de $\xi \to \mathrm{BN}(3;\, 0{,}8)$: número de reactores defectuosos apartados antes del tercer reactor válido en la fábrica de *corellian freightworks*." width="85%"><p class="caption">
+Figure 8.3: Función de cuantía de <span class="math inline">\(\xi \to \mathrm{BN}(3;\, 0{,}8)\)</span>: número de reactores defectuosos apartados antes del tercer reactor válido en la fábrica de <em>corellian freightworks</em>.
+</p>
+</div>
+</div>
+<div id="geometrica" class="section level3" number="8.5.4">
+<h3>
+<span class="header-section-number">8.5.4</span> Caso particular: la distribución geométrica<a class="anchor" aria-label="anchor" href="#geometrica"><i class="fas fa-link"></i></a>
+</h3>
+<p>Cuando <span class="math inline">\(r = 1\)</span> —esto es, cuando lo que interesa es cuántos fracasos aparecen <strong>antes del primer éxito</strong>— la binomial negativa recibe un nombre propio: <strong>distribución geométrica</strong>. Se denota</p>
+<p><span class="math display">\[
+\xi \to G(p),
+\]</span></p>
+<p>y su función de cuantía se simplifica notablemente:</p>
+<p><span class="math display">\[
+P(\xi = x) = p \cdot q^{x}, \qquad x = 0, 1, 2, 3, \ldots
+\]</span></p>
+<p><strong>Media y varianza</strong> (heredadas de la binomial negativa con <span class="math inline">\(r = 1\)</span>):</p>
+<p><span class="math display">\[
+\mu = \frac{q}{p}, \qquad \sigma^{2} = \frac{q}{p^{2}}.
+\]</span></p>
+<p>Un ejemplo doméstico: el piloto novato Rey Solo se está sacando la licencia de aterrizaje en el complejo hotelero Fhloston Paradise. Cada intento tiene una probabilidad <span class="math inline">\(p = 0{,}6\)</span> de terminar con el carguero suavemente posado sobre la plataforma flotante (y <span class="math inline">\(q = 0{,}4\)</span> de terminar en el mar). Sea <span class="math inline">\(\xi\)</span> el número de intentos fallidos antes del primer aterrizaje exitoso. Entonces <span class="math inline">\(\xi \to G(0{,}6)\)</span>, y por ejemplo:</p>
+<p><span class="math display">\[
+P(\xi = 2) = 0{,}6 \cdot 0{,}4^{2} = 0{,}0960.
+\]</span></p>
+<p>En promedio, Rey esperará <span class="math inline">\(q/p = 0{,}67\)</span> intentos fallidos —casi ninguno, aunque estos casos casi nunca van “casi bien”— antes de coronar el aterrizaje.</p>
+<div class="callout-note">
+<p><strong>Cuidado con la convención.</strong> Algunos textos llaman “distribución geométrica” al número de <strong>intentos totales</strong> hasta el primer éxito, no al número de fracasos previos. Ambas convenciones son legítimas, se relacionan por un desfase de una unidad, pero sus medias son distintas (<span class="math inline">\(1/p\)</span> frente a <span class="math inline">\(q/p\)</span>). En este manual seguimos la convención “fracasos previos”, coherente con la binomial negativa que la contiene.</p>
+</div>
+</div>
+</div>
+<div id="hipergeometrica" class="section level2" number="8.6">
+<h2>
+<span class="header-section-number">8.6</span> Distribución hipergeométrica<a class="anchor" aria-label="anchor" href="#hipergeometrica"><i class="fas fa-link"></i></a>
+</h2>
+<div id="hg-intuicion" class="section level3" number="8.6.1">
+<h3>
+<span class="header-section-number">8.6.1</span> La intuición: contar éxitos en una muestra sin reemplazamiento<a class="anchor" aria-label="anchor" href="#hg-intuicion"><i class="fas fa-link"></i></a>
+</h3>
+<p>Todas las distribuciones anteriores compartían un supuesto tácito: los ensayos eran independientes. Cada carguero llega a tiempo con la misma probabilidad, sin que el destino de los demás influya. Ese supuesto se rompe en cuanto un muestreo se hace <strong>sin reemplazamiento</strong> sobre una población finita: cada extracción cambia la composición de las que quedan, y con ella las probabilidades del siguiente ensayo.</p>
+<p>El ejemplo canónico es la <strong>auditoría</strong>. La Comisión Interestelar de Transporte va a auditar <span class="math inline">\(n\)</span> empresas de las 300 registradas en el fichero <code>interestelar_300.xlsx</code>. Sabemos que de esas 300, hay <span class="math inline">\(N_1 = 62\)</span> con flota renovada (categoría RENOVADA de la variable EFLO) y las <span class="math inline">\(238\)</span> restantes tienen flota antigua o madura. La Comisión selecciona 10 empresas al azar, <strong>sin reemplazamiento</strong> (evidentemente: nadie audita dos veces a la misma), y quiere saber cuántas de las 10 tendrán flota renovada. Esa variable no es binomial —los ensayos no son independientes— sino <strong>hipergeométrica</strong>.</p>
+</div>
+<div id="hg-formal" class="section level3" number="8.6.2">
+<h3>
+<span class="header-section-number">8.6.2</span> Definición formal<a class="anchor" aria-label="anchor" href="#hg-formal"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sea una población finita de <span class="math inline">\(N\)</span> elementos, de los cuales <span class="math inline">\(N_1\)</span> son de un tipo (llamémoslo <em>éxito</em>) y los restantes <span class="math inline">\(N - N_1\)</span> del otro (<em>fracaso</em>). Se extrae al azar y sin reemplazamiento una muestra de <span class="math inline">\(n\)</span> elementos. La variable</p>
+<p><span class="math display">\[
+\xi = \text{“número de éxitos en la muestra de $n$”}
+\]</span></p>
+<p>sigue una <strong>distribución hipergeométrica</strong> de parámetros <span class="math inline">\(N\)</span>, <span class="math inline">\(n\)</span> y <span class="math inline">\(p = N_1 / N\)</span>:</p>
+<p><span class="math display">\[
+\xi \to H(N; n; p).
+\]</span></p>
+<p>Nótese que el parámetro <span class="math inline">\(p = N_1 / N\)</span> codifica la proporción de éxitos <strong>en la población</strong>, no en la muestra.</p>
+<p><strong>Función de cuantía:</strong></p>
+<p><span class="math display">\[
+P(\xi = x) \;=\; \frac{\dbinom{N_1}{x} \cdot \dbinom{N - N_1}{n - x}}{\dbinom{N}{n}}, \qquad x = 0, 1, 2, \ldots, n.
+\]</span></p>
+<p>La fórmula tiene una lectura combinatoria muy limpia: entre las <span class="math inline">\(\binom{N}{n}\)</span> maneras posibles de extraer una muestra de <span class="math inline">\(n\)</span> elementos, cuento aquellas que contienen exactamente <span class="math inline">\(x\)</span> elementos “éxito” (elegidos entre los <span class="math inline">\(N_1\)</span> disponibles, <span class="math inline">\(\binom{N_1}{x}\)</span> maneras) y <span class="math inline">\(n - x\)</span> elementos “fracaso” (elegidos entre los <span class="math inline">\(N - N_1\)</span> disponibles).</p>
+<p><strong>Media y varianza:</strong></p>
+<p><span class="math display">\[
+\mu = E(\xi) = n \cdot p, \qquad \sigma^{2} = \operatorname{Var}(\xi) = n \cdot p \cdot q \cdot \frac{N - n}{N - 1}.
+\]</span></p>
+<p>La media es <strong>idéntica</strong> a la de la binomial. La varianza, no: aparece un factor extra <span class="math inline">\(\frac{N - n}{N - 1}\)</span>, conocido como <strong>factor de corrección de población finita</strong>. Ese factor siempre es menor o igual que <span class="math inline">\(1\)</span>, y refleja el hecho de que un muestreo sin reemplazamiento es <strong>más informativo</strong> que uno con reemplazamiento: al no repetirse elementos, la variabilidad se reduce.</p>
+</div>
+<div id="hg-ejemplo" class="section level3" number="8.6.3">
+<h3>
+<span class="header-section-number">8.6.3</span> Ejemplo: auditoría de flotas<a class="anchor" aria-label="anchor" href="#hg-ejemplo"><i class="fas fa-link"></i></a>
+</h3>
+<p>Retomemos la Comisión Interestelar. <span class="math inline">\(\xi \to H(300;\, 10;\, 62/300) = H(300;\, 10;\, 0{,}2067)\)</span>. La media es</p>
+<p><span class="math display">\[
+\mu = 10 \cdot \frac{62}{300} \approx 2{,}07 \text{ empresas con flota renovada.}
+\]</span></p>
+<p>Algunas probabilidades relevantes:</p>
+<ul>
+<li>
+<span class="math inline">\(P(\xi = 0) \approx 0,0949\)</span>: que ninguna empresa auditada tenga flota renovada.</li>
+<li>
+<span class="math inline">\(P(\xi = 2) \approx 0,3066\)</span>: el resultado más probable.</li>
+<li>
+<span class="math inline">\(P(\xi \geq 3) \approx 0,3417\)</span>: probabilidad de encontrar tres o más empresas con flota renovada, alrededor del 34 %.</li>
+</ul>
+<p>La figura <a href="#fig:fig-hyper-audit"><strong>??</strong></a> muestra la distribución completa. Es asimétrica a la derecha porque la proporción de éxitos en la población, <span class="math inline">\(p \approx 0{,}21\)</span>, es baja.</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-hyper-audit-1.png" alt="" width="85%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 8.1.</strong> Función de cuantía de <span class="math inline">\(\\xi \\to H(300;\\, 10;\\, 62/300)\)</span>: número de empresas con flota renovada en una muestra aleatoria de 10 empresas auditadas.</p>
+</div>
+</div>
+<div id="binomial-vs-hyper" class="section level3" number="8.6.4">
+<h3>
+<span class="header-section-number">8.6.4</span> Cómo distinguir binomial de hipergeométrica<a class="anchor" aria-label="anchor" href="#binomial-vs-hyper"><i class="fas fa-link"></i></a>
+</h3>
+<p>Esta es la otra confusión frecuente: binomial e hipergeométrica cuentan la misma cosa (éxitos en una muestra), y difieren solo en un detalle <strong>crítico</strong>: el muestreo. La regla es simple:</p>
+<div class="callout-tip">
+<p><strong>Regla mnemónica.</strong> Si se muestrea <strong>con reemplazamiento</strong> (o de una población tan grande que da lo mismo), es <strong>binomial</strong>. Si se muestrea <strong>sin reemplazamiento</strong> de una población finita, es <strong>hipergeométrica</strong>.</p>
+</div>
+<p>Ahora bien, cuando la muestra es una fracción muy pequeña de la población, el hecho de reemplazar o no apenas cambia las probabilidades. Se puede demostrar formalmente que:</p>
+<p><span class="math display">\[
+H(N;\, n;\, p) \;\xrightarrow[\;p \text{ pequeño}\;]{}\; B(n;\, p).
+\]</span></p>
+<p>En la práctica se suele aceptar esta aproximación cuando <span class="math inline">\(p = N_1 / N &lt; 0{,}1\)</span>; un criterio alternativo, también habitual, es exigir que la muestra represente menos del 5–10 % de la población, esto es, <span class="math inline">\(n / N &lt; 0{,}1\)</span>. La tabla <a href="#tab:tab-hyp-vs-bin"><strong>??</strong></a> lo hace evidente en nuestro caso de la auditoría: con <span class="math inline">\(p \approx 0{,}21\)</span> (algo alto para la aproximación), las diferencias entre las probabilidades hipergeométricas exactas y las binomiales aproximadas son moderadas pero perceptibles.</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+Hipergeométrica <span class="math inline">\(H(300; 10; 0{,}207)\)</span>
+</th>
+<th style="text-align:center;">
+Binomial <span class="math inline">\(B(10; 0{,}207)\)</span>
+</th>
+<th style="text-align:center;">
+Diferencia
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.0949
+</td>
+<td style="text-align:center;">
+0.0988
+</td>
+<td style="text-align:center;">
+-0.0039
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0.2569
+</td>
+<td style="text-align:center;">
+0.2573
+</td>
+<td style="text-align:center;">
+-0.0004
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0.3066
+</td>
+<td style="text-align:center;">
+0.3016
+</td>
+<td style="text-align:center;">
++0.0050
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.2123
+</td>
+<td style="text-align:center;">
+0.2095
+</td>
+<td style="text-align:center;">
++0.0028
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0.0945
+</td>
+<td style="text-align:center;">
+0.0955
+</td>
+<td style="text-align:center;">
+-0.0010
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+0.0282
+</td>
+<td style="text-align:center;">
+0.0299
+</td>
+<td style="text-align:center;">
+-0.0016
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 8.2</strong></p>
+</div>
+<p>Cuando la aproximación es válida, se prefiere la binomial por dos motivos: la fórmula es más sencilla y no requiere conocer el tamaño de la población <span class="math inline">\(N\)</span>, solo la proporción de éxitos.</p>
+</div>
+</div>
+<div id="guia-rapida" class="section level2" number="8.7">
+<h2>
+<span class="header-section-number">8.7</span> Guía rápida de decisión<a class="anchor" aria-label="anchor" href="#guia-rapida"><i class="fas fa-link"></i></a>
+</h2>
+<p>Con cinco modelos sobre la mesa, la pregunta operativa que un lector debe hacerse cuando se enfrenta a un problema real es: <strong>“¿qué modelo aplico?”</strong>. La tabla <a href="#tab:tab-decision"><strong>??</strong></a> responde a esta pregunta con un pequeño árbol de decisión textual.</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+Situación
+</th>
+<th style="text-align:left;">
+Modelo
+</th>
+<th style="text-align:left;">
+Ejemplo
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Un único ensayo con dos resultados posibles.
+</td>
+<td style="text-align:left;">
+Bernoulli, <span class="math inline">\(B(1; p)\)</span>.
+</td>
+<td style="text-align:left;">
+Un carguero llega a tiempo o no llega.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Número fijo <span class="math inline">\(n\)</span> de ensayos independientes con misma <span class="math inline">\(p\)</span>; se cuentan éxitos.
+</td>
+<td style="text-align:left;">
+Binomial, <span class="math inline">\(B(n; p)\)</span>.
+</td>
+<td style="text-align:left;">
+Cargueros a tiempo de 12 despachados.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Muchos ensayos, éxitos raros; se cuentan sucesos por unidad de tiempo o espacio.
+</td>
+<td style="text-align:left;">
+Poisson, <span class="math inline">\(\mathrm{Po}(\lambda)\)</span>.
+</td>
+<td style="text-align:left;">
+Avistamientos de piratas por semana en una ruta.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Se fija el número <span class="math inline">\(r\)</span> de éxitos; se cuentan los fracasos previos.
+</td>
+<td style="text-align:left;">
+Binomial negativa, <span class="math inline">\(\mathrm{BN}(r; p)\)</span>.
+</td>
+<td style="text-align:left;">
+Reactores defectuosos antes del 3.º válido.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Caso particular: <span class="math inline">\(r = 1\)</span> (fracasos antes del primer éxito).
+</td>
+<td style="text-align:left;">
+Geométrica, <span class="math inline">\(G(p)\)</span>.
+</td>
+<td style="text-align:left;">
+Aterrizajes fallidos antes del primero exitoso.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Muestreo sin reemplazamiento en población finita <span class="math inline">\(N\)</span>; se cuentan éxitos en la muestra.
+</td>
+<td style="text-align:left;">
+Hipergeométrica, <span class="math inline">\(H(N; n; p)\)</span>.
+</td>
+<td style="text-align:left;">
+Empresas RENOVADA en una auditoría de 10 sobre 300.
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 8.3</strong></p>
+</div>
+<p>Y las dos relaciones-puente entre modelos, que conviene tener en la cabeza:</p>
+<ul>
+<li>
+<strong>Binomial → Poisson</strong> cuando <span class="math inline">\(n\)</span> es grande y <span class="math inline">\(p\)</span> pequeño (regla práctica: <span class="math inline">\(n \geq 30\)</span>, <span class="math inline">\(p \leq 0{,}05\)</span>).</li>
+<li>
+<strong>Hipergeométrica → Binomial</strong> cuando <span class="math inline">\(p = N_1 / N\)</span> es pequeño (regla práctica: <span class="math inline">\(p &lt; 0{,}1\)</span>) o cuando la muestra es una fracción reducida de la población.</li>
+</ul>
+<p>Ambas aproximaciones se enseñan como atajos de cálculo, pero también son conceptualmente reveladoras: la Poisson es una binomial “muy diluida”, y la binomial es una hipergeométrica “sobre una población inagotable”. Los tres modelos, al final del día, son variaciones sobre el mismo tema: <strong>contar éxitos</strong>.</p>
+</div>
+<div id="recap-cap08" class="section level2" number="8.8">
+<h2>
+<span class="header-section-number">8.8</span> Recapitulación<a class="anchor" aria-label="anchor" href="#recap-cap08"><i class="fas fa-link"></i></a>
+</h2>
+<p>Este capítulo ha catalogado cinco distribuciones discretas y las relaciones que las enlazan. Las dos ideas que conviene retener por encima de las demás son:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Cada modelo es un patrón, no una fórmula</strong>. La fórmula solo aparece después, cuando ya hemos identificado bien qué se cuenta, cuántos ensayos hay y si son o no independientes. Elegir el modelo correcto es lo verdaderamente importante; la aritmética viene rodada.</p></li>
+<li><p><strong>Los modelos no son excluyentes</strong>. La Poisson es una binomial en el límite; la hipergeométrica se colapsa en una binomial cuando la población es grande; la binomial es el resultado de sumar Bernoullis. Verlos como una familia, y no como una lista arbitraria, hace que se recuerden mucho mejor.</p></li>
+</ol>
+<p>Nos falta todavía una gran clase de variables aleatorias por modelar: las <strong>continuas</strong>. En el próximo capítulo entraremos en el modelo continuo por antonomasia —la distribución normal—, y con ella el fenómeno más asombroso de toda la estadística clásica: el <strong>teorema central del límite</strong>, ese que hace que cargueros, reactores, piratas y auditorías conspiren, en el largo plazo, para producir la misma campana. Preparen el hipermotor.</p>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="variables-aleatorias.html"><span class="header-section-number">7</span> Variables aleatorias</a></div>
+<div class="next"><a href="modelos-de-probabilidad-continuos-univariantes..html"><span class="header-section-number">9</span> Modelos de probabilidad continuos univariantes.</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#modelos-discretos"><span class="header-section-number">8</span> Modelos de probabilidad discretos</a></li>
+<li><a class="nav-link" href="#intro-cap08"><span class="header-section-number">8.1</span> Introducción</a></li>
+<li>
+<a class="nav-link" href="#bernoulli"><span class="header-section-number">8.2</span> Experimento de Bernoulli</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#bernoulli-intuicion"><span class="header-section-number">8.2.1</span> La intuición: éxito o fracaso</a></li>
+<li><a class="nav-link" href="#bernoulli-formal"><span class="header-section-number">8.2.2</span> Definición formal</a></li>
+<li><a class="nav-link" href="#bernoulli-ejemplo"><span class="header-section-number">8.2.3</span> Un ejemplo mínimo</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#binomial"><span class="header-section-number">8.3</span> Distribución binomial</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#binomial-intuicion"><span class="header-section-number">8.3.1</span> La intuición: contar éxitos en \(n\) intentos</a></li>
+<li><a class="nav-link" href="#binomial-formal"><span class="header-section-number">8.3.2</span> Definición formal</a></li>
+<li><a class="nav-link" href="#binomial-ejemplo"><span class="header-section-number">8.3.3</span> Ejemplo: los 12 cargueros de arrakis freight</a></li>
+<li><a class="nav-link" href="#binomial-aviso"><span class="header-section-number">8.3.4</span> Un aviso importante sobre la independencia</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#poisson"><span class="header-section-number">8.4</span> Distribución de Poisson</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#poisson-intuicion"><span class="header-section-number">8.4.1</span> La intuición: sucesos raros en un intervalo</a></li>
+<li><a class="nav-link" href="#poisson-formal"><span class="header-section-number">8.4.2</span> Definición formal</a></li>
+<li><a class="nav-link" href="#poisson-ejemplo-piratas"><span class="header-section-number">8.4.3</span> Ejemplo 1: piratas espaciales en la ruta Coruscant–Naboo</a></li>
+<li><a class="nav-link" href="#poisson-ejemplo-aprox"><span class="header-section-number">8.4.4</span> Ejemplo 2: la Poisson como aproximación de la binomial</a></li>
+<li><a class="nav-link" href="#binomial-vs-poisson"><span class="header-section-number">8.4.5</span> Cómo distinguir binomial de Poisson</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#binomial-negativa"><span class="header-section-number">8.5</span> Distribución binomial negativa</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#bn-intuicion"><span class="header-section-number">8.5.1</span> La intuición: éxitos fijos, fracasos por contar</a></li>
+<li><a class="nav-link" href="#bn-formal"><span class="header-section-number">8.5.2</span> Definición formal</a></li>
+<li><a class="nav-link" href="#bn-ejemplo"><span class="header-section-number">8.5.3</span> Ejemplo: la certificación de reactores en Qo’noS</a></li>
+<li><a class="nav-link" href="#geometrica"><span class="header-section-number">8.5.4</span> Caso particular: la distribución geométrica</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#hipergeometrica"><span class="header-section-number">8.6</span> Distribución hipergeométrica</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#hg-intuicion"><span class="header-section-number">8.6.1</span> La intuición: contar éxitos en una muestra sin reemplazamiento</a></li>
+<li><a class="nav-link" href="#hg-formal"><span class="header-section-number">8.6.2</span> Definición formal</a></li>
+<li><a class="nav-link" href="#hg-ejemplo"><span class="header-section-number">8.6.3</span> Ejemplo: auditoría de flotas</a></li>
+<li><a class="nav-link" href="#binomial-vs-hyper"><span class="header-section-number">8.6.4</span> Cómo distinguir binomial de hipergeométrica</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#guia-rapida"><span class="header-section-number">8.7</span> Guía rápida de decisión</a></li>
+<li><a class="nav-link" href="#recap-cap08"><span class="header-section-number">8.8</span> Recapitulación</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-07-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
