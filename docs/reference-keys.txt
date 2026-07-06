@@ -1,9 +1,3 @@
-fig:venn
-fig:frecuentista
-fig:fig-frecuentismo-flota
-fig:fig-arrakis-discreta
-fig:fig-densidad-grua
-fig:fig-anatomia
 estadistica-economica-empresarial
 que-es-la-estadistica
 estadistica-y-economia

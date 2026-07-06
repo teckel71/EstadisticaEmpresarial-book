@@ -224,14 +224,9 @@ Suceso
 </h3>
 <p>¿Y por qué se parecen tanto? Porque el <strong>enfoque frecuentista</strong> de la probabilidad nos dice que, si repitiéramos el experimento muchas veces, las frecuencias relativas de cada resultado se estabilizarían en torno a un número: precisamente su probabilidad. Es decir, si observamos suficientes datos, la variable estadística tiende a comportarse como si fuera la realización empírica de una variable aleatoria subyacente.</p>
 <p>Ilustrémoslo. Tomemos la variable <code>FLOTA</code> de las 300 empresas de la base <code>interestelar_300</code>. Ese histograma es una <strong>fotografía descriptiva</strong>. Pero si pensamos que esas 300 empresas son una muestra de una “población interestelar” enorme, y que la flota de una empresa cualquiera es una variable aleatoria <span class="math inline">\(\xi\)</span>, entonces el histograma es una <strong>aproximación empírica</strong> a la distribución de probabilidad de <span class="math inline">\(\xi\)</span>.</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:fig-frecuentismo-flota"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/fig-frecuentismo-flota-1.png" alt="Distribución empírica del número de cargueros por empresa en `interestelar_300`. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria 'flota de una empresa cualquiera'." width="80%"><p class="caption">
-Figure 7.1: Distribución empírica del número de cargueros por empresa en <code>interestelar_300</code>. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria ‘flota de una empresa cualquiera’.
-</p>
-</div>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-frecuentismo-flota-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 7.2</strong></p>
+<p><strong>Figura 7.2.</strong> Distribución empírica del número de cargueros por empresa en <code>interestelar_300</code>. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria ‘flota de una empresa cualquiera’.</p>
 </div>
 <p>La barra que muestra “hay tantas empresas con flotas entre 20 y 24 cargueros” es un dato descriptivo. Pero si dividimos su altura por el total y por la anchura del intervalo, empieza a parecerse mucho a un valor de probabilidad. <strong>Ese es el puente</strong>: la estadística descriptiva y la teoría de la probabilidad se dan la mano en el límite, cuando la muestra crece.</p>
 <div class="rmdimportant">
@@ -366,14 +361,9 @@ F(x) = P(\xi \le x) = \sum_{x_i \le x} p_i.
 <p><strong>Tabla 7.2.</strong> Función de cuantía y de distribución de <span class="math inline">\(\\xi\)</span> = número de cargueros a tiempo.</p>
 </div>
 <p>Y así se ve la cosa:</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:fig-arrakis-discreta"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/fig-arrakis-discreta-1.png" alt="Función de cuantía (izquierda) y función de distribución (derecha) de $\xi$: número de cargueros a tiempo en *arrakis freight*." width="95%"><p class="caption">
-Figure 7.2: Función de cuantía (izquierda) y función de distribución (derecha) de <span class="math inline">\(\xi\)</span>: número de cargueros a tiempo en <em>arrakis freight</em>.
-</p>
-</div>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-arrakis-discreta-1.png" alt="" width="95%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 7.3</strong></p>
+<p><strong>Figura 7.3.</strong> Función de cuantía (izquierda) y función de distribución (derecha) de <span class="math inline">\(\\xi\)</span>: número de cargueros a tiempo en <em>arrakis freight</em>.</p>
 </div>
 <p>Los saltos de la función de distribución tienen exactamente la altura de las cuantías: <span class="math inline">\(1/8\)</span>, <span class="math inline">\(3/8\)</span>, <span class="math inline">\(3/8\)</span>, <span class="math inline">\(1/8\)</span>. La probabilidad no se pierde en ningún tramo horizontal: sólo se acumula en los saltos.</p>
 </div>
@@ -439,14 +429,9 @@ f(x) =
 P(1 &lt; \xi &lt; 2) = \int_1^2 \frac{1}{8} x\, dx = \frac{1}{8} \cdot \left[\frac{x^2}{2}\right]_1^2 = \frac{1}{8} \cdot \left(2 - \frac{1}{2}\right) = \frac{3}{16} \approx 0{,}1875.
 \]</span></p>
 <p>Geométricamente:</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:fig-densidad-grua"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/fig-densidad-grua-1.png" alt="Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es $P(1 &lt; \xi &lt; 2) = 3/16$." width="80%"><p class="caption">
-Figure 7.3: Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es <span class="math inline">\(P(1 &lt; \xi &lt; 2) = 3/16\)</span>.
-</p>
-</div>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-densidad-grua-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 7.4</strong></p>
+<p><strong>Figura 7.4.</strong> Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es <span class="math inline">\(P(1 &lt; \\xi &lt; 2) = 3/16\)</span>.</p>
 </div>
 </div>
 <div id="la-lectura-visual-área-bajo-la-curva" class="section level3" number="7.6.4">
@@ -596,14 +581,9 @@ E(\xi^2) &amp;= \int_0^4 x^2 \cdot \frac{x}{8}\, dx = \frac{1}{8} \cdot \frac{4^
 <h3>
 <span class="header-section-number">7.7.4</span> Resumen visual: la anatomía de una distribución<a class="anchor" aria-label="anchor" href="#resumen-visual-la-anatom%C3%ADa-de-una-distribuci%C3%B3n"><i class="fas fa-link"></i></a>
 </h3>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:fig-anatomia"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/fig-anatomia-1.png" alt="Anatomía de una variable aleatoria continua: la esperanza señala el centro; la desviación típica, cómo de ancha es la distribución." width="80%"><p class="caption">
-Figure 7.4: Anatomía de una variable aleatoria continua: la esperanza señala el centro; la desviación típica, cómo de ancha es la distribución.
-</p>
-</div>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-anatomia-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 7.5</strong></p>
+<p><strong>Figura 7.5.</strong> Anatomía de una variable aleatoria continua: la esperanza señala el centro; la desviación típica, cómo de ancha es la distribución.</p>
 </div>
 </div>
 </div>

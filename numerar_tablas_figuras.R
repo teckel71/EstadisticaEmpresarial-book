@@ -155,6 +155,10 @@ procesar_rmd <- function(ruta_entrada,
   re_heading      <- "^#"
 
   re_cap_lit      <- 'caption\\s*=\\s*"([^"]*)"\\s*,?\\s*'
+  # fig.cap en la cabecera de chunk: `{r etiqueta, fig.cap="...", ...}`.
+  # Se extrae y se usa como descripción del bloque **Figura X.Y.** para
+  # que bookdown NO autonumere la figura (evitando la doble numeración).
+  re_fig_cap_hdr  <- 'fig\\.cap\\s*=\\s*"([^"]*)"\\s*,?\\s*'
 
   re_tabla_md_sep <- "^\\|[[:space:]\\-:|]+\\|[[:space:]]*$"
   re_tabla_md_row <- "^\\|.*\\|[[:space:]]*$"
@@ -766,7 +770,32 @@ procesar_rmd <- function(ruta_entrada,
   }
 
   # -------------------------------------------------------------------
-  # 3.4. Detectar tabla markdown manual
+  # 3.4. Extraer fig.cap="…" de la cabecera de un chunk y limpiarla
+  # -------------------------------------------------------------------
+  # Devuelve list(header, caption). Si la cabecera no contiene fig.cap,
+  # caption = NA y header queda tal cual. Si contiene, caption trae el
+  # texto y header queda saneada (sin fig.cap, sin comas huérfanas y sin
+  # `{r ,` malformado). Se soporta cita doble; comillas simples son raras
+  # en cabeceras de chunk y no se contemplan por seguridad.
+  extraer_fig_cap_header <- function(header) {
+    m <- regexec(re_fig_cap_hdr, header, perl = TRUE)
+    r <- regmatches(header, m)[[1]]
+    if (length(r) < 2) {
+      return(list(header = header, caption = NA_character_))
+    }
+    caption_txt   <- r[2]
+    header_limpio <- sub(re_fig_cap_hdr, "", header, perl = TRUE)
+    # Saneado: colapsar comas dobles, coma antes de `}`, y `{r ,` -> `{r `
+    header_limpio <- gsub(",\\s*,", ",", header_limpio, perl = TRUE)
+    header_limpio <- gsub(",\\s*\\}", "}", header_limpio, perl = TRUE)
+    header_limpio <- gsub("\\{r\\s*,\\s*", "{r ", header_limpio, perl = TRUE)
+    # Espacios finales antes de `}`
+    header_limpio <- gsub("\\s+\\}", "}", header_limpio, perl = TRUE)
+    list(header = header_limpio, caption = caption_txt)
+  }
+
+  # -------------------------------------------------------------------
+  # 3.5. Detectar tabla markdown manual
   # -------------------------------------------------------------------
   detectar_tabla_md <- function(lineas, i) {
     if (i > length(lineas)) return(list(es_tabla = FALSE))
@@ -806,7 +835,7 @@ procesar_rmd <- function(ruta_entrada,
   }
 
   # -------------------------------------------------------------------
-  # 3.5. Dividir un chunk mixto en sub-chunks
+  # 3.6. Dividir un chunk mixto en sub-chunks
   # -------------------------------------------------------------------
   # Para chunks con varios elementos (p.ej. una tabla + una figura),
   # buscamos un punto de corte (línea en blanco) inmediatamente después
@@ -938,6 +967,10 @@ procesar_rmd <- function(ruta_entrada,
   estado <- "texto"
   chunk_header <- ""
   chunk_buffer <- character(0)
+  # Caption capturado desde `fig.cap=` de la cabecera del chunk actual.
+  # Se consume al emitir la primera figura del chunk (o se ignora si el
+  # chunk no produce ninguna figura).
+  chunk_fig_cap <- NA_character_
   salida <- character(0)
   registro <- character(0)
   # Estado global entre chunks: contenedores y diferidos tentativos
@@ -957,8 +990,10 @@ procesar_rmd <- function(ruta_entrada,
     if (estado == "texto") {
       if (es_chunk_inicio(linea)) {
         estado <- "chunk"
-        chunk_header <- linea
-        chunk_buffer <- character(0)
+        info_hdr <- extraer_fig_cap_header(linea)
+        chunk_header  <- info_hdr$header
+        chunk_fig_cap <- info_hdr$caption
+        chunk_buffer  <- character(0)
         i <- i + 1L
         next
       }
@@ -1071,10 +1106,16 @@ procesar_rmd <- function(ruta_entrada,
                       sprintf(" - caption: \"%s\"", b$elem_caption) else ""))
                 } else {
                   cont_figura <- cont_figura + 1L
-                  push(bloque_numeracion("figura", num_capitulo, cont_figura))
+                  desc <- if (incluir_alt_figura && !is.na(chunk_fig_cap))
+                            chunk_fig_cap else NULL
+                  push(bloque_numeracion("figura", num_capitulo,
+                                        cont_figura, desc))
                   registro <- c(registro, sprintf(
-                    "  Figura %d.%d  (sub-chunk de mixto)",
-                    num_capitulo, cont_figura))
+                    "  Figura %d.%d  (sub-chunk de mixto)%s",
+                    num_capitulo, cont_figura,
+                    if (!is.na(chunk_fig_cap))
+                      sprintf(" - fig.cap: \"%s\"", chunk_fig_cap) else ""))
+                  chunk_fig_cap <- NA_character_   # ya consumido
                 }
               }
             }
@@ -1096,19 +1137,26 @@ procesar_rmd <- function(ruta_entrada,
                   if (!is.na(cap)) sprintf(" - caption: \"%s\"", cap) else ""))
               } else {
                 cont_figura <- cont_figura + 1L
-                push(bloque_numeracion("figura", num_capitulo, cont_figura))
+                desc <- if (incluir_alt_figura && !is.na(chunk_fig_cap))
+                          chunk_fig_cap else NULL
+                push(bloque_numeracion("figura", num_capitulo,
+                                      cont_figura, desc))
                 registro <- c(registro, sprintf(
-                  "  Figura %d.%d  (chunk linea %d)",
+                  "  Figura %d.%d  (chunk linea %d)%s",
                   num_capitulo, cont_figura,
-                  i - length(chunk_buffer) - 1L))
+                  i - length(chunk_buffer) - 1L,
+                  if (!is.na(chunk_fig_cap))
+                    sprintf(" - fig.cap: \"%s\"", chunk_fig_cap) else ""))
+                chunk_fig_cap <- NA_character_   # ya consumido
               }
             }
           }
         }
 
         estado <- "texto"
-        chunk_header <- ""
-        chunk_buffer <- character(0)
+        chunk_header  <- ""
+        chunk_buffer  <- character(0)
+        chunk_fig_cap <- NA_character_
       } else {
         chunk_buffer <- c(chunk_buffer, linea)
       }

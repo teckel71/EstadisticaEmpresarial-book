@@ -127,7 +127,7 @@ Dicho de otra forma:
 
 Ilustrémoslo. Tomemos la variable `FLOTA` de las 300 empresas de la base `interestelar_300`. Ese histograma es una **fotografía descriptiva**. Pero si pensamos que esas 300 empresas son una muestra de una "población interestelar" enorme, y que la flota de una empresa cualquiera es una variable aleatoria $\xi$, entonces el histograma es una **aproximación empírica** a la distribución de probabilidad de $\xi$.
 
-```{r fig-frecuentismo-flota, fig.cap="Distribución empírica del número de cargueros por empresa en `interestelar_300`. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria 'flota de una empresa cualquiera'.", out.width="80%"}
+```{r fig-frecuentismo-flota, out.width="80%"}
 interestelar <- read_excel("data/interestelar_300.xlsx", sheet = "Datos")
 
 ggplot(interestelar, aes(x = FLOTA)) +
@@ -140,7 +140,7 @@ ggplot(interestelar, aes(x = FLOTA)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 7.2**
+**Figura 7.2.** Distribución empírica del número de cargueros por empresa en `interestelar_300`. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria 'flota de una empresa cualquiera'.
 :::
 
 
@@ -230,7 +230,7 @@ kable(va_arrakis, escape = FALSE, align = "ccc",
 
 Y así se ve la cosa:
 
-```{r fig-arrakis-discreta, fig.cap="Función de cuantía (izquierda) y función de distribución (derecha) de $\\xi$: número de cargueros a tiempo en *arrakis freight*.", fig.width=9, fig.height=3.6, out.width="95%"}
+```{r fig-arrakis-discreta, fig.width=9, fig.height=3.6, out.width="95%"}
 df_a <- tibble(
   x = 0:3,
   p = c(1/8, 3/8, 3/8, 1/8)
@@ -270,7 +270,7 @@ gridExtra::grid.arrange(g1, g2, ncol = 2)
 ```
 
 ::: {style="text-align: center;"}
-**Figura 7.3**
+**Figura 7.3.** Función de cuantía (izquierda) y función de distribución (derecha) de $\\xi$: número de cargueros a tiempo en *arrakis freight*.
 :::
 
 
@@ -345,7 +345,7 @@ $$
 
 Geométricamente:
 
-```{r fig-densidad-grua, fig.cap="Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es $P(1 < \\xi < 2) = 3/16$.", fig.height=3.6, out.width="80%"}
+```{r fig-densidad-grua, fig.height=3.6, out.width="80%"}
 dens <- tibble(x = seq(0, 4, length.out = 400)) %>%
   mutate(f = x/8)
 
@@ -362,7 +362,7 @@ ggplot(dens, aes(x = x, y = f)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 7.4**
+**Figura 7.4.** Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es $P(1 < \\xi < 2) = 3/16$.
 :::
 
 
@@ -498,7 +498,7 @@ En promedio, cada contenedor tarda 2h 40min en descargarse, con una variabilidad
 
 ### Resumen visual: la anatomía de una distribución
 
-```{r fig-anatomia, fig.cap="Anatomía de una variable aleatoria continua: la esperanza señala el centro; la desviación típica, cómo de ancha es la distribución.", fig.height=3.6, out.width="80%"}
+```{r fig-anatomia, fig.height=3.6, out.width="80%"}
 mu   <- 20
 sig  <- 4
 dfn  <- tibble(x = seq(mu - 4*sig, mu + 4*sig, length.out = 500)) %>%
@@ -519,7 +519,7 @@ ggplot(dfn, aes(x, f)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 7.5**
+**Figura 7.5.** Anatomía de una variable aleatoria continua: la esperanza señala el centro; la desviación típica, cómo de ancha es la distribución.
 :::
 
 

@@ -129,7 +129,7 @@ Los sucesos se combinan entre sí mediante tres operaciones básicas, que a esta
 
 Estas tres operaciones se pueden combinar y encadenar tanto como se quiera, y el resultado sigue siendo un suceso. Los tres paneles de la Figura \@ref(fig:venn) resumen las tres operaciones básicas mediante diagramas de Venn, que serán a partir de aquí una herramienta visual constante.
 
-```{r venn, fig.cap="Las tres operaciones básicas con sucesos. De izquierda a derecha: intersección (área común), unión (todo lo cubierto por A o B) y complementario de A (todo lo que queda fuera de A dentro del espacio muestral).", fig.width=7.5, fig.height=2.8}
+```{r venn, fig.width=7.5, fig.height=2.8}
 # Círculos como polígonos regulares (32 vértices).
 circulo <- function(cx, cy, r, n = 90) {
   th <- seq(0, 2 * pi, length.out = n)
@@ -355,7 +355,7 @@ $$
 
 Si la ruta se ha operado bajo condiciones estables, esa frecuencia es una **estimación** razonable de la probabilidad de incidencia en dicha ruta. Podemos representar cómo se comportaría esa estimación si la compañía continuara recopilando datos: al principio, la frecuencia relativa oscila mucho, dependiendo de cuántos vuelos hayan salido bien o mal en las primeras jornadas; a medida que el número de vuelos crece, se calma. La Figura \@ref(fig:frecuentista) lo simula para una probabilidad verdadera del $14\,\%$.
 
-```{r frecuentista, fig.cap="Simulación de la estabilización de la frecuencia relativa de un suceso (incidencia menor en una ruta de Arrakis Freight) conforme aumenta el número de vuelos observados. La probabilidad verdadera del suceso se ha fijado en 0,14 y aparece como línea horizontal discontinua.", fig.width=6.8, fig.height=3.6}
+```{r frecuentista, fig.width=6.8, fig.height=3.6}
 set.seed(6)
 p_true <- 0.14
 N <- 1500
@@ -383,7 +383,7 @@ ggplot(df_frec, aes(x = vuelo, y = f_relativa)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 6.2**
+**Figura 6.2.** Simulación de la estabilización de la frecuencia relativa de un suceso (incidencia menor en una ruta de Arrakis Freight) conforme aumenta el número de vuelos observados. La probabilidad verdadera del suceso se ha fijado en 0,14 y aparece como línea horizontal discontinua.
 :::
 
 
