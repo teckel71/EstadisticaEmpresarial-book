@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>7 Variables aleatorias | Estadística Empresarial</title>
+<meta name="author" content="Miguel Ángel Tarancón Morán">
+<meta name="description" content="Figura 7.1. Del azar bruto al azar domesticado: la variable aleatoria.  — Atribuido (con dudosa exactitud) al profesor Kepler-Bernoulli, cátedra de Estadística Empresarial de la Universidad Libre...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="7 Variables aleatorias | Estadística Empresarial">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://teckel71.github.io/EstadisticaEmpresarial-book/variables-aleatorias.html">
+<meta property="og:image" content="https://teckel71.github.io/EstadisticaEmpresarial-book/figuras/EE_portada.jpg">
+<meta property="og:description" content="Figura 7.1. Del azar bruto al azar domesticado: la variable aleatoria.  — Atribuido (con dudosa exactitud) al profesor Kepler-Bernoulli, cátedra de Estadística Empresarial de la Universidad Libre...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="7 Variables aleatorias | Estadística Empresarial">
+<meta name="twitter:description" content="Figura 7.1. Del azar bruto al azar domesticado: la variable aleatoria.  — Atribuido (con dudosa exactitud) al profesor Kepler-Bernoulli, cátedra de Estadística Empresarial de la Universidad Libre...">
+<meta name="twitter:image" content="https://teckel71.github.io/EstadisticaEmpresarial-book/figuras/EE_portada.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Serif_4-0.4.10/font.css" rel="stylesheet">
+<link href="libs/JetBrains_Mono-0.4.10/font.css" rel="stylesheet">
+<link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Estadística Empresarial</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"></a></li>
+<li><a class="" href="prefacio.html">Prefacio</a></li>
+<li><a class="" href="estadistica-economica-empresarial.html"><span class="header-section-number">1</span> Estadística Económica y Empresarial.</a></li>
+<li><a class="" href="variable-estadistica-unidimensional.html"><span class="header-section-number">2</span> Variable estadística unidimensional.</a></li>
+<li><a class="" href="variable-estadistica-bidimensional.html"><span class="header-section-number">3</span> Variable estadística bidimensional y n-dimensional.</a></li>
+<li><a class="" href="regresion-correlacion.html"><span class="header-section-number">4</span> Regresión y correlación.</a></li>
+<li><a class="" href="numeros-indice.html"><span class="header-section-number">5</span> Números índice.</a></li>
+<li><a class="" href="introduccion-probabilidad.html"><span class="header-section-number">6</span> Introducción a la probabilidad.</a></li>
+<li><a class="active" href="variables-aleatorias.html"><span class="header-section-number">7</span> Variables aleatorias</a></li>
+<li><a class="" href="modelos-de-probabilidad-discretos-univariantes..html"><span class="header-section-number">8</span> Modelos de probabilidad discretos univariantes.</a></li>
+<li><a class="" href="modelos-de-probabilidad-continuos-univariantes..html"><span class="header-section-number">9</span> Modelos de probabilidad continuos univariantes.</a></li>
+<li><a class="" href="convergencia-y-teoremas-l%C3%ADmite..html"><span class="header-section-number">10</span> Convergencia y teoremas límite.</a></li>
+<li><a class="" href="bibliograf%C3%ADa.html">Bibliografía</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="variables-aleatorias" class="section level1" number="7">
+<h1>
+<span class="header-section-number">7</span> Variables aleatorias<a class="anchor" aria-label="anchor" href="#variables-aleatorias"><i class="fas fa-link"></i></a>
+</h1>
+<div class="inline-figure"><img src="figuras/07_aleatoria.jpg" class="portada-img" style="width:100.0%"></div>
+<div style="text-align: center;">
+<p><strong>Figura 7.1.</strong> <span class="smallcaps">Del azar bruto al azar domesticado: la variable aleatoria.</span></p>
+</div>
+<blockquote>
+<p>— Atribuido (con dudosa exactitud) al profesor Kepler-Bernoulli, cátedra de Estadística Empresarial de la Universidad Libre de Coruscant.</p>
+</blockquote>
+<div id="de-probabilidad-a-va" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> De la probabilidad a la variable aleatoria<a class="anchor" aria-label="anchor" href="#de-probabilidad-a-va"><i class="fas fa-link"></i></a>
+</h2>
+<p>En el capítulo anterior aprendimos a <strong>medir la incertidumbre</strong>. Dábamos con un experimento aleatorio, describíamos su espacio muestral <span class="math inline">\(E\)</span>, agrupábamos resultados en sucesos y asignábamos a cada suceso un número entre 0 y 1: su probabilidad. Un ejemplo doméstico: la empresa <em>arrakis freight</em> despacha esta noche un carguero por la ruta Arrakis–Klendathu. El experimento tiene dos resultados posibles: <em>llega a tiempo</em> o <em>llega tarde</em>. Con eso ya sabemos hablar en probabilidades.</p>
+<p>Ahora bien, en cuanto la empresa despacha <strong>no uno, sino veintitrés cargueros</strong>, describir cada suceso con palabras se vuelve incómodo. ¿De verdad vamos a enumerar <code>{tarde, tarde, a tiempo, tarde, a tiempo, ...}</code> para las <span class="math inline">\(2^{23}\)</span> combinaciones posibles? Sería tedioso incluso para un droide protocolario. Lo natural es asignar <strong>un número</strong> a cada resultado —por ejemplo, “número de cargueros que llegan a tiempo”— y trabajar con ese número.</p>
+<p>Ese salto —del suceso al número— es exactamente lo que hace una <strong>variable aleatoria</strong>. Y con él ganamos dos cosas enormes:</p>
+<ol style="list-style-type: decimal">
+<li>Podemos usar toda la maquinaria del cálculo (sumas, integrales, medias, varianzas) sobre los resultados de un experimento aleatorio.</li>
+<li>Podemos comparar experimentos completamente distintos —el tonelaje de un buque astillero KORRIGAN y el IDIG de una empresa de la Vía Láctea— con <strong>el mismo lenguaje matemático</strong>.</li>
+</ol>
+<div class="rmdnote">
+<p><strong>La idea intuitiva.</strong> Una variable aleatoria es, en el fondo, un traductor: coge cada resultado posible del experimento y lo convierte en un número. Después, cada número hereda la probabilidad del resultado del que proviene. La probabilidad, así, deja de vivir sobre “sucesos con nombre” y pasa a vivir sobre “números”.</p>
+</div>
+</div>
+<div id="definición-formal-de-variable-aleatoria" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> Definición formal de variable aleatoria<a class="anchor" aria-label="anchor" href="#definici%C3%B3n-formal-de-variable-aleatoria"><i class="fas fa-link"></i></a>
+</h2>
+<p>Dado un espacio de probabilidad <span class="math inline">\((E, \Omega, P)\)</span>, se define una <strong>variable aleatoria</strong> <span class="math inline">\(\xi\)</span> como una aplicación</p>
+<p><span class="math display">\[
+\xi : E \longrightarrow \mathbb{R}
+\]</span></p>
+<p>que a cada resultado elemental <span class="math inline">\(e \in E\)</span> le hace corresponder un número real <span class="math inline">\(\xi(e)\)</span>. Los sucesos —conjuntos de resultados— se transforman en conjuntos de números reales, y las probabilidades de los sucesos se convierten en probabilidades asociadas a esos números.</p>
+<p>Una variable aleatoria queda perfectamente descrita cuando conocemos dos cosas:</p>
+<ul>
+<li>Su <strong>campo de variación</strong>: qué valores puede tomar.</li>
+<li>Su <strong>distribución de probabilidad</strong>: con qué probabilidad los toma.</li>
+</ul>
+<div id="ejemplo-i-los-tres-despachos-nocturnos-de-arrakis-freight" class="section level3" number="7.2.1">
+<h3>
+<span class="header-section-number">7.2.1</span> Ejemplo I: los tres despachos nocturnos de <em>arrakis freight</em><a class="anchor" aria-label="anchor" href="#ejemplo-i-los-tres-despachos-nocturnos-de-arrakis-freight"><i class="fas fa-link"></i></a>
+</h3>
+<p><em>arrakis freight</em> despacha cada noche tres cargueros por la ruta Arrakis–Giedi Prime. Cada despacho puede terminar en <em>éxito</em> (E) —el carguero atraviesa la tormenta de arena estelar y entrega la especia— o <em>fracaso</em> (F). Definimos:</p>
+<p><span class="math display">\[
+\xi = \text{"número de cargueros que llegan con éxito esta noche"}.
+\]</span></p>
+<p>El espacio muestral tiene ocho resultados. Bajo el supuesto (idealizado) de que cada despacho es independiente y tiene probabilidad de éxito <span class="math inline">\(0{,}5\)</span>, la variable aleatoria <span class="math inline">\(\xi\)</span> mapea los sucesos a números así:</p>
+<div class="inline-table"><table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+Suceso
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\xi\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(P(\xi = x_i)\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+{F,F,F}
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+1/8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+{E,F,F}, {F,E,F}, {F,F,E}
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+3/8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+{E,E,F}, {E,F,E}, {F,E,E}
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+3/8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+{E,E,E}
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1/8
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 7.1.</strong> Variable aleatoria <span class="math inline">\(\\xi\)</span>: número de cargueros que llegan a Giedi Prime.</p>
+</div>
+<p>El <strong>campo de variación</strong> de <span class="math inline">\(\xi\)</span> es <span class="math inline">\(\{0, 1, 2, 3\}\)</span>. La <strong>distribución de probabilidad</strong> es la lista de probabilidades asignadas a cada uno de esos valores. Con ese par de piezas ya podemos calcular cualquier cosa: la probabilidad de que lleguen al menos dos, la probabilidad de que no llegue ninguno (mala noche para las bonificaciones del gerente), etc.</p>
+</div>
+<div id="ejemplo-ii-la-variable-tonelaje" class="section level3" number="7.2.2">
+<h3>
+<span class="header-section-number">7.2.2</span> Ejemplo II: la variable “tonelaje”<a class="anchor" aria-label="anchor" href="#ejemplo-ii-la-variable-tonelaje"><i class="fas fa-link"></i></a>
+</h3>
+<p>Fijémonos ahora en la base de datos <code>astilleros_48</code>. La variable <em>TONELAJE</em> recoge las toneladas métricas de cada nueva unidad salida del astillero KORRIGAN, SELENE o ARCTURUS. Si mañana el astillero KORRIGAN bota una nueva nave y llamamos</p>
+<p><span class="math display">\[
+\xi = \text{"tonelaje de la próxima nave botada por KORRIGAN"},
+\]</span></p>
+<p>entonces <span class="math inline">\(\xi\)</span> puede tomar <strong>cualquier</strong> valor dentro de un rango razonable (digamos entre 600 y 1.000 toneladas). Ya no hay ocho resultados: hay infinitos. Este segundo ejemplo tiene una naturaleza radicalmente distinta al primero, y por eso —muy pronto— tendremos que distinguir entre variables aleatorias <em>discretas</em> y <em>continuas</em>.</p>
+</div>
+</div>
+<div id="va-vs-vestadistica" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> Variable aleatoria vs. variable estadística<a class="anchor" aria-label="anchor" href="#va-vs-vestadistica"><i class="fas fa-link"></i></a>
+</h2>
+<p>En los capítulos 1, 2 y 3 hablábamos también de “variables”. Analizábamos, por ejemplo, el <code>SALARIO</code> de los 49 trabajadores del holding, o el <code>TONELAJE</code> de las 48 unidades del fichero de astilleros. ¿En qué se parece —y en qué se diferencia— aquella variable <em>estadística</em> de la nueva variable <em>aleatoria</em>?</p>
+<div id="lo-que-tienen-en-común" class="section level3" number="7.3.1">
+<h3>
+<span class="header-section-number">7.3.1</span> Lo que tienen en común<a class="anchor" aria-label="anchor" href="#lo-que-tienen-en-com%C3%BAn"><i class="fas fa-link"></i></a>
+</h3>
+<p>Ambas asocian <strong>un número a cada individuo o resultado</strong>. Ambas pueden ser discretas o continuas. Ambas admiten representaciones gráficas parecidas —histogramas, diagramas de barras—, y de ambas nos interesa la media, la dispersión, la asimetría… Un histograma es a la variable estadística lo que una función de densidad es a la variable aleatoria: la misma familia visual.</p>
+</div>
+<div id="en-qué-se-diferencian" class="section level3" number="7.3.2">
+<h3>
+<span class="header-section-number">7.3.2</span> En qué se diferencian<a class="anchor" aria-label="anchor" href="#en-qu%C3%A9-se-diferencian"><i class="fas fa-link"></i></a>
+</h3>
+<p>La variable estadística vive en el <strong>mundo observado</strong>: ya se recogieron los 300 datos de la base <code>interestelar_300</code> y podemos contar cuántas empresas tienen entre 20 y 30 cargueros. La variable aleatoria vive en el <strong>mundo posible</strong>: describe qué podría ocurrir en un experimento antes de realizarlo.</p>
+<p>Dicho de otra forma:</p>
+<ul>
+<li>
+<strong>Variable estadística</strong>: fotografía de una muestra concreta. Las frecuencias son datos observados.</li>
+<li>
+<strong>Variable aleatoria</strong>: modelo teórico de un experimento. Las probabilidades son valores asignados <em>a priori</em>.</li>
+</ul>
+</div>
+<div id="el-puente-frecuentista" class="section level3" number="7.3.3">
+<h3>
+<span class="header-section-number">7.3.3</span> El puente frecuentista<a class="anchor" aria-label="anchor" href="#el-puente-frecuentista"><i class="fas fa-link"></i></a>
+</h3>
+<p>¿Y por qué se parecen tanto? Porque el <strong>enfoque frecuentista</strong> de la probabilidad nos dice que, si repitiéramos el experimento muchas veces, las frecuencias relativas de cada resultado se estabilizarían en torno a un número: precisamente su probabilidad. Es decir, si observamos suficientes datos, la variable estadística tiende a comportarse como si fuera la realización empírica de una variable aleatoria subyacente.</p>
+<p>Ilustrémoslo. Tomemos la variable <code>FLOTA</code> de las 300 empresas de la base <code>interestelar_300</code>. Ese histograma es una <strong>fotografía descriptiva</strong>. Pero si pensamos que esas 300 empresas son una muestra de una “población interestelar” enorme, y que la flota de una empresa cualquiera es una variable aleatoria <span class="math inline">\(\xi\)</span>, entonces el histograma es una <strong>aproximación empírica</strong> a la distribución de probabilidad de <span class="math inline">\(\xi\)</span>.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:fig-frecuentismo-flota"></span>
+<img src="EstadisticaEmpresarial_files/figure-html/fig-frecuentismo-flota-1.png" alt="Distribución empírica del número de cargueros por empresa en `interestelar_300`. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria 'flota de una empresa cualquiera'." width="80%"><p class="caption">
+Figure 7.1: Distribución empírica del número de cargueros por empresa en <code>interestelar_300</code>. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria ‘flota de una empresa cualquiera’.
+</p>
+</div>
+<div style="text-align: center;">
+<p><strong>Figura 7.2</strong></p>
+</div>
+<p>La barra que muestra “hay tantas empresas con flotas entre 20 y 24 cargueros” es un dato descriptivo. Pero si dividimos su altura por el total y por la anchura del intervalo, empieza a parecerse mucho a un valor de probabilidad. <strong>Ese es el puente</strong>: la estadística descriptiva y la teoría de la probabilidad se dan la mano en el límite, cuando la muestra crece.</p>
+<div class="rmdimportant">
+<p><strong>Regla mnemotécnica.</strong> La variable estadística <em>cuenta</em>; la variable aleatoria <em>predice</em>. La primera trabaja con lo que ya ocurrió; la segunda, con lo que puede ocurrir. Y en el límite —cuando repetimos el experimento hasta el aburrimiento cósmico— las dos convergen.</p>
+</div>
+</div>
+</div>
+<div id="funcion-distribucion" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> Función de distribución<a class="anchor" aria-label="anchor" href="#funcion-distribucion"><i class="fas fa-link"></i></a>
+</h2>
+<p>Hasta aquí hemos hablado de “distribución de probabilidad” de forma un tanto informal. Toca darle nombre y apellidos. La forma canónica —y universal, sirve tanto para discretas como para continuas— de expresar la distribución de una variable aleatoria es la <strong>función de distribución</strong>.</p>
+<p>Se define como</p>
+<p><span class="math display">\[
+F(x) = P(\xi \le x), \qquad \forall x \in \mathbb{R}.
+\]</span></p>
+<p>En cristiano: <span class="math inline">\(F(x)\)</span> es la probabilidad de que la variable aleatoria tome un valor menor o igual que <span class="math inline">\(x\)</span>. Es una función acumulativa: va sumando probabilidad de izquierda a derecha.</p>
+<div id="propiedades" class="section level3" number="7.4.1">
+<h3>
+<span class="header-section-number">7.4.1</span> Propiedades<a class="anchor" aria-label="anchor" href="#propiedades"><i class="fas fa-link"></i></a>
+</h3>
+<p>La función de distribución cumple, para cualquier variable aleatoria:</p>
+<ol style="list-style-type: decimal">
+<li>
+<span class="math inline">\(0 \le F(x) \le 1\)</span> para todo <span class="math inline">\(x\)</span>.</li>
+<li>
+<span class="math inline">\(\lim_{x \to -\infty} F(x) = 0\)</span> y <span class="math inline">\(\lim_{x \to +\infty} F(x) = 1\)</span>.</li>
+<li>Es <strong>no decreciente</strong>: si <span class="math inline">\(x_1 &lt; x_2\)</span>, entonces <span class="math inline">\(F(x_1) \le F(x_2)\)</span>.</li>
+<li>Es <strong>continua por la derecha</strong>.</li>
+</ol>
+<p>Las dos primeras propiedades son casi de sentido común (probabilidad total = 1, mínima = 0). La tercera dice que, al mover <span class="math inline">\(x\)</span> hacia la derecha, sólo podemos acumular más probabilidad, nunca menos. La cuarta es una tecnicalidad importante en las variables discretas, donde <span class="math inline">\(F\)</span> da saltos.</p>
+</div>
+</div>
+<div id="va-discretas" class="section level2" number="7.5">
+<h2>
+<span class="header-section-number">7.5</span> Variables aleatorias discretas<a class="anchor" aria-label="anchor" href="#va-discretas"><i class="fas fa-link"></i></a>
+</h2>
+<p>Una variable aleatoria <span class="math inline">\(\xi\)</span> es <strong>discreta</strong> cuando su campo de variación se compone de un número <strong>finito o infinito numerable</strong> de puntos. Entre esos puntos hay “huecos”: la variable no puede tomar valores intermedios.</p>
+<p>Los ejemplos discretos abundan en RStars:</p>
+<ul>
+<li>El número de cargueros que despacha una empresa en una noche.</li>
+<li>El número de rutas activas de <em>hyperdrive express</em> en un trimestre.</li>
+<li>El número de empleados de una empresa (<code>EMPLEA</code>).</li>
+<li>El número de tripulantes que ascienden en el departamento de <em>Personal Navegación</em>.</li>
+</ul>
+<p>Todos son enteros. No hay 26,7 cargueros ni 14,3 empleados. Y si los hay, mal asunto para la empresa.</p>
+<div id="función-de-cuantía-o-función-de-masa" class="section level3" number="7.5.1">
+<h3>
+<span class="header-section-number">7.5.1</span> Función de cuantía (o función de masa)<a class="anchor" aria-label="anchor" href="#funci%C3%B3n-de-cuant%C3%ADa-o-funci%C3%B3n-de-masa"><i class="fas fa-link"></i></a>
+</h3>
+<p>Para una variable discreta, la forma más directa de describir su distribución es asignando a cada valor posible su probabilidad. Esa función se llama <strong>función de cuantía</strong> o <strong>función de masa de probabilidad</strong>:</p>
+<p><span class="math display">\[
+p_i = P(\xi = x_i), \qquad p_i &gt; 0, \qquad \sum_i p_i = 1.
+\]</span></p>
+<p>Dicho con manos: para cada valor <span class="math inline">\(x_i\)</span> en el campo de variación, <span class="math inline">\(p_i\)</span> te dice qué cantidad de probabilidad tiene <em>pegada</em>. La suma de todas esas cantidades debe dar 1: la probabilidad total no puede desaparecer ni fugarse a otra galaxia.</p>
+</div>
+<div id="relación-con-la-función-de-distribución" class="section level3" number="7.5.2">
+<h3>
+<span class="header-section-number">7.5.2</span> Relación con la función de distribución<a class="anchor" aria-label="anchor" href="#relaci%C3%B3n-con-la-funci%C3%B3n-de-distribuci%C3%B3n"><i class="fas fa-link"></i></a>
+</h3>
+<p>En una variable discreta, la función de distribución se obtiene simplemente <strong>acumulando</strong> las probabilidades:</p>
+<p><span class="math display">\[
+F(x) = P(\xi \le x) = \sum_{x_i \le x} p_i.
+\]</span></p>
+<p>Es una <strong>función escalonada</strong>: constante entre valores del campo de variación, y con <strong>saltos</strong> exactamente iguales a <span class="math inline">\(p_i\)</span> en cada valor <span class="math inline">\(x_i\)</span>.</p>
+</div>
+<div id="ejemplo-los-despachos-nocturnos-otra-vez" class="section level3" number="7.5.3">
+<h3>
+<span class="header-section-number">7.5.3</span> Ejemplo: los despachos nocturnos, otra vez<a class="anchor" aria-label="anchor" href="#ejemplo-los-despachos-nocturnos-otra-vez"><i class="fas fa-link"></i></a>
+</h3>
+<p>Volvamos a <em>arrakis freight</em> y sus tres despachos independientes con probabilidad de éxito <span class="math inline">\(0{,}5\)</span>. La variable <span class="math inline">\(\xi\)</span> = “número de éxitos” es discreta con campo de variación <span class="math inline">\(\{0, 1, 2, 3\}\)</span>. Su función de cuantía y su función de distribución son:</p>
+<div class="inline-table"><table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+<span class="math inline">\(x_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(p_i = P(\xi = x_i)\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(F(x_i) = P(\xi \le x_i)\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+1/8
+</td>
+<td style="text-align:center;">
+1/8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+3/8
+</td>
+<td style="text-align:center;">
+4/8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+3/8
+</td>
+<td style="text-align:center;">
+7/8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1/8
+</td>
+<td style="text-align:center;">
+8/8 = 1
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 7.2.</strong> Función de cuantía y de distribución de <span class="math inline">\(\\xi\)</span> = número de cargueros a tiempo.</p>
+</div>
+<p>Y así se ve la cosa:</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:fig-arrakis-discreta"></span>
+<img src="EstadisticaEmpresarial_files/figure-html/fig-arrakis-discreta-1.png" alt="Función de cuantía (izquierda) y función de distribución (derecha) de $\xi$: número de cargueros a tiempo en *arrakis freight*." width="95%"><p class="caption">
+Figure 7.2: Función de cuantía (izquierda) y función de distribución (derecha) de <span class="math inline">\(\xi\)</span>: número de cargueros a tiempo en <em>arrakis freight</em>.
+</p>
+</div>
+<div style="text-align: center;">
+<p><strong>Figura 7.3</strong></p>
+</div>
+<p>Los saltos de la función de distribución tienen exactamente la altura de las cuantías: <span class="math inline">\(1/8\)</span>, <span class="math inline">\(3/8\)</span>, <span class="math inline">\(3/8\)</span>, <span class="math inline">\(1/8\)</span>. La probabilidad no se pierde en ningún tramo horizontal: sólo se acumula en los saltos.</p>
+</div>
+</div>
+<div id="va-continuas" class="section level2" number="7.6">
+<h2>
+<span class="header-section-number">7.6</span> Variables aleatorias continuas<a class="anchor" aria-label="anchor" href="#va-continuas"><i class="fas fa-link"></i></a>
+</h2>
+<p>Una variable aleatoria <span class="math inline">\(\xi\)</span> es <strong>continua</strong> cuando el número de valores que puede tomar es <strong>infinito no numerable</strong>. Es decir, puede tomar cualquier valor dentro de un intervalo real.</p>
+<p>Ejemplos naturales en RStars:</p>
+<ul>
+<li>El <em>tonelaje</em> exacto de una nueva unidad KORRIGAN.</li>
+<li>El <em>ingreso operativo</em> mensual de <em>hyperdrive express</em>.</li>
+<li>El <em>tiempo</em> que tarda un carguero en cruzar la Vía Láctea.</li>
+<li>La <em>distancia</em> recorrida por la flota de <em>starship express</em> durante un año fiscal (<code>DIST</code>).</li>
+</ul>
+<p>Nada de esto es un entero. El tonelaje puede ser 850,4 toneladas, o 850,437 toneladas, o —si tenemos suficiente precisión— cualquier número real razonable.</p>
+<div id="la-primera-consecuencia-sorprendente-puntos-con-probabilidad-cero" class="section level3" number="7.6.1">
+<h3>
+<span class="header-section-number">7.6.1</span> La primera consecuencia sorprendente: puntos con probabilidad cero<a class="anchor" aria-label="anchor" href="#la-primera-consecuencia-sorprendente-puntos-con-probabilidad-cero"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aquí conviene sentarse. En una variable aleatoria continua, la probabilidad de que <span class="math inline">\(\xi\)</span> tome un valor <strong>exacto</strong> es cero:</p>
+<p><span class="math display">\[
+P(\xi = a) = 0 \quad \text{para cualquier } a.
+\]</span></p>
+<p>Parece contraintuitivo. ¿Cómo va a ser nula la probabilidad de que la nueva nave pese exactamente 850 toneladas si acaba de salir de la grada con esa cifra en el certificado? La respuesta es que, si medimos con precisión infinita, casi seguro pesará <span class="math inline">\(850{,}00000000001...\)</span>, o cualquier otro valor “vecino” con infinitos decimales. Entre dos valores cualesquiera del campo de variación hay <strong>infinitos</strong> valores intermedios, y la probabilidad total (que vale 1) debe repartirse entre todos ellos. A cada uno le toca literalmente nada.</p>
+<p>Por eso, en variables continuas, sólo tiene sentido hablar de probabilidades de <strong>intervalos</strong>: <span class="math inline">\(P(a &lt; \xi \le b)\)</span>.</p>
+</div>
+<div id="función-de-densidad" class="section level3" number="7.6.2">
+<h3>
+<span class="header-section-number">7.6.2</span> Función de densidad<a class="anchor" aria-label="anchor" href="#funci%C3%B3n-de-densidad"><i class="fas fa-link"></i></a>
+</h3>
+<p>Para una variable continua, la función de distribución <span class="math inline">\(F(x)\)</span> es continua y derivable. Su <strong>derivada</strong> es una función especial llamada <strong>función de densidad</strong>:</p>
+<p><span class="math display">\[
+f(x) = \lim_{\Delta x \to 0} \frac{F(x + \Delta x) - F(x)}{\Delta x} = F'(x).
+\]</span></p>
+<p>La función de densidad cumple dos condiciones:</p>
+<p><span class="math display">\[
+f(x) \ge 0 \qquad \text{y} \qquad \int_{-\infty}^{+\infty} f(x)\, dx = 1.
+\]</span></p>
+<div class="rmdwarning">
+<p><strong>Cuidado: la densidad NO es una probabilidad.</strong> Es una velocidad de acumulación de probabilidad, si se me permite la imagen. Puede tomar valores mayores que 1 sin que el universo tiemble. Lo que sí es una probabilidad es <span class="math inline">\(f(x)\,dx\)</span>: la probabilidad asignada a un intervalo infinitesimal alrededor de <span class="math inline">\(x\)</span>. O, más útil aún, el área bajo la curva de <span class="math inline">\(f\)</span> en un intervalo:</p>
+<p><span class="math display">\[
+P(a &lt; \xi \le b) = \int_a^b f(x)\, dx = F(b) - F(a).
+\]</span></p>
+</div>
+</div>
+<div id="un-ejemplo-con-las-nuevas-grúas-del-astillero-korrigan" class="section level3" number="7.6.3">
+<h3>
+<span class="header-section-number">7.6.3</span> Un ejemplo con las nuevas grúas del astillero KORRIGAN<a class="anchor" aria-label="anchor" href="#un-ejemplo-con-las-nuevas-gr%C3%BAas-del-astillero-korrigan"><i class="fas fa-link"></i></a>
+</h3>
+<p>El astillero KORRIGAN acaba de instalar nuevas grúas de manipulación de cargamentos, y la comisión de calidad estima que el tiempo (en horas) que la grúa tarda en descargar un contenedor estándar se comporta como una variable aleatoria continua <span class="math inline">\(\xi\)</span> con función de densidad:</p>
+<p><span class="math display">\[
+f(x) =
+\begin{cases}
+\dfrac{1}{8} x &amp; \text{si } 0 &lt; x &lt; 4 \\[3pt]
+0 &amp; \text{en el resto.}
+\end{cases}
+\]</span></p>
+<p><em>Contexto pedagógico:</em> que sea creciente en <span class="math inline">\([0, 4]\)</span> significa que tiempos más largos son más probables que tiempos cortos —tiene sentido si la grúa arranca despacio y tiende a estabilizarse en su tiempo máximo—. Un modelo así es habitual cuando se estudia el rendimiento de maquinaria que necesita calentar.</p>
+<p>Nos preguntamos cuál es la probabilidad de que la grúa tarde entre 1 y 2 horas en descargar un contenedor:</p>
+<p><span class="math display">\[
+P(1 &lt; \xi &lt; 2) = \int_1^2 \frac{1}{8} x\, dx = \frac{1}{8} \cdot \left[\frac{x^2}{2}\right]_1^2 = \frac{1}{8} \cdot \left(2 - \frac{1}{2}\right) = \frac{3}{16} \approx 0{,}1875.
+\]</span></p>
+<p>Geométricamente:</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:fig-densidad-grua"></span>
+<img src="EstadisticaEmpresarial_files/figure-html/fig-densidad-grua-1.png" alt="Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es $P(1 &lt; \xi &lt; 2) = 3/16$." width="80%"><p class="caption">
+Figure 7.3: Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es <span class="math inline">\(P(1 &lt; \xi &lt; 2) = 3/16\)</span>.
+</p>
+</div>
+<div style="text-align: center;">
+<p><strong>Figura 7.4</strong></p>
+</div>
+</div>
+<div id="la-lectura-visual-área-bajo-la-curva" class="section level3" number="7.6.4">
+<h3>
+<span class="header-section-number">7.6.4</span> La lectura visual: área bajo la curva<a class="anchor" aria-label="anchor" href="#la-lectura-visual-%C3%A1rea-bajo-la-curva"><i class="fas fa-link"></i></a>
+</h3>
+<p>Este es el hábito mental que conviene fijar para siempre: <strong>en variables continuas, las probabilidades son áreas</strong>. La función de densidad no dice cuánta probabilidad hay <em>en</em> un punto; dice cuánta hay <em>por unidad de campo</em> en el entorno de ese punto. Para conseguir una probabilidad de verdad, hay que integrar.</p>
+</div>
+</div>
+<div id="caracteristicas-va" class="section level2" number="7.7">
+<h2>
+<span class="header-section-number">7.7</span> Características de las variables aleatorias<a class="anchor" aria-label="anchor" href="#caracteristicas-va"><i class="fas fa-link"></i></a>
+</h2>
+<p>Ya tenemos definida la variable aleatoria y sabemos describirla con su función de distribución (o su cuantía, o su densidad, según sea discreta o continua). Ahora, igual que en estadística descriptiva calculábamos la media, la varianza o la asimetría, aquí definiremos las mismas ideas —pero en clave probabilística—.</p>
+<div id="momentos-la-maquinaria-común" class="section level3" number="7.7.1">
+<h3>
+<span class="header-section-number">7.7.1</span> Momentos: la maquinaria común<a class="anchor" aria-label="anchor" href="#momentos-la-maquinaria-com%C3%BAn"><i class="fas fa-link"></i></a>
+</h3>
+<p>Los <strong>momentos</strong> son la herramienta que resume toda una distribución en un puñado de números. Hay dos familias.</p>
+<p><strong>Momentos respecto al origen</strong>, de orden <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+\alpha_r = E(\xi^r) =
+\begin{cases}
+\displaystyle \sum_i x_i^r \cdot p_i &amp; \text{caso discreto} \\[6pt]
+\displaystyle \int_{-\infty}^{+\infty} x^r \cdot f(x)\, dx &amp; \text{caso continuo.}
+\end{cases}
+\]</span></p>
+<p><strong>Momentos respecto a la media</strong>, de orden <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+\mu_r = E\left[(\xi - \mu)^r\right], \qquad \mu = \alpha_1.
+\]</span></p>
+<p>De todos ellos, los que más nos van a servir en la práctica son los dos primeros. El resto viven en los libros gordos.</p>
+</div>
+<div id="esperanza-matemática" class="section level3" number="7.7.2">
+<h3>
+<span class="header-section-number">7.7.2</span> Esperanza matemática<a class="anchor" aria-label="anchor" href="#esperanza-matem%C3%A1tica"><i class="fas fa-link"></i></a>
+</h3>
+<p>La <strong>esperanza matemática</strong> —también llamada valor esperado, media teórica o simplemente esperanza— es el valor alrededor del cual se concentra una distribución de probabilidad. Matemáticamente es el momento de orden 1 respecto al origen:</p>
+<p><span class="math display">\[
+\mu = E(\xi) = \alpha_1 =
+\begin{cases}
+\displaystyle \sum_i x_i \cdot p_i &amp; \text{caso discreto} \\[6pt]
+\displaystyle \int_{-\infty}^{+\infty} x \cdot f(x)\, dx &amp; \text{caso continuo.}
+\end{cases}
+\]</span></p>
+<div class="rmdnote">
+<p><strong>La intuición del casino galáctico.</strong> Piensa en la esperanza como en el <em>promedio a largo plazo</em>. Si repitiéramos el experimento un número enorme de veces, la media aritmética de los resultados observados tendería al valor <span class="math inline">\(E(\xi)\)</span>. Por eso las casas de apuestas de Coruscant nunca quiebran: aunque en cada partida individual pueden perder, la esperanza matemática de la ganancia por partida —de ellos, no del jugador— es positiva.</p>
+</div>
+<div id="ejemplo-discreto-cargueros-a-tiempo" class="section level4" number="7.7.2.1">
+<h4>
+<span class="header-section-number">7.7.2.1</span> Ejemplo discreto: cargueros a tiempo<a class="anchor" aria-label="anchor" href="#ejemplo-discreto-cargueros-a-tiempo"><i class="fas fa-link"></i></a>
+</h4>
+<p>Retomemos a <em>arrakis freight</em>. La esperanza del número de cargueros a tiempo es:</p>
+<p><span class="math display">\[
+E(\xi) = 0 \cdot \tfrac{1}{8} + 1 \cdot \tfrac{3}{8} + 2 \cdot \tfrac{3}{8} + 3 \cdot \tfrac{1}{8} = \tfrac{12}{8} = 1{,}5.
+\]</span></p>
+<p>A la larga, esperamos <span class="math inline">\(1{,}5\)</span> éxitos por noche. Que ninguna noche concreta vaya a haber “medio carguero a tiempo” no es problema del modelo: la esperanza es un promedio a largo plazo, no una cifra realizable individualmente.</p>
+</div>
+<div id="ejemplo-continuo-la-grúa-korrigan" class="section level4" number="7.7.2.2">
+<h4>
+<span class="header-section-number">7.7.2.2</span> Ejemplo continuo: la grúa KORRIGAN<a class="anchor" aria-label="anchor" href="#ejemplo-continuo-la-gr%C3%BAa-korrigan"><i class="fas fa-link"></i></a>
+</h4>
+<p>Para la variable continua del tiempo de descarga:</p>
+<p><span class="math display">\[
+E(\xi) = \int_0^4 x \cdot \frac{x}{8}\, dx = \frac{1}{8} \int_0^4 x^2\, dx = \frac{1}{8} \cdot \frac{4^3}{3} = \frac{64}{24} = \frac{8}{3} \approx 2{,}67 \text{ horas.}
+\]</span></p>
+<p>Cada contenedor tarda, en promedio, unas 2 horas y 40 minutos en descargarse.</p>
+</div>
+<div id="propiedades-de-la-esperanza" class="section level4" number="7.7.2.3">
+<h4>
+<span class="header-section-number">7.7.2.3</span> Propiedades de la esperanza<a class="anchor" aria-label="anchor" href="#propiedades-de-la-esperanza"><i class="fas fa-link"></i></a>
+</h4>
+<p>La esperanza es una máquina de linealidad exquisita:</p>
+<ol style="list-style-type: decimal">
+<li>
+<span class="math inline">\(E(C) = C\)</span> si <span class="math inline">\(C\)</span> es una constante.</li>
+<li>
+<span class="math inline">\(E(\xi_1 \pm \xi_2 \pm \cdots \pm \xi_n) = E(\xi_1) \pm E(\xi_2) \pm \cdots \pm E(\xi_n)\)</span>.</li>
+<li>
+<span class="math inline">\(E(\xi_1 \cdot \xi_2 \cdots \xi_n) = E(\xi_1) \cdot E(\xi_2) \cdots E(\xi_n)\)</span> <strong>si y sólo si</strong> las variables son independientes.</li>
+<li>Si <span class="math inline">\(E(\xi) = \mu\)</span>, entonces <span class="math inline">\(E(\xi - \mu) = 0\)</span>.</li>
+<li>
+<span class="math inline">\(E(A + B\xi) = A + B \cdot E(\xi)\)</span> si <span class="math inline">\(A, B\)</span> son constantes.</li>
+</ol>
+<p>La propiedad 2 —que la esperanza de una suma es la suma de esperanzas— es una de las más útiles de la teoría de la probabilidad, y funciona <strong>incluso cuando las variables no son independientes</strong>. La 3, en cambio, exige independencia.</p>
+</div>
+</div>
+<div id="varianza-y-desviación-típica" class="section level3" number="7.7.3">
+<h3>
+<span class="header-section-number">7.7.3</span> Varianza y desviación típica<a class="anchor" aria-label="anchor" href="#varianza-y-desviaci%C3%B3n-t%C3%ADpica"><i class="fas fa-link"></i></a>
+</h3>
+<p>La <strong>varianza</strong> mide la dispersión de la variable aleatoria respecto a su esperanza. Matemáticamente es el momento de orden 2 respecto a la media:</p>
+<p><span class="math display">\[
+\mathrm{Var}(\xi) = \sigma^2 = \mu_2 = E\left[(\xi - \mu)^2\right] = E(\xi^2) - [E(\xi)]^2 = \alpha_2 - \alpha_1^2.
+\]</span></p>
+<p>La última expresión —varianza igual al momento de orden 2 respecto al origen menos la esperanza al cuadrado— es la fórmula de cálculo más cómoda y la que se usa en el 90% de los problemas.</p>
+<p>La raíz positiva de la varianza es la <strong>desviación típica</strong>:</p>
+<p><span class="math display">\[
+\sigma = +\sqrt{\sigma^2}.
+\]</span></p>
+<div class="rmdimportant">
+<p><strong>Traducción intuitiva.</strong> La esperanza dice <em>dónde</em> está el centro; la varianza dice <em>cómo de repartida</em> está la distribución alrededor de ese centro. Una varianza pequeña indica valores muy concentrados en torno a la media; una varianza grande, valores dispersos —y por tanto un experimento más incierto—.</p>
+</div>
+<div id="ejemplo-discreto-cargueros-a-tiempo-1" class="section level4" number="7.7.3.1">
+<h4>
+<span class="header-section-number">7.7.3.1</span> Ejemplo discreto: cargueros a tiempo<a class="anchor" aria-label="anchor" href="#ejemplo-discreto-cargueros-a-tiempo-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>Retomando el ejemplo:</p>
+<p><span class="math display">\[
+\begin{aligned}
+E(\xi) &amp;= 1{,}5 \\
+E(\xi^2) &amp;= 0^2 \cdot \tfrac{1}{8} + 1^2 \cdot \tfrac{3}{8} + 2^2 \cdot \tfrac{3}{8} + 3^2 \cdot \tfrac{1}{8} = 3 \\
+\mathrm{Var}(\xi) &amp;= 3 - (1{,}5)^2 = 0{,}75 \\
+\sigma &amp;= \sqrt{0{,}75} \approx 0{,}866.
+\end{aligned}
+\]</span></p>
+</div>
+<div id="ejemplo-continuo-la-grúa-korrigan-1" class="section level4" number="7.7.3.2">
+<h4>
+<span class="header-section-number">7.7.3.2</span> Ejemplo continuo: la grúa KORRIGAN<a class="anchor" aria-label="anchor" href="#ejemplo-continuo-la-gr%C3%BAa-korrigan-1"><i class="fas fa-link"></i></a>
+</h4>
+<p><span class="math display">\[
+\begin{aligned}
+E(\xi) &amp;= \tfrac{8}{3} \\
+E(\xi^2) &amp;= \int_0^4 x^2 \cdot \frac{x}{8}\, dx = \frac{1}{8} \cdot \frac{4^4}{4} = 8 \\
+\mathrm{Var}(\xi) &amp;= 8 - \left(\tfrac{8}{3}\right)^2 = 8 - \tfrac{64}{9} = \tfrac{8}{9} \approx 0{,}889 \\
+\sigma &amp;\approx 0{,}943 \text{ horas.}
+\end{aligned}
+\]</span></p>
+<p>En promedio, cada contenedor tarda 2h 40min en descargarse, con una variabilidad típica de unos 57 minutos. El jefe de operaciones ya sabe qué margen dejar en la planificación.</p>
+</div>
+<div id="propiedades-de-la-varianza" class="section level4" number="7.7.3.3">
+<h4>
+<span class="header-section-number">7.7.3.3</span> Propiedades de la varianza<a class="anchor" aria-label="anchor" href="#propiedades-de-la-varianza"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>
+<span class="math inline">\(\mathrm{Var}(\xi) = \sigma^2 \ge 0\)</span>. (Al elevar al cuadrado, nunca sale negativa. Y sólo vale 0 si la variable es constante, en cuyo caso apenas merece llamarse “aleatoria”.)</li>
+<li>
+<span class="math inline">\(\mathrm{Var}(\xi_1 \pm \xi_2 \pm \cdots \pm \xi_n) = \mathrm{Var}(\xi_1) + \mathrm{Var}(\xi_2) + \cdots + \mathrm{Var}(\xi_n)\)</span> <strong>si y sólo si</strong> las variables son independientes. (Ojo: aunque el signo sea de resta, las varianzas se suman. Sí, es raro. Sí, es verdad.)</li>
+<li>
+<span class="math inline">\(\mathrm{Var}(A + B\xi) = B^2 \cdot \mathrm{Var}(\xi)\)</span> si <span class="math inline">\(A, B\)</span> son constantes. (Sumar una constante no cambia la dispersión; multiplicar por <span class="math inline">\(B\)</span> la escala en <span class="math inline">\(|B|\)</span>, así que la varianza se escala en <span class="math inline">\(B^2\)</span>.)</li>
+</ol>
+</div>
+</div>
+<div id="resumen-visual-la-anatomía-de-una-distribución" class="section level3" number="7.7.4">
+<h3>
+<span class="header-section-number">7.7.4</span> Resumen visual: la anatomía de una distribución<a class="anchor" aria-label="anchor" href="#resumen-visual-la-anatom%C3%ADa-de-una-distribuci%C3%B3n"><i class="fas fa-link"></i></a>
+</h3>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:fig-anatomia"></span>
+<img src="EstadisticaEmpresarial_files/figure-html/fig-anatomia-1.png" alt="Anatomía de una variable aleatoria continua: la esperanza señala el centro; la desviación típica, cómo de ancha es la distribución." width="80%"><p class="caption">
+Figure 7.4: Anatomía de una variable aleatoria continua: la esperanza señala el centro; la desviación típica, cómo de ancha es la distribución.
+</p>
+</div>
+<div style="text-align: center;">
+<p><strong>Figura 7.5</strong></p>
+</div>
+</div>
+</div>
+<div id="va-bidimensionales" class="section level2" number="7.8">
+<h2>
+<span class="header-section-number">7.8</span> Variables aleatorias bidimensionales<a class="anchor" aria-label="anchor" href="#va-bidimensionales"><i class="fas fa-link"></i></a>
+</h2>
+<p>Hasta ahora hemos trabajado con <strong>una</strong> variable aleatoria. Pero en el mundo empresarial casi nada ocurre en solitario. Nos interesa, por ejemplo, saber si el número de rutas de una empresa y su número de empleados van de la mano, o si el tonelaje de una nave y su antigüedad guardan relación. Aparece entonces la idea de <strong>variable aleatoria bidimensional</strong>.</p>
+<p>Sin entrar en la maquinaria pesada —que se parece mucho a la unidimensional, sólo que con dos “ejes” de probabilidad—, quedémonos con los conceptos clave.</p>
+<div id="la-idea" class="section level3" number="7.8.1">
+<h3>
+<span class="header-section-number">7.8.1</span> La idea<a class="anchor" aria-label="anchor" href="#la-idea"><i class="fas fa-link"></i></a>
+</h3>
+<p>Una <strong>variable aleatoria bidimensional</strong> es un vector <span class="math inline">\((\xi, \eta)\)</span> cuyas componentes son dos variables aleatorias definidas sobre el mismo experimento. Por ejemplo:</p>
+<p><span class="math display">\[
+(\xi, \eta) = (\text{tonelaje de una nave KORRIGAN},\ \text{antigüedad de la nave}).
+\]</span></p>
+<p>Ambas se observan a la vez. La descripción probabilística conjunta responde a preguntas del estilo: ¿cuál es la probabilidad de que una nave elegida al azar pese entre 800 y 900 toneladas <strong>y</strong> tenga menos de 5 años?</p>
+</div>
+<div id="función-de-distribución-conjunta" class="section level3" number="7.8.2">
+<h3>
+<span class="header-section-number">7.8.2</span> Función de distribución conjunta<a class="anchor" aria-label="anchor" href="#funci%C3%B3n-de-distribuci%C3%B3n-conjunta"><i class="fas fa-link"></i></a>
+</h3>
+<p>Se define, como en el caso unidimensional, de forma acumulativa:</p>
+<p><span class="math display">\[
+F(x, y) = P(\xi \le x,\ \eta \le y).
+\]</span></p>
+<p>La probabilidad se acumula ahora en el plano en lugar de en la recta.</p>
+</div>
+<div id="distribuciones-marginales" class="section level3" number="7.8.3">
+<h3>
+<span class="header-section-number">7.8.3</span> Distribuciones marginales<a class="anchor" aria-label="anchor" href="#distribuciones-marginales"><i class="fas fa-link"></i></a>
+</h3>
+<p>Si la conjunta <span class="math inline">\(F(x, y)\)</span> describe cómo se reparte la probabilidad en el plano, las <strong>distribuciones marginales</strong> describen cómo se comporta cada componente por separado. Se obtienen “olvidándonos” de la otra variable:</p>
+<ul>
+<li>En el caso <strong>discreto</strong>: <span class="math inline">\(p_{i \bullet} = \sum_j p_{ij}\)</span> y <span class="math inline">\(p_{\bullet j} = \sum_i p_{ij}\)</span>.</li>
+<li>En el caso <strong>continuo</strong>: <span class="math inline">\(f_\xi(x) = \int f(x, y)\, dy\)</span> y <span class="math inline">\(f_\eta(y) = \int f(x, y)\, dx\)</span>.</li>
+</ul>
+<p>En cristiano: la distribución marginal de <span class="math inline">\(\xi\)</span> es lo que veríamos si ignorásemos completamente <span class="math inline">\(\eta\)</span>. Es la distribución de <span class="math inline">\(\xi\)</span> tal cual, sin más.</p>
+</div>
+<div id="ejemplo-intuitivo-la-comisión-interestelar-de-transporte" class="section level3" number="7.8.4">
+<h3>
+<span class="header-section-number">7.8.4</span> Ejemplo intuitivo: la Comisión Interestelar de Transporte<a class="anchor" aria-label="anchor" href="#ejemplo-intuitivo-la-comisi%C3%B3n-interestelar-de-transporte"><i class="fas fa-link"></i></a>
+</h3>
+<p>Imaginemos que la Comisión Interestelar de Transporte (CIT) audita al azar una empresa de la base <code>interestelar_300</code>. Define:</p>
+<ul>
+<li>
+<span class="math inline">\(\xi\)</span> = “número de galaxias en las que opera la empresa” (1, 2 o 3).</li>
+<li>
+<span class="math inline">\(\eta\)</span> = “categoría de antigüedad de flota”, que toma los valores <em>RENOVADA</em>, <em>MADURA</em>, <em>ANTIGUA</em>.</li>
+</ul>
+<p>La CIT ha estimado la siguiente <strong>función de cuantía conjunta</strong>:</p>
+<div class="inline-table"><table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+<span class="math inline">\(\xi \backslash \eta\)</span>
+</th>
+<th style="text-align:center;">
+RENOVADA
+</th>
+<th style="text-align:center;">
+MADURA
+</th>
+<th style="text-align:center;">
+ANTIGUA
+</th>
+<th style="text-align:center;">
+<strong>Marginal <span class="math inline">\(\xi\)</span></strong>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1 galaxia
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+<td style="text-align:center;">
+<strong>0,35</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2 galaxias
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;">
+0.15
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+<td style="text-align:center;">
+<strong>0,43</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3 galaxias
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+<td style="text-align:center;">
+<strong>0,22</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<strong>Marginal <span class="math inline">\(\eta\)</span></strong>
+</td>
+<td style="text-align:center;">
+<strong>0,20</strong>
+</td>
+<td style="text-align:center;">
+<strong>0,30</strong>
+</td>
+<td style="text-align:center;">
+<strong>0,50</strong>
+</td>
+<td style="text-align:center;">
+<strong>1,00</strong>
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 7.3.</strong> Función de cuantía conjunta de <span class="math inline">\((\\xi, \\eta)\)</span> para las empresas auditadas por la CIT. Las marginales se leen en los márgenes derecho e inferior.</p>
+</div>
+<p>De aquí se lee, por ejemplo, que la probabilidad de que la empresa auditada opere en 2 galaxias y tenga flota MADURA es <span class="math inline">\(0{,}15\)</span>. Que opere en 3 galaxias, sea cual sea su flota, es <span class="math inline">\(0{,}22\)</span> (la marginal de <span class="math inline">\(\xi\)</span> para el valor 3). Y así con todo.</p>
+</div>
+<div id="independencia" class="section level3" number="7.8.5">
+<h3>
+<span class="header-section-number">7.8.5</span> Independencia<a class="anchor" aria-label="anchor" href="#independencia"><i class="fas fa-link"></i></a>
+</h3>
+<p>Dos variables aleatorias <span class="math inline">\(\xi\)</span> y <span class="math inline">\(\eta\)</span> son <strong>independientes</strong> cuando el valor que toma una no aporta información sobre el valor que toma la otra. Matemáticamente:</p>
+<ul>
+<li>Caso discreto: <span class="math inline">\(p_{ij} = p_{i \bullet} \cdot p_{\bullet j}\)</span> para todos los pares.</li>
+<li>Caso continuo: <span class="math inline">\(f(x, y) = f_\xi(x) \cdot f_\eta(y)\)</span>.</li>
+</ul>
+<p>En el ejemplo de la CIT, ¿son <span class="math inline">\(\xi\)</span> y <span class="math inline">\(\eta\)</span> independientes? Miremos la casilla <span class="math inline">\((3 \text{ galaxias}, \text{RENOVADA})\)</span>: la conjunta vale <span class="math inline">\(0{,}07\)</span>. El producto de marginales vale <span class="math inline">\(0{,}22 \cdot 0{,}20 = 0{,}044\)</span>. Como <span class="math inline">\(0{,}07 \ne 0{,}044\)</span>, <strong>no son independientes</strong>. Lo cual tiene sentido: probablemente una empresa que opera en tres galaxias tenga más incentivos —y más presupuesto— para renovar flota.</p>
+</div>
+<div id="covarianza-el-resumen-bidimensional" class="section level3" number="7.8.6">
+<h3>
+<span class="header-section-number">7.8.6</span> Covarianza: el resumen bidimensional<a class="anchor" aria-label="anchor" href="#covarianza-el-resumen-bidimensional"><i class="fas fa-link"></i></a>
+</h3>
+<p>De todos los momentos bidimensionales, el que más nos interesa es la <strong>covarianza</strong>:</p>
+<p><span class="math display">\[
+\mathrm{Cov}(\xi, \eta) = \sigma_{\xi\eta} = E\left[(\xi - E(\xi))(\eta - E(\eta))\right] = E(\xi \cdot \eta) - E(\xi) \cdot E(\eta).
+\]</span></p>
+<p>La covarianza mide si <span class="math inline">\(\xi\)</span> y <span class="math inline">\(\eta\)</span> tienden a moverse juntas (<span class="math inline">\(\sigma_{\xi\eta} &gt; 0\)</span>), en direcciones opuestas (<span class="math inline">\(\sigma_{\xi\eta} &lt; 0\)</span>) o si son ajenas la una a la otra (<span class="math inline">\(\sigma_{\xi\eta} \approx 0\)</span>).</p>
+<div class="rmdnote">
+<p><strong>Propiedad útil.</strong> Si dos variables aleatorias son <strong>independientes</strong>, su covarianza es <strong>nula</strong>. El recíproco, en cambio, no siempre se cumple: puede haber variables con covarianza cero que estén relacionadas de forma no lineal. Es una lección que muchos analistas de la Federación Comercial han tenido que aprender por las malas.</p>
+</div>
+</div>
+</div>
+<div id="cierre-cap07" class="section level2" number="7.9">
+<h2>
+<span class="header-section-number">7.9</span> Cierre<a class="anchor" aria-label="anchor" href="#cierre-cap07"><i class="fas fa-link"></i></a>
+</h2>
+<p>Recapitulemos el viaje del capítulo:</p>
+<ol style="list-style-type: decimal">
+<li>Partimos de la probabilidad y aprendimos a <strong>traducir sucesos a números</strong> mediante variables aleatorias.</li>
+<li>Vimos que la variable aleatoria y la variable estadística son <strong>primas hermanas</strong>: la primera predice, la segunda cuenta, y ambas se encuentran en el límite frecuentista.</li>
+<li>Aprendimos la <strong>función de distribución</strong> como forma universal de describir cualquier variable aleatoria.</li>
+<li>Distinguimos las <strong>variables discretas</strong> —con su función de cuantía— de las <strong>continuas</strong> —con su función de densidad—.</li>
+<li>Definimos las <strong>características</strong> de una variable aleatoria: esperanza (dónde está el centro) y varianza (cómo de dispersa es la cosa).</li>
+<li>Asomamos la nariz al mundo <strong>bidimensional</strong> para entender que dos variables aleatorias pueden ir de la mano —o no— y que existen herramientas (marginales, independencia, covarianza) para estudiarlo.</li>
+</ol>
+<p>En los capítulos siguientes daremos nombre y ficha técnica a las <strong>distribuciones de probabilidad más importantes</strong>: la binomial, la Poisson, la normal… Cada una es una variable aleatoria con una función de cuantía o de densidad concreta, y todas ellas serán, a partir de ahora, herramientas de trabajo estándar en el maletín del analista empresarial.</p>
+<p>Que la esperanza (matemática) sea siempre positiva contigo.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="introduccion-probabilidad.html"><span class="header-section-number">6</span> Introducción a la probabilidad.</a></div>
+<div class="next"><a href="modelos-de-probabilidad-discretos-univariantes..html"><span class="header-section-number">8</span> Modelos de probabilidad discretos univariantes.</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#variables-aleatorias"><span class="header-section-number">7</span> Variables aleatorias</a></li>
+<li><a class="nav-link" href="#de-probabilidad-a-va"><span class="header-section-number">7.1</span> De la probabilidad a la variable aleatoria</a></li>
+<li>
+<a class="nav-link" href="#definici%C3%B3n-formal-de-variable-aleatoria"><span class="header-section-number">7.2</span> Definición formal de variable aleatoria</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#ejemplo-i-los-tres-despachos-nocturnos-de-arrakis-freight"><span class="header-section-number">7.2.1</span> Ejemplo I: los tres despachos nocturnos de arrakis freight</a></li>
+<li><a class="nav-link" href="#ejemplo-ii-la-variable-tonelaje"><span class="header-section-number">7.2.2</span> Ejemplo II: la variable “tonelaje”</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#va-vs-vestadistica"><span class="header-section-number">7.3</span> Variable aleatoria vs. variable estadística</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lo-que-tienen-en-com%C3%BAn"><span class="header-section-number">7.3.1</span> Lo que tienen en común</a></li>
+<li><a class="nav-link" href="#en-qu%C3%A9-se-diferencian"><span class="header-section-number">7.3.2</span> En qué se diferencian</a></li>
+<li><a class="nav-link" href="#el-puente-frecuentista"><span class="header-section-number">7.3.3</span> El puente frecuentista</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#funcion-distribucion"><span class="header-section-number">7.4</span> Función de distribución</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#propiedades"><span class="header-section-number">7.4.1</span> Propiedades</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#va-discretas"><span class="header-section-number">7.5</span> Variables aleatorias discretas</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#funci%C3%B3n-de-cuant%C3%ADa-o-funci%C3%B3n-de-masa"><span class="header-section-number">7.5.1</span> Función de cuantía (o función de masa)</a></li>
+<li><a class="nav-link" href="#relaci%C3%B3n-con-la-funci%C3%B3n-de-distribuci%C3%B3n"><span class="header-section-number">7.5.2</span> Relación con la función de distribución</a></li>
+<li><a class="nav-link" href="#ejemplo-los-despachos-nocturnos-otra-vez"><span class="header-section-number">7.5.3</span> Ejemplo: los despachos nocturnos, otra vez</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#va-continuas"><span class="header-section-number">7.6</span> Variables aleatorias continuas</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#la-primera-consecuencia-sorprendente-puntos-con-probabilidad-cero"><span class="header-section-number">7.6.1</span> La primera consecuencia sorprendente: puntos con probabilidad cero</a></li>
+<li><a class="nav-link" href="#funci%C3%B3n-de-densidad"><span class="header-section-number">7.6.2</span> Función de densidad</a></li>
+<li><a class="nav-link" href="#un-ejemplo-con-las-nuevas-gr%C3%BAas-del-astillero-korrigan"><span class="header-section-number">7.6.3</span> Un ejemplo con las nuevas grúas del astillero KORRIGAN</a></li>
+<li><a class="nav-link" href="#la-lectura-visual-%C3%A1rea-bajo-la-curva"><span class="header-section-number">7.6.4</span> La lectura visual: área bajo la curva</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#caracteristicas-va"><span class="header-section-number">7.7</span> Características de las variables aleatorias</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#momentos-la-maquinaria-com%C3%BAn"><span class="header-section-number">7.7.1</span> Momentos: la maquinaria común</a></li>
+<li><a class="nav-link" href="#esperanza-matem%C3%A1tica"><span class="header-section-number">7.7.2</span> Esperanza matemática</a></li>
+<li><a class="nav-link" href="#varianza-y-desviaci%C3%B3n-t%C3%ADpica"><span class="header-section-number">7.7.3</span> Varianza y desviación típica</a></li>
+<li><a class="nav-link" href="#resumen-visual-la-anatom%C3%ADa-de-una-distribuci%C3%B3n"><span class="header-section-number">7.7.4</span> Resumen visual: la anatomía de una distribución</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#va-bidimensionales"><span class="header-section-number">7.8</span> Variables aleatorias bidimensionales</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#la-idea"><span class="header-section-number">7.8.1</span> La idea</a></li>
+<li><a class="nav-link" href="#funci%C3%B3n-de-distribuci%C3%B3n-conjunta"><span class="header-section-number">7.8.2</span> Función de distribución conjunta</a></li>
+<li><a class="nav-link" href="#distribuciones-marginales"><span class="header-section-number">7.8.3</span> Distribuciones marginales</a></li>
+<li><a class="nav-link" href="#ejemplo-intuitivo-la-comisi%C3%B3n-interestelar-de-transporte"><span class="header-section-number">7.8.4</span> Ejemplo intuitivo: la Comisión Interestelar de Transporte</a></li>
+<li><a class="nav-link" href="#independencia"><span class="header-section-number">7.8.5</span> Independencia</a></li>
+<li><a class="nav-link" href="#covarianza-el-resumen-bidimensional"><span class="header-section-number">7.8.6</span> Covarianza: el resumen bidimensional</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#cierre-cap07"><span class="header-section-number">7.9</span> Cierre</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-07-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
