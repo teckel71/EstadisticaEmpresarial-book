@@ -1,14 +1,712 @@
-# Convergencia y teoremas límite.
+# Convergencia y teoremas centrales del límite {#tcl}
 
-*Tema 5: Modelos de distribución de probabilidad. Apartado 5.3.*
+```{r setup-cap10, include=FALSE}
+knitr::opts_chunk$set(
+  echo      = FALSE,
+  warning   = FALSE,
+  message   = FALSE,
+  fig.align = "center",
+  out.width = "85%"
+)
 
-En este último capítulo se estudian los conceptos de **convergencia** de
-sucesiones de variables aleatorias (convergencia en probabilidad, en
-distribución, casi segura y en media cuadrática) y los grandes **teoremas
-límite** de la teoría de la probabilidad: la **Ley de los Grandes Números**
-(en sus versiones débil y fuerte) y el **Teorema Central del Límite**. Se
-discute su interpretación intuitiva, su importancia práctica como
-fundamento de la inferencia estadística y sus implicaciones en el análisis
-de fenómenos económicos y empresariales.
+library(tidyverse)
+library(readxl)
+library(knitr)
+library(kableExtra)
+library(scales)
 
-<!-- Contenido pendiente de desarrollo. -->
+# Paleta coherente con capítulos previos.
+pal_libro  <- c("#2C6E91", "#B85450", "#E4B363", "#6A8E7F", "#8E6C88")
+pal_acento <- "#B85450"
+pal_apoyo  <- "#2C6E91"
+pal_gris   <- "grey60"
+
+theme_libro <- function(base_size = 11) {
+  theme_minimal(base_size = base_size) +
+    theme(
+      plot.title       = element_text(face = "bold", size = rel(1.05)),
+      plot.subtitle    = element_text(color = "grey30"),
+      panel.grid.minor = element_blank(),
+      panel.grid.major = element_line(color = "grey90"),
+      axis.title       = element_text(color = "grey20"),
+      strip.text       = element_text(face = "bold")
+    )
+}
+
+# Formateador de números con coma decimal española.
+fmt <- function(x, d = 4) formatC(x, format = "f", digits = d, decimal.mark = ",")
+
+# Semilla común para reproducir las simulaciones.
+set.seed(2025)
+```
+
+![](figuras/10_limite.jpg){.portada-img width="100%"}
+
+::: {style="text-align: center;"}
+**Figura 10.1.** [Cada carguero, tomado uno a uno, tiene su carácter. La flotilla, en promedio, no tiene ninguno: es simplemente normal.]{.smallcaps}
+:::
+
+
+> — Nota manuscrita al margen de un informe trimestral firmado por la analista jefe Ripley Strix, encontrado durante una auditoría rutinaria al sector logístico de *kaiju haulage co.*
+
+## Introducción {#intro-cap10}
+
+En el capítulo anterior desfilaron la uniforme, la exponencial, la normal y la log-normal. En cada uno de esos modelos, la campana normal apareció con más o menos disimulo: como aproximación de la binomial, como aproximación de la Poisson, como distribución conjugada de la log-normal, como distribución límite invocada de refilón. Que la normal aparezca **una vez** puede considerarse coincidencia; que aparezca **dos** ya es sospechoso; que aparezca **siempre** exige explicación.
+
+La explicación se llama **teorema central del límite** (TCL, para los amigos). Es, sin exageración retórica, el resultado más importante de toda la probabilidad clásica y el pilar sobre el que se sostiene la inferencia estadística que ocupará el resto del curso. Su enunciado es sencillo de recordar y de una potencia desproporcionada: **la suma de muchas variables aleatorias independientes, bajo condiciones muy poco exigentes, se distribuye aproximadamente como una normal**, con independencia casi absoluta de cómo se distribuyan las variables sumandas.
+
+Este capítulo se organiza en torno a tres ideas:
+
+1. Antes de hablar de un *teorema del límite* hace falta precisar qué significa **que una sucesión de variables aleatorias tienda a algo**. Introducimos brevemente los modos de convergencia relevantes y enunciamos la ley de los grandes números como aperitivo.
+2. Presentamos el **TCL en su forma general** (Lindeberg–Lévy) y sus dos casos particulares más útiles en la práctica: la aproximación **binomial → normal** (De Moivre–Laplace) y la aproximación **Poisson → normal**.
+3. Cerramos el círculo con el **esquema completo de aproximaciones** que enlaza a la binomial, la Poisson y la normal, junto con las reglas prácticas que determinan cuándo aplicar cada una.
+
+::: {.callout-tip}
+**Cómo leer este capítulo.** El capítulo es teórico —no hay una nueva distribución que memorizar—, pero se apoya en simulaciones y ejemplos numéricos con entidades del universo RStars. Al terminar debería quedar claro por qué, en la práctica, casi cualquier promedio muestral acaba pareciendo una campana, aunque los datos originales no la tengan ni de lejos.
+:::
+
+## Convergencia de sucesiones de variables aleatorias {#convergencia}
+
+Cuando se habla de convergencia de sucesiones de números —"la sucesión $x_{n} = 1/n$ converge a $0$"— la idea es intuitiva: para $n$ grande, los términos están arbitrariamente cerca del límite. Con **variables aleatorias** la cosa se complica: cada $\xi_{n}$ no es un número, sino una distribución. Definir *cerca* exige más cuidado. En lo que sigue solo necesitamos dos nociones.
+
+### Convergencia en probabilidad {#conv-probabilidad}
+
+Se dice que una sucesión de variables aleatorias $\{\xi_{n}\}$ **converge en probabilidad** a una variable $\xi$ si, para todo $\varepsilon > 0$,
+
+$$
+\lim_{n \to \infty} P\left( |\xi_{n} - \xi| > \varepsilon \right) \;=\; 0.
+$$
+
+Se escribe $\xi_{n} \xrightarrow{P} \xi$. Traducido a román paladino: **por grande que sea $n$, la probabilidad de que $\xi_{n}$ se aleje del límite en más que un margen fijo tiende a cero**. No es que $\xi_{n}$ sea exactamente $\xi$ para $n$ grande —de hecho, no lo será casi nunca—, pero la probabilidad de errar por mucho se hace despreciable.
+
+### La ley (débil) de los grandes números {#lgn}
+
+El ejemplo canónico —y el más importante en la práctica— de convergencia en probabilidad es la **ley (débil) de los grandes números**. Si $\xi_{1}, \xi_{2}, \ldots$ son variables aleatorias independientes e idénticamente distribuidas (i.i.d., abreviatura estándar) con media $\mu$ y varianza finita, entonces la **media muestral**
+
+$$
+\bar{\xi}_{n} \;=\; \frac{\xi_{1} + \xi_{2} + \cdots + \xi_{n}}{n}
+$$
+
+converge en probabilidad a $\mu$:
+
+$$
+\bar{\xi}_{n} \;\xrightarrow{P}\; \mu \quad \text{cuando } n \to \infty.
+$$
+
+En palabras llanas: **si tomamos suficientes observaciones y calculamos su media, esa media se parecerá tanto como queramos a la verdadera media poblacional**. Es el principio que legitima usar una muestra grande para estimar un parámetro desconocido, y también el argumento subyacente cuando un casino informa a un cliente enfadado que "a la larga la casa siempre gana": no es un capricho probabilístico, es la LGN aplicada al margen del jugador.
+
+Un pequeño aviso: la LGN dice **a dónde tiende** la media muestral, pero **no** dice a qué velocidad ni con qué error. Para eso hará falta el TCL.
+
+### Convergencia en distribución {#conv-distribucion}
+
+La segunda noción es más débil pero más útil en los teoremas del límite. Se dice que $\{\xi_{n}\}$ **converge en distribución** a una variable $\xi$ si, para todo punto $x$ de continuidad de la función de distribución límite $F$,
+
+$$
+\lim_{n \to \infty} F_{\xi_{n}}(x) \;=\; F(x).
+$$
+
+Se escribe $\xi_{n} \xrightarrow{d} \xi$. Ya no exigimos que $\xi_{n}$ y $\xi$ se acerquen valor a valor: basta con que **las funciones de distribución** —y por tanto las probabilidades que asignan a intervalos— se parezcan cada vez más. Es la convergencia adecuada para hablar del TCL, donde lo relevante no es el valor concreto de una suma, sino la forma de su distribución.
+
+::: {.callout-note}
+**Convergencia en probabilidad vs. convergencia en distribución.** La primera implica la segunda —si $\xi_{n}$ y $\xi$ están cerca, sus distribuciones también—, pero el recíproco es falso. Dos variables pueden tener la misma distribución sin coincidir jamás en valor. La convergencia en distribución es, en cierto sentido, la que "menos pide". Por eso es la más frecuente en los enunciados de teoremas del límite.
+:::
+
+## Teorema central del límite: la versión general {#tcl-general}
+
+### La intuición: la campana emergente {#tcl-intuicion}
+
+Empecemos por el fenómeno antes que por el enunciado. Consideremos la variable `COSTOP` del fichero `interestelar_300.xlsx`, que en el capítulo anterior identificamos como log-normal: muy asimétrica, con la mayoría de empresas concentradas en costes bajos y una cola larga hacia la derecha. Nada más lejano a una campana normal.
+
+Ahora hagamos un experimento mental (y en un momento, real). Tomemos $n$ empresas al azar, calculemos el **coste operativo medio** de esas $n$, y anotemos ese número. Repitamos la operación miles de veces, cambiando cada vez las empresas seleccionadas. Obtendremos miles de valores de la media muestral $\bar{\xi}_{n}$. La pregunta es: **¿qué distribución sigue esta nueva variable $\bar{\xi}_{n}$?**
+
+La respuesta la anticipa el TCL: **conforme $n$ crece, la distribución de $\bar{\xi}_{n}$ se vuelve normal**, con independencia de que la variable original no lo fuera en absoluto. La asimetría se disuelve, las colas se reducen, y la campana emerge sola.
+
+La figura \@ref(fig:fig-tcl-costop) hace visible este fenómeno. En el primer panel se muestra la distribución empírica de `COSTOP` sobre las 300 empresas: fuertemente asimétrica. En los paneles siguientes se muestra la distribución de la media muestral $\bar{\xi}_{n}$ para tamaños $n = 3, 10, 30$ y $100$, obtenida remuestreando 5000 veces sobre la población. El progreso hacia la campana es visible y sistemático: cuanto mayor es $n$, más simétrica, más concentrada y más *normal* es la distribución de la media.
+
+```{r fig-tcl-costop, fig.cap="Ilustración empírica del TCL. En el panel etiquetado como $n = 1$ se muestra la distribución original de la variable `COSTOP` (costes operativos, en miles de PAVOs) sobre las 300 empresas del fichero `interestelar_300.xlsx`: fuertemente asimétrica, muy lejos de una normal. En los paneles restantes se muestra la distribución de la media muestral $\\bar{\\xi}_{n}$ para tamaños $n = 3, 10, 30, 100$, obtenida remuestreando 5000 veces con reemplazamiento. La curva roja superpone en cada caso la normal $N(\\mu;\\, \\sigma/\\sqrt{n})$ predicha por el TCL. La convergencia a la campana es sistemática, aun cuando la distribución de partida no lo es en absoluto.", fig.height=5.2}
+costop <- read_excel("data/interestelar_300.xlsx", sheet = "Datos") |>
+  pull(COSTOP)
+
+mu_pop <- mean(costop)
+sd_pop <- sd(costop)
+
+sim_tcl <- function(n, reps = 5000, pop = costop) {
+  replicate(reps, mean(sample(pop, size = n, replace = TRUE)))
+}
+
+set.seed(2025)
+ns <- c(1, 3, 10, 30, 100)
+sim_df <- map_dfr(ns, function(n) {
+  if (n == 1) {
+    tibble(n = n, media = costop)
+  } else {
+    tibble(n = n, media = sim_tcl(n))
+  }
+}) |>
+  mutate(panel = factor(n,
+                        levels = ns,
+                        labels = paste0("n = ", ns)))
+
+# Curva normal teórica en cada panel
+curvas <- map_dfr(ns, function(n) {
+  se <- sd_pop / sqrt(n)
+  xs <- seq(max(0, mu_pop - 4 * se), mu_pop + 4 * se, length.out = 300)
+  tibble(n = n,
+         panel = factor(paste0("n = ", n), levels = paste0("n = ", ns)),
+         x = xs,
+         y = dnorm(xs, mean = mu_pop, sd = se))
+})
+
+# Recortamos el panel n = 1 para que la escala no aplaste al resto
+sim_plot <- sim_df |> filter(!(n == 1 & media > 700))
+curvas_plot <- curvas |> filter(!(n == 1 & x > 700))
+
+ggplot(sim_plot, aes(x = media)) +
+  geom_histogram(aes(y = after_stat(density)),
+                 bins = 40, fill = pal_apoyo, alpha = 0.55, color = "white") +
+  geom_line(data = curvas_plot, aes(x = x, y = y),
+            color = pal_acento, linewidth = 0.9) +
+  facet_wrap(~ panel, scales = "free", ncol = 3) +
+  scale_x_continuous(labels = function(x) format(x, big.mark = ".", decimal.mark = ",")) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
+  labs(x = "Media muestral de COSTOP (miles de PAVOs)",
+       y = "Densidad") +
+  theme_libro()
+```
+
+La tabla \@ref(tab:tab-tcl-costop) resume el fenómeno cuantitativamente. La media de las medias se mantiene prácticamente constante en torno a $\mu \approx `r fmt(mu_pop, 1)`$ miles de PAVOs (como anticipa la LGN), pero la desviación típica de $\bar{\xi}_{n}$ **decrece con** $\sqrt{n}$: al pasar de $n = 3$ a $n = 100$, la dispersión se divide aproximadamente por $\sqrt{100/3} \approx 5{,}77$. Este comportamiento —la desviación típica de la media muestral es $\sigma / \sqrt{n}$— es el sello del TCL.
+
+```{r tab-tcl-costop}
+tabla_tcl <- sim_df |>
+  group_by(n) |>
+  summarise(
+    media_medias = mean(media),
+    sd_medias    = sd(media),
+    .groups = "drop"
+  ) |>
+  mutate(
+    sd_teorica = sd_pop / sqrt(n),
+    n_lab      = as.character(n),
+    media_lab  = sprintf("%.2f", media_medias),
+    sd_lab     = sprintf("%.2f", sd_medias),
+    teor_lab   = sprintf("%.2f", sd_teorica)
+  ) |>
+  select(n_lab, media_lab, sd_lab, teor_lab)
+
+kable(tabla_tcl,
+      align   = "cccc",
+      col.names = c("$n$",
+                    "Media de $\\bar{\\xi}_{n}$",
+                    "SD empírica de $\\bar{\\xi}_{n}$",
+                    "SD teórica $\\sigma / \\sqrt{n}$"),
+      
+      escape  = FALSE) |>
+  kable_styling(
+    bootstrap_options = c("hover", "condensed"),
+    full_width        = FALSE,
+    position          = "center",
+    font_size         = 13
+  )
+```
+
+::: {style="text-align: center;"}
+**Tabla 10.1**
+:::
+
+
+Con la intuición asentada, pasamos al enunciado formal.
+
+### Enunciado (Lindeberg–Lévy) {#tcl-lindeberg}
+
+La versión más útil y limpia del TCL —debida a los matemáticos Jarl Lindeberg y Paul Lévy en los años veinte— es la siguiente.
+
+Sea $\{\xi_{n}\}$ una sucesión de variables aleatorias **independientes e idénticamente distribuidas** (i.i.d.) con media $E(\xi_{j}) = \mu$ y varianza $\operatorname{Var}(\xi_{j}) = \sigma^{2} < \infty$ para todo $j$. Sea $\eta_{n} = \xi_{1} + \xi_{2} + \cdots + \xi_{n}$ su suma. Entonces:
+
+$$
+\frac{\eta_{n} - n \mu}{\sqrt{n\, \sigma^{2}}} \;\xrightarrow{d}\; N(0;\, 1) \quad \text{cuando } n \to \infty.
+$$
+
+Equivalentemente, en términos de la media muestral $\bar{\xi}_{n} = \eta_{n} / n$:
+
+$$
+\frac{\bar{\xi}_{n} - \mu}{\sigma / \sqrt{n}} \;\xrightarrow{d}\; N(0;\, 1).
+$$
+
+Las dos versiones dicen exactamente lo mismo, escrito una vez para sumas y otra para medias. **La suma $\eta_{n}$ se comporta aproximadamente como una $N(n \mu;\, \sqrt{n}\, \sigma)$**, y **la media $\bar{\xi}_{n}$ se comporta aproximadamente como una $N(\mu;\, \sigma / \sqrt{n})$**, siempre que $n$ sea suficientemente grande.
+
+Las condiciones son sorprendentemente laxas: independencia, distribución común, varianza finita. **Ni una palabra sobre la forma de la distribución original.** Los $\xi_{j}$ pueden ser Bernoullis (0 o 1), pueden ser exponenciales (una cola larga y desagradable), pueden ser uniformes, pueden ser variables muy asimétricas como la `COSTOP` del ejemplo anterior. Si son i.i.d. con varianza finita, el TCL funciona. Esta universalidad es la razón de su omnipresencia.
+
+::: {.callout-note}
+**¿Y si las condiciones no se cumplen?** El TCL tiene versiones más generales para variables no idénticamente distribuidas (condición de Lindeberg), débilmente dependientes (procesos estacionarios), o incluso vectoriales (TCL multivariante). En cualquier introducción como esta bastará con Lindeberg–Lévy. Cuando una variable tenga colas tan pesadas que su varianza no exista —como la distribución de Cauchy—, el TCL clásico falla y aparecen distribuciones límite alternativas ($\alpha$-estables). Es un mundo interesante, pero muy fuera del alcance de este manual.
+:::
+
+### ¿Qué significa "$n$ suficientemente grande"? {#tcl-n-grande}
+
+La pregunta pragmática que sigue al enunciado es: **¿a partir de qué $n$ podemos empezar a usar el TCL sin sonrojarnos?** La respuesta honesta es "depende de la distribución de partida":
+
+- Si los $\xi_{j}$ son ya aproximadamente simétricos y sin colas pesadas, $n \geq 30$ suele ser más que suficiente. Muchos manuales fijan $n \geq 30$ como umbral de referencia y no van descaminados.
+- Si los $\xi_{j}$ son marcadamente asimétricos —como los costes operativos, ingresos o tamaños de flota—, la aproximación es peor y conviene exigir $n$ bastante mayor (típicamente $n \geq 100$).
+- Si los $\xi_{j}$ son binarios (Bernoulli), el criterio operativo será $n p \geq 5$ y $n q \geq 5$, que veremos en la sección siguiente.
+
+En cualquier caso, **el TCL es un teorema asintótico**: cuanto mayor sea $n$, mejor será la aproximación. Los umbrales son heurísticos.
+
+### Ejemplo: tiempo medio de descarga en Klendathu {#tcl-ejemplo}
+
+Pasamos ahora a un ejemplo numérico concreto. El astropuerto de Klendathu, base operativa de cuatro cargueros por astillero según el fichero `astilleros_48.xlsx`, procesa a lo largo del día un elevado número de descargas. El **tiempo de descarga** de un contenedor individual, medido en minutos, es una variable claramente **no** normal: la mayoría de contenedores se despachan en $8$–$15$ minutos, pero algunos —los que exigen inspección aduanera, o los que llegan con documentación irregular— se prolongan una hora o más. La distribución tiene una fuerte cola derecha y se aproxima razonablemente por una exponencial con media $\mu = 12$ minutos y desviación típica $\sigma = 12$ minutos (recuerde: en la exponencial, media y desviación típica coinciden).[^tcl-descarga-datos]
+
+[^tcl-descarga-datos]: Los tiempos individuales de descarga no figuran en el fichero, que se refiere a características agregadas de la nave (tonelaje, antigüedad, IRE, IIG). El parámetro $\mu = 12$ minutos es una hipótesis operativa razonable para el astropuerto de referencia, coherente con los volúmenes de tráfico descritos.
+
+La jefa de operaciones del turno, **Padmé Ardea**, prepara un informe semanal donde figura el **tiempo medio de descarga de los primeros $n = 60$ contenedores del turno**. Es decir, la variable
+
+$$
+\bar{\xi}_{60} \;=\; \frac{\xi_{1} + \xi_{2} + \cdots + \xi_{60}}{60},
+$$
+
+con los $\xi_{j}$ exponenciales i.i.d. con media $12$ y desviación típica $12$.
+
+**¿Qué distribución sigue $\bar{\xi}_{60}$?** La distribución exponencial es asimétrica —lo vimos en el capítulo 9— y por tanto los tiempos individuales *no* son normales. Pero por el TCL (Lindeberg–Lévy), con $n = 60$ el promedio ya se comporta aproximadamente como una normal:
+
+$$
+\bar{\xi}_{60} \;\approx\; N\!\left( 12;\; \frac{12}{\sqrt{60}} \right) \;=\; N(12;\, 1{,}549).
+$$
+
+La media es la misma que la de un tiempo individual ($12$ minutos). Pero la desviación típica, ¡solo $1{,}55$ minutos! El promedio de 60 contenedores es unas $\sqrt{60} \approx 7{,}75$ veces más *concentrado* que un contenedor individual. Es la razón matemática por la que promediar reduce el ruido: no es magia, es TCL.
+
+```{r calc-descarga}
+mu_desc <- 12
+sd_desc <- 12
+n_desc  <- 60
+se_desc <- sd_desc / sqrt(n_desc)
+
+p_menos_11   <- pnorm(11, mean = mu_desc, sd = se_desc)
+p_entre      <- pnorm(13, mean = mu_desc, sd = se_desc) - pnorm(10, mean = mu_desc, sd = se_desc)
+p_mas_14     <- 1 - pnorm(14, mean = mu_desc, sd = se_desc)
+```
+
+Preguntas concretas del informe de Padmé Ardea:
+
+- **Que el tiempo medio de descarga del turno sea inferior a $11$ minutos.**
+
+  Tipificando con $\mu = 12$ y $\sigma / \sqrt{n} \approx 1{,}549$:
+
+  $$
+  z = \frac{11 - 12}{1{,}549} \approx -0{,}65 \quad\Longrightarrow\quad P(\bar{\xi}_{60} < 11) \approx `r fmt(p_menos_11)`.
+  $$
+
+  Alrededor de un $26$ % de los turnos, la operación transcurre con inusual soltura.
+
+- **Que la media caiga en la franja aceptable $[10;\, 13]$ minutos.**
+
+  $$
+  P(10 \leq \bar{\xi}_{60} \leq 13) \approx `r fmt(p_entre)`.
+  $$
+
+  Alrededor de dos tercios de los turnos. Estable, pero no perfecto.
+
+- **Que la media supere los $14$ minutos (umbral de alerta).**
+
+  $$
+  P(\bar{\xi}_{60} > 14) \approx `r fmt(p_mas_14)`.
+  $$
+
+  Menos de un $10$ % de los turnos, aproximadamente un turno de cada diez.
+
+::: {.callout-tip}
+**Un ejercicio mental que conviene hacer.** La misma pregunta sobre un contenedor individual da resultados muy diferentes. La probabilidad de que un contenedor individual tarde más de 14 minutos, siendo su tiempo exponencial de media 12, es $P(\xi > 14) = e^{-14/12} \approx `r fmt(exp(-14/12))`$ —¡más del $31$ %! El promedio de 60 contenedores no supera los 14 minutos casi nunca, aunque uno de cada tres contenedores individualmente sí lo haga. La agregación *concentra* al arrastrar los valores hacia la media. Esa es la lección práctica del TCL, resumida en una línea.
+:::
+
+## Teorema central del límite: el caso binomial {#tcl-binomial}
+
+Con la versión general en la mano, pasamos ahora a los dos casos particulares que se usan una y otra vez en la práctica. El primero es histórica y pedagógicamente el más antiguo: la aproximación **binomial → normal**, debida a Abraham de Moivre (1733) y refinada por Pierre-Simon Laplace (1812) más de un siglo antes de que Lindeberg y Lévy formularan el resultado general. Puestos a poner nombres a las cosas, sería más justo llamarlo *teorema de De Moivre–Laplace*, que es como aparece en los manuales cuidadosos.
+
+### Enunciado {#binomial-normal-enunciado}
+
+Sea $\eta_{n} \to B(n;\, p)$ una variable binomial. Recuérdese que $\eta_{n}$ puede escribirse como suma de $n$ Bernoullis $\xi_{j} \to B(1;\, p)$ independientes:
+
+$$
+\eta_{n} \;=\; \xi_{1} + \xi_{2} + \cdots + \xi_{n},
+$$
+
+con $E(\xi_{j}) = p$ y $\operatorname{Var}(\xi_{j}) = p q$ (donde $q = 1 - p$). Aplicando el TCL de Lindeberg–Lévy directamente:
+
+$$
+\frac{\eta_{n} - n p}{\sqrt{n p q}} \;\xrightarrow{d}\; N(0;\, 1) \quad \text{cuando } n \to \infty.
+$$
+
+Es decir, para $n$ grande:
+
+$$
+\eta_{n} \;\approx\; N\!\left( n p;\; \sqrt{n p q} \right).
+$$
+
+El **criterio operativo** para considerar aceptable la aproximación es doble:
+
+$$
+n p \geq 5 \quad \text{y} \quad n q \geq 5.
+$$
+
+Cuando ambos productos superan el $5$, la binomial es lo bastante "simétrica" para que la campana la aproxime bien. Cuando alguno de los dos no llega —típicamente porque $p$ es muy pequeño o muy grande—, la binomial está pegada a un extremo y la normal no es un buen modelo (en esos casos, si además $n$ es grande, funcionará mejor la aproximación por Poisson que veremos más adelante).
+
+### Ejemplo: rutas exitosas de arrakis freight {#binomial-ejemplo}
+
+*arrakis freight* opera $n = 200$ rutas comerciales semanales en el corredor de la Gran Nube de Magallanes. La probabilidad de que una ruta individual se complete **sin ninguna incidencia** (retraso, avería, desvío, decomiso aduanero) es del $p = 0{,}70$, cifra estimada a partir del histórico consolidado.[^binomial-arrakis] Sea
+
+[^binomial-arrakis]: El fichero `interestelar_300.xlsx` no contiene información sobre incidencias por ruta; recoge únicamente características agregadas de la empresa. La cifra $p = 0{,}70$ es una hipótesis operativa razonable, coherente con el perfil de una empresa madura con flota renovada y $1{,}165$ rutas totales gestionadas.
+
+$$
+\eta \;=\; \text{"número de rutas exitosas en la semana"} \;\to\; B(200;\, 0{,}70).
+$$
+
+Verificamos las condiciones: $n p = 140 \geq 5$ y $n q = 60 \geq 5$. Podemos aproximar sin cargo de conciencia:
+
+$$
+\eta \;\approx\; N\!\left( 140;\; \sqrt{200 \cdot 0{,}7 \cdot 0{,}3} \right) \;=\; N(140;\, `r fmt(sqrt(200*0.7*0.3), 3)`).
+$$
+
+```{r calc-arrakis}
+n_ar <- 200; p_ar <- 0.7
+mu_ar <- n_ar * p_ar
+sd_ar <- sqrt(n_ar * p_ar * (1 - p_ar))
+
+# Sin corrección de continuidad
+p_menos_130_sc <- pnorm(130, mu_ar, sd_ar)
+p_entre_sc    <- pnorm(150, mu_ar, sd_ar) - pnorm(130, mu_ar, sd_ar)
+p_150_o_mas_sc <- 1 - pnorm(150, mu_ar, sd_ar)
+
+# Con corrección de continuidad (para comparación)
+p_menos_130_cc <- pnorm(129 + 0.5, mu_ar, sd_ar)
+p_150_o_mas_cc <- 1 - pnorm(150 - 0.5, mu_ar, sd_ar)
+
+# Exacto binomial (para comparación)
+p_menos_130_ex <- pbinom(129, n_ar, p_ar)
+p_150_o_mas_ex <- 1 - pbinom(149, n_ar, p_ar)
+```
+
+Preguntas de la analista Ripley Strix al preparar la memoria trimestral:
+
+- **Probabilidad de completar menos de $130$ rutas exitosas.**
+
+  Tipificando: $z = (130 - 140) / `r fmt(sd_ar, 3)` \approx -1{,}54$.
+
+  $$
+  P(\eta < 130) \;\approx\; P(\xi^{*} < -1{,}54) \;=\; `r fmt(p_menos_130_sc)`.
+  $$
+
+  Alrededor de un $6$ % de las semanas. Poco frecuente, pero no imposible.
+
+- **Probabilidad de completar entre $130$ y $150$ rutas.**
+
+  $$
+  P(130 \leq \eta \leq 150) \;\approx\; `r fmt(p_entre_sc)`.
+  $$
+
+  Alrededor del $\hbox{85 \%}$ de las semanas. La franja habitual.
+
+- **Probabilidad de completar $150$ o más rutas.**
+
+  $$
+  P(\eta \geq 150) \;\approx\; `r fmt(p_150_o_mas_sc)`.
+  $$
+
+  Alrededor de un $6$ % de las semanas. Semanas de gloria, dignas de mención en el informe.
+
+Sin la aproximación normal, habría que sumar términos binomiales del tipo $\binom{200}{k}\, 0{,}7^{k}\, 0{,}3^{200-k}$ para todos los $k$ relevantes. Con la aproximación, tres tipificaciones y una consulta a la tabla resuelven el problema. Y el error, como veremos enseguida, es minúsculo.
+
+### La corrección por continuidad {#continuidad}
+
+Hay un detalle técnico que conviene conocer aunque no siempre lo apliquemos. La binomial es una variable **discreta** (toma solo valores enteros); la normal es **continua**. Al aproximar una por la otra, hay un pequeño desajuste conceptual que se corrige con el llamado **factor de corrección por continuidad** o *corrección de Yates*.
+
+La idea, en su forma más simple: cada valor entero $k$ de la binomial "ocupa", desde el punto de vista de la normal aproximante, el intervalo $[k - 0{,}5;\, k + 0{,}5]$. Por tanto:
+
+- $P(\eta \leq k) \;\approx\; P\!\left( N \leq k + 0{,}5 \right)$.
+- $P(\eta \geq k) \;\approx\; P\!\left( N \geq k - 0{,}5 \right)$.
+- $P(\eta = k) \;\approx\; P\!\left( k - 0{,}5 \leq N \leq k + 0{,}5 \right)$.
+
+Aplicado al ejemplo de *arrakis freight*, la probabilidad de completar $150$ o más rutas se calcularía **con** corrección como
+
+$$
+P(\eta \geq 150) \;\approx\; P\!\left( N \geq 149{,}5 \right) \;=\; `r fmt(p_150_o_mas_cc)`,
+$$
+
+frente al $`r fmt(p_150_o_mas_sc)`$ sin corrección. La probabilidad **exacta** binomial, calculable en R con `pbinom(149, 200, 0.7, lower.tail = FALSE)`, es $`r fmt(p_150_o_mas_ex)`$. La corrección se acerca ligeramente más al valor exacto, como cabía esperar.
+
+La tabla \@ref(tab:tab-continuidad) resume la comparación en las tres probabilidades del ejemplo.
+
+```{r tab-continuidad}
+tab_cc <- tibble(
+  Evento      = c("$P(\\eta < 130)$", "$P(\\eta \\geq 150)$"),
+  Exacto      = c(p_menos_130_ex,   p_150_o_mas_ex),
+  Sin_correc  = c(p_menos_130_sc,   p_150_o_mas_sc),
+  Con_correc  = c(p_menos_130_cc,   p_150_o_mas_cc)
+) |>
+  mutate(
+    Exacto     = sprintf("%.4f", Exacto),
+    Sin_correc = sprintf("%.4f", Sin_correc),
+    Con_correc = sprintf("%.4f", Con_correc)
+  )
+
+kable(tab_cc,
+      align   = "lccc",
+      col.names = c("Evento",
+                    "Probabilidad exacta (binomial)",
+                    "Aproximación normal (sin corrección)",
+                    "Aproximación normal (con corrección)"),
+      
+      escape  = FALSE) |>
+  kable_styling(
+    bootstrap_options = c("hover", "condensed"),
+    full_width        = FALSE,
+    position          = "center",
+    font_size         = 13
+  )
+```
+
+::: {style="text-align: center;"}
+**Tabla 10.2**
+:::
+
+
+En la práctica: para $n$ moderado (digamos $n < 100$) la corrección por continuidad merece la pena; para $n$ grande el efecto es despreciable y suele omitirse. En este manual seguiremos la convención del material docente y **no aplicaremos** la corrección por defecto, aunque conviene tenerla presente y aplicarla si se pide expresamente o si el resultado va a compararse con probabilidades exactas.
+
+## Aproximación Poisson → normal {#poisson-normal}
+
+El segundo caso particular del TCL que interesa retener es la aproximación **Poisson → normal**. La idea es la misma: una Poisson con parámetro $\lambda$ grande puede escribirse como suma de muchas Poissons de parámetro pequeño, y por el TCL esa suma se aproxima a una normal.
+
+### Enunciado {#poisson-normal-enunciado}
+
+Sea $\eta \to \mathrm{Po}(\lambda)$. Para $\lambda$ grande:
+
+$$
+\eta \;\approx\; N\!\left( \lambda;\; \sqrt{\lambda} \right).
+$$
+
+Es decir, la Poisson se aproxima por una normal con la misma media y desviación típica $\sqrt{\lambda}$. El **criterio operativo** habitual es $\lambda \geq 10$ (algunos manuales flexibilizan hasta $\lambda \geq 5$, pero la calidad de la aproximación en ese rango es discutible). Como en el caso binomial, se puede aplicar corrección por continuidad, aunque su efecto es marginal para $\lambda$ grande.
+
+### Ejemplo: incidencias graves acumuladas en la flota KORRIGAN {#poisson-normal-ejemplo}
+
+El astillero KORRIGAN opera $16$ cargueros según el fichero `astilleros_48.xlsx`. Las incidencias graves (variable `IIG`) se distribuyen razonablemente como una Poisson, con una tasa media de $4{,}0$ incidencias por nave a lo largo de la vida operativa registrada.[^korrigan-lambda] El **ingeniero Anakin Falco**, jefe de mantenimiento —a quien ya conocimos en el capítulo 9—, quiere estimar el número total de incidencias graves esperado en la flota completa durante los próximos cinco años, suponiendo constante la tasa histórica.
+
+[^korrigan-lambda]: El fichero registra un promedio empírico de $4{,}06$ incidencias graves por nave KORRIGAN sobre la vida operativa completa (mediana $\approx 13{,}6$ años). Para un horizonte de cinco años, el número esperado por nave es proporcional al tiempo, lo que da la tasa de $1{,}5$ del enunciado.
+
+Si por cada nave se esperan aproximadamente $1{,}5$ incidencias en los próximos cinco años, el total esperado para las $16$ naves es $\lambda = 16 \cdot 1{,}5 = 24$. Sea
+
+$$
+\eta \;=\; \text{"nº total de incidencias graves en la flota KORRIGAN a 5 años"} \;\to\; \mathrm{Po}(24).
+$$
+
+Con $\lambda = 24 \gg 10$, la aproximación normal es totalmente aceptable:
+
+$$
+\eta \;\approx\; N\!\left( 24;\; \sqrt{24} \right) \;=\; N(24;\, `r fmt(sqrt(24), 3)`).
+$$
+
+```{r calc-korrigan-flota}
+lam_k <- 24
+sd_k  <- sqrt(lam_k)
+p_menos_20_k <- pnorm(20, lam_k, sd_k)
+p_entre_k    <- pnorm(30, lam_k, sd_k) - pnorm(18, lam_k, sd_k)
+p_mas_35_k   <- 1 - pnorm(35, lam_k, sd_k)
+p_mas_35_ex  <- 1 - ppois(35, lam_k)
+```
+
+Preguntas de Anakin Falco al preparar el presupuesto de mantenimiento:
+
+- **Probabilidad de que la flota acumule menos de $20$ incidencias graves en cinco años.**
+
+  Tipificando: $z = (20 - 24) / `r fmt(sd_k, 3)` \approx -0{,}82$.
+
+  $$
+  P(\eta < 20) \;\approx\; `r fmt(p_menos_20_k)`.
+  $$
+
+  Alrededor de un $\hbox{20 \%}$: un escenario optimista pero no desechable.
+
+- **Probabilidad de que las incidencias caigan en el rango de planificación $[18;\, 30]$.**
+
+  $$
+  P(18 \leq \eta \leq 30) \;\approx\; `r fmt(p_entre_k)`.
+  $$
+
+  Alrededor del $\hbox{80 \%}$ de los escenarios. El presupuesto se dimensiona sobre este rango.
+
+- **Probabilidad de exceder las $35$ incidencias (umbral que dispararía una revisión estratégica).**
+
+  Tipificando: $z = (35 - 24) / `r fmt(sd_k, 3)` \approx 2{,}25$.
+
+  $$
+  P(\eta > 35) \;\approx\; `r fmt(p_mas_35_k)`.
+  $$
+
+  Alrededor de un $1$ %. Muy poco probable, aunque prudencia dicta contemplarlo. El valor exacto de Poisson, para comparación, es $`r fmt(p_mas_35_ex)`$: prácticamente idéntico. La aproximación es excelente.
+
+::: {.callout-note}
+**El caso agregado como TCL puro.** La flota KORRIGAN es un caso instructivo porque el TCL opera dos veces sin decirlo. En primer lugar, cada nave individual acumula incidencias en cinco años como una Poisson pequeña ($\lambda_{j} = 1{,}5$), asimétrica y muy poco normal. Al **sumar** las 16 naves, obtenemos una Poisson agregada con $\lambda = 24$ que ya es prácticamente indistinguible de una normal. La agregación —de naves, de rutas, de contenedores, de trabajadores— es el motor silencioso por el que la normal aparece en todo problema empresarial mínimamente colectivo.
+:::
+
+## El esquema completo de aproximaciones {#esquema}
+
+Recogemos ahora todas las aproximaciones vistas hasta aquí, incluidas las del capítulo 8 (binomial → Poisson), en un solo mapa. La figura \@ref(fig:fig-esquema-aprox) es el resumen visual, y la tabla \@ref(tab:tab-esquema) da los criterios operativos.
+
+```{r fig-esquema-aprox, fig.height=3.6}
+df_nodes <- tibble(
+  nodo   = c("B(n; p)",
+             "Po(n\u00b7p)",
+             "N(n\u00b7p; \u221a(n\u00b7p\u00b7q))",
+             "N(n\u00b7p; \u221a(n\u00b7p))"),
+  x      = c(0, 2, 4, 4),
+  y      = c(0, 1, -0.6, 1.6),
+  color  = c(pal_apoyo, pal_libro[3], pal_acento, pal_acento)
+)
+
+df_edges <- tibble(
+  x    = c(0.4, 2.4, 0.4),
+  xend = c(1.6, 3.6, 3.6),
+  y    = c(0.15, 1.10, -0.15),
+  yend = c(0.85, 1.55, -0.55),
+  lab  = c("n\u2265100, p\u22640,05",
+           "\u03bb\u226510",
+           "n\u00b7p\u22655, n\u00b7q\u22655")
+)
+
+ggplot() +
+  geom_segment(data = df_edges,
+               aes(x = x, xend = xend, y = y, yend = yend),
+               arrow = arrow(length = unit(0.25, "cm"), type = "closed"),
+               color = "grey40", linewidth = 0.6) +
+  geom_label(data = df_edges,
+             aes(x = (x + xend) / 2, y = (y + yend) / 2, label = lab),
+             size = 3, color = "grey20", fill = "white",
+             label.size = 0, label.padding = unit(0.15, "lines")) +
+  geom_label(data = df_nodes,
+             aes(x = x, y = y, label = nodo, color = I(color)),
+             fontface = "bold", size = 4.2,
+             fill = "white", label.size = 0.5,
+             label.padding = unit(0.4, "lines")) +
+  scale_x_continuous(limits = c(-0.8, 5.4)) +
+  scale_y_continuous(limits = c(-1.2, 2.3)) +
+  theme_void()
+```
+
+::: {style="text-align: center;"}
+**Figura 10.2.** Esquema de las aproximaciones entre modelos discretos y normal. La binomial admite dos rutas de aproximación: hacia Poisson (cuando $p$ es pequeño y $n$ es moderado o grande) y hacia normal (cuando ni $p$ ni $q$ son extremos). La Poisson, a su vez, se aproxima por normal cuando $\\lambda$ es grande. La normal es el destino común de todas las trayectorias: es el atractor probabilístico universal.
+:::
+
+
+```{r tab-esquema}
+tab_esq <- tribble(
+  ~Origen, ~Destino, ~Criterio, ~Justificación,
+  "Binomial $B(n; p)$",  "Poisson $\\mathrm{Po}(n p)$",
+  "$n \\geq 100$ y $p \\leq 0{,}05$",
+  "Sucesos raros: la Poisson es el límite de la binomial cuando $p \\to 0$ manteniendo $n p$ constante.",
+  "Binomial $B(n; p)$",  "Normal $N(n p;\\, \\sqrt{n p q})$",
+  "$n p \\geq 5$ y $n q \\geq 5$",
+  "TCL en su versión De Moivre–Laplace: la binomial es una suma de $n$ Bernoullis i.i.d.",
+  "Poisson $\\mathrm{Po}(\\lambda)$", "Normal $N(\\lambda;\\, \\sqrt{\\lambda})$",
+  "$\\lambda \\geq 10$",
+  "TCL: una Poisson de parámetro grande es suma de muchas Poisson pequeñas."
+)
+
+kable(tab_esq,
+      align   = "llll",
+      col.names = c("Distribución de partida", "Distribución aproximante",
+                    "Criterio operativo", "Justificación teórica"),
+      
+      escape  = FALSE) |>
+  kable_styling(
+    bootstrap_options = c("hover", "condensed"),
+    full_width        = FALSE,
+    position          = "center",
+    font_size         = 12
+  )
+```
+
+::: {style="text-align: center;"}
+**Tabla 10.3**
+:::
+
+
+### Ejemplo integrado: pruebas de nuevos motores en el astillero SELENE {#esquema-ejemplo}
+
+Un ejemplo compuesto ilustra cómo las tres aproximaciones se encadenan en la práctica. El astillero SELENE, con base en el sector Miranda, está sometiendo a validación una nueva generación de motores de curvatura. En el programa de pruebas se someterán a estrés extremo $n = 400$ motores prototípicos, y se sabe por experiencia previa —el prototipo generacional anterior— que la probabilidad de que un motor individual **falle** durante las pruebas es de $p = 0{,}03$.
+
+Sea $\eta$ = "número de motores que fallan durante las pruebas", $\eta \to B(400;\, 0{,}03)$.
+
+Comprobamos qué aproximaciones son aplicables:
+
+- **Binomial → Poisson.** $n = 400 \geq 100$ y $p = 0{,}03 \leq 0{,}05$. Sí. Aproximamos $\eta \approx \mathrm{Po}(n p) = \mathrm{Po}(12)$.
+- **Poisson → Normal.** $\lambda = 12 \geq 10$. Sí. Aproximamos $\eta \approx N(12;\, \sqrt{12}) = N(12;\, `r fmt(sqrt(12), 3)`)$.
+- **Binomial → Normal directamente.** $n p = 12 \geq 5$ y $n q = 388 \geq 5$. Sí. Aproximamos $\eta \approx N(12;\, \sqrt{n p q}) = N(12;\, `r fmt(sqrt(400*0.03*0.97), 3)`)$.
+
+Las dos rutas hacia la normal —vía Poisson intermedia y directa— **convergen prácticamente al mismo resultado**: la desviación típica $\sqrt{n p q} = `r fmt(sqrt(400*0.03*0.97), 3)`$ solo difiere de $\sqrt{\lambda} = `r fmt(sqrt(12), 3)`$ en el factor $\sqrt{q} = \sqrt{0{,}97} \approx 0{,}985$, que es despreciable en la práctica. La tabla \@ref(tab:tab-motores) verifica esta convergencia calculando la misma probabilidad —que fallen $15$ o más motores— por los cuatro caminos.
+
+```{r tab-motores}
+n_m <- 400; p_m <- 0.03; k_m <- 15
+lam_m <- n_m * p_m
+sd_bn <- sqrt(n_m * p_m * (1 - p_m))
+sd_po <- sqrt(lam_m)
+
+p_ex   <- 1 - pbinom(k_m - 1, n_m, p_m)
+p_poex <- 1 - ppois(k_m - 1, lam_m)
+p_nbn  <- 1 - pnorm(k_m, lam_m, sd_bn)
+p_npo  <- 1 - pnorm(k_m, lam_m, sd_po)
+
+tab_mot <- tibble(
+  Metodo = c("Binomial exacta",
+             "Poisson exacta",
+             "Normal desde binomial",
+             "Normal desde Poisson"),
+  Prob   = c(p_ex, p_poex, p_nbn, p_npo)
+) |>
+  mutate(Prob = sprintf("%.4f", Prob))
+
+kable(tab_mot,
+      align   = "lc",
+      col.names = c("Método de cálculo", "$P(\\eta \\geq 15)$"),
+      
+      escape  = FALSE) |>
+  kable_styling(
+    bootstrap_options = c("hover", "condensed"),
+    full_width        = FALSE,
+    position          = "center",
+    font_size         = 13
+  )
+```
+
+::: {style="text-align: center;"}
+**Tabla 10.4**
+:::
+
+
+La lectura práctica es que, **para el rango de parámetros en el que ambas condiciones se cumplen holgadamente, cualquiera de las aproximaciones ordena bien las probabilidades**. En términos de comodidad de cálculo, la normal es la más rápida (una sola tipificación); en términos de exactitud, la Poisson exacta queda notablemente más cerca del valor binomial que las normales, sobre todo en las colas. La brecha de unos tres puntos porcentuales entre las exactas y las normales se debe al desajuste entre lo discreto y lo continuo, y desaparece con la corrección por continuidad —comprobación que se deja como ejercicio para el lector curioso.
+
+::: {.callout-tip}
+**¿Y si un criterio no se cumple?** Reglas prácticas para casos frontera:
+
+- Si $n p < 5$ pero $n$ es grande y $p$ pequeño, **use Poisson**, no normal. La normal falla porque la binomial está pegada al $0$.
+- Si $\lambda < 5$, use Poisson exacta. La aproximación normal a Poisson con $\lambda$ pequeño da probabilidades negativas absurdas en la cola izquierda.
+- Si $n$ es muy pequeño ($< 30$), use binomial exacta directamente. No hace falta aproximar nada.
+
+En cualquier duda razonable, calcule por dos vías y compare. Es la mejor forma de verificar que la aproximación empleada es aceptable.
+:::
+
+## Consecuencias del TCL: puente hacia la inferencia {#consecuencias}
+
+Cerramos el capítulo con una anticipación del papel del TCL en lo que viene, que no es poco. Prácticamente **toda** la estadística inferencial que se cursa en un grado en Economía o ADE se sostiene sobre el teorema central del límite, aunque no siempre se explicite. Tres consecuencias concretas anticipan por qué:
+
+1. **La media muestral de casi cualquier variable es aproximadamente normal.** Cuando dispongamos de una muestra de $n$ observaciones, $\bar{X}_{n} \approx N(\mu;\, \sigma / \sqrt{n})$, y podremos construir intervalos de confianza y tests de hipótesis para $\mu$ tipificando —tal cual, como en este capítulo—, sin conocer la forma exacta de la distribución de la variable original.
+2. **La proporción muestral es aproximadamente normal.** Si en $n$ ensayos independientes contamos $X$ éxitos con probabilidad $p$, la proporción muestral $\hat{p} = X/n$ es una binomial reescalada, y por De Moivre–Laplace su distribución es aproximadamente $N(p;\, \sqrt{p q / n})$. Es la base de las encuestas y estimaciones electorales.
+3. **La diferencia de medias muestrales de dos poblaciones es aproximadamente normal.** Combinando el TCL con la propiedad reproductiva de la normal, dos medias muestrales independientes generan una diferencia normal, con lo que se pueden construir tests de igualdad de medias. La base de la comparación estadística de dos grupos.
+
+En los tres casos, la normal aparece como distribución de un **estimador**, no como distribución de los datos. Los datos originales pueden ser discretos, asimétricos, exóticos o directamente feos; la distribución del estimador —bajo condiciones muy generales— será la campana familiar. Es la razón por la que el resto del curso puede resolverse con una única tabla, la de la normal estándar.
+
+## Recapitulación {#recap-cap10}
+
+Tres ideas conviene retener de este capítulo por encima del resto:
+
+1. **El TCL es un teorema sobre distribuciones límite, no sobre datos.** Los datos originales no tienen por qué ser normales para que sus sumas o promedios lo sean. La ubicuidad de la campana en la práctica empresarial no se debe a que la realidad "sea normal", sino a que las variables que miramos son casi siempre agregados —tonelajes totales, medias diarias, sumas semanales, proporciones muestrales— y los agregados tienden a la normal por el TCL. Esta distinción disuelve un malentendido frecuente.
+
+2. **Las aproximaciones binomial → Poisson → normal no son atajos independientes, sino manifestaciones del mismo mecanismo.** Todas son consecuencia, directa o indirecta, del TCL. Los criterios operativos ($n \geq 100$ y $p \leq 0{,}05$; $n p \geq 5$ y $n q \geq 5$; $\lambda \geq 10$) son heurísticos calibrados para que el error sea aceptable en la práctica, no fronteras rígidas.
+
+3. **La agregación reduce la incertidumbre relativa.** La media muestral de $n$ observaciones tiene desviación típica $\sigma / \sqrt{n}$: si $n = 100$, el ruido se divide por diez; si $n = 10\,000$, por cien. Es la razón matemática por la que las encuestas grandes son más fiables que las pequeñas, por la que promediar reduce el error de un instrumento, y por la que las flotas grandes son operativamente más predecibles que las flotas pequeñas. La diversificación, medida en términos de riesgo, es una consecuencia numérica del TCL.
+
+En el próximo capítulo, con el TCL como llave maestra, entraremos por fin en **inferencia estadística**: distribuciones muestrales, estimadores, intervalos de confianza. La normal, que ha ido asomando desde el capítulo 7, acabará de instalarse como protagonista absoluta —no de los datos, sino de las conclusiones que sobre los datos se pueden extraer.
