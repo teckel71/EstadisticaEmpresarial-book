@@ -10,10 +10,11 @@ bibliography:
 biblio-style: apalike
 link-citations: true
 url: https://teckel71.github.io/EstadisticaEmpresarial-book/
-cover-image: figuras/EE_portada.jpg     # <-- añade esta línea
+cover-image: figuras/EE_portada.jpg
 description: |
   Manual teórico-práctico de Estadística Empresarial para el Grado en
   Administración y Dirección de Empresas.
+rights: "© 2026 Miguel Ángel Tarancón Morán. Licencia CC BY-NC-ND 4.0."
 always_allow_html: true
 ---
 
@@ -26,6 +27,14 @@ always_allow_html: true
 | Miguel Ángel Tarancón Morán.
 
 | Catedrático de Economía Aplicada. Universidad de Castilla - La Mancha.
+
+<p style="font-size: 0.9em; color: #666; margin-top: 2em;">
+  Esta obra está publicada bajo una licencia
+  <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.es" target="_blank">
+    Creative Commons Atribución-NoComercial-SinDerivadas 4.0 Internacional
+    (CC BY-NC-ND 4.0)</a>.
+  Consulte el capítulo <a href="#licencia">Licencia</a> para más información.
+</p>
 
 ```{r include=FALSE}
 # Crea automáticamente la base de datos bib para los paquetes de R

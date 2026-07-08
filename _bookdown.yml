@@ -1,2 +1,20 @@
 book_filename: "EstadisticaEmpresarial"
 output_dir: "docs"
+delete_merged_file: true
+
+# Orden de los capítulos.
+#
+# Si no se especifica `rmd_files`, bookdown incluye todos los .Rmd de la
+# carpeta ordenados alfabéticamente (con index.Rmd siempre el primero).
+# Como el fichero de licencia se llama "99-licencia.Rmd", el prefijo "99"
+# lo empuja al final de forma natural.
+#
+# Si prefieres control explícito, descomenta y edita la lista siguiente
+# (incluye TODOS los .Rmd del proyecto en el orden deseado):
+#
+# rmd_files:
+#   - "index.Rmd"
+#   - "01-introduccion.Rmd"
+#   - "02-descriptiva.Rmd"
+#   # ... resto de capítulos ...
+#   - "99-licencia.Rmd"

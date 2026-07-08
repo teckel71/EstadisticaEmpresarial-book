@@ -1,0 +1,40 @@
+# Licencia {-#licencia}
+
+<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.es" target="_blank">
+  <img alt="Licencia Creative Commons CC BY-NC-ND 4.0"
+       style="border-width:0; margin-bottom: 1em;"
+       src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" />
+</a>
+
+Esta obra de **Miguel Ángel Tarancón Morán** está publicada bajo una
+[Licencia Creative Commons Atribución-NoComercial-SinDerivadas 4.0 Internacional (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.es).
+
+Esto significa que usted puede **descargar, leer, imprimir y compartir**
+libremente esta obra, siempre que:
+
+- **Cite** al autor y la fuente de forma adecuada.
+- **No la utilice con fines comerciales.**
+- **No distribuya versiones modificadas** de la misma.
+
+Para usos que excedan estos términos (uso comercial, traducciones,
+adaptaciones, etc.), contacte con el autor en <miguelangel.tarancon@uclm.es>.
+
+## Cita sugerida {-}
+
+> Tarancón Morán, M. Á. (2026). *Estadística Empresarial*.
+> Disponible en <https://teckel71.github.io/EstadisticaEmpresarial-book/>.
+
+## BibTeX {-}
+
+```bibtex
+@book{tarancon2026estadistica,
+  author = {Tarancón Morán, Miguel Ángel},
+  title  = {Estadística Empresarial},
+  year   = {2026},
+  url    = {https://teckel71.github.io/EstadisticaEmpresarial-book/},
+  note   = {Licencia CC BY-NC-ND 4.0}
+}
+```
+
+El texto completo de la licencia puede consultarse en el archivo `LICENSE.md`
+del repositorio o en <https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.es>.
