@@ -1,6 +1,6 @@
 # Variable estadística bidimensional y n-dimensional. {#variable-estadistica-bidimensional}
 
-```{r setup-cap03, include=FALSE}
+```{r setup-cap04, include=FALSE}
 knitr::opts_chunk$set(
   echo       = FALSE,
   message    = FALSE,
@@ -52,7 +52,7 @@ fmt <- function(x, d = 2) {
 }
 ```
 
-```{r datos-cap03}
+```{r datos-cap04}
 # Datos R-Stars empleados en este capítulo.
 # Los ficheros están en la carpeta "data/" de la raíz del proyecto. Con
 # rutas relativas basta: al renderizar en solitario, el knit se lanza
@@ -64,12 +64,7 @@ astilleros <- read_excel("data/astilleros_48.xlsx",    sheet = "Datos") %>%
   rename(ANTIG = `ANTIGÜEDAD`)
 ```
 
-![](figuras/03_astronautas.jpg){.portada-img width="100%"}
-
-::: {style="text-align: center;"}
-**Figura 3.1.** [Cuando la información se cruza: dos variables, una historia.]{.smallcaps}
-:::
-
+![Cuando la información se cruza: dos variables, una historia.](figuras/03_astronautas.jpg){.portada-img width="100%"}
 
 En los dos capítulos anteriores hemos aprendido a describir **una** característica cada vez. Ese análisis univariante es el punto de partida imprescindible, pero rara vez es el objetivo final. La mayor parte de las preguntas interesantes en Economía y Empresa nacen del cruce de dos o más variables: *¿ganan más los universitarios?*, *¿son las compañías más grandes también las más rentables?*, *¿los cargueros más antiguos tienen más tonelaje?*, *¿asocian los distintos astilleros sus bases operativas a las mismas galaxias?* En todos estos casos, la pregunta no puede contestarse mirando una única variable: hace falta poner **dos características simultáneamente** sobre cada individuo y estudiar cómo se relacionan.
 
@@ -119,11 +114,6 @@ Esquemáticamente, la tabla tiene el siguiente aspecto:
 | $x_h$           | $n_{h1}$       | $n_{h2}$       | $\cdots$ | $n_{hk}$       | $n_{h\bullet}$   |
 | **Marg. $Y$**   | $n_{\bullet 1}$| $n_{\bullet 2}$| $\cdots$ | $n_{\bullet k}$| $N$              |
 
-::: {style="text-align: center;"}
-**Tabla 3.1**
-:::
-
-
 Las **distribuciones marginales** son, sencillamente, las distribuciones univariantes de $X$ y de $Y$ vistas por separado, ignorando la otra variable. Toda la maquinaria del capítulo anterior —medidas de posición, dispersión y forma— sigue aplicándose sobre ellas.
 
 ### Un ejemplo: la plantilla de *Shuttlepod Movers*. {#ejemplo-shuttlepod}
@@ -139,7 +129,7 @@ shuttlepod %>%
             Salario = SALARIO,
             `Nivel de estudios` = NESTUDIOS,
             Departamento = DEP) %>%
-  kable(
+  kable(caption = "Primeros casos del fichero de empleados de Shuttlepod Movers.",
         align = "c") %>%
   kable_styling(bootstrap_options = c("hover", "condensed"),
                 full_width = FALSE,
@@ -177,7 +167,7 @@ tabla_sh_df <- cbind(
 colnames(tabla_sh_df)[ncol(tabla_sh_df)] <- "Marg. X"
 
 tabla_sh_df %>%
-  kable(
+  kable(caption = "Salario ($X$) y nivel de estudios ($Y$) en la plantilla de Shuttlepod Movers. Frecuencias absolutas conjuntas y marginales.",
         col.names = c("$X \\setminus Y$", "Básicos", "Medios",
                       "Universitarios", "Marg. $X$"),
         align     = "c",
@@ -188,11 +178,6 @@ tabla_sh_df %>%
                 position = "center",
                 font_size = 13)
 ```
-
-::: {style="text-align: center;"}
-**Tabla 3.2.** Salario ($X$) y nivel de estudios ($Y$) en la plantilla de Shuttlepod Movers. Frecuencias absolutas conjuntas y marginales.
-:::
-
 
 La estructura de la tabla salta a la vista. Los $49$ empleados se reparten en $3\times 3 = 9$ celdas conjuntas; las **marginales de $X$** (última columna) dicen cuántos empleados hay en cada tramo salarial, con independencia de sus estudios; las **marginales de $Y$** (última fila) cuentan cuántos empleados hay en cada nivel formativo, con independencia del salario que perciban.
 
@@ -226,7 +211,7 @@ rel_sh_df <- cbind(
 colnames(rel_sh_df)[ncol(rel_sh_df)] <- "Marg. X"
 
 rel_sh_df %>%
-  kable(
+  kable(caption = "Frecuencias relativas conjuntas y marginales en Shuttlepod Movers.",
         col.names = c("$X \\setminus Y$", "Básicos", "Medios",
                       "Universitarios", "Marg. $X$"),
         digits    = 4,
@@ -238,11 +223,6 @@ rel_sh_df %>%
                 position = "center",
                 font_size = 13)
 ```
-
-::: {style="text-align: center;"}
-**Tabla 3.3.** Frecuencias relativas conjuntas y marginales en Shuttlepod Movers.
-:::
-
 
 Lectura: aproximadamente el $20{,}4\,\%$ de la plantilla (proporción $0{,}2041$) cobra un salario medio y tiene estudios universitarios; algo más del $46\,\%$ tiene estudios universitarios y el $16\,\%$ estudios básicos, con independencia del salario. Etcétera.
 
@@ -276,7 +256,7 @@ tabla_cond <- as.data.frame.matrix(round(prop.table(ct_sh, margin = 2), 4))
 tabla_cond <- cbind(Salario = rownames(ct_sh), tabla_cond)
 
 tabla_cond %>%
-  kable(
+  kable(caption = "Distribución del salario condicionada al nivel de estudios (cada columna suma 1).",
         col.names = c("Salario", "$Y=$ Básicos", "$Y=$ Medios",
                       "$Y=$ Universitarios"),
         digits    = 4,
@@ -288,11 +268,6 @@ tabla_cond %>%
                 position = "center",
                 font_size = 13)
 ```
-
-::: {style="text-align: center;"}
-**Tabla 3.4.** Distribución del salario condicionada al nivel de estudios (cada columna suma 1).
-:::
-
 
 La lectura es reveladora: entre los empleados con estudios **básicos**, el $75\,\%$ está en el tramo salarial bajo y ninguno en el tramo alto; entre los **universitarios**, ninguno está en el tramo bajo y prácticamente la mitad en el alto. Las tres columnas —los tres perfiles retributivos condicionados al nivel de estudios— son **distintas entre sí** y también distintas de la marginal de salario. Esa desigualdad de perfiles es lo que enseguida caracterizaremos formalmente como **dependencia estadística**.
 
@@ -362,7 +337,7 @@ tabla_indep_df <- cbind(
 colnames(tabla_indep_df)[ncol(tabla_indep_df)] <- "Marg. X"
 
 tabla_indep_df %>%
-  kable(
+  kable(caption = "Salario ($X$) y gasto mensual en la cantina corporativa ($Y$) en la plantilla combinada de Corellian Freightworks.",
         col.names = c("$X \\setminus Y$", "1", "2", "3", "Marg. $X$"),
         align     = "c",
         row.names = FALSE,
@@ -372,11 +347,6 @@ tabla_indep_df %>%
                 position = "center",
                 font_size = 13)
 ```
-
-::: {style="text-align: center;"}
-**Tabla 3.5.** Salario ($X$) y gasto mensual en la cantina corporativa ($Y$) en la plantilla combinada de Corellian Freightworks.
-:::
-
 
 ¿Cumple la tabla la condición de independencia? Comprobemos la primera celda:
 
@@ -394,7 +364,7 @@ cond_indep <- as.data.frame.matrix(round(prop.table(tabla_indep_mat, margin = 2)
 cond_indep <- cbind(Salario = rownames(tabla_indep_mat), cond_indep)
 
 cond_indep %>%
-  kable(
+  kable(caption = "Distribución del salario ($X$) condicionada al gasto en cantina ($Y$) en Corellian Freightworks. Todas las columnas son idénticas.",
         col.names = c("Salario", "$Y=1$", "$Y=2$", "$Y=3$"),
         digits    = 4,
         align     = "c",
@@ -405,11 +375,6 @@ cond_indep %>%
                 position = "center",
                 font_size = 13)
 ```
-
-::: {style="text-align: center;"}
-**Tabla 3.6.** Distribución del salario ($X$) condicionada al gasto en cantina ($Y$) en Corellian Freightworks. Todas las columnas son idénticas.
-:::
-
 
 Todas las columnas son **iguales entre sí** y coinciden con la marginal de $X$ ($0{,}2703;\ 0{,}4054;\ 0{,}3243$). Es la traducción visual exacta de la independencia: el perfil salarial no cambia entre los tres grupos de consumo cantinero. La directora financiera de Corellian, a la vista de los números, ha tenido que revisar sus premisas: en su plantilla, la propensión a fundirse el sueldo en la cantina parece ser una constante universal, insensible al importe de la nómina. El ajuste retributivo tendrá que buscar otra justificación.
 
@@ -431,7 +396,7 @@ tabla_esp <- data.frame(
   mutate(diferencia = n_ij - n_esp)
 
 tabla_esp %>%
-  kable(
+  kable(caption = "Frecuencias observadas ($n_{ij}$) frente a esperadas bajo independencia ($n^{*}_{ij}$) en Shuttlepod Movers.",
         col.names = c("Salario", "Estudios", "$n_{ij}$",
                       "$n^{*}_{ij}$", "$n_{ij} - n^{*}_{ij}$"),
         digits    = c(NA, NA, 0, 2, 2),
@@ -443,11 +408,6 @@ tabla_esp %>%
                 position = "center",
                 font_size = 13)
 ```
-
-::: {style="text-align: center;"}
-**Tabla 3.7.** Frecuencias observadas ($n_{ij}$) frente a esperadas bajo independencia ($n^{*}_{ij}$) en Shuttlepod Movers.
-:::
-
 
 La lectura es contundente. Bajo independencia, en el cruce de "salario bajo" y "estudios universitarios" deberíamos observar unas $8{,}92$ personas; observamos $2$. En el cruce de "salario alto" y "estudios universitarios" esperaríamos $5{,}16$; observamos $11$. Las diferencias entre lo observado y lo esperado son **sistemáticas**: sobran universitarios en salarios altos, sobran empleados con estudios básicos en salarios bajos, y faltan casos en las combinaciones "cruzadas". No es lo que produciría una asignación aleatoria en la que salario y estudios fueran independientes.
 
@@ -558,7 +518,7 @@ tabla_ast_df <- cbind(
 colnames(tabla_ast_df)[ncol(tabla_ast_df)] <- "Marg. X"
 
 tabla_ast_df %>%
-  kable(
+  kable(caption = "Antigüedad ($X$, años) y tonelaje ($Y$, miles de toneladas) de los 48 cargueros. Frecuencias absolutas.",
         col.names = c("$X \\setminus Y$", "(500, 650]", "(650, 750]",
                       "(750, 850]", "(850, 950]", "Marg. $X$"),
         align     = "c",
@@ -636,11 +596,6 @@ ggplot(astilleros, aes(ANTIG, TONELAJE)) +
   theme_libro()
 ```
 
-::: {style="text-align: center;"}
-**Figura 3.2**
-:::
-
-
 El **diagrama de dispersión** —o *nube de puntos*, o *scatter plot*— será el compañero inseparable de la próxima etapa. Por ahora nos basta con constatar que la nube dibuja una tendencia ascendente coherente con el signo positivo de la covarianza.
 
 ### La covarianza y la independencia: una relación asimétrica. {#covarianza-independencia}
@@ -715,7 +670,7 @@ tabla_rs_df <- cbind(
 colnames(tabla_rs_df)[ncol(tabla_rs_df)] <- "Marg. X"
 
 tabla_rs_df %>%
-  kable(
+  kable(caption = "Forma jurídica y estado de la flota en las 300 compañías R-Stars. Frecuencias observadas.",
         col.names = c("Forma jur.", "Antigua", "Madura", "Renovada", "Marg. $X$"),
         align     = "c",
         row.names = FALSE,
@@ -725,11 +680,6 @@ tabla_rs_df %>%
                 position = "center",
                 font_size = 13)
 ```
-
-::: {style="text-align: center;"}
-**Tabla 3.8.** Forma jurídica y estado de la flota en las 300 compañías R-Stars. Frecuencias observadas.
-:::
-
 
 Calculamos las frecuencias esperadas bajo independencia y el estadístico:
 
@@ -752,7 +702,7 @@ tabla_esp_rs <- data.frame(
 )
 
 tabla_esp_rs %>%
-  kable(
+  kable(caption = "Frecuencias observadas y esperadas bajo independencia para FJUR $\\times$ EFLO.",
         col.names = c("FJUR",
                       "$n_{i,\\text{Ant}}$", "$n^{*}_{i,\\text{Ant}}$",
                       "$n_{i,\\text{Mad}}$", "$n^{*}_{i,\\text{Mad}}$",
@@ -765,11 +715,6 @@ tabla_esp_rs %>%
                 position = "center",
                 font_size = 12)
 ```
-
-::: {style="text-align: center;"}
-**Tabla 3.9.** Frecuencias observadas y esperadas bajo independencia para FJUR $\\times$ EFLO.
-:::
-
 
 Las diferencias entre observadas y esperadas son pequeñas, del orden de tres o cuatro casos por celda a lo sumo. Al aplicar la fórmula de Pearson,
 
@@ -808,7 +753,7 @@ tabla_show <- cbind(Astillero = rownames(ct_show),
                     as.data.frame.matrix(ct_show))
 
 tabla_show %>%
-  kable(
+  kable(caption = "Astillero constructor $\\times$ sede base (fragmento representativo). Cada astillero opera desde un conjunto disjunto de sedes.",
         align     = "c",
         row.names = FALSE,
         escape    = FALSE) %>%
@@ -817,11 +762,6 @@ tabla_show %>%
                 position = "center",
                 font_size = 13)
 ```
-
-::: {style="text-align: center;"}
-**Tabla 3.10.** Astillero constructor $\\times$ sede base (fragmento representativo). Cada astillero opera desde un conjunto disjunto de sedes.
-:::
-
 
 Aquí la estructura es diametralmente opuesta: cada astillero opera **exclusivamente** desde un conjunto propio de sedes. KORRIGAN construye sus cargueros y los estaciona en Klendathu, Mustafar, Hoth y Romulus; SELENE, en Coruscant, Fhloston, Risa y Pandora; ARCTURUS, en Arrakis, Tatooine, Vulcano y Qo'noS. Bajo independencia, cada celda debería contener aproximadamente $16 \cdot 4 / 48 \approx 1{,}33$ cargueros; observamos, en cada casilla, o bien $4$ o bien $0$. El estadístico de Pearson se dispara:
 
@@ -847,11 +787,6 @@ Los tres ejemplos, resumidos, componen una escala clara:
 | Salario $\times$ estudios | $3\times 3$     | $49$  | $`r fmt(chi2_sh, 2)`$          | Dependencia intermedia         |
 | Astillero $\times$ sede   | $3\times 12$    | $48$  | $`r fmt(chi2_as, 0)`$          | Asociación absoluta            |
 
-::: {style="text-align: center;"}
-**Tabla 3.11**
-:::
-
-
 ## Extensión al caso $n$-dimensional. {#n-dimensional}
 
 Todo cuanto hemos hecho para dos variables se generaliza al caso de $n$ variables medidas simultáneamente sobre cada individuo. La tabla de correlación deja de ser un rectángulo para convertirse en un objeto de $n$ dimensiones (imposible de dibujar cuando $n > 3$, pero perfectamente manejable numéricamente); las frecuencias marginales se pueden calcular sobre cualquier subconjunto de variables; y las condicionadas admiten condicionar sobre uno o varios valores simultáneamente.
@@ -860,7 +795,7 @@ En la muestra R-Stars, por ejemplo, tenemos casi treinta variables por compañí
 
 La respuesta habitual en el análisis multivariante consiste en pasar de "mirar la tabla entera" a construir **indicadores globales** que resuman la estructura de dependencias. La **matriz de covarianzas**, por ejemplo, condensa en una tabla $n\times n$ la covarianza de cada par de variables cuantitativas; y a partir de ella (y de las varianzas), la **matriz de correlaciones**, con la que tantas veces se abre un informe econométrico. Ambas herramientas serán utilizadas cuando estudiemos regresión lineal en el capítulo siguiente y, sobre todo, en el bloque de Inferencia.
 
-## Recapitulación. {#recapitulacion-cap03}
+## Recapitulación. {#recapitulacion-cap04}
 
 En este capítulo hemos dado el salto de una a dos variables (y hemos apuntado el paso a $n$). Los conceptos que quedan como equipaje mínimo son:
 

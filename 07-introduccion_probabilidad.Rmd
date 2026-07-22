@@ -1,6 +1,6 @@
 # Introducción a la probabilidad. {#introduccion-probabilidad}
 
-```{r setup-cap06, include=FALSE}
+```{r setup-cap07, include=FALSE}
 knitr::opts_chunk$set(
   echo       = FALSE,
   message    = FALSE,
@@ -57,7 +57,7 @@ fmtint <- function(x) {
 }
 ```
 
-```{r datos-cap06}
+```{r datos-cap07}
 # Ficheros R-Stars empleados en este capítulo.
 astilleros <- read_excel("data/astilleros_48.xlsx", sheet = "Datos") |>
   rename(ANTIG = `ANTIGÜEDAD`) |>
@@ -70,11 +70,6 @@ rstars <- read_excel("data/interestelar_300.xlsx", sheet = "Datos")
 ```
 
 ![](figuras/06_juego.jpg){.portada-img width="100%"}
-
-::: {style="text-align: center;"}
-**Figura 6.1**
-:::
-
 
 ::: {style="text-align: center;"}
 **Figura 6.1.** [La probabilidad nació sobre el tapete: dados, cartas y algún cazarrecompensas con demasiado tiempo libre.]{.smallcaps}
@@ -129,7 +124,7 @@ Los sucesos se combinan entre sí mediante tres operaciones básicas, que a esta
 
 Estas tres operaciones se pueden combinar y encadenar tanto como se quiera, y el resultado sigue siendo un suceso. Los tres paneles de la Figura \@ref(fig:venn) resumen las tres operaciones básicas mediante diagramas de Venn, que serán a partir de aquí una herramienta visual constante.
 
-```{r venn, fig.width=7.5, fig.height=2.8}
+```{r venn, fig.cap="Las tres operaciones básicas con sucesos. De izquierda a derecha: intersección (área común), unión (todo lo cubierto por A o B) y complementario de A (todo lo que queda fuera de A dentro del espacio muestral).", fig.width=7.5, fig.height=2.8}
 # Círculos como polígonos regulares (32 vértices).
 circulo <- function(cx, cy, r, n = 90) {
   th <- seq(0, 2 * pi, length.out = n)
@@ -213,7 +208,7 @@ tot_row <- tibble(
 tab_cross |>
   bind_rows(tot_row) |>
   kable(
-    
+    caption   = "Cruce de astillero y tonelaje en la flota galáctica.",
     align     = c("l","r","r","r"),
     booktabs  = TRUE,
     col.names = c("Astillero", "Ligero", "Pesado", "Total")
@@ -227,11 +222,6 @@ tab_cross |>
   row_spec(nrow(tab_cross) + 1, bold = TRUE,
            extra_css = "border-top: 1px solid #cbd5e1;")
 ```
-
-::: {style="text-align: center;"}
-**Tabla 6.1.** Cruce de astillero y tonelaje en la flota galáctica.
-:::
-
 
 Vale la pena detenerse un momento en la tabla. Los $`r fmtint(16)`$ cargueros de KORRIGAN son **todos** pesados. Los de SELENE son casi todos ligeros —solo uno supera las $700$ mil toneladas—. Los de ARCTURUS son una mezcla, con ligera preferencia por el peso. Este simple hecho, que puede parecer una curiosidad descriptiva, tendrá dentro de nada consecuencias probabilísticas relevantes.
 
@@ -301,7 +291,7 @@ tibble(
     )
 ) |>
   kable(
-    
+    caption  = "Probabilidades básicas de los sucesos definidos sobre la flota, calculadas por la regla de Laplace.",
     align    = c("l","c","c","c"),
     booktabs = TRUE,
     escape   = FALSE
@@ -313,11 +303,6 @@ tibble(
     font_size         = 13
   )
 ```
-
-::: {style="text-align: center;"}
-**Tabla 6.2.** Probabilidades básicas de los sucesos definidos sobre la flota, calculadas por la regla de Laplace.
-:::
-
 
 La lectura de la tabla es directa. La probabilidad de que un carguero elegido al azar sea de KORRIGAN es $P(K) = 16/48 = `r fmt(n_K/n_tot,4)`$, la de que sea pesado es $P(P) = `r fmt(n_P/n_tot,4)`$, y así sucesivamente. Fíjese cómo la probabilidad de un suceso y la de su complementario suman exactamente $1$: $P(P) + P(P^{*}) = `r fmt(n_P/n_tot,4)` + `r fmt(n_L/n_tot,4)` = 1$. No hay magia; es aritmética elemental sobre la que enseguida volveremos.
 
@@ -355,7 +340,7 @@ $$
 
 Si la ruta se ha operado bajo condiciones estables, esa frecuencia es una **estimación** razonable de la probabilidad de incidencia en dicha ruta. Podemos representar cómo se comportaría esa estimación si la compañía continuara recopilando datos: al principio, la frecuencia relativa oscila mucho, dependiendo de cuántos vuelos hayan salido bien o mal en las primeras jornadas; a medida que el número de vuelos crece, se calma. La Figura \@ref(fig:frecuentista) lo simula para una probabilidad verdadera del $14\,\%$.
 
-```{r frecuentista, fig.width=6.8, fig.height=3.6}
+```{r frecuentista, fig.cap="Simulación de la estabilización de la frecuencia relativa de un suceso (incidencia menor en una ruta de Arrakis Freight) conforme aumenta el número de vuelos observados. La probabilidad verdadera del suceso se ha fijado en 0,14 y aparece como línea horizontal discontinua.", fig.width=6.8, fig.height=3.6}
 set.seed(6)
 p_true <- 0.14
 N <- 1500
@@ -381,11 +366,6 @@ ggplot(df_frec, aes(x = vuelo, y = f_relativa)) +
   ) +
   theme_libro()
 ```
-
-::: {style="text-align: center;"}
-**Figura 6.2.** Simulación de la estabilización de la frecuencia relativa de un suceso (incidencia menor en una ruta de Arrakis Freight) conforme aumenta el número de vuelos observados. La probabilidad verdadera del suceso se ha fijado en 0,14 y aparece como línea horizontal discontinua.
-:::
-
 
 La lectura frecuentista tiene un enorme atractivo práctico: convierte la probabilidad en algo **medible** a partir de datos. Pero, filosóficamente, tiene un flanco delicado. El «límite cuando $N \to \infty$» exige repetir el experimento en las mismas condiciones un número infinito de veces, y ni la logística de *Arrakis Freight* ni la propia realidad se prestan a semejante despliegue. Además, no aclara qué probabilidad asignar a un suceso que ocurre una sola vez y no se puede repetir (¿probabilidad de que la fusión anunciada entre las dos mayores navieras del sector se cierre este trimestre?).
 
@@ -501,7 +481,7 @@ tab_bayes <- tibble(
 
 tab_bayes |>
   kable(
-    
+    caption   = "Cuota de producción y probabilidad de sufrir un fallo grave durante el primer año de servicio, por astillero. Fuente: Consejo Estelar de Ingeniería (datos ad hoc con fines ilustrativos, coherentes con la fiabilidad histórica de la flota real).",
     align     = c("l","c","c"),
     booktabs  = TRUE,
     escape    = FALSE,
@@ -514,11 +494,6 @@ tab_bayes |>
     font_size         = 13
   )
 ```
-
-::: {style="text-align: center;"}
-**Tabla 6.3.** Cuota de producción y probabilidad de sufrir un fallo grave durante el primer año de servicio, por astillero. Fuente: Consejo Estelar de Ingeniería (datos ad hoc con fines ilustrativos, coherentes con la fiabilidad histórica de la flota real).
-:::
-
 
 ¿Cuál es la probabilidad de que una nave **cualquiera** (sin saber de qué astillero proviene) sufra un fallo grave en su primer año? La respuesta la da el Teorema de la Probabilidad Total:
 
@@ -620,7 +595,7 @@ Pero la intersección real, contando en el fichero, es $P(A_r \cap P) = 9/48 = `
 
 Al final del bloque, cuando estudiemos los modelos teóricos y la inferencia estadística, veremos que muchos supuestos fundacionales (independencia de observaciones sucesivas, independencia entre variables aleatorias) tienen esta misma textura: idealizaciones que funcionan porque están **razonablemente cerca** de la realidad, no porque sean literalmente ciertas. Como en tantas otras cosas de la vida, lo importante es saber cuándo la idealización cruje.
 
-## Recapitulación. {#recap-cap6}
+## Recapitulación. {#recap-cap07}
 
 Este capítulo ha puesto los cimientos del bloque de probabilidad. A modo de mapa mental, conviene tener a mano lo siguiente:
 

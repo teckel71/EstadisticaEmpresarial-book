@@ -1,6 +1,6 @@
 # Números índice. {#numeros-indice}
 
-```{r setup-cap05, include=FALSE}
+```{r setup-cap06, include=FALSE}
 knitr::opts_chunk$set(
   echo       = FALSE,
   message    = FALSE,
@@ -58,7 +58,7 @@ fmtint <- function(x) {
 }
 ```
 
-```{r datos-cap05}
+```{r datos-cap06}
 # Ficheros R-Stars (por si se necesitan referencias a compañías reales del
 # universo del libro; los ejemplos numéricos de este capítulo, sin embargo,
 # se construyen a medida sobre series temporales de precios y cantidades
@@ -67,6 +67,11 @@ rstars <- read_excel("data/interestelar_300.xlsx", sheet = "Datos")
 ```
 
 ![](figuras/05_moneda.jpg){.portada-img width="100%"}
+
+::: {style="text-align: center;"}
+**Figura 6.1**
+:::
+
 
 ::: {style="text-align: center;"}
 **Figura 5.1.** [Cuando las magnitudes cambian con el tiempo (y con la sospecha).]{.smallcaps}
@@ -80,7 +85,7 @@ La razón de dedicarles todo un tema es sencilla, y muy anterior a la existencia
 
 Empecemos con un caso muy pequeño y muy familiar. La compañía **Arrakis Freight**, con sede en Arrakis y flota renovada, publica cada año en su memoria corporativa el precio unitario de su servicio de carga estándar en la ruta Arrakis–Coruscant (en PAVOs/tonelada), la cantidad transportada (en miles de toneladas) y el valor total facturado en esa ruta:
 
-```{r tabla-arrakis-cap05}
+```{r tabla-arrakis-cap06}
 arrakis <- tibble(
   Anio       = 2210:2213,
   Precio     = c(30, 33, 45, 54),
@@ -96,7 +101,7 @@ arrakis %>%
     `Valor (miles de PAVOs)`         = fmtint(Valor)
   ) %>%
   kable(
-    caption   = "Ruta Arrakis–Coruscant de Arrakis Freight, 2210–2213.",
+    
     align     = "cccc",
     booktabs  = TRUE
   ) %>%
@@ -107,6 +112,11 @@ arrakis %>%
     font_size         = 13
   )
 ```
+
+::: {style="text-align: center;"}
+**Tabla 6.1.** Ruta Arrakis–Coruscant de Arrakis Freight, 2210–2213.
+:::
+
 
 Ante estos datos, las tres preguntas que un directivo de la compañía suele formularse son casi siempre las mismas:
 
@@ -163,7 +173,7 @@ arr_idx_bf %>%
     `Índice de valor ($V_{0}^{t}$)`       = fmt(Iv, 4)
   ) %>%
   kable(
-    caption   = "Índices simples de base fija (base = 2210) para la ruta Arrakis–Coruscant.",
+    
     align     = "cccc",
     booktabs  = TRUE,
     escape    = FALSE
@@ -175,6 +185,11 @@ arr_idx_bf %>%
     font_size         = 13
   )
 ```
+
+::: {style="text-align: center;"}
+**Tabla 6.2.** Índices simples de base fija (base = 2210) para la ruta Arrakis–Coruscant.
+:::
+
 
 La lectura es directa. Entre $2210$ y $2213$, el precio del servicio de carga en la ruta Arrakis–Coruscant se ha multiplicado por $1{,}80$ (ha subido un $80\,\%$); la cantidad transportada, por $1{,}75$ (ha subido un $75\,\%$); y el valor facturado, por $3{,}15$ (ha subido un $215\,\%$). Y, como es fácil comprobar, $1{,}80 \times 1{,}75 = 3{,}15$: el fuerte tirón de las ventas es fruto de que precio y cantidad han crecido a la vez.
 
@@ -206,7 +221,7 @@ arr_idx_enc %>%
     `Índice de valor ($V_{t-1}^{t}$)`       = ifelse(is.na(Iv), "—", fmt(Iv, 4))
   ) %>%
   kable(
-    caption   = "Índices simples encadenados para la ruta Arrakis–Coruscant.",
+    
     align     = "cccc",
     booktabs  = TRUE,
     escape    = FALSE
@@ -218,6 +233,11 @@ arr_idx_enc %>%
     font_size         = 13
   )
 ```
+
+::: {style="text-align: center;"}
+**Tabla 6.3.** Índices simples encadenados para la ruta Arrakis–Coruscant.
+:::
+
 
 La lectura ahora es distinta y complementaria: cada valor mide la variación **respecto al año inmediatamente anterior**. Un dato de $1{,}3636$ en el índice de precios de $2212$ indica que en ese año el precio subió un $36{,}36\,\%$ con respecto a $2211$. Y el índice del año $2210$ no puede calcularse: no existe $2209$ en la serie, así que el denominador falla y se representa como un guion.
 
@@ -246,6 +266,11 @@ p1 <- ggplot(arr_idx_bf, aes(Anio)) +
   theme_libro()
 p1
 ```
+
+::: {style="text-align: center;"}
+**Figura 6.2**
+:::
+
 
 Con la representación gráfica el patrón se ve de una sola ojeada: la evolución de los tres índices al alza, con la línea del valor abriéndose paso por encima de las otras dos como recordatorio de que precio y cantidad, cuando tiran en la misma dirección, se refuerzan mutuamente.
 
@@ -365,7 +390,7 @@ hyper %>%
     `$q_{B}$ (pasajeros)`       = fmtint(q_B)
   ) %>%
   kable(
-    caption  = "Hyperdrive Express: precios y cantidades de dos servicios en 2210 (base) y 2213.",
+    
     align    = "ccccc",
     booktabs = TRUE,
     escape   = FALSE
@@ -377,6 +402,11 @@ hyper %>%
     font_size         = 13
   )
 ```
+
+::: {style="text-align: center;"}
+**Tabla 6.4.** Hyperdrive Express: precios y cantidades de dos servicios en 2210 (base) y 2213.
+:::
+
 
 Con estos datos, tomando $2210$ como período base y $2213$ como actual, los tres índices complejos de **precios** salen:
 
@@ -436,7 +466,7 @@ tibble(
   `Cantidades ($\\times 100$)` = c(fmt(Lq*100, 2), fmt(Pq*100, 2), fmt(Fq*100, 2))
 ) %>%
   kable(
-    caption   = "Índices complejos de Hyperdrive Express, del año 2210 al 2213 (base 2210 = 100).",
+    
     align     = "lcc",
     booktabs  = TRUE,
     escape    = FALSE
@@ -448,6 +478,11 @@ tibble(
     font_size         = 13
   )
 ```
+
+::: {style="text-align: center;"}
+**Tabla 6.5.** Índices complejos de Hyperdrive Express, del año 2210 al 2213 (base 2210 = 100).
+:::
+
 
 Sea cual sea el índice que elija el analista, la lectura es unívoca: entre $2210$ y $2213$, el conjunto de precios de los dos servicios de *Hyperdrive Express* subió alrededor de un $80\text{–}85\,\%$ y el conjunto de cantidades comercializadas alrededor de un $75\text{–}80\,\%$. Es también interesante observar la relación **valor = precio $\times$ cantidad** solo para los índices de Fisher:
 
@@ -502,7 +537,7 @@ cambio_base %>%
     `Índice enlazado (base 2212)` = fmt(enlace12, 4)
   ) %>%
   kable(
-    caption   = "Cambio de base de un índice de precios: enlace técnico de la base 2208 a la base 2212.",
+    
     align     = "cccc",
     booktabs  = TRUE,
     escape    = FALSE
@@ -514,6 +549,11 @@ cambio_base %>%
     font_size         = 13
   )
 ```
+
+::: {style="text-align: center;"}
+**Tabla 6.6.** Cambio de base de un índice de precios: enlace técnico de la base 2208 a la base 2212.
+:::
+
 
 Ejemplos de cálculo, sobre la parte antigua de la serie:
 
@@ -549,7 +589,7 @@ isla_0 %>%
     `Valor año 0 ($p_{0} q_{0}$)` = fmtint(V0)
   ) %>%
   kable(
-    caption = "Producción de Isla Cinturón en el año 0. Los precios están en PAVOs y las cantidades en las unidades habituales de cada bien.",
+    
     align    = "lccc",
     booktabs = TRUE,
     escape   = FALSE
@@ -561,6 +601,11 @@ isla_0 %>%
     font_size         = 13
   )
 ```
+
+::: {style="text-align: center;"}
+**Tabla 6.7.** Producción de Isla Cinturón en el año 0. Los precios están en PAVOs y las cantidades en las unidades habituales de cada bien.
+:::
+
 
 El valor total de la producción del año $0$ es de $`r fmtint(sum(isla_0$V0))`$ PAVOs. Pasan algunos años; llega un año $t$ posterior, con nuevos precios y nuevas cantidades:
 
@@ -580,7 +625,7 @@ isla_t %>%
     `Valor año $t$ ($p_{t} q_{t}$)` = fmtint(Vt)
   ) %>%
   kable(
-    caption = "Producción de Isla Cinturón en el año t. Ninguno de los cuatro precios se ha mantenido estable respecto del año 0.",
+    
     align    = "lccc",
     booktabs = TRUE,
     escape   = FALSE
@@ -592,6 +637,11 @@ isla_t %>%
     font_size         = 13
   )
 ```
+
+::: {style="text-align: center;"}
+**Tabla 6.8.** Producción de Isla Cinturón en el año t. Ninguno de los cuatro precios se ha mantenido estable respecto del año 0.
+:::
+
 
 ```{r isla-tasa-nominal}
 V0_tot <- sum(isla_0$V0)
@@ -618,7 +668,7 @@ isla_real %>%
     `Valor año $t$ a precios de $0$ ($p_{0} q_{t}$)` = fmtint(V_real)
   ) %>%
   kable(
-    caption   = "Producción del año t valorada a precios del año 0. Ahora sí se compara producción con producción.",
+    
     align     = "lccc",
     booktabs  = TRUE,
     escape    = FALSE
@@ -630,6 +680,11 @@ isla_real %>%
     font_size         = 13
   )
 ```
+
+::: {style="text-align: center;"}
+**Tabla 6.9.** Producción del año t valorada a precios del año 0. Ahora sí se compara producción con producción.
+:::
+
 
 Con precios homogéneos, la conclusión cambia de signo: la producción no ha crecido un $`r fmt(tasa_nominal, 2)`\,\%$; en realidad, **ha decrecido** un $`r fmt(-tasa_real, 2)`\,\%$. Isla Cinturón produce menos cocos y menos excursiones que antes; solo la subida general de precios había disimulado ese retroceso al mirar la cifra en PAVOs corrientes.
 
@@ -675,7 +730,7 @@ serie %>%
     `Gasto real (millones PAVOs de 2210)` = fmt(Real2210, 2)
   ) %>%
   kable(
-    caption   = "Gasto en consumo final del Sistema Astolat: paso de nominal a real usando el IPGG como deflactor.",
+    
     align     = "cccc",
     booktabs  = TRUE
   ) %>%
@@ -686,6 +741,11 @@ serie %>%
     font_size         = 13
   )
 ```
+
+::: {style="text-align: center;"}
+**Tabla 6.10.** Gasto en consumo final del Sistema Astolat: paso de nominal a real usando el IPGG como deflactor.
+:::
+
 
 Un ejemplo de cálculo, para el año $2213$:
 
@@ -717,6 +777,11 @@ ggplot(serie_long, aes(Anio, Valor, color = Serie, shape = Serie)) +
   theme_libro()
 ```
 
+::: {style="text-align: center;"}
+**Figura 6.3**
+:::
+
+
 ```{r crec-nominal-real}
 crec_nominal <- (serie$Nominal[6] / serie$Nominal[1] - 1) * 100
 crec_real    <- (serie$Real2210[6] / serie$Real2210[1] - 1) * 100
@@ -726,7 +791,7 @@ Las dos series cuentan historias distintas. En términos nominales, el gasto en 
 
 Y esa distinción, tan sencilla y tan a menudo obviada, es lo que le da a este bloque de la asignatura toda su importancia práctica: cualquier decisión empresarial o de política económica basada en cifras nominales sin deflactar corre el riesgo de estar comparando cosas que, sencillamente, ya no comparten unidad de medida.
 
-## Recapitulación. {#recapitulacion-cap05}
+## Recapitulación. {#recapitulacion-cap06}
 
 Este capítulo ha sido el más "operativo" del libro hasta ahora. En él hemos aprendido a construir y usar **números índice**, que son la herramienta estadística estándar para medir la evolución de magnitudes económicas en el tiempo (o en el espacio):
 

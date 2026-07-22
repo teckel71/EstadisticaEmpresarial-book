@@ -1,6 +1,6 @@
 # Variables aleatorias {#variables-aleatorias}
 
-```{r setup-cap07, include=FALSE}
+```{r setup-cap08, include=FALSE}
 knitr::opts_chunk$set(
   echo      = FALSE,
   warning   = FALSE,
@@ -25,7 +25,7 @@ col_gris  <- "grey60"
 ![](figuras/07_aleatoria.jpg){.portada-img width="100%"}
 
 ::: {style="text-align: center;"}
-**Figura 7.1.** [Del azar bruto al azar domesticado: la variable aleatoria.]{.smallcaps}
+**Figura 8.1.** [Del azar bruto al azar domesticado: la variable aleatoria.]{.smallcaps}
 :::
 
 
@@ -88,7 +88,7 @@ kable(tab_arrakis, escape = FALSE, align = "lcc",
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 7.1.** Variable aleatoria $\\xi$: número de cargueros que llegan a Giedi Prime.
+**Tabla 8.1.** Variable aleatoria $\\xi$: número de cargueros que llegan a Giedi Prime.
 :::
 
 
@@ -140,7 +140,7 @@ ggplot(interestelar, aes(x = FLOTA)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 7.2.** Distribución empírica del número de cargueros por empresa en `interestelar_300`. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria 'flota de una empresa cualquiera'.
+**Figura 8.2.** Distribución empírica del número de cargueros por empresa en `interestelar_300`. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria 'flota de una empresa cualquiera'.
 :::
 
 
@@ -224,7 +224,7 @@ kable(va_arrakis, escape = FALSE, align = "ccc",
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 7.2.** Función de cuantía y de distribución de $\\xi$ = número de cargueros a tiempo.
+**Tabla 8.2.** Función de cuantía y de distribución de $\\xi$ = número de cargueros a tiempo.
 :::
 
 
@@ -270,7 +270,7 @@ gridExtra::grid.arrange(g1, g2, ncol = 2)
 ```
 
 ::: {style="text-align: center;"}
-**Figura 7.3.** Función de cuantía (izquierda) y función de distribución (derecha) de $\\xi$: número de cargueros a tiempo en *arrakis freight*.
+**Figura 8.3.** Función de cuantía (izquierda) y función de distribución (derecha) de $\\xi$: número de cargueros a tiempo en *arrakis freight*.
 :::
 
 
@@ -362,7 +362,7 @@ ggplot(dens, aes(x = x, y = f)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 7.4.** Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es $P(1 < \\xi < 2) = 3/16$.
+**Figura 8.4.** Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es $P(1 < \\xi < 2) = 3/16$.
 :::
 
 
@@ -519,7 +519,7 @@ ggplot(dfn, aes(x, f)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 7.5.** Anatomía de una variable aleatoria continua: la esperanza señala el centro; la desviación típica, cómo de ancha es la distribución.
+**Figura 8.5.** Anatomía de una variable aleatoria continua: la esperanza señala el centro; la desviación típica, cómo de ancha es la distribución.
 :::
 
 
@@ -583,7 +583,7 @@ kable(conj, escape = FALSE, align = "lcccc",
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 7.3.** Función de cuantía conjunta de $(\\xi, \\eta)$ para las empresas auditadas por la CIT. Las marginales se leen en los márgenes derecho e inferior.
+**Tabla 8.3.** Función de cuantía conjunta de $(\\xi, \\eta)$ para las empresas auditadas por la CIT. Las marginales se leen en los márgenes derecho e inferior.
 :::
 
 
@@ -612,7 +612,7 @@ La covarianza mide si $\xi$ y $\eta$ tienden a moverse juntas ($\sigma_{\xi\eta}
 **Propiedad útil.** Si dos variables aleatorias son **independientes**, su covarianza es **nula**. El recíproco, en cambio, no siempre se cumple: puede haber variables con covarianza cero que estén relacionadas de forma no lineal. Es una lección que muchos analistas de la Federación Comercial han tenido que aprender por las malas.
 :::
 
-## Cierre {#cierre-cap07}
+## Cierre {#cierre-cap08}
 
 Recapitulemos el viaje del capítulo:
 

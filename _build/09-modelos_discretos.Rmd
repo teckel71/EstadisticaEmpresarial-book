@@ -1,6 +1,6 @@
 # Modelos de probabilidad discretos {#modelos-discretos}
 
-```{r setup-cap08, include=FALSE}
+```{r setup-cap09, include=FALSE}
 knitr::opts_chunk$set(
   echo      = FALSE,
   warning   = FALSE,
@@ -40,13 +40,13 @@ fmt <- function(x, d = 4) formatC(x, format = "f", digits = d, decimal.mark = ",
 ![](figuras/08_discreto.jpg){.portada-img width="100%"}
 
 ::: {style="text-align: center;"}
-**Figura 8.1.** [Nadie ha lanzado nunca una moneda infinitas veces. Pero cada vez que lanzamos una, la distribución binomial aparece puntual, como si supiera que la habíamos convocado.]{.smallcaps}
+**Figura 9.1.** [Nadie ha lanzado nunca una moneda infinitas veces. Pero cada vez que lanzamos una, la distribución binomial aparece puntual, como si supiera que la habíamos convocado.]{.smallcaps}
 :::
 
 
 > — De un cuaderno de un ingeniero de flotas de *arrakis freight*, encontrado (dicen) entre dos manuales de mantenimiento.
 
-## Introducción {#intro-cap08}
+## Introducción {#intro-cap09}
 
 En el capítulo anterior definimos qué es una **variable aleatoria** y aprendimos a describirla mediante su función de distribución y, según fuera discreta o continua, mediante su **función de cuantía** o su **función de densidad**. Con esas herramientas basta, en teoría, para modelar cualquier fenómeno aleatorio: uno se sienta con lápiz y papel, se pregunta qué valores puede tomar la variable y con qué probabilidad, y ya tiene un modelo.
 
@@ -346,7 +346,7 @@ kable(tab,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 8.1**
+**Tabla 9.1**
 :::
 
 
@@ -541,7 +541,7 @@ ggplot(df_hyp, aes(x = x, y = p)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 8.2.** Función de cuantía de $\\xi \\to H(300;\\, 10;\\, 62/300)$: número de empresas con flota renovada en una muestra aleatoria de 10 empresas auditadas.
+**Figura 9.2.** Función de cuantía de $\\xi \\to H(300;\\, 10;\\, 62/300)$: número de empresas con flota renovada en una muestra aleatoria de 10 empresas auditadas.
 :::
 
 
@@ -590,7 +590,7 @@ kable(comp,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 8.2**
+**Tabla 9.2**
 :::
 
 
@@ -635,7 +635,7 @@ kable(guia,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 8.3**
+**Tabla 9.3**
 :::
 
 
@@ -646,7 +646,7 @@ Y las dos relaciones-puente entre modelos, que conviene tener en la cabeza:
 
 Ambas aproximaciones se enseñan como atajos de cálculo, pero también son conceptualmente reveladoras: la Poisson es una binomial "muy diluida", y la binomial es una hipergeométrica "sobre una población inagotable". Los tres modelos, al final del día, son variaciones sobre el mismo tema: **contar éxitos**.
 
-## Recapitulación {#recap-cap08}
+## Recapitulación {#recap-cap09}
 
 Este capítulo ha catalogado cinco distribuciones discretas y las relaciones que las enlazan. Las dos ideas que conviene retener por encima de las demás son:
 

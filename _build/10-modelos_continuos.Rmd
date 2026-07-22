@@ -1,6 +1,6 @@
 # Modelos de probabilidad continuos {#modelos-continuos}
 
-```{r setup-cap09, include=FALSE}
+```{r setup-cap10, include=FALSE}
 knitr::opts_chunk$set(
   echo      = FALSE,
   warning   = FALSE,
@@ -37,11 +37,16 @@ theme_libro <- function(base_size = 11) {
 fmt <- function(x, d = 4) formatC(x, format = "f", digits = d, decimal.mark = ",")
 ```
 
-![Cuando los datos se acumulan sin ponerse de acuerdo con ningún valor concreto, la campana aparece sola. No hace falta invocarla; basta con dejar de mirar demasiado cerca.](figuras/09_continuo.jpg){.portada-img width="100%"}
+![](figuras/09_continuo.jpg){.portada-img width="100%"}
+
+::: {style="text-align: center;"}
+**Figura 10.1.** [Cuando los datos se acumulan sin ponerse de acuerdo con ningún valor concreto, la campana aparece sola. No hace falta invocarla; basta con dejar de mirar demasiado cerca.]{.smallcaps}
+:::
+
 
 > — Anotación al margen de un cuaderno de bitácora del capitán Spock Phoenicopterus, jefe de personal de navegación, encontrado durante una escala técnica en Fhloston Paradise.
 
-## Introducción {#intro-cap09}
+## Introducción {#intro-cap10}
 
 En el capítulo anterior catalogamos los modelos discretos que aparecen una y otra vez en la práctica: Bernoulli, binomial, Poisson, binomial negativa e hipergeométrica. Todos ellos comparten un rasgo común: la variable modelada solo puede tomar un conjunto —finito o numerable— de valores enteros. Cargueros que llegan a tiempo, averías al año, reactores defectuosos, empresas con flota renovada. Contamos.
 
@@ -562,7 +567,7 @@ Los parámetros estimados son $\mu \approx `r fmt(mu_ln, 3)`$ y $\sigma \approx 
 
 La figura \@ref(fig:fig-ln-costop) contrasta el histograma empírico de los costes operativos con el ajuste log-normal (curva). El acuerdo es prácticamente perfecto en toda la extensión de la distribución: modelo y datos difieren en menos de un punto porcentual para cualquier umbral razonable. Una normal sobre estos mismos datos daría, en cambio, un ajuste catastrófico.
 
-```{r fig-ln-costop, fig.cap="Distribución de los costes operativos (`COSTOP`, miles de PAVOs) de las 300 empresas del fichero `interestelar_300.xlsx` con el ajuste log-normal superpuesto. El acuerdo es prácticamente perfecto: la log-normal reproduce con precisión la asimetría y el decaimiento de la cola derecha.", fig.height=3.4}
+```{r fig-ln-costop, fig.height=3.4}
 df_cop <- tibble(cop = costop)
 xs <- seq(1, max(costop), length.out = 400)
 df_ln <- tibble(x = xs, y = dlnorm(xs, meanlog = mu_ln, sdlog = sd_ln))
@@ -578,6 +583,11 @@ ggplot() +
        y = "Densidad") +
   theme_libro()
 ```
+
+::: {style="text-align: center;"}
+**Figura 10.2.** Distribución de los costes operativos (`COSTOP`, miles de PAVOs) de las 300 empresas del fichero `interestelar_300.xlsx` con el ajuste log-normal superpuesto. El acuerdo es prácticamente perfecto: la log-normal reproduce con precisión la asimetría y el decaimiento de la cola derecha.
+:::
+
 
 Para hacer visible la calidad del ajuste desde otro ángulo, la tabla \@ref(tab:tab-ln-ajuste) compara, para varios umbrales, la proporción real de empresas por debajo del umbral (calculada directamente sobre los datos) con la probabilidad que asigna el modelo log-normal. Las diferencias son inferiores a un punto porcentual en todos los casos.
 
@@ -600,7 +610,7 @@ kable(comp,
       align   = "cccc",
       col.names = c("Umbral (miles PAVOs)", "$P(\\xi \\leq u)$ empírica",
                     "$P(\\xi \\leq u)$ modelo log-normal", "Diferencia"),
-      caption = "Comparación entre las probabilidades empíricas (proporción real de empresas con costes por debajo del umbral) y las que asigna el modelo log-normal ajustado. Las diferencias son inferiores a $0{,}011$ en todos los umbrales considerados.",
+      
       escape  = FALSE) |>
   kable_styling(
     bootstrap_options = c("hover", "condensed"),
@@ -637,7 +647,7 @@ guia <- tribble(
 
 kable(guia,
       align   = "lll",
-      caption = "Guía de decisión: qué modelo continuo aplicar según la naturaleza del fenómeno.",
+      
       escape  = FALSE) |>
   kable_styling(
     bootstrap_options = c("hover", "condensed"),
@@ -646,6 +656,11 @@ kable(guia,
     font_size         = 12
   )
 ```
+
+::: {style="text-align: center;"}
+**Tabla 10.1**
+:::
+
 
 Y las relaciones-puente que conviene tener en la cabeza al terminar este capítulo:
 
@@ -656,7 +671,7 @@ Y las relaciones-puente que conviene tener en la cabeza al terminar este capítu
 
 Estas conexiones no son mnemotécnicas caprichosas: reflejan que todos los modelos, discretos y continuos, forman una **familia** entrelazada por el teorema central del límite. En el largo plazo y con muestras grandes, la normal aparece por todas partes.
 
-## Recapitulación {#recap-cap09}
+## Recapitulación {#recap-cap10}
 
 Este capítulo ha catalogado cuatro modelos continuos y las relaciones que los enlazan. Las tres ideas que conviene retener por encima de las demás son:
 

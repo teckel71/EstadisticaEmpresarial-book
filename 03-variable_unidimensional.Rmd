@@ -1,6 +1,6 @@
 # Variable estadística unidimensional. {#variable-estadistica-unidimensional}
 
-```{r setup-cap02, echo=FALSE, message=FALSE, warning=FALSE}
+```{r setup-cap03, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE,
                       fig.align = "center", out.width = "85%",
                       dpi = 120)
@@ -563,7 +563,7 @@ Como en el caso de \(g_1\), la interpretación cuantitativa depende del contexto
 
 **Y de nuevo, el efecto CEO.** Si incluimos a la CEO, \(g_2\) se dispara hasta 31,2. Un solo caso extremo convierte una distribución razonablemente mesocúrtica en un artefacto de coeficientes gigantescos. Los coeficientes de asimetría y curtosis son quizá las medidas más sensibles a *outliers* de las que hemos visto, y por eso conviene calcularlos **después** de haber decidido conscientemente qué hacer con los casos extremos.
 
-## Recapitulación. {#recapitulacion-cap02}
+## Recapitulación. {#recapitulacion-cap03}
 
 En este capítulo hemos aprendido a **resumir** una variable estadística unidimensional pasando de una tabla de frecuencias a un puñado de números interpretables. Los cuatro bloques de medidas son complementarios, no sustitutivos:
 

@@ -1,6 +1,6 @@
 # Convergencia y teoremas centrales del límite {#tcl}
 
-```{r setup-cap10, include=FALSE}
+```{r setup-cap11, include=FALSE}
 knitr::opts_chunk$set(
   echo      = FALSE,
   warning   = FALSE,
@@ -43,13 +43,13 @@ set.seed(2025)
 ![](figuras/10_limite.jpg){.portada-img width="100%"}
 
 ::: {style="text-align: center;"}
-**Figura 10.1.** [Cada carguero, tomado uno a uno, tiene su carácter. La flotilla, en promedio, no tiene ninguno: es simplemente normal.]{.smallcaps}
+**Figura 11.1.** [Cada carguero, tomado uno a uno, tiene su carácter. La flotilla, en promedio, no tiene ninguno: es simplemente normal.]{.smallcaps}
 :::
 
 
 > — Nota manuscrita al margen de un informe trimestral firmado por la analista jefe Ripley Strix, encontrado durante una auditoría rutinaria al sector logístico de *kaiju haulage co.*
 
-## Introducción {#intro-cap10}
+## Introducción {#intro-cap11}
 
 En el capítulo anterior desfilaron la uniforme, la exponencial, la normal y la log-normal. En cada uno de esos modelos, la campana normal apareció con más o menos disimulo: como aproximación de la binomial, como aproximación de la Poisson, como distribución conjugada de la log-normal, como distribución límite invocada de refilón. Que la normal aparezca **una vez** puede considerarse coincidencia; que aparezca **dos** ya es sospechoso; que aparezca **siempre** exige explicación.
 
@@ -210,7 +210,7 @@ kable(tabla_tcl,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 10.1**
+**Tabla 11.1**
 :::
 
 
@@ -462,7 +462,7 @@ kable(tab_cc,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 10.2**
+**Tabla 11.2**
 :::
 
 
@@ -588,7 +588,7 @@ ggplot() +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 10.2.** Esquema de las aproximaciones entre modelos discretos y normal. La binomial admite dos rutas de aproximación: hacia Poisson (cuando $p$ es pequeño y $n$ es moderado o grande) y hacia normal (cuando ni $p$ ni $q$ son extremos). La Poisson, a su vez, se aproxima por normal cuando $\\lambda$ es grande. La normal es el destino común de todas las trayectorias: es el atractor probabilístico universal.
+**Figura 11.2.** Esquema de las aproximaciones entre modelos discretos y normal. La binomial admite dos rutas de aproximación: hacia Poisson (cuando $p$ es pequeño y $n$ es moderado o grande) y hacia normal (cuando ni $p$ ni $q$ son extremos). La Poisson, a su vez, se aproxima por normal cuando $\\lambda$ es grande. La normal es el destino común de todas las trayectorias: es el atractor probabilístico universal.
 :::
 
 
@@ -621,7 +621,7 @@ kable(tab_esq,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 10.3**
+**Tabla 11.3**
 :::
 
 
@@ -673,7 +673,7 @@ kable(tab_mot,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 10.4**
+**Tabla 11.4**
 :::
 
 
@@ -699,7 +699,7 @@ Cerramos el capítulo con una anticipación del papel del TCL en lo que viene, q
 
 En los tres casos, la normal aparece como distribución de un **estimador**, no como distribución de los datos. Los datos originales pueden ser discretos, asimétricos, exóticos o directamente feos; la distribución del estimador —bajo condiciones muy generales— será la campana familiar. Es la razón por la que el resto del curso puede resolverse con una única tabla, la de la normal estándar.
 
-## Recapitulación {#recap-cap10}
+## Recapitulación {#recap-cap11}
 
 Tres ideas conviene retener de este capítulo por encima del resto:
 

@@ -1,6 +1,6 @@
 # Regresión y correlación. {#regresion-correlacion}
 
-```{r setup-cap04, include=FALSE}
+```{r setup-cap05, include=FALSE}
 knitr::opts_chunk$set(
   echo       = FALSE,
   message    = FALSE,
@@ -51,7 +51,7 @@ fmt <- function(x, d = 2) {
 }
 ```
 
-```{r datos-cap04}
+```{r datos-cap05}
 # Ficheros R-Stars empleados en este capítulo.
 shuttlepod <- read_excel("data/trabajadores.xlsx",     sheet = "Datos")
 rstars     <- read_excel("data/interestelar_300.xlsx", sheet = "Datos")
@@ -678,7 +678,7 @@ De manera más general, en la muestra de $300$ compañías R-Stars uno puede pla
 
 Un aviso final: pasar de una a varias variables explicativas no es solo una cuestión técnica. Aparecen problemas nuevos —correlaciones altas entre las propias explicativas (la temida *multicolinealidad*), interpretaciones parciales que exigen fijar mentalmente el resto de variables, riesgo de sobreajuste cuando $p$ crece— que la regresión simple no plantea. La regresión múltiple es una herramienta enormemente potente y merecerá, en su momento, capítulo propio.
 
-## Recapitulación. {#recapitulacion-cap04}
+## Recapitulación. {#recapitulacion-cap05}
 
 Este capítulo ha cerrado el bloque bidimensional. Hemos pasado de comprobar *si* dos variables se relacionan a describir *cómo* y *cuánto*. Como equipaje mínimo llevaremos:
 

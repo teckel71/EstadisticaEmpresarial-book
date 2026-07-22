@@ -1,6 +1,6 @@
 # Variables aleatorias {#variables-aleatorias}
 
-```{r setup-cap07, include=FALSE}
+```{r setup-cap08, include=FALSE}
 knitr::opts_chunk$set(
   echo      = FALSE,
   warning   = FALSE,
@@ -572,7 +572,7 @@ La covarianza mide si $\xi$ y $\eta$ tienden a moverse juntas ($\sigma_{\xi\eta}
 **Propiedad útil.** Si dos variables aleatorias son **independientes**, su covarianza es **nula**. El recíproco, en cambio, no siempre se cumple: puede haber variables con covarianza cero que estén relacionadas de forma no lineal. Es una lección que muchos analistas de la Federación Comercial han tenido que aprender por las malas.
 :::
 
-## Cierre {#cierre-cap07}
+## Cierre {#cierre-cap08}
 
 Recapitulemos el viaje del capítulo:
 
