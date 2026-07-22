@@ -103,45 +103,46 @@
 <p><strong>Figura 2.1.</strong> <span class="smallcaps">Sin datos, la Estadística se queda sin materia prima.</span></p>
 </div>
 <p>En el capítulo anterior hemos delimitado los grandes conceptos de la
-Estadística: población, individuo, muestra, variable y atributo. Todos ellos
-se refieren, de una forma u otra, a <strong>datos</strong>. Sin embargo, hemos dado por
-hecho que esos datos “están ahí”, listos para ser resumidos y representados.
-En la realidad, obtener un buen conjunto de datos suele consumir bastante
-más tiempo (y bastante más presupuesto) que su análisis posterior. Un mal
-fichero de partida contamina toda la cadena analítica, y ningún ajuste
-posterior salva un análisis construido sobre información sucia, incompleta o
-mal recogida.</p>
+Estadística: población, individuo, muestra, variable y atributo. Todos
+ellos se refieren, de una forma u otra, a <strong>datos</strong>. Sin embargo, hemos
+dado por hecho que esos datos “están ahí”, listos para ser resumidos y
+representados. En la realidad, obtener un buen conjunto de datos suele
+consumir bastante más tiempo (y bastante más presupuesto) que su
+análisis posterior. Un mal fichero de partida contamina toda la cadena
+analítica, y ningún ajuste posterior salva un análisis construido sobre
+información sucia, incompleta o mal recogida.</p>
 <p>Este capítulo se dedica precisamente a la <strong>fase previa</strong> del análisis
-estadístico: qué son los datos, de dónde vienen, cómo se obtienen, cómo se
-organizan y qué depuración mínima requieren antes de que empecemos a
-calcular medias, varianzas o correlaciones. Se trata de contenidos que los
-manuales tradicionales de Estadística suelen dar por conocidos y que, en la
-práctica profesional, son <em>lo primero</em> que un economista o un directivo
-aprende (por las malas) cuando llega a un puesto de trabajo.</p>
+estadístico: qué son los datos, de dónde vienen, cómo se obtienen, cómo
+se organizan y qué depuración mínima requieren antes de que empecemos a
+calcular medias, varianzas o correlaciones. Se trata de contenidos que
+los manuales tradicionales de Estadística suelen dar por conocidos y
+que, en la práctica profesional, son <em>lo primero</em> que un economista o un
+directivo aprende (por las malas) cuando llega a un puesto de trabajo.</p>
 <div id="que-es-un-dato" class="section level2" number="2.1">
 <h2>
 <span class="header-section-number">2.1</span> ¿Qué es un dato?<a class="anchor" aria-label="anchor" href="#que-es-un-dato"><i class="fas fa-link"></i></a>
 </h2>
 <p>Un <strong>dato</strong> es el resultado numérico o categórico de <strong>medir</strong> una
-característica sobre un caso concreto. Cuando anotamos que la nave
-<em>Iron Sovereign</em> transporta 840,4 miles de toneladas, o que Luke Diomedea
+característica sobre un caso concreto. Cuando anotamos que la nave <em>Iron
+Sovereign</em> transporta 840,4 miles de toneladas, o que Luke Diomedea
 trabaja en el departamento de Almacén, estamos registrando un dato.
 Formalmente:</p>
 <blockquote>
-<p>Un <strong>dato</strong> es el valor que toma una <strong>variable</strong> o <strong>atributo</strong> para un
-<strong>individuo</strong> determinado.</p>
+<p>Un <strong>dato</strong> es el valor que toma una <strong>variable</strong> o <strong>atributo</strong> para
+un <strong>individuo</strong> determinado.</p>
 </blockquote>
-<p>Un dato aislado, por sí solo, no dice gran cosa. La información estadística
-surge cuando <strong>agrupamos muchos datos</strong> —los correspondientes a una
-característica medida sobre todos los individuos de una muestra o de una
-población— y los organizamos en una estructura que permita su tratamiento
-sistemático. Esa estructura es lo que llamamos un <strong>conjunto de datos</strong> o
-<em>dataset</em>.</p>
-<p>Un conjunto de datos, en su forma canónica, es una <strong>tabla</strong> en la que las
-<strong>filas</strong> son los individuos y las <strong>columnas</strong> son las características
-medidas. Es la disposición que ya vimos en el capítulo 1 con la plantilla
-de <em>Hyperdrive Express</em>, y es también la disposición estándar de cualquier
-hoja de cálculo, base de datos relacional o <em>data frame</em> en R.</p>
+<p>Un dato aislado, por sí solo, no dice gran cosa. La información
+estadística surge cuando <strong>agrupamos muchos datos</strong> —los
+correspondientes a una característica medida sobre todos los individuos
+de una muestra o de una población— y los organizamos en una estructura
+que permita su tratamiento sistemático. Esa estructura es lo que
+llamamos un <strong>conjunto de datos</strong> o <em>dataset</em>.</p>
+<p>Un conjunto de datos, en su forma canónica, es una <strong>tabla</strong> en la que
+las <strong>filas</strong> son los individuos y las <strong>columnas</strong> son las
+características medidas. Es la disposición que ya vimos en el capítulo 1
+con la plantilla de <em>Hyperdrive Express</em>, y es también la disposición
+estándar de cualquier hoja de cálculo, base de datos relacional o <em>data
+frame</em> en R.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:center;">
@@ -233,51 +234,53 @@ Gestión Interna
 <div style="text-align: center;">
 <p><strong>Tabla 2.1.</strong> Primeras filas del fichero <code>trabajadores.xlsx</code>: cada fila es un individuo (empleado), cada columna una característica.</p>
 </div>
-<p>Detrás de esa tabla aparentemente inocente hay una larga serie de decisiones
-metodológicas: <strong>quién</strong> definió esas cuatro variables, <strong>cómo</strong> las midió,
-<strong>cuándo</strong>, <strong>con qué instrumentos</strong>, <strong>con qué grado de fiabilidad</strong> y
-<strong>con qué depuración</strong> las publicó. El resto del capítulo se ocupa,
-precisamente, de esa cocina que casi nunca se ve.</p>
+<p>Detrás de esa tabla aparentemente inocente hay una larga serie de
+decisiones metodológicas: <strong>quién</strong> definió esas cuatro variables,
+<strong>cómo</strong> las midió, <strong>cuándo</strong>, <strong>con qué instrumentos</strong>, <strong>con qué
+grado de fiabilidad</strong> y <strong>con qué depuración</strong> las publicó. El resto del
+capítulo se ocupa, precisamente, de esa cocina que casi nunca se ve.</p>
 </div>
 <div id="fuentes-de-datos" class="section level2" number="2.2">
 <h2>
 <span class="header-section-number">2.2</span> Fuentes de datos.<a class="anchor" aria-label="anchor" href="#fuentes-de-datos"><i class="fas fa-link"></i></a>
 </h2>
-<p>La primera pregunta antes de emprender cualquier análisis es sencilla: <strong>¿de
-dónde salen los datos?</strong> La respuesta habitual admite dos grandes familias.</p>
+<p>La primera pregunta antes de emprender cualquier análisis es sencilla:
+<strong>¿de dónde salen los datos?</strong> La respuesta habitual admite dos grandes
+familias.</p>
 <div id="fuentes-primarias." class="section level3" number="2.2.1">
 <h3>
 <span class="header-section-number">2.2.1</span> Fuentes primarias.<a class="anchor" aria-label="anchor" href="#fuentes-primarias."><i class="fas fa-link"></i></a>
 </h3>
-<p>Las <strong>fuentes primarias</strong> son aquellas en las que el propio investigador o
-analista <strong>construye los datos</strong>, midiéndolos directamente sobre los
-individuos de interés. El caso genera el dato, y el dato llega al análisis
-sin intermediarios. Los canales más habituales son:</p>
+<p>Las <strong>fuentes primarias</strong> son aquellas en las que el propio investigador
+o analista <strong>construye los datos</strong>, midiéndolos directamente sobre los
+individuos de interés. El caso genera el dato, y el dato llega al
+análisis sin intermediarios. Los canales más habituales son:</p>
 <ul>
 <li>
-<strong>Mediciones directas</strong> con instrumentos: sensores de temperatura en una
-cadena de producción, contadores de tráfico en un aeropuerto, lectores
-de códigos de barras en un supermercado. En el universo R-Stars serían
-los sensores de consumo de especia y el registro automático de tonelaje
-que la nave <em>Iron Sovereign</em> transmite en cada salto de hipervelocidad.</li>
+<strong>Mediciones directas</strong> con instrumentos: sensores de temperatura en
+una cadena de producción, contadores de tráfico en un aeropuerto,
+lectores de códigos de barras en un supermercado. En el universo
+R-Stars serían los sensores de consumo de especia y el registro
+automático de tonelaje que la nave <em>Iron Sovereign</em> transmite en
+cada salto de hipervelocidad.</li>
 <li>
 <strong>Registros administrativos internos</strong> de la organización: nóminas,
-facturas, órdenes de compra, registros de RRHH, tickets de atención al
-cliente. Un fichero típico de <em>front-office</em>.</li>
+facturas, órdenes de compra, registros de RRHH, tickets de atención
+al cliente. Un fichero típico de <em>front-office</em>.</li>
 <li>
-<strong>Encuestas</strong> diseñadas <em>ad hoc</em> para responder a una pregunta concreta
-(satisfacción del cliente, intención de compra, clima laboral).
-Constituyen la vía primaria por excelencia en Ciencias Sociales y en
-marketing.</li>
+<strong>Encuestas</strong> diseñadas <em>ad hoc</em> para responder a una pregunta
+concreta (satisfacción del cliente, intención de compra, clima
+laboral). Constituyen la vía primaria por excelencia en Ciencias
+Sociales y en marketing.</li>
 <li>
 <strong>Experimentos</strong> controlados: pruebas A/B en una web de comercio
 electrónico, ensayos de campo, prototipos.</li>
 </ul>
-<p>Su gran <strong>ventaja</strong> es el <strong>control</strong>: quien construye el dato decide qué
-medir, cómo hacerlo, con qué escala y con qué grado de precisión. Su
+<p>Su gran <strong>ventaja</strong> es el <strong>control</strong>: quien construye el dato decide
+qué medir, cómo hacerlo, con qué escala y con qué grado de precisión. Su
 <strong>inconveniente</strong> es el <strong>coste</strong>: recoger datos primarios en cantidad y
-con calidad suficientes es lento y caro. Una encuesta representativa de un
-país mediano puede costar decenas de miles de PAVOs y varios meses de
+con calidad suficientes es lento y caro. Una encuesta representativa de
+un país mediano puede costar decenas de miles de PAVOs y varios meses de
 trabajo.</p>
 </div>
 <div id="fuentes-secundarias." class="section level3" number="2.2.2">
@@ -290,38 +293,40 @@ construida y, en muchos casos, ya depurada. Las más relevantes para un
 economista son:</p>
 <ul>
 <li>
-<strong>Institutos oficiales de Estadística</strong>: el INE en España, Eurostat en la
-Unión Europea, el U.S. Bureau of the Census, la OCDE, el Banco Mundial,
-el FMI, la OMS, la FAO… Publican series económicas, demográficas y
-sociales con altísima calidad metodológica y bajo estándares comparables.</li>
+<strong>Institutos oficiales de Estadística</strong>: el INE en España, Eurostat
+en la Unión Europea, el U.S. Bureau of the Census, la OCDE, el Banco
+Mundial, el FMI, la OMS, la FAO… Publican series económicas,
+demográficas y sociales con altísima calidad metodológica y bajo
+estándares comparables.</li>
 <li>
-<strong>Bancos centrales y supervisores financieros</strong>: Banco Central Europeo,
-Reserva Federal, Banco de España, CNMV. Series monetarias, financieras,
-contables agregadas y microdatos financieros.</li>
+<strong>Bancos centrales y supervisores financieros</strong>: Banco Central
+Europeo, Reserva Federal, Banco de España, CNMV. Series monetarias,
+financieras, contables agregadas y microdatos financieros.</li>
 <li>
-<strong>Registros administrativos públicos</strong>: registros mercantiles, cámaras de
-comercio, patentes, licencias.</li>
+<strong>Registros administrativos públicos</strong>: registros mercantiles,
+cámaras de comercio, patentes, licencias.</li>
 <li>
-<strong>Bases privadas de pago</strong>: Bloomberg, Refinitiv, S&amp;P Capital IQ, SABI,
-Orbis. Ofrecen microdatos empresariales de calidad, generalmente con
-acceso restringido por suscripción.</li>
+<strong>Bases privadas de pago</strong>: Bloomberg, Refinitiv, S&amp;P Capital IQ,
+SABI, Orbis. Ofrecen microdatos empresariales de calidad,
+generalmente con acceso restringido por suscripción.</li>
 <li>
-<strong>Datos abiertos</strong> (<em>open data</em>): portales gubernamentales, académicos o
-corporativos que publican datos gratuitos y reutilizables (por ejemplo,
-<code>datos.gob.es</code>, <code>data.europa.eu</code>).</li>
+<strong>Datos abiertos</strong> (<em>open data</em>): portales gubernamentales,
+académicos o corporativos que publican datos gratuitos y
+reutilizables (por ejemplo, <code>datos.gob.es</code>, <code>data.europa.eu</code>).</li>
 </ul>
 <p>Su gran <strong>ventaja</strong> es el <strong>coste marginal casi nulo</strong> y la <strong>calidad
 certificada</strong> (al menos cuando la fuente es de prestigio). Su
 <strong>inconveniente</strong>, la falta de flexibilidad: quien publica decide qué
-variables, con qué desagregación, con qué unidades y con qué periodicidad,
-y el analista se conforma con lo que hay.</p>
+variables, con qué desagregación, con qué unidades y con qué
+periodicidad, y el analista se conforma con lo que hay.</p>
 <blockquote>
-<p><strong>Ejemplo.</strong> Para un estudio sobre el sector del transporte interestelar
-podríamos usar (i) el fichero interno de la compañía <em>Hyperdrive Express</em>
-con las fichas de sus empleados —fuente primaria—, y (ii) el fichero
-público <code>interestelar_300.xlsx</code>, con datos económico-financieros de las
-300 principales compañías galácticas del sector —fuente secundaria—.
-Combinar las dos vías es lo habitual.</p>
+<p><strong>Ejemplo.</strong> Para un estudio sobre el sector del transporte
+interestelar podríamos usar (i) el fichero interno de la compañía
+<em>Hyperdrive Express</em> con las fichas de sus empleados —fuente
+primaria—, y (ii) el fichero público <code>interestelar_300.xlsx</code>, con
+datos económico-financieros de las 300 principales compañías
+galácticas del sector —fuente secundaria—. Combinar las dos vías es lo
+habitual.</p>
 </blockquote>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
@@ -413,38 +418,38 @@ La marca la fuente
 <h2>
 <span class="header-section-number">2.3</span> Sistemas de obtención de datos.<a class="anchor" aria-label="anchor" href="#sistemas-obtencion-datos"><i class="fas fa-link"></i></a>
 </h2>
-<p>Localizada la fuente, viene la pregunta técnica: <strong>¿cómo llegan los datos
-hasta el analista?</strong> Los canales han cambiado radicalmente en la última
-década. Un directivo de hace veinte años recibía la información en informes
-impresos; hoy la esperamos en fichero, actualizada al minuto y accesible en
-una línea de código. Repasamos las cuatro vías más habituales, en orden
-creciente de sofisticación.</p>
+<p>Localizada la fuente, viene la pregunta técnica: <strong>¿cómo llegan los
+datos hasta el analista?</strong> Los canales han cambiado radicalmente en la
+última década. Un directivo de hace veinte años recibía la información
+en informes impresos; hoy la esperamos en fichero, actualizada al minuto
+y accesible en una línea de código. Repasamos las cuatro vías más
+habituales, en orden creciente de sofisticación.</p>
 <div id="descarga-directa-de-ficheros." class="section level3" number="2.3.1">
 <h3>
 <span class="header-section-number">2.3.1</span> Descarga directa de ficheros.<a class="anchor" aria-label="anchor" href="#descarga-directa-de-ficheros."><i class="fas fa-link"></i></a>
 </h3>
-<p>Es el mecanismo más sencillo: la fuente publica un fichero (normalmente en
-su web) y el usuario lo descarga con el navegador. El fichero suele estar
-en uno de los formatos que veremos en <a href="los-datos.html#formatos-datos-habituales">2.3.5</a>, y
-una vez guardado se abre con la herramienta correspondiente (Excel, R,
-Python, un SGBD, etc.).</p>
+<p>Es el mecanismo más sencillo: la fuente publica un fichero (normalmente
+en su web) y el usuario lo descarga con el navegador. El fichero suele
+estar en uno de los formatos que veremos en
+<a href="los-datos.html#formatos-datos-habituales">2.3.5</a>, y una vez guardado se abre con la
+herramienta correspondiente (Excel, R, Python, un SGBD, etc.).</p>
 <p>Es la vía típica para conjuntos <strong>pequeños o medianos</strong>, con
 <strong>actualización poco frecuente</strong> (mensual, trimestral, anual) y para
-usuarios finales sin perfil técnico. El INE publica así la mayoría de sus
-tablas. Ventaja: no requiere ninguna infraestructura; inconveniente: si la
-publicación se actualiza cada mes, el analista tiene que acordarse de
-descargar el nuevo fichero cada mes.</p>
+usuarios finales sin perfil técnico. El INE publica así la mayoría de
+sus tablas. Ventaja: no requiere ninguna infraestructura; inconveniente:
+si la publicación se actualiza cada mes, el analista tiene que acordarse
+de descargar el nuevo fichero cada mes.</p>
 </div>
 <div id="acceso-mediante-api." class="section level3" number="2.3.2">
 <h3>
 <span class="header-section-number">2.3.2</span> Acceso mediante API.<a class="anchor" aria-label="anchor" href="#acceso-mediante-api."><i class="fas fa-link"></i></a>
 </h3>
 <p>Una <strong>API</strong> (<em>Application Programming Interface</em>) es, dicho de manera
-intuitiva, un <strong>enchufe informático</strong> que la fuente pone a disposición del
-usuario para que un programa —no una persona— pueda pedirle datos de forma
-automática y estructurada. Se pide con una <strong>URL</strong> especial que incluye los
-parámetros de la consulta y se recibe un fichero (habitualmente en JSON)
-con la respuesta.</p>
+intuitiva, un <strong>enchufe informático</strong> que la fuente pone a disposición
+del usuario para que un programa —no una persona— pueda pedirle datos de
+forma automática y estructurada. Se pide con una <strong>URL</strong> especial que
+incluye los parámetros de la consulta y se recibe un fichero
+(habitualmente en JSON) con la respuesta.</p>
 <p>Un ejemplo simplificado, con la sintaxis que usaríamos en R:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Ejemplo pedagógico: consulta a una API hipotética del INE Galáctico</span></span>
@@ -461,20 +466,21 @@ con la respuesta.</p>
 <p>Las <strong>ventajas</strong> de este mecanismo son enormes:</p>
 <ul>
 <li>
-<strong>Automatización</strong>: el mismo <em>script</em> que se ejecutó hoy puede ejecutarse
-mañana con datos actualizados sin intervención humana.</li>
+<strong>Automatización</strong>: el mismo <em>script</em> que se ejecutó hoy puede
+ejecutarse mañana con datos actualizados sin intervención humana.</li>
 <li>
-<strong>Filtrado en origen</strong>: se piden solo las variables, categorías, países o
-fechas que interesan. Ahorra ancho de banda y tiempo de procesado.</li>
+<strong>Filtrado en origen</strong>: se piden solo las variables, categorías,
+países o fechas que interesan. Ahorra ancho de banda y tiempo de
+procesado.</li>
 <li>
-<strong>Trazabilidad</strong>: la URL queda registrada. Otro analista puede reproducir
-la descarga exacta.</li>
+<strong>Trazabilidad</strong>: la URL queda registrada. Otro analista puede
+reproducir la descarga exacta.</li>
 </ul>
-<p>Sus <strong>inconvenientes</strong>: exige una mínima soltura en programación, algunas
-APIs requieren autenticación (clave o <em>token</em>) y muchas imponen un límite
-de peticiones por minuto o por día. Casi todas las fuentes secundarias de
-prestigio ofrecen hoy acceso vía API: Eurostat, Banco Mundial, ECB, FRED,
-Yahoo Finance, ONU…</p>
+<p>Sus <strong>inconvenientes</strong>: exige una mínima soltura en programación,
+algunas APIs requieren autenticación (clave o <em>token</em>) y muchas imponen
+un límite de peticiones por minuto o por día. Casi todas las fuentes
+secundarias de prestigio ofrecen hoy acceso vía API: Eurostat, Banco
+Mundial, ECB, FRED, Yahoo Finance, ONU…</p>
 </div>
 <div id="web-scraping." class="section level3" number="2.3.3">
 <h3>
@@ -482,31 +488,31 @@ Yahoo Finance, ONU…</p>
 </h3>
 <p>Cuando la información está publicada en una página web pero <strong>no hay ni
 descarga directa ni API</strong>, queda el recurso del <strong><em>web scraping</em></strong>:
-escribir un programa que “lea” la página como lo haría un humano y extraiga
-los datos de interés. Es una técnica potente pero delicada:</p>
+escribir un programa que “lea” la página como lo haría un humano y
+extraiga los datos de interés. Es una técnica potente pero delicada:</p>
 <ul>
 <li>
 <strong>Legalmente</strong> hay que respetar los términos de uso del sitio, las
-condiciones de acceso y, en muchos casos, la normativa sobre propiedad
-intelectual y protección de datos.</li>
+condiciones de acceso y, en muchos casos, la normativa sobre
+propiedad intelectual y protección de datos.</li>
 <li>
 <strong>Técnicamente</strong> es frágil: cualquier rediseño de la página rompe el
 <em>scraper</em> y obliga a reescribirlo.</li>
 </ul>
 <p>Es la vía típica para conjuntos que no publican los datos de forma
 estructurada (precios de productos en una tienda <em>online</em>, ofertas de
-empleo, opiniones de clientes, etc.). Debe usarse como <strong>última opción</strong>,
-no como primera.</p>
+empleo, opiniones de clientes, etc.). Debe usarse como <strong>última
+opción</strong>, no como primera.</p>
 </div>
 <div id="conexión-directa-a-bases-de-datos." class="section level3" number="2.3.4">
 <h3>
 <span class="header-section-number">2.3.4</span> Conexión directa a bases de datos.<a class="anchor" aria-label="anchor" href="#conexi%C3%B3n-directa-a-bases-de-datos."><i class="fas fa-link"></i></a>
 </h3>
-<p>Cuando la fuente es la <strong>base de datos de la propia organización</strong> (o de un
-cliente), el acceso suele hacerse mediante una conexión directa desde el
-software analítico al SGBD (Sistema de Gestión de Bases de Datos: Oracle,
-PostgreSQL, MySQL, SQL Server, MongoDB…). El analista escribe una
-consulta en el lenguaje del SGBD —normalmente <strong>SQL</strong>— y recibe el
+<p>Cuando la fuente es la <strong>base de datos de la propia organización</strong> (o de
+un cliente), el acceso suele hacerse mediante una conexión directa desde
+el software analítico al SGBD (Sistema de Gestión de Bases de Datos:
+Oracle, PostgreSQL, MySQL, SQL Server, MongoDB…). El analista escribe
+una consulta en el lenguaje del SGBD —normalmente <strong>SQL</strong>— y recibe el
 resultado como una tabla.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Ejemplo pedagógico: consulta SQL sobre la base de datos interna</span></span>
@@ -527,19 +533,20 @@ resultado como una tabla.</p>
 <span><span class="st">"</span></span>
 <span><span class="va">resumen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">con</span>, <span class="va">consulta</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span></code></pre></div>
-<p>Es el mecanismo dominante en entornos empresariales. Su punto fuerte es la
-<strong>eficiencia</strong>: el filtrado, la agregación y la selección de columnas se
-ejecutan <strong>en la propia base de datos</strong>, y solo viaja al ordenador del
-analista el resultado final. Cuando se trabaja con millones de filas, la
-diferencia respecto a descargar el fichero completo es abismal.</p>
+<p>Es el mecanismo dominante en entornos empresariales. Su punto fuerte es
+la <strong>eficiencia</strong>: el filtrado, la agregación y la selección de columnas
+se ejecutan <strong>en la propia base de datos</strong>, y solo viaja al ordenador
+del analista el resultado final. Cuando se trabaja con millones de
+filas, la diferencia respecto a descargar el fichero completo es
+abismal.</p>
 </div>
 <div id="formatos-datos-habituales" class="section level3" number="2.3.5">
 <h3>
 <span class="header-section-number">2.3.5</span> Formatos de datos habituales.<a class="anchor" aria-label="anchor" href="#formatos-datos-habituales"><i class="fas fa-link"></i></a>
 </h3>
-<p>Sea cual sea el canal de obtención, los datos acaban materializándose en un
-<strong>fichero</strong> con un <strong>formato</strong> concreto. Conocer las diferencias entre los
-formatos más habituales evita muchos disgustos.</p>
+<p>Sea cual sea el canal de obtención, los datos acaban materializándose en
+un <strong>fichero</strong> con un <strong>formato</strong> concreto. Conocer las diferencias
+entre los formatos más habituales evita muchos disgustos.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -673,16 +680,16 @@ Volcado de una base de datos completa (estructura + datos).
 <div style="text-align: center;">
 <p><strong>Tabla 2.3.</strong> Formatos habituales de intercambio de datos.</p>
 </div>
-<p>Vale la pena detenerse en los dos formatos más habituales para el trabajo
-diario.</p>
-<p><strong>El CSV</strong> (<em>Comma-Separated Values</em>) es un fichero de <strong>texto plano</strong> en
-el que cada fila del conjunto de datos ocupa una línea y las columnas se
-separan por un carácter delimitador —normalmente la coma, aunque en países
-que usan la coma decimal se sustituye por el punto y coma—. Su gran virtud
-es la <strong>portabilidad</strong>: cualquier programa capaz de leer texto puede
-abrirlo. Sus problemas clásicos: la codificación (¿UTF-8?, ¿Latin-1?), el
-separador (¿coma?, ¿punto y coma?, ¿tabulador?) y la marca decimal
-(¿punto?, ¿coma?).</p>
+<p>Vale la pena detenerse en los dos formatos más habituales para el
+trabajo diario.</p>
+<p><strong>El CSV</strong> (<em>Comma-Separated Values</em>) es un fichero de <strong>texto plano</strong>
+en el que cada fila del conjunto de datos ocupa una línea y las columnas
+se separan por un carácter delimitador —normalmente la coma, aunque en
+países que usan la coma decimal se sustituye por el punto y coma—. Su
+gran virtud es la <strong>portabilidad</strong>: cualquier programa capaz de leer
+texto puede abrirlo. Sus problemas clásicos: la codificación (¿UTF-8?,
+¿Latin-1?), el separador (¿coma?, ¿punto y coma?, ¿tabulador?) y la
+marca decimal (¿punto?, ¿coma?).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># CSV internacional: coma como separador y punto decimal.</span></span>
 <span><span class="co"># read.csv espera exactamente este formato.</span></span>
@@ -692,12 +699,12 @@ separador (¿coma?, ¿punto y coma?, ¿tabulador?) y la marca decimal
 <span><span class="co"># read.csv2 espera exactamente ESE otro formato.</span></span>
 <span><span class="va">carga</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv2</a></span><span class="op">(</span><span class="st">"cargamentos_2185.csv"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>El Excel</strong> (<em>.xlsx</em>) es un formato <strong>binario</strong> propietario pero
-universalmente aceptado. Permite varias hojas por libro, fórmulas, formato
-condicional y comentarios. Los tres ficheros del universo R-Stars que
-acompañan al libro —<code>trabajadores.xlsx</code>, <code>interestelar_300.xlsx</code> y
-<code>astilleros_48.xlsx</code>— están precisamente en este formato, con la estructura
-habitual de “hoja de presentación + hoja de descripción de variables + hoja
-de datos”.</p>
+universalmente aceptado. Permite varias hojas por libro, fórmulas,
+formato condicional y comentarios. Los tres ficheros del universo
+R-Stars que acompañan al libro —<code>trabajadores.xlsx</code>,
+<code>interestelar_300.xlsx</code> y <code>astilleros_48.xlsx</code>— están precisamente en
+este formato, con la estructura habitual de “hoja de presentación + hoja
+de descripción de variables + hoja de datos”.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span>
 <span><span class="va">interestelar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"interestelar_300.xlsx"</span>, sheet <span class="op">=</span> <span class="st">"Datos"</span><span class="op">)</span></span>
@@ -708,18 +715,18 @@ de datos”.</p>
 <h2>
 <span class="header-section-number">2.4</span> Encuestas: la importancia del muestreo.<a class="anchor" aria-label="anchor" href="#encuestas-muestreo"><i class="fas fa-link"></i></a>
 </h2>
-<p>De todas las vías de obtención de datos primarios, la <strong>encuesta</strong> merece
-una sección propia. Es el mecanismo por el que se recogen, en Ciencias
-Sociales y en Economía, la práctica totalidad de los datos que no proceden
-de un registro administrativo o de un sensor. Buena parte de los estudios
-de mercado, la investigación electoral y la estadística oficial descansan
-en ella.</p>
+<p>De todas las vías de obtención de datos primarios, la <strong>encuesta</strong>
+merece una sección propia. Es el mecanismo por el que se recogen, en
+Ciencias Sociales y en Economía, la práctica totalidad de los datos que
+no proceden de un registro administrativo o de un sensor. Buena parte de
+los estudios de mercado, la investigación electoral y la estadística
+oficial descansan en ella.</p>
 <p>Una encuesta bien hecha permite obtener conclusiones válidas sobre
-<strong>millones de personas</strong> entrevistando a unos pocos miles. Una mal hecha,
-en cambio, produce cifras que suenan a precisas pero que no describen a
-nadie en particular. La diferencia entre ambas se juega en tres frentes:
-<strong>el muestreo</strong>, el <strong>diseño del cuestionario</strong> y el <strong>método de
-encuestación</strong>.</p>
+<strong>millones de personas</strong> entrevistando a unos pocos miles. Una mal
+hecha, en cambio, produce cifras que suenan a precisas pero que no
+describen a nadie en particular. La diferencia entre ambas se juega en
+tres frentes: <strong>el muestreo</strong>, el <strong>diseño del cuestionario</strong> y el
+<strong>método de encuestación</strong>.</p>
 <div id="por-qué-el-muestreo-es-crítico." class="section level3" number="2.4.1">
 <h3>
 <span class="header-section-number">2.4.1</span> Por qué el muestreo es crítico.<a class="anchor" aria-label="anchor" href="#por-qu%C3%A9-el-muestreo-es-cr%C3%ADtico."><i class="fas fa-link"></i></a>
@@ -727,8 +734,8 @@ encuestación</strong>.</p>
 <p>La lógica del muestreo es intuitiva: si la muestra reproduce, a pequeña
 escala, la estructura de la población, las conclusiones obtenidas en la
 muestra podrán extenderse —con la incertidumbre asociada— a la población
-completa. Si la muestra <strong>no es representativa</strong>, cualquier conclusión será
-estructuralmente sesgada, por muy sofisticado que sea el análisis
+completa. Si la muestra <strong>no es representativa</strong>, cualquier conclusión
+será estructuralmente sesgada, por muy sofisticado que sea el análisis
 posterior.</p>
 <p>Un ejemplo clásico ilustra el punto. En la campaña presidencial
 norteamericana de 1936, la revista <em>Literary Digest</em> envió más de <strong>diez
@@ -736,16 +743,16 @@ millones</strong> de encuestas a suscriptores, propietarios de teléfono y
 matriculados en asociaciones de automovilistas. Con 2,4 millones de
 respuestas pronosticó una victoria arrolladora del candidato republicano
 Landon frente a Roosevelt. En paralelo, un joven estadístico llamado
-George Gallup entrevistó a <strong>50 000</strong> personas seleccionadas cuidadosamente
-para reproducir la estructura de la población y pronosticó la victoria de
-Roosevelt. Ganó Roosevelt. La muestra del <em>Literary Digest</em>, pese a ser 48
-veces más grande, estaba sesgada hacia clases altas —los únicos que en
-plena Depresión tenían teléfono y coche—, y <strong>el tamaño no compensó el
-sesgo</strong>.</p>
+George Gallup entrevistó a <strong>50 000</strong> personas seleccionadas
+cuidadosamente para reproducir la estructura de la población y
+pronosticó la victoria de Roosevelt. Ganó Roosevelt. La muestra del
+<em>Literary Digest</em>, pese a ser 48 veces más grande, estaba sesgada hacia
+clases altas —los únicos que en plena Depresión tenían teléfono y
+coche—, y <strong>el tamaño no compensó el sesgo</strong>.</p>
 <p>La moraleja tiene más de noventa años y sigue vigente:</p>
 <blockquote>
-<p><strong>Una muestra pequeña bien diseñada vale más que una muestra enorme mal
-diseñada.</strong></p>
+<p><strong>Una muestra pequeña bien diseñada vale más que una muestra enorme
+mal diseñada.</strong></p>
 </blockquote>
 </div>
 <div id="tipos-de-muestreo." class="section level3" number="2.4.2">
@@ -758,55 +765,60 @@ familias.</p>
 <h4>
 <span class="header-section-number">2.4.2.1</span> Muestreos probabilísticos.<a class="anchor" aria-label="anchor" href="#muestreos-probabil%C3%ADsticos."><i class="fas fa-link"></i></a>
 </h4>
-<p>Todos los individuos de la población tienen una probabilidad <strong>conocida y
-positiva</strong> de ser seleccionados. Solo estos permiten aplicar rigurosamente
-las herramientas de inferencia estadística que veremos en el Bloque III.</p>
+<p>Todos los individuos de la población tienen una probabilidad <strong>conocida
+y positiva</strong> de ser seleccionados. Solo estos permiten aplicar
+rigurosamente las herramientas de inferencia estadística que veremos en
+el Bloque III.</p>
 <ul>
 <li><p><strong>Aleatorio simple.</strong> Cada individuo tiene la misma probabilidad de
-entrar en la muestra. Es el método más sencillo y sirve como referencia
-teórica, pero en la práctica requiere disponer de un <strong>marco muestral</strong>
-—una lista completa y actualizada de todos los individuos—, cosa que
-rara vez existe fuera del laboratorio.</p></li>
+entrar en la muestra. Es el método más sencillo y sirve como
+referencia teórica, pero en la práctica requiere disponer de un
+<strong>marco muestral</strong> —una lista completa y actualizada de todos los
+individuos—, cosa que rara vez existe fuera del laboratorio.</p></li>
 <li><p><strong>Sistemático.</strong> Se ordena la población y se selecciona un individuo
-cada <span class="math inline">\(k\)</span> posiciones, tras elegir aleatoriamente el arranque. Equivale a
-un aleatorio simple si la ordenación no está correlacionada con la
-variable de interés, y es más cómodo de aplicar.</p></li>
+cada <span class="math inline">\(k\)</span> posiciones, tras elegir aleatoriamente el arranque.
+Equivale a un aleatorio simple si la ordenación no está
+correlacionada con la variable de interés, y es más cómodo de
+aplicar.</p></li>
 <li><p><strong>Estratificado.</strong> La población se divide en <strong>estratos</strong> homogéneos
-(por edad, sector, tamaño de empresa, galaxia de origen…) y dentro de
-cada estrato se hace un muestreo aleatorio. Garantiza que la estructura
-de la muestra reproduce la de la población respecto a las variables
-usadas para estratificar. Es el método más habitual en encuestas
-oficiales.</p></li>
+(por edad, sector, tamaño de empresa, galaxia de origen…) y dentro
+de cada estrato se hace un muestreo aleatorio. Garantiza que la
+estructura de la muestra reproduce la de la población respecto a las
+variables usadas para estratificar. Es el método más habitual en
+encuestas oficiales.</p></li>
 <li><p><strong>Por conglomerados.</strong> Se seleccionan grupos completos (barrios,
 empresas, colegios) y se entrevista a todos sus miembros. Se emplea
 cuando el marco muestral individual no existe pero sí el de
-conglomerados. Es más barato de aplicar sobre el terreno, aunque suele
-exigir muestras algo mayores.</p></li>
+conglomerados. Es más barato de aplicar sobre el terreno, aunque
+suele exigir muestras algo mayores.</p></li>
 <li><p><strong>Polietápico.</strong> Combinación de los anteriores. La <em>Encuesta de
-Población Activa</em> del INE, por ejemplo, es un muestreo estratificado por
-comunidades autónomas y, dentro de cada una, por conglomerados de
-secciones censales.</p></li>
+Población Activa</em> del INE, por ejemplo, es un muestreo estratificado
+por comunidades autónomas y, dentro de cada una, por conglomerados
+de secciones censales.</p></li>
 </ul>
 </div>
 <div id="muestreos-no-probabilísticos." class="section level4" number="2.4.2.2">
 <h4>
 <span class="header-section-number">2.4.2.2</span> Muestreos no probabilísticos.<a class="anchor" aria-label="anchor" href="#muestreos-no-probabil%C3%ADsticos."><i class="fas fa-link"></i></a>
 </h4>
-<p>La selección no se basa en un mecanismo aleatorio y las probabilidades de
-inclusión son desconocidas. No permiten inferencia rigurosa, pero se usan
-mucho en la práctica por su bajo coste.</p>
+<p>La selección no se basa en un mecanismo aleatorio y las probabilidades
+de inclusión son desconocidas. No permiten inferencia rigurosa, pero se
+usan mucho en la práctica por su bajo coste.</p>
 <ul>
 <li><p><strong>Por cuotas.</strong> El entrevistador elige a los individuos que va
-encontrando hasta completar unas cuotas predeterminadas (por ejemplo,
-“20 mujeres jóvenes universitarias”). Frecuente en estudios de mercado.</p></li>
-<li><p><strong>De conveniencia.</strong> Se entrevista a quien está a mano. Barato, rápido y
-<strong>muy sesgado</strong>. Sirve para pruebas piloto, no para publicar cifras.</p></li>
+encontrando hasta completar unas cuotas predeterminadas (por
+ejemplo, “20 mujeres jóvenes universitarias”). Frecuente en estudios
+de mercado.</p></li>
+<li><p><strong>De conveniencia.</strong> Se entrevista a quien está a mano. Barato,
+rápido y <strong>muy sesgado</strong>. Sirve para pruebas piloto, no para
+publicar cifras.</p></li>
 <li><p><strong>Bola de nieve.</strong> Cada entrevistado sugiere al siguiente. Útil para
-poblaciones difíciles de localizar (colectivos minoritarios, expertos en
-un tema), inservible como muestra representativa.</p></li>
-<li><p><strong>Autoselección.</strong> Cualquier encuesta abierta en la que responde quien
-quiere: encuestas de portada en periódicos digitales, sondeos en redes
-sociales. El grupo <em>Literary Digest</em> fue una forma sofisticada de esto.</p></li>
+poblaciones difíciles de localizar (colectivos minoritarios,
+expertos en un tema), inservible como muestra representativa.</p></li>
+<li><p><strong>Autoselección.</strong> Cualquier encuesta abierta en la que responde
+quien quiere: encuestas de portada en periódicos digitales, sondeos
+en redes sociales. El grupo <em>Literary Digest</em> fue una forma
+sofisticada de esto.</p></li>
 </ul>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
@@ -961,11 +973,11 @@ Sesgo de motivación del respondiente
 <h3>
 <span class="header-section-number">2.4.3</span> Tamaño muestral.<a class="anchor" aria-label="anchor" href="#tama%C3%B1o-muestral."><i class="fas fa-link"></i></a>
 </h3>
-<p>La segunda gran pregunta es <strong>cuántos individuos hay que entrevistar</strong>. La
-respuesta, formalizada, requiere las herramientas de inferencia que aún no
-hemos visto (nivel de confianza, error admisible, dispersión de la
-variable), y la retomaremos en el Bloque III. Por ahora basta con dejar
-dos ideas intuitivas:</p>
+<p>La segunda gran pregunta es <strong>cuántos individuos hay que entrevistar</strong>.
+La respuesta, formalizada, requiere las herramientas de inferencia que
+aún no hemos visto (nivel de confianza, error admisible, dispersión de
+la variable), y la retomaremos en el Bloque III. Por ahora basta con
+dejar dos ideas intuitivas:</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong>Cuanta más precisión se quiera, mayor debe ser la muestra.</strong> Para
@@ -974,9 +986,9 @@ multiplicar el tamaño de la muestra aproximadamente por nueve. La
 precisión se paga muy cara.</li>
 <li>
 <strong>A partir de cierto punto, ampliar la muestra deja de compensar.</strong>
-Duplicar una muestra de 1 000 individuos no divide el error entre dos,
-sino entre <span class="math inline">\(\sqrt{2}\)</span>. Y ampliar una muestra sesgada no arregla el
-sesgo: lo hace más preciso.</li>
+Duplicar una muestra de 1 000 individuos no divide el error entre
+dos, sino entre <span class="math inline">\(\sqrt{2}\)</span>. Y ampliar una muestra sesgada no arregla
+el sesgo: lo hace más preciso.</li>
 </ol>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/tamano-muestra-fig-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
@@ -988,61 +1000,62 @@ sesgo: lo hace más preciso.</li>
 <span class="header-section-number">2.4.4</span> El diseño del cuestionario.<a class="anchor" aria-label="anchor" href="#el-dise%C3%B1o-del-cuestionario."><i class="fas fa-link"></i></a>
 </h3>
 <p>Aunque el muestreo esté impecable, un mal cuestionario arruina la
-encuesta. La pregunta, aparentemente inocente, es el instrumento de medida,
-y como todo instrumento admite errores sistemáticos si no se calibra bien.</p>
+encuesta. La pregunta, aparentemente inocente, es el instrumento de
+medida, y como todo instrumento admite errores sistemáticos si no se
+calibra bien.</p>
 <p>Un buen cuestionario cumple una lista corta de principios:</p>
 <ul>
 <li>
 <strong>Claridad y univocidad.</strong> Cada pregunta debe entenderse de una sola
 forma y con vocabulario accesible para el respondiente. La pregunta
-<em>“¿está usted a favor de la desregulación asimétrica del hipercomercio
-interplanetario?”</em> solo mide una cosa con seguridad: cuántas personas
-creen entender esa frase.</li>
+<em>“¿está usted a favor de la desregulación asimétrica del
+hipercomercio interplanetario?”</em> solo mide una cosa con seguridad:
+cuántas personas creen entender esa frase.</li>
 <li>
 <strong>Neutralidad.</strong> Evitar preguntas con carga emocional, con doble
-negación o con la respuesta implícita en el enunciado (<em>“¿está usted de
-acuerdo con la excelente gestión del Consejo Galáctico?”</em>).</li>
+negación o con la respuesta implícita en el enunciado (<em>“¿está usted
+de acuerdo con la excelente gestión del Consejo Galáctico?”</em>).</li>
 <li>
 <strong>Un asunto por pregunta.</strong> <em>“¿Le gustó el trato del capitán y la
 puntualidad de la nave?”</em> mezcla dos evaluaciones que pueden ir en
 sentidos opuestos.</li>
 <li>
-<strong>Escalas coherentes.</strong> Cuando se pide una valoración numérica, mantener
-la misma escala (por ejemplo, 1–5 o 0–10) a lo largo de todo el
-cuestionario. Cambiar de escala en mitad del formulario multiplica los
-errores.</li>
+<strong>Escalas coherentes.</strong> Cuando se pide una valoración numérica,
+mantener la misma escala (por ejemplo, 1–5 o 0–10) a lo largo de
+todo el cuestionario. Cambiar de escala en mitad del formulario
+multiplica los errores.</li>
 <li>
-<strong>Orden razonable.</strong> De lo general a lo específico, de lo neutro a lo
-sensible. Las variables sociodemográficas se preguntan al final: son
-útiles para la ponderación pero cansan al respondiente si aparecen al
-principio.</li>
+<strong>Orden razonable.</strong> De lo general a lo específico, de lo neutro a
+lo sensible. Las variables sociodemográficas se preguntan al final:
+son útiles para la ponderación pero cansan al respondiente si
+aparecen al principio.</li>
 <li>
 <strong>Extensión moderada.</strong> A partir de cierto momento el respondiente
-responde por cumplir, no por reflexionar. En encuestas <em>online</em>, más de
-10 minutos ya es problemático.</li>
+responde por cumplir, no por reflexionar. En encuestas <em>online</em>, más
+de 10 minutos ya es problemático.</li>
 </ul>
 </div>
 <div id="métodos-de-encuestación." class="section level3" number="2.4.5">
 <h3>
 <span class="header-section-number">2.4.5</span> Métodos de encuestación.<a class="anchor" aria-label="anchor" href="#m%C3%A9todos-de-encuestaci%C3%B3n."><i class="fas fa-link"></i></a>
 </h3>
-<p>Con el mismo cuestionario y el mismo muestreo, la forma de administrar la
-encuesta condiciona la calidad y el coste del trabajo. Los métodos
+<p>Con el mismo cuestionario y el mismo muestreo, la forma de administrar
+la encuesta condiciona la calidad y el coste del trabajo. Los métodos
 clásicos son cinco:</p>
 <ul>
 <li>
-<strong>PAPI</strong> (<em>Paper And Pencil Interview</em>). La entrevista tradicional cara
-a cara, con cuestionario en papel. Costosa pero muy fiable en
+<strong>PAPI</strong> (<em>Paper And Pencil Interview</em>). La entrevista tradicional
+cara a cara, con cuestionario en papel. Costosa pero muy fiable en
 poblaciones vulnerables o con baja alfabetización digital.</li>
 <li>
 <strong>CATI</strong> (<em>Computer-Assisted Telephone Interview</em>). Entrevista
 telefónica asistida por ordenador. Rápida y económica; su gran
-inconveniente hoy es la creciente reticencia de la ciudadanía a atender
-llamadas de números desconocidos.</li>
+inconveniente hoy es la creciente reticencia de la ciudadanía a
+atender llamadas de números desconocidos.</li>
 <li>
 <strong>CAPI</strong> (<em>Computer-Assisted Personal Interview</em>). Cara a cara, pero
-con tableta o portátil. Combina la calidad del PAPI con la agilidad del
-registro digital y una detección temprana de errores.</li>
+con tableta o portátil. Combina la calidad del PAPI con la agilidad
+del registro digital y una detección temprana de errores.</li>
 <li>
 <strong>CAWI</strong> (<em>Computer-Assisted Web Interview</em>). La encuesta <em>online</em>.
 Coste mínimo, rapidez altísima, alcance internacional y <strong>peligros
@@ -1057,31 +1070,32 @@ comportamiento deja de ser el de un ciudadano medio.</li>
 </ul>
 <p>La tendencia dominante desde 2020 aproximadamente es la <strong>encuestación
 mixta</strong>: combinar CAWI para el grueso del trabajo y completar con CATI o
-CAPI las subpoblaciones que no responden por internet. Es la única manera
-de conservar precios razonables sin perder representatividad.</p>
+CAPI las subpoblaciones que no responden por internet. Es la única
+manera de conservar precios razonables sin perder representatividad.</p>
 </div>
 </div>
 <div id="bases-de-datos" class="section level2" number="2.5">
 <h2>
 <span class="header-section-number">2.5</span> Bases de datos.<a class="anchor" aria-label="anchor" href="#bases-de-datos"><i class="fas fa-link"></i></a>
 </h2>
-<p>Una vez recogidos los datos —por la vía que sea—, necesitan un lugar donde
-vivir de forma organizada. Una hoja de cálculo puede bastar para veinte
-filas y tres columnas; en cuanto el volumen crece o varias personas
-necesitan trabajar simultáneamente sobre la información, el instrumento
-adecuado es una <strong>base de datos</strong>.</p>
+<p>Una vez recogidos los datos —por la vía que sea—, necesitan un lugar
+donde vivir de forma organizada. Una hoja de cálculo puede bastar para
+veinte filas y tres columnas; en cuanto el volumen crece o varias
+personas necesitan trabajar simultáneamente sobre la información, el
+instrumento adecuado es una <strong>base de datos</strong>.</p>
 <blockquote>
 <p>Una <strong>base de datos</strong> es un conjunto <strong>estructurado</strong> de datos,
 almacenado sistemáticamente para permitir su recuperación, consulta y
 actualización de forma eficiente y consistente por parte de múltiples
 usuarios o aplicaciones.</p>
 </blockquote>
-<p>La definición contiene tres palabras clave: <strong>estructurado</strong>, <strong>eficiente</strong>
-y <strong>consistente</strong>. Estructurado significa que los datos siguen un esquema
-conocido, no un cajón desastre. Eficiente, que las consultas devuelven
-resultados en tiempos razonables incluso con millones de filas.
-Consistente, que dos consultas idénticas realizadas por dos usuarios
-distintos devuelven, salvo actualizaciones legítimas, el mismo resultado.</p>
+<p>La definición contiene tres palabras clave: <strong>estructurado</strong>,
+<strong>eficiente</strong> y <strong>consistente</strong>. Estructurado significa que los datos
+siguen un esquema conocido, no un cajón desastre. Eficiente, que las
+consultas devuelven resultados en tiempos razonables incluso con
+millones de filas. Consistente, que dos consultas idénticas realizadas
+por dos usuarios distintos devuelven, salvo actualizaciones legítimas,
+el mismo resultado.</p>
 <div id="características-de-una-buena-base-de-datos." class="section level3" number="2.5.1">
 <h3>
 <span class="header-section-number">2.5.1</span> Características de una buena base de datos.<a class="anchor" aria-label="anchor" href="#caracter%C3%ADsticas-de-una-buena-base-de-datos."><i class="fas fa-link"></i></a>
@@ -1091,24 +1105,25 @@ propiedades, conocidas por su acrónimo <strong>ACID</strong> (para las de tipo
 transaccional):</p>
 <ul>
 <li>
-<strong>A</strong>tomicidad: cada operación se ejecuta por completo o no se ejecuta
-en absoluto. No hay estados intermedios visibles.</li>
+<strong>A</strong>tomicidad: cada operación se ejecuta por completo o no se
+ejecuta en absoluto. No hay estados intermedios visibles.</li>
 <li>
-<strong>C</strong>onsistencia: la base pasa de un estado válido a otro estado válido.
-Las reglas de integridad (claves, restricciones de dominio) se respetan
-siempre.</li>
+<strong>C</strong>onsistencia: la base pasa de un estado válido a otro estado
+válido. Las reglas de integridad (claves, restricciones de dominio)
+se respetan siempre.</li>
 <li>
-<strong>I</strong>solamiento: dos operaciones simultáneas no interfieren entre sí.
-Cada una ve la base como si estuviera sola.</li>
+<strong>I</strong>solamiento: dos operaciones simultáneas no interfieren entre
+sí. Cada una ve la base como si estuviera sola.</li>
 <li>
-<strong>D</strong>urabilidad: una vez confirmada una operación, sus efectos persisten
-aunque haya un fallo del sistema.</li>
+<strong>D</strong>urabilidad: una vez confirmada una operación, sus efectos
+persisten aunque haya un fallo del sistema.</li>
 </ul>
-<p>Por encima de ACID, un buen diseño busca <strong>no duplicar información</strong> (una
-modificación en un dato repetido en diez sitios se olvida en nueve),
-<strong>preservar la integridad referencial</strong> (si el empleado E027 aparece en la
-tabla de nóminas, tiene que existir en la tabla maestra de empleados) y
-<strong>documentar</strong> cada tabla y cada campo (esto lo abordamos enseguida).</p>
+<p>Por encima de ACID, un buen diseño busca <strong>no duplicar información</strong>
+(una modificación en un dato repetido en diez sitios se olvida en
+nueve), <strong>preservar la integridad referencial</strong> (si el empleado E027
+aparece en la tabla de nóminas, tiene que existir en la tabla maestra de
+empleados) y <strong>documentar</strong> cada tabla y cada campo (esto lo abordamos
+enseguida).</p>
 </div>
 <div id="riesgos-del-mal-diseño." class="section level3" number="2.5.2">
 <h3>
@@ -1122,22 +1137,22 @@ predecibles:</p>
 <em>“Hyperdrive Express”</em> y <em>“HYPERDRIVE EXPRESS SA”</em>, y se cuenta dos
 veces.</li>
 <li>
-<strong>Codificaciones incompatibles</strong> en campos que deberían coincidir: la
-variable <em>galaxia</em> usa <em>“VÍA LÁCTEA”</em> en una tabla y <em>“Via Lactea”</em> en
-otra. Los cruces fallan silenciosamente.</li>
+<strong>Codificaciones incompatibles</strong> en campos que deberían coincidir:
+la variable <em>galaxia</em> usa <em>“VÍA LÁCTEA”</em> en una tabla y <em>“Via
+Lactea”</em> en otra. Los cruces fallan silenciosamente.</li>
 <li>
 <strong>Ausencia de restricciones</strong>: nada impide introducir un salario
 negativo, una fecha imposible o una edad de 300 años.</li>
 <li>
-<strong>Falta de trazabilidad</strong>: no se sabe quién modificó qué, ni cuándo. La
-auditoría es un ejercicio de arqueología.</li>
+<strong>Falta de trazabilidad</strong>: no se sabe quién modificó qué, ni cuándo.
+La auditoría es un ejercicio de arqueología.</li>
 <li>
-<strong>Rendimiento inaceptable</strong>: consultas que en un diseño correcto tardan
-segundos, en uno defectuoso tardan horas.</li>
+<strong>Rendimiento inaceptable</strong>: consultas que en un diseño correcto
+tardan segundos, en uno defectuoso tardan horas.</li>
 </ul>
 <p>En el ámbito empresarial estos problemas se traducen directamente en
-<strong>decisiones erradas</strong> y en <strong>incumplimientos normativos</strong>. La calidad del
-dato es un activo estratégico.</p>
+<strong>decisiones erradas</strong> y en <strong>incumplimientos normativos</strong>. La calidad
+del dato es un activo estratégico.</p>
 </div>
 <div id="tipos-de-bases-de-datos." class="section level3" number="2.5.3">
 <h3>
@@ -1177,17 +1192,17 @@ agrupan en cuatro subfamilias:</p>
 <strong>Documentales</strong> (<em>MongoDB</em>, <em>CouchDB</em>): guardan documentos JSON
 individuales.</li>
 <li>
-<strong>Clave-valor</strong> (<em>Redis</em>, <em>DynamoDB</em>): tabla hash gigante, muy rápida
-para lecturas y escrituras simples.</li>
+<strong>Clave-valor</strong> (<em>Redis</em>, <em>DynamoDB</em>): tabla hash gigante, muy
+rápida para lecturas y escrituras simples.</li>
 <li>
 <strong>Columnares</strong> (<em>Cassandra</em>, <em>HBase</em>): optimizadas para agregaciones
 sobre volúmenes enormes.</li>
 <li>
-<strong>De grafos</strong> (<em>Neo4j</em>): modelan relaciones complejas entre entidades
-(redes sociales, fraude, rutas logísticas).</li>
+<strong>De grafos</strong> (<em>Neo4j</em>): modelan relaciones complejas entre
+entidades (redes sociales, fraude, rutas logísticas).</li>
 </ul>
-<p>Su nicho natural son los sistemas de <strong>Big Data</strong>, las plataformas web con
-millones de usuarios y las aplicaciones analíticas que no requieren
+<p>Su nicho natural son los sistemas de <strong>Big Data</strong>, las plataformas web
+con millones de usuarios y las aplicaciones analíticas que no requieren
 garantías transaccionales estrictas.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
@@ -1281,13 +1296,14 @@ MongoDB, Redis, Cassandra, Neo4j
 </h3>
 <p>Un fichero de datos sin documentación es un misterio arqueológico. La
 variable <code>IIG</code> del fichero de astilleros, por ejemplo, no significa nada
-por sí sola: podría ser un identificador, un índice, una frecuencia o una
-temperatura. Solo la <strong>hoja de descripción de variables</strong> que acompaña al
-fichero nos aclara que se trata del <em>Índice de Incidencias Graves</em>, medido
-en número de averías mayores acumuladas en la vida operativa de la nave.</p>
-<p>Ese conjunto de información sobre los datos —el <strong>diccionario de datos</strong>—
-es lo que llamamos <strong>metadatos</strong> (“datos sobre los datos”). Un buen
-diccionario incluye, para cada variable:</p>
+por sí sola: podría ser un identificador, un índice, una frecuencia o
+una temperatura. Solo la <strong>hoja de descripción de variables</strong> que
+acompaña al fichero nos aclara que se trata del <em>Índice de Incidencias
+Graves</em>, medido en número de averías mayores acumuladas en la vida
+operativa de la nave.</p>
+<p>Ese conjunto de información sobre los datos —el <strong>diccionario de
+datos</strong>— es lo que llamamos <strong>metadatos</strong> (“datos sobre los datos”). Un
+buen diccionario incluye, para cada variable:</p>
 <ul>
 <li>
 <strong>Nombre</strong> técnico (el que aparece como cabecera de columna).</li>
@@ -1305,8 +1321,9 @@ perdidos.</li>
 <li>
 <strong>Fecha</strong> de última actualización.</li>
 </ul>
-<p>Los ficheros de este libro siguen esta convención. La hoja <em>Variables</em> de
-<code>astilleros_48.xlsx</code>, por ejemplo, funciona como diccionario del fichero:</p>
+<p>Los ficheros de este libro siguen esta convención. La hoja <em>Variables</em>
+de <code>astilleros_48.xlsx</code>, por ejemplo, funciona como diccionario del
+fichero:</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -1414,12 +1431,12 @@ no existe.</strong></p>
 </h2>
 <p>Una vez obtenidos y almacenados los datos, aún queda un paso ineludible
 antes de calcular la primera media: <strong>prepararlos</strong>. Los datos brutos
-—vengan de una encuesta, de un sensor o de una base corporativa— raramente
-están en condiciones de ser analizados sin más. Los problemas recurrentes
-son tres: <strong>valores perdidos</strong>, <strong>casos atípicos</strong> e <strong>inconsistencias</strong>.
-Los dos primeros se tratan aquí en detalle; el tercero es más un asunto de
-sentido común informático (validar dominios, cruzar tablas, comprobar
-consistencia interna) y lo damos por asumido.</p>
+—vengan de una encuesta, de un sensor o de una base corporativa—
+raramente están en condiciones de ser analizados sin más. Los problemas
+recurrentes son tres: <strong>valores perdidos</strong>, <strong>casos atípicos</strong> e
+<strong>inconsistencias</strong>. Los dos primeros se tratan aquí en detalle; el
+tercero es más un asunto de sentido común informático (validar dominios,
+cruzar tablas, comprobar consistencia interna) y lo damos por asumido.</p>
 <div id="missing-values" class="section level3" number="2.6.1">
 <h3>
 <span class="header-section-number">2.6.1</span> Valores perdidos (missing values).<a class="anchor" aria-label="anchor" href="#missing-values"><i class="fas fa-link"></i></a>
@@ -1432,13 +1449,13 @@ galáctica.</p>
 <h4>
 <span class="header-section-number">2.6.1.1</span> Cómo se materializa un valor perdido.<a class="anchor" aria-label="anchor" href="#c%C3%B3mo-se-materializa-un-valor-perdido."><i class="fas fa-link"></i></a>
 </h4>
-<p>Un mismo valor perdido puede materializarse de varias formas incompatibles
-entre sí: celda vacía, guion, <code>NA</code>, <code>n.d.</code>, <code>999</code>, <code>9999999999</code>, un
-cero… Confundirlos con datos válidos es una de las formas más discretas
-—y más habituales— de contaminar un análisis: un <code>999</code> interpretado como
-valor válido convierte a un trabajador en el mejor pagado de la galaxia.
-Lo primero, siempre, es <strong>identificar cómo se codifican los huecos</strong> en el
-fichero de partida.</p>
+<p>Un mismo valor perdido puede materializarse de varias formas
+incompatibles entre sí: celda vacía, guion, <code>NA</code>, <code>n.d.</code>, <code>999</code>,
+<code>9999999999</code>, un cero… Confundirlos con datos válidos es una de las
+formas más discretas —y más habituales— de contaminar un análisis: un
+<code>999</code> interpretado como valor válido convierte a un trabajador en el
+mejor pagado de la galaxia. Lo primero, siempre, es <strong>identificar cómo
+se codifican los huecos</strong> en el fichero de partida.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:center;">
@@ -1609,24 +1626,24 @@ distingue tres regímenes, con implicaciones muy distintas para el
 análisis:</p>
 <ul>
 <li>
-<strong>MCAR</strong> (<em>Missing Completely At Random</em>): el dato falta por puro azar,
-sin relación con nada. Un trabajador cualquiera no aparece porque su
-ficha se traspapeló. Es el caso más benigno: cualquier técnica razonable
-da resultados válidos.</li>
+<strong>MCAR</strong> (<em>Missing Completely At Random</em>): el dato falta por puro
+azar, sin relación con nada. Un trabajador cualquiera no aparece
+porque su ficha se traspapeló. Es el caso más benigno: cualquier
+técnica razonable da resultados válidos.</li>
 <li>
 <strong>MAR</strong> (<em>Missing At Random</em>): la probabilidad de que falte el dato
-depende de <strong>otras variables observadas</strong>, pero no del valor faltante
-en sí. Por ejemplo, los empleados del departamento de Almacén responden
-menos veces a la pregunta sobre su nivel de estudios que los del
-departamento de Dirección. Si conocemos el departamento, podemos
-corregir el sesgo.</li>
+depende de <strong>otras variables observadas</strong>, pero no del valor
+faltante en sí. Por ejemplo, los empleados del departamento de
+Almacén responden menos veces a la pregunta sobre su nivel de
+estudios que los del departamento de Dirección. Si conocemos el
+departamento, podemos corregir el sesgo.</li>
 <li>
 <strong>MNAR</strong> (<em>Missing Not At Random</em>): la probabilidad de que falte el
 dato depende <strong>del propio valor faltante</strong>. El caso clásico: en una
-encuesta sobre salarios, quienes más ganan son también quienes con más
-frecuencia dejan la pregunta en blanco. Es el caso más difícil: no hay
-corrección estadística que resuelva el problema sin información
-adicional.</li>
+encuesta sobre salarios, quienes más ganan son también quienes con
+más frecuencia dejan la pregunta en blanco. Es el caso más difícil:
+no hay corrección estadística que resuelva el problema sin
+información adicional.</li>
 </ul>
 <p>La distinción importa porque el remedio depende del diagnóstico. Y el
 diagnóstico requiere <strong>pensar por qué falta el dato</strong>, no solo constatar
@@ -1636,14 +1653,14 @@ que falta.</p>
 <h4>
 <span class="header-section-number">2.6.1.3</span> Estrategias de tratamiento.<a class="anchor" aria-label="anchor" href="#estrategias-de-tratamiento."><i class="fas fa-link"></i></a>
 </h4>
-<p>Localizados los valores perdidos, hay que decidir qué hacer con ellos. Las
-estrategias principales son cinco:</p>
+<p>Localizados los valores perdidos, hay que decidir qué hacer con ellos.
+Las estrategias principales son cinco:</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong>Recuperar el dato en la fuente.</strong> Cuando es factible, la mejor
-opción. Si un empleado no tiene registrado el salario porque su alta se
-cursó tarde, quizá el sistema de nóminas del mes siguiente lo tenga.
-Es lento pero no introduce sesgo alguno.</li>
+opción. Si un empleado no tiene registrado el salario porque su alta
+se cursó tarde, quizá el sistema de nóminas del mes siguiente lo
+tenga. Es lento pero no introduce sesgo alguno.</li>
 <li>
 <strong>Eliminar el caso</strong> (<em>listwise deletion</em>). Se prescinde de los
 individuos con al menos un valor perdido. Sencillo, pero pierde
@@ -1655,10 +1672,10 @@ perdidos, quizá no aporte nada al análisis y sea mejor prescindir de
 ella.</li>
 <li>
 <strong>Imputación simple</strong> por una estimación puntual: la <strong>media</strong>, la
-<strong>mediana</strong> (más robusta ante outliers), la <strong>moda</strong> (en atributos) o
-el valor <strong>más frecuente en el subgrupo homogéneo</strong> (imputación por
-grupos). Sencilla y rápida, pero infravalora la variabilidad de la
-variable imputada.</li>
+<strong>mediana</strong> (más robusta ante outliers), la <strong>moda</strong> (en atributos)
+o el valor <strong>más frecuente en el subgrupo homogéneo</strong> (imputación
+por grupos). Sencilla y rápida, pero infravalora la variabilidad de
+la variable imputada.</li>
 <li>
 <strong>Imputación avanzada.</strong> Basada en un modelo: regresión, vecinos más
 cercanos (<em>k-NN</em>), imputación múltiple. Preserva mejor la estructura
@@ -1803,8 +1820,8 @@ debería imputarse: delimita, sencillamente, otra población. Un <em>missing</em
 que aparece porque el encuestado <strong>no quiso</strong> contestar no es aleatorio:
 quienes callan a la pregunta <em>“¿cuánto ganó el año pasado?”</em> no son un
 grupo cualquiera. La decisión no es puramente técnica, y merece la pena
-<strong>documentarla</strong> junto con el análisis para que otro pueda reproducirlo y
-discutirlo.</p>
+<strong>documentarla</strong> junto con el análisis para que otro pueda reproducirlo
+y discutirlo.</p>
 </div>
 </div>
 <div id="outliers" class="section level3" number="2.6.2">
@@ -1819,27 +1836,28 @@ los demás</strong>.</p>
 <h4>
 <span class="header-section-number">2.6.2.1</span> Por qué aparecen.<a class="anchor" aria-label="anchor" href="#por-qu%C3%A9-aparecen."><i class="fas fa-link"></i></a>
 </h4>
-<p>Los outliers no son necesariamente errores. Al contrario, admiten al menos
-tres explicaciones muy distintas y con consecuencias opuestas:</p>
+<p>Los outliers no son necesariamente errores. Al contrario, admiten al
+menos tres explicaciones muy distintas y con consecuencias opuestas:</p>
 <ul>
 <li>
-<strong>Error de medida o de codificación.</strong> El operador tecleó <code>220</code> en lugar
-de <code>22</code>. El sensor falló. La entrevistadora anotó el dato en la celda
-equivocada. Este es el caso más habitual y el único en el que borrar el
-dato es realmente correcto.</li>
+<strong>Error de medida o de codificación.</strong> El operador tecleó <code>220</code> en
+lugar de <code>22</code>. El sensor falló. La entrevistadora anotó el dato en
+la celda equivocada. Este es el caso más habitual y el único en el
+que borrar el dato es realmente correcto.</li>
 <li>
 <strong>Caso legítimo pero excepcional.</strong> Existe, es correcto y aporta
-información valiosísima: una compañía con una rentabilidad muy superior
-a la del sector porque acaba de patentar un motor de curvatura
-eficiente; una nave que ha sufrido treinta y cinco averías porque
-arrastra un defecto de serie desde su primer año de vuelo. Borrar estos
-casos equivale a ocultar precisamente la parte más informativa de los
-datos.</li>
+información valiosísima: una compañía con una rentabilidad muy
+superior a la del sector porque acaba de patentar un motor de
+curvatura eficiente; una nave que ha sufrido treinta y cinco averías
+porque arrastra un defecto de serie desde su primer año de vuelo.
+Borrar estos casos equivale a ocultar precisamente la parte más
+informativa de los datos.</li>
 <li>
-<strong>Caso perteneciente a otra población.</strong> El individuo, aunque figure en
-el fichero, no comparte la característica que define la población de
-interés. El salario del CEO no es comparable con el del resto de la
-plantilla porque, de facto, pertenece a otra categoría profesional.</li>
+<strong>Caso perteneciente a otra población.</strong> El individuo, aunque figure
+en el fichero, no comparte la característica que define la población
+de interés. El salario del CEO no es comparable con el del resto de
+la plantilla porque, de facto, pertenece a otra categoría
+profesional.</li>
 </ul>
 <p>La decisión sobre qué hacer con un outlier <strong>no puede tomarse mirando
 solo el número</strong>. Requiere entender por qué es atípico.</p>
@@ -1849,26 +1867,28 @@ solo el número</strong>. Requiere entender por qué es atípico.</p>
 <span class="header-section-number">2.6.2.2</span> Detección: mirar los datos y aplicar reglas.<a class="anchor" aria-label="anchor" href="#detecci%C3%B3n-mirar-los-datos-y-aplicar-reglas."><i class="fas fa-link"></i></a>
 </h4>
 <p>La primera detección de outliers siempre es <strong>visual</strong>. Un diagrama de
-caja (<em>box-plot</em>) o un simple histograma revelan de un vistazo los valores
-que se separan del grueso de la distribución. Veámoslo con la variable
-<em>Índice de Incidencias Graves</em> (<code>IIG</code>) del fichero de astilleros:</p>
+caja (<em>box-plot</em>) o un simple histograma revelan de un vistazo los
+valores que se separan del grueso de la distribución. Veámoslo con la
+variable <em>Índice de Incidencias Graves</em> (<code>IIG</code>) del fichero de
+astilleros:</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/outliers-astilleros-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
 <p><strong>Figura 2.3</strong></p>
 </div>
-<p>El gráfico revela una nave con 35 incidencias graves, muy lejos del resto
-de la flota. Ese punto obliga a hacer preguntas antes de tocar nada.</p>
+<p>El gráfico revela una nave con 35 incidencias graves, muy lejos del
+resto de la flota. Ese punto obliga a hacer preguntas antes de tocar
+nada.</p>
 <p>Formalmente, las dos <strong>reglas</strong> más habituales para detectar outliers
-univariantes se basan en medidas de dispersión que veremos en el capítulo
-siguiente, pero conviene adelantarlas:</p>
+univariantes se basan en medidas de dispersión que veremos en el
+capítulo siguiente, pero conviene adelantarlas:</p>
 <ul>
 <li>
-<strong>Regla del recorrido intercuartílico (IQR).</strong> Un valor es atípico si
-queda por debajo de <span class="math inline">\(Q_1 - 1{,}5 \cdot \text{IQR}\)</span> o por encima de
-<span class="math inline">\(Q_3 + 1{,}5 \cdot \text{IQR}\)</span>, donde <span class="math inline">\(Q_1\)</span> y <span class="math inline">\(Q_3\)</span> son el primer y
-tercer cuartil e <span class="math inline">\(\text{IQR} = Q_3 - Q_1\)</span>. Es la regla en la que se basa
-el <em>box-plot</em>. Es <strong>robusta</strong>: no se ve arrastrada por los propios
-valores extremos.</li>
+<strong>Regla del recorrido intercuartílico (IQR).</strong> Un valor es atípico
+si queda por debajo de <span class="math inline">\(Q_1 - 1{,}5 \cdot \text{IQR}\)</span> o por encima
+de <span class="math inline">\(Q_3 + 1{,}5 \cdot \text{IQR}\)</span>, donde <span class="math inline">\(Q_1\)</span> y <span class="math inline">\(Q_3\)</span> son el primer
+y tercer cuartil e <span class="math inline">\(\text{IQR} = Q_3 - Q_1\)</span>. Es la regla en la que
+se basa el <em>box-plot</em>. Es <strong>robusta</strong>: no se ve arrastrada por los
+propios valores extremos.</li>
 <li>
 <strong>Regla del z-score.</strong> Un valor <span class="math inline">\(x\)</span> es atípico si su distancia a la
 media, medida en desviaciones típicas, supera cierto umbral
@@ -1876,9 +1896,9 @@ media, medida en desviaciones típicas, supera cierto umbral
 <strong>poco robusta</strong>: los propios outliers inflan la desviación típica y
 disimulan su propio carácter atípico.</li>
 </ul>
-<p>En análisis multivariantes existen métodos más sofisticados (distancia de
-Mahalanobis, <em>Isolation Forest</em>, <em>Local Outlier Factor</em>), que exceden el
-nivel de este texto pero conviene saber que existen.</p>
+<p>En análisis multivariantes existen métodos más sofisticados (distancia
+de Mahalanobis, <em>Isolation Forest</em>, <em>Local Outlier Factor</em>), que exceden
+el nivel de este texto pero conviene saber que existen.</p>
 </div>
 <div id="estrategias-de-tratamiento.-1" class="section level4" number="2.6.2.3">
 <h4>
@@ -1890,37 +1910,38 @@ nivel de este texto pero conviene saber que existen.</p>
 <strong>Comprobar y corregir</strong>, si el outlier es un error identificable.
 Nadie discute borrar un 220 tecleado en lugar de 22.</li>
 <li>
-<strong>Excluir</strong> al individuo del análisis, si claramente pertenece a otra
-población y no aporta al problema estudiado.</li>
+<strong>Excluir</strong> al individuo del análisis, si claramente pertenece a
+otra población y no aporta al problema estudiado.</li>
 <li>
 <strong>Mantener</strong> el dato tal cual, si es un caso legítimo. En estudios
-sobre distribuciones asimétricas (renta, ingresos, tamaños de empresa,
-tráfico web), los outliers <strong>son la información</strong>.</li>
+sobre distribuciones asimétricas (renta, ingresos, tamaños de
+empresa, tráfico web), los outliers <strong>son la información</strong>.</li>
 <li>
-<strong>Winsorizar</strong>: sustituir los valores extremos por los percentiles 5 y
-95 (o 1 y 99). Se conserva el individuo, pero se limita su influencia.</li>
+<strong>Winsorizar</strong>: sustituir los valores extremos por los percentiles 5
+y 95 (o 1 y 99). Se conserva el individuo, pero se limita su
+influencia.</li>
 <li>
-<strong>Transformar la variable</strong> (por ejemplo, aplicar logaritmos): reduce
-el peso de las colas y hace la distribución más manejable. Habitual
-con ingresos y facturaciones.</li>
+<strong>Transformar la variable</strong> (por ejemplo, aplicar logaritmos):
+reduce el peso de las colas y hace la distribución más manejable.
+Habitual con ingresos y facturaciones.</li>
 <li>
-<strong>Análisis por separado</strong>: cuando los outliers configuran realmente un
-subgrupo con lógica propia, la mejor decisión suele ser analizarlos
-aparte y contar los dos resultados por separado.</li>
+<strong>Análisis por separado</strong>: cuando los outliers configuran realmente
+un subgrupo con lógica propia, la mejor decisión suele ser
+analizarlos aparte y contar los dos resultados por separado.</li>
 </ol>
 <blockquote>
 <p><strong>Ejemplo.</strong> La nave <em>Trade Wind</em> del astillero ARCTURUS tiene 35
 incidencias graves acumuladas frente a una media de flota de
 aproximadamente 3,4. Es un outlier claro. Antes de decidir nada
-convendría comprobar (a) que la nave existe y opera de verdad (¿no será
-una avería del sistema de contaje?); (b) qué ruta cubre (quizá una ruta
-hostil justifica esa cifra); y (c) si el desgaste corresponde a la
-antigüedad —en este caso solo lleva cuatro años en servicio, lo que
-agrava la sospecha— o a un defecto de serie del propio astillero. Solo
-con esa información se puede decidir si el dato debe excluirse,
-mantenerse, transformarse o justificar un análisis específico. Borrarlo
-sin más equivaldría a esconder debajo de la alfombra una señal
-potencialmente muy útil sobre el mantenimiento de la flota.</p>
+convendría comprobar (a) que la nave existe y opera de verdad (¿no
+será una avería del sistema de contaje?); (b) qué ruta cubre (quizá
+una ruta hostil justifica esa cifra); y (c) si el desgaste corresponde
+a la antigüedad —en este caso solo lleva cuatro años en servicio, lo
+que agrava la sospecha— o a un defecto de serie del propio astillero.
+Solo con esa información se puede decidir si el dato debe excluirse,
+mantenerse, transformarse o justificar un análisis específico.
+Borrarlo sin más equivaldría a esconder debajo de la alfombra una
+señal potencialmente muy útil sobre el mantenimiento de la flota.</p>
 </blockquote>
 </div>
 </div>
@@ -1929,19 +1950,20 @@ potencialmente muy útil sobre el mantenimiento de la flota.</p>
 <h2>
 <span class="header-section-number">2.7</span> Ética, privacidad y protección de datos.<a class="anchor" aria-label="anchor" href="#etica-datos"><i class="fas fa-link"></i></a>
 </h2>
-<p>Cerramos el capítulo con una sección breve pero imprescindible. Los datos
-que analizaremos a lo largo del libro no son abstracciones: son la huella
-cuantitativa de personas, empresas, hogares y organizaciones reales. Su
-tratamiento <strong>no es libre</strong>.</p>
+<p>Cerramos el capítulo con una sección breve pero imprescindible. Los
+datos que analizaremos a lo largo del libro no son abstracciones: son la
+huella cuantitativa de personas, empresas, hogares y organizaciones
+reales. Su tratamiento <strong>no es libre</strong>.</p>
 <p>En la Unión Europea, la piedra angular de esta regulación es el
 <strong>Reglamento General de Protección de Datos</strong> (RGPD), aplicable desde
 2018. Sus principios fundamentales son sencillos y su cumplimiento,
 imprescindible para cualquier analista:</p>
 <ul>
 <li>
-<strong>Licitud, lealtad y transparencia.</strong> Los datos se recogen con una base
-legal explícita (consentimiento, ejecución de contrato, obligación
-legal…) y el interesado sabe qué se va a hacer con ellos.</li>
+<strong>Licitud, lealtad y transparencia.</strong> Los datos se recogen con una
+base legal explícita (consentimiento, ejecución de contrato,
+obligación legal…) y el interesado sabe qué se va a hacer con
+ellos.</li>
 <li>
 <strong>Limitación de la finalidad.</strong> Los datos recogidos para un fin no
 pueden reutilizarse para otro incompatible.</li>
@@ -1951,11 +1973,11 @@ todos los datos posibles por si acaso.</li>
 <li>
 <strong>Exactitud.</strong> Los datos son correctos y están actualizados.</li>
 <li>
-<strong>Limitación del plazo de conservación.</strong> Los datos no se guardan más
-tiempo del necesario.</li>
+<strong>Limitación del plazo de conservación.</strong> Los datos no se guardan
+más tiempo del necesario.</li>
 <li>
-<strong>Integridad y confidencialidad.</strong> Los datos están protegidos frente a
-accesos no autorizados y frente a su pérdida.</li>
+<strong>Integridad y confidencialidad.</strong> Los datos están protegidos frente
+a accesos no autorizados y frente a su pérdida.</li>
 <li>
 <strong>Responsabilidad proactiva.</strong> El responsable del tratamiento debe
 <strong>poder demostrar</strong> que cumple los principios anteriores.</li>
@@ -1987,8 +2009,8 @@ que las organizaciones raramente se recuperan.</p>
 “no existen” hasta que están listos para ser analizados:</p>
 <ul>
 <li>Hemos definido el <strong>dato</strong> como el valor que toma una variable o
-atributo sobre un individuo, y el <strong>conjunto de datos</strong> como la tabla
-de individuos × características.</li>
+atributo sobre un individuo, y el <strong>conjunto de datos</strong> como la
+tabla de individuos × características.</li>
 <li>Hemos distinguido las <strong>fuentes primarias</strong> (recogidas por el propio
 analista) de las <strong>secundarias</strong> (publicadas por terceros), y hemos
 revisado sus ventajas e inconvenientes.</li>
@@ -1999,13 +2021,15 @@ directa, APIs, <em>web scraping</em> y conexión a bases de datos— y los
 por qué la representatividad importa más que el tamaño, qué tipos de
 muestreo existen, cómo se diseña un cuestionario y qué métodos de
 encuestación se usan hoy.</li>
-<li>Hemos presentado las <strong>bases de datos</strong> como la infraestructura donde
-los datos viven de forma organizada, con sus dos grandes familias
-(relacionales y NoSQL) y con el imprescindible <strong>diccionario de datos</strong>.</li>
-<li>Hemos abordado el <strong>tratamiento previo</strong>: identificación y tratamiento
-de <strong>valores perdidos</strong> —con la distinción MCAR / MAR / MNAR y las
-principales estrategias de imputación— y <strong>casos atípicos</strong>, con las
-reglas del IQR y el z-score y las opciones de manejo.</li>
+<li>Hemos presentado las <strong>bases de datos</strong> como la infraestructura
+donde los datos viven de forma organizada, con sus dos grandes
+familias (relacionales y NoSQL) y con el imprescindible
+<strong>diccionario de datos</strong>.</li>
+<li>Hemos abordado el <strong>tratamiento previo</strong>: identificación y
+tratamiento de <strong>valores perdidos</strong> —con la distinción MCAR / MAR /
+MNAR y las principales estrategias de imputación— y <strong>casos
+atípicos</strong>, con las reglas del IQR y el z-score y las opciones de
+manejo.</li>
 <li>Hemos cerrado con las <strong>implicaciones éticas y legales</strong> del trabajo
 con datos, especialmente el RGPD y el secreto estadístico.</li>
 </ul>
@@ -2079,7 +2103,7 @@ próximo capítulo, en el que <em>Hyperdrive Express</em> volverá a acompañarn
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-07-22.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-07-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
