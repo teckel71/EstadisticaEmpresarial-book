@@ -25,6 +25,13 @@ atributos-barras-sectores-y-pareto.
 variables-agrupadas-el-histograma.
 intervalos-de-igual-amplitud.
 intervalos-de-distinta-amplitud.
+otros-gráficos-para-variables-cuantitativas.
+diagrama-de-puntos.
+polígono-de-frecuencias.
+ojiva-o-polígono-de-frecuencias-acumuladas.
+series-temporales-el-gráfico-de-líneas.
+buenas-prácticas-una-receta-para-gráficos-claros.
+del-gráfico-a-la-historia-introducción-al-storytelling-con-datos.
 recapitulacion-cap01
 los-datos
 que-es-un-dato

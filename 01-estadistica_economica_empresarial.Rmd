@@ -575,6 +575,187 @@ g_mal + g_bien
 
 La comparación visual es elocuente: el intervalo más ancho deja de dominar el gráfico en cuanto pasamos a la versión basada en densidad, que es la única conceptualmente correcta cuando los intervalos no son homogéneos.
 
+### Otros gráficos para variables cuantitativas.
+
+El histograma no es la única representación posible para una variable numérica. Según el tamaño de la muestra, el tipo de comparación que quiera hacerse y el mensaje que se busque transmitir, conviene disponer de un pequeño catálogo alternativo.
+
+#### Diagrama de puntos.
+
+El **diagrama de puntos** (o *dot plot*) representa cada observación como un punto sobre el eje horizontal. Cuando varios casos comparten valor, los puntos se apilan. Es especialmente útil con **muestras pequeñas** —como nuestra plantilla de 60 empleados—, porque muestra la distribución sin ocultar la información individual detrás de rectángulos agregados.
+
+```{r dot-plot, fig.width=7, fig.height=3.5}
+ggplot(empresa, aes(x = salario)) +
+  geom_dotplot(binwidth = 1, dotsize = 0.7,
+               fill = pal_acento, color = "white",
+               stackratio = 1.05) +
+  scale_x_continuous(breaks = seq(5, 30, 5)) +
+  scale_y_continuous(NULL, breaks = NULL) +
+  labs(title    = "Salario mensual",
+       subtitle = "Diagrama de puntos: cada punto es un empleado",
+       x        = "Salario (cientos de PAVOs)") +
+  theme_libro()
+```
+
+Con $N$ pequeño (unas decenas) el diagrama de puntos suele contar más que un histograma; con $N$ grande, en cambio, se satura y conviene volver al histograma.
+
+#### Polígono de frecuencias.
+
+El **polígono de frecuencias** se obtiene uniendo con segmentos rectos los puntos $(x_i, n_i)$, donde $x_i$ es la marca de clase de cada intervalo. Superpuesto al histograma —o en sustitución de él— tiene dos virtudes: sugiere la **forma continua** de la distribución subyacente y, sobre todo, permite **comparar dos o más distribuciones** en un mismo gráfico sin que las barras se pisen entre sí.
+
+```{r poligono-frecuencias, fig.width=6.5, fig.height=3.8}
+poly_df <- frec_int |>
+  select(x_i, n_i)
+
+ggplot(empresa, aes(salario)) +
+  geom_histogram(breaks = cortes, closed = "right",
+                 fill = "#e2e8f0", color = "white") +
+  geom_line(data = poly_df, aes(x = x_i, y = n_i),
+            color = pal_acento, linewidth = 0.8) +
+  geom_point(data = poly_df, aes(x = x_i, y = n_i),
+             color = pal_acento, size = 2) +
+  scale_x_continuous(breaks = cortes) +
+  labs(title    = "Salario mensual",
+       subtitle = "Polígono de frecuencias sobre el histograma",
+       x        = "Salario (cientos de PAVOs)",
+       y        = expression(n[i])) +
+  theme_libro()
+```
+
+#### Ojiva o polígono de frecuencias acumuladas.
+
+Si en el eje vertical representamos la frecuencia relativa **acumulada** $F_i$ frente al extremo superior $L_i$ de cada intervalo, obtenemos el llamado **polígono de frecuencias acumuladas** u **ojiva**. Es una curva monótona no decreciente que va de $0$ (por debajo del mínimo) a $1$ (por encima del máximo).
+
+```{r ojiva, fig.width=6.5, fig.height=3.8}
+ojiva_df <- tibble(
+  x   = c(min(cortes), tail(cortes, -1)),
+  F_i = c(0, frec_int$F_i)
+)
+
+ggplot(ojiva_df, aes(x, F_i)) +
+  geom_line(color = pal_acento, linewidth = 0.8) +
+  geom_point(color = pal_acento, size = 2) +
+  geom_hline(yintercept = 0.5, linetype = "dashed",
+             color = "#94a3b8", linewidth = 0.4) +
+  scale_x_continuous(breaks = cortes) +
+  scale_y_continuous(labels = scales::label_percent(accuracy = 1),
+                     breaks = c(0, 0.25, 0.5, 0.75, 1)) +
+  labs(title    = "Salario mensual",
+       subtitle = "Ojiva (frecuencia relativa acumulada)",
+       x        = "Salario (cientos de PAVOs)",
+       y        = expression(F[i])) +
+  theme_libro()
+```
+
+La ojiva permite **leer percentiles directamente sobre el gráfico**: la línea horizontal discontinua marca el 50 %, y el valor de $x$ donde corta a la curva es una aproximación gráfica a la **mediana**. El mismo procedimiento sirve para cualquier otro cuantil (Q1, Q3, deciles…), como veremos en el capítulo siguiente.
+
+### Series temporales: el gráfico de líneas.
+
+Cuando el eje horizontal es el **tiempo** —meses, trimestres, años—, el gráfico natural es el **gráfico de líneas**. No es un gráfico nuevo desde el punto de vista técnico, pero sí una de las herramientas más utilizadas en Economía: permite apreciar de un vistazo **tendencia**, **estacionalidad** y **variaciones puntuales** en variables como el PIB, el IPC, la cotización de un activo o —en nuestro caso— la facturación mensual de una compañía galáctica.
+
+```{r series-temporales, fig.width=7.5, fig.height=3.6}
+set.seed(2077)
+n_meses <- 60
+serie_hyper <- tibble(
+  mes         = seq(as.Date("2119-01-01"), by = "month", length.out = n_meses),
+  tendencia   = seq(120, 200, length.out = n_meses),
+  estacional  = 18 * sin(2 * pi * seq_len(n_meses) / 12),
+  ruido       = rnorm(n_meses, 0, 6),
+  facturacion = tendencia + estacional + ruido
+)
+
+ggplot(serie_hyper, aes(mes, facturacion)) +
+  geom_line(color = pal_acento, linewidth = 0.7) +
+  geom_point(color = pal_acento, size = 1.2) +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+  labs(title    = "Facturación mensual de Hyperdrive Express",
+       subtitle = "Cinco últimos ejercicios (millones de PAVOs)",
+       x        = NULL, y = NULL) +
+  theme_libro()
+```
+
+En este ejemplo se aprecia con claridad una **tendencia** creciente (la compañía factura cada año más), una **estacionalidad** anual (los picos y valles se repiten con periodicidad de doce meses) y un componente residual **irregular** (pequeñas oscilaciones no atribuibles a las dos anteriores). La descomposición formal de una serie temporal en tendencia, ciclo, estacionalidad y componente irregular es materia de otros cursos, pero el punto de partida —"pintar la serie y mirarla"— es siempre el mismo.
+
+### Buenas prácticas: una "receta" para gráficos claros.
+
+A lo largo de las últimas décadas, autores como **Edward Tufte**, **Alberto Cairo**, **Cole Nussbaumer Knaflic** o **Claus O. Wilke** han ido consolidando un conjunto de principios ampliamente aceptados para la elaboración de gráficos estadísticos. Ninguno es una regla absoluta, pero conviene tenerlos presentes:
+
+1.  **Elige el gráfico según la naturaleza de la variable.** Barras y sectores para atributos; histograma, polígono u ojiva para variables agrupadas; gráfico de líneas para series temporales. Un histograma no sirve para representar el departamento, ni un diagrama de sectores para veinte categorías.
+
+2.  **Un mensaje, un gráfico.** Cada gráfico debería responder a una pregunta concreta. Si necesita párrafo y medio de leyenda para entenderse, probablemente está mezclando dos ideas.
+
+3.  **Título y subtítulo informativos.** El título puede llevar el **mensaje** ("Almacén concentra el 22 % de la plantilla") en lugar de una etiqueta neutra ("Distribución por departamento"). El subtítulo aporta el contexto (fuente, periodo, unidad).
+
+4.  **Etiqueta los ejes con claridad y unidades.** "Salario (cientos de PAVOs)" es informativo; "sal" no lo es. Las cifras del eje deben tener el formato adecuado (separador de miles, porcentajes, etc.).
+
+5.  **No manipules los ejes.** Salvo justificación explícita, un gráfico de barras debe empezar en cero. Truncar el eje $Y$ para exagerar diferencias es una práctica engañosa y muy penalizada en cualquier análisis serio.
+
+6.  **Minimiza el "ruido" visual** (el clásico *ratio* tinta/dato de Tufte). Fuera 3D, sombras, fondos degradados, rejillas gruesas y adornos: todo lo que no aporte información al lector es distracción.
+
+7.  **Ordena las categorías con criterio.** En atributos nominales, ordena por frecuencia; en ordinales, respeta el orden natural (Básicos → Medios → Universitarios).
+
+8.  **Usa el color con sobriedad.** El color es un recurso escaso: reserva el color más saturado para lo que quieras destacar, y deja el resto en tonos neutros. Un gráfico con un único color de acento suele leerse mejor que uno con toda la paleta desplegada. Ten en cuenta la accesibilidad (contraste, ceguera cromática).
+
+9.  **Anota directamente sobre el gráfico.** Si una cifra concreta es clave para el mensaje, escríbela sobre el gráfico. Obligar al lector a ir y venir entre la leyenda y las barras es una fuente innecesaria de fricción.
+
+10. **Cita la fuente.** En un contexto profesional, un gráfico sin fuente pierde buena parte de su credibilidad. Añade siempre una `caption` breve con la procedencia de los datos y, si procede, el momento de la extracción.
+
+Estas recomendaciones no son un catálogo cerrado, sino un punto de partida. Como en la escritura, el buen gráfico es fundamentalmente aquel que **respeta al lector**: le muestra lo importante, le ahorra lo prescindible y no intenta engañarle.
+
+### Del gráfico a la historia: introducción al *storytelling con datos*.
+
+En los últimos años se ha consolidado, sobre todo a partir del trabajo de **Cole Nussbaumer Knaflic** en su libro *Storytelling with Data* (Wiley, 2015), la idea de que un gráfico no es solo una herramienta de exploración, sino también —y muy especialmente— una herramienta de **comunicación**. El planteamiento es sencillo: los datos por sí solos no convencen a nadie; lo que convence es una **historia** bien contada apoyada en datos.
+
+El *storytelling con datos* propone recorrer, más o menos en este orden, cinco pasos:
+
+1.  Entender el **contexto**: ¿a quién nos dirigimos?, ¿qué queremos que esa persona haga o piense tras leer el gráfico?
+2.  Elegir la **representación** adecuada al mensaje.
+3.  Eliminar el **ruido visual**: todo lo que no contribuye al mensaje sobra.
+4.  **Dirigir la atención** del lector hacia lo importante mediante color, tipografía o anotaciones.
+5.  **Contar la historia**: dar al gráfico un título con mensaje, un orden narrativo y —si procede— un guion previo del que forma parte.
+
+La diferencia entre "mostrar datos" y "contar una historia con datos" se aprecia mejor con un ejemplo. Recuperemos el gráfico de departamentos con el que abríamos la sección de representaciones gráficas, y comparemos la versión **neutra** con una versión **narrativa**:
+
+```{r storytelling, fig.width=9, fig.height=4.2}
+df_story <- frec_departamento |>
+  mutate(
+    departamento = fct_reorder(departamento, n_i, .desc = TRUE),
+    destaca      = departamento == "Almacén"
+  )
+
+n_almacen   <- df_story |> filter(departamento == "Almacén") |> pull(n_i)
+pct_almacen <- round(100 * n_almacen / sum(df_story$n_i))
+
+g_neutro <- ggplot(df_story, aes(departamento, n_i)) +
+  geom_col(fill = "#94a3b8", width = 0.7) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.12))) +
+  labs(title    = "Distribución por departamento",
+       subtitle = "Frecuencias absolutas",
+       x = NULL, y = expression(n[i])) +
+  theme_libro() +
+  theme(axis.text.x = element_text(angle = 25, hjust = 1, size = 8))
+
+g_story <- ggplot(df_story, aes(departamento, n_i, fill = destaca)) +
+  geom_col(width = 0.7) +
+  geom_text(aes(label = n_i, color = destaca),
+            vjust = -0.4, size = 3.2, fontface = "bold") +
+  scale_fill_manual(values = c(`FALSE` = "#cbd5e1", `TRUE` = pal_acento),
+                    guide = "none") +
+  scale_color_manual(values = c(`FALSE` = "#94a3b8", `TRUE` = "#1e293b"),
+                     guide = "none") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.18))) +
+  labs(title    = sprintf("Almacén concentra el %d %% de la plantilla", pct_almacen),
+       subtitle = "El resto de departamentos queda muy por debajo",
+       x = NULL, y = expression(n[i])) +
+  theme_libro() +
+  theme(axis.text.x = element_text(angle = 25, hjust = 1, size = 8))
+
+g_neutro + g_story
+```
+
+Los dos gráficos representan **exactamente los mismos datos**. El de la izquierda los expone; el de la derecha los **cuenta**. La barra destacada, el título que ya lleva el mensaje y las etiquetas sobre las columnas guían al lector hacia la conclusión que interesa transmitir, sin que ello suponga la más mínima manipulación de la información.
+
+El *storytelling con datos* será un compañero silencioso a lo largo del resto del libro: siempre que produzcamos un gráfico, conviene preguntarse no solo si es **correcto**, sino también qué **historia** cuenta. Para profundizar en el enfoque, además del citado libro de Knaflic, son referencias muy recomendables *The Visual Display of Quantitative Information* de Edward Tufte, *The Truthful Art* de Alberto Cairo y *Fundamentals of Data Visualization* de Claus O. Wilke.
+
 ## Recapitulación. {#recapitulacion-cap01}
 
 En este capítulo hemos sentado las bases que utilizaremos durante todo el curso:

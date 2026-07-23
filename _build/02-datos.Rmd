@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 # Los datos. {#los-datos}
 
 ```{r setup-cap02, include=FALSE}
@@ -66,48 +60,19 @@ fmt <- function(x, d = 2) {
 :::
 
 
-En el capítulo anterior hemos delimitado los grandes conceptos de la
-Estadística: población, individuo, muestra, variable y atributo. Todos
-ellos se refieren, de una forma u otra, a **datos**. Sin embargo, hemos
-dado por hecho que esos datos "están ahí", listos para ser resumidos y
-representados. En la realidad, obtener un buen conjunto de datos suele
-consumir bastante más tiempo (y bastante más presupuesto) que su
-análisis posterior. Un mal fichero de partida contamina toda la cadena
-analítica, y ningún ajuste posterior salva un análisis construido sobre
-información sucia, incompleta o mal recogida.
+En el capítulo anterior hemos delimitado los grandes conceptos de la Estadística: población, individuo, muestra, variable y atributo. Todos ellos se refieren, de una forma u otra, a **datos**. Sin embargo, hemos dado por hecho que esos datos "están ahí", listos para ser resumidos y representados. En la realidad, obtener un buen conjunto de datos suele consumir bastante más tiempo (y bastante más presupuesto) que su análisis posterior. Un mal fichero de partida contamina toda la cadena analítica, y ningún ajuste posterior salva un análisis construido sobre información sucia, incompleta o mal recogida.
 
-Este capítulo se dedica precisamente a la **fase previa** del análisis
-estadístico: qué son los datos, de dónde vienen, cómo se obtienen, cómo
-se organizan y qué depuración mínima requieren antes de que empecemos a
-calcular medias, varianzas o correlaciones. Se trata de contenidos que
-los manuales tradicionales de Estadística suelen dar por conocidos y
-que, en la práctica profesional, son *lo primero* que un economista o un
-directivo aprende (por las malas) cuando llega a un puesto de trabajo.
+Este capítulo se dedica precisamente a la **fase previa** del análisis estadístico: qué son los datos, de dónde vienen, cómo se obtienen, cómo se organizan y qué depuración mínima requieren antes de que empecemos a calcular medias, varianzas o correlaciones. Se trata de contenidos que los manuales tradicionales de Estadística suelen dar por conocidos y que, en la práctica profesional, son *lo primero* que un economista o un directivo aprende (por las malas) cuando llega a un puesto de trabajo.
 
 ## ¿Qué es un dato? {#que-es-un-dato}
 
-Un **dato** es el resultado numérico o categórico de **medir** una
-característica sobre un caso concreto. Cuando anotamos que la nave *Iron
-Sovereign* transporta 840,4 miles de toneladas, o que Luke Diomedea
-trabaja en el departamento de Almacén, estamos registrando un dato.
-Formalmente:
+Un **dato** es el resultado numérico o categórico de **medir** una característica sobre un caso concreto. Cuando anotamos que la nave *Iron Sovereign* transporta 840,4 miles de toneladas, o que Luke Diomedea trabaja en el departamento de Almacén, estamos registrando un dato. Formalmente:
 
-> Un **dato** es el valor que toma una **variable** o **atributo** para
-> un **individuo** determinado.
+> Un **dato** es el valor que toma una **variable** o **atributo** para un **individuo** determinado.
 
-Un dato aislado, por sí solo, no dice gran cosa. La información
-estadística surge cuando **agrupamos muchos datos** —los
-correspondientes a una característica medida sobre todos los individuos
-de una muestra o de una población— y los organizamos en una estructura
-que permita su tratamiento sistemático. Esa estructura es lo que
-llamamos un **conjunto de datos** o *dataset*.
+Un dato aislado, por sí solo, no dice gran cosa. La información estadística surge cuando **agrupamos muchos datos** —los correspondientes a una característica medida sobre todos los individuos de una muestra o de una población— y los organizamos en una estructura que permita su tratamiento sistemático. Esa estructura es lo que llamamos un **conjunto de datos** o *dataset*.
 
-Un conjunto de datos, en su forma canónica, es una **tabla** en la que
-las **filas** son los individuos y las **columnas** son las
-características medidas. Es la disposición que ya vimos en el capítulo 1
-con la plantilla de *Hyperdrive Express*, y es también la disposición
-estándar de cualquier hoja de cálculo, base de datos relacional o *data
-frame* en R.
+Un conjunto de datos, en su forma canónica, es una **tabla** en la que las **filas** son los individuos y las **columnas** son las características medidas. Es la disposición que ya vimos en el capítulo 1 con la plantilla de *Hyperdrive Express*, y es también la disposición estándar de cualquier hoja de cálculo, base de datos relacional o *data frame* en R.
 
 ```{r trabajadores-preview}
 trabajadores <- read_excel("trabajadores.xlsx", sheet = "Datos")
@@ -126,85 +91,36 @@ trabajadores |>
 :::
 
 
-Detrás de esa tabla aparentemente inocente hay una larga serie de
-decisiones metodológicas: **quién** definió esas cuatro variables,
-**cómo** las midió, **cuándo**, **con qué instrumentos**, **con qué
-grado de fiabilidad** y **con qué depuración** las publicó. El resto del
-capítulo se ocupa, precisamente, de esa cocina que casi nunca se ve.
+Detrás de esa tabla aparentemente inocente hay una larga serie de decisiones metodológicas: **quién** definió esas cuatro variables, **cómo** las midió, **cuándo**, **con qué instrumentos**, **con qué grado de fiabilidad** y **con qué depuración** las publicó. El resto del capítulo se ocupa, precisamente, de esa cocina que casi nunca se ve.
 
 ## Fuentes de datos. {#fuentes-de-datos}
 
-La primera pregunta antes de emprender cualquier análisis es sencilla:
-**¿de dónde salen los datos?** La respuesta habitual admite dos grandes
-familias.
+La primera pregunta antes de emprender cualquier análisis es sencilla: **¿de dónde salen los datos?** La respuesta habitual admite dos grandes familias.
 
 ### Fuentes primarias.
 
-Las **fuentes primarias** son aquellas en las que el propio investigador
-o analista **construye los datos**, midiéndolos directamente sobre los
-individuos de interés. El caso genera el dato, y el dato llega al
-análisis sin intermediarios. Los canales más habituales son:
+Las **fuentes primarias** son aquellas en las que el propio investigador o analista **construye los datos**, midiéndolos directamente sobre los individuos de interés. El caso genera el dato, y el dato llega al análisis sin intermediarios. Los canales más habituales son:
 
--   **Mediciones directas** con instrumentos: sensores de temperatura en
-    una cadena de producción, contadores de tráfico en un aeropuerto,
-    lectores de códigos de barras en un supermercado. En el universo
-    R-Stars serían los sensores de consumo de especia y el registro
-    automático de tonelaje que la nave *Iron Sovereign* transmite en
-    cada salto de hipervelocidad.
--   **Registros administrativos internos** de la organización: nóminas,
-    facturas, órdenes de compra, registros de RRHH, tickets de atención
-    al cliente. Un fichero típico de *front-office*.
--   **Encuestas** diseñadas *ad hoc* para responder a una pregunta
-    concreta (satisfacción del cliente, intención de compra, clima
-    laboral). Constituyen la vía primaria por excelencia en Ciencias
-    Sociales y en marketing.
--   **Experimentos** controlados: pruebas A/B en una web de comercio
-    electrónico, ensayos de campo, prototipos.
+-   **Mediciones directas** con instrumentos: sensores de temperatura en una cadena de producción, contadores de tráfico en un aeropuerto, lectores de códigos de barras en un supermercado. En el universo R-Stars serían los sensores de consumo de especia y el registro automático de tonelaje que la nave *Iron Sovereign* transmite en cada salto de hipervelocidad.
+-   **Registros administrativos internos** de la organización: nóminas, facturas, órdenes de compra, registros de RRHH, tickets de atención al cliente. Un fichero típico de *front-office*.
+-   **Encuestas** diseñadas *ad hoc* para responder a una pregunta concreta (satisfacción del cliente, intención de compra, clima laboral). Constituyen la vía primaria por excelencia en Ciencias Sociales y en marketing.
+-   **Experimentos** controlados: pruebas A/B en una web de comercio electrónico, ensayos de campo, prototipos.
 
-Su gran **ventaja** es el **control**: quien construye el dato decide
-qué medir, cómo hacerlo, con qué escala y con qué grado de precisión. Su
-**inconveniente** es el **coste**: recoger datos primarios en cantidad y
-con calidad suficientes es lento y caro. Una encuesta representativa de
-un país mediano puede costar decenas de miles de PAVOs y varios meses de
-trabajo.
+Su gran **ventaja** es el **control**: quien construye el dato decide qué medir, cómo hacerlo, con qué escala y con qué grado de precisión. Su **inconveniente** es el **coste**: recoger datos primarios en cantidad y con calidad suficientes es lento y caro. Una encuesta representativa de un país mediano puede costar decenas de miles de PAVOs y varios meses de trabajo.
 
 ### Fuentes secundarias.
 
-Las **fuentes secundarias** publican datos ya recogidos por otros. El
-analista no interviene en la medición: **utiliza** información ya
-construida y, en muchos casos, ya depurada. Las más relevantes para un
-economista son:
+Las **fuentes secundarias** publican datos ya recogidos por otros. El analista no interviene en la medición: **utiliza** información ya construida y, en muchos casos, ya depurada. Las más relevantes para un economista son:
 
--   **Institutos oficiales de Estadística**: el INE en España, Eurostat
-    en la Unión Europea, el U.S. Bureau of the Census, la OCDE, el Banco
-    Mundial, el FMI, la OMS, la FAO... Publican series económicas,
-    demográficas y sociales con altísima calidad metodológica y bajo
-    estándares comparables.
--   **Bancos centrales y supervisores financieros**: Banco Central
-    Europeo, Reserva Federal, Banco de España, CNMV. Series monetarias,
-    financieras, contables agregadas y microdatos financieros.
--   **Registros administrativos públicos**: registros mercantiles,
-    cámaras de comercio, patentes, licencias.
--   **Bases privadas de pago**: Bloomberg, Refinitiv, S&P Capital IQ,
-    SABI, Orbis. Ofrecen microdatos empresariales de calidad,
-    generalmente con acceso restringido por suscripción.
--   **Datos abiertos** (*open data*): portales gubernamentales,
-    académicos o corporativos que publican datos gratuitos y
-    reutilizables (por ejemplo, `datos.gob.es`, `data.europa.eu`).
+-   **Institutos oficiales de Estadística**: el INE en España, Eurostat en la Unión Europea, el U.S. Bureau of the Census, la OCDE, el Banco Mundial, el FMI, la OMS, la FAO... Publican series económicas, demográficas y sociales con altísima calidad metodológica y bajo estándares comparables.
+-   **Bancos centrales y supervisores financieros**: Banco Central Europeo, Reserva Federal, Banco de España, CNMV. Series monetarias, financieras, contables agregadas y microdatos financieros.
+-   **Registros administrativos públicos**: registros mercantiles, cámaras de comercio, patentes, licencias.
+-   **Bases privadas de pago**: Bloomberg, Refinitiv, S&P Capital IQ, SABI, Orbis. Ofrecen microdatos empresariales de calidad, generalmente con acceso restringido por suscripción.
+-   **Datos abiertos** (*open data*): portales gubernamentales, académicos o corporativos que publican datos gratuitos y reutilizables (por ejemplo, `datos.gob.es`, `data.europa.eu`).
 
-Su gran **ventaja** es el **coste marginal casi nulo** y la **calidad
-certificada** (al menos cuando la fuente es de prestigio). Su
-**inconveniente**, la falta de flexibilidad: quien publica decide qué
-variables, con qué desagregación, con qué unidades y con qué
-periodicidad, y el analista se conforma con lo que hay.
+Su gran **ventaja** es el **coste marginal casi nulo** y la **calidad certificada** (al menos cuando la fuente es de prestigio). Su **inconveniente**, la falta de flexibilidad: quien publica decide qué variables, con qué desagregación, con qué unidades y con qué periodicidad, y el analista se conforma con lo que hay.
 
-> **Ejemplo.** Para un estudio sobre el sector del transporte
-> interestelar podríamos usar (i) el fichero interno de la compañía
-> *Hyperdrive Express* con las fichas de sus empleados —fuente
-> primaria—, y (ii) el fichero público `interestelar_300.xlsx`, con
-> datos económico-financieros de las 300 principales compañías
-> galácticas del sector —fuente secundaria—. Combinar las dos vías es lo
-> habitual.
+> **Ejemplo.** Para un estudio sobre el sector del transporte interestelar podríamos usar (i) el fichero interno de la compañía *Hyperdrive Express* con las fichas de sus empleados —fuente primaria—, y (ii) el fichero público `interestelar_300.xlsx`, con datos económico-financieros de las 300 principales compañías galácticas del sector —fuente secundaria—. Combinar las dos vías es lo habitual.
 
 ```{r fuentes-comparacion}
 comparacion <- tribble(
@@ -232,36 +148,17 @@ comparacion |>
 
 ## Sistemas de obtención de datos. {#sistemas-obtencion-datos}
 
-Localizada la fuente, viene la pregunta técnica: **¿cómo llegan los
-datos hasta el analista?** Los canales han cambiado radicalmente en la
-última década. Un directivo de hace veinte años recibía la información
-en informes impresos; hoy la esperamos en fichero, actualizada al minuto
-y accesible en una línea de código. Repasamos las cuatro vías más
-habituales, en orden creciente de sofisticación.
+Localizada la fuente, viene la pregunta técnica: **¿cómo llegan los datos hasta el analista?** Los canales han cambiado radicalmente en la última década. Un directivo de hace veinte años recibía la información en informes impresos; hoy la esperamos en fichero, actualizada al minuto y accesible en una línea de código. Repasamos las cuatro vías más habituales, en orden creciente de sofisticación.
 
 ### Descarga directa de ficheros.
 
-Es el mecanismo más sencillo: la fuente publica un fichero (normalmente
-en su web) y el usuario lo descarga con el navegador. El fichero suele
-estar en uno de los formatos que veremos en
-\@ref(formatos-datos-habituales), y una vez guardado se abre con la
-herramienta correspondiente (Excel, R, Python, un SGBD, etc.).
+Es el mecanismo más sencillo: la fuente publica un fichero (normalmente en su web) y el usuario lo descarga con el navegador. El fichero suele estar en uno de los formatos que veremos en \@ref(formatos-datos-habituales), y una vez guardado se abre con la herramienta correspondiente (Excel, R, Python, un SGBD, etc.).
 
-Es la vía típica para conjuntos **pequeños o medianos**, con
-**actualización poco frecuente** (mensual, trimestral, anual) y para
-usuarios finales sin perfil técnico. El INE publica así la mayoría de
-sus tablas. Ventaja: no requiere ninguna infraestructura; inconveniente:
-si la publicación se actualiza cada mes, el analista tiene que acordarse
-de descargar el nuevo fichero cada mes.
+Es la vía típica para conjuntos **pequeños o medianos**, con **actualización poco frecuente** (mensual, trimestral, anual) y para usuarios finales sin perfil técnico. El INE publica así la mayoría de sus tablas. Ventaja: no requiere ninguna infraestructura; inconveniente: si la publicación se actualiza cada mes, el analista tiene que acordarse de descargar el nuevo fichero cada mes.
 
 ### Acceso mediante API.
 
-Una **API** (*Application Programming Interface*) es, dicho de manera
-intuitiva, un **enchufe informático** que la fuente pone a disposición
-del usuario para que un programa —no una persona— pueda pedirle datos de
-forma automática y estructurada. Se pide con una **URL** especial que
-incluye los parámetros de la consulta y se recibe un fichero
-(habitualmente en JSON) con la respuesta.
+Una **API** (*Application Programming Interface*) es, dicho de manera intuitiva, un **enchufe informático** que la fuente pone a disposición del usuario para que un programa —no una persona— pueda pedirle datos de forma automática y estructurada. Se pide con una **URL** especial que incluye los parámetros de la consulta y se recibe un fichero (habitualmente en JSON) con la respuesta.
 
 Un ejemplo simplificado, con la sintaxis que usaríamos en R:
 
@@ -281,46 +178,24 @@ datos <- respuesta |> resp_body_json()
 
 Las **ventajas** de este mecanismo son enormes:
 
--   **Automatización**: el mismo *script* que se ejecutó hoy puede
-    ejecutarse mañana con datos actualizados sin intervención humana.
--   **Filtrado en origen**: se piden solo las variables, categorías,
-    países o fechas que interesan. Ahorra ancho de banda y tiempo de
-    procesado.
--   **Trazabilidad**: la URL queda registrada. Otro analista puede
-    reproducir la descarga exacta.
+-   **Automatización**: el mismo *script* que se ejecutó hoy puede ejecutarse mañana con datos actualizados sin intervención humana.
+-   **Filtrado en origen**: se piden solo las variables, categorías, países o fechas que interesan. Ahorra ancho de banda y tiempo de procesado.
+-   **Trazabilidad**: la URL queda registrada. Otro analista puede reproducir la descarga exacta.
 
-Sus **inconvenientes**: exige una mínima soltura en programación,
-algunas APIs requieren autenticación (clave o *token*) y muchas imponen
-un límite de peticiones por minuto o por día. Casi todas las fuentes
-secundarias de prestigio ofrecen hoy acceso vía API: Eurostat, Banco
-Mundial, ECB, FRED, Yahoo Finance, ONU...
+Sus **inconvenientes**: exige una mínima soltura en programación, algunas APIs requieren autenticación (clave o *token*) y muchas imponen un límite de peticiones por minuto o por día. Casi todas las fuentes secundarias de prestigio ofrecen hoy acceso vía API: Eurostat, Banco Mundial, ECB, FRED, Yahoo Finance, ONU...
 
 ### Web scraping.
 
-Cuando la información está publicada en una página web pero **no hay ni
-descarga directa ni API**, queda el recurso del ***web scraping***:
-escribir un programa que "lea" la página como lo haría un humano y
-extraiga los datos de interés. Es una técnica potente pero delicada:
+Cuando la información está publicada en una página web pero **no hay ni descarga directa ni API**, queda el recurso del ***web scraping***: escribir un programa que "lea" la página como lo haría un humano y extraiga los datos de interés. Es una técnica potente pero delicada:
 
--   **Legalmente** hay que respetar los términos de uso del sitio, las
-    condiciones de acceso y, en muchos casos, la normativa sobre
-    propiedad intelectual y protección de datos.
--   **Técnicamente** es frágil: cualquier rediseño de la página rompe el
-    *scraper* y obliga a reescribirlo.
+-   **Legalmente** hay que respetar los términos de uso del sitio, las condiciones de acceso y, en muchos casos, la normativa sobre propiedad intelectual y protección de datos.
+-   **Técnicamente** es frágil: cualquier rediseño de la página rompe el *scraper* y obliga a reescribirlo.
 
-Es la vía típica para conjuntos que no publican los datos de forma
-estructurada (precios de productos en una tienda *online*, ofertas de
-empleo, opiniones de clientes, etc.). Debe usarse como **última
-opción**, no como primera.
+Es la vía típica para conjuntos que no publican los datos de forma estructurada (precios de productos en una tienda *online*, ofertas de empleo, opiniones de clientes, etc.). Debe usarse como **última opción**, no como primera.
 
 ### Conexión directa a bases de datos.
 
-Cuando la fuente es la **base de datos de la propia organización** (o de
-un cliente), el acceso suele hacerse mediante una conexión directa desde
-el software analítico al SGBD (Sistema de Gestión de Bases de Datos:
-Oracle, PostgreSQL, MySQL, SQL Server, MongoDB...). El analista escribe
-una consulta en el lenguaje del SGBD —normalmente **SQL**— y recibe el
-resultado como una tabla.
+Cuando la fuente es la **base de datos de la propia organización** (o de un cliente), el acceso suele hacerse mediante una conexión directa desde el software analítico al SGBD (Sistema de Gestión de Bases de Datos: Oracle, PostgreSQL, MySQL, SQL Server, MongoDB...). El analista escribe una consulta en el lenguaje del SGBD —normalmente **SQL**— y recibe el resultado como una tabla.
 
 ```{r sql-ejemplo, echo=TRUE, eval=FALSE}
 # Ejemplo pedagógico: consulta SQL sobre la base de datos interna
@@ -343,18 +218,11 @@ resumen <- dbGetQuery(con, consulta)
 dbDisconnect(con)
 ```
 
-Es el mecanismo dominante en entornos empresariales. Su punto fuerte es
-la **eficiencia**: el filtrado, la agregación y la selección de columnas
-se ejecutan **en la propia base de datos**, y solo viaja al ordenador
-del analista el resultado final. Cuando se trabaja con millones de
-filas, la diferencia respecto a descargar el fichero completo es
-abismal.
+Es el mecanismo dominante en entornos empresariales. Su punto fuerte es la **eficiencia**: el filtrado, la agregación y la selección de columnas se ejecutan **en la propia base de datos**, y solo viaja al ordenador del analista el resultado final. Cuando se trabaja con millones de filas, la diferencia respecto a descargar el fichero completo es abismal.
 
 ### Formatos de datos habituales. {#formatos-datos-habituales}
 
-Sea cual sea el canal de obtención, los datos acaban materializándose en
-un **fichero** con un **formato** concreto. Conocer las diferencias
-entre los formatos más habituales evita muchos disgustos.
+Sea cual sea el canal de obtención, los datos acaban materializándose en un **fichero** con un **formato** concreto. Conocer las diferencias entre los formatos más habituales evita muchos disgustos.
 
 ```{r formatos-tabla}
 formatos <- tribble(
@@ -382,17 +250,9 @@ formatos |>
 :::
 
 
-Vale la pena detenerse en los dos formatos más habituales para el
-trabajo diario.
+Vale la pena detenerse en los dos formatos más habituales para el trabajo diario.
 
-**El CSV** (*Comma-Separated Values*) es un fichero de **texto plano**
-en el que cada fila del conjunto de datos ocupa una línea y las columnas
-se separan por un carácter delimitador —normalmente la coma, aunque en
-países que usan la coma decimal se sustituye por el punto y coma—. Su
-gran virtud es la **portabilidad**: cualquier programa capaz de leer
-texto puede abrirlo. Sus problemas clásicos: la codificación (¿UTF-8?,
-¿Latin-1?), el separador (¿coma?, ¿punto y coma?, ¿tabulador?) y la
-marca decimal (¿punto?, ¿coma?).
+**El CSV** (*Comma-Separated Values*) es un fichero de **texto plano** en el que cada fila del conjunto de datos ocupa una línea y las columnas se separan por un carácter delimitador —normalmente la coma, aunque en países que usan la coma decimal se sustituye por el punto y coma—. Su gran virtud es la **portabilidad**: cualquier programa capaz de leer texto puede abrirlo. Sus problemas clásicos: la codificación (¿UTF-8?, ¿Latin-1?), el separador (¿coma?, ¿punto y coma?, ¿tabulador?) y la marca decimal (¿punto?, ¿coma?).
 
 ```{r csv-ejemplo, echo=TRUE, eval=FALSE}
 # CSV internacional: coma como separador y punto decimal.
@@ -404,13 +264,7 @@ carga <- read.csv("cargamentos_2185.csv")
 carga <- read.csv2("cargamentos_2185.csv")
 ```
 
-**El Excel** (*.xlsx*) es un formato **binario** propietario pero
-universalmente aceptado. Permite varias hojas por libro, fórmulas,
-formato condicional y comentarios. Los tres ficheros del universo
-R-Stars que acompañan al libro —`trabajadores.xlsx`,
-`interestelar_300.xlsx` y `astilleros_48.xlsx`— están precisamente en
-este formato, con la estructura habitual de "hoja de presentación + hoja
-de descripción de variables + hoja de datos".
+**El Excel** (*.xlsx*) es un formato **binario** propietario pero universalmente aceptado. Permite varias hojas por libro, fórmulas, formato condicional y comentarios. Los tres ficheros del universo R-Stars que acompañan al libro —`trabajadores.xlsx`, `interestelar_300.xlsx` y `astilleros_48.xlsx`— están precisamente en este formato, con la estructura habitual de "hoja de presentación + hoja de descripción de variables + hoja de datos".
 
 ```{r excel-ejemplo, echo=TRUE, eval=FALSE}
 library(readxl)
@@ -420,112 +274,146 @@ variables    <- read_excel("interestelar_300.xlsx", sheet = "Variables")
 
 ## Encuestas: la importancia del muestreo. {#encuestas-muestreo}
 
-De todas las vías de obtención de datos primarios, la **encuesta**
-merece una sección propia. Es el mecanismo por el que se recogen, en
-Ciencias Sociales y en Economía, la práctica totalidad de los datos que
-no proceden de un registro administrativo o de un sensor. Buena parte de
-los estudios de mercado, la investigación electoral y la estadística
-oficial descansan en ella.
+De todas las vías de obtención de datos primarios, la **encuesta** merece una sección propia. Es el mecanismo por el que se recogen, en Ciencias Sociales y en Economía, la práctica totalidad de los datos que no proceden de un registro administrativo o de un sensor. Buena parte de los estudios de mercado, la investigación electoral y la estadística oficial descansan en ella.
 
-Una encuesta bien hecha permite obtener conclusiones válidas sobre
-**millones de personas** entrevistando a unos pocos miles. Una mal
-hecha, en cambio, produce cifras que suenan a precisas pero que no
-describen a nadie en particular. La diferencia entre ambas se juega en
-tres frentes: **el muestreo**, el **diseño del cuestionario** y el
-**método de encuestación**.
+Una encuesta bien hecha permite obtener conclusiones válidas sobre **millones de personas** entrevistando a unos pocos miles. Una mal hecha, en cambio, produce cifras que suenan a precisas pero que no describen a nadie en particular. La diferencia entre ambas se juega en tres frentes: **el muestreo**, el **diseño del cuestionario** y el **método de encuestación**.
 
 ### Por qué el muestreo es crítico.
 
-La lógica del muestreo es intuitiva: si la muestra reproduce, a pequeña
-escala, la estructura de la población, las conclusiones obtenidas en la
-muestra podrán extenderse —con la incertidumbre asociada— a la población
-completa. Si la muestra **no es representativa**, cualquier conclusión
-será estructuralmente sesgada, por muy sofisticado que sea el análisis
-posterior.
+La lógica del muestreo es intuitiva: si la muestra reproduce, a pequeña escala, la estructura de la población, las conclusiones obtenidas en la muestra podrán extenderse —con la incertidumbre asociada— a la población completa. Si la muestra **no es representativa**, cualquier conclusión será estructuralmente sesgada, por muy sofisticado que sea el análisis posterior.
 
-Un ejemplo clásico ilustra el punto. En la campaña presidencial
-norteamericana de 1936, la revista *Literary Digest* envió más de **diez
-millones** de encuestas a suscriptores, propietarios de teléfono y
-matriculados en asociaciones de automovilistas. Con 2,4 millones de
-respuestas pronosticó una victoria arrolladora del candidato republicano
-Landon frente a Roosevelt. En paralelo, un joven estadístico llamado
-George Gallup entrevistó a **50 000** personas seleccionadas
-cuidadosamente para reproducir la estructura de la población y
-pronosticó la victoria de Roosevelt. Ganó Roosevelt. La muestra del
-*Literary Digest*, pese a ser 48 veces más grande, estaba sesgada hacia
-clases altas —los únicos que en plena Depresión tenían teléfono y
-coche—, y **el tamaño no compensó el sesgo**.
+Dos ejemplos clásicos, cada uno con un tipo distinto de sesgo, ilustran el punto mejor que cualquier definición formal.
 
-La moraleja tiene más de noventa años y sigue vigente:
+**El primero: *Literary Digest* vs. Gallup, 1936.** En la campaña presidencial norteamericana de aquel año, la revista *Literary Digest* envió más de **diez millones** de encuestas a suscriptores, propietarios de teléfono y matriculados en asociaciones de automovilistas. Con 2,4 millones de respuestas pronosticó una victoria arrolladora del candidato republicano Landon frente a Roosevelt. En paralelo, un joven estadístico llamado George Gallup entrevistó a **50 000** personas seleccionadas cuidadosamente para reproducir la estructura de la población y pronosticó la victoria de Roosevelt. Ganó Roosevelt. La muestra del *Literary Digest*, pese a ser 48 veces más grande, estaba sesgada hacia las clases altas —los únicos que en plena Depresión tenían teléfono y coche—, y **el tamaño no compensó el sesgo**.
 
-> **Una muestra pequeña bien diseñada vale más que una muestra enorme
-> mal diseñada.**
+**El segundo: los bombarderos de Wald, 1943.** Apenas siete años después, en plena Segunda Guerra Mundial, el *Statistical Research Group* de la marina estadounidense estudiaba los bombarderos que regresaban de misiones sobre Europa. La distribución de impactos de bala y metralla se repetía con notable regularidad: mucho daño en alas, fuselaje central y estabilizadores de cola; muy pocos impactos en motores y cabina. La conclusión aparente era inmediata: **blindar más las zonas más castigadas**. Y así iba a hacerse cuando Abraham Wald, un matemático húngaro refugiado de la persecución nazi, señaló lo contrario. La muestra que estaban examinando era la de los aviones que **volvían**. Los que recibían impactos en motor o cabina no regresaban: caían en territorio enemigo. Los que se veían en el hangar eran los **supervivientes**, y los agujeros que exhibían mostraban precisamente dónde un bombardero podía recibir impactos y aun así aterrizar. El blindaje adicional había que ponerlo donde no había agujeros: en motor y cabina.
+
+```{r wald-bombardero, fig.width=6.5, fig.height=3.4}
+# Silueta esquemática de un bombardero visto en planta, con los impactos
+# concentrados en las zonas por las que un avión puede recibir daño y aun
+# así regresar (alas fuera de motores, fuselaje trasero, estabilizadores).
+
+col_silueta <- "#e2e8f0"
+col_borde   <- "#334155"
+
+fuselaje <- tibble(
+  x = c(-5.2, 4.4, 5.0, 4.4, -5.2, -5.2),
+  y = c(-0.55, -0.55, 0, 0.55, 0.55, -0.55)
+)
+ala_principal <- tibble(
+  x = c(-0.7, 1.2, 1.0, -0.9, -0.7),
+  y = c(-4.0, -3.6, 3.6, 4.0, -4.0)
+)
+estab_horiz <- tibble(
+  x = c(-5.2, -4.0, -4.0, -5.2),
+  y = c(-1.6, -1.3, 1.3, 1.6)
+)
+motores <- tibble(
+  x = c(0.2, 0.2, 0.2, 0.2),
+  y = c(-2.9, -1.4, 1.4, 2.9)
+)
+cabina <- tibble(x = 4.3, y = 0)
+
+# Impactos observados: dispersos por alas (evitando la zona de motores),
+# fuselaje trasero y estabilizadores. Ninguno en motores ni cabina.
+set.seed(2185)
+impactos_ala_delante <- tibble(
+  x = runif(22, -0.5, 0.9),
+  y = c(runif(6, -3.5, -2.3), runif(5, -1.2, -0.6),
+        runif(5, 0.6, 1.2), runif(6, 2.3, 3.5))
+)
+impactos_ala_atras <- tibble(
+  x = runif(16, -0.85, -0.55),
+  y = c(runif(4, -3.7, -2.5), runif(4, -1.1, -0.7),
+        runif(4, 0.7, 1.1), runif(4, 2.5, 3.7))
+)
+impactos_fuselaje <- tibble(
+  x = runif(14, -4.6, 0.5),
+  y = runif(14, -0.35, 0.35)
+)
+impactos_cola <- tibble(
+  x = runif(10, -5.0, -4.2),
+  y = c(runif(5, -1.4, -0.4), runif(5, 0.4, 1.4))
+)
+impactos <- bind_rows(impactos_ala_delante, impactos_ala_atras,
+                      impactos_fuselaje, impactos_cola)
+
+ggplot() +
+  geom_polygon(data = fuselaje,      aes(x, y),
+               fill = col_silueta, color = col_borde, linewidth = 0.4) +
+  geom_polygon(data = ala_principal, aes(x, y),
+               fill = col_silueta, color = col_borde, linewidth = 0.4) +
+  geom_polygon(data = estab_horiz,   aes(x, y),
+               fill = col_silueta, color = col_borde, linewidth = 0.4) +
+  geom_point(data = motores, aes(x, y),
+             shape = 21, size = 5.5, stroke = 0.6,
+             fill = "#94a3b8", color = col_borde) +
+  geom_point(data = cabina, aes(x, y),
+             shape = 22, size = 6, stroke = 0.6,
+             fill = "#94a3b8", color = col_borde) +
+  geom_point(data = impactos, aes(x, y),
+             color = pal_alerta, size = 1.9, alpha = 0.85) +
+  annotate("text", x = 4.3,  y = -1.4,
+           label = "Cabina", size = 3, color = col_borde) +
+  annotate("text", x = -1.2, y = -4.7,
+           label = "Motores", size = 3, color = col_borde) +
+  annotate("text", x = 0,    y = 5.2,
+           label = "Aquí no vemos impactos → aquí hay que blindar",
+           size = 3.2, fontface = "italic", color = pal_acento) +
+  coord_fixed(clip = "off") +
+  ylim(-5.2, 5.7) +
+  labs(title    = "La lección de Wald: los impactos de la muestra son los supervivibles",
+       subtitle = "Impactos observados en bombarderos que regresaron de misión (esquema)") +
+  theme_void() +
+  theme(plot.title    = element_text(face = "bold", color = "#1e293b",
+                                     hjust = 0.5, size = 11),
+        plot.subtitle = element_text(color = "#64748b",
+                                     hjust = 0.5, size = 9),
+        plot.margin   = margin(6, 6, 6, 6))
+```
+
+::: {style="text-align: center;"}
+**Figura 2.2**
+:::
+
+
+Wald tenía razón. Su análisis salvó vidas y aviones, y el caso es hoy el ejemplo canónico del **sesgo de supervivencia** (*survivorship bias*): cuando la muestra que se examina está condicionada por haber "sobrevivido" a un proceso previo, sus características describen a los supervivientes, no a la población completa. En Economía y gestión aparece de mil formas: se estudia la rentabilidad de los fondos de inversión olvidando los que quebraron; se admira la estrategia de las empresas exitosas ignorando a las que aplicaron la misma estrategia y desaparecieron; se pregunta a los millonarios cómo se hicieron ricos y nadie interroga a quienes intentaron lo mismo y hoy siguen pobres. Con la muestra sesgada, cualquier conclusión será equivocada, por sofisticada que sea la aritmética que la acompañe.
+
+Las dos moralejas de estos dos casos —una tiene más de noventa años, la otra más de ochenta— siguen vigentes:
+
+> **Una muestra pequeña bien diseñada vale más que una muestra enorme mal diseñada.**
+>
+> **Antes de creerse un dato, hay que preguntarse por los datos que no están.**
 
 ### Tipos de muestreo.
 
-Los procedimientos de selección de la muestra se agrupan en dos grandes
-familias.
+Los procedimientos de selección de la muestra se agrupan en dos grandes familias.
 
 #### Muestreos probabilísticos.
 
-Todos los individuos de la población tienen una probabilidad **conocida
-y positiva** de ser seleccionados. Solo estos permiten aplicar
-rigurosamente las herramientas de inferencia estadística que veremos en
-el Bloque III.
+Todos los individuos de la población tienen una probabilidad **conocida y positiva** de ser seleccionados. Solo estos permiten aplicar rigurosamente las herramientas de inferencia estadística que veremos en el Bloque III.
 
--   **Aleatorio simple.** Cada individuo tiene la misma probabilidad de
-    entrar en la muestra. Es el método más sencillo y sirve como
-    referencia teórica, pero en la práctica requiere disponer de un
-    **marco muestral** —una lista completa y actualizada de todos los
-    individuos—, cosa que rara vez existe fuera del laboratorio.
+-   **Aleatorio simple.** Cada individuo tiene la misma probabilidad de entrar en la muestra. Es el método más sencillo y sirve como referencia teórica, pero en la práctica requiere disponer de un **marco muestral** —una lista completa y actualizada de todos los individuos—, cosa que rara vez existe fuera del laboratorio.
 
--   **Sistemático.** Se ordena la población y se selecciona un individuo
-    cada $k$ posiciones, tras elegir aleatoriamente el arranque.
-    Equivale a un aleatorio simple si la ordenación no está
-    correlacionada con la variable de interés, y es más cómodo de
-    aplicar.
+-   **Sistemático.** Se ordena la población y se selecciona un individuo cada $k$ posiciones, tras elegir aleatoriamente el arranque. Equivale a un aleatorio simple si la ordenación no está correlacionada con la variable de interés, y es más cómodo de aplicar.
 
--   **Estratificado.** La población se divide en **estratos** homogéneos
-    (por edad, sector, tamaño de empresa, galaxia de origen...) y dentro
-    de cada estrato se hace un muestreo aleatorio. Garantiza que la
-    estructura de la muestra reproduce la de la población respecto a las
-    variables usadas para estratificar. Es el método más habitual en
-    encuestas oficiales.
+-   **Estratificado.** La población se divide en **estratos** homogéneos (por edad, sector, tamaño de empresa, galaxia de origen...) y dentro de cada estrato se hace un muestreo aleatorio. Garantiza que la estructura de la muestra reproduce la de la población respecto a las variables usadas para estratificar. Es el método más habitual en encuestas oficiales.
 
--   **Por conglomerados.** Se seleccionan grupos completos (barrios,
-    empresas, colegios) y se entrevista a todos sus miembros. Se emplea
-    cuando el marco muestral individual no existe pero sí el de
-    conglomerados. Es más barato de aplicar sobre el terreno, aunque
-    suele exigir muestras algo mayores.
+-   **Por conglomerados.** Se seleccionan grupos completos (barrios, empresas, colegios) y se entrevista a todos sus miembros. Se emplea cuando el marco muestral individual no existe pero sí el de conglomerados. Es más barato de aplicar sobre el terreno, aunque suele exigir muestras algo mayores.
 
--   **Polietápico.** Combinación de los anteriores. La *Encuesta de
-    Población Activa* del INE, por ejemplo, es un muestreo estratificado
-    por comunidades autónomas y, dentro de cada una, por conglomerados
-    de secciones censales.
+-   **Polietápico.** Combinación de los anteriores. La *Encuesta de Población Activa* del INE, por ejemplo, es un muestreo estratificado por comunidades autónomas y, dentro de cada una, por conglomerados de secciones censales.
 
 #### Muestreos no probabilísticos.
 
-La selección no se basa en un mecanismo aleatorio y las probabilidades
-de inclusión son desconocidas. No permiten inferencia rigurosa, pero se
-usan mucho en la práctica por su bajo coste.
+La selección no se basa en un mecanismo aleatorio y las probabilidades de inclusión son desconocidas. No permiten inferencia rigurosa, pero se usan mucho en la práctica por su bajo coste.
 
--   **Por cuotas.** El entrevistador elige a los individuos que va
-    encontrando hasta completar unas cuotas predeterminadas (por
-    ejemplo, "20 mujeres jóvenes universitarias"). Frecuente en estudios
-    de mercado.
+-   **Por cuotas.** El entrevistador elige a los individuos que va encontrando hasta completar unas cuotas predeterminadas (por ejemplo, "20 mujeres jóvenes universitarias"). Frecuente en estudios de mercado.
 
--   **De conveniencia.** Se entrevista a quien está a mano. Barato,
-    rápido y **muy sesgado**. Sirve para pruebas piloto, no para
-    publicar cifras.
+-   **De conveniencia.** Se entrevista a quien está a mano. Barato, rápido y **muy sesgado**. Sirve para pruebas piloto, no para publicar cifras.
 
--   **Bola de nieve.** Cada entrevistado sugiere al siguiente. Útil para
-    poblaciones difíciles de localizar (colectivos minoritarios,
-    expertos en un tema), inservible como muestra representativa.
+-   **Bola de nieve.** Cada entrevistado sugiere al siguiente. Útil para poblaciones difíciles de localizar (colectivos minoritarios, expertos en un tema), inservible como muestra representativa.
 
--   **Autoselección.** Cualquier encuesta abierta en la que responde
-    quien quiere: encuestas de portada en periódicos digitales, sondeos
-    en redes sociales. El grupo *Literary Digest* fue una forma
-    sofisticada de esto.
+-   **Autoselección.** Cualquier encuesta abierta en la que responde quien quiere: encuestas de portada en periódicos digitales, sondeos en redes sociales. El grupo *Literary Digest* fue una forma sofisticada de esto.
 
 ```{r muestreos-tabla}
 muestreos <- tribble(
@@ -556,20 +444,10 @@ muestreos |>
 
 ### Tamaño muestral.
 
-La segunda gran pregunta es **cuántos individuos hay que entrevistar**.
-La respuesta, formalizada, requiere las herramientas de inferencia que
-aún no hemos visto (nivel de confianza, error admisible, dispersión de
-la variable), y la retomaremos en el Bloque III. Por ahora basta con
-dejar dos ideas intuitivas:
+La segunda gran pregunta es **cuántos individuos hay que entrevistar**. La respuesta, formalizada, requiere las herramientas de inferencia que aún no hemos visto (nivel de confianza, error admisible, dispersión de la variable), y la retomaremos en el Bloque III. Por ahora basta con dejar dos ideas intuitivas:
 
-1.  **Cuanta más precisión se quiera, mayor debe ser la muestra.** Para
-    pasar de un margen de error del $\pm 3\%$ al $\pm 1\%$ hay que
-    multiplicar el tamaño de la muestra aproximadamente por nueve. La
-    precisión se paga muy cara.
-2.  **A partir de cierto punto, ampliar la muestra deja de compensar.**
-    Duplicar una muestra de 1 000 individuos no divide el error entre
-    dos, sino entre $\sqrt{2}$. Y ampliar una muestra sesgada no arregla
-    el sesgo: lo hace más preciso.
+1.  **Cuanta más precisión se quiera, mayor debe ser la muestra.** Para pasar de un margen de error del $\pm 3\%$ al $\pm 1\%$ hay que multiplicar el tamaño de la muestra aproximadamente por nueve. La precisión se paga muy cara.
+2.  **A partir de cierto punto, ampliar la muestra deja de compensar.** Duplicar una muestra de 1 000 individuos no divide el error entre dos, sino entre $\sqrt{2}$. Y ampliar una muestra sesgada no arregla el sesgo: lo hace más preciso.
 
 ```{r tamano-muestra-fig, fig.width=6, fig.height=3.5}
 tibble(
@@ -588,182 +466,88 @@ tibble(
 ```
 
 ::: {style="text-align: center;"}
-**Figura 2.2**
+**Figura 2.3**
 :::
 
 
 ### El diseño del cuestionario.
 
-Aunque el muestreo esté impecable, un mal cuestionario arruina la
-encuesta. La pregunta, aparentemente inocente, es el instrumento de
-medida, y como todo instrumento admite errores sistemáticos si no se
-calibra bien.
+Aunque el muestreo esté impecable, un mal cuestionario arruina la encuesta. La pregunta, aparentemente inocente, es el instrumento de medida, y como todo instrumento admite errores sistemáticos si no se calibra bien.
 
 Un buen cuestionario cumple una lista corta de principios:
 
--   **Claridad y univocidad.** Cada pregunta debe entenderse de una sola
-    forma y con vocabulario accesible para el respondiente. La pregunta
-    *"¿está usted a favor de la desregulación asimétrica del
-    hipercomercio interplanetario?"* solo mide una cosa con seguridad:
-    cuántas personas creen entender esa frase.
--   **Neutralidad.** Evitar preguntas con carga emocional, con doble
-    negación o con la respuesta implícita en el enunciado (*"¿está usted
-    de acuerdo con la excelente gestión del Consejo Galáctico?"*).
--   **Un asunto por pregunta.** *"¿Le gustó el trato del capitán y la
-    puntualidad de la nave?"* mezcla dos evaluaciones que pueden ir en
-    sentidos opuestos.
--   **Escalas coherentes.** Cuando se pide una valoración numérica,
-    mantener la misma escala (por ejemplo, 1–5 o 0–10) a lo largo de
-    todo el cuestionario. Cambiar de escala en mitad del formulario
-    multiplica los errores.
--   **Orden razonable.** De lo general a lo específico, de lo neutro a
-    lo sensible. Las variables sociodemográficas se preguntan al final:
-    son útiles para la ponderación pero cansan al respondiente si
-    aparecen al principio.
--   **Extensión moderada.** A partir de cierto momento el respondiente
-    responde por cumplir, no por reflexionar. En encuestas *online*, más
-    de 10 minutos ya es problemático.
+-   **Claridad y univocidad.** Cada pregunta debe entenderse de una sola forma y con vocabulario accesible para el respondiente. La pregunta *"¿está usted a favor de la desregulación asimétrica del hipercomercio interplanetario?"* solo mide una cosa con seguridad: cuántas personas creen entender esa frase.
+-   **Neutralidad.** Evitar preguntas con carga emocional, con doble negación o con la respuesta implícita en el enunciado (*"¿está usted de acuerdo con la excelente gestión del Consejo Galáctico?"*).
+-   **Un asunto por pregunta.** *"¿Le gustó el trato del capitán y la puntualidad de la nave?"* mezcla dos evaluaciones que pueden ir en sentidos opuestos.
+-   **Escalas coherentes.** Cuando se pide una valoración numérica, mantener la misma escala (por ejemplo, 1–5 o 0–10) a lo largo de todo el cuestionario. Cambiar de escala en mitad del formulario multiplica los errores.
+-   **Orden razonable.** De lo general a lo específico, de lo neutro a lo sensible. Las variables sociodemográficas se preguntan al final: son útiles para la ponderación pero cansan al respondiente si aparecen al principio.
+-   **Extensión moderada.** A partir de cierto momento el respondiente responde por cumplir, no por reflexionar. En encuestas *online*, más de 10 minutos ya es problemático.
 
 ### Métodos de encuestación.
 
-Con el mismo cuestionario y el mismo muestreo, la forma de administrar
-la encuesta condiciona la calidad y el coste del trabajo. Los métodos
-clásicos son cinco:
+Con el mismo cuestionario y el mismo muestreo, la forma de administrar la encuesta condiciona la calidad y el coste del trabajo. Los métodos clásicos son cinco:
 
--   **PAPI** (*Paper And Pencil Interview*). La entrevista tradicional
-    cara a cara, con cuestionario en papel. Costosa pero muy fiable en
-    poblaciones vulnerables o con baja alfabetización digital.
--   **CATI** (*Computer-Assisted Telephone Interview*). Entrevista
-    telefónica asistida por ordenador. Rápida y económica; su gran
-    inconveniente hoy es la creciente reticencia de la ciudadanía a
-    atender llamadas de números desconocidos.
--   **CAPI** (*Computer-Assisted Personal Interview*). Cara a cara, pero
-    con tableta o portátil. Combina la calidad del PAPI con la agilidad
-    del registro digital y una detección temprana de errores.
--   **CAWI** (*Computer-Assisted Web Interview*). La encuesta *online*.
-    Coste mínimo, rapidez altísima, alcance internacional y **peligros
-    específicos**: sesgo de autoselección, cobertura desigual (quien no
-    tiene conexión no responde) y respuestas descuidadas cuando la
-    incentivación es puramente monetaria.
--   **Encuestas por panel.** Grupo estable de individuos que responden
-    repetidamente a lo largo del tiempo. Permite seguir cambios
-    individuales, pero se agota: el panelista aprende, se cansa y su
-    comportamiento deja de ser el de un ciudadano medio.
+-   **PAPI** (*Paper And Pencil Interview*). La entrevista tradicional cara a cara, con cuestionario en papel. Costosa pero muy fiable en poblaciones vulnerables o con baja alfabetización digital.
+-   **CATI** (*Computer-Assisted Telephone Interview*). Entrevista telefónica asistida por ordenador. Rápida y económica; su gran inconveniente hoy es la creciente reticencia de la ciudadanía a atender llamadas de números desconocidos.
+-   **CAPI** (*Computer-Assisted Personal Interview*). Cara a cara, pero con tableta o portátil. Combina la calidad del PAPI con la agilidad del registro digital y una detección temprana de errores.
+-   **CAWI** (*Computer-Assisted Web Interview*). La encuesta *online*. Coste mínimo, rapidez altísima, alcance internacional y **peligros específicos**: sesgo de autoselección, cobertura desigual (quien no tiene conexión no responde) y respuestas descuidadas cuando la incentivación es puramente monetaria.
+-   **Encuestas por panel.** Grupo estable de individuos que responden repetidamente a lo largo del tiempo. Permite seguir cambios individuales, pero se agota: el panelista aprende, se cansa y su comportamiento deja de ser el de un ciudadano medio.
 
-La tendencia dominante desde 2020 aproximadamente es la **encuestación
-mixta**: combinar CAWI para el grueso del trabajo y completar con CATI o
-CAPI las subpoblaciones que no responden por internet. Es la única
-manera de conservar precios razonables sin perder representatividad.
+La tendencia dominante desde 2020 aproximadamente es la **encuestación mixta**: combinar CAWI para el grueso del trabajo y completar con CATI o CAPI las subpoblaciones que no responden por internet. Es la única manera de conservar precios razonables sin perder representatividad.
 
 ## Bases de datos. {#bases-de-datos}
 
-Una vez recogidos los datos —por la vía que sea—, necesitan un lugar
-donde vivir de forma organizada. Una hoja de cálculo puede bastar para
-veinte filas y tres columnas; en cuanto el volumen crece o varias
-personas necesitan trabajar simultáneamente sobre la información, el
-instrumento adecuado es una **base de datos**.
+Una vez recogidos los datos —por la vía que sea—, necesitan un lugar donde vivir de forma organizada. Una hoja de cálculo puede bastar para veinte filas y tres columnas; en cuanto el volumen crece o varias personas necesitan trabajar simultáneamente sobre la información, el instrumento adecuado es una **base de datos**.
 
-> Una **base de datos** es un conjunto **estructurado** de datos,
-> almacenado sistemáticamente para permitir su recuperación, consulta y
-> actualización de forma eficiente y consistente por parte de múltiples
-> usuarios o aplicaciones.
+> Una **base de datos** es un conjunto **estructurado** de datos, almacenado sistemáticamente para permitir su recuperación, consulta y actualización de forma eficiente y consistente por parte de múltiples usuarios o aplicaciones.
 
-La definición contiene tres palabras clave: **estructurado**,
-**eficiente** y **consistente**. Estructurado significa que los datos
-siguen un esquema conocido, no un cajón desastre. Eficiente, que las
-consultas devuelven resultados en tiempos razonables incluso con
-millones de filas. Consistente, que dos consultas idénticas realizadas
-por dos usuarios distintos devuelven, salvo actualizaciones legítimas,
-el mismo resultado.
+La definición contiene tres palabras clave: **estructurado**, **eficiente** y **consistente**. Estructurado significa que los datos siguen un esquema conocido, no un cajón desastre. Eficiente, que las consultas devuelven resultados en tiempos razonables incluso con millones de filas. Consistente, que dos consultas idénticas realizadas por dos usuarios distintos devuelven, salvo actualizaciones legítimas, el mismo resultado.
 
 ### Características de una buena base de datos.
 
-Los sistemas de bases de datos profesionales se diseñan buscando cinco
-propiedades, conocidas por su acrónimo **ACID** (para las de tipo
-transaccional):
+Los sistemas de bases de datos profesionales se diseñan buscando cinco propiedades, conocidas por su acrónimo **ACID** (para las de tipo transaccional):
 
--   **A**tomicidad: cada operación se ejecuta por completo o no se
-    ejecuta en absoluto. No hay estados intermedios visibles.
--   **C**onsistencia: la base pasa de un estado válido a otro estado
-    válido. Las reglas de integridad (claves, restricciones de dominio)
-    se respetan siempre.
--   **I**solamiento: dos operaciones simultáneas no interfieren entre
-    sí. Cada una ve la base como si estuviera sola.
--   **D**urabilidad: una vez confirmada una operación, sus efectos
-    persisten aunque haya un fallo del sistema.
+-   **A**tomicidad: cada operación se ejecuta por completo o no se ejecuta en absoluto. No hay estados intermedios visibles.
+-   **C**onsistencia: la base pasa de un estado válido a otro estado válido. Las reglas de integridad (claves, restricciones de dominio) se respetan siempre.
+-   **I**solamiento: dos operaciones simultáneas no interfieren entre sí. Cada una ve la base como si estuviera sola.
+-   **D**urabilidad: una vez confirmada una operación, sus efectos persisten aunque haya un fallo del sistema.
 
-Por encima de ACID, un buen diseño busca **no duplicar información**
-(una modificación en un dato repetido en diez sitios se olvida en
-nueve), **preservar la integridad referencial** (si el empleado E027
-aparece en la tabla de nóminas, tiene que existir en la tabla maestra de
-empleados) y **documentar** cada tabla y cada campo (esto lo abordamos
-enseguida).
+Por encima de ACID, un buen diseño busca **no duplicar información** (una modificación en un dato repetido en diez sitios se olvida en nueve), **preservar la integridad referencial** (si el empleado E027 aparece en la tabla de nóminas, tiene que existir en la tabla maestra de empleados) y **documentar** cada tabla y cada campo (esto lo abordamos enseguida).
 
 ### Riesgos del mal diseño.
 
-Los problemas de una base de datos mal diseñada son sorprendentemente
-predecibles:
+Los problemas de una base de datos mal diseñada son sorprendentemente predecibles:
 
--   **Datos duplicados** o inconsistentes: la misma empresa aparece como
-    *"Hyperdrive Express"* y *"HYPERDRIVE EXPRESS SA"*, y se cuenta dos
-    veces.
--   **Codificaciones incompatibles** en campos que deberían coincidir:
-    la variable *galaxia* usa *"VÍA LÁCTEA"* en una tabla y *"Via
-    Lactea"* en otra. Los cruces fallan silenciosamente.
--   **Ausencia de restricciones**: nada impide introducir un salario
-    negativo, una fecha imposible o una edad de 300 años.
--   **Falta de trazabilidad**: no se sabe quién modificó qué, ni cuándo.
-    La auditoría es un ejercicio de arqueología.
--   **Rendimiento inaceptable**: consultas que en un diseño correcto
-    tardan segundos, en uno defectuoso tardan horas.
+-   **Datos duplicados** o inconsistentes: la misma empresa aparece como *"Hyperdrive Express"* y *"HYPERDRIVE EXPRESS SA"*, y se cuenta dos veces.
+-   **Codificaciones incompatibles** en campos que deberían coincidir: la variable *galaxia* usa *"VÍA LÁCTEA"* en una tabla y *"Via Lactea"* en otra. Los cruces fallan silenciosamente.
+-   **Ausencia de restricciones**: nada impide introducir un salario negativo, una fecha imposible o una edad de 300 años.
+-   **Falta de trazabilidad**: no se sabe quién modificó qué, ni cuándo. La auditoría es un ejercicio de arqueología.
+-   **Rendimiento inaceptable**: consultas que en un diseño correcto tardan segundos, en uno defectuoso tardan horas.
 
-En el ámbito empresarial estos problemas se traducen directamente en
-**decisiones erradas** y en **incumplimientos normativos**. La calidad
-del dato es un activo estratégico.
+En el ámbito empresarial estos problemas se traducen directamente en **decisiones erradas** y en **incumplimientos normativos**. La calidad del dato es un activo estratégico.
 
 ### Tipos de bases de datos.
 
-Aunque el término abarque tecnologías muy diversas, dos grandes familias
-dominan hoy el panorama.
+Aunque el término abarque tecnologías muy diversas, dos grandes familias dominan hoy el panorama.
 
 #### Bases de datos relacionales.
 
-Son las **clásicas**. La información se organiza en **tablas**
-interrelacionadas mediante **claves** (primaria en la tabla de origen,
-foránea en la tabla que la referencia). Se consultan mediante **SQL**
-(*Structured Query Language*), un lenguaje declarativo estandarizado.
+Son las **clásicas**. La información se organiza en **tablas** interrelacionadas mediante **claves** (primaria en la tabla de origen, foránea en la tabla que la referencia). Se consultan mediante **SQL** (*Structured Query Language*), un lenguaje declarativo estandarizado.
 
-Los productos comerciales y libres dominantes son **PostgreSQL**,
-**MySQL / MariaDB**, **Oracle Database**, **Microsoft SQL Server** y
-**SQLite** (esta última especialmente ligera y usada como base de datos
-empotrada en aplicaciones móviles y de escritorio).
+Los productos comerciales y libres dominantes son **PostgreSQL**, **MySQL / MariaDB**, **Oracle Database**, **Microsoft SQL Server** y **SQLite** (esta última especialmente ligera y usada como base de datos empotrada en aplicaciones móviles y de escritorio).
 
-Su gran fortaleza es la **integridad**: los datos son coherentes por
-diseño, y las transacciones cumplen ACID de forma nativa. Es el estándar
-para **sistemas transaccionales** —contabilidad, RRHH, ventas, banca—
-donde un fallo es inaceptable.
+Su gran fortaleza es la **integridad**: los datos son coherentes por diseño, y las transacciones cumplen ACID de forma nativa. Es el estándar para **sistemas transaccionales** —contabilidad, RRHH, ventas, banca— donde un fallo es inaceptable.
 
 #### Bases de datos no relacionales (NoSQL).
 
-Aparecen a principios de la década de 2010, cuando el volumen y la
-variedad de datos generados por la web superan lo que las bases
-relacionales pueden manejar cómodamente. Renuncian a parte de la rigidez
-del modelo relacional (y, a menudo, a alguna de las garantías ACID) a
-cambio de **escalabilidad horizontal** y **flexibilidad de esquema**. Se
-agrupan en cuatro subfamilias:
+Aparecen a principios de la década de 2010, cuando el volumen y la variedad de datos generados por la web superan lo que las bases relacionales pueden manejar cómodamente. Renuncian a parte de la rigidez del modelo relacional (y, a menudo, a alguna de las garantías ACID) a cambio de **escalabilidad horizontal** y **flexibilidad de esquema**. Se agrupan en cuatro subfamilias:
 
--   **Documentales** (*MongoDB*, *CouchDB*): guardan documentos JSON
-    individuales.
--   **Clave-valor** (*Redis*, *DynamoDB*): tabla hash gigante, muy
-    rápida para lecturas y escrituras simples.
--   **Columnares** (*Cassandra*, *HBase*): optimizadas para agregaciones
-    sobre volúmenes enormes.
--   **De grafos** (*Neo4j*): modelan relaciones complejas entre
-    entidades (redes sociales, fraude, rutas logísticas).
+-   **Documentales** (*MongoDB*, *CouchDB*): guardan documentos JSON individuales.
+-   **Clave-valor** (*Redis*, *DynamoDB*): tabla hash gigante, muy rápida para lecturas y escrituras simples.
+-   **Columnares** (*Cassandra*, *HBase*): optimizadas para agregaciones sobre volúmenes enormes.
+-   **De grafos** (*Neo4j*): modelan relaciones complejas entre entidades (redes sociales, fraude, rutas logísticas).
 
-Su nicho natural son los sistemas de **Big Data**, las plataformas web
-con millones de usuarios y las aplicaciones analíticas que no requieren
-garantías transaccionales estrictas.
+Su nicho natural son los sistemas de **Big Data**, las plataformas web con millones de usuarios y las aplicaciones analíticas que no requieren garantías transaccionales estrictas.
 
 ```{r bd-comparacion}
 bd_comp <- tribble(
@@ -791,30 +575,19 @@ bd_comp |>
 
 ### Metadatos y diccionario de datos.
 
-Un fichero de datos sin documentación es un misterio arqueológico. La
-variable `IIG` del fichero de astilleros, por ejemplo, no significa nada
-por sí sola: podría ser un identificador, un índice, una frecuencia o
-una temperatura. Solo la **hoja de descripción de variables** que
-acompaña al fichero nos aclara que se trata del *Índice de Incidencias
-Graves*, medido en número de averías mayores acumuladas en la vida
-operativa de la nave.
+Un fichero de datos sin documentación es un misterio arqueológico. La variable `IIG` del fichero de astilleros, por ejemplo, no significa nada por sí sola: podría ser un identificador, un índice, una frecuencia o una temperatura. Solo la **hoja de descripción de variables** que acompaña al fichero nos aclara que se trata del *Índice de Incidencias Graves*, medido en número de averías mayores acumuladas en la vida operativa de la nave.
 
-Ese conjunto de información sobre los datos —el **diccionario de
-datos**— es lo que llamamos **metadatos** ("datos sobre los datos"). Un
-buen diccionario incluye, para cada variable:
+Ese conjunto de información sobre los datos —el **diccionario de datos**— es lo que llamamos **metadatos** ("datos sobre los datos"). Un buen diccionario incluye, para cada variable:
 
 -   **Nombre** técnico (el que aparece como cabecera de columna).
 -   **Descripción** literal.
 -   **Unidad** de medida (o categorías admisibles, si es un atributo).
 -   **Tipo** (numérico, texto, fecha, factor...).
--   **Rango** de valores válidos y regla de codificación de valores
-    perdidos.
+-   **Rango** de valores válidos y regla de codificación de valores perdidos.
 -   **Fuente** original del dato.
 -   **Fecha** de última actualización.
 
-Los ficheros de este libro siguen esta convención. La hoja *Variables*
-de `astilleros_48.xlsx`, por ejemplo, funciona como diccionario del
-fichero:
+Los ficheros de este libro siguen esta convención. La hoja *Variables* de `astilleros_48.xlsx`, por ejemplo, funciona como diccionario del fichero:
 
 ```{r diccionario-astilleros}
 variables_astilleros <- read_excel("astilleros_48.xlsx", sheet = "Variables")
@@ -832,38 +605,19 @@ variables_astilleros |>
 :::
 
 
-En proyectos serios, mantener actualizado el diccionario de datos es
-responsabilidad tan importante como mantener actualizados los datos
-mismos. La regla que rige el sector es simple: **si no está documentado,
-no existe.**
+En proyectos serios, mantener actualizado el diccionario de datos es responsabilidad tan importante como mantener actualizados los datos mismos. La regla que rige el sector es simple: **si no está documentado, no existe.**
 
 ## Tratamiento previo de datos. {#tratamiento-previo}
 
-Una vez obtenidos y almacenados los datos, aún queda un paso ineludible
-antes de calcular la primera media: **prepararlos**. Los datos brutos
-—vengan de una encuesta, de un sensor o de una base corporativa—
-raramente están en condiciones de ser analizados sin más. Los problemas
-recurrentes son tres: **valores perdidos**, **casos atípicos** e
-**inconsistencias**. Los dos primeros se tratan aquí en detalle; el
-tercero es más un asunto de sentido común informático (validar dominios,
-cruzar tablas, comprobar consistencia interna) y lo damos por asumido.
+Una vez obtenidos y almacenados los datos, aún queda un paso ineludible antes de calcular la primera media: **prepararlos**. Los datos brutos —vengan de una encuesta, de un sensor o de una base corporativa— raramente están en condiciones de ser analizados sin más. Los problemas recurrentes son tres: **valores perdidos**, **casos atípicos** e **inconsistencias**. Los dos primeros se tratan aquí en detalle; el tercero es más un asunto de sentido común informático (validar dominios, cruzar tablas, comprobar consistencia interna) y lo damos por asumido.
 
 ### Valores perdidos (missing values). {#missing-values}
 
-Un **valor perdido** es un dato que **debería estar** en el fichero pero
-**no está**. Aparece en cualquier conjunto de datos real, sean encuestas
-del INE, registros contables de una pyme o balances de una compañía
-galáctica.
+Un **valor perdido** es un dato que **debería estar** en el fichero pero **no está**. Aparece en cualquier conjunto de datos real, sean encuestas del INE, registros contables de una pyme o balances de una compañía galáctica.
 
 #### Cómo se materializa un valor perdido.
 
-Un mismo valor perdido puede materializarse de varias formas
-incompatibles entre sí: celda vacía, guion, `NA`, `n.d.`, `999`,
-`9999999999`, un cero... Confundirlos con datos válidos es una de las
-formas más discretas —y más habituales— de contaminar un análisis: un
-`999` interpretado como valor válido convierte a un trabajador en el
-mejor pagado de la galaxia. Lo primero, siempre, es **identificar cómo
-se codifican los huecos** en el fichero de partida.
+Un mismo valor perdido puede materializarse de varias formas incompatibles entre sí: celda vacía, guion, `NA`, `n.d.`, `999`, `9999999999`, un cero... Confundirlos con datos válidos es una de las formas más discretas —y más habituales— de contaminar un análisis: un `999` interpretado como valor válido convierte a un trabajador en el mejor pagado de la galaxia. Lo primero, siempre, es **identificar cómo se codifican los huecos** en el fichero de partida.
 
 ```{r missing-simulacion}
 # Simulamos un problema realista sobre trabajadores.xlsx:
@@ -895,55 +649,23 @@ trabaj_sucio |>
 
 #### Tipos de valores perdidos.
 
-No todos los valores perdidos son iguales. La literatura estadística
-distingue tres regímenes, con implicaciones muy distintas para el
-análisis:
+No todos los valores perdidos son iguales. La literatura estadística distingue tres regímenes, con implicaciones muy distintas para el análisis:
 
--   **MCAR** (*Missing Completely At Random*): el dato falta por puro
-    azar, sin relación con nada. Un trabajador cualquiera no aparece
-    porque su ficha se traspapeló. Es el caso más benigno: cualquier
-    técnica razonable da resultados válidos.
--   **MAR** (*Missing At Random*): la probabilidad de que falte el dato
-    depende de **otras variables observadas**, pero no del valor
-    faltante en sí. Por ejemplo, los empleados del departamento de
-    Almacén responden menos veces a la pregunta sobre su nivel de
-    estudios que los del departamento de Dirección. Si conocemos el
-    departamento, podemos corregir el sesgo.
--   **MNAR** (*Missing Not At Random*): la probabilidad de que falte el
-    dato depende **del propio valor faltante**. El caso clásico: en una
-    encuesta sobre salarios, quienes más ganan son también quienes con
-    más frecuencia dejan la pregunta en blanco. Es el caso más difícil:
-    no hay corrección estadística que resuelva el problema sin
-    información adicional.
+-   **MCAR** (*Missing Completely At Random*): el dato falta por puro azar, sin relación con nada. Un trabajador cualquiera no aparece porque su ficha se traspapeló. Es el caso más benigno: cualquier técnica razonable da resultados válidos.
+-   **MAR** (*Missing At Random*): la probabilidad de que falte el dato depende de **otras variables observadas**, pero no del valor faltante en sí. Por ejemplo, los empleados del departamento de Almacén responden menos veces a la pregunta sobre su nivel de estudios que los del departamento de Dirección. Si conocemos el departamento, podemos corregir el sesgo.
+-   **MNAR** (*Missing Not At Random*): la probabilidad de que falte el dato depende **del propio valor faltante**. El caso clásico: en una encuesta sobre salarios, quienes más ganan son también quienes con más frecuencia dejan la pregunta en blanco. Es el caso más difícil: no hay corrección estadística que resuelva el problema sin información adicional.
 
-La distinción importa porque el remedio depende del diagnóstico. Y el
-diagnóstico requiere **pensar por qué falta el dato**, no solo constatar
-que falta.
+La distinción importa porque el remedio depende del diagnóstico. Y el diagnóstico requiere **pensar por qué falta el dato**, no solo constatar que falta.
 
 #### Estrategias de tratamiento.
 
-Localizados los valores perdidos, hay que decidir qué hacer con ellos.
-Las estrategias principales son cinco:
+Localizados los valores perdidos, hay que decidir qué hacer con ellos. Las estrategias principales son cinco:
 
-1.  **Recuperar el dato en la fuente.** Cuando es factible, la mejor
-    opción. Si un empleado no tiene registrado el salario porque su alta
-    se cursó tarde, quizá el sistema de nóminas del mes siguiente lo
-    tenga. Es lento pero no introduce sesgo alguno.
-2.  **Eliminar el caso** (*listwise deletion*). Se prescinde de los
-    individuos con al menos un valor perdido. Sencillo, pero pierde
-    información, y puede introducir un sesgo enorme si los que faltan no
-    son "cualquiera" (MAR o MNAR).
-3.  **Eliminar la variable.** Si una columna tiene la mitad de valores
-    perdidos, quizá no aporte nada al análisis y sea mejor prescindir de
-    ella.
-4.  **Imputación simple** por una estimación puntual: la **media**, la
-    **mediana** (más robusta ante outliers), la **moda** (en atributos)
-    o el valor **más frecuente en el subgrupo homogéneo** (imputación
-    por grupos). Sencilla y rápida, pero infravalora la variabilidad de
-    la variable imputada.
-5.  **Imputación avanzada.** Basada en un modelo: regresión, vecinos más
-    cercanos (*k-NN*), imputación múltiple. Preserva mejor la estructura
-    estadística del conjunto de datos, a costa de más complejidad.
+1.  **Recuperar el dato en la fuente.** Cuando es factible, la mejor opción. Si un empleado no tiene registrado el salario porque su alta se cursó tarde, quizá el sistema de nóminas del mes siguiente lo tenga. Es lento pero no introduce sesgo alguno.
+2.  **Eliminar el caso** (*listwise deletion*). Se prescinde de los individuos con al menos un valor perdido. Sencillo, pero pierde información, y puede introducir un sesgo enorme si los que faltan no son "cualquiera" (MAR o MNAR).
+3.  **Eliminar la variable.** Si una columna tiene la mitad de valores perdidos, quizá no aporte nada al análisis y sea mejor prescindir de ella.
+4.  **Imputación simple** por una estimación puntual: la **media**, la **mediana** (más robusta ante outliers), la **moda** (en atributos) o el valor **más frecuente en el subgrupo homogéneo** (imputación por grupos). Sencilla y rápida, pero infravalora la variabilidad de la variable imputada.
+5.  **Imputación avanzada.** Basada en un modelo: regresión, vecinos más cercanos (*k-NN*), imputación múltiple. Preserva mejor la estructura estadística del conjunto de datos, a costa de más complejidad.
 
 ```{r missing-tabla}
 missing_tab <- tribble(
@@ -971,63 +693,50 @@ missing_tab |>
 :::
 
 
-Ninguna estrategia es universalmente buena. Un *missing* que aparece
-porque el dato **no existe** (un becario sin salario contractual) no
-debería imputarse: delimita, sencillamente, otra población. Un *missing*
-que aparece porque el encuestado **no quiso** contestar no es aleatorio:
-quienes callan a la pregunta *"¿cuánto ganó el año pasado?"* no son un
-grupo cualquiera. La decisión no es puramente técnica, y merece la pena
-**documentarla** junto con el análisis para que otro pueda reproducirlo
-y discutirlo.
+Ninguna estrategia es universalmente buena. Un *missing* que aparece porque el dato **no existe** (un becario sin salario contractual) no debería imputarse: delimita, sencillamente, otra población. Un *missing* que aparece porque el encuestado **no quiso** contestar no es aleatorio: quienes callan a la pregunta *"¿cuánto ganó el año pasado?"* no son un grupo cualquiera. La decisión no es puramente técnica, y merece la pena **documentarla** junto con el análisis para que otro pueda reproducirlo y discutirlo.
 
 ### Casos atípicos (outliers). {#outliers}
 
-Un **caso atípico** o **outlier** es un individuo cuyo valor se aleja
-marcadamente del comportamiento general del resto. A diferencia de los
-valores perdidos, aquí el dato está: el problema es que **no se parece a
-los demás**.
+Un **caso atípico** o **outlier** es un individuo cuyo valor se aleja marcadamente del comportamiento general del resto. A diferencia de los valores perdidos, aquí el dato está: el problema es que **no se parece a los demás**.
 
 #### Por qué aparecen.
 
-Los outliers no son necesariamente errores. Al contrario, admiten al
-menos tres explicaciones muy distintas y con consecuencias opuestas:
+Los outliers no son necesariamente errores. Al contrario, admiten al menos tres explicaciones muy distintas y con consecuencias opuestas:
 
--   **Error de medida o de codificación.** El operador tecleó `220` en
-    lugar de `22`. El sensor falló. La entrevistadora anotó el dato en
-    la celda equivocada. Este es el caso más habitual y el único en el
-    que borrar el dato es realmente correcto.
--   **Caso legítimo pero excepcional.** Existe, es correcto y aporta
-    información valiosísima: una compañía con una rentabilidad muy
-    superior a la del sector porque acaba de patentar un motor de
-    curvatura eficiente; una nave que ha sufrido treinta y cinco averías
-    porque arrastra un defecto de serie desde su primer año de vuelo.
-    Borrar estos casos equivale a ocultar precisamente la parte más
-    informativa de los datos.
--   **Caso perteneciente a otra población.** El individuo, aunque figure
-    en el fichero, no comparte la característica que define la población
-    de interés. El salario del CEO no es comparable con el del resto de
-    la plantilla porque, de facto, pertenece a otra categoría
-    profesional.
+-   **Error de medida o de codificación.** El operador tecleó `220` en lugar de `22`. El sensor falló. La entrevistadora anotó el dato en la celda equivocada. Este es el caso más habitual y el único en el que borrar el dato es realmente correcto.
+-   **Caso legítimo pero excepcional.** Existe, es correcto y aporta información valiosísima: una compañía con una rentabilidad muy superior a la del sector porque acaba de patentar un motor de curvatura eficiente; una nave que ha sufrido treinta y cinco averías porque arrastra un defecto de serie desde su primer año de vuelo. Borrar estos casos equivale a ocultar precisamente la parte más informativa de los datos.
+-   **Caso perteneciente a otra población.** El individuo, aunque figure en el fichero, no comparte la característica que define la población de interés. El salario del CEO no es comparable con el del resto de la plantilla porque, de facto, pertenece a otra categoría profesional.
 
-La decisión sobre qué hacer con un outlier **no puede tomarse mirando
-solo el número**. Requiere entender por qué es atípico.
+La decisión sobre qué hacer con un outlier **no puede tomarse mirando solo el número**. Requiere entender por qué es atípico.
 
 #### Detección: mirar los datos y aplicar reglas.
 
-La primera detección de outliers siempre es **visual**. Un diagrama de
-caja (*box-plot*) o un simple histograma revelan de un vistazo los
-valores que se separan del grueso de la distribución. Veámoslo con la
-variable *Índice de Incidencias Graves* (`IIG`) del fichero de
-astilleros:
+La primera detección de outliers siempre es **visual**. Un diagrama de caja (*box-plot*) o un simple histograma revelan de un vistazo los valores que se separan del grueso de la distribución. Veámoslo con la variable *Índice de Incidencias Graves* (`IIG`) del fichero de astilleros:
 
 ```{r outliers-astilleros, fig.width=5.5, fig.height=4}
 astilleros <- read_excel("astilleros_48.xlsx", sheet = "Datos")
 
+# Marca de outlier según la regla del recorrido intercuartílico (IQR),
+# la misma que se explica en el texto justo debajo.
+q1  <- quantile(astilleros$IIG, 0.25)
+q3  <- quantile(astilleros$IIG, 0.75)
+iqr <- q3 - q1
+astilleros <- astilleros |>
+  mutate(atipico = IIG < q1 - 1.5 * iqr | IIG > q3 + 1.5 * iqr)
+
 ggplot(astilleros, aes(x = "", y = IIG)) +
+  # Boxplot sin los puntos automáticos de outlier (los pintaremos abajo
+  # a través del jitter, para que un mismo caso no aparezca dos veces).
   geom_boxplot(fill = pal_acento, alpha = 0.15,
                color = pal_acento, width = 0.4,
-               outlier.color = pal_alerta, outlier.size = 3) +
-  geom_jitter(width = 0.15, alpha = 0.5, color = "#334155", size = 1.5) +
+               outlier.shape = NA) +
+  # Todos los casos con jitter: los atípicos en color de alerta y algo
+  # mayores, para que se distingan a simple vista del resto.
+  geom_jitter(aes(color = atipico, size = atipico),
+              width = 0.15, alpha = 0.75) +
+  scale_color_manual(values = c(`FALSE` = "#334155", `TRUE` = pal_alerta)) +
+  scale_size_manual(values  = c(`FALSE` = 1.5,        `TRUE` = 3)) +
+  guides(color = "none", size = "none") +
   labs(title    = "Incidencias graves acumuladas por nave carguera",
        subtitle = "Fichero astilleros_48.xlsx. Un caso claramente separado del resto.",
        x        = NULL,
@@ -1036,147 +745,62 @@ ggplot(astilleros, aes(x = "", y = IIG)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 2.3**
+**Figura 2.4**
 :::
 
 
-El gráfico revela una nave con 35 incidencias graves, muy lejos del
-resto de la flota. Ese punto obliga a hacer preguntas antes de tocar
-nada.
+El gráfico revela una nave con 35 incidencias graves, muy lejos del resto de la flota. Ese punto obliga a hacer preguntas antes de tocar nada.
 
-Formalmente, las dos **reglas** más habituales para detectar outliers
-univariantes se basan en medidas de dispersión que veremos en el
-capítulo siguiente, pero conviene adelantarlas:
+Formalmente, las dos **reglas** más habituales para detectar outliers univariantes se basan en medidas de dispersión que veremos en el capítulo siguiente, pero conviene adelantarlas:
 
--   **Regla del recorrido intercuartílico (IQR).** Un valor es atípico
-    si queda por debajo de $Q_1 - 1{,}5 \cdot \text{IQR}$ o por encima
-    de $Q_3 + 1{,}5 \cdot \text{IQR}$, donde $Q_1$ y $Q_3$ son el primer
-    y tercer cuartil e $\text{IQR} = Q_3 - Q_1$. Es la regla en la que
-    se basa el *box-plot*. Es **robusta**: no se ve arrastrada por los
-    propios valores extremos.
--   **Regla del z-score.** Un valor $x$ es atípico si su distancia a la
-    media, medida en desviaciones típicas, supera cierto umbral
-    (habitualmente 2 o 3): $|z| = |(x - \bar{x})/s| > 3$. Es simple pero
-    **poco robusta**: los propios outliers inflan la desviación típica y
-    disimulan su propio carácter atípico.
+-   **Regla del recorrido intercuartílico (IQR).** Un valor es atípico si queda por debajo de $Q_1 - 1{,}5 \cdot \text{IQR}$ o por encima de $Q_3 + 1{,}5 \cdot \text{IQR}$, donde $Q_1$ y $Q_3$ son el primer y tercer cuartil e $\text{IQR} = Q_3 - Q_1$. Es la regla en la que se basa el *box-plot*. Es **robusta**: no se ve arrastrada por los propios valores extremos.
+-   **Regla del z-score.** Un valor $x$ es atípico si su distancia a la media, medida en desviaciones típicas, supera cierto umbral (habitualmente 2 o 3): $|z| = |(x - \bar{x})/s| > 3$. Es simple pero **poco robusta**: los propios outliers inflan la desviación típica y disimulan su propio carácter atípico.
 
-En análisis multivariantes existen métodos más sofisticados (distancia
-de Mahalanobis, *Isolation Forest*, *Local Outlier Factor*), que exceden
-el nivel de este texto pero conviene saber que existen.
+En análisis multivariantes existen métodos más sofisticados (distancia de Mahalanobis, *Isolation Forest*, *Local Outlier Factor*), que exceden el nivel de este texto pero conviene saber que existen.
 
 #### Estrategias de tratamiento.
 
 Igual que con los valores perdidos, las opciones son varias:
 
-1.  **Comprobar y corregir**, si el outlier es un error identificable.
-    Nadie discute borrar un 220 tecleado en lugar de 22.
-2.  **Excluir** al individuo del análisis, si claramente pertenece a
-    otra población y no aporta al problema estudiado.
-3.  **Mantener** el dato tal cual, si es un caso legítimo. En estudios
-    sobre distribuciones asimétricas (renta, ingresos, tamaños de
-    empresa, tráfico web), los outliers **son la información**.
-4.  **Winsorizar**: sustituir los valores extremos por los percentiles 5
-    y 95 (o 1 y 99). Se conserva el individuo, pero se limita su
-    influencia.
-5.  **Transformar la variable** (por ejemplo, aplicar logaritmos):
-    reduce el peso de las colas y hace la distribución más manejable.
-    Habitual con ingresos y facturaciones.
-6.  **Análisis por separado**: cuando los outliers configuran realmente
-    un subgrupo con lógica propia, la mejor decisión suele ser
-    analizarlos aparte y contar los dos resultados por separado.
+1.  **Comprobar y corregir**, si el outlier es un error identificable. Nadie discute borrar un 220 tecleado en lugar de 22.
+2.  **Excluir** al individuo del análisis, si claramente pertenece a otra población y no aporta al problema estudiado.
+3.  **Mantener** el dato tal cual, si es un caso legítimo. En estudios sobre distribuciones asimétricas (renta, ingresos, tamaños de empresa, tráfico web), los outliers **son la información**.
+4.  **Winsorizar**: sustituir los valores extremos por los percentiles 5 y 95 (o 1 y 99). Se conserva el individuo, pero se limita su influencia.
+5.  **Transformar la variable** (por ejemplo, aplicar logaritmos): reduce el peso de las colas y hace la distribución más manejable. Habitual con ingresos y facturaciones.
+6.  **Análisis por separado**: cuando los outliers configuran realmente un subgrupo con lógica propia, la mejor decisión suele ser analizarlos aparte y contar los dos resultados por separado.
 
-> **Ejemplo.** La nave *Trade Wind* del astillero ARCTURUS tiene 35
-> incidencias graves acumuladas frente a una media de flota de
-> aproximadamente 3,4. Es un outlier claro. Antes de decidir nada
-> convendría comprobar (a) que la nave existe y opera de verdad (¿no
-> será una avería del sistema de contaje?); (b) qué ruta cubre (quizá
-> una ruta hostil justifica esa cifra); y (c) si el desgaste corresponde
-> a la antigüedad —en este caso solo lleva cuatro años en servicio, lo
-> que agrava la sospecha— o a un defecto de serie del propio astillero.
-> Solo con esa información se puede decidir si el dato debe excluirse,
-> mantenerse, transformarse o justificar un análisis específico.
-> Borrarlo sin más equivaldría a esconder debajo de la alfombra una
-> señal potencialmente muy útil sobre el mantenimiento de la flota.
+> **Ejemplo.** La nave *Trade Wind* del astillero ARCTURUS tiene 35 incidencias graves acumuladas frente a una media de flota de aproximadamente 3,4. Es un outlier claro. Antes de decidir nada convendría comprobar (a) que la nave existe y opera de verdad (¿no será una avería del sistema de contaje?); (b) qué ruta cubre (quizá una ruta hostil justifica esa cifra); y (c) si el desgaste corresponde a la antigüedad —en este caso solo lleva cuatro años en servicio, lo que agrava la sospecha— o a un defecto de serie del propio astillero. Solo con esa información se puede decidir si el dato debe excluirse, mantenerse, transformarse o justificar un análisis específico. Borrarlo sin más equivaldría a esconder debajo de la alfombra una señal potencialmente muy útil sobre el mantenimiento de la flota.
 
 ## Ética, privacidad y protección de datos. {#etica-datos}
 
-Cerramos el capítulo con una sección breve pero imprescindible. Los
-datos que analizaremos a lo largo del libro no son abstracciones: son la
-huella cuantitativa de personas, empresas, hogares y organizaciones
-reales. Su tratamiento **no es libre**.
+Cerramos el capítulo con una sección breve pero imprescindible. Los datos que analizaremos a lo largo del libro no son abstracciones: son la huella cuantitativa de personas, empresas, hogares y organizaciones reales. Su tratamiento **no es libre**.
 
-En la Unión Europea, la piedra angular de esta regulación es el
-**Reglamento General de Protección de Datos** (RGPD), aplicable desde
-2018. Sus principios fundamentales son sencillos y su cumplimiento,
-imprescindible para cualquier analista:
+En la Unión Europea, la piedra angular de esta regulación es el **Reglamento General de Protección de Datos** (RGPD), aplicable desde 2018. Sus principios fundamentales son sencillos y su cumplimiento, imprescindible para cualquier analista:
 
--   **Licitud, lealtad y transparencia.** Los datos se recogen con una
-    base legal explícita (consentimiento, ejecución de contrato,
-    obligación legal...) y el interesado sabe qué se va a hacer con
-    ellos.
--   **Limitación de la finalidad.** Los datos recogidos para un fin no
-    pueden reutilizarse para otro incompatible.
--   **Minimización.** Se recogen los datos estrictamente necesarios, no
-    todos los datos posibles por si acaso.
+-   **Licitud, lealtad y transparencia.** Los datos se recogen con una base legal explícita (consentimiento, ejecución de contrato, obligación legal...) y el interesado sabe qué se va a hacer con ellos.
+-   **Limitación de la finalidad.** Los datos recogidos para un fin no pueden reutilizarse para otro incompatible.
+-   **Minimización.** Se recogen los datos estrictamente necesarios, no todos los datos posibles por si acaso.
 -   **Exactitud.** Los datos son correctos y están actualizados.
--   **Limitación del plazo de conservación.** Los datos no se guardan
-    más tiempo del necesario.
--   **Integridad y confidencialidad.** Los datos están protegidos frente
-    a accesos no autorizados y frente a su pérdida.
--   **Responsabilidad proactiva.** El responsable del tratamiento debe
-    **poder demostrar** que cumple los principios anteriores.
+-   **Limitación del plazo de conservación.** Los datos no se guardan más tiempo del necesario.
+-   **Integridad y confidencialidad.** Los datos están protegidos frente a accesos no autorizados y frente a su pérdida.
+-   **Responsabilidad proactiva.** El responsable del tratamiento debe **poder demostrar** que cumple los principios anteriores.
 
-Junto al RGPD, la estadística oficial se rige además por el **secreto
-estadístico**, principio recogido en la legislación de todos los países
-europeos, que **prohíbe** publicar cualquier información que permita
-identificar a un individuo o a una empresa concreta. Por eso el INE
-publica el salario medio por provincia pero no el salario individual de
-cada asalariado, y por eso las tabulaciones con muy pocas observaciones
-en alguna celda se ocultan o se agregan.
+Junto al RGPD, la estadística oficial se rige además por el **secreto estadístico**, principio recogido en la legislación de todos los países europeos, que **prohíbe** publicar cualquier información que permita identificar a un individuo o a una empresa concreta. Por eso el INE publica el salario medio por provincia pero no el salario individual de cada asalariado, y por eso las tabulaciones con muy pocas observaciones en alguna celda se ocultan o se agregan.
 
-En un plano complementario, la creciente utilización de datos para
-alimentar modelos algorítmicos ha traído a primer plano la cuestión de
-los **sesgos algorítmicos**: si los datos con los que se entrena un
-modelo reflejan un sesgo histórico (por ejemplo, discriminación en la
-concesión de créditos), el modelo lo aprenderá y lo reproducirá, con
-apariencia de objetividad matemática. La responsabilidad del analista
-incluye detectarlo y advertirlo.
+En un plano complementario, la creciente utilización de datos para alimentar modelos algorítmicos ha traído a primer plano la cuestión de los **sesgos algorítmicos**: si los datos con los que se entrena un modelo reflejan un sesgo histórico (por ejemplo, discriminación en la concesión de créditos), el modelo lo aprenderá y lo reproducirá, con apariencia de objetividad matemática. La responsabilidad del analista incluye detectarlo y advertirlo.
 
-Ninguno de estos aspectos es "un tema de los abogados". Son parte del
-**oficio** de quien trabaja con datos, y su incumplimiento acarrea
-sanciones económicas severas y, más grave aún, un daño reputacional del
-que las organizaciones raramente se recuperan.
+Ninguno de estos aspectos es "un tema de los abogados". Son parte del **oficio** de quien trabaja con datos, y su incumplimiento acarrea sanciones económicas severas y, más grave aún, un daño reputacional del que las organizaciones raramente se recuperan.
 
 ## Recapitulación. {#recapitulacion-cap02}
 
-En este capítulo hemos hecho el recorrido completo desde que los datos
-"no existen" hasta que están listos para ser analizados:
+En este capítulo hemos hecho el recorrido completo desde que los datos "no existen" hasta que están listos para ser analizados:
 
--   Hemos definido el **dato** como el valor que toma una variable o
-    atributo sobre un individuo, y el **conjunto de datos** como la
-    tabla de individuos × características.
--   Hemos distinguido las **fuentes primarias** (recogidas por el propio
-    analista) de las **secundarias** (publicadas por terceros), y hemos
-    revisado sus ventajas e inconvenientes.
--   Hemos repasado los **sistemas de obtención** actuales —descarga
-    directa, APIs, *web scraping* y conexión a bases de datos— y los
-    **formatos** más habituales de intercambio.
--   Hemos dedicado una sección amplia a las **encuestas y al muestreo**:
-    por qué la representatividad importa más que el tamaño, qué tipos de
-    muestreo existen, cómo se diseña un cuestionario y qué métodos de
-    encuestación se usan hoy.
--   Hemos presentado las **bases de datos** como la infraestructura
-    donde los datos viven de forma organizada, con sus dos grandes
-    familias (relacionales y NoSQL) y con el imprescindible
-    **diccionario de datos**.
--   Hemos abordado el **tratamiento previo**: identificación y
-    tratamiento de **valores perdidos** —con la distinción MCAR / MAR /
-    MNAR y las principales estrategias de imputación— y **casos
-    atípicos**, con las reglas del IQR y el z-score y las opciones de
-    manejo.
--   Hemos cerrado con las **implicaciones éticas y legales** del trabajo
-    con datos, especialmente el RGPD y el secreto estadístico.
+-   Hemos definido el **dato** como el valor que toma una variable o atributo sobre un individuo, y el **conjunto de datos** como la tabla de individuos × características.
+-   Hemos distinguido las **fuentes primarias** (recogidas por el propio analista) de las **secundarias** (publicadas por terceros), y hemos revisado sus ventajas e inconvenientes.
+-   Hemos repasado los **sistemas de obtención** actuales —descarga directa, APIs, *web scraping* y conexión a bases de datos— y los **formatos** más habituales de intercambio.
+-   Hemos dedicado una sección amplia a las **encuestas y al muestreo**: por qué la representatividad importa más que el tamaño, qué tipos de muestreo existen, cómo se diseña un cuestionario y qué métodos de encuestación se usan hoy.
+-   Hemos presentado las **bases de datos** como la infraestructura donde los datos viven de forma organizada, con sus dos grandes familias (relacionales y NoSQL) y con el imprescindible **diccionario de datos**.
+-   Hemos abordado el **tratamiento previo**: identificación y tratamiento de **valores perdidos** —con la distinción MCAR / MAR / MNAR y las principales estrategias de imputación— y **casos atípicos**, con las reglas del IQR y el z-score y las opciones de manejo.
+-   Hemos cerrado con las **implicaciones éticas y legales** del trabajo con datos, especialmente el RGPD y el secreto estadístico.
 
-A partir de aquí podemos empezar a **resumir** los datos con las medidas
-de posición, dispersión, forma y concentración. Ese es el objeto del
-próximo capítulo, en el que *Hyperdrive Express* volverá a acompañarnos.
+A partir de aquí podemos empezar a **resumir** los datos con las medidas de posición, dispersión, forma y concentración. Ese es el objeto del próximo capítulo, en el que *Hyperdrive Express* volverá a acompañarnos.

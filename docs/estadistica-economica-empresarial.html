@@ -1132,6 +1132,97 @@ Intervalo
 <p>La comparación visual es elocuente: el intervalo más ancho deja de dominar el gráfico en cuanto pasamos a la versión basada en densidad, que es la única conceptualmente correcta cuando los intervalos no son homogéneos.</p>
 </div>
 </div>
+<div id="otros-gráficos-para-variables-cuantitativas." class="section level3" number="1.8.3">
+<h3>
+<span class="header-section-number">1.8.3</span> Otros gráficos para variables cuantitativas.<a class="anchor" aria-label="anchor" href="#otros-gr%C3%A1ficos-para-variables-cuantitativas."><i class="fas fa-link"></i></a>
+</h3>
+<p>El histograma no es la única representación posible para una variable numérica. Según el tamaño de la muestra, el tipo de comparación que quiera hacerse y el mensaje que se busque transmitir, conviene disponer de un pequeño catálogo alternativo.</p>
+<div id="diagrama-de-puntos." class="section level4" number="1.8.3.1">
+<h4>
+<span class="header-section-number">1.8.3.1</span> Diagrama de puntos.<a class="anchor" aria-label="anchor" href="#diagrama-de-puntos."><i class="fas fa-link"></i></a>
+</h4>
+<p>El <strong>diagrama de puntos</strong> (o <em>dot plot</em>) representa cada observación como un punto sobre el eje horizontal. Cuando varios casos comparten valor, los puntos se apilan. Es especialmente útil con <strong>muestras pequeñas</strong> —como nuestra plantilla de 60 empleados—, porque muestra la distribución sin ocultar la información individual detrás de rectángulos agregados.</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/dot-plot-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 1.7</strong></p>
+</div>
+<p>Con <span class="math inline">\(N\)</span> pequeño (unas decenas) el diagrama de puntos suele contar más que un histograma; con <span class="math inline">\(N\)</span> grande, en cambio, se satura y conviene volver al histograma.</p>
+</div>
+<div id="polígono-de-frecuencias." class="section level4" number="1.8.3.2">
+<h4>
+<span class="header-section-number">1.8.3.2</span> Polígono de frecuencias.<a class="anchor" aria-label="anchor" href="#pol%C3%ADgono-de-frecuencias."><i class="fas fa-link"></i></a>
+</h4>
+<p>El <strong>polígono de frecuencias</strong> se obtiene uniendo con segmentos rectos los puntos <span class="math inline">\((x_i, n_i)\)</span>, donde <span class="math inline">\(x_i\)</span> es la marca de clase de cada intervalo. Superpuesto al histograma —o en sustitución de él— tiene dos virtudes: sugiere la <strong>forma continua</strong> de la distribución subyacente y, sobre todo, permite <strong>comparar dos o más distribuciones</strong> en un mismo gráfico sin que las barras se pisen entre sí.</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/poligono-frecuencias-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 1.8</strong></p>
+</div>
+</div>
+<div id="ojiva-o-polígono-de-frecuencias-acumuladas." class="section level4" number="1.8.3.3">
+<h4>
+<span class="header-section-number">1.8.3.3</span> Ojiva o polígono de frecuencias acumuladas.<a class="anchor" aria-label="anchor" href="#ojiva-o-pol%C3%ADgono-de-frecuencias-acumuladas."><i class="fas fa-link"></i></a>
+</h4>
+<p>Si en el eje vertical representamos la frecuencia relativa <strong>acumulada</strong> <span class="math inline">\(F_i\)</span> frente al extremo superior <span class="math inline">\(L_i\)</span> de cada intervalo, obtenemos el llamado <strong>polígono de frecuencias acumuladas</strong> u <strong>ojiva</strong>. Es una curva monótona no decreciente que va de <span class="math inline">\(0\)</span> (por debajo del mínimo) a <span class="math inline">\(1\)</span> (por encima del máximo).</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/ojiva-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 1.9</strong></p>
+</div>
+<p>La ojiva permite <strong>leer percentiles directamente sobre el gráfico</strong>: la línea horizontal discontinua marca el 50 %, y el valor de <span class="math inline">\(x\)</span> donde corta a la curva es una aproximación gráfica a la <strong>mediana</strong>. El mismo procedimiento sirve para cualquier otro cuantil (Q1, Q3, deciles…), como veremos en el capítulo siguiente.</p>
+</div>
+</div>
+<div id="series-temporales-el-gráfico-de-líneas." class="section level3" number="1.8.4">
+<h3>
+<span class="header-section-number">1.8.4</span> Series temporales: el gráfico de líneas.<a class="anchor" aria-label="anchor" href="#series-temporales-el-gr%C3%A1fico-de-l%C3%ADneas."><i class="fas fa-link"></i></a>
+</h3>
+<p>Cuando el eje horizontal es el <strong>tiempo</strong> —meses, trimestres, años—, el gráfico natural es el <strong>gráfico de líneas</strong>. No es un gráfico nuevo desde el punto de vista técnico, pero sí una de las herramientas más utilizadas en Economía: permite apreciar de un vistazo <strong>tendencia</strong>, <strong>estacionalidad</strong> y <strong>variaciones puntuales</strong> en variables como el PIB, el IPC, la cotización de un activo o —en nuestro caso— la facturación mensual de una compañía galáctica.</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/series-temporales-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 1.10</strong></p>
+</div>
+<p>En este ejemplo se aprecia con claridad una <strong>tendencia</strong> creciente (la compañía factura cada año más), una <strong>estacionalidad</strong> anual (los picos y valles se repiten con periodicidad de doce meses) y un componente residual <strong>irregular</strong> (pequeñas oscilaciones no atribuibles a las dos anteriores). La descomposición formal de una serie temporal en tendencia, ciclo, estacionalidad y componente irregular es materia de otros cursos, pero el punto de partida —“pintar la serie y mirarla”— es siempre el mismo.</p>
+</div>
+<div id="buenas-prácticas-una-receta-para-gráficos-claros." class="section level3" number="1.8.5">
+<h3>
+<span class="header-section-number">1.8.5</span> Buenas prácticas: una “receta” para gráficos claros.<a class="anchor" aria-label="anchor" href="#buenas-pr%C3%A1cticas-una-receta-para-gr%C3%A1ficos-claros."><i class="fas fa-link"></i></a>
+</h3>
+<p>A lo largo de las últimas décadas, autores como <strong>Edward Tufte</strong>, <strong>Alberto Cairo</strong>, <strong>Cole Nussbaumer Knaflic</strong> o <strong>Claus O. Wilke</strong> han ido consolidando un conjunto de principios ampliamente aceptados para la elaboración de gráficos estadísticos. Ninguno es una regla absoluta, pero conviene tenerlos presentes:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Elige el gráfico según la naturaleza de la variable.</strong> Barras y sectores para atributos; histograma, polígono u ojiva para variables agrupadas; gráfico de líneas para series temporales. Un histograma no sirve para representar el departamento, ni un diagrama de sectores para veinte categorías.</p></li>
+<li><p><strong>Un mensaje, un gráfico.</strong> Cada gráfico debería responder a una pregunta concreta. Si necesita párrafo y medio de leyenda para entenderse, probablemente está mezclando dos ideas.</p></li>
+<li><p><strong>Título y subtítulo informativos.</strong> El título puede llevar el <strong>mensaje</strong> (“Almacén concentra el 22 % de la plantilla”) en lugar de una etiqueta neutra (“Distribución por departamento”). El subtítulo aporta el contexto (fuente, periodo, unidad).</p></li>
+<li><p><strong>Etiqueta los ejes con claridad y unidades.</strong> “Salario (cientos de PAVOs)” es informativo; “sal” no lo es. Las cifras del eje deben tener el formato adecuado (separador de miles, porcentajes, etc.).</p></li>
+<li><p><strong>No manipules los ejes.</strong> Salvo justificación explícita, un gráfico de barras debe empezar en cero. Truncar el eje <span class="math inline">\(Y\)</span> para exagerar diferencias es una práctica engañosa y muy penalizada en cualquier análisis serio.</p></li>
+<li><p><strong>Minimiza el “ruido” visual</strong> (el clásico <em>ratio</em> tinta/dato de Tufte). Fuera 3D, sombras, fondos degradados, rejillas gruesas y adornos: todo lo que no aporte información al lector es distracción.</p></li>
+<li><p><strong>Ordena las categorías con criterio.</strong> En atributos nominales, ordena por frecuencia; en ordinales, respeta el orden natural (Básicos → Medios → Universitarios).</p></li>
+<li><p><strong>Usa el color con sobriedad.</strong> El color es un recurso escaso: reserva el color más saturado para lo que quieras destacar, y deja el resto en tonos neutros. Un gráfico con un único color de acento suele leerse mejor que uno con toda la paleta desplegada. Ten en cuenta la accesibilidad (contraste, ceguera cromática).</p></li>
+<li><p><strong>Anota directamente sobre el gráfico.</strong> Si una cifra concreta es clave para el mensaje, escríbela sobre el gráfico. Obligar al lector a ir y venir entre la leyenda y las barras es una fuente innecesaria de fricción.</p></li>
+<li><p><strong>Cita la fuente.</strong> En un contexto profesional, un gráfico sin fuente pierde buena parte de su credibilidad. Añade siempre una <code>caption</code> breve con la procedencia de los datos y, si procede, el momento de la extracción.</p></li>
+</ol>
+<p>Estas recomendaciones no son un catálogo cerrado, sino un punto de partida. Como en la escritura, el buen gráfico es fundamentalmente aquel que <strong>respeta al lector</strong>: le muestra lo importante, le ahorra lo prescindible y no intenta engañarle.</p>
+</div>
+<div id="del-gráfico-a-la-historia-introducción-al-storytelling-con-datos." class="section level3" number="1.8.6">
+<h3>
+<span class="header-section-number">1.8.6</span> Del gráfico a la historia: introducción al <em>storytelling con datos</em>.<a class="anchor" aria-label="anchor" href="#del-gr%C3%A1fico-a-la-historia-introducci%C3%B3n-al-storytelling-con-datos."><i class="fas fa-link"></i></a>
+</h3>
+<p>En los últimos años se ha consolidado, sobre todo a partir del trabajo de <strong>Cole Nussbaumer Knaflic</strong> en su libro <em>Storytelling with Data</em> (Wiley, 2015), la idea de que un gráfico no es solo una herramienta de exploración, sino también —y muy especialmente— una herramienta de <strong>comunicación</strong>. El planteamiento es sencillo: los datos por sí solos no convencen a nadie; lo que convence es una <strong>historia</strong> bien contada apoyada en datos.</p>
+<p>El <em>storytelling con datos</em> propone recorrer, más o menos en este orden, cinco pasos:</p>
+<ol style="list-style-type: decimal">
+<li>Entender el <strong>contexto</strong>: ¿a quién nos dirigimos?, ¿qué queremos que esa persona haga o piense tras leer el gráfico?</li>
+<li>Elegir la <strong>representación</strong> adecuada al mensaje.</li>
+<li>Eliminar el <strong>ruido visual</strong>: todo lo que no contribuye al mensaje sobra.</li>
+<li>
+<strong>Dirigir la atención</strong> del lector hacia lo importante mediante color, tipografía o anotaciones.</li>
+<li>
+<strong>Contar la historia</strong>: dar al gráfico un título con mensaje, un orden narrativo y —si procede— un guion previo del que forma parte.</li>
+</ol>
+<p>La diferencia entre “mostrar datos” y “contar una historia con datos” se aprecia mejor con un ejemplo. Recuperemos el gráfico de departamentos con el que abríamos la sección de representaciones gráficas, y comparemos la versión <strong>neutra</strong> con una versión <strong>narrativa</strong>:</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/storytelling-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 1.11</strong></p>
+</div>
+<p>Los dos gráficos representan <strong>exactamente los mismos datos</strong>. El de la izquierda los expone; el de la derecha los <strong>cuenta</strong>. La barra destacada, el título que ya lleva el mensaje y las etiquetas sobre las columnas guían al lector hacia la conclusión que interesa transmitir, sin que ello suponga la más mínima manipulación de la información.</p>
+<p>El <em>storytelling con datos</em> será un compañero silencioso a lo largo del resto del libro: siempre que produzcamos un gráfico, conviene preguntarse no solo si es <strong>correcto</strong>, sino también qué <strong>historia</strong> cuenta. Para profundizar en el enfoque, además del citado libro de Knaflic, son referencias muy recomendables <em>The Visual Display of Quantitative Information</em> de Edward Tufte, <em>The Truthful Art</em> de Alberto Cairo y <em>Fundamentals of Data Visualization</em> de Claus O. Wilke.</p>
+</div>
 </div>
 <div id="recapitulacion-cap01" class="section level2" number="1.9">
 <h2>
@@ -1174,6 +1265,10 @@ Intervalo
 <a class="nav-link" href="#representaciones-graficas"><span class="header-section-number">1.8</span> Representaciones gráficas.</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#atributos-barras-sectores-y-pareto."><span class="header-section-number">1.8.1</span> Atributos: barras, sectores y Pareto.</a></li>
 <li><a class="nav-link" href="#variables-agrupadas-el-histograma."><span class="header-section-number">1.8.2</span> Variables agrupadas: el histograma.</a></li>
+<li><a class="nav-link" href="#otros-gr%C3%A1ficos-para-variables-cuantitativas."><span class="header-section-number">1.8.3</span> Otros gráficos para variables cuantitativas.</a></li>
+<li><a class="nav-link" href="#series-temporales-el-gr%C3%A1fico-de-l%C3%ADneas."><span class="header-section-number">1.8.4</span> Series temporales: el gráfico de líneas.</a></li>
+<li><a class="nav-link" href="#buenas-pr%C3%A1cticas-una-receta-para-gr%C3%A1ficos-claros."><span class="header-section-number">1.8.5</span> Buenas prácticas: una “receta” para gráficos claros.</a></li>
+<li><a class="nav-link" href="#del-gr%C3%A1fico-a-la-historia-introducci%C3%B3n-al-storytelling-con-datos."><span class="header-section-number">1.8.6</span> Del gráfico a la historia: introducción al storytelling con datos.</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#recapitulacion-cap01"><span class="header-section-number">1.9</span> Recapitulación.</a></li>
@@ -1193,7 +1288,7 @@ Intervalo
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-07-23.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-07-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
