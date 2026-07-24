@@ -72,7 +72,6 @@ etica-datos
 recapitulacion-cap02
 variable-estadistica-unidimensional
 del-dato-bruto-a-la-medida
-depuracion-datos
 medidas-de-posicion-central
 media-aritmetica
 mediana
@@ -80,6 +79,7 @@ moda
 datos-agrupados
 cuantiles
 boxplot
+violin
 tratamiento-outliers
 momentos
 momentos-origen
@@ -87,8 +87,10 @@ momentos-media
 relacion-momentos
 medidas-de-dispersion
 varianza-desviacion
+varianza-informacion
 cv-pearson
 comparando-cv
+estandarizacion
 medidas-de-forma
 asimetria
 curtosis

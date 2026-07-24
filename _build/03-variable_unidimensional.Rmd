@@ -13,7 +13,7 @@ library(ggplot2)
 
 ```{r datos-hyperdrive, echo=FALSE}
 # Reconstrucción de la distribución salarial de Hyperdrive Express
-# a partir de la Tabla 1.3 del capítulo anterior.
+# a partir de la tabla del capítulo anterior.
 hyperdrive <- data.frame(
   salario = rep(c(8, 9, 10, 12, 15, 18, 20, 22, 25, 30),
                 c(2, 2, 7, 5, 16, 7, 6, 6, 4, 5))
@@ -29,11 +29,11 @@ hyperdrive_ceo <- rbind(hyperdrive, data.frame(salario = 100))
 :::
 
 
-**Figura 2.1.** Cuadros de mando y medidas de resumen: síntesis para decidir.
+**Cuadros de mando y medidas de resumen: síntesis para decidir.**
 
 En el capítulo anterior hemos aprendido a **organizar** la información: pasar de una tabla de casos y características a distribuciones de frecuencias, con sus gráficos asociados. Ese paso es imprescindible, pero rara vez suficiente. Una plantilla de 60 personas cabe en una tabla; una de 6.000 no, y un directivo que tenga que decidir sobre política salarial no querrá bucear cada semana en una nube de puntos. Necesitamos **medidas de resumen**: unos pocos números que capturen lo esencial de la distribución de una variable.
 
-Este capítulo se dedica precisamente a eso, al **análisis univariante** de una variable cuantitativa: cómo se sitúa (posición), cómo se reparte alrededor de esa posición (dispersión) y qué forma tiene (asimetría y curtosis). Antes de las cuentas, sin embargo, dedicaremos una sección al eterno paso previo que suele ausentarse de los manuales: **preparar los datos**. Ninguna medida por bonita que sea sobrevive a un fichero mal depurado.
+Este capítulo se dedica precisamente a eso, al **análisis univariante** de una variable cuantitativa: cómo se sitúa (posición), cómo se reparte alrededor de esa posición (dispersión) y qué forma tiene (asimetría y curtosis). Damos por supuesto el paso previo que ya trabajamos en el capítulo anterior —la depuración de los datos—; ninguna medida, por bonita que sea, sobrevive a un fichero mal depurado.
 
 ## Del dato bruto a la medida: por qué necesitamos resumir. {#del-dato-bruto-a-la-medida}
 
@@ -58,72 +58,17 @@ La respuesta a cada una de estas preguntas corresponde a un tipo de medida:
 :::
 
 
-**Tabla 2.1.** Los cuatro grandes bloques de medidas para una variable.
+**Los cuatro grandes bloques de medidas para una variable.**
 
 La mayor parte de estas medidas solo tienen sentido para **variables** en escala métrica. Algunas —como la mediana o la moda— pueden aplicarse también a **atributos** ordinales o nominales, con las adaptaciones oportunas. A lo largo del capítulo iremos indicando en cada caso el alcance.
 
-## Depurando los datos: valores perdidos y casos atípicos. {#depuracion-datos}
-
-Antes de calcular nada conviene abrir el fichero y preguntarse: *¿los datos están en condiciones de ser resumidos?* La respuesta más honesta es casi siempre "no del todo". Dos problemas recurrentes explican por qué:
-
-- **Valores perdidos** (*missing values*): casos para los que, por el motivo que sea, no disponemos del valor de la variable.
-- **Casos atípicos** (*outliers*): casos cuyo valor se aleja mucho del comportamiento general del resto.
-
-Ninguno de los dos es exclusivo de los conjuntos de datos "difíciles". Aparecen en encuestas del INE, en registros contables de una pyme y, en el proyecto R-Stars, tanto en los balances de una compañía galáctica como en las nóminas de un carguero de reparto rápido.
-
-### Valores perdidos (missing values). {#missing-values}
-
-Supongamos que trabajamos con la plantilla de *Hyperdrive Express* que ya conocimos en el capítulo anterior. En su versión "real", el departamento de Recursos Humanos exporta un fichero con 60 empleados y las variables *Salario*, *Nivel de estudios* y *Departamento*. Al abrir el fichero encontramos varias sorpresas: una empleada figura sin salario (aún estaba en periodo formativo), otro trabajador tiene el campo *Nivel de estudios* en blanco y una tercera casilla contiene el texto `"n.d."` (no disponible).
-
-Antes de tocar nada hay que **identificar** cómo aparecen esos huecos. Un mismo *missing* puede materializarse de varias formas incompatibles entre sí: celda en blanco, cero, `-`, `NA`, `n.d.`, `999`, `9999999999`... Confundirlos con datos reales es una de las formas más discretas —y más habituales— de contaminar un análisis: un `999` interpretado como valor válido convierte a un trabajador en el mejor pagado de la galaxia.
-
-Localizados los *missing*, hay que **decidir qué hacer con ellos**. Las tres estrategias principales son:
-
-1. **Recuperar el dato**. La opción preferida cuando es factible: acudir a la fuente y completarlo. Si un empleado no tiene registrado el salario porque su alta se cursó tarde, quizá el sistema de nóminas del mes siguiente lo tenga.
-2. **Imputar el dato** por una estimación razonable. Se sustituye el hueco por un valor —la media, la mediana, el valor más frecuente en un grupo homogéneo— asumiendo que introducimos un sesgo controlado.
-3. **Eliminar el caso**. Si el porcentaje de *missing* es reducido y el problema no parece sistemático, se prescinde de esos individuos. Sencillo, pero pierde información y puede introducir sesgo si los que faltan no son "cualquiera".
-
-Ninguna es universalmente buena. Un *missing* que aparece porque el dato **no existe** (no es que no lo tengamos, es que no procede: un becario sin salario contractual) no debería imputarse; simplemente delimita otra población. Un *missing* que aparece porque el encuestado **no quiso** contestar tampoco es aleatorio: quienes callan a la pregunta *"¿cuánto ganó usted el año pasado?"* no son un grupo cualquiera. La decisión no es puramente técnica, y merece la pena documentarla junto con el análisis.
-
-En nuestro ejemplo asumiremos, por sencillez, que Recursos Humanos completa el dato de la empleada en formación y que el resto de los huecos se han localizado y resuelto. Los 60 salarios de la plantilla quedan como en el capítulo anterior.
-
-### Casos atípicos (outliers). {#outliers}
-
-El segundo problema —los *outliers*— es más sutil, porque **no siempre hay que "arreglarlos"**. Un valor extremo puede ser:
-
-- Un **error** (el operador tecleó `220` en lugar de `22`).
-- Un **caso legítimo pero excepcional** (una compañía con una rentabilidad muy superior a la del resto del sector porque acaba de patentar un motor de curvatura eficiente).
-- Un **caso que pertenece a otra población** (el salario del CEO no es realmente comparable con el del resto de la plantilla).
-
-Detectarlos requiere alguna medida de dispersión, así que dejaremos la definición formal —basada en el recorrido intercuartílico— para más adelante, cuando ya dispongamos de cuartiles. Baste por ahora con un ejemplo que utilizaremos como leitmotiv.
-
-Además de los 60 empleados en plantilla, *Hyperdrive Express* tiene, por supuesto, una directora ejecutiva: la **CEO**, cuyo salario bruto mensual asciende a **100 cientos de PAVOs**. Si añadiésemos su ficha al fichero de nóminas, obtendríamos 61 casos y una distribución con este aspecto:
-
-| \(x_i\) (Salario)  | \(n_i\) | \(x_i\) (Salario) | \(n_i\) |
-|--------------------|---------|--------------------|---------|
-| 8                  | 2       | 20                 | 6       |
-| 9                  | 2       | 22                 | 6       |
-| 10                 | 7       | 25                 | 4       |
-| 12                 | 5       | 30                 | 5       |
-| 15                 | 16      | **100**            | **1**   |
-| 18                 | 7       |                    |         |
-
-::: {style="text-align: center;"}
-**Tabla 3.2**
-:::
-
-
-**Tabla 2.2.** Distribución de frecuencias del salario incluyendo a la CEO (\(N = 61\)).
-
-Un solo caso, sí, pero que **cambia radicalmente la fotografía**. La media pasa de 17,20 a 18,56 cientos de PAVOs, y —como veremos— la varianza y los coeficientes de asimetría y curtosis se disparan. La mediana, en cambio, sigue siendo 15. La CEO no es un error de tecleo; es una observación legítima. Que la incluyamos o no en el análisis depende de la pregunta a la que queramos responder: si estudiamos *"la política salarial de la plantilla"*, sobra; si estudiamos *"el coste laboral total de la compañía"*, es imprescindible.
-
-Volveremos sobre este ejemplo en cuanto dispongamos de cuartiles para definir formalmente cuándo un caso es atípico. Hasta entonces, la lección es sencilla: **antes de resumir, mire los datos**.
+Antes de calcular la primera media conviene recordar que ninguna medida sobrevive a un fichero mal depurado. En el capítulo 2 dedicamos la sección 2.6 a los dos problemas recurrentes —**valores perdidos** y **casos atípicos**— con sus tipologías (MCAR, MAR, MNAR), estrategias de tratamiento y reglas de detección. Damos por hecho todo aquello y, a partir de aquí, trabajamos sobre datos ya depurados. Volveremos, eso sí, sobre los *outliers* en 3.3.2, cuando dispongamos de cuartiles para concretar la regla operativa del box-plot; y sobre su efecto en las medidas de forma en 3.6, donde media, varianza y coeficientes de Fisher pondrán en evidencia hasta qué punto un único caso extremo puede reescribir todo un resumen. La CEO de *Hyperdrive Express*, con su salario de 100 cientos de PAVOs, nos hará ese servicio.
 
 ## Medidas de posición central. {#medidas-de-posicion-central}
 
 Las medidas de posición central intentan responder a la pregunta: *"si tuviese que elegir un único número que represente a toda la distribución, ¿cuál elegiría?"*. Las tres candidatas clásicas son la **media aritmética**, la **mediana** y la **moda**. Cada una responde a una intuición distinta, y por eso ninguna hace redundantes a las demás.
 
-Trabajaremos con la plantilla de 60 empleados de *Hyperdrive Express* del capítulo anterior. Reproducimos aquí, por comodidad, su distribución de frecuencias (Tabla 1.3).
+Trabajaremos con la plantilla de 60 empleados de *Hyperdrive Express* que ya conocimos en el capítulo anterior. Su distribución salarial va desde los 8 hasta los 30 cientos de PAVOs, con 16 empleados concentrados en la retribución más frecuente (15 cientos de PAVOs) y frecuencias menores en los extremos.
 
 ### Media aritmética. {#media-aritmetica}
 
@@ -188,9 +133,9 @@ Es la única medida de posición central que puede aplicarse **también a atribu
 
 ### Datos agrupados y error de agrupamiento. {#datos-agrupados}
 
-Cuando la variable es continua o toma muchos valores distintos, la distribución suele presentarse **agrupada en intervalos** (como vimos en 1.7.4). En ese caso, ni la media ni la mediana ni la moda pueden calcularse directamente sobre los datos originales, porque *los datos originales ya no están*. En su lugar utilizamos las **marcas de clase** \(x_i = (L_{i-1}+L_i)/2\) como representantes numéricos del intervalo. Esto introduce un pequeño precio a pagar: el **error de agrupamiento**.
+Cuando la variable es continua o toma muchos valores distintos, la distribución suele presentarse **agrupada en intervalos**, como vimos en el capítulo anterior al tratar las distribuciones de frecuencias. En ese caso, ni la media ni la mediana ni la moda pueden calcularse directamente sobre los datos originales, porque *los datos originales ya no están*. En su lugar utilizamos las **marcas de clase** \(x_i = (L_{i-1}+L_i)/2\) como representantes numéricos del intervalo. Esto introduce un pequeño precio a pagar: el **error de agrupamiento**.
 
-Retomemos la Tabla 1.6 del capítulo anterior, que agrupaba los salarios de *Hyperdrive Express* en intervalos de 5 cientos de PAVOs:
+Retomemos la tabla del capítulo anterior que agrupaba los salarios de *Hyperdrive Express* en intervalos de 5 cientos de PAVOs:
 
 | Intervalo | \(x_i\) | \(n_i\) | \(N_i\) | \(x_i \cdot n_i\) |
 |-----------|---------|---------|---------|--------------------|
@@ -202,11 +147,11 @@ Retomemos la Tabla 1.6 del capítulo anterior, que agrupaba los salarios de *Hyp
 | **Total** |         | **60**  |         | **935,0**          |
 
 ::: {style="text-align: center;"}
-**Tabla 3.3**
+**Tabla 3.2**
 :::
 
 
-**Tabla 2.3.** Cálculo de la media agrupada de los salarios de *Hyperdrive Express*.
+**Cálculo de la media agrupada de los salarios de *Hyperdrive Express*.**
 
 De aquí se obtiene la media agrupada
 
@@ -253,11 +198,11 @@ Aplicados a la plantilla de *Hyperdrive Express*, los cuartiles son:
 | \(Q_3\) | 20,5                     | El 75 % cobra 20,5 o menos                                  |
 
 ::: {style="text-align: center;"}
-**Tabla 3.4**
+**Tabla 3.3**
 :::
 
 
-**Tabla 2.4.** Cuartiles del salario en *Hyperdrive Express*.
+**Cuartiles del salario en *Hyperdrive Express*.**
 
 Una medida derivada muy útil es el **recorrido intercuartílico** o *interquartile range* (IQR):
 
@@ -269,7 +214,9 @@ En el ejemplo, IQR \(= 20{,}5 - 12 = 8{,}5\) cientos de PAVOs. Podemos interpret
 
 ### El box-plot: síntesis visual de posición y outliers. {#boxplot}
 
-La forma canónica de visualizar todo lo anterior es el **diagrama de caja** o *box-plot*, propuesto por John Tukey en 1977. Su construcción es directa:
+El box-plot lo conocimos ya en el capítulo 2 como herramienta de detección visual de *outliers* (recordemos la nave *Trade Wind* del astillero ARCTURUS). Ahora, con los cuartiles ya definidos, podemos concretar **cómo se construye** y por qué es la representación estándar para la detección de casos atípicos.
+
+Propuesto por John Tukey en 1977, el **diagrama de caja** tiene una construcción directa:
 
 - La **caja** va de \(Q_1\) a \(Q_3\) (contiene, por tanto, el 50 % central de los casos).
 - Una línea horizontal dentro de la caja marca la **mediana** (\(Q_2\)).
@@ -283,7 +230,25 @@ La forma canónica de visualizar todo lo anterior es el **diagrama de caja** o *
 
 En la plantilla de 60 empleados de *Hyperdrive Express*, esos límites son \(12 - 1{,}5\cdot 8{,}5 = -0{,}75\) y \(20{,}5 + 1{,}5\cdot 8{,}5 = 33{,}25\). Ningún trabajador queda fuera de la franja: la plantilla, tal como está, no tiene *outliers*.
 
-Ahora sí podemos volver a la **CEO** que mencionábamos en 2.2.2. Con ella dentro, \(N = 61\), \(Q_1 = 12\), \(Q_3 = 22\), IQR \(= 10\) y el límite superior de la regla de Tukey pasa a ser 37. Un salario de 100 cientos de PAVOs queda muy por encima: la CEO **es formalmente un outlier**, tal como el sentido común anticipaba. El box-plot lo señalará con un punto solitario muy por encima de la caja, exactamente como una boya alertando de bajos fondos.
+Es el momento de traer al análisis a la **CEO** de *Hyperdrive Express* que hemos venido anunciando. Su salario bruto mensual asciende a **100 cientos de PAVOs**. Si añadiésemos su ficha al fichero de nóminas, obtendríamos 61 casos y esta distribución:
+
+| \(x_i\) (Salario)  | \(n_i\) | \(x_i\) (Salario) | \(n_i\) |
+|--------------------|---------|--------------------|---------|
+| 8                  | 2       | 20                 | 6       |
+| 9                  | 2       | 22                 | 6       |
+| 10                 | 7       | 25                 | 4       |
+| 12                 | 5       | 30                 | 5       |
+| 15                 | 16      | **100**            | **1**   |
+| 18                 | 7       |                    |         |
+
+::: {style="text-align: center;"}
+**Tabla 3.4**
+:::
+
+
+**Distribución de frecuencias del salario incluyendo a la CEO (\(N = 61\)).**
+
+Con la CEO dentro, \(N = 61\), \(Q_1 = 12\), \(Q_3 = 22\), IQR \(= 10\) y el límite superior de la regla de Tukey pasa a ser 37. Un salario de 100 cientos de PAVOs queda muy por encima: la CEO **es formalmente un outlier**, tal como el sentido común anticipaba. El box-plot lo señalará con un punto solitario muy por encima de la caja, exactamente como una boya alertando de bajos fondos.
 
 ```{r box-plot-hyperdrive, fig.width = 7, fig.height = 4.5, out.width = "80%"}
 df_box <- rbind(
@@ -310,18 +275,41 @@ ggplot(df_box, aes(x = grupo, y = salario, fill = grupo)) +
 :::
 
 
-**Figura 2.2.** Diagramas de caja del salario en *Hyperdrive Express*. A la izquierda, la plantilla de 60 empleados; a la derecha, incluyendo a la CEO. La caja apenas se mueve; el bigote se estira ligeramente; pero el *outlier* que aparece en solitario en el segundo gráfico es toda la información visual que necesitábamos.
+**Diagramas de caja del salario en *Hyperdrive Express*.** A la izquierda, la plantilla de 60 empleados; a la derecha, incluyendo a la CEO. La caja apenas se mueve; el bigote se estira ligeramente; pero el *outlier* que aparece en solitario en el segundo gráfico es toda la información visual que necesitábamos.
+
+### Del box-plot al violín: cuando la caja se queda corta. {#violin}
+
+El diagrama de caja resume la distribución con cinco números (mínimo, \(Q_1\), mediana, \(Q_3\), máximo) y un puñado de *outliers*. Es una síntesis enormemente eficaz, pero paga un precio: **no muestra la forma** de la distribución dentro de la caja. Dos plantillas radicalmente distintas —una concentrada en torno a la mediana, otra con dos grupos claramente separados— pueden dar box-plots idénticos.
+
+El **gráfico de violín**, propuesto por Hintze y Nelson (1998), combina lo mejor del box-plot con la lectura visual de un histograma suavizado. Sobre cada categoría se dibuja, en vertical, la densidad de la distribución (la "silueta" del violín), y suele incorporarse un box-plot fino en su interior. El resultado revela de un vistazo tanto la posición y la dispersión como la forma: simetría, asimetría, unimodalidad o bimodalidad.
+
+```{r violin-hyperdrive, fig.width = 7, fig.height = 4.5, out.width = "80%"}
+ggplot(df_box, aes(x = grupo, y = salario, fill = grupo)) +
+  geom_violin(alpha = 0.5, color = NA, trim = FALSE) +
+  geom_boxplot(width = 0.12, outlier.color = "#C00000",
+               outlier.size = 2.5, outlier.shape = 21,
+               outlier.fill = "#C00000", alpha = 0.9) +
+  scale_fill_manual(values = c("#5B9BD5", "#ED7D31")) +
+  labs(x = NULL, y = "Salario (cientos de PAVOs)") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "none",
+        panel.grid.major.x = element_blank())
+```
+
+::: {style="text-align: center;"}
+**Figura 3.3**
+:::
+
+
+**Gráficos de violín del salario en *Hyperdrive Express*.** El violín añade al box-plot una lectura de forma: la plantilla muestra una silueta claramente asimétrica —el cuerpo es ancho en torno a los 15 y adelgaza hacia arriba— que un simple box-plot no haría igual de evidente. Al incorporar a la CEO, la silueta apenas cambia; el punto rojo aislado sigue haciendo el trabajo de alerta.
+
+En términos didácticos, box-plot y violín son complementarios: el primero sigue siendo insustituible para detectar *outliers* de un vistazo; el segundo aporta información sobre la **forma** que anticipa lo que veremos en las medidas de asimetría y curtosis. En la práctica profesional, cuando el tamaño muestral lo permite —y en 60 casos ya lo permite—, muchos analistas prefieren directamente el violín.
 
 ### ¿Qué hacer con los outliers detectados? {#tratamiento-outliers}
 
-Detectar un *outlier* es solo el principio. La decisión sobre qué hacer con él es probablemente uno de los momentos más discutibles del análisis, y ni de lejos existe una receta única. Las opciones habituales son:
+Detectado un *outlier*, la decisión sobre qué hacer con él no puede tomarse mirando solo el número: como discutimos en 2.6.2, dependerá de si es un error, un caso legítimo pero excepcional, o un individuo perteneciente a otra población. Las estrategias son las mismas de allí —**corregir, excluir, mantener con medidas robustas, winsorizar, transformar o analizar por separado**—, y no las repetiremos.
 
-1. **Corregirlo**, si se demuestra que es un error de captura o registro (un dato mal tecleado, una unidad de medida cambiada).
-2. **Eliminar el caso**, si consideramos que pertenece a otra población o si su presencia distorsiona el análisis sin aportar información útil sobre la pregunta de fondo. Se justifica cuando los *outliers* son pocos y no aportan nueva información.
-3. **Mantenerlo tal cual**, si es un caso legítimo cuya inclusión importa. Suele acompañarse del uso de **medidas robustas** (mediana en lugar de media, IQR en lugar de desviación típica) que reducen el impacto del valor extremo sin ocultarlo.
-4. **Modelizarlo aparte**: separar el análisis en dos grupos —la plantilla y la dirección, en nuestro ejemplo— y reportar cada uno con sus propias medidas.
-
-En el caso de *Hyperdrive Express*, la CEO es un ejemplo casi de manual de la cuarta opción: la política salarial de la plantilla y la retribución de la dirección son dos fenómenos distintos, y mezclarlos en una única media anima a extraer conclusiones erróneas ("en esta empresa cobran de media 18,56 cientos de PAVOs") que ni la mediana ni el sentido común respaldan. Trabajaremos, por tanto, con la plantilla de 60 empleados a lo largo del resto del capítulo.
+En el caso de *Hyperdrive Express*, la CEO es un ejemplo casi de manual de la última: la política salarial de la plantilla y la retribución de la dirección son dos fenómenos distintos, y mezclarlos en una única media anima a extraer conclusiones erróneas —"en esta empresa cobran de media 18,56 cientos de PAVOs"— que ni la mediana ni el sentido común respaldan. Trabajaremos, por tanto, con la plantilla de 60 empleados a lo largo del resto del capítulo.
 
 ## Momentos: la maquinaria común. {#momentos}
 
@@ -394,15 +382,43 @@ Para *Hyperdrive Express*, los momentos respecto al origen son:
 :::
 
 
-**Tabla 2.5.** Momentos respecto al origen del salario en *Hyperdrive Express*.
+**Momentos respecto al origen del salario en *Hyperdrive Express*.**
 
 De donde se sigue \(m_2 = 331{,}37 - 17{,}20^{2} = 35{,}53\), \(m_3 = 117{,}28\) y \(m_4 = 3\,313{,}22\). Los usaremos enseguida.
 
 ## Medidas de dispersión. {#medidas-de-dispersion}
 
-Consideremos dos plantillas de empresas galácticas, ambas con la misma media salarial. En la primera, todos los empleados cobran cifras cercanas al valor medio. En la segunda, la mitad cobra mucho menos y la otra mitad mucho más. La media es un dato incompleto: **caracteriza dónde se sitúa la distribución, pero no cuánto se aparta cada individuo de esa posición**. Las medidas de dispersión completan la fotografía, cuantificando **cuán representativa** es la medida central.
+Consideremos dos plantillas hipotéticas, ambas con **media salarial de 17,20 cientos de PAVOs**. En la primera —*Hyperdrive Express*— los salarios se reparten entre 8 y 30, con una desviación típica de 5,96. En la segunda —una compañía imaginaria en la que casi todos cobran cerca de la media— la desviación típica es de apenas 1,5. La media es idéntica; la fotografía, muy distinta.
 
-Si la dispersión es baja, los valores están concentrados en torno a la media y esta la representa bien. Si es alta, los valores están muy repartidos y la media, aunque exista, describe pobremente lo que le ocurre a cada individuo.
+```{r dispersion-representatividad, fig.width = 9, fig.height = 3.5, out.width = "95%"}
+set.seed(2025)
+df_disp <- data.frame(
+  salario = c(hyperdrive$salario,
+              round(rnorm(60, mean = 17.20, sd = 1.5), 1)),
+  grupo   = rep(c("Hyperdrive Express (S = 5,96)",
+                  "Plantilla homogénea (S = 1,50)"), each = 60)
+)
+
+ggplot(df_disp, aes(x = salario, fill = grupo)) +
+  geom_histogram(binwidth = 1, color = "white", alpha = 0.85) +
+  geom_vline(xintercept = 17.20, linetype = "dashed",
+             color = "#C00000", linewidth = 0.7) +
+  facet_wrap(~ grupo) +
+  scale_fill_manual(values = c("#5B9BD5", "#70AD47")) +
+  labs(x = "Salario (cientos de PAVOs)", y = "Nº de empleados") +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "none",
+        strip.text = element_text(face = "bold"))
+```
+
+::: {style="text-align: center;"}
+**Figura 3.4**
+:::
+
+
+**Dos plantillas con la misma media (17,20 cientos de PAVOs, línea roja discontinua) y distinta dispersión.** En la de la derecha, la media describe con precisión lo que le ocurre a cada empleado. En la de la izquierda, la media es solo una referencia: muchos casos están lejos de ese valor, y ninguna decisión razonable sobre política salarial debería basarse solo en él.
+
+La media es un dato incompleto: **caracteriza dónde se sitúa la distribución, pero no cuánto se aparta cada individuo de esa posición**. Las medidas de dispersión completan la fotografía, cuantificando **cuán representativa** es la medida central. Si la dispersión es baja, los valores están concentrados en torno a la media y esta la representa bien. Si es alta, los valores están muy repartidos y la media, aunque exista, describe pobremente lo que le ocurre a cada individuo.
 
 ### Varianza y desviación típica. {#varianza-desviacion}
 
@@ -437,6 +453,41 @@ Para resolver ambos problemas se recurre a una medida relativa: el coeficiente d
 > \[\widehat{S}^{\,2} = \frac{1}{N-1}\sum_{i=1}^{h}(x_i - \overline{x})^{2}\, n_i.\]
 > La única diferencia con la varianza es dividir entre \(N-1\) en lugar de entre \(N\). En muestras grandes las dos cantidades son prácticamente indistinguibles; en muestras pequeñas la cuasivarianza corrige un sesgo sistemático a la baja de la varianza como estimador. En *Hyperdrive Express*: \(\widehat{S}^{\,2} = 36{,}13\), frente a \(S^{2} = 35{,}53\). En este capítulo trabajaremos con la varianza clásica \(S^{2}\); volveremos a la cuasivarianza en el bloque de Inferencia, cuando cobre pleno sentido.
 
+### Varianza, dispersión e información. {#varianza-informacion}
+
+Detrás de la varianza hay una idea más profunda que el mero cálculo: la **capacidad de una variable para diferenciar unos casos de otros**. Imaginemos tres variables medidas sobre las mismas 30 compañías R-Stars. En la primera, todas las empresas registran el mismo valor: no aporta ninguna información, porque no permite distinguir una empresa de otra. En la segunda, hay cierta diferencia entre compañías pero pequeña: nos permite hacer alguna distinción, pero con esfuerzo. En la tercera, los valores se reparten sobre un abanico amplio: cada empresa es fácilmente distinguible del resto.
+
+```{r varianza-info, fig.width = 9, fig.height = 3.2, out.width = "95%"}
+set.seed(1)
+df_info <- data.frame(
+  empresa = rep(1:30, 3),
+  valor   = c(rep(50, 30),
+              50 + rnorm(30, 0, 3),
+              50 + rnorm(30, 0, 15)),
+  tipo    = factor(rep(c("Variable A  (S = 0)",
+                         "Variable B  (S \u2248 3)",
+                         "Variable C  (S \u2248 15)"), each = 30),
+                   levels = c("Variable A  (S = 0)",
+                              "Variable B  (S \u2248 3)",
+                              "Variable C  (S \u2248 15)"))
+)
+ggplot(df_info, aes(x = empresa, y = valor)) +
+  geom_point(color = "#2E4E6E", size = 2, alpha = 0.85) +
+  facet_wrap(~ tipo) +
+  labs(x = "Empresa", y = "Valor") +
+  theme_minimal(base_size = 11) +
+  theme(strip.text = element_text(face = "bold"))
+```
+
+::: {style="text-align: center;"}
+**Figura 3.5**
+:::
+
+
+**Información y varianza.** La variable A no permite distinguir empresas entre sí; la B las distingue con cierta dificultad; la C las diferencia con claridad.
+
+Cuanto mayor es la dispersión de una variable, mayor es su **contenido informativo** sobre los casos. La varianza —y la desviación típica— son, en ese sentido, medidas de la "cantidad de información" que la variable aporta sobre el grupo estudiado. Esta intuición está en la base de técnicas mucho más potentes que veremos en cursos avanzados, como el **análisis de componentes principales**, cuyo objetivo es precisamente conservar la mayor cantidad posible de varianza —de información— reduciendo el número de variables.
+
 ### Coeficiente de variación de Pearson. {#cv-pearson}
 
 El **coeficiente de variación de Pearson** compara la desviación típica con la propia media:
@@ -455,7 +506,9 @@ En *Hyperdrive Express*, \(V = 5{,}96 / 17{,}20 = 0{,}346\), es decir, un **34,6
 
 ### Comparando dos plantillas: un uso típico del CV. {#comparando-cv}
 
-Supongamos que queremos comparar la dispersión salarial de *Hyperdrive Express* (Miranda, Gran Nube de Magallanes) con la de otra compañía galáctica del mismo tamaño operativo, *Shuttlepod Movers* (Arrakis, también en la Gran Nube de Magallanes). Los datos que resumen ambas plantillas son:
+Un ejemplo intuitivo previo: comparar la dispersión del salario en *Hyperdrive Express* (\(S = 5{,}96\) cientos de PAVOs) con la del margen operativo en el sector interestelar (\(S = 17{,}22\) puntos porcentuales) es un sinsentido: son unidades incomparables. Sus CV, en cambio (34,6 % y 28,6 %), están perfectamente en condiciones de dialogar: nos dicen que **el salario tiene una dispersión relativa ligeramente mayor** que el margen operativo, y esa afirmación es defendible con independencia de la escala.
+
+El mismo razonamiento se aplica cuando comparamos la misma variable en dos poblaciones distintas. Supongamos que queremos comparar la dispersión salarial de *Hyperdrive Express* (Miranda, Gran Nube de Magallanes) con la de otra compañía galáctica del mismo tamaño operativo, *Shuttlepod Movers* (Arrakis, también en la Gran Nube de Magallanes). Los datos que resumen ambas plantillas son:
 
 | Compañía              | \(N\) | \(\overline{x}\) (cientos de PAVOs) | \(S\)  | \(V\)   |
 |-----------------------|-------|-------------------------------------|--------|---------|
@@ -467,9 +520,23 @@ Supongamos que queremos comparar la dispersión salarial de *Hyperdrive Express*
 :::
 
 
-**Tabla 2.6.** Comparación salarial de dos compañías R-Stars.
+**Comparación salarial de dos compañías R-Stars.**
 
 En términos absolutos, *Hyperdrive Express* tiene una desviación típica mayor. Pero también una media mayor. El coeficiente de variación de ambas compañías es prácticamente idéntico: sus **estructuras salariales relativas** son gemelas, aunque los euros —perdón, los PAVOs— absolutos no lo sean. Este tipo de conclusión es el que hace del CV una medida imprescindible cuando queremos comparar la representatividad de la media entre distribuciones.
+
+### Estandarización: la regla empírica. {#estandarizacion}
+
+Una consecuencia práctica de la desviación típica es que permite **estandarizar** los valores de la variable. El *z-score* de un caso es
+
+\[
+z_i = \frac{x_i - \overline{x}}{S},
+\]
+
+y expresa "a cuántas desviaciones típicas de la media se sitúa ese caso". El z-score es adimensional, y permite comparar posiciones relativas de casos medidos en variables distintas: un empleado con \(z = 1{,}5\) en salario ocupa, dentro de su distribución, una posición equivalente a la de un empleado con \(z = 1{,}5\) en antigüedad, aunque las dos variables se midan en unidades completamente distintas.
+
+En distribuciones aproximadamente normales se cumple la **regla empírica 68–95–99,7**: aproximadamente el 68 % de los casos cae dentro de \(\overline{x} \pm S\), el 95 % dentro de \(\overline{x} \pm 2S\) y el 99,7 % dentro de \(\overline{x} \pm 3S\). En *Hyperdrive Express*, el intervalo \(17{,}20 \pm 2 \cdot 5{,}96 = [5{,}28,\, 29{,}12]\) contiene 55 de los 60 empleados (91,7 %): aproximación razonable a la regla para una distribución que ya sabemos que no es perfectamente normal.
+
+De aquí a un procedimiento operativo de detección de *outliers* hay solo un paso: como vimos en el capítulo 2, la **regla del z-score** marca como atípico todo caso con \(|z| > 3\). Es una regla simple, pero menos robusta que la del IQR: los propios *outliers* inflan la desviación típica y disimulan su propio carácter atípico. Volveremos sobre la estandarización cuando estudiemos la distribución normal.
 
 ## Medidas de forma. {#medidas-de-forma}
 
@@ -495,17 +562,38 @@ n_sim <- 5000
 niveles_asim <- c("Asimétrica positiva  (g\u2081 > 0)",
                   "Simétrica  (g\u2081 = 0)",
                   "Asimétrica negativa  (g\u2081 < 0)")
+
+x_pos <- rlnorm(n_sim, meanlog = 1.5, sdlog = 0.4)
+x_sim <- rnorm(n_sim, mean = 5, sd = 1)
+x_neg <- 10 - rlnorm(n_sim, meanlog = 1.5, sdlog = 0.4)
+
 df_asim <- data.frame(
-  x    = c(rlnorm(n_sim, meanlog = 1.5, sdlog = 0.4),
-           rnorm(n_sim, mean = 5, sd = 1),
-           10 - rlnorm(n_sim, meanlog = 1.5, sdlog = 0.4)),
+  x    = c(x_pos, x_sim, x_neg),
   tipo = factor(rep(niveles_asim, each = n_sim), levels = niveles_asim)
+)
+
+# Normal "equivalente" para cada panel: misma media y misma
+# desviación típica que la distribución observada.
+grid_norm <- function(x, nombre, npts = 400) {
+  rango <- range(x)
+  ext   <- diff(rango) * 0.05
+  xs    <- seq(rango[1] - ext, rango[2] + ext, length.out = npts)
+  data.frame(x    = xs,
+             y    = dnorm(xs, mean = mean(x), sd = sd(x)),
+             tipo = factor(nombre, levels = niveles_asim))
+}
+df_ref_asim <- rbind(
+  grid_norm(x_pos, niveles_asim[1]),
+  grid_norm(x_sim, niveles_asim[2]),
+  grid_norm(x_neg, niveles_asim[3])
 )
 
 ggplot(df_asim, aes(x = x)) +
   geom_histogram(aes(y = after_stat(density)), bins = 40,
                  fill = "#5B9BD5", color = "white", alpha = 0.85) +
   geom_density(color = "#2E4E6E", linewidth = 0.9) +
+  geom_line(data = df_ref_asim, aes(x = x, y = y),
+            color = "#C55A11", linewidth = 0.9, linetype = "dashed") +
   facet_wrap(~ tipo, scales = "free_x") +
   labs(x = NULL, y = "Densidad") +
   theme_minimal(base_size = 11) +
@@ -516,11 +604,11 @@ ggplot(df_asim, aes(x = x)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 3.3**
+**Figura 3.6**
 :::
 
 
-**Figura 2.3.** Tipos de asimetría en distribuciones unimodales campaniformes.
+**Tipos de asimetría en distribuciones unimodales campaniformes.** En azul, la distribución observada; en trazo naranja discontinuo, la distribución normal "equivalente" (misma media y misma desviación típica) que sirve de referencia. La asimétrica positiva tiene la cola larga hacia la derecha; la negativa, hacia la izquierda.
 
 Para cuantificarla, Fisher observó que el momento central de orden 3, \(m_3\), tiene precisamente esa propiedad: es cero si la distribución es simétrica, positivo si tiene cola a la derecha y negativo si la tiene a la izquierda. Pero \(m_3\) tiene unidades (las de la variable al cubo) y no permite comparar distribuciones medidas en escalas distintas. Fisher lo normalizó dividiendo por \(S^{\,3}\), obteniendo el **coeficiente de asimetría de Fisher**:
 
@@ -542,7 +630,11 @@ g_1 = \frac{m_3}{S^{\,3}} = \frac{117{,}28}{5{,}96^{3}} = 0{,}55.
 
 La distribución presenta **asimetría positiva moderada**: la cola de salarios altos (los 25 y 30 cientos de PAVOs) empuja el valor medio (17,20) por encima de la mediana y la moda (ambas 15). Es una estructura típica de plantilla: muchos casos concentrados en niveles medios y bajos, y una cola relativamente corta de retribuciones altas.
 
-**El impacto de un outlier sobre la asimetría.** Si volviéramos a incluir a la CEO en el análisis, con su salario de 100 cientos de PAVOs, el coeficiente saltaría hasta \(g_1 \approx 5{,}03\). Un solo caso extremo ha transformado una asimetría moderada en un valor que, en pura literalidad, sugeriría una distribución dramáticamente sesgada. En realidad la plantilla no ha cambiado; solo hemos mezclado en el saco un caso que pertenece a otra población. Este es el motivo por el que insistíamos en la sección 2.2.2: los coeficientes de forma son especialmente sensibles a la limpieza previa del fichero.
+**El impacto de un outlier sobre la asimetría.** Si volviéramos a incluir a la CEO en el análisis, con su salario de 100 cientos de PAVOs, el coeficiente saltaría hasta \(g_1 \approx 5{,}03\). Un solo caso extremo ha transformado una asimetría moderada en un valor que, en pura literalidad, sugeriría una distribución dramáticamente sesgada. En realidad la plantilla no ha cambiado; solo hemos mezclado en el saco un caso que pertenece a otra población. Este es el motivo por el que insistíamos en el capítulo anterior: los coeficientes de forma son especialmente sensibles a la limpieza previa del fichero.
+
+> **Un vistazo económico: la asimetría del tamaño empresarial.** Los ingresos anuales de las 300 compañías R-Stars presentan \(g_1 = 4{,}03\): una asimetría fuertemente positiva. Económicamente, este patrón —conocido como *long tail* o distribución de Pareto— es la norma, no la excepción, cuando se estudian variables de tamaño empresarial (activos, ingresos, plantilla, facturación). La media aritmética se sitúa en 218 miles de PAVOs; la mediana, en apenas 130. Utilizar la media como "empresa típica" sobredimensiona el sector: la mayor parte de las compañías está muy por debajo de esa cifra. Es el mismo fenómeno que ocurre con la renta en una economía real: reportar la renta *media* de un país sin acompañarla de la *mediana* distorsiona sistemáticamente la fotografía. Cuando \(g_1\) es alta, **la mediana comunica mejor que la media**.
+>
+> El **margen operativo** de esas mismas 300 compañías, en cambio, presenta \(g_1 = 0{,}23\): prácticamente simétrico. En un sector maduro y competitivo, los márgenes tienden a redistribuirse alrededor de una media estable: las empresas con márgenes muy altos atraen competencia que los erosiona; las que operan por debajo del promedio tienden a corregir o a desaparecer. La simetría es aquí una pista sobre la **dinámica competitiva del sector**.
 
 ### Apuntamiento o curtosis. {#curtosis}
 
@@ -554,24 +646,48 @@ La curtosis mide **cuán apuntado** es el pico central de la distribución respe
 
 ```{r curtosis-tipos, fig.width = 10, fig.height = 3.6, out.width = "95%"}
 set.seed(456)
-n_curt <- 5000
+n_curt <- 20000
 niveles_curt <- c("Platicúrtica  (g\u2082 < 0)",
                   "Mesocúrtica  (g\u2082 = 0)",
                   "Leptocúrtica  (g\u2082 > 0)")
+
+# Platicúrtica: mezcla de dos normales próximas → campana más
+# aplanada, con colas que caen suavemente (sin truncar).
+x_plat <- c(rnorm(n_curt/2, mean = -0.8, sd = 1),
+            rnorm(n_curt/2, mean =  0.8, sd = 1))
+
+# Mesocúrtica: normal estándar.
+x_meso <- rnorm(n_curt, mean = 0, sd = 1)
+
+# Leptocúrtica: t de Student con 5 g.l., reescalada a varianza 1.
+x_lept <- rt(n_curt, df = 5) * sqrt(3/5)
+
 df_curt <- data.frame(
-  x    = c(runif(n_curt, min = -3, max = 3),
-           rnorm(n_curt, mean = 0, sd = 1),
-           rt(n_curt, df = 3)),
+  x    = c(x_plat, x_meso, x_lept),
   tipo = factor(rep(niveles_curt, each = n_curt), levels = niveles_curt)
 )
-# Se recorta el rango visible para evitar que las colas extremas de la
-# distribución leptocúrtica aplasten los histogramas.
 df_curt <- df_curt[df_curt$x > -4 & df_curt$x < 4, ]
 
+# Normal "equivalente" panel a panel: misma media y misma
+# desviación típica que la distribución observada.
+grid_norm <- function(x, nombre, npts = 400) {
+  xs <- seq(-4, 4, length.out = npts)
+  data.frame(x    = xs,
+             y    = dnorm(xs, mean = mean(x), sd = sd(x)),
+             tipo = factor(nombre, levels = niveles_curt))
+}
+df_ref_curt <- rbind(
+  grid_norm(x_plat, niveles_curt[1]),
+  grid_norm(x_meso, niveles_curt[2]),
+  grid_norm(x_lept, niveles_curt[3])
+)
+
 ggplot(df_curt, aes(x = x)) +
-  geom_histogram(aes(y = after_stat(density)), bins = 40,
-                 fill = "#70AD47", color = "white", alpha = 0.85) +
+  geom_histogram(aes(y = after_stat(density)), bins = 50,
+                 fill = "#70AD47", color = "white", alpha = 0.75) +
   geom_density(color = "#375623", linewidth = 0.9) +
+  geom_line(data = df_ref_curt, aes(x = x, y = y),
+            color = "#C55A11", linewidth = 0.9, linetype = "dashed") +
   facet_wrap(~ tipo) +
   coord_cartesian(xlim = c(-4, 4)) +
   labs(x = NULL, y = "Densidad") +
@@ -583,11 +699,11 @@ ggplot(df_curt, aes(x = x)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 3.4**
+**Figura 3.7**
 :::
 
 
-**Figura 2.4.** Tipos de apuntamiento o curtosis en distribuciones unimodales campaniformes.
+**Tipos de apuntamiento o curtosis en distribuciones unimodales campaniformes.** En verde, la distribución observada; en trazo naranja discontinuo, la distribución normal "equivalente" (misma media y misma desviación típica) que sirve de referencia. La platicúrtica tiene el pico más aplanado y las colas más ligeras que la normal; la leptocúrtica, el pico más alto y las colas más pesadas.
 
 Fisher se dio cuenta de que, para una distribución normal, se cumple \(m_4 = 3 S^{4}\), lo que sugiere construir la medida
 
@@ -613,15 +729,21 @@ Como en el caso de \(g_1\), la interpretación cuantitativa depende del contexto
 
 **Y de nuevo, el efecto CEO.** Si incluimos a la CEO, \(g_2\) se dispara hasta 31,2. Un solo caso extremo convierte una distribución razonablemente mesocúrtica en un artefacto de coeficientes gigantescos. Los coeficientes de asimetría y curtosis son quizá las medidas más sensibles a *outliers* de las que hemos visto, y por eso conviene calcularlos **después** de haber decidido conscientemente qué hacer con los casos extremos.
 
+> **Un vistazo económico: colas pesadas y riesgo.** La rentabilidad financiera (RENFIN) de las 300 compañías R-Stars presenta \(g_2 = 1{,}70\): claramente leptocúrtica. La mayor parte de las empresas obtiene rentabilidades próximas a la media del sector, pero unas pocas se sitúan muy por encima o muy por debajo. Esa **cola pesada** —cuatro o cinco casos que escapan del comportamiento general— es lo que en finanzas se conoce como *riesgo de cola* (*tail risk*), y explica buena parte de la crítica moderna al supuesto de normalidad en los modelos financieros clásicos: rendimientos extremos ocurren con más frecuencia de la que una distribución normal anticiparía.
+>
+> El tamaño de la **flota** de las compañías, por el contrario, tiene \(g_2 = -1{,}19\): platicúrtica. Las compañías se reparten con notable homogeneidad entre distintos tamaños de flota, sin apenas casos extremos ni una concentración marcada en torno a un valor central. La distribución "casi uniforme" refleja un sector estructurado por segmentos: cargueros pequeños, medianos y grandes conviven en proporciones parecidas, sin un tamaño claramente dominante.
+>
+> El mensaje para el analista es doble. Primero, la curtosis **contextualiza el riesgo**: valores altos avisan de sucesos extremos que la media y la desviación típica no capturan por sí solas. Segundo, no toda platicurtosis es "buena": puede reflejar tanto una distribución sana y bien repartida como un sector fragmentado sin dinámica competitiva.
+
 ## Recapitulación. {#recapitulacion-cap03}
 
 En este capítulo hemos aprendido a **resumir** una variable estadística unidimensional pasando de una tabla de frecuencias a un puñado de números interpretables. Los cuatro bloques de medidas son complementarios, no sustitutivos:
 
 - **Posición central** (media, mediana, moda): dónde se sitúa la distribución.
-- **Posición no central** (cuartiles y demás cuantiles): cómo se reparte por segmentos, con el box-plot como su representación visual insustituible.
-- **Dispersión** (varianza, desviación típica, CV): cuán representativa es la posición central. El CV tiene la ventaja añadida de ser **adimensional**, y permite comparaciones entre distribuciones de escala distinta.
-- **Forma** (asimetría y curtosis de Fisher): la forma del histograma respecto al patrón campaniforme simétrico.
+- **Posición no central** (cuartiles y demás cuantiles): cómo se reparte por segmentos, con el box-plot —y su primo moderno, el gráfico de violín— como representación visual insustituible.
+- **Dispersión** (varianza, desviación típica, CV): cuán representativa es la posición central. La varianza mide, además, la **cantidad de información** que la variable aporta sobre los casos. El CV tiene la ventaja añadida de ser **adimensional**, y permite comparaciones entre distribuciones de escala distinta. La estandarización (z-scores) traduce cualquier valor a "cuántas desviaciones típicas se aparta de la media", cimiento de la regla empírica 68–95–99,7.
+- **Forma** (asimetría y curtosis de Fisher): la forma del histograma respecto al patrón campaniforme simétrico. Los ejemplos R-Stars nos han enseñado a leer estas medidas en clave económica: distribuciones de tamaño con cola larga, márgenes competitivos que gravitan hacia la simetría, rentabilidades con riesgo de cola.
 
-Un principio ha atravesado todo el capítulo: **antes de resumir, mire los datos**. Los valores perdidos deben identificarse y tratarse conscientemente. Los casos atípicos deben localizarse —el box-plot, apoyado en el IQR, es la herramienta estándar— y decidir si se corrigen, se eliminan, se conservan o se analizan por separado. Las medidas más elegantes son también, casi siempre, las más frágiles: media, varianza, coeficientes de forma... todas ellas se distorsionan con facilidad ante un puñado de valores extremos. La CEO de *Hyperdrive Express* nos lo ha ilustrado con creces.
+Un principio ha atravesado todo el capítulo: **antes de resumir, mire los datos**. Los casos atípicos deben localizarse —el box-plot, apoyado en el IQR, es la herramienta estándar— y decidir si se corrigen, se eliminan, se conservan o se analizan por separado. Las medidas más elegantes son también, casi siempre, las más frágiles: media, varianza, coeficientes de forma... todas ellas se distorsionan con facilidad ante un puñado de valores extremos. La CEO de *Hyperdrive Express* nos lo ha ilustrado con creces.
 
-Con estas herramientas ya podemos caracterizar cualquier variable de una empresa, un sector o una galaxia. En el capítulo siguiente daremos el salto a **dos variables**: cómo se relacionan entre sí y qué medidas resumen esa relación. *Hyperdrive Express* seguirá con nosotros; y también empezaremos a asomarnos a la muestra completa de 300 compañías R-Stars que dan cuerpo al proyecto.
+Con estas herramientas ya podemos caracterizar cualquier variable de una empresa, un sector o una galaxia. En el capítulo siguiente daremos el salto a **dos variables**: cómo se relacionan entre sí y qué medidas resumen esa relación. *Hyperdrive Express* seguirá con nosotros, y también seguirán acompañándonos las 300 compañías R-Stars a las que ya nos hemos asomado en los ejemplos de asimetría y curtosis.
