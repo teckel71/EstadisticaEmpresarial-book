@@ -114,6 +114,7 @@ ejemplo-covarianza
 covarianza-independencia
 tablas-contingencia
 problema-chi-cuadrado
+v-cramer
 chi-fjur-eflo
 chi-shuttlepod
 chi-astillero-sede

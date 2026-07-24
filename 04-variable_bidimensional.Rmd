@@ -271,6 +271,73 @@ tabla_cond %>%
 
 La lectura es reveladora: entre los empleados con estudios **básicos**, el $75\,\%$ está en el tramo salarial bajo y ninguno en el tramo alto; entre los **universitarios**, ninguno está en el tramo bajo y prácticamente la mitad en el alto. Las tres columnas —los tres perfiles retributivos condicionados al nivel de estudios— son **distintas entre sí** y también distintas de la marginal de salario. Esa desigualdad de perfiles es lo que enseguida caracterizaremos formalmente como **dependencia estadística**.
 
+Antes de dar ese paso conviene detenerse un momento en un matiz importante. La misma tabla admite ser leída **en la dirección contraria**: en lugar de preguntarnos cómo se distribuye el salario dentro de cada nivel de estudios, podríamos preguntarnos cómo se distribuyen los niveles de estudios dentro de cada tramo salarial. En términos formales, pasamos de condicionar a $Y$ (los estudios) a condicionar a $X$ (el salario), y las frecuencias son ahora $f_{Y = y_j \mid X = x_i} = n_{ij}/n_{i\bullet}$: las filas —no las columnas— suman uno.
+
+```{r shuttlepod-tabla-cond-yx}
+tabla_cond_yx <- as.data.frame.matrix(round(prop.table(ct_sh, margin = 1), 4))
+tabla_cond_yx <- cbind(Salario = rownames(ct_sh), tabla_cond_yx)
+
+tabla_cond_yx %>%
+  kable(caption = "Distribución del nivel de estudios condicionada al tramo salarial (cada fila suma 1).",
+        col.names = c("Salario", "$Y=$ Básicos", "$Y=$ Medios",
+                      "$Y=$ Universitarios"),
+        digits    = 4,
+        align     = "c",
+        row.names = FALSE,
+        escape    = FALSE) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed"),
+                full_width = FALSE,
+                position = "center",
+                font_size = 13)
+```
+
+La foto que emerge es distinta —y muy expresiva—. Entre los empleados de salario **bajo**, la mayoría ($58\,\%$) tiene estudios medios y una parte considerable ($32\,\%$) solo estudios básicos; los universitarios son minoría ($11\,\%$). Entre los de salario **alto**, en cambio, **el $100\,\%$ son universitarios**: en la plantilla no hay un solo empleado que gane más de $20$ cientos de PAVOs sin titulación universitaria. Es la misma información que la tabla anterior, reorganizada al servicio de otra pregunta.
+
+Que ambas lecturas tengan interés no es una casualidad conceptual: cada una responde a una pregunta distinta que un analista real puede plantear. La condicional $f_{X \mid Y}$ contesta al **asesor de carrera** ("si eres universitario, ¿qué ingresos puedes esperar?"); la condicional $f_{Y \mid X}$ contesta al departamento de **recursos humanos** que analiza el perfil formativo de cada banda salarial ("¿qué formación tienen los que hoy están en el tramo alto?"). En el capítulo siguiente descubriremos que esta doble perspectiva reaparece con toda su fuerza en el análisis de regresión, donde a un mismo cruce le corresponden dos rectas distintas —la de $Y$ sobre $X$ y la de $X$ sobre $Y$—, ambas legítimas y con lecturas complementarias.
+
+Un gráfico de **barras apiladas al $100\,\%$** compara las dos perspectivas de un solo golpe de vista y hace visible cómo cada dirección de condicionalidad ilumina una faceta distinta del mismo cruce:
+
+```{r shuttlepod-condicionadas-barras, fig.width=7.5, fig.height=3.6}
+df_condXY <- as.data.frame(prop.table(ct_sh, margin = 2)) %>%
+  rename(Salario = Var1, Estudios = Var2, prop = Freq) %>%
+  mutate(Estudios = factor(Estudios,
+                           levels = c("Básicos", "Medios", "Universitarios")))
+
+df_condYX <- as.data.frame(prop.table(ct_sh, margin = 1)) %>%
+  rename(Salario = Var1, Estudios = Var2, prop = Freq) %>%
+  mutate(Estudios = factor(Estudios,
+                           levels = c("Básicos", "Medios", "Universitarios")))
+
+pal_estudios <- c("Básicos" = "#94a3b8",
+                  "Medios" = "#64748b",
+                  "Universitarios" = "#0f172a")
+pal_salario  <- c("Bajo (≤ 12)"   = "#94a3b8",
+                  "Medio (13–20)" = "#64748b",
+                  "Alto (> 20)"   = "#0f172a")
+
+g_XY <- ggplot(df_condXY, aes(x = Estudios, y = prop, fill = Salario)) +
+  geom_col(width = 0.7) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  scale_fill_manual(values = pal_salario) +
+  labs(title    = "Salario dado el nivel de estudios",
+       subtitle = "Perfil retributivo dentro de cada grupo formativo",
+       x = NULL, y = NULL, fill = "Salario") +
+  theme_libro()
+
+g_YX <- ggplot(df_condYX, aes(x = Salario, y = prop, fill = Estudios)) +
+  geom_col(width = 0.7) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  scale_fill_manual(values = pal_estudios) +
+  labs(title    = "Nivel de estudios dado el salario",
+       subtitle = "Perfil formativo dentro de cada banda salarial",
+       x = NULL, y = NULL, fill = "Estudios") +
+  theme_libro()
+
+g_XY + g_YX
+```
+
+Dos preguntas, un solo cruce, dos gráficos: la asimetría interpretativa aparece a plena luz. En la barra de la derecha, "salario alto" es una torre monocolor —todo universitarios—; en la de la izquierda, "universitarios" reparte casi por igual entre los tres tramos salariales. La relación existe, pero **cómo la nombramos depende de la dirección desde la que la miremos**.
+
 ## Independencia y dependencia estadística. {#independencia-dependencia}
 
 Con la tabla anterior ya hemos hecho, de manera intuitiva, la comprobación central del capítulo. Vamos ahora a formalizarla.
@@ -420,6 +487,12 @@ Antes de seguir es importante aclarar un punto que suele confundirse. La sola ta
 > **Dependencia estadística no es causalidad.** Que salario y estudios se muevan juntos en el fichero no implica que estudiar más *cause* cobrar más. La causa podría estar en una tercera variable no observada, o el sentido causal podría ser el opuesto al que sugiere el sentido común. La estadística descriptiva detecta **coincidencias sistemáticas** entre variables; determinar si esas coincidencias reflejan una relación causal es una tarea distinta, que exige un diseño de investigación adicional (experimental o cuasi-experimental).
 
 Este matiz volverá a aparecer, con más fuerza aún, en el capítulo siguiente al hablar de regresión.
+
+Hay además un fenómeno adicional que merece un aviso, porque en el análisis empresarial real es fuente inagotable de conclusiones equivocadas y de titulares llamativos:
+
+> **La paradoja de Simpson.** Una relación observada entre dos variables puede **invertirse por completo** al controlar por una tercera. Un directivo de R-Stars podría, por ejemplo, comparar la rentabilidad media de las Sociedades Anónimas Galácticas (SAG) y las Sociedades Limitadas Galácticas (SLG) sobre las $300$ compañías del fichero y encontrar que las SAG rinden mejor. Pero si separara la comparación por **sector de actividad** —transporte de carga, transporte de pasajeros, servicios auxiliares— podría descubrir que, dentro de cada sector por separado, son las **SLG** las que superan a las SAG. ¿Cómo puede ser? La explicación está en la composición: la mayoría de las SAG operan en un sector estructuralmente más rentable, y esa mezcla desigual arrastra el promedio global en dirección contraria a lo que ocurre en cada grupo homogéneo.
+>
+> La paradoja no es una curiosidad matemática; es un recordatorio de que las conclusiones basadas en un cruce bidimensional pueden ser radicalmente distintas de las que emergen al añadir la variable correcta. En el análisis empresarial moderno —desde el estudio del sesgo salarial de género hasta la efectividad comparada de tratamientos médicos— la identificación de esas terceras variables (los llamados **factores de confusión**) es una tarea central y, con frecuencia, más difícil que el cálculo estadístico propiamente dicho.
 
 ## Momentos bidimensionales. {#momentos-bidimensionales}
 
@@ -612,6 +685,59 @@ Lo importante es la lectura recíproca —o, mejor dicho, la ausencia de ella:
 
 La covarianza es una medida de tipo **lineal**: solo capta el tipo de "coincidencia direccional" que hemos descrito. Puede existir una relación estadística fuerte pero no lineal —una curva en forma de $U$, por ejemplo— en la que los desvíos positivos y negativos se cancelen entre sí y produzcan una covarianza nula. Independencia $\Rightarrow S_{xy}=0$, pero $S_{xy} = 0 \nRightarrow$ independencia. Esta asimetría es una de las razones por las que, al hablar de correlación en el próximo capítulo, será importante recordar que una correlación nula descarta relaciones lineales, pero no todas las relaciones concebibles.
 
+Un pequeño cuarteto de nubes de puntos ficticias termina de aclarar la idea. En los cuatro paneles siguientes la covarianza toma exactamente el mismo valor —nulo— pero la estructura de relación entre $X$ e $Y$ es radicalmente distinta:
+
+```{r cuarteto-covarianza, fig.width=7.5, fig.height=5.5}
+set.seed(2024)
+n <- 240
+
+# (a) Independencia genuina: X e Y normales independientes.
+df_a <- tibble(
+  x = rnorm(n, 0, 1),
+  y = rnorm(n, 0, 1),
+  panel = "(a) Independencia genuina"
+)
+
+# (b) Relación cuadrática Y = X^2 (X simétrica → covarianza teórica 0).
+xs_b <- seq(-2, 2, length.out = n)
+df_b <- tibble(
+  x = xs_b,
+  y = xs_b^2 - mean(xs_b^2) + rnorm(n, 0, 0.15),
+  panel = "(b) Relación cuadrática"
+)
+
+# (c) Dos ramas simétricas: mitad con pendiente +1, mitad con pendiente -1.
+#     El balance exacto 50-50 garantiza covarianza empírica ≈ 0.
+xs_c <- runif(n, -2, 2)
+sig  <- rep(c(-1, 1), each = n / 2)
+df_c <- tibble(
+  x = xs_c,
+  y = sig * xs_c + rnorm(n, 0, 0.15),
+  panel = "(c) Dos regímenes opuestos"
+)
+
+# (d) Nube circular: X = 2cos θ, Y = 2sin θ. Covarianza teórica 0 por simetría.
+theta <- runif(n, 0, 2 * pi)
+df_d <- tibble(
+  x = 2 * cos(theta) + rnorm(n, 0, 0.10),
+  y = 2 * sin(theta) + rnorm(n, 0, 0.10),
+  panel = "(d) Nube circular"
+)
+
+df_cuarteto <- bind_rows(df_a, df_b, df_c, df_d)
+
+ggplot(df_cuarteto, aes(x, y)) +
+  geom_point(color = pal_acento, size = 1.4, alpha = 0.7) +
+  facet_wrap(~ panel, nrow = 2, scales = "free") +
+  labs(title    = "Cuatro nubes con covarianza empírica cercana a cero",
+       subtitle = "Solo el panel (a) corresponde a independencia; los otros tres son claramente dependientes",
+       x = NULL, y = NULL) +
+  theme_libro() +
+  theme(strip.text = element_text(color = "#1e293b", face = "bold"))
+```
+
+Solo el primer panel corresponde a variables genuinamente independientes. En el segundo hay una relación cuadrática nítida —la clásica curva en $U$— que un ojo humano identifica al instante y que, sin embargo, la covarianza no ve. En el tercero coexisten dos regímenes opuestos que se anulan mutuamente en el promedio. En el cuarto, los puntos dibujan un círculo perfecto: conocer $X$ restringe fuertemente los valores posibles de $Y$ y viceversa, pero los desvíos se cancelan por simetría. La lección es clara: **una covarianza nula descarta la relación lineal, no la relación**. Cuando uno mide la relación entre dos variables, mirar la nube de puntos es siempre parte del trabajo, no una decoración.
+
 ## Tablas de contingencia y asociación entre atributos. {#tablas-contingencia}
 
 Todo lo anterior se aplica igual de bien —salvo la covarianza, que solo tiene sentido para variables cuantitativas— cuando $X$ o $Y$ (o las dos) son **atributos**. En la muestra de $300$ compañías R-Stars, la **forma jurídica** y el **estado de la flota** son ambos atributos, y cabe preguntarse si están asociados. En la flota de $48$ astilleros, el astillero constructor y la sede base son categorías puras. Y en la propia plantilla de *Shuttlepod Movers*, salario y nivel de estudios se han cruzado como si fueran atributos ordinales.
@@ -646,7 +772,26 @@ Este último punto es el que impide, por ahora, cerrar el círculo. Para transfo
 
 > **Regla del pulgar.** Si $\chi^{2}$ es **cercano a cero**, no hay evidencia de asociación. Si es **claramente mayor que cero** —y especialmente si supera con holgura el número de casillas de la tabla— sí la hay. Cuanto mayor, más contundente.
 
-Ilustraremos estas ideas con tres cruces del universo R-Stars que abarcan todo el espectro: uno sin evidencia de asociación, uno con dependencia intermedia y uno con asociación absoluta.
+### Una versión normalizada: la V de Cramér. {#v-cramer}
+
+El $\chi^{2}$ crudo tiene un inconveniente que salta a la vista en cuanto uno intenta comparar dos tablas de tamaños distintos: **su magnitud depende del número de casos $N$ y de la dimensión de la tabla**. Duplicar la muestra (misma estructura, doble tamaño) duplica el valor de $\chi^{2}$. Añadir filas o columnas también lo empuja hacia arriba. Por eso $\chi^{2} = 96$ en una tabla $3 \times 12$ no es directamente comparable con $\chi^{2} = 23$ en una $3 \times 3$: hace falta una escala común.
+
+La forma estándar de normalizar el estadístico es la **V de Cramér**, propuesta por Harald Cramér en 1946:
+
+$$
+V \;=\; \sqrt{\dfrac{\chi^{2}}{N \cdot \bigl(\min(h, k) - 1\bigr)}}.
+$$
+
+Su lectura es cómoda: $V$ está siempre entre $0$ (no asociación) y $1$ (asociación absoluta), no depende del tamaño de la muestra ni del de la tabla, y se puede interpretar como un "coeficiente de correlación para atributos". En la práctica empresarial, cuando un analista reporta la asociación entre dos variables categóricas —tipo de cliente y canal de compra, sector y forma jurídica, región y modo de pago— es la V de Cramér, y no el $\chi^{2}$ crudo, la que suele aparecer en el cuadro de mandos. Como orientación:
+
+- $V < 0{,}10$: asociación despreciable.
+- $0{,}10 \le V < 0{,}30$: asociación débil.
+- $0{,}30 \le V < 0{,}50$: asociación moderada.
+- $V \ge 0{,}50$: asociación fuerte.
+
+Estas franjas no son un veredicto matemático sino una guía interpretativa; el criterio último sigue siendo qué relación pretendíamos detectar y con qué precisión.
+
+Ilustraremos las ideas de esta sección con tres cruces del universo R-Stars que abarcan todo el espectro: uno sin evidencia de asociación, uno con dependencia intermedia y uno con asociación absoluta. Para cada uno calcularemos tanto el $\chi^{2}$ crudo como su V correspondiente.
 
 ### Ejemplo 1: forma jurídica y estado de la flota (R-Stars). {#chi-fjur-eflo}
 
@@ -702,7 +847,7 @@ tabla_esp_rs <- data.frame(
 )
 
 tabla_esp_rs %>%
-  kable(caption = "Frecuencias observadas y esperadas bajo independencia para FJUR $\\times$ EFLO.",
+  kable(caption = "Frecuencias observadas y esperadas bajo independencia para el cruce FJUR × EFLO.",
         col.names = c("FJUR",
                       "$n_{i,\\text{Ant}}$", "$n^{*}_{i,\\text{Ant}}$",
                       "$n_{i,\\text{Mad}}$", "$n^{*}_{i,\\text{Mad}}$",
@@ -722,7 +867,11 @@ $$
 \chi^{2} \;=\; \sum_{i,j} \frac{(n_{ij} - n^{*}_{ij})^{2}}{n^{*}_{ij}} \;=\; `r fmt(chi2_rs, 2)`,
 $$
 
-obtenemos un valor **modesto** para una tabla de $3\times 3$ con $300$ observaciones. Aunque todavía no dispongamos de un umbral formal, la magnitud sugiere que **no hay evidencia clara de asociación** entre la forma jurídica y el estado de la flota: las tres formas jurídicas parecen distribuir sus flotas entre los tres estados aproximadamente en las mismas proporciones. Cuando en el bloque de Inferencia estudiemos formalmente la prueba ji-cuadrado, veremos que esta tabla efectivamente no permite rechazar la hipótesis de independencia.
+```{r cramer-rs}
+V_rs <- sqrt(chi2_rs / (N_rs * (min(nrow(ct_rs), ncol(ct_rs)) - 1)))
+```
+
+y traduciéndolo a V de Cramér, $V = \sqrt{`r fmt(chi2_rs, 2)`/(300\cdot 2)} = `r fmt(V_rs, 3)`$: **una asociación despreciable**. Aunque todavía no dispongamos de un umbral formal para el $\chi^{2}$, ambos indicadores apuntan en la misma dirección: **no hay evidencia clara de asociación** entre la forma jurídica y el estado de la flota. Las tres formas jurídicas parecen distribuir sus flotas entre los tres estados aproximadamente en las mismas proporciones. Cuando en el bloque de Inferencia estudiemos formalmente la prueba ji-cuadrado, veremos que esta tabla efectivamente no permite rechazar la hipótesis de independencia.
 
 ### Ejemplo 2: dependencia intermedia (Shuttlepod Movers). {#chi-shuttlepod}
 
@@ -730,13 +879,48 @@ Volvamos a *Shuttlepod Movers* y calculemos ahora el estadístico de Pearson par
 
 ```{r chi-shuttlepod}
 chi2_sh <- sum((unclass(ct_sh) - esp_sh)^2 / esp_sh)
+V_sh    <- sqrt(chi2_sh / (N_sh * (min(nrow(ct_sh), ncol(ct_sh)) - 1)))
 ```
 
 $$
-\chi^{2}_{\text{Shuttlepod}} \;=\; `r fmt(chi2_sh, 2)`.
+\chi^{2}_{\text{Shuttlepod}} \;=\; `r fmt(chi2_sh, 2)`, \qquad
+V \;=\; `r fmt(V_sh, 3)`.
 $$
 
-En una tabla de $3\times 3$ con $49$ casos, este valor es netamente mayor que el que obtuvimos en R-Stars ($`r fmt(chi2_rs, 2)`$ para $300$ casos y la misma dimensión) y perfectamente detectable. Estamos ante una **dependencia real y graduada**: los tres colectivos de estudios se separan, pero no de manera excluyente (todavía hay universitarios con salario medio, empleados con estudios medios en los tres tramos, etc.). En el próximo capítulo veremos cómo cuantificar la intensidad de esta asociación con medidas específicas.
+En una tabla de $3\times 3$ con $49$ casos, este $\chi^{2}$ es netamente mayor que el que obtuvimos en R-Stars ($`r fmt(chi2_rs, 2)`$ para $300$ casos y la misma dimensión) y su V de Cramér cae en el rango de **asociación moderada-fuerte**. Es una dependencia real y perfectamente detectable, aunque **graduada**: los tres colectivos de estudios se separan, pero no de manera excluyente (todavía hay universitarios con salario medio, empleados con estudios medios en los tres tramos, etc.). En el próximo capítulo veremos cómo cuantificar la intensidad de esta asociación en el caso especial de las variables cuantitativas.
+
+Antes de seguir, un pequeño recurso gráfico que en la práctica moderna se ha convertido en el compañero natural del $\chi^{2}$: el **mapa de residuos estandarizados**. Cada residuo se define como
+
+$$
+r_{ij} \;=\; \frac{n_{ij} - n^{*}_{ij}}{\sqrt{n^{*}_{ij}}},
+$$
+
+de modo que su cuadrado es exactamente la contribución de la celda $(i,j)$ al $\chi^{2}$ total. Un residuo próximo a cero indica que la celda se comporta como bajo independencia; un residuo grande y positivo, que hay **más** casos de los esperados en esa combinación; uno grande y negativo, que hay **menos**. Visualmente, los residuos revelan de un vistazo dónde vive la asociación:
+
+```{r shuttlepod-residuos, fig.width=6.5, fig.height=3.4}
+residuos_sh <- (unclass(ct_sh) - esp_sh) / sqrt(esp_sh)
+
+df_resid <- as.data.frame(as.table(residuos_sh)) %>%
+  rename(Salario = Var1, Estudios = Var2, Residuo = Freq) %>%
+  mutate(Estudios = factor(Estudios,
+                           levels = c("Básicos", "Medios", "Universitarios")),
+         Salario  = factor(Salario,
+                           levels = c("Bajo (≤ 12)", "Medio (13–20)", "Alto (> 20)")))
+
+ggplot(df_resid, aes(x = Estudios, y = Salario, fill = Residuo)) +
+  geom_tile(color = "white", linewidth = 0.8) +
+  geom_text(aes(label = sprintf("%.2f", Residuo)),
+            color = "white", fontface = "bold", size = 4) +
+  scale_fill_gradient2(low = "#b45309", mid = "#f1f5f9", high = "#0f172a",
+                       midpoint = 0, name = "Residuo") +
+  labs(title    = "Residuos estandarizados en Shuttlepod Movers",
+       subtitle = "Positivo: sobran casos frente a la independencia. Negativo: faltan.",
+       x = NULL, y = NULL) +
+  theme_libro() +
+  theme(panel.grid = element_blank())
+```
+
+La lectura es inmediata. Las casillas con residuo positivo grande —"bajo × básicos" y, sobre todo, "alto × universitarios"— son las que sostienen la asociación: allí hay muchos más casos de los que produciría la independencia. Las casillas con residuo negativo grande —"bajo × universitarios" y "alto × medios"— indican combinaciones sistemáticamente **infrarrepresentadas**: celdas que "deberían" estar más pobladas y que apenas contienen empleados. La asociación no es homogénea; tiene una estructura diagonal (los universitarios se concentran en el tramo alto, los estudios básicos y medios en los tramos bajo y medio) que el $\chi^{2}$ resume en un único número, pero que el mapa hace visible a golpe de vista.
 
 ### Ejemplo 3: asociación absoluta (astilleros y sedes). {#chi-astillero-sede}
 
@@ -753,7 +937,7 @@ tabla_show <- cbind(Astillero = rownames(ct_show),
                     as.data.frame.matrix(ct_show))
 
 tabla_show %>%
-  kable(caption = "Astillero constructor $\\times$ sede base (fragmento representativo). Cada astillero opera desde un conjunto disjunto de sedes.",
+  kable(caption = "Astillero constructor × sede base (fragmento representativo). Cada astillero opera desde un conjunto disjunto de sedes.",
         align     = "c",
         row.names = FALSE,
         escape    = FALSE) %>%
@@ -771,21 +955,25 @@ nj_as <- colSums(ct_as)
 N_as2 <- sum(ct_as)
 esp_as <- outer(ni_as, nj_as) / N_as2
 chi2_as <- sum((ct_as - esp_as)^2 / esp_as)
+V_as    <- sqrt(chi2_as / (N_as2 * (min(nrow(ct_as), ncol(ct_as)) - 1)))
 ```
 
 $$
-\chi^{2}_{\text{astilleros}} \;=\; `r fmt(chi2_as, 0)`.
+\chi^{2}_{\text{astilleros}} \;=\; `r fmt(chi2_as, 0)`, \qquad
+V \;=\; `r fmt(V_as, 3)`.
 $$
 
-Un valor muy elevado incluso para una tabla de $3 \times 12$: existe una **asociación estadística absoluta** entre astillero y sede, en el sentido literal de que conocer un valor determina completamente el otro. En términos económicos, la lectura es transparente: los tres astilleros han construido su red logística de bases operativas en zonas geográficas exclusivas, sin solaparse.
+Un $\chi^{2}$ muy elevado incluso para una tabla de $3 \times 12$, y una V de Cramér **igual a $1$**: existe una **asociación estadística absoluta** entre astillero y sede, en el sentido literal de que conocer un valor determina completamente el otro. Es exactamente lo que la V se supone que debe marcar en su extremo superior. En términos económicos, la lectura es transparente: los tres astilleros han construido su red logística de bases operativas en zonas geográficas exclusivas, sin solaparse.
 
 Los tres ejemplos, resumidos, componen una escala clara:
 
-| Cruce                     | Tamaño          | $N$   | $\chi^{2}$                     | Lectura                        |
-|:-------------------------:|:---------------:|:-----:|:-----------------------------:|:------------------------------:|
-| FJUR $\times$ EFLO        | $3\times 3$     | $300$ | $`r fmt(chi2_rs, 2)`$          | Sin evidencia de asociación    |
-| Salario $\times$ estudios | $3\times 3$     | $49$  | $`r fmt(chi2_sh, 2)`$          | Dependencia intermedia         |
-| Astillero $\times$ sede   | $3\times 12$    | $48$  | $`r fmt(chi2_as, 0)`$          | Asociación absoluta            |
+| Cruce                     | Tamaño          | $N$   | $\chi^{2}$              | $V$                     | Lectura                        |
+|:-------------------------:|:---------------:|:-----:|:-----------------------:|:-----------------------:|:------------------------------:|
+| FJUR × EFLO               | $3\times 3$     | $300$ | $`r fmt(chi2_rs, 2)`$   | $`r fmt(V_rs, 3)`$      | Sin evidencia de asociación    |
+| Salario × estudios        | $3\times 3$     | $49$  | $`r fmt(chi2_sh, 2)`$   | $`r fmt(V_sh, 3)`$      | Asociación moderada-fuerte     |
+| Astillero × sede          | $3\times 12$    | $48$  | $`r fmt(chi2_as, 0)`$   | $`r fmt(V_as, 3)`$      | Asociación absoluta            |
+
+Repárese en un detalle importante: comparar los $\chi^{2}$ crudos ($3{,}86$, $23{,}35$ y $96$) sugiere una escala aproximadamente proporcional al grado de asociación, pero eso es un accidente afortunado de estos tres ejemplos. La V de Cramér —$0{,}080$, $0{,}488$ y $1{,}000$— es la escala que en general funciona: la primera tabla, con $300$ casos, tiene un $\chi^{2}$ superior a $3$ pero es esencialmente ruido; la segunda, con solo $49$ casos, muestra ya una asociación seria; y la tercera es máxima.
 
 ## Extensión al caso $n$-dimensional. {#n-dimensional}
 
