@@ -90,6 +90,7 @@ varianza-desviacion
 varianza-informacion
 cv-pearson
 comparando-cv
+lorenz-gini
 estandarizacion
 medidas-de-forma
 asimetria

@@ -8,7 +8,9 @@ library(knitr)
 library(kableExtra)
 library(dplyr)
 library(tidyr)
+library(tibble)
 library(ggplot2)
+library(scales)
 ```
 
 ```{r datos-hyperdrive, echo=FALSE}
@@ -46,19 +48,27 @@ Una **medida estadística** es un instrumento matemático que **extrae y sinteti
 
 La respuesta a cada una de estas preguntas corresponde a un tipo de medida:
 
-| Tipo de medida         | Qué mide                                                                | Ejemplos habituales                                            |
-| ---------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------- |
-| **Posición central**   | En torno a qué valor se sitúa la distribución                           | Media aritmética, mediana, moda                                |
-| **Posición no central**| Puntos que dividen la distribución en grupos con el mismo número de casos | Cuartiles, deciles, percentiles                                |
-| **Dispersión**         | Cuán separados están los valores de la medida central                  | Varianza, desviación típica, coeficiente de variación          |
-| **Forma**              | Grado y sentido de la deformación respecto a un patrón simétrico y campaniforme | Coeficientes de asimetría y de curtosis de Fisher            |
+```{r bloques-medidas}
+bloques <- tibble::tribble(
+  ~`Tipo de medida`,          ~`Qué mide`,                                                                  ~`Ejemplos habituales`,
+  "**Posición central**",     "En torno a qué valor se sitúa la distribución.",                             "Media aritmética, mediana, moda.",
+  "**Posición no central**",  "Puntos que dividen la distribución en grupos con el mismo número de casos.", "Cuartiles, deciles, percentiles.",
+  "**Dispersión**",           "Cuán separados están los valores de la medida central.",                     "Varianza, desviación típica, coeficiente de variación.",
+  "**Forma**",                "Grado y sentido de la deformación respecto a un patrón simétrico y campaniforme.", "Coeficientes de asimetría y de curtosis de Fisher."
+)
+
+bloques |>
+  kable(
+        align = "l") |>
+  kable_styling(bootstrap_options = c("hover", "condensed"),
+                full_width = FALSE, position = "center",
+                font_size = 13)
+```
 
 ::: {style="text-align: center;"}
-**Tabla 3.1**
+**Tabla 3.1.** Los cuatro grandes bloques de medidas para una variable.
 :::
 
-
-**Los cuatro grandes bloques de medidas para una variable.**
 
 La mayor parte de estas medidas solo tienen sentido para **variables** en escala métrica. Algunas —como la mediana o la moda— pueden aplicarse también a **atributos** ordinales o nominales, con las adaptaciones oportunas. A lo largo del capítulo iremos indicando en cada caso el alcance.
 
@@ -137,21 +147,25 @@ Cuando la variable es continua o toma muchos valores distintos, la distribución
 
 Retomemos la tabla del capítulo anterior que agrupaba los salarios de *Hyperdrive Express* en intervalos de 5 cientos de PAVOs:
 
-| Intervalo | \(x_i\) | \(n_i\) | \(N_i\) | \(x_i \cdot n_i\) |
-|-----------|---------|---------|---------|--------------------|
-| [5,10]    | 7,5     | 11      | 11      | 82,5               |
-| (10,15]   | 12,5    | 21      | 32      | 262,5              |
-| (15,20]   | 17,5    | 13      | 45      | 227,5              |
-| (20,25]   | 22,5    | 10      | 55      | 225,0              |
-| (25,30]   | 27,5    | 5       | 60      | 137,5              |
-| **Total** |         | **60**  |         | **935,0**          |
+```{r datos-agrupados}
+agrup <- tibble::tribble(
+  ~Intervalo,   ~`$x_i$`, ~`$n_i$`, ~`$N_i$`, ~`$x_i \\cdot n_i$`,
+  "[5,10]",     "7,5",    "11",     "11",     "82,5",
+  "(10,15]",    "12,5",   "21",     "32",     "262,5",
+  "(15,20]",    "17,5",   "13",     "45",     "227,5",
+  "(20,25]",    "22,5",   "10",     "55",     "225,0",
+  "(25,30]",    "27,5",   "5",      "60",     "137,5",
+  "**Total**",  "",       "**60**", "",       "**935,0**"
+)
 
-::: {style="text-align: center;"}
-**Tabla 3.2**
-:::
-
-
-**Cálculo de la media agrupada de los salarios de *Hyperdrive Express*.**
+agrup |>
+  kable(
+        align   = c("l", "c", "c", "c", "c"),
+        escape  = FALSE) |>
+  kable_styling(bootstrap_options = c("hover", "condensed"),
+                full_width = FALSE, position = "center",
+                font_size = 13)
+```
 
 De aquí se obtiene la media agrupada
 
@@ -191,18 +205,27 @@ Formalmente, un **cuantil** \(x_p\) (con \(0 < p < 1\)) es el valor de la variab
 
 Aplicados a la plantilla de *Hyperdrive Express*, los cuartiles son:
 
-| Cuartil | Valor (cientos de PAVOs) | Interpretación                                              |
-|---------|--------------------------|-------------------------------------------------------------|
-| \(Q_1\) | 12                       | El 25 % de la plantilla cobra 12 o menos                    |
-| \(Q_2\) | 15                       | El 50 % cobra 15 o menos (mediana)                          |
-| \(Q_3\) | 20,5                     | El 75 % cobra 20,5 o menos                                  |
+```{r cuartiles-hyperdrive}
+cuartiles <- tibble::tribble(
+  ~Cuartil,   ~`Valor (cientos de PAVOs)`, ~Interpretación,
+  "$Q_1$",    "12",                        "El 25 % de la plantilla cobra 12 o menos.",
+  "$Q_2$",    "15",                        "El 50 % cobra 15 o menos (mediana).",
+  "$Q_3$",    "20,5",                      "El 75 % cobra 20,5 o menos."
+)
+
+cuartiles |>
+  kable(
+        align   = c("c", "c", "l"),
+        escape  = FALSE) |>
+  kable_styling(bootstrap_options = c("hover", "condensed"),
+                full_width = FALSE, position = "center",
+                font_size = 13)
+```
 
 ::: {style="text-align: center;"}
-**Tabla 3.3**
+**Tabla 3.2.** Cuartiles del salario en *Hyperdrive Express*.
 :::
 
-
-**Cuartiles del salario en *Hyperdrive Express*.**
 
 Una medida derivada muy útil es el **recorrido intercuartílico** o *interquartile range* (IQR):
 
@@ -232,21 +255,30 @@ En la plantilla de 60 empleados de *Hyperdrive Express*, esos límites son \(12 
 
 Es el momento de traer al análisis a la **CEO** de *Hyperdrive Express* que hemos venido anunciando. Su salario bruto mensual asciende a **100 cientos de PAVOs**. Si añadiésemos su ficha al fichero de nóminas, obtendríamos 61 casos y esta distribución:
 
-| \(x_i\) (Salario)  | \(n_i\) | \(x_i\) (Salario) | \(n_i\) |
-|--------------------|---------|--------------------|---------|
-| 8                  | 2       | 20                 | 6       |
-| 9                  | 2       | 22                 | 6       |
-| 10                 | 7       | 25                 | 4       |
-| 12                 | 5       | 30                 | 5       |
-| 15                 | 16      | **100**            | **1**   |
-| 18                 | 7       |                    |         |
+```{r frecuencias-ceo}
+frec_ceo <- tibble::tribble(
+  ~`$x_i$ (Salario)`, ~`$n_i$`, ~`$x_i$ (Salario) `, ~`$n_i$ `,
+  "8",   "2",  "20",      "6",
+  "9",   "2",  "22",      "6",
+  "10",  "7",  "25",      "4",
+  "12",  "5",  "30",      "5",
+  "15",  "16", "**100**", "**1**",
+  "18",  "7",  "",        ""
+)
+
+frec_ceo |>
+  kable(
+        align   = "c",
+        escape  = FALSE) |>
+  kable_styling(bootstrap_options = c("hover", "condensed"),
+                full_width = FALSE, position = "center",
+                font_size = 13)
+```
 
 ::: {style="text-align: center;"}
-**Tabla 3.4**
+**Tabla 3.3.** Distribución de frecuencias del salario incluyendo a la CEO ($N = 61$).
 :::
 
-
-**Distribución de frecuencias del salario incluyendo a la CEO (\(N = 61\)).**
 
 Con la CEO dentro, \(N = 61\), \(Q_1 = 12\), \(Q_3 = 22\), IQR \(= 10\) y el límite superior de la regla de Tukey pasa a ser 37. Un salario de 100 cientos de PAVOs queda muy por encima: la CEO **es formalmente un outlier**, tal como el sentido común anticipaba. El box-plot lo señalará con un punto solitario muy por encima de la caja, exactamente como una boya alertando de bajos fondos.
 
@@ -264,10 +296,16 @@ ggplot(df_box, aes(x = grupo, y = salario, fill = grupo)) +
                outlier.size = 3, outlier.shape = 21,
                outlier.fill = "#C00000", alpha = 0.85) +
   scale_fill_manual(values = c("#5B9BD5", "#ED7D31")) +
-  labs(x = NULL, y = "Salario (cientos de PAVOs)") +
+  labs(title    = "Diagramas de caja del salario en Hyperdrive Express",
+       subtitle = "Plantilla sola frente a plantilla incluyendo a la CEO",
+       x        = NULL, y = "Salario (cientos de PAVOs)") +
   theme_minimal(base_size = 12) +
   theme(legend.position = "none",
-        panel.grid.major.x = element_blank())
+        panel.grid.major.x = element_blank(),
+        plot.title    = element_text(face = "bold", color = "#1e293b",
+                                     hjust = 0.5, size = 12),
+        plot.subtitle = element_text(color = "#64748b",
+                                     hjust = 0.5, size = 10))
 ```
 
 ::: {style="text-align: center;"}
@@ -275,7 +313,7 @@ ggplot(df_box, aes(x = grupo, y = salario, fill = grupo)) +
 :::
 
 
-**Diagramas de caja del salario en *Hyperdrive Express*.** A la izquierda, la plantilla de 60 empleados; a la derecha, incluyendo a la CEO. La caja apenas se mueve; el bigote se estira ligeramente; pero el *outlier* que aparece en solitario en el segundo gráfico es toda la información visual que necesitábamos.
+A la izquierda, la plantilla de 60 empleados; a la derecha, incluyendo a la CEO. La caja apenas se mueve; el bigote se estira ligeramente; pero el *outlier* que aparece en solitario en el segundo gráfico es toda la información visual que necesitábamos.
 
 ### Del box-plot al violín: cuando la caja se queda corta. {#violin}
 
@@ -290,10 +328,16 @@ ggplot(df_box, aes(x = grupo, y = salario, fill = grupo)) +
                outlier.size = 2.5, outlier.shape = 21,
                outlier.fill = "#C00000", alpha = 0.9) +
   scale_fill_manual(values = c("#5B9BD5", "#ED7D31")) +
-  labs(x = NULL, y = "Salario (cientos de PAVOs)") +
+  labs(title    = "Gráficos de violín del salario en Hyperdrive Express",
+       subtitle = "La silueta añade una lectura de forma que el box-plot no muestra",
+       x        = NULL, y = "Salario (cientos de PAVOs)") +
   theme_minimal(base_size = 12) +
   theme(legend.position = "none",
-        panel.grid.major.x = element_blank())
+        panel.grid.major.x = element_blank(),
+        plot.title    = element_text(face = "bold", color = "#1e293b",
+                                     hjust = 0.5, size = 12),
+        plot.subtitle = element_text(color = "#64748b",
+                                     hjust = 0.5, size = 10))
 ```
 
 ::: {style="text-align: center;"}
@@ -301,7 +345,7 @@ ggplot(df_box, aes(x = grupo, y = salario, fill = grupo)) +
 :::
 
 
-**Gráficos de violín del salario en *Hyperdrive Express*.** El violín añade al box-plot una lectura de forma: la plantilla muestra una silueta claramente asimétrica —el cuerpo es ancho en torno a los 15 y adelgaza hacia arriba— que un simple box-plot no haría igual de evidente. Al incorporar a la CEO, la silueta apenas cambia; el punto rojo aislado sigue haciendo el trabajo de alerta.
+El violín añade al box-plot una lectura de forma: la plantilla muestra una silueta claramente asimétrica —el cuerpo es ancho en torno a los 15 y adelgaza hacia arriba— que un simple box-plot no haría igual de evidente. Al incorporar a la CEO, la silueta apenas cambia; el punto rojo aislado sigue haciendo el trabajo de alerta.
 
 En términos didácticos, box-plot y violín son complementarios: el primero sigue siendo insustituible para detectar *outliers* de un vistazo; el segundo aporta información sobre la **forma** que anticipa lo que veremos en las medidas de asimetría y curtosis. En la práctica profesional, cuando el tamaño muestral lo permite —y en 60 casos ya lo permite—, muchos analistas prefieren directamente el violín.
 
@@ -370,19 +414,28 @@ En la práctica, esto significa que basta con calcular una vez los momentos resp
 
 Para *Hyperdrive Express*, los momentos respecto al origen son:
 
-| Momento | Valor       |
-|---------|-------------|
-| \(a_1\) | 17,20       |
-| \(a_2\) | 331,37      |
-| \(a_3\) | 7 038,90    |
-| \(a_4\) | 161 964,37  |
+```{r momentos-hyperdrive}
+momentos <- tibble::tribble(
+  ~Momento, ~Valor,
+  "$a_1$",  "17,20",
+  "$a_2$",  "331,37",
+  "$a_3$",  "7 038,90",
+  "$a_4$",  "161 964,37"
+)
+
+momentos |>
+  kable(
+        align   = c("c", "r"),
+        escape  = FALSE) |>
+  kable_styling(bootstrap_options = c("hover", "condensed"),
+                full_width = FALSE, position = "center",
+                font_size = 13)
+```
 
 ::: {style="text-align: center;"}
-**Tabla 3.5**
+**Tabla 3.4.** Momentos respecto al origen del salario en *Hyperdrive Express*.
 :::
 
-
-**Momentos respecto al origen del salario en *Hyperdrive Express*.**
 
 De donde se sigue \(m_2 = 331{,}37 - 17{,}20^{2} = 35{,}53\), \(m_3 = 117{,}28\) y \(m_4 = 3\,313{,}22\). Los usaremos enseguida.
 
@@ -405,10 +458,16 @@ ggplot(df_disp, aes(x = salario, fill = grupo)) +
              color = "#C00000", linewidth = 0.7) +
   facet_wrap(~ grupo) +
   scale_fill_manual(values = c("#5B9BD5", "#70AD47")) +
-  labs(x = "Salario (cientos de PAVOs)", y = "Nº de empleados") +
+  labs(title    = "Dos plantillas con la misma media y distinta dispersión",
+       subtitle = "La línea roja discontinua marca la media común (17,20 cientos de PAVOs)",
+       x = "Salario (cientos de PAVOs)", y = "Nº de empleados") +
   theme_minimal(base_size = 11) +
   theme(legend.position = "none",
-        strip.text = element_text(face = "bold"))
+        strip.text = element_text(face = "bold"),
+        plot.title    = element_text(face = "bold", color = "#1e293b",
+                                     hjust = 0.5, size = 12),
+        plot.subtitle = element_text(color = "#64748b",
+                                     hjust = 0.5, size = 10))
 ```
 
 ::: {style="text-align: center;"}
@@ -416,7 +475,7 @@ ggplot(df_disp, aes(x = salario, fill = grupo)) +
 :::
 
 
-**Dos plantillas con la misma media (17,20 cientos de PAVOs, línea roja discontinua) y distinta dispersión.** En la de la derecha, la media describe con precisión lo que le ocurre a cada empleado. En la de la izquierda, la media es solo una referencia: muchos casos están lejos de ese valor, y ninguna decisión razonable sobre política salarial debería basarse solo en él.
+En la plantilla de la derecha, la media describe con precisión lo que le ocurre a cada empleado. En la de la izquierda, la media es solo una referencia: muchos casos están lejos de ese valor, y ninguna decisión razonable sobre política salarial debería basarse solo en él.
 
 La media es un dato incompleto: **caracteriza dónde se sitúa la distribución, pero no cuánto se aparta cada individuo de esa posición**. Las medidas de dispersión completan la fotografía, cuantificando **cuán representativa** es la medida central. Si la dispersión es baja, los valores están concentrados en torno a la media y esta la representa bien. Si es alta, los valores están muy repartidos y la media, aunque exista, describe pobremente lo que le ocurre a cada individuo.
 
@@ -474,9 +533,15 @@ df_info <- data.frame(
 ggplot(df_info, aes(x = empresa, y = valor)) +
   geom_point(color = "#2E4E6E", size = 2, alpha = 0.85) +
   facet_wrap(~ tipo) +
-  labs(x = "Empresa", y = "Valor") +
+  labs(title    = "Información y varianza",
+       subtitle = "A mayor dispersión, mayor capacidad para distinguir unos casos de otros",
+       x = "Empresa", y = "Valor") +
   theme_minimal(base_size = 11) +
-  theme(strip.text = element_text(face = "bold"))
+  theme(strip.text = element_text(face = "bold"),
+        plot.title    = element_text(face = "bold", color = "#1e293b",
+                                     hjust = 0.5, size = 12),
+        plot.subtitle = element_text(color = "#64748b",
+                                     hjust = 0.5, size = 10))
 ```
 
 ::: {style="text-align: center;"}
@@ -484,7 +549,7 @@ ggplot(df_info, aes(x = empresa, y = valor)) +
 :::
 
 
-**Información y varianza.** La variable A no permite distinguir empresas entre sí; la B las distingue con cierta dificultad; la C las diferencia con claridad.
+La variable A no permite distinguir empresas entre sí; la B las distingue con cierta dificultad; la C las diferencia con claridad.
 
 Cuanto mayor es la dispersión de una variable, mayor es su **contenido informativo** sobre los casos. La varianza —y la desviación típica— son, en ese sentido, medidas de la "cantidad de información" que la variable aporta sobre el grupo estudiado. Esta intuición está en la base de técnicas mucho más potentes que veremos en cursos avanzados, como el **análisis de componentes principales**, cuyo objetivo es precisamente conservar la mayor cantidad posible de varianza —de información— reduciendo el número de variables.
 
@@ -510,19 +575,104 @@ Un ejemplo intuitivo previo: comparar la dispersión del salario en *Hyperdrive 
 
 El mismo razonamiento se aplica cuando comparamos la misma variable en dos poblaciones distintas. Supongamos que queremos comparar la dispersión salarial de *Hyperdrive Express* (Miranda, Gran Nube de Magallanes) con la de otra compañía galáctica del mismo tamaño operativo, *Shuttlepod Movers* (Arrakis, también en la Gran Nube de Magallanes). Los datos que resumen ambas plantillas son:
 
-| Compañía              | \(N\) | \(\overline{x}\) (cientos de PAVOs) | \(S\)  | \(V\)   |
-|-----------------------|-------|-------------------------------------|--------|---------|
-| *Hyperdrive Express*  | 60    | 17,20                               | 5,96   | 0,346   |
-| *Shuttlepod Movers*   | 49    | 16,04                               | 5,52   | 0,344   |
+```{r comparacion-companias}
+comp_comp <- tibble::tribble(
+  ~Compañía,              ~`$N$`, ~`$\\overline{x}$ (cientos de PAVOs)`, ~`$S$`, ~`$V$`,
+  "*Hyperdrive Express*", "60",   "17,20",                                "5,96", "0,346",
+  "*Shuttlepod Movers*",  "49",   "16,04",                                "5,52", "0,344"
+)
+
+comp_comp |>
+  kable(
+        align   = c("l", "c", "c", "c", "c"),
+        escape  = FALSE) |>
+  kable_styling(bootstrap_options = c("hover", "condensed"),
+                full_width = FALSE, position = "center",
+                font_size = 13)
+```
 
 ::: {style="text-align: center;"}
-**Tabla 3.6**
+**Tabla 3.5.** Comparación salarial de dos compañías R-Stars.
 :::
 
 
-**Comparación salarial de dos compañías R-Stars.**
-
 En términos absolutos, *Hyperdrive Express* tiene una desviación típica mayor. Pero también una media mayor. El coeficiente de variación de ambas compañías es prácticamente idéntico: sus **estructuras salariales relativas** son gemelas, aunque los euros —perdón, los PAVOs— absolutos no lo sean. Este tipo de conclusión es el que hace del CV una medida imprescindible cuando queremos comparar la representatividad de la media entre distribuciones.
+
+### Curva de Lorenz e índice de Gini: la dispersión como concentración. {#lorenz-gini}
+
+Hay una manera adicional —y muy expresiva en clave económica— de leer la dispersión de una variable: como **concentración**. En una distribución perfectamente igualitaria (todos los empleados cobran lo mismo, o todas las empresas facturan lo mismo), la mitad de la plantilla acumula la mitad de la masa salarial, el 10 % más rico acumula el 10 % de la retribución total, y así sucesivamente. Cuando la distribución se aparta de la igualdad —es decir, cuando la dispersión crece— esa proporción se rompe: unos pocos concentran una fracción desproporcionada del total.
+
+La **curva de Lorenz**, propuesta por Max O. Lorenz en 1905, formaliza esta idea. Se ordenan los individuos de menor a mayor valor de la variable, y para cada porcentaje acumulado de individuos (eje horizontal) se representa el porcentaje acumulado de la masa total (eje vertical). Si la distribución es perfectamente igualitaria, la curva coincide con la diagonal (**recta de equidistribución**): al 50 % de los individuos corresponde el 50 % de la masa. Si la distribución es desigual, la curva se curva por debajo: al 50 % más pobre corresponde una fracción menor del 50 % del total.
+
+```{r lorenz-hyperdrive, fig.width = 7, fig.height = 4.5, out.width = "80%"}
+# Función auxiliar para construir la curva de Lorenz de un vector.
+lorenz_df <- function(x, etiqueta) {
+  x <- sort(x)
+  n <- length(x)
+  data.frame(
+    p         = c(0, seq_len(n) / n),
+    L         = c(0, cumsum(x) / sum(x)),
+    grupo     = etiqueta
+  )
+}
+
+df_lorenz <- rbind(
+  lorenz_df(hyperdrive$salario,      "Plantilla (N = 60)"),
+  lorenz_df(hyperdrive_ceo$salario,  "Plantilla + CEO (N = 61)")
+)
+df_lorenz$grupo <- factor(df_lorenz$grupo,
+                          levels = c("Plantilla (N = 60)",
+                                     "Plantilla + CEO (N = 61)"))
+
+ggplot(df_lorenz, aes(x = p, y = L, color = grupo)) +
+  geom_abline(intercept = 0, slope = 1,
+              linetype = "dashed", color = "#94a3b8") +
+  geom_line(linewidth = 1.1) +
+  scale_color_manual(values = c("#5B9BD5", "#ED7D31")) +
+  scale_x_continuous(labels = scales::percent_format(accuracy = 1),
+                     breaks = seq(0, 1, 0.2)) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1),
+                     breaks = seq(0, 1, 0.2)) +
+  coord_equal() +
+  labs(title    = "Curva de Lorenz del salario en Hyperdrive Express",
+       subtitle = "La diagonal es la equidistribución; cuanto más se aleja la curva de ella, mayor la concentración",
+       x        = "% acumulado de empleados (ordenados de menor a mayor salario)",
+       y        = "% acumulado de la masa salarial",
+       color    = NULL) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom",
+        panel.grid.minor = element_blank(),
+        plot.title    = element_text(face = "bold", color = "#1e293b",
+                                     hjust = 0.5, size = 12),
+        plot.subtitle = element_text(color = "#64748b",
+                                     hjust = 0.5, size = 10))
+```
+
+::: {style="text-align: center;"}
+**Figura 3.6**
+:::
+
+
+En *Hyperdrive Express* sin la CEO (curva azul), el 50 % de la plantilla con menores salarios acumula solo el **36,2 %** de la masa salarial, y el 10 % con salarios más altos concentra el 17,0 %. La curva se separa moderadamente de la diagonal: la plantilla es desigual, pero razonablemente equilibrada. Al incorporar a la CEO (curva naranja), la curva se hunde: ahora el 50 % con menores salarios acumula solo el **33,0 %** del total, mientras que el 10 % con salarios más altos concentra el **22,1 %**. Un solo caso extremo desplaza sensiblemente la concentración.
+
+El área comprendida entre la diagonal y la curva de Lorenz mide, gráficamente, cuánta desigualdad hay. Corrado Gini propuso en 1912 una medida sintética de esa área, el **índice de Gini**:
+
+\[
+G = \frac{\text{área entre la diagonal y la curva de Lorenz}}{\text{área bajo la diagonal}}.
+\]
+
+El índice varía entre 0 (equidistribución perfecta) y 1 (concentración máxima: un solo individuo acumula toda la masa). En términos operativos, para una variable no negativa \(x_1 \le x_2 \le \ldots \le x_N\) ya ordenada de menor a mayor:
+
+\[
+G = \frac{\sum_{i=1}^{N} (2i - N - 1)\, x_i}{N \sum_{i=1}^{N} x_i}.
+\]
+
+Para nuestros datos:
+
+- Plantilla sola: \(G = 0{,}193\). Comparable al de un país socialdemócrata típico (los países europeos con menor desigualdad de renta rondan Ginis de 0,25–0,30).
+- Plantilla + CEO: \(G = 0{,}245\). Sube 5 puntos por incorporar un único caso, ilustración numérica limpia de la sensibilidad del Gini a los valores extremos.
+
+A modo de referencia, el índice de Gini de los **ingresos** de las 300 compañías R-Stars —cuya asimetría positiva vimos al hablar de la forma— es de \(G = 0{,}603\): una concentración altísima, típica de las variables de tamaño empresarial. Las técnicas de dispersión relativa (CV, IQR normalizado) y las de concentración (Lorenz-Gini) son primos cercanos: miden lo mismo, pero desde ángulos distintos. El CV pregunta *"¿cuán dispersa es la variable en relación con su media?"*; el Gini, *"¿cuán concentrada está la masa en unos pocos individuos?"*. Para el estudiante de ADE, es útil manejar los dos lenguajes: el segundo dominará en Economía Aplicada, Fiscalidad y Distribución de la Renta.
 
 ### Estandarización: la regla empírica. {#estandarizacion}
 
@@ -595,20 +745,26 @@ ggplot(df_asim, aes(x = x)) +
   geom_line(data = df_ref_asim, aes(x = x, y = y),
             color = "#C55A11", linewidth = 0.9, linetype = "dashed") +
   facet_wrap(~ tipo, scales = "free_x") +
-  labs(x = NULL, y = "Densidad") +
+  labs(title    = "Tipos de asimetría en distribuciones unimodales campaniformes",
+       subtitle = "Trazo naranja discontinuo: normal \"equivalente\" (misma media y misma desviación típica)",
+       x = NULL, y = "Densidad") +
   theme_minimal(base_size = 11) +
   theme(strip.text        = element_text(face = "bold"),
         axis.text.y       = element_blank(),
         axis.ticks.y      = element_blank(),
-        panel.grid.minor  = element_blank())
+        panel.grid.minor  = element_blank(),
+        plot.title    = element_text(face = "bold", color = "#1e293b",
+                                     hjust = 0.5, size = 12),
+        plot.subtitle = element_text(color = "#64748b",
+                                     hjust = 0.5, size = 10))
 ```
 
 ::: {style="text-align: center;"}
-**Figura 3.6**
+**Figura 3.7**
 :::
 
 
-**Tipos de asimetría en distribuciones unimodales campaniformes.** En azul, la distribución observada; en trazo naranja discontinuo, la distribución normal "equivalente" (misma media y misma desviación típica) que sirve de referencia. La asimétrica positiva tiene la cola larga hacia la derecha; la negativa, hacia la izquierda.
+La asimétrica positiva tiene la cola larga hacia la derecha; la negativa, hacia la izquierda.
 
 Para cuantificarla, Fisher observó que el momento central de orden 3, \(m_3\), tiene precisamente esa propiedad: es cero si la distribución es simétrica, positivo si tiene cola a la derecha y negativo si la tiene a la izquierda. Pero \(m_3\) tiene unidades (las de la variable al cubo) y no permite comparar distribuciones medidas en escalas distintas. Fisher lo normalizó dividiendo por \(S^{\,3}\), obteniendo el **coeficiente de asimetría de Fisher**:
 
@@ -633,6 +789,8 @@ La distribución presenta **asimetría positiva moderada**: la cola de salarios 
 **El impacto de un outlier sobre la asimetría.** Si volviéramos a incluir a la CEO en el análisis, con su salario de 100 cientos de PAVOs, el coeficiente saltaría hasta \(g_1 \approx 5{,}03\). Un solo caso extremo ha transformado una asimetría moderada en un valor que, en pura literalidad, sugeriría una distribución dramáticamente sesgada. En realidad la plantilla no ha cambiado; solo hemos mezclado en el saco un caso que pertenece a otra población. Este es el motivo por el que insistíamos en el capítulo anterior: los coeficientes de forma son especialmente sensibles a la limpieza previa del fichero.
 
 > **Un vistazo económico: la asimetría del tamaño empresarial.** Los ingresos anuales de las 300 compañías R-Stars presentan \(g_1 = 4{,}03\): una asimetría fuertemente positiva. Económicamente, este patrón —conocido como *long tail* o distribución de Pareto— es la norma, no la excepción, cuando se estudian variables de tamaño empresarial (activos, ingresos, plantilla, facturación). La media aritmética se sitúa en 218 miles de PAVOs; la mediana, en apenas 130. Utilizar la media como "empresa típica" sobredimensiona el sector: la mayor parte de las compañías está muy por debajo de esa cifra. Es el mismo fenómeno que ocurre con la renta en una economía real: reportar la renta *media* de un país sin acompañarla de la *mediana* distorsiona sistemáticamente la fotografía. Cuando \(g_1\) es alta, **la mediana comunica mejor que la media**.
+>
+> La cola larga tiene, además, una consecuencia económica muy conocida: la **concentración**. Las **60 compañías R-Stars con mayores ingresos** —el 20 % superior de la muestra— acumulan por sí solas el **64,1 %** del total de ingresos del sector. No llegamos al 80-20 clásico de Pareto —para alcanzar el 80 % de los ingresos hacen falta las 106 empresas mayores, un 35 % de la muestra—, pero la lógica es la misma: unos pocos casos concentran una fracción desproporcionada del total. Este es el sustrato empírico del principio 80-20 que el estudiante de ADE volverá a encontrar en Contabilidad de costes (los productos "A" del análisis ABC), en Marketing (clientes clave) o en Producción (defectos críticos).
 >
 > El **margen operativo** de esas mismas 300 compañías, en cambio, presenta \(g_1 = 0{,}23\): prácticamente simétrico. En un sector maduro y competitivo, los márgenes tienden a redistribuirse alrededor de una media estable: las empresas con márgenes muy altos atraen competencia que los erosiona; las que operan por debajo del promedio tienden a corregir o a desaparecer. La simetría es aquí una pista sobre la **dinámica competitiva del sector**.
 
@@ -690,20 +848,26 @@ ggplot(df_curt, aes(x = x)) +
             color = "#C55A11", linewidth = 0.9, linetype = "dashed") +
   facet_wrap(~ tipo) +
   coord_cartesian(xlim = c(-4, 4)) +
-  labs(x = NULL, y = "Densidad") +
+  labs(title    = "Tipos de apuntamiento o curtosis en distribuciones unimodales campaniformes",
+       subtitle = "Trazo naranja discontinuo: normal \"equivalente\" (misma media y misma desviación típica)",
+       x = NULL, y = "Densidad") +
   theme_minimal(base_size = 11) +
   theme(strip.text        = element_text(face = "bold"),
         axis.text.y       = element_blank(),
         axis.ticks.y      = element_blank(),
-        panel.grid.minor  = element_blank())
+        panel.grid.minor  = element_blank(),
+        plot.title    = element_text(face = "bold", color = "#1e293b",
+                                     hjust = 0.5, size = 12),
+        plot.subtitle = element_text(color = "#64748b",
+                                     hjust = 0.5, size = 10))
 ```
 
 ::: {style="text-align: center;"}
-**Figura 3.7**
+**Figura 3.8**
 :::
 
 
-**Tipos de apuntamiento o curtosis en distribuciones unimodales campaniformes.** En verde, la distribución observada; en trazo naranja discontinuo, la distribución normal "equivalente" (misma media y misma desviación típica) que sirve de referencia. La platicúrtica tiene el pico más aplanado y las colas más ligeras que la normal; la leptocúrtica, el pico más alto y las colas más pesadas.
+La platicúrtica tiene el pico más aplanado y las colas más ligeras que la normal; la leptocúrtica, el pico más alto y las colas más pesadas.
 
 Fisher se dio cuenta de que, para una distribución normal, se cumple \(m_4 = 3 S^{4}\), lo que sugiere construir la medida
 
@@ -741,9 +905,9 @@ En este capítulo hemos aprendido a **resumir** una variable estadística unidim
 
 - **Posición central** (media, mediana, moda): dónde se sitúa la distribución.
 - **Posición no central** (cuartiles y demás cuantiles): cómo se reparte por segmentos, con el box-plot —y su primo moderno, el gráfico de violín— como representación visual insustituible.
-- **Dispersión** (varianza, desviación típica, CV): cuán representativa es la posición central. La varianza mide, además, la **cantidad de información** que la variable aporta sobre los casos. El CV tiene la ventaja añadida de ser **adimensional**, y permite comparaciones entre distribuciones de escala distinta. La estandarización (z-scores) traduce cualquier valor a "cuántas desviaciones típicas se aparta de la media", cimiento de la regla empírica 68–95–99,7.
-- **Forma** (asimetría y curtosis de Fisher): la forma del histograma respecto al patrón campaniforme simétrico. Los ejemplos R-Stars nos han enseñado a leer estas medidas en clave económica: distribuciones de tamaño con cola larga, márgenes competitivos que gravitan hacia la simetría, rentabilidades con riesgo de cola.
+- **Dispersión** (varianza, desviación típica, CV): cuán representativa es la posición central. La varianza mide, además, la **cantidad de información** que la variable aporta sobre los casos. El CV, adimensional, permite comparaciones entre distribuciones de escala distinta. La estandarización (z-scores) traduce cualquier valor a "cuántas desviaciones típicas se aparta de la media", cimiento de la regla empírica 68–95–99,7. La curva de Lorenz y el índice de Gini ofrecen una lectura complementaria, en clave de **concentración**, especialmente valiosa en variables económicas.
+- **Forma** (asimetría y curtosis de Fisher): la forma del histograma respecto al patrón campaniforme simétrico. Los ejemplos R-Stars nos han enseñado a leer estas medidas en clave económica: distribuciones de tamaño con cola larga (el 20 % de las compañías concentra el 64 % de los ingresos), márgenes competitivos que gravitan hacia la simetría, rentabilidades con riesgo de cola.
 
-Un principio ha atravesado todo el capítulo: **antes de resumir, mire los datos**. Los casos atípicos deben localizarse —el box-plot, apoyado en el IQR, es la herramienta estándar— y decidir si se corrigen, se eliminan, se conservan o se analizan por separado. Las medidas más elegantes son también, casi siempre, las más frágiles: media, varianza, coeficientes de forma... todas ellas se distorsionan con facilidad ante un puñado de valores extremos. La CEO de *Hyperdrive Express* nos lo ha ilustrado con creces.
+Un principio ha atravesado todo el capítulo: **antes de resumir, mire los datos**. Los casos atípicos deben localizarse —el box-plot, apoyado en el IQR, es la herramienta estándar— y decidir si se corrigen, se eliminan, se conservan o se analizan por separado. Las medidas más elegantes son también, casi siempre, las más frágiles: media, varianza, coeficientes de forma, Gini... todas ellas se distorsionan con facilidad ante un puñado de valores extremos. La CEO de *Hyperdrive Express* nos lo ha ilustrado con creces: un solo caso extremo modifica la media un 8 %, dispara los coeficientes de forma y añade cinco puntos al índice de Gini.
 
-Con estas herramientas ya podemos caracterizar cualquier variable de una empresa, un sector o una galaxia. En el capítulo siguiente daremos el salto a **dos variables**: cómo se relacionan entre sí y qué medidas resumen esa relación. *Hyperdrive Express* seguirá con nosotros, y también seguirán acompañándonos las 300 compañías R-Stars a las que ya nos hemos asomado en los ejemplos de asimetría y curtosis.
+Con estas herramientas ya podemos caracterizar cualquier variable de una empresa, un sector o una galaxia. En el capítulo siguiente daremos el salto a **dos variables**: cómo se relacionan entre sí y qué medidas resumen esa relación. *Hyperdrive Express* seguirá con nosotros, y también seguirán acompañándonos las 300 compañías R-Stars a las que ya nos hemos asomado en los ejemplos de asimetría, curtosis y concentración.
