@@ -62,13 +62,9 @@ astilleros <- read_excel("data/astilleros_48.xlsx",    sheet = "Datos") %>%
 ![](figuras/04_estelas.jpg){.portada-img width="100%"}
 
 ::: {style="text-align: center;"}
-**Figura 5.1**
+**Figura 5.1.** [Cuando la relación existe, toca ponerle números: intensidad y forma.]{.smallcaps}
 :::
 
-
-::: {style="text-align: center;"}
-**Figura 4.1.** [Cuando la relación existe, toca ponerle números: intensidad y forma.]{.smallcaps}
-:::
 
 En el capítulo anterior aprendimos a plantearnos una pregunta binaria —*¿existe o no existe relación estadística entre estas dos variables?*— y a contestarla con la ayuda de la tabla de correlación, las frecuencias condicionadas, el signo de la covarianza y, cuando ambas eran atributos, el estadístico ji-cuadrado. Terminamos la película con un puñado de casos en los que la respuesta era claramente afirmativa: en la plantilla de *Shuttlepod Movers* estudios y salario se movían juntos, en la flota de $48$ cargueros la antigüedad iba de la mano del tonelaje, en los tres astilleros galácticos la sede base dependía por completo del constructor.
 
@@ -101,16 +97,29 @@ $$
 
 La descomposición anterior es la más importante del capítulo y conviene fijarla desde ya: **valor observado = valor previsto por la regresión + residuo**. La regresión será tanto más útil cuanto más pequeños sean, en promedio, esos residuos.
 
-### Regresión simple, regresión múltiple y tipos. {#regresion-tipos}
+### Regresión simple, regresión múltiple. {#regresion-simple-multiple}
 
 Cuando la variable explicativa es una sola —el caso al que dedicaremos casi todo el capítulo— hablamos de **regresión simple**. Si hay varias, $X_1, X_2, \ldots, X_p$, hablamos de **regresión múltiple**: la trataremos con brevedad al final, sin entrar en su maquinaria matricial.
 
-Hay además una distinción clásica en la literatura entre dos tipos de regresión, según qué se persiga con el ajuste:
+### Dos caminos hacia la regresión: tipo I y tipo II. {#regresion-tipos}
 
--   **Regresión tipo I.** Se busca la función matemática que mejor represente la nube de puntos observada, sin ninguna pretensión probabilística. La regresión es una **descripción**: un resumen gráfico y numérico de la relación entre las dos variables.
--   **Regresión tipo II.** Se asume un modelo probabilístico subyacente —que los datos vienen de una población en la que $Y$ y $X$ se relacionan de cierta forma más la aleatoriedad del muestreo— y se estima ese modelo. La regresión se convierte en una herramienta de **inferencia**: sirve para extraer conclusiones sobre la población y no sólo sobre los datos que tenemos delante.
+Hay una distinción clásica en la tradición estadística española —Martín-Pliego, Ruiz-Maya, Martín-Guzmán— entre **dos maneras distintas de construir la función de regresión** a partir de la tabla de correlación. Ambas son descriptivas, ambas viven íntegramente en el marco de este capítulo y ambas hablan del mismo objeto, pero llegan a él por caminos muy distintos.
 
-En este capítulo trabajaremos exclusivamente con regresión de tipo I. La versión inferencial aparecerá, en el bloque de Inferencia y Econometría, cuando dispongamos de las herramientas probabilísticas necesarias.
+**Regresión de tipo I** (también llamada **intrínseca**, o **de la media**, o **en sentido estricto**). Se apoya directamente en las **distribuciones condicionadas** que introdujimos en el capítulo anterior. Para cada valor $x_i$ de la variable explicativa, calculamos la **media** de la variable explicada condicionada a ese valor,
+
+$$
+\overline{y}_{\,\mid\, x_i} \;=\; \dfrac{1}{n_{i\bullet}} \sum_{j=1}^{k} y_j\, n_{ij},
+$$
+
+y unimos los puntos $(x_i,\ \overline{y}_{\,\mid\, x_i})$. Esa colección de puntos —o la curva que los une— **es** la regresión de tipo I. Su gran virtud es que no impone forma funcional alguna: la propia tabla de datos, a través de sus medias condicionadas, decide qué curva dibujar. Su gran limitación es que no entrega una expresión analítica manejable: no podemos escribir "$\hat{y} = 628{,}21 + 11{,}61\,x$" ni hacer predicciones para valores de $x$ que no aparezcan en la tabla.
+
+**Regresión de tipo II** (también llamada **funcional**, o **mínimo-cuadrática**). Se elige a priori una **forma funcional** —una recta, una parábola, una potencial…— y se estiman sus parámetros por el criterio de mínimos cuadrados sobre toda la nube de puntos. El resultado es una función $\hat{y}=f(x)$ con parámetros numéricos concretos, que interpola y extrapola con la comodidad de un modelo cerrado.
+
+La relación entre ambas es preciosa y se demuestra sin dificultad: **ajustar por mínimos cuadrados la nube completa es equivalente a ajustar por mínimos cuadrados los puntos $(x_i,\ \overline{y}_{\,\mid\, x_i})$ ponderados por las frecuencias marginales $n_{i\bullet}$**. Dicho de otro modo, la regresión de tipo II es la **traducción analítica operativa** de la regresión de tipo I: la primera nos da la fotografía real del comportamiento condicionado; la segunda le pone forma matemática. Cuando elegimos bien la forma funcional del tipo II, ambas coinciden con exactitud sobre los puntos de las medias; cuando la elegimos mal, la del tipo II se aparta de la del tipo I y su $R^2$ paga el precio.
+
+> **Aviso terminológico.** Existe también un uso muy distinto del par "tipo I / tipo II" en la tradición biométrica anglosajona, donde se refiere a si solo la variable dependiente arrastra error de medida (tipo I, mínimos cuadrados ordinarios) o si ambas lo arrastran (tipo II, con métodos como el eje mayor tipificado o la regresión de Deming). No es la clasificación que empleamos aquí. Otra cosa distinta —también, a veces, fuente de confusión— es la diferencia entre la regresión **descriptiva** (sobre datos observados) y la regresión **inferencial** (sobre una población, con perturbación aleatoria $\epsilon$ del tipo $Y = \beta_0 + \beta_1 X + \epsilon$). Esa distinción existe y es importante, pero **no** es la que la etiqueta "tipo I / tipo II" recoge en la tradición española; corresponde al paso de la estadística descriptiva a la inferencial y la trataremos en el bloque de Inferencia y Econometría.
+
+En este capítulo trabajaremos, salvo aviso, con **regresión de tipo II**: elegiremos formas funcionales (casi siempre la recta) y estimaremos sus parámetros por mínimos cuadrados. Pero en el ejemplo de la flota veremos también la lectura de tipo I sobre los mismos datos, para hacer visible la relación entre ambas.
 
 ### Forma funcional y parámetros. {#forma-funcional}
 
@@ -282,6 +291,7 @@ for (j in seq_along(yj))
 tabla_reg[length(xi) + 3, length(yj) + 2] <- fmt(sum(yj^2 * nj_ast), 0)
 
 kable(as.data.frame(tabla_reg),
+      
       col.names = c("$x_i \\setminus y_j$", "$575$", "$700$", "$800$",
                     "$900$", "$n_{i\\bullet}$",
                     "$x_i n_{i\\bullet}$", "$x_i^{2} n_{i\\bullet}$"),
@@ -293,10 +303,6 @@ kable(as.data.frame(tabla_reg),
                 position = "center",
                 font_size = 12)
 ```
-
-::: {style="text-align: center;"}
-**Tabla 4.1.** Tabla de correlación de antigüedad ($X$) y tonelaje ($Y$) con las columnas y filas auxiliares para el cálculo directo de los momentos.
-:::
 
 Con las marcas de clase $x_i \in \{2{,}5;\ 7{,}5;\ 12{,}5;\ 17{,}5;\ 25\}$ e $y_j \in \{575;\ 700;\ 800;\ 900\}$, los momentos respecto al origen son los que ya calculamos en el capítulo 3, cuando obtuvimos la covarianza:
 
@@ -355,15 +361,92 @@ ggplot(astilleros, aes(ANTIG, TONELAJE)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 5.2**
+**Figura 5.2.** Diagrama de dispersión de la flota y recta ajustada por mínimos cuadrados.
 :::
 
-
-::: {style="text-align: center;"}
-**Figura 4.2.** Diagrama de dispersión de la flota y recta ajustada por mínimos cuadrados.
-:::
 
 La recta atraviesa la nube con obediencia razonable, pero es evidente que la dispersión alrededor de ella no es despreciable: hay cargueros viejos y ligeros, cargueros nuevos y pesados. La nube tiene una tendencia clara, sí; pero también un ruido considerable. Cuantificar cuán bien —o cuán mal— la recta representa a la nube es la tarea de la sección siguiente.
+
+Antes de eso, un pequeño paréntesis muy útil en la práctica moderna: todo lo que hemos calculado a mano cabe en dos líneas de `R`. La función `lm()` (por *linear model*) ajusta la recta y guarda todos los resultados en un objeto que después puede consultarse con `summary()`, `coef()`, `residuals()` y compañía:
+
+```{r astilleros-lm, echo=TRUE}
+modelo <- lm(TONELAJE ~ ANTIG, data = astilleros)
+coef(modelo)
+```
+
+Los dos números que devuelve —`(Intercept)` y `ANTIG`— son exactamente $\hat{a}$ y $\hat{b}$ que hemos obtenido a pulso, salvo diferencias de redondeo por trabajar sobre los datos individuales en lugar de la tabla agrupada. La mecánica manual del capítulo tiene una función pedagógica; en la vida real, todo el mundo hace `lm()`. Ver que ambos caminos llevan al mismo sitio es parte del aprendizaje.
+
+### Regresión de tipo I sobre la flota. {#tipo1-astilleros}
+
+Un buen momento para asomarnos a la regresión de tipo I que anunciábamos en la sección anterior. Con la misma tabla agrupada de la flota, calculamos, para cada intervalo de antigüedad, la **media condicionada** del tonelaje:
+
+```{r astilleros-tipo1}
+medias_cond <- rep(0, length(xi))
+for (i in seq_along(xi)) {
+  if (ni_ast[i] > 0) {
+    medias_cond[i] <- sum(yj * M[i, ]) / ni_ast[i]
+  }
+}
+
+tabla_tipo1 <- data.frame(
+  x_i     = xi,
+  n_i     = ni_ast,
+  med_cond = round(medias_cond, 2)
+)
+
+tabla_tipo1 %>%
+  kable(
+        col.names = c("$x_i$ (años)", "$n_{i\\bullet}$",
+                      "$\\overline{y}_{\\,\\mid\\, x_i}$ (miles de t)"),
+        align     = "c",
+        row.names = FALSE,
+        escape    = FALSE) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed"),
+                full_width = FALSE,
+                position = "center",
+                font_size = 13)
+```
+
+Los cinco puntos $(2{,}5;\ 626{,}79)$, $(7{,}5;\ 743{,}75)$, $(12{,}5;\ 811{,}11)$, $(17{,}5;\ 787{,}50)$, $(25;\ 900)$ **son** la regresión de tipo I: no imponemos ninguna forma funcional, las medias condicionadas hablan por sí solas. Se lee que el tonelaje típico crece con la antigüedad, pero no de forma perfectamente monótona (el cuarto intervalo se aparta ligeramente hacia abajo) y con un último punto —la solitaria nave de $25$ años— que arrastra la tendencia al alza. Es lo que la nube de puntos condicionada nos dice de verdad, sin la simplificación de una recta.
+
+Comparemos gráficamente ambas regresiones sobre los mismos datos:
+
+```{r astilleros-tipo1-tipo2, fig.width=6.5, fig.height=4}
+df_tipo1 <- data.frame(x = xi, y = medias_cond, n = ni_ast)
+
+ggplot(astilleros, aes(ANTIG, TONELAJE)) +
+  geom_point(color = "#cbd5e1", size = 1.8, alpha = 0.7) +
+  geom_abline(intercept = a_hat, slope = b_hat,
+              color = "#0f172a", linewidth = 0.7) +
+  geom_line(data = df_tipo1, aes(x, y),
+            color = pal_alerta, linewidth = 0.7, linetype = "dashed") +
+  geom_point(data = df_tipo1, aes(x, y, size = n),
+             color = pal_alerta) +
+  scale_size_continuous(range = c(2, 6), guide = "none") +
+  labs(title    = "Regresión tipo I y regresión tipo II sobre la flota",
+       subtitle = "Puntos ámbar: medias condicionadas (tipo I). Línea negra: recta mínimo-cuadrática (tipo II).",
+       x        = "Antigüedad (años)",
+       y        = "Tonelaje (miles de toneladas)") +
+  theme_libro()
+```
+
+::: {style="text-align: center;"}
+**Figura 5.3.** Regresión de tipo I (puntos oscuros: medias condicionadas del tonelaje por intervalo de antigüedad, con tamaño proporcional a la frecuencia) frente a regresión de tipo II (recta mínimo-cuadrática) sobre la flota.
+:::
+
+
+Y aquí una comprobación numérica que ilustra la propiedad de equivalencia: si ajustamos por mínimos cuadrados una recta a los **cinco puntos de las medias condicionadas** ponderándolos por sus frecuencias $n_{i\bullet}$, obtenemos exactamente los mismos coeficientes que ajustar la recta a los $48$ cargueros originales. La regresión de tipo II es —literalmente— la traducción analítica lineal de la regresión de tipo I.
+
+```{r astilleros-tipo1-check, echo=TRUE}
+# MCO sobre los 5 puntos (xi, medias_cond) ponderados por n_i
+xbar_c <- sum(xi * ni_ast) / N_ast
+ybar_c <- sum(medias_cond * ni_ast) / N_ast
+Sxy_c  <- sum((xi - xbar_c) * (medias_cond - ybar_c) * ni_ast) / N_ast
+Sx2_c  <- sum((xi - xbar_c)^2 * ni_ast) / N_ast
+b_tipo1 <- Sxy_c / Sx2_c
+a_tipo1 <- ybar_c - b_tipo1 * xbar_c
+c(a_tipo1 = a_tipo1, b_tipo1 = b_tipo1)   # coinciden con a_hat y b_hat
+```
 
 ### Predicción y una advertencia importante. {#prediccion-extrapolacion}
 
@@ -378,6 +461,53 @@ Predicción y previsión son la aplicación más popular de la regresión: no en
 > **Advertencia sobre la extrapolación.** La recta se ha ajustado sobre un rango de valores concreto de la variable explicativa. En nuestro caso, la antigüedad de los cargueros observados va aproximadamente de $2$ a $22$ años. **Fuera de ese rango, la regresión pierde toda garantía.** Preguntar por el tonelaje de un carguero de $80$ años no es hacer una previsión; es hacer un acto de fe. La estructura que hemos observado puede quebrarse en los extremos, aparecer cambios de régimen, o senc­illamente entrar en zonas donde no hay datos que respalden la extrapolación.
 
 Por otro lado, la recta *no es* una promesa sobre casos individuales: para un carguero concreto de $22$ años, el tonelaje real puede desviarse notablemente del pronóstico. La regresión predice **promedios**, no individuos. Si el residuo típico es de $70$ mil toneladas, el pronóstico "$893$" hay que leerlo como "en torno a $893$, con un margen de error del orden de decenas de miles de toneladas".
+
+### La sensibilidad a valores atípicos. {#outliers}
+
+Un aspecto que la fórmula $\hat{b} = S_{xy}/S_x^{\,2}$ oculta pero que aparece con toda su virulencia en cuanto uno tiene datos reales entre las manos: la regresión mínimo-cuadrática **es muy sensible a los valores atípicos**. Basta con un solo punto lo bastante alejado del patrón general para que la recta gire de forma llamativa y el $R^{2}$ se venga abajo.
+
+Ilustrémoslo con un experimento controlado. Simulamos una nube "limpia" de $30$ observaciones que siguen una relación aproximadamente lineal —piénsese en una flota nueva, bien gestionada— y añadimos después un solo carguero anómalo: uno de los prototipos de emergencia de *Wraith Industries*, extremadamente ligero pese a llevar años en servicio, que quedaría fuera del comportamiento habitual del sector:
+
+```{r outlier-demo, fig.width=7.5, fig.height=3.8, fig.cap="Efecto de un único valor atípico sobre la recta de regresión. Comparen la línea negra continua (con el atípico) con la discontinua ámbar (sin él): el ajuste cambia sustancialmente y el $R^{2}$ se hunde."}
+set.seed(42)
+n_norm <- 30
+x_norm <- runif(n_norm, 5, 25)
+y_norm <- 30 + 8 * x_norm + rnorm(n_norm, 0, 20)
+
+# Outlier: nave prototipo, antigüedad media, tonelaje muy bajo
+x_out <- 15
+y_out <- -70
+
+x_full <- c(x_norm, x_out)
+y_full <- c(y_norm, y_out)
+
+# Coeficientes sin y con outlier
+b1 <- cov(x_norm, y_norm) / var(x_norm); a1 <- mean(y_norm) - b1 * mean(x_norm)
+b2 <- cov(x_full, y_full) / var(x_full); a2 <- mean(y_full) - b2 * mean(x_full)
+R2_1 <- cor(x_norm, y_norm)^2
+R2_2 <- cor(x_full, y_full)^2
+
+df_out <- data.frame(x = x_full, y = y_full,
+                     tipo = c(rep("Habitual", n_norm), "Atípico"))
+
+ggplot(df_out, aes(x, y)) +
+  geom_abline(intercept = a1, slope = b1,
+              color = pal_alerta, linetype = "dashed", linewidth = 0.6) +
+  geom_abline(intercept = a2, slope = b2,
+              color = "#0f172a", linewidth = 0.7) +
+  geom_point(aes(color = tipo, size = tipo, shape = tipo)) +
+  scale_color_manual(values = c(Habitual = pal_acento, "Atípico" = pal_alerta)) +
+  scale_size_manual(values = c(Habitual = 2, "Atípico" = 4)) +
+  scale_shape_manual(values = c(Habitual = 16, "Atípico" = 17)) +
+  labs(title    = "Efecto de un único valor atípico sobre la recta ajustada",
+       subtitle = paste0("Sin atípico: R² = ", fmt(R2_1, 2),
+                         "  ·  Con atípico: R² = ", fmt(R2_2, 2)),
+       x = "Antigüedad (años)", y = "Tonelaje (miles de toneladas)",
+       color = NULL, size = NULL, shape = NULL) +
+  theme_libro()
+```
+
+La caída del $R^{2}$ es brutal —del $83\,\%$ al $26\,\%$— y la pendiente y la ordenada se distorsionan aunque solo hayamos añadido **una** observación al conjunto original de treinta. Ese es el precio de haber elegido el criterio de mínimos cuadrados: penalizar el residuo al cuadrado hace que un solo caso muy alejado tenga una fuerza desproporcionada. Alternativas más robustas —regresión mediana, regresión con función de pérdida de Huber, mínimos absolutos— existen y forman parte del arsenal de la estadística moderna; en un curso introductorio nos basta con haber visto el peligro y saber **mirar la nube de puntos** antes de dejarnos guiar por los coeficientes.
 
 ## Bondad del ajuste: el coeficiente de determinación. {#bondad-ajuste}
 
@@ -434,6 +564,39 @@ Interpretación: la recta que hemos estimado reproduce, aproximadamente, el **`r
 Un $R^{2}$ moderado no es sinónimo de "regresión mala": es sinónimo de "conocer $X$ no basta para saberlo todo sobre $Y$". En Ciencias Sociales, un $R^{2}$ de $0{,}3$ suele ser un logro respetable —los seres humanos son notoriamente ruidosos— mientras que en Física un $R^{2}$ de $0{,}9$ puede indicar un error de calibración. Todo depende del terreno de juego.
 :::
 
+### Los residuos como diagnóstico. {#residuos-diagnostico}
+
+El $R^{2}$ resume la calidad del ajuste en un único número, pero los **residuos** son los que dicen *dónde* falla el modelo. Si están repartidos al azar alrededor del cero, sin patrón visible, la regresión ha hecho su trabajo. Si en cambio se agrupan sistemáticamente por encima o por debajo de la línea del cero para ciertos valores de $X$ o para ciertos subgrupos de la muestra, la nube está pidiendo un modelo mejor.
+
+En el caso de la flota, un gráfico de **residuos frente a valores ajustados**, coloreado por astillero, revela con toda claridad la fuente del $R^{2}$ modesto:
+
+```{r astilleros-residuos, fig.width=6.5, fig.height=4}
+astilleros <- astilleros %>%
+  mutate(y_hat  = a_hat + b_hat * ANTIG,
+         resid  = TONELAJE - y_hat)
+
+ggplot(astilleros, aes(y_hat, resid, color = ASTILLERO)) +
+  geom_hline(yintercept = 0, color = "#94a3b8",
+             linewidth = 0.4, linetype = "dashed") +
+  geom_point(size = 2.2, alpha = 0.9) +
+  scale_color_manual(values = c(KORRIGAN = "#334155",
+                                SELENE   = "#64748b",
+                                ARCTURUS = "#b45309")) +
+  labs(title    = "Residuos frente a valores ajustados en la flota",
+       subtitle = "Los tres astilleros ocupan bandas de residuos distintas: hay estructura sin capturar.",
+       x        = "Tonelaje ajustado (miles de t)",
+       y        = "Residuo (miles de t)",
+       color    = "Astillero") +
+  theme_libro()
+```
+
+::: {style="text-align: center;"}
+**Figura 5.4.** Residuos frente a valores ajustados en la flota, por astillero. La estructura del color muestra que la antigüedad, por sí sola, no capta la segmentación por constructor.
+:::
+
+
+La lectura es inequívoca. Los residuos **no** están mezclados al azar: KORRIGAN aparece sistemáticamente por encima del cero (sus cargueros son consistentemente más pesados de lo que la antigüedad sola predice), ARCTURUS ocupa la banda inferior (más ligeros de lo esperado) y SELENE se sitúa en la zona intermedia. La antigüedad, tomada aislada, mezcla tres poblaciones que se comportan diferente. **El diagnóstico de residuos ha detectado con precisión qué le falta al modelo**, y sugiere la corrección natural: incluir la identidad del astillero como segunda variable explicativa. Volveremos a esta idea al final del capítulo, en la sección de regresión múltiple.
+
 ## Correlación. {#correlacion}
 
 El coeficiente de determinación $R^{2}$ nos dice, en un solo número entre $0$ y $1$, con qué calidad la regresión reproduce los datos. Ahora bien, esa calidad depende de dos cosas distintas que conviene no confundir:
@@ -471,14 +634,12 @@ Una escala orientativa —no un tribunal universal— que suele emplearse para c
 | $0{,}7$–$0{,}9$ | Relación lineal fuerte.                        |
 | $0{,}9$–$1{,}0$ | Relación lineal muy fuerte, casi determinista. |
 
-::: {style="text-align: center;"}
+Table: Escala orientativa para $|R|$ en el análisis descriptivo.
 
 ::: {style="text-align: center;"}
-**Tabla 5.1.** :: {style="text-align: center;"}
+**Tabla 5.1.** Escala orientativa para $|R|$ en el análisis descriptivo.
 :::
 
-**Tabla 4.2.** Escala orientativa para $|R|$ en el análisis descriptivo.
-:::
 
 ### El coeficiente de correlación en la flota. {#R-astilleros}
 
@@ -492,6 +653,89 @@ $$
 Un $R = `r fmt(R, 2)`$ cae en el terreno de las relaciones **moderadas**: coherente con lo que ya sabíamos —la nube de puntos tenía tendencia clara pero considerable dispersión— y con el $R^{2}$ que habíamos calculado, del que este $R$ es literalmente la raíz cuadrada con el signo de la covarianza.
 
 Un detalle numérico digno de mención: si comparamos el $R^{2}$ que hemos obtenido sobre la tabla **agrupada** ($R^{2} = `r fmt(R2, 3)`$) con el que se obtendría sobre los **datos individuales** de los $48$ cargueros sin agrupar (aproximadamente $0{,}39$), veremos que el segundo es ligeramente mayor. La razón es sencilla: al agrupar en intervalos, sustituimos cada valor por la marca de clase de su intervalo y con ello perdemos algo de información sobre la variabilidad. En estadística descriptiva es un compromiso habitual —ganamos en manejabilidad, perdemos algo en precisión— y forma parte de la mecánica de trabajar con tablas.
+
+### Las dos rectas de regresión. {#dos-rectas}
+
+En el capítulo anterior, al presentar las frecuencias condicionadas, insistimos en que un mismo cruce admite dos lecturas simétricas —$X$ dada $Y$ y $Y$ dada $X$— que responden a preguntas distintas. Esa dualidad reaparece con toda su fuerza en el análisis de regresión: sobre una misma nube de puntos podemos ajustar **dos rectas**, no solo una.
+
+Hasta ahora hemos trabajado con la **recta de $Y$ sobre $X$**, la que responde a "*conocida la antigüedad, ¿cuánto tonelaje cabe esperar?*" y minimiza los residuos verticales $y_j - \hat{y}_i$. Pero podríamos plantear igualmente la pregunta inversa: "*conocido el tonelaje, ¿qué antigüedad cabría esperar en un carguero así?*". La respuesta es la **recta de $X$ sobre $Y$**, que minimiza los residuos horizontales $x_i - \hat{x}_j$ y tiene por fórmula
+
+$$
+\hat{x}_j \;=\; \hat{a}' + \hat{b}'\, y_j, \qquad
+\hat{b}' \;=\; \dfrac{S_{xy}}{S_y^{\,2}}, \qquad
+\hat{a}' \;=\; \overline{x} - \hat{b}'\, \overline{y}.
+$$
+
+Nótese la asimetría: la pendiente de la recta de $Y$ sobre $X$ divide por $S_x^{\,2}$; la de la recta de $X$ sobre $Y$ divide por $S_y^{\,2}$. Son distintas y **no** son la misma recta despejada al revés (salvo en un caso trivial que veremos enseguida).
+
+```{r dos-rectas}
+b_prima <- Sxy / Sy2
+a_prima <- a10 - b_prima * a01
+producto <- b_hat * b_prima
+```
+
+En la flota:
+
+$$
+\hat{b}' \;=\; \dfrac{S_{xy}}{S_y^{\,2}} \;=\; \dfrac{`r fmt(Sxy, 2)`}{`r fmt(Sy2, 2)`} \;=\; `r fmt(b_prima, 5)`, \qquad
+\hat{a}' \;=\; `r fmt(a10, 2)` \;-\; `r fmt(b_prima, 5)`\cdot `r fmt(a01, 2)` \;=\; `r fmt(a_prima, 2)`.
+$$
+
+Sus lecturas son diferentes pero complementarias. La primera recta dice "por cada año más de antigüedad, esperemos $11{,}61$ mil toneladas más de tonelaje"; la segunda dice "por cada mil toneladas más de tonelaje, esperemos $0{,}027$ años más de antigüedad". Preguntas distintas, respuestas distintas.
+
+**Y ahora la propiedad que da la conexión con la correlación.** Multiplicando las dos pendientes,
+
+$$
+\hat{b}\cdot \hat{b}' \;=\; \dfrac{S_{xy}}{S_x^{\,2}}\cdot \dfrac{S_{xy}}{S_y^{\,2}} \;=\; \dfrac{S_{xy}^{\,2}}{S_x^{\,2}\cdot S_y^{\,2}} \;=\; R^{2}.
+$$
+
+Es decir: **el producto de las pendientes de las dos rectas de regresión es exactamente el coeficiente de determinación**. En nuestro caso, $`r fmt(b_hat, 4)`\cdot `r fmt(b_prima, 5)` = `r fmt(producto, 4)`$, que coincide (salvo redondeo) con el $R^{2} = `r fmt(R2, 4)`$ que calculamos antes. Es una elegantísima identidad que suele memorizarse por su forma compacta:
+
+$$
+\boxed{\;\; \hat{b}\cdot \hat{b}' \;=\; R^{2} \;\;}
+$$
+
+Y esa fórmula nos dice también qué relación geométrica hay entre las dos rectas:
+
+- Cuando $R^{2} = 1$, el producto $\hat{b}\cdot \hat{b}'$ vale $1$; las dos pendientes son inversas y las dos rectas **coinciden**. Es la dependencia lineal perfecta: conocer una variable determina exactamente la otra, en ambas direcciones.
+- Cuando $R^{2} = 0$, el producto es $0$; una de las pendientes es cero, la recta correspondiente es horizontal y la otra es vertical. Las dos rectas se cruzan **perpendicularmente**, y coincide con el hecho de que no hay relación lineal alguna.
+- Cuando $R^{2}$ es intermedio, las dos rectas forman una "tijera" alrededor del centro de gravedad de la nube, cuya apertura se estrecha a medida que $R^{2}$ crece hacia $1$.
+
+Un gráfico lo hace evidente:
+
+```{r dos-rectas-plot, fig.width=6.5, fig.height=4, fig.cap="Las dos rectas de regresión sobre la flota. Se cruzan en el centro de gravedad $(\\overline{x},\\ \\overline{y})$ y su apertura mide indirectamente la dispersión de la nube."}
+grid_x <- seq(0, 30, length.out = 100)
+grid_y <- seq(500, 950, length.out = 100)
+
+# Recta Y sobre X: y = a_hat + b_hat*x
+df_yx <- data.frame(x = grid_x, y = a_hat + b_hat * grid_x, recta = "Y sobre X")
+# Recta X sobre Y: x = a_prima + b_prima*y  →  y = (x - a_prima)/b_prima
+df_xy <- data.frame(x = a_prima + b_prima * grid_y, y = grid_y, recta = "X sobre Y")
+
+df_rectas <- rbind(df_yx, df_xy) %>%
+  filter(x >= 0, x <= 30, y >= 500, y <= 950)
+
+ggplot(astilleros, aes(ANTIG, TONELAJE)) +
+  geom_point(color = "#cbd5e1", size = 1.8, alpha = 0.7) +
+  geom_line(data = df_rectas,
+            aes(x, y, color = recta, linetype = recta),
+            linewidth = 0.7) +
+  geom_point(aes(x = a10, y = a01), color = pal_alerta,
+             size = 3, shape = 4, stroke = 1.2) +
+  scale_color_manual(values = c("Y sobre X" = "#0f172a",
+                                "X sobre Y" = "#475569")) +
+  scale_linetype_manual(values = c("Y sobre X" = "solid",
+                                   "X sobre Y" = "dashed")) +
+  labs(title    = "Las dos rectas de regresión sobre la flota",
+       subtitle = paste0("Producto de pendientes: b·b' = ",
+                         fmt(producto, 3), " = R²"),
+       x        = "Antigüedad (años)",
+       y        = "Tonelaje (miles de toneladas)",
+       color    = "Recta", linetype = "Recta") +
+  theme_libro()
+```
+
+Las dos rectas se abren en abanico desde el punto $(\overline{x},\ \overline{y})$ señalado con la cruz ámbar. Si el $R^{2}$ hubiese sido más alto, las dos rectas estarían más cerca la una de la otra; si hubiese sido más bajo, se abrirían aún más hasta acercarse a la perpendicularidad. **La apertura del abanico es, literalmente, una lectura visual de $R^{2}$**.
 
 ### Un ejemplo con ajuste excelente: ingresos y costos operativos en R-Stars. {#R-rstars-ing-costop}
 
@@ -523,13 +767,9 @@ ggplot(rstars, aes(ING, COSTOP)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 5.3**
+**Figura 5.5.** Nube de puntos y recta de regresión sobre las 300 compañías de la muestra R-Stars.
 :::
 
-
-::: {style="text-align: center;"}
-**Figura 4.3.** Nube de puntos y recta de regresión sobre las 300 compañías de la muestra R-Stars.
-:::
 
 Los coeficientes de la recta ajustada son
 
@@ -552,6 +792,44 @@ R \;=\; `r fmt(R_rs, 4)`,
 $$
 
 reflejan una relación lineal **muy fuerte, casi determinista**: la recta reproduce el $`r fmt(100*R2_rs, 1)`\,\%$ de la variabilidad de los costes. Es lo que en la práctica se llama, con toda propiedad, una relación *bien portada*.
+
+### Un aviso importante: el cuarteto de Anscombe. {#anscombe}
+
+Antes de dar por buena la lectura del $R$ y del $R^{2}$ como resumen de una relación, conviene detenerse en uno de los ejemplos más citados —y más aleccionadores— de la historia de la estadística. En $1973$, el estadístico británico Francis Anscombe publicó un pequeño artículo con cuatro conjuntos de datos que compartían **exactamente** las mismas medias, las mismas varianzas, la misma covarianza, la misma recta ajustada y **el mismo $R^{2}$** (con cuatro decimales de precisión), y que sin embargo, al dibujar la nube, se comportaban de formas radicalmente distintas.
+
+Es el llamado **cuarteto de Anscombe**, que forma parte del propio `R` como `datasets::anscombe`. Reproducirlo lleva quince líneas:
+
+```{r anscombe, fig.width=7.5, fig.height=5.5, fig.cap="El cuarteto de Anscombe. Los cuatro conjuntos comparten media, varianza, covarianza, coeficientes de la recta ajustada y $R^{2}$ hasta la segunda cifra decimal. Solo el conjunto (I) responde a un ajuste lineal genuino."}
+df_a <- tibble(
+  x = c(anscombe$x1, anscombe$x2, anscombe$x3, anscombe$x4),
+  y = c(anscombe$y1, anscombe$y2, anscombe$y3, anscombe$y4),
+  set = rep(c("(I) Relación lineal",
+              "(II) Curva no lineal",
+              "(III) Outlier vertical",
+              "(IV) Palanca extrema"),
+            each = nrow(anscombe))
+)
+
+# Coeficientes (idénticos para los cuatro)
+b_ans <- cov(anscombe$x1, anscombe$y1) / var(anscombe$x1)
+a_ans <- mean(anscombe$y1) - b_ans * mean(anscombe$x1)
+
+ggplot(df_a, aes(x, y)) +
+  geom_point(color = pal_acento, size = 2, alpha = 0.9) +
+  geom_abline(intercept = a_ans, slope = b_ans,
+              color = "#0f172a", linewidth = 0.6) +
+  facet_wrap(~ set, nrow = 2) +
+  labs(title    = "El cuarteto de Anscombe",
+       subtitle = paste0("Los cuatro conjuntos comparten: media X = 9,00; media Y = 7,50; ",
+                         "R² = 0,67; recta ajustada: y = 3,00 + 0,50·x."),
+       x = NULL, y = NULL) +
+  theme_libro() +
+  theme(strip.text = element_text(color = "#1e293b", face = "bold"))
+```
+
+Las cuatro fotografías son un manifiesto pedagógico. En el panel (I), la recta ajusta un patrón lineal auténtico, y el $R^{2} \approx 0{,}67$ tiene el sentido natural que le asignamos. En (II), la relación es claramente **cuadrática**: la recta lineal es una respuesta equivocada a la pregunta correcta, y el $R^{2}$ solo la refleja porque la parábola es aproximadamente lineal en un rango. En (III), hay una relación lineal **perfecta** en todos los puntos menos uno; ese único **outlier** tira de la recta hacia sí y contamina el resumen. En (IV), el $R^{2}$ y la recta están **dictados por un solo punto** situado muy lejos de los demás: retirarlo dejaría al modelo sin nada que decir, porque los diez restantes tienen todos $x=8$ y no informan sobre la pendiente. Es lo que en la jerga se llama un **punto de alta palanca** (o *leverage*).
+
+La moraleja se enuncia con toda sencillez: **el $R^{2}$ y los coeficientes de la recta son resúmenes, no diagnósticos**. Nunca deberían leerse sin dibujar la nube. En 2013, los estadísticos Justin Matejka y George Fitzmaurice llevaron la idea al extremo con el **Datasaurus Dozen**, doce conjuntos de puntos con los mismos estadísticos hasta la segunda cifra decimal que dibujan, según el caso, un dinosaurio, una estrella o dos círculos concéntricos. Si Anscombe fue un aviso, el Datasaurus es una carcajada; ambos apuntan al mismo consejo profesional: **mira la nube antes de creerte el número**.
 
 ### Correlación no implica causalidad (bis). {#correlacion-no-causal}
 
@@ -586,7 +864,8 @@ xs <- c(1, 2, 3, 5, 7, 10, 15, 20, 30, 50)
 ys <- c(61.5, 46.8, 42.2, 36.9, 30.0, 26.5, 25.2, 21.9, 17.8, 15.7)
 
 data.frame(Operaciones = xs, Tiempo = ys) %>%
-  kable(col.names = c("Operaciones acumuladas ($x_i$)",
+  kable(
+        col.names = c("Operaciones acumuladas ($x_i$)",
                       "Tiempo por revisión ($y_j$, min)"),
         align = "c",
         escape = FALSE) %>%
@@ -597,13 +876,9 @@ data.frame(Operaciones = xs, Tiempo = ys) %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 5.2**
+**Tabla 5.2.** Curva de aprendizaje de un tripulante en el módulo de revisión de motores de Hyperdrive Express.
 :::
 
-
-::: {style="text-align: center;"}
-**Tabla 4.3.** Curva de aprendizaje de un tripulante en el módulo de revisión de motores de Hyperdrive Express.
-:::
 
 La lectura intuitiva es la de siempre en estos casos: al principio se aprende mucho por cada operación (la caída inicial es abrupta) y, con el tiempo, la mejora se vuelve marginal. La nube de puntos, en efecto, dibuja una curva de descenso rápido que luego se aplana. Ajustar una recta directamente da un $R^{2}$ modesto y unos residuos con patrón sistemático:
 
@@ -682,13 +957,9 @@ ggplot() +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 5.4**
+**Figura 5.6.** Datos de la tabla anterior con dos ajustes: lineal (gris, discontinuo) y potencial (negro, continuo).
 :::
 
-
-::: {style="text-align: center;"}
-**Figura 4.4.** Datos de la Tabla 4.3 con dos ajustes: lineal (gris, discontinuo) y potencial (negro, continuo).
-:::
 
 La lección que sacamos es doble. Primera: **no toda relación estadística es lineal**, y forzar una recta cuando la nube pide una curva penaliza el ajuste. Segunda: **muchas relaciones no lineales son linealizables**, y basta con transformar las variables (típicamente con logaritmos) para volver al terreno confortable de la regresión lineal. La forma final del modelo es no lineal —$\hat{y} = a\cdot x^{b}$— pero la estimación se ha hecho con la misma maquinaria mínimo-cuadrática que veníamos utilizando.
 
@@ -702,23 +973,63 @@ $$
 
 con $p+1$ parámetros a estimar. El criterio de mínimos cuadrados sigue siendo el mismo —minimizar la suma de los cuadrados de los residuos—, pero su resolución requiere ya álgebra lineal (matrices de datos, sistemas de ecuaciones normales…) y se aborda con propiedad en un curso posterior de Econometría.
 
-La motivación práctica, sin embargo, se comprende de inmediato con el ejemplo de la flota. Habíamos visto que la antigüedad, por sí sola, explicaba un $`r fmt(100*R2, 0)`\,\%$ de la variabilidad del tonelaje: no está mal, pero deja mucho fuera. Si añadimos al modelo la **identidad del astillero** —una variable categórica que podríamos codificar como *dummies*— es plausible que el $R^{2}$ crezca sustancialmente, porque en el gráfico de la Figura 4.2 se percibe con claridad que cada astillero ocupa una franja de tonelajes distinta. Y si añadimos, además, el **indicador de rendimiento energético** (IRE), el modelo podría aún mejorar.
+La motivación práctica, en cambio, se comprende de inmediato retomando el hilo que dejamos abierto en la sección de los residuos. Habíamos visto que **la antigüedad, por sí sola**, explica cerca del $39\,\%$ de la variabilidad del tonelaje sobre los datos individuales de la flota. El gráfico de residuos nos había avisado con luces de neón que los tres astilleros ocupan bandas distintas: quedaba estructura sin capturar. La regresión múltiple es exactamente la herramienta para meterla dentro del modelo.
 
-De manera más general, en la muestra de $300$ compañías R-Stars uno puede plantear regresiones múltiples sofisticadas para explicar, por ejemplo, los costes operativos en función de los ingresos, del número de empleados, de la flota, del número de rutas y del apalancamiento; o la rentabilidad económica en función de la digitalización, la diversificación, la fidelización y el tamaño de la empresa. Todo lo que hemos aprendido en este capítulo —el criterio de estimación, la descomposición de la varianza, el coeficiente de determinación— tiene su análogo natural en el caso múltiple.
+Añadimos como segunda variable explicativa la **identidad del astillero**. Al ser categórica, se codifica con **variables** ***dummy*** (indicadoras): tomando `ARCTURUS` como categoría de referencia, definimos $D_K = 1$ si el carguero es de `KORRIGAN` y $0$ en otro caso, y análogamente $D_S$ para `SELENE`. El modelo pasa a ser
 
-Un aviso final: pasar de una a varias variables explicativas no es solo una cuestión técnica. Aparecen problemas nuevos —correlaciones altas entre las propias explicativas (la temida *multicolinealidad*), interpretaciones parciales que exigen fijar mentalmente el resto de variables, riesgo de sobreajuste cuando $p$ crece— que la regresión simple no plantea. La regresión múltiple es una herramienta enormemente potente y merecerá, en su momento, capítulo propio.
+$$
+\widehat{\text{TONELAJE}}_i \;=\; b_0 \;+\; b_1\cdot \text{ANTIG}_i \;+\; b_2\cdot D_{K,i} \;+\; b_3\cdot D_{S,i},
+$$
+
+y su estimación —esta vez sí, la delegamos con toda tranquilidad en `lm()`— entrega:
+
+```{r astilleros-multiple, echo=TRUE}
+modelo_simple <- lm(TONELAJE ~ ANTIG, data = astilleros)
+modelo_mult   <- lm(TONELAJE ~ ANTIG + ASTILLERO, data = astilleros)
+
+# Resumen de ambos ajustes
+data.frame(
+  Modelo   = c("Simple: TONELAJE ~ ANTIG",
+               "Múltiple: TONELAJE ~ ANTIG + ASTILLERO"),
+  R2       = c(summary(modelo_simple)$r.squared,
+               summary(modelo_mult)$r.squared),
+  R2_ajust = c(summary(modelo_simple)$adj.r.squared,
+               summary(modelo_mult)$adj.r.squared)
+)
+coef(modelo_mult)
+```
+
+El salto es sustancial. El $R^{2}$ pasa del $39\,\%$ al **$71\,\%$**: incluir el astillero como segunda variable **duplica** casi la varianza explicada. Y los coeficientes tienen ahora una lectura estupenda. La ordenada $b_0 \approx 722$ es el tonelaje típico de un carguero recién estrenado del astillero de referencia (`ARCTURUS`); la pendiente de antigüedad, $b_1 \approx 1{,}44$, es mucho más pequeña que la del modelo simple ($12{,}65$), y no por casualidad: buena parte del "efecto antigüedad" que veíamos antes era en realidad **el efecto astillero disfrazado** —los astilleros más productivos y con carteras más pesadas tienden a tener flotas más antiguas—. Los coeficientes de las *dummies* dicen que un carguero de `KORRIGAN` pesa, en promedio, unos $107$ mil toneladas más que uno equivalente de `ARCTURUS`, y uno de `SELENE`, unos $111$ mil menos.
+
+Este es el mismo fenómeno de las **variables acechantes** —variables ocultas que explican parte de lo que un modelo simple atribuía a otra— que la paradoja de Simpson mostraba en el capítulo anterior sobre las tablas de contingencia. La regresión múltiple es su antídoto cuantitativo: al incluir la variable acechante como explicativa, la pendiente de la variable original recupera su interpretación limpia.
+
+### Un aviso conceptual sobre el R² ajustado. {#r2-ajustado}
+
+En el resultado anterior hemos comparado también un **$R^{2}$ ajustado**, novedad que conviene explicar brevemente. El $R^{2}$ ordinario tiene una limitación estructural: **siempre crece —o al menos no baja— al añadir cualquier variable al modelo, aunque esa variable sea puro ruido**. Es una propiedad matemática de la descomposición de la varianza. Si comparamos dos modelos anidados por su $R^{2}$ ordinario, el modelo con más variables gana automáticamente, lo cual no es un criterio útil.
+
+El $R^{2}$ ajustado corrige esa asimetría penalizando la introducción de variables:
+
+$$
+R^{2}_{\text{aj}} \;=\; 1 \;-\; (1 - R^{2})\cdot \dfrac{N-1}{N-p-1},
+$$
+
+donde $N$ es el número de observaciones y $p$ el número de variables explicativas. Su lectura es paralela a la del $R^{2}$ (cuanto mayor, mejor), pero solo crece cuando la nueva variable **aporta más de lo que cuesta**. En el ejemplo de la flota, ambos suben: incluir el astillero es una ganancia real, no un adorno.
+
+Un aviso final: pasar de una a varias variables explicativas no es solo una cuestión técnica. Aparecen problemas nuevos —correlaciones altas entre las propias explicativas (la temida **multicolinealidad**), interpretaciones parciales que exigen fijar mentalmente el resto de variables, riesgo de **sobreajuste** cuando $p$ crece— que la regresión simple no plantea. La regresión múltiple, y toda la familia moderna de modelos que descienden de ella (regularización, regresión logística, modelos lineales generalizados, y en último término gran parte del *machine learning* supervisado), merecerán, en su momento, cursos propios. Pero el ADN sigue siendo el que hemos visto en este capítulo: encontrar los parámetros que hacen mínimos, en promedio, los residuos al cuadrado.
 
 ## Recapitulación. {#recapitulacion-cap05}
 
 Este capítulo ha cerrado el bloque bidimensional. Hemos pasado de comprobar *si* dos variables se relacionan a describir *cómo* y *cuánto*. Como equipaje mínimo llevaremos:
 
 -   La regresión propone una función matemática $\hat{y}_i = f(x_i)$ que aproxima $Y$ a partir de $X$, con residuos $e_{ij} = y_j - \hat{y}_i$. La descomposición $y_j = \hat{y}_i + e_{ij}$ es la fórmula fundamental del capítulo.
--   La estimación de los parámetros se realiza por **mínimos cuadrados**: se eligen los valores que minimizan $\sum e_{ij}^{\,2}\, n_{ij}$.
+-   Hay **dos caminos** clásicos: la regresión **de tipo I** (medias condicionadas, sin forma funcional impuesta) y la regresión **de tipo II** (una forma funcional elegida y estimada por mínimos cuadrados). La segunda es la traducción analítica operativa de la primera; ambas viven en el marco descriptivo del capítulo.
+-   La estimación por **mínimos cuadrados** elige los parámetros que minimizan $\sum e_{ij}^{\,2}\, n_{ij}$. Es sensible a valores atípicos: un solo caso extremo puede alterar sustancialmente la recta y hundir el $R^{2}$.
 -   En el **caso lineal** $\hat{y}_i = a + b\, x_i$, las fórmulas son $\hat{b} = S_{xy}/S_x^{\,2}$ y $\hat{a} = \overline{y} - \hat{b}\, \overline{x}$. La recta pasa siempre por el centro de gravedad de la nube.
--   La **bondad del ajuste** se mide con el **coeficiente de determinación** $R^{2} = S_{\hat{y}}^{\,2}/S_y^{\,2} = 1 - S_e^{\,2}/S_y^{\,2}$, comprendido entre $0$ y $1$ y leído como proporción de varianza de $Y$ recogida por la regresión.
+-   Sobre la misma nube conviven **dos rectas de regresión**: la de $Y$ sobre $X$ y la de $X$ sobre $Y$, con pendientes $\hat{b}$ y $\hat{b}'$. Se cruzan en el centro de gravedad y su producto es exactamente el coeficiente de determinación: $\hat{b}\cdot\hat{b}' = R^{2}$.
+-   La **bondad del ajuste** se mide con el **coeficiente de determinación** $R^{2} = S_{\hat{y}}^{\,2}/S_y^{\,2} = 1 - S_e^{\,2}/S_y^{\,2}$, comprendido entre $0$ y $1$ y leído como proporción de varianza de $Y$ recogida por la regresión. Un $R^{2}$ resume, pero no diagnostica: **el cuarteto de Anscombe** enseña que cuatro nubes muy distintas pueden compartir el mismo $R^{2}$. **Los residuos** son la herramienta que dice dónde falla el modelo.
 -   Con la forma funcional dada por buena, la **intensidad** de la relación se mide con el **coeficiente de correlación lineal** $R = S_{xy}/(S_x\cdot S_y)$, entre $-1$ y $+1$. El signo indica el sentido de la relación; el valor absoluto, su intensidad.
 -   **Correlación no es causalidad.** Un $R$ elevado señala coincidencias sistemáticas de comportamiento; identificar relaciones causales exige un modelo teórico y un diseño de investigación específicos.
 -   Muchas relaciones no lineales son **linealizables**: transformando los valores (típicamente con logaritmos) se accede a un ajuste lineal excelente que, al deshacer la transformación, entrega una regresión no lineal.
--   La **regresión múltiple** generaliza el planteamiento cuando hay varias variables explicativas. Su tratamiento riguroso —maquinaria matricial y problemas específicos como la multicolinealidad— corresponde a un curso de Econometría.
+-   La **regresión múltiple** generaliza el planteamiento cuando hay varias variables explicativas. Su ejemplo en la flota (añadir la identidad del astillero elevó el $R^{2}$ del $39\,\%$ al $71\,\%$) muestra que el diagnóstico de residuos suele apuntar directamente a la variable que falta. El **$R^{2}$ ajustado** corrige el sesgo del $R^{2}$ ordinario a favor de los modelos con más variables.
 
 Con esto damos por cerrado el bloque de estadística descriptiva bidimensional. El siguiente bloque del curso da un giro conceptual: dejamos por un tiempo el análisis de datos observados y entramos en el terreno de la **probabilidad**, la herramienta que permitirá, más adelante, transformar todas estas descripciones en instrumentos de **inferencia** sobre poblaciones. Cuando volvamos a los datos, ya no serán solo los que tenemos delante: serán una ventana estadísticamente honesta a lo que ocurre en el universo del que provienen.
