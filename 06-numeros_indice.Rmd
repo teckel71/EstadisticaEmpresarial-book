@@ -23,7 +23,7 @@ library(scales)
 library(patchwork)
 library(readxl)
 
-# Paleta y tema del libro (idénticos a los capítulos 1–4).
+# Paleta y tema del libro (idénticos a los capítulos anteriores).
 pal_libro  <- c("#475569", "#64748b", "#94a3b8", "#cbd5e1",
                 "#0f172a", "#1e293b", "#334155")
 pal_acento <- "#475569"
@@ -49,64 +49,40 @@ fmt <- function(x, d = 2) {
   format(round(x, d), decimal.mark = ",", big.mark = ".",
          nsmall = d, trim = TRUE)
 }
-
-# Formato de enteros con separador de miles "." y decimal ",". Explicitar
-# decimal.mark aunque no haya decimales evita el warning
-# "'big.mark' y 'decimal.mark' son ambos '.'".
-fmtint <- function(x) {
-  format(x, big.mark = ".", decimal.mark = ",", trim = TRUE)
-}
 ```
 
 ```{r datos-cap06}
-# Ficheros R-Stars (por si se necesitan referencias a compañías reales del
-# universo del libro; los ejemplos numéricos de este capítulo, sin embargo,
-# se construyen a medida sobre series temporales de precios y cantidades
-# que no están recogidas en los xlsx).
+# La base R-Stars se lee por si se necesita atribuir empresas al hilo del
+# texto; los ejemplos numéricos del capítulo se construyen ad-hoc sobre
+# series temporales de precios y cantidades que no están recogidas en los
+# xlsx del proyecto (por su propia naturaleza, series históricas).
 rstars <- read_excel("data/interestelar_300.xlsx", sheet = "Datos")
 ```
 
 ![](figuras/05_moneda.jpg){.portada-img width="100%"}
 
 ::: {style="text-align: center;"}
-**Figura 5.1.** [Cuando las magnitudes cambian con el tiempo (y con la sospecha).]{.smallcaps}
+**[Cuando las magnitudes cambian con el tiempo (y con la sospecha).]{.smallcaps}**
 :::
 
 Un aviso, para empezar, dirigido a quien haya llegado hasta aquí esperando series de datos, muestras y distribuciones de frecuencias como en los capítulos anteriores. Este es un capítulo raro: no hay muestras, ni histogramas, ni casi ecuaciones con letras griegas. Solo hay **cocientes**. Cocientes entre magnitudes económicas medidas en distintos momentos del tiempo, y una insistencia bastante persistente en que esos cocientes se interpreten con cabeza.
 
 La razón de dedicarles todo un tema es sencilla, y muy anterior a la existencia de los cargueros interestelares: cualquier magnitud económica que se mida a lo largo del tiempo —un precio, una cantidad producida, un valor de ventas, un PIB— cambia, y para hablar con propiedad de esos cambios no basta con decir *"ha subido"* o *"ha bajado"*. Hace falta un número que sintetice **cuánto** ha subido o bajado con respecto a una referencia clara. Ese número, en su versión más humilde, es un **número índice**.
 
+Y no es un tema periférico. Prácticamente cualquier debate económico serio —si la inflación se está moderando, si los salarios ganan o pierden poder adquisitivo, si un contrato de alquiler debe actualizarse, si la economía crece "de verdad" o solo lo hace la factura— descansa, al final, sobre uno o varios números índice. Antes o después, cualquier estudiante de este Grado tendrá que leer una noticia que dice *"el IPC ha subido un $2{,}3\,\%$"* o *"el PIB creció un $1{,}8\,\%$ en términos reales"*, y saber qué hay exactamente detrás de esas frases distingue a un economista de alguien que solo repite lo que ha oído.
+
 ## Concepto de número índice. {#concepto-numero-indice}
 
 Empecemos con un caso muy pequeño y muy familiar. La compañía **Arrakis Freight**, con sede en Arrakis y flota renovada, publica cada año en su memoria corporativa el precio unitario de su servicio de carga estándar en la ruta Arrakis–Coruscant (en PAVOs/tonelada), la cantidad transportada (en miles de toneladas) y el valor total facturado en esa ruta:
 
-```{r tabla-arrakis-cap06}
-arrakis <- tibble(
-  Anio       = 2210:2213,
-  Precio     = c(30, 33, 45, 54),
-  Cantidad   = c(1200, 1500, 1800, 2100),
-  Valor      = Precio * Cantidad
-)
+Table: **Tabla:** Ruta Arrakis–Coruscant de Arrakis Freight, 2210–2213.
 
-arrakis %>%
-  transmute(
-    `Año`                            = Anio,
-    `Precio (PAVOs/tonelada)`        = Precio,
-    `Cantidad (miles de toneladas)`  = Cantidad,
-    `Valor (miles de PAVOs)`         = fmtint(Valor)
-  ) %>%
-  kable(
-    caption   = "Ruta Arrakis–Coruscant de Arrakis Freight, 2210–2213.",
-    align     = "cccc",
-    booktabs  = TRUE
-  ) %>%
-  kable_styling(
-    bootstrap_options = c("hover", "condensed"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  )
-```
+| Año  | Precio (PAVOs/tonelada) | Cantidad (miles de toneladas) | Valor (miles de PAVOs) |
+| ---- | ----------------------- | ----------------------------- | ---------------------- |
+| 2210 | 30                      | 1200                          | 36.000                 |
+| 2211 | 33                      | 1500                          | 49.500                 |
+| 2212 | 45                      | 1800                          | 81.000                 |
+| 2213 | 54                      | 2100                          | 113.400                |
 
 Ante estos datos, las tres preguntas que un directivo de la compañía suele formularse son casi siempre las mismas:
 
@@ -116,11 +92,11 @@ Ante estos datos, las tres preguntas que un directivo de la compañía suele for
 
 Podríamos limitarnos a mirar los números en bruto, pero comparar $54$ PAVOs frente a $30$ PAVOs, o $2\,100$ frente a $1\,200$ mil toneladas, no da una idea rápida y homogénea. Lo que sí la da es medir el precio (o la cantidad, o el valor) de $2213$ como **múltiplo** del de $2210$: $54/30 = 1{,}80$. El precio ha pasado a valer $1{,}80$ veces lo que valía en $2210$; o, equivalentemente, ha subido un $80\,\%$. Ese cociente, $1{,}80$, es un **número índice**.
 
-::: {.definicion}
 Un **número índice** es una medida estadística que resume, mediante un cociente, los cambios que experimenta una magnitud —simple o compleja— a lo largo del **tiempo** o a través del **espacio**.
-:::
 
-Aunque en este capítulo hablaremos casi siempre de comparaciones temporales, la definición cubre también las comparaciones espaciales: un número índice puede comparar, por ejemplo, el precio del combustible interestelar en Mustafar con el precio en Miranda. En cualquier caso, el número índice necesita **dos** referencias:
+Aunque en este capítulo hablaremos casi siempre de comparaciones temporales, la definición cubre también las comparaciones espaciales: un número índice puede comparar, por ejemplo, el precio del combustible interestelar en Mustafar con el precio en Miranda. Es la misma familia de indicadores a la que pertenecen las conocidas *paridades de poder adquisitivo* que el *Consejo Estelar de Estadística Galáctica* publica para comparar el coste de la vida entre sistemas planetarios.
+
+Merece la pena ver, aunque sea por ahora entre paréntesis, cómo se traduce un dato del tipo *"el IPC ha subido un $2{,}3\,\%$"* al lenguaje de los números índice: significa que el índice complejo de precios ha pasado de un valor $I_{0}$ a un valor $I_{t} = 1{,}023\cdot I_{0}$; ni más ni menos. En cualquier caso, el número índice necesita **dos** referencias:
 
 - el **período base** (o de referencia), el que se toma como patrón de comparación, y
 - el **período actual** (o corriente), aquel cuya magnitud se compara con la del período base.
@@ -147,34 +123,14 @@ La notación $p_{0}^{t}$ se lee como "índice de precios en el período $t$ con 
 
 Aplicándolo a *Arrakis Freight*:
 
-```{r tabla-indices-simples-basefija}
-arr_idx_bf <- arrakis %>%
-  mutate(
-    Ip = Precio  / Precio[1],
-    Iq = Cantidad/ Cantidad[1],
-    Iv = Valor   / Valor[1]
-  )
+Table: **Tabla:** Índices simples de base fija (base = 2210) para la ruta Arrakis–Coruscant.
 
-arr_idx_bf %>%
-  transmute(
-    `Año` = Anio,
-    `Índice de precios ($p_{0}^{t}$)`     = fmt(Ip, 4),
-    `Índice de cantidades ($q_{0}^{t}$)`  = fmt(Iq, 4),
-    `Índice de valor ($V_{0}^{t}$)`       = fmt(Iv, 4)
-  ) %>%
-  kable(
-    caption   = "Índices simples de base fija (base = 2210) para la ruta Arrakis–Coruscant.",
-    align     = "cccc",
-    booktabs  = TRUE,
-    escape    = FALSE
-  ) %>%
-  kable_styling(
-    bootstrap_options = c("hover", "condensed"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  )
-```
+| Año  | Índice de precios ($p_{0}^{t}$) | Índice de cantidades ($q_{0}^{t}$) | Índice de valor ($V_{0}^{t}$) |
+| ---- | ------------------------------- | ---------------------------------- | ----------------------------- |
+| 2210 | 1,0000                          | 1,0000                             | 1,0000                        |
+| 2211 | 1,1000                          | 1,2500                             | 1,3750                        |
+| 2212 | 1,5000                          | 1,5000                             | 2,2500                        |
+| 2213 | 1,8000                          | 1,7500                             | 3,1500                        |
 
 La lectura es directa. Entre $2210$ y $2213$, el precio del servicio de carga en la ruta Arrakis–Coruscant se ha multiplicado por $1{,}80$ (ha subido un $80\,\%$); la cantidad transportada, por $1{,}75$ (ha subido un $75\,\%$); y el valor facturado, por $3{,}15$ (ha subido un $215\,\%$). Y, como es fácil comprobar, $1{,}80 \times 1{,}75 = 3{,}15$: el fuerte tirón de las ventas es fruto de que precio y cantidad han crecido a la vez.
 
@@ -190,36 +146,18 @@ q_{t-1}^{t} \;=\; \frac{q_{t}}{q_{t-1}},
 V_{t-1}^{t} \;=\; p_{t-1}^{t}\cdot q_{t-1}^{t}.
 $$
 
-```{r tabla-indices-simples-encadenados}
-arr_idx_enc <- arrakis %>%
-  mutate(
-    Ip = Precio  / lag(Precio),
-    Iq = Cantidad/ lag(Cantidad),
-    Iv = Valor   / lag(Valor)
-  )
+Table: **Tabla:** Índices simples encadenados para la ruta Arrakis–Coruscant.
 
-arr_idx_enc %>%
-  transmute(
-    `Año` = Anio,
-    `Índice de precios ($p_{t-1}^{t}$)`     = ifelse(is.na(Ip), "—", fmt(Ip, 4)),
-    `Índice de cantidades ($q_{t-1}^{t}$)`  = ifelse(is.na(Iq), "—", fmt(Iq, 4)),
-    `Índice de valor ($V_{t-1}^{t}$)`       = ifelse(is.na(Iv), "—", fmt(Iv, 4))
-  ) %>%
-  kable(
-    caption   = "Índices simples encadenados para la ruta Arrakis–Coruscant.",
-    align     = "cccc",
-    booktabs  = TRUE,
-    escape    = FALSE
-  ) %>%
-  kable_styling(
-    bootstrap_options = c("hover", "condensed"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  )
-```
+| Año  | Índice de precios ($p_{t-1}^{t}$) | Índice de cantidades ($q_{t-1}^{t}$) | Índice de valor ($V_{t-1}^{t}$) |
+| ---- | --------------------------------- | ------------------------------------ | ------------------------------- |
+| 2210 | —                                 | —                                    | —                               |
+| 2211 | 1,1000                            | 1,2500                               | 1,3750                          |
+| 2212 | 1,3636                            | 1,2000                               | 1,6364                          |
+| 2213 | 1,2000                            | 1,1667                               | 1,4000                          |
 
 La lectura ahora es distinta y complementaria: cada valor mide la variación **respecto al año inmediatamente anterior**. Un dato de $1{,}3636$ en el índice de precios de $2212$ indica que en ese año el precio subió un $36{,}36\,\%$ con respecto a $2211$. Y el índice del año $2210$ no puede calcularse: no existe $2209$ en la serie, así que el denominador falla y se representa como un guion.
+
+Cabe subrayar, ya desde aquí, un matiz importante que retomaremos con detalle más adelante en el capítulo. La palabra *encadenado* es engañosamente sencilla en este contexto elemental —donde solo tenemos una magnitud y un cociente— pero en el mundo real, cuando el índice resume una cesta de bienes, describe una estrategia metodológica mucho más profunda: la de actualizar tanto la muestra como las ponderaciones año a año e ir hilvanando los índices sucesivos. Es lo que hoy hacen prácticamente todos los grandes indicadores de precios del planeta (Terra) —el IPC del INE incluido, desde 2001— y le dedicaremos, más adelante, una sección propia.
 
 ### Sobre la presentación de un número índice. {#indices-presentacion}
 
@@ -227,24 +165,23 @@ Institutos estadísticos, bancos centrales y prensa económica no suelen publica
 
 Es simplemente una convención cosmética: no cambia nada de la matemática, y facilita algo la lectura. Bajo esta convención, en un índice de base fija, el valor $100$ marca siempre el período base; en un índice encadenado, cualquier valor por encima de $100$ indica crecimiento y cualquier valor por debajo indica descenso respecto al período anterior. Por conveniencia, en el resto del capítulo alternaremos la escala **decimal** ($1{,}80$) y la escala **porcentual** ($180{,}00$) según convenga: la que resulte más limpia para lo que se está haciendo en cada momento.
 
-```{r tabla-indices-simples-presentacion, fig.width=6.5, fig.height=3.6}
-p1 <- ggplot(arr_idx_bf, aes(Anio)) +
-  geom_line(aes(y = Ip * 100), color = pal_libro[1], linewidth = 1) +
-  geom_point(aes(y = Ip * 100), color = pal_libro[1], size = 2.4) +
-  geom_line(aes(y = Iq * 100), color = pal_libro[2], linewidth = 1, linetype = "dashed") +
-  geom_point(aes(y = Iq * 100), color = pal_libro[2], size = 2.4) +
-  geom_line(aes(y = Iv * 100), color = pal_alerta, linewidth = 1, linetype = "dotted") +
-  geom_point(aes(y = Iv * 100), color = pal_alerta, size = 2.4) +
-  geom_hline(yintercept = 100, color = "#94a3b8", linewidth = 0.4) +
-  labs(title    = "Índices simples de base fija (2210 = 100)",
-       subtitle = "Arrakis Freight, ruta Arrakis–Coruscant",
-       x = NULL, y = "Índice") +
-  annotate("text", x = 2213.1, y = 315, label = "Valor",     hjust = 0, color = pal_alerta, size = 3.2) +
-  annotate("text", x = 2213.1, y = 188, label = "Precio",    hjust = 0, color = pal_libro[1], size = 3.2) +
-  annotate("text", x = 2213.1, y = 167, label = "Cantidad",  hjust = 0, color = pal_libro[2], size = 3.2) +
-  scale_x_continuous(breaks = 2210:2213, limits = c(2210, 2214)) +
+```{r fig-indices-simples-cap06, fig.cap="Índices simples de precios, cantidades y valor de la ruta Arrakis–Coruscant (base 2210 = 100)."}
+df_arrakis <- tibble(
+  Anio  = 2210:2213,
+  Precio    = c(1.0000, 1.1000, 1.5000, 1.8000) * 100,
+  Cantidad  = c(1.0000, 1.2500, 1.5000, 1.7500) * 100,
+  Valor     = c(1.0000, 1.3750, 2.2500, 3.1500) * 100
+) |>
+  pivot_longer(-Anio, names_to = "Serie", values_to = "Indice")
+
+ggplot(df_arrakis, aes(Anio, Indice, color = Serie)) +
+  geom_line(linewidth = 0.9) +
+  geom_point(size = 2.4) +
+  scale_color_manual(values = c(pal_libro[1], pal_libro[3], pal_alerta)) +
+  scale_x_continuous(breaks = 2210:2213) +
+  scale_y_continuous(breaks = seq(100, 350, by = 50)) +
+  labs(x = NULL, y = "Índice (base 2210 = 100)", color = NULL) +
   theme_libro()
-p1
 ```
 
 Con la representación gráfica el patrón se ve de una sola ojeada: la evolución de los tres índices al alza, con la línea del valor abriéndose paso por encima de las otras dos como recordatorio de que precio y cantidad, cuando tiran en la misma dirección, se refuerzan mutuamente.
@@ -253,7 +190,7 @@ Con la representación gráfica el patrón se ve de una sola ojeada: la evoluci�
 
 Todo número índice bien definido debería cumplir un puñado de propiedades naturales, esto es, propiedades que uno esperaría de cualquier cociente que pretenda medir cambios relativos. Las enunciamos para el caso del índice de precios; valen igual para los de cantidad y de valor.
 
-**Unicidad.** Todo número índice debe **existir**. Traducido: el denominador nunca puede ser cero. Aunque parezca una obviedad, no es un caso hipotético: un producto que no se comercializara en el período base, o un componente que aún no existiera (piénsese en el precio del combustible de fusión antimateria en el año $2100$), inutilizaría cualquier intento de tomar ese período como base para ese componente.
+**Existencia.** Todo número índice debe **estar bien definido**: el denominador nunca puede ser cero. Aunque parezca una obviedad, no es un caso hipotético: un producto que no se comercializara en el período base, o un componente que aún no existiera —piénsese en el precio del *implante de retina holográfica* en el año $2050$, décadas antes de su invención— inutiliza cualquier intento de tomar ese período como base para ese componente. La cuestión de cómo introducir productos nuevos en un índice ya en marcha es, de hecho, uno de los grandes quebraderos de cabeza de las oficinas estadísticas contemporáneas, como veremos más adelante.
 
 **Identidad.** Cuando el período actual coincide con el período base, el índice debe valer $1$ (o $100$, en escala porcentual):
 
@@ -295,7 +232,7 @@ Los pesos $w_{i}/\sum w_{j}$ son las **ponderaciones**: números entre $0$ y $1$
 
 ### Índices de precios: Laspeyres, Paasche y Fisher. {#indices-complejos-precios}
 
-Los tres protagonistas del capítulo son los índices de **Laspeyres**, **Paasche** y **Fisher**. Todos ellos son promedios ponderados de índices de precios simples; se diferencian solo en el momento del tiempo del que se toman los pesos.
+Los tres protagonistas del capítulo son los índices de **Laspeyres** (Étienne Laspeyres, 1871), **Paasche** (Hermann Paasche, 1874) y **Fisher** (Irving Fisher, 1922). Todos ellos son promedios ponderados de índices de precios simples; se diferencian solo en el momento del tiempo del que se toman los pesos.
 
 **Laspeyres** utiliza como ponderación el valor de cada bien **en el período base** ($p_{i,0}\cdot q_{i,0}$). Sustituyendo en la expresión general y simplificando el índice simple $p_{i,0}^{t} = p_{i,t}/p_{i,0}$:
 
@@ -304,6 +241,8 @@ L_{p} \;=\; \sum_{i=1}^{N} \frac{p_{i,t}}{p_{i,0}} \cdot \frac{p_{i,0}\, q_{i,0}
 \;=\; \frac{\sum_{i} p_{i,t}\, q_{i,0}}{\sum_{i} p_{i,0}\, q_{i,0}}.
 $$
 
+Léase la forma final con calma: en el numerador, las cantidades del año base se valoran a los precios del año actual; en el denominador, esas mismas cantidades del año base se valoran a los precios del año base. Laspeyres responde a la pregunta *"¿cuánto costaría hoy la cesta que se consumía en el período base?"*.
+
 **Paasche** utiliza como ponderación el valor de cada bien **en el período actual** ($p_{i,0}\cdot q_{i,t}$):
 
 $$
@@ -311,17 +250,15 @@ P_{p} \;=\; \sum_{i=1}^{N} \frac{p_{i,t}}{p_{i,0}} \cdot \frac{p_{i,0}\, q_{i,t}
 \;=\; \frac{\sum_{i} p_{i,t}\, q_{i,t}}{\sum_{i} p_{i,0}\, q_{i,t}}.
 $$
 
+Responde a la pregunta simétrica: *"¿cuánto costó lo que se consume hoy si lo valorásemos a los precios del período base?"*, o dicho al revés, la cesta actual valorada a precios actuales dividida entre esa misma cesta actual valorada a precios base.
+
 **Fisher** es la media **geométrica** de los dos anteriores:
 
 $$
 F_{p} \;=\; \sqrt{L_{p}\cdot P_{p}}.
 $$
 
-Cada uno tiene sus ventajas y sus inconvenientes. Laspeyres es el más popular por una razón muy prosaica: solo necesita las cantidades **del período base**, que se conocen y no cambian año a año, lo que simplifica enormemente la recogida de información y evita reponderar continuamente. Paasche, en cambio, obliga a actualizar las cantidades cada año, tarea costosa. Y Fisher, elegante y equilibrado, tiene el mérito matemático de ser el único de los tres que cumple la propiedad de reversión cronológica; su coste es que hereda los inconvenientes prácticos de los otros dos, ya que necesita ambas cantidades.
-
-::: {.observacion}
-En términos generales, se admite que un índice de tipo **Laspeyres** tiende a **sobrestimar** el efecto real del cambio de precios, porque supone implícitamente que las cantidades adquiridas se mantienen a los niveles del período base y no reaccionan al encarecimiento. Un índice de tipo **Paasche**, en cambio, tiende a **subestimarlo** por la razón simétrica: los agentes ya han reasignado sus cantidades a la nueva estructura de precios. Fisher, al promediar ambos, corrige parcialmente el sesgo.
-:::
+La lógica de Fisher es una lógica de "*compromiso equilibrado*": no privilegia ni la estructura de consumo del pasado ni la del presente, sino que las combina de forma simétrica.
 
 ### Índices de cantidades. {#indices-complejos-cantidades}
 
@@ -341,133 +278,205 @@ $$
 V_{0}^{t} \;=\; F_{p}\cdot F_{q},
 $$
 
-que es exactamente la misma que ya vimos en los índices simples: la evolución del valor total se descompone limpiamente en un efecto precio y un efecto cantidad.
+que es exactamente la misma que ya vimos en los índices simples: la evolución del valor total se descompone limpiamente en un efecto precio y un efecto cantidad. Con Laspeyres y Paasche esa descomposición no es exacta, sino cruzada: $L_{p}\cdot P_{q} = V_{0}^{t}$ y también $P_{p}\cdot L_{q} = V_{0}^{t}$. En cambio, ni $L_{p}\cdot L_{q}$ ni $P_{p}\cdot P_{q}$ coinciden con el valor.
 
 ### Un ejemplo con dos servicios de *Hyperdrive Express*. {#ejemplo-complejos}
 
 Volvemos a un actor conocido: la compañía **Hyperdrive Express**, con sede en Miranda. Como en los capítulos anteriores, sus balances (activo, ingresos, resultado…) están recogidos en la base R-Stars. Aquí, sin embargo, vamos a considerar dos de sus líneas de negocio con datos ad-hoc en dos ejercicios que no aparecen en el fichero: el servicio **A**, transporte de carga (medido en PAVOs por tonelada) y el servicio **B**, transporte de pasajeros de tercera clase (medido en PAVOs por pasajero). Los datos son los siguientes:
 
-```{r hyperdrive-tabla}
-hyper <- tibble(
-  Anio  = c(2210, 2213),
-  p_A   = c(5, 10),
-  q_A   = c(6000, 7500),
-  p_B   = c(12, 20),
-  q_B   = c(2000, 5000)
-)
+Table: **Tabla:** Hyperdrive Express: precios y cantidades de dos servicios en 2210 (base) y 2213.
 
-hyper %>%
-  transmute(
-    `Año`  = Anio,
-    `$p_{A}$ (PAVOs/tonelada)`  = p_A,
-    `$q_{A}$ (toneladas)`       = fmtint(q_A),
-    `$p_{B}$ (PAVOs/pasajero)`  = p_B,
-    `$q_{B}$ (pasajeros)`       = fmtint(q_B)
-  ) %>%
-  kable(
-    caption  = "Hyperdrive Express: precios y cantidades de dos servicios en 2210 (base) y 2213.",
-    align    = "ccccc",
-    booktabs = TRUE,
-    escape   = FALSE
-  ) %>%
-  kable_styling(
-    bootstrap_options = c("hover", "condensed"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  )
-```
+| Año  | $p_{A}$ (PAVOs/tonelada) | $q_{A}$ (toneladas) | $p_{B}$ (PAVOs/pasajero) | $q_{B}$ (pasajeros) |
+| ---- | ------------------------ | ------------------- | ------------------------ | ------------------- |
+| 2210 | 5                        | 6.000               | 12                       | 2.000               |
+| 2213 | 10                       | 7.500               | 20                       | 5.000               |
 
 Con estos datos, tomando $2210$ como período base y $2213$ como actual, los tres índices complejos de **precios** salen:
 
-```{r complejos-precios-calc}
-p_A0 <- hyper$p_A[1]; q_A0 <- hyper$q_A[1]
-p_At <- hyper$p_A[2]; q_At <- hyper$q_A[2]
-p_B0 <- hyper$p_B[1]; q_B0 <- hyper$q_B[1]
-p_Bt <- hyper$p_B[2]; q_Bt <- hyper$q_B[2]
-
-Lp <- (p_At*q_A0 + p_Bt*q_B0) / (p_A0*q_A0 + p_B0*q_B0)
-Pp <- (p_At*q_At + p_Bt*q_Bt) / (p_A0*q_At + p_B0*q_Bt)
-Fp <- sqrt(Lp * Pp)
-
-Lq <- (q_At*p_A0 + q_Bt*p_B0) / (q_A0*p_A0 + q_B0*p_B0)
-Pq <- (q_At*p_At + q_Bt*p_Bt) / (q_A0*p_At + q_B0*p_Bt)
-Fq <- sqrt(Lq * Pq)
-
-V  <- (p_At*q_At + p_Bt*q_Bt) / (p_A0*q_A0 + p_B0*q_B0)
-```
-
 $$
 L_{p} \;=\; \frac{10\cdot 6\,000 + 20\cdot 2\,000}{5\cdot 6\,000 + 12\cdot 2\,000}
-\;=\; `r fmt(Lp, 4)` \;\longrightarrow\; `r fmt(Lp*100, 2)`\ \text{si base}=100.
+\;=\; 1{,}8519 \;\longrightarrow\; 185{,}19\ \text{si base}=100.
 $$
 
 $$
 P_{p} \;=\; \frac{10\cdot 7\,500 + 20\cdot 5\,000}{5\cdot 7\,500 + 12\cdot 5\,000}
-\;=\; `r fmt(Pp, 4)` \;\longrightarrow\; `r fmt(Pp*100, 2)`\ \text{si base}=100.
+\;=\; 1{,}7949 \;\longrightarrow\; 179{,}49\ \text{si base}=100.
 $$
 
 $$
 F_{p} \;=\; \sqrt{L_{p}\cdot P_{p}}
-\;=\; \sqrt{`r fmt(Lp, 4)` \cdot `r fmt(Pp, 4)`}
-\;=\; `r fmt(Fp, 4)` \;\longrightarrow\; `r fmt(Fp*100, 2)`\ \text{si base}=100.
+\;=\; \sqrt{1{,}8519 \cdot 1{,}7949}
+\;=\; 1{,}8231 \;\longrightarrow\; 182{,}31\ \text{si base}=100.
 $$
 
 Y, replicando el ejercicio para las **cantidades**:
 
 $$
 L_{q} \;=\; \frac{7\,500\cdot 5 + 5\,000\cdot 12}{6\,000\cdot 5 + 2\,000\cdot 12}
-\;=\; `r fmt(Lq, 4)`,
+\;=\; 1{,}8056,
 \qquad
 P_{q} \;=\; \frac{7\,500\cdot 10 + 5\,000\cdot 20}{6\,000\cdot 10 + 2\,000\cdot 20}
-\;=\; `r fmt(Pq, 4)`,
+\;=\; 1{,}7500,
 $$
 
 $$
-F_{q} \;=\; \sqrt{L_{q}\cdot P_{q}} \;=\; `r fmt(Fq, 4)`.
+F_{q} \;=\; \sqrt{L_{q}\cdot P_{q}} \;=\; 1{,}7776.
 $$
 
 En resumen, y en tabla:
 
-```{r complejos-resumen}
-tibble(
-  Concepto = c("Laspeyres", "Paasche", "Fisher"),
-  `Precios ($\\times 100$)`    = c(fmt(Lp*100, 2), fmt(Pp*100, 2), fmt(Fp*100, 2)),
-  `Cantidades ($\\times 100$)` = c(fmt(Lq*100, 2), fmt(Pq*100, 2), fmt(Fq*100, 2))
-) %>%
-  kable(
-    caption   = "Índices complejos de Hyperdrive Express, del año 2210 al 2213 (base 2210 = 100).",
-    align     = "lcc",
-    booktabs  = TRUE,
-    escape    = FALSE
-  ) %>%
-  kable_styling(
-    bootstrap_options = c("hover", "condensed"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  )
-```
+Table: **Tabla:** Índices complejos de Hyperdrive Express, del año 2210 al 2213 (base 2210 = 100).
+
+| Concepto  | Precios ($\times 100$) | Cantidades ($\times 100$) |
+| --------- | ---------------------- | ------------------------- |
+| Laspeyres | 185,19                 | 180,56                    |
+| Paasche   | 179,49                 | 175,00                    |
+| Fisher    | 182,31                 | 177,76                    |
 
 Sea cual sea el índice que elija el analista, la lectura es unívoca: entre $2210$ y $2213$, el conjunto de precios de los dos servicios de *Hyperdrive Express* subió alrededor de un $80\text{–}85\,\%$ y el conjunto de cantidades comercializadas alrededor de un $75\text{–}80\,\%$. Es también interesante observar la relación **valor = precio $\times$ cantidad** solo para los índices de Fisher:
 
 $$
-F_{p}\cdot F_{q} \;=\; `r fmt(Fp, 4)`\cdot `r fmt(Fq, 4)` \;=\; `r fmt(Fp*Fq, 4)`
-\;=\; V_{0}^{t} \;=\; \frac{10\cdot 7\,500 + 20\cdot 5\,000}{5\cdot 6\,000 + 12\cdot 2\,000} \;=\; `r fmt(V, 4)`.
+F_{p}\cdot F_{q} \;=\; 1{,}8231\cdot 1{,}7776 \;=\; 3{,}2407
+\;=\; V_{0}^{t} \;=\; \frac{10\cdot 7\,500 + 20\cdot 5\,000}{5\cdot 6\,000 + 12\cdot 2\,000} \;=\; 3{,}2407.
 $$
 
-El valor total facturado por los dos servicios se ha multiplicado por $`r fmt(V, 4)`$ y esa cifra se descompone limpiamente como producto del efecto precio y el efecto cantidad. Con Laspeyres o Paasche esta descomposición **no** se cumpliría exactamente: es una elegancia adicional que solo Fisher se reserva para sí.
+El valor total facturado por los dos servicios se ha multiplicado por $3{,}2407$ y esa cifra se descompone limpiamente como producto del efecto precio y el efecto cantidad. Con Laspeyres o Paasche esta descomposición **no** se cumpliría exactamente: es una elegancia adicional que solo Fisher se reserva para sí.
+
+### Laspeyres, Paasche o Fisher: la elección real que se hace en la práctica. {#eleccion-indice}
+
+La comparación de los tres números que acabamos de calcular ($L_{p} = 185{,}19$, $P_{p} = 179{,}49$, $F_{p} = 182{,}31$) no es una casualidad: **Laspeyres suele salir por encima de Paasche**, sistemáticamente, cuando estamos midiendo precios de bienes en un mercado donde los consumidores reaccionan a los cambios de precios. Este hecho —conocido como **sesgo de sustitución**— tiene una explicación económica clara y merece la pena entenderla, porque es la clave de bóveda del debate entre las tres fórmulas.
+
+Cuando un bien se encarece, los consumidores tienden a sustituirlo, al menos en parte, por otros más baratos. Los pasajeros de tercera clase del ejemplo anterior son un caso de manual al revés: en $2213$, el servicio de carga se ha vuelto relativamente más barato en comparación con el servicio de pasajeros (ambos han doblado su precio en términos absolutos, pero la estructura ha cambiado), y las cantidades demandadas se han reorganizado en consecuencia. Fijémonos en las **ponderaciones** implícitas:
+
+- En $2210$, el servicio A pesaba el $55{,}56\,\%$ del valor total facturado y el B, el $44{,}44\,\%$.
+- Si valoramos las cantidades del año actual a los precios del año base (que es el peso que usa Paasche, sin el efecto de la variación de precios), el peso del A cae al $38{,}46\,\%$ y el de B sube al $61{,}54\,\%$.
+
+Ha habido, por tanto, un fuerte reequilibrio de la actividad hacia el servicio $B$. En este caso, la reasignación no ha ocurrido porque $B$ se abaratara (ha subido incluso más en porcentaje), sino porque otras fuerzas del negocio empujaron ahí; pero la mecánica formal es la misma que en un mercado de consumo estándar. Y ahora la clave:
+
+- **Laspeyres** aplica los pesos del período base, cuando aún no había ocurrido esa reasignación. Como resultado, asigna un peso relativo mayor al servicio $A$ (el que "pesaba mucho" al principio) y el índice global refleja con más intensidad la subida de precios de ese componente. Cuando esta lógica se aplica al IPC de un país entero, el fenómeno se traduce en que Laspeyres **tiende a sobrestimar la inflación real percibida**, porque supone implícitamente que los hogares siguen consumiendo lo mismo, incluso los bienes que se han encarecido.
+- **Paasche** aplica los pesos del período actual, cuando la sustitución ya ha ocurrido. Da menos peso a los bienes que se han encarecido (precisamente porque los consumidores ya se han alejado de ellos), y por eso **tiende a subestimarla**.
+- **Fisher**, como media geométrica, se sitúa en algún punto intermedio, y por eso muchos economistas —empezando por Irving Fisher, que le puso nombre— lo consideran el índice teóricamente "ideal".
+
+Si Fisher es teóricamente más satisfactorio, ¿por qué no se usa Fisher siempre? Aquí es donde entra la que quizá sea la lección más importante de todo el bloque de números índice complejos: la elección entre los tres es, en la vida real, una **decisión de coste**, no de teoría.
+
+Fijémonos en la información que necesita cada uno para poder calcularse:
+
+Table: **Tabla:** Información necesaria en cada período para calcular cada índice.
+
+| Índice     | Precios $p_{0}$ (base) | Cantidades $q_{0}$ (base) | Precios $p_{t}$ (actual) | Cantidades $q_{t}$ (actual) |
+|------------|:----------------------:|:-------------------------:|:------------------------:|:---------------------------:|
+| Laspeyres  |          Sí            |          Sí               |          Sí              |          **No**             |
+| Paasche    |          Sí            |          **No**           |          Sí              |          Sí                 |
+| Fisher     |          Sí            |          Sí               |          Sí              |          Sí                 |
+
+La diferencia práctica es enorme. **Laspeyres solo necesita conocer las cantidades del período base**, que se determinan una sola vez y no se vuelven a tocar durante toda la vida útil de la base. Los precios sí hay que recogerlos mes a mes —para eso están los agentes del INE que visitan comercios— pero las cantidades (o, más rigurosamente, la estructura de gasto que hace las veces de peso) son un dato fijo. En cambio, **Paasche exige actualizar las cantidades cada año**, lo cual, cuando el índice cubre cientos de rúbricas, miles de establecimientos y millones de precios, se convierte en un ejercicio informacional cuya coste solo unas pocas oficinas estadísticas del mundo pueden permitirse. Fisher necesita ambas cosas, y por tanto hereda el coste completo de Paasche.
+
+Este *trade-off* entre **coste informacional** y **fidelidad teórica** al comportamiento real del consumidor es el nudo del asunto:
+
+- **Laspeyres** es *barato* y sesgado hacia arriba.
+- **Paasche** es *caro* y sesgado hacia abajo.
+- **Fisher** es *muy caro* pero equilibrado.
+
+Durante casi todo el siglo XX, la práctica internacional se decantó, sin apenas alternativa realista, por Laspeyres puro con cambios de base cada ocho o diez años. Como veremos en la sección [siguiente](#construccion-real), la disponibilidad creciente de datos (encuestas de presupuestos familiares anuales, *scanner data* de las grandes superficies, contabilidad nacional actualizada trimestralmente) ha hecho posible una solución mucho más elegante para escapar de este dilema, que es la que hoy dominan la mayoría de los índices oficiales: el **Laspeyres encadenado**, un compromiso entre ambos que renueva las ponderaciones cada año pero mantiene el bajo coste de la fórmula de Laspeyres dentro de cada período.
+
+## La cesta y las ponderaciones: cómo se construye de verdad un índice complejo. {#construccion-real}
+
+Todo lo anterior tiene un aire deliberadamente académico: dos bienes, dos años, cuatro datos por año, y todo cabe en una hoja de cálculo. La realidad de un índice como el Índice de Precios de Consumo publicado por el *Consejo Estelar de Estadística Galáctica* (o su análogo terráqueo, el INE) es de otro orden de magnitud. Merece la pena ver, aunque sea de pasada, cómo se hace de verdad, porque cambia mucho la intuición sobre qué significa realmente un dato del tipo *"el IPC ha subido un $2{,}3\,\%$"*.
+
+Un índice complejo real necesita tres cosas: una **cesta** de bienes representativos, una estructura de **ponderaciones** que refleje la importancia relativa de cada bien, y un mecanismo de **recogida periódica** de los precios que componen esa cesta. Vamos a mirar cada una.
+
+**La cesta de bienes.** La cesta del IPC español base $2025$ está compuesta por $487$ artículos de recogida tradicional más $263$ obtenidos por *scanner data* de supermercados. Cada artículo (por ejemplo, "$1$ kg de tomate en rama" o "*billete de metro con abono mensual*") es la representación concreta de una parcela de consumo, con su ficha técnica: unidad de medida, calidad, marca —siempre que la definición sea suficientemente precisa como para poder repetir la observación mes a mes en el mismo tipo de establecimiento—. La cesta no puede ser tampoco demasiado grande, porque cada artículo dispara los costes de recogida; pero sí lo bastante variada como para representar la mayor parte del gasto de los hogares. En la práctica se seleccionan las parcelas de gasto que superan un umbral mínimo, y dentro de cada una se eligen los artículos concretos más representativos.
+
+**Las ponderaciones.** ¿De dónde salen los pesos $w_{i}$ que cada bien tiene en el índice? La respuesta, en el IPC español, es doble. La fuente principal es la **Contabilidad Nacional** —en concreto, el gasto en consumo final monetario de los hogares—, complementada por una encuesta específica, la **Encuesta de Presupuestos Familiares (EPF)**, que aporta el detalle a niveles funcionales y geográficos más finos. Cada dos o tres años, además, se cruza esa información con datos de la oferta procedentes de sectores concretos (compañías eléctricas, operadoras de telecomunicaciones, mutuas sanitarias), para afinar aún más. En el IPC de la base $2025$, la ponderación del grupo *Restaurantes y servicios de alojamiento* subió al $17{,}03\,\%$, la de *Alimentos y bebidas no alcohólicas* al $17{,}41\,\%$, y la de *Vivienda, agua, electricidad, gas y otros combustibles* al $12{,}26\,\%$: entre estos tres pesan casi la mitad del gasto de un hogar medio.
+
+**La clasificación.** Los $487$ artículos no viven en el aire: se agrupan en $196$ subclases, que a su vez se agrupan en $108$ clases, $45$ subgrupos y finalmente $13$ grupos, siguiendo la clasificación europea **ECOICOP** —siglas de *European Classification of Individual Consumption by Purpose*—, común a todos los IPC nacionales de la UE y a su análogo armonizado, el IPCA. Esta estructura jerárquica es la que permite publicar mensualmente no solo un "IPC general", sino su desglose por grupo, subgrupo, comunidad autónoma, provincia, o grupos especiales como *bienes industriales sin productos energéticos* o *carburantes y combustibles*.
+
+**La recogida.** Cada mes, alrededor de $200\,000$ observaciones de precios se recogen manualmente en unos $33\,000$ establecimientos repartidos por $177$ municipios españoles. A eso se añaden los datos de *scanner data* proporcionados por cadenas de supermercados (todas las líneas de caja de sus tiendas), los datos obtenidos por *web scraping* automatizado de páginas de venta online (billetes de tren, alquiler de vehículos, apartamentos turísticos), y los registros administrativos de precios centralizados (tarifas eléctricas, medicamentos con precio autorizado, tabaco). Toda esa información se depura, se contrasta —cualquier variación superior al $\pm 25\,\%$ en alimentación o al $\pm 10\,\%$ en el resto se revisa manualmente— y se agrega en un único índice general que se publica antes del día $15$ del mes siguiente. Nada trivial.
+
+Un detalle que ilustra el nivel de sofisticación: cuando un artículo desaparece del mercado y hay que sustituirlo por otro (por ejemplo, un modelo concreto de smartphone que ya no se fabrica), no basta con comparar precios; hay que decidir qué parte de la diferencia entre el modelo viejo y el nuevo se debe a **cambio de calidad** y qué parte es variación pura de precio. Para eso existen los **ajustes hedónicos**, esencialmente modelos de regresión —como los que ya vimos en el capítulo anterior— que estiman cuánto vale, en el mercado, cada característica adicional (memoria RAM, cámara con más megapíxeles, autonomía de batería) y la descuentan del precio observado. Es una aplicación curiosa: la regresión estadística incrustada dentro del cálculo de un índice de precios.
+
+Cuando en el telediario nos anuncian que *"el IPC subió tres décimas en octubre"* o que *"la inflación se ha situado en el $2{,}3\,\%$"*, detrás de esa cifra hay, literalmente, un ejército de agentes, un ecosistema informático y una construcción estadística muy elaborada. No es un dato inocente.
+
+## Números índice encadenados: la práctica moderna. {#encadenados-moderno}
+
+Ya hemos visto en la sección [6.2.2](#indices-simples-encadenados) la versión más elemental de un índice encadenado: el que compara cada período con el inmediatamente anterior. En el mundo de los índices simples esto era poco más que una comodidad de lectura. Pero en el mundo de los **índices complejos** —con cesta, ponderaciones y clasificación funcional— la idea del encadenamiento adquiere una dimensión completamente distinta: se convierte en una **estrategia metodológica** para escapar del dilema de Laspeyres. Vale la pena verlo con detalle, porque es lo que hacen hoy prácticamente todas las oficinas estadísticas del mundo.
+
+### Del Laspeyres de base fija al Laspeyres encadenado. {#laspeyres-encadenado}
+
+El problema del Laspeyres de base fija ya lo hemos anticipado: sus ponderaciones —la cesta— **envejecen**. En un año, dos o tres, la estructura del consumo apenas cambia. Pero en cinco, en diez años, cambia mucho: aparecen categorías enteras nuevas (los servicios de *streaming* holográfico, los suscripciones a sistemas de defensa antiasteroides doméstica), otras se contraen o desaparecen (los reproductores de datacristales, los seguros de meteoritos convencionales), y los pesos relativos se reordenan por completo. Un IPC calculado en el año $2226$ usando la cesta y las ponderaciones del año $2210$ estaría midiendo, esencialmente, la inflación de un modo de vida que ya no existe.
+
+Hasta principios de este siglo, la solución era doble: revisar la base cada ocho o diez años (dando pie al *"cambio de base"* del IPC, que en Terra ha ocurrido en $2001$, $2006$, $2011$, $2016$, $2021$ y $2025$), y **enlazar** la serie antigua con la nueva —técnica que veremos en la sección [siguiente](#enlace-cambios-base)—. Pero incluso así, entre dos cambios de base, la cesta permanecía congelada.
+
+A partir del sistema base $2001$, el INE (y con él, la mayoría de institutos estadísticos avanzados) dio el paso al **Laspeyres encadenado**. La idea es sencilla y muy elegante: seguir usando la fórmula de Laspeyres —fácil de calcular, exigente solo con las cantidades del período base—, pero **actualizar cada año** tanto la muestra como las ponderaciones, y **empalmar** los índices sucesivos multiplicando el nuevo por el anterior. En términos estilizados:
+
+$$
+p^{t}_{0} \;=\; p^{1}_{0}\;\cdot\; p^{2}_{1}\;\cdot\; p^{3}_{2}\;\cdots\; p^{t}_{t-1},
+$$
+
+donde cada factor es un Laspeyres calculado con las ponderaciones actualizadas a diciembre del año inmediatamente anterior. El resultado es un índice con base fija (todos los datos se refieren a un mismo año base para su presentación), pero cuyo **motor interno** son un montón de pequeños Laspeyres anuales concatenados. Se combinan así **lo mejor de dos mundos**: la ligereza y el bajo coste de Laspeyres dentro de cada tramo anual, con la actualidad de las ponderaciones que en un Paasche exigiría reponderar en cada período de referencia.
+
+Un pequeño ejemplo estilizado, con dos bienes y tres años:
+
+Table: **Tabla:** Datos ad-hoc para ilustrar el Laspeyres encadenado.
+
+| Año  | $p_{1}$ | $q_{1}$ | $p_{2}$ | $q_{2}$ |
+| ---- | ------- | ------- | ------- | ------- |
+| 2210 | 10      | 100     | 20      | 50      |
+| 2211 | 12      | 90      | 22      | 55      |
+| 2212 | 15      | 80      | 24      | 60      |
+
+Si aplicáramos Laspeyres puro con base $2210$, obtendríamos:
+
+$$
+L_{p, 2210 \to 2212} \;=\; \frac{15\cdot 100 + 24\cdot 50}{10\cdot 100 + 20\cdot 50} \;=\; \frac{2\,700}{2\,000} \;=\; 1{,}3500.
+$$
+
+En cambio, con Laspeyres **encadenado** —calculando cada tramo con las ponderaciones del año inmediatamente anterior— tenemos:
+
+$$
+L_{p, 2210 \to 2211} \;=\; \frac{12\cdot 100 + 22\cdot 50}{10\cdot 100 + 20\cdot 50} \;=\; \frac{2\,300}{2\,000} \;=\; 1{,}1500,
+$$
+
+$$
+L_{p, 2211 \to 2212} \;=\; \frac{15\cdot 90 + 24\cdot 55}{12\cdot 90 + 22\cdot 55} \;=\; \frac{2\,670}{2\,290} \;=\; 1{,}1659,
+$$
+
+$$
+L_{p, 2210 \to 2212}^{\text{encadenado}} \;=\; 1{,}1500\cdot 1{,}1659 \;=\; 1{,}3408.
+$$
+
+La diferencia entre $1{,}3500$ y $1{,}3408$ es pequeña ($0{,}7\,\%$), pero significativa: el índice encadenado ha *"visto"* que entre $2210$ y $2211$ los consumidores empezaron a reasignar sus cantidades, y ha incorporado esa información en el cálculo del segundo tramo, mientras que Laspeyres puro las ignora por completo. Cuanto más lejano sea el período base y mayor la reasignación de cantidades, mayor será la brecha entre ambos: en el largo plazo, un Laspeyres puro puede llegar a exagerar la inflación acumulada en varios puntos porcentuales enteros, un error inaceptable en un mundo en el que las pensiones, los alquileres o los salarios se revisan usando el IPC como referencia.
+
+### No aditividad y *chain drift*: los precios que hay que pagar. {#no-aditividad-chain-drift}
+
+El Laspeyres encadenado no es una solución gratuita: viene con dos peculiaridades metodológicas incómodas que conviene conocer.
+
+**La falta de aditividad.** En un Laspeyres puro, el índice de un agregado (por ejemplo, el IPC general) puede obtenerse como una media ponderada de los índices de sus componentes (los $13$ grupos ECOICOP, cada uno con su peso). Es una propiedad muy útil: da coherencia interna al indicador y permite calcular repercusiones de cada componente sobre el total con reglas de tres. En un índice **encadenado**, esta propiedad **se pierde**: no es posible reconstruir el índice general como media ponderada de los índices de los grupos. La misma metodología del INE lo dice, casi con resignación:
+
+> *"El principal inconveniente de los índices encadenados es la falta de aditividad. Esto hace que no sea posible obtener el índice de cualquier agregado como media ponderada de los índices de los agregados que lo componen. Así, por ejemplo, el índice general no se puede calcular como media ponderada de los índices de los doce grupos."*
+
+En la práctica esto exige mantener y publicar índices adicionales (los llamados índices "referidos a diciembre del año anterior") que sí son aditivos, y que sirven de peldaño intermedio para todos los cálculos internos. Es una complicación operativa, pero manejable.
+
+**El *chain drift*.** Es un problema más sutil y algo desconcertante: en algunos casos, si en un año $t$ los precios vuelven exactamente a su nivel del año base y las cantidades no, el índice **encadenado no vuelve a $1$**, sino que se queda con un pequeño residuo. Es como si el mero acto de haber pasado por unos precios intermedios distintos —aunque hayamos vuelto al punto de partida— dejara una huella permanente en el índice. Sobre nuestro ejemplito, si añadimos un año extra donde los precios de $2210$ regresan pero las cantidades de $2211$ persisten, el Laspeyres encadenado $2210 \to 2211 \to \text{"vuelta"}$ arroja $1{,}0044$ en lugar de un pulcro $1{,}0000$: un error de $44$ puntos básicos que no debería existir. En series muy volátiles o con alta frecuencia (semanal, diaria) el fenómeno puede acumularse y hacerse molesto, lo que ha dado pie a toda una línea de investigación en estadística oficial sobre fórmulas de encadenamiento alternativas (los índices de **Törnqvist** o de **Fisher encadenado**, con propiedades más robustas frente al *drift*, pero también más costosos).
+
+Para el IPC mensual, donde las ponderaciones se actualizan solo una vez al año, el *chain drift* rara vez supone un problema práctico apreciable, y por eso el Laspeyres encadenado sigue siendo la fórmula estándar. Pero conviene saber que existe: si algún día se topa el lector con un debate técnico sobre por qué tal o cual índice se calcula con Fisher encadenado, será, con toda probabilidad, esta la razón.
+
+### Nota metodológica: el índice moderno es más que una fórmula. {#nota-metodologia}
+
+Más allá del cambio de fórmula, la elaboración de un IPC actual incorpora todo un ecosistema de técnicas que hace unas pocas décadas no existían y que conviene, al menos, nombrar:
+
+- ***Scanner data***. Los datos de línea de caja de las grandes cadenas de supermercados aportan, para un puñado de categorías (alimentación envasada, droguería, cuidado personal), el universo completo de transacciones —no una muestra— con precio y cantidad para cada referencia comercial. Es una revolución respecto a la recogida tradicional a lápiz y libreta.
+- ***Web scraping*** automatizado. Para bienes y servicios cuyos precios cambian a diario y se publican en internet (billetes de avión, apartamentos turísticos, alquiler de vehículos), la recogida se automatiza mediante software que consulta las páginas web con la frecuencia adecuada y extrae precios de forma masiva.
+- **Ajustes hedónicos por calidad**. Como ya se ha mencionado, cuando un artículo desaparece del mercado, la parte del cambio de precio que se debe a mejora tecnológica se depura mediante regresión sobre las características del producto.
+- **Introducción y salida de productos**. La cesta se revisa anualmente para incluir productos emergentes (los últimos años han incorporado, en el IPC terráqueo, los servicios de plataformas de *streaming*, los servicios de mensajería instantánea de pago o las suscripciones a gimnasios *low cost*) y dar de baja los que dejan de ser representativos.
+
+El resultado es un indicador cuya construcción combina, sin remordimientos, estadística clásica con ingeniería de datos moderna. Es un buen ejemplo de disciplina que ha sabido reciclarse.
 
 ## Enlace y cambios de base. {#enlace-cambios-base}
 
-Los números índice de base fija sufren un problema estructural: la elección del período base envejece. Con el tiempo, la estructura económica, los patrones de consumo y los propios productos cambian tanto que un año base demasiado lejano deja de ser una referencia comparable. En el ámbito galáctico, tomar como base el año $2050$ para medir el nivel de precios de $2216$ tendría un aire similar a tomar el precio del pergamino para medir el coste de las suscripciones a servicios en la nube: técnicamente posible, informativamente inútil.
+Aunque el encadenamiento anual descrito en la sección anterior amortigua enormemente el problema del envejecimiento de la cesta, cada varios años (cinco, en el caso del IPC español) las oficinas estadísticas hacen un **cambio de base** completo: rehacen toda la clasificación funcional, actualizan la muestra de artículos y establecimientos, y reexpresan el índice tomando un nuevo año como referencia ($=100$). El último cambio de base del IPC entró en vigor en enero de $2026$, con base $2025$.
 
-Hay dos maneras razonables de convivir con este problema:
-
-- **Trabajar con números índice encadenados**, en los que la base se desplaza automáticamente año a año, y por diseño está siempre "cerca".
-- **Cambiar de base cada cierto tiempo** y **enlazar** las series antigua y nueva para no perder la comparabilidad histórica.
-
-La segunda opción es la habitual en organismos estadísticos como el INE terrestre o el (ficticio) *Consejo Estelar de Estadística Galáctica*: cada $5$ o $10$ años se actualiza la base del IPC, y se ofrece la serie histórica ya reexpresada en la nueva base. Vamos a ver cómo se hace ese cambio de base con nuestras propias manos, apoyándonos en la propiedad de **proporcionalidad constante independiente de la base** que enunciamos en la sección de propiedades.
+En ese momento surge una cuestión práctica de primer orden: si un contrato de alquiler estipula "*revisión anual según el IPC*" y la serie histórica cambia de base, ¿cómo se conectan los datos antiguos con los nuevos? La respuesta técnica se llama **enlace** de series, y descansa directamente sobre la propiedad de proporcionalidad constante independiente de la base que enunciamos en la sección [6.3](#propiedades-indices). Vamos a verla en acción con datos concretos.
 
 Supongamos que disponemos de una serie de índice de precios de un conjunto de bienes de consumo galácticos con base en el año $2208$, y que queremos reexpresarla con base en $2212$. La expresión del enlace técnico es:
 
@@ -475,171 +484,84 @@ $$
 p_{h}^{t} \;=\; \frac{p_{0}^{t}}{p_{0}^{h}},
 $$
 
-que sale directamente de aplicar la propiedad ya mencionada tomando como "base antigua" el período $0$ (aquí, $2208$) y como "base nueva" el período $h$ (aquí, $2212$). Ilustrémoslo con datos concretos.
+que sale directamente de aplicar la propiedad ya mencionada tomando como "base antigua" el período $0$ (aquí, $2208$) y como "base nueva" el período $h$ (aquí, $2212$). Ilustrémoslo:
 
-```{r cambio-base-tabla}
-cambio_base <- tibble(
-  Anio   = 2208:2216,
-  base08 = c(100, 130, 160, 190, 220, NA, NA, NA, NA),
-  base12 = c(NA, NA, NA, NA, 100, 130, 180, 240, 250)
-)
+Table: **Tabla:** Cambio de base de un índice de precios: enlace técnico de la base 2208 a la base 2212.
 
-# Enlace hacia atrás usando p_h^t = p_0^t / p_0^h
-p0h <- 220  # valor de la base antigua en el nuevo año base (2212)
-cambio_base <- cambio_base %>%
-  mutate(
-    enlace12 = case_when(
-      !is.na(base12) ~ base12,
-      TRUE           ~ base08 / p0h * 100
-    )
-  )
-
-cambio_base %>%
-  transmute(
-    `Año` = Anio,
-    `Índice base 2208`  = ifelse(is.na(base08), "—", fmt(base08, 2)),
-    `Índice base 2212`  = ifelse(is.na(base12), "—", fmt(base12, 2)),
-    `Índice enlazado (base 2212)` = fmt(enlace12, 4)
-  ) %>%
-  kable(
-    caption   = "Cambio de base de un índice de precios: enlace técnico de la base 2208 a la base 2212.",
-    align     = "cccc",
-    booktabs  = TRUE,
-    escape    = FALSE
-  ) %>%
-  kable_styling(
-    bootstrap_options = c("hover", "condensed"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  )
-```
+| Año  | Índice base 2208 | Índice base 2212 | Índice enlazado (base 2212) |
+| ---- | ---------------- | ---------------- | --------------------------- |
+| 2208 | 100,00           | —                | 45,4545                     |
+| 2209 | 130,00           | —                | 59,0909                     |
+| 2210 | 160,00           | —                | 72,7273                     |
+| 2211 | 190,00           | —                | 86,3636                     |
+| 2212 | 220,00           | 100,00           | 100,0000                    |
+| 2213 | —                | 130,00           | 130,0000                    |
+| 2214 | —                | 180,00           | 180,0000                    |
+| 2215 | —                | 240,00           | 240,0000                    |
+| 2216 | —                | 250,00           | 250,0000                    |
 
 Ejemplos de cálculo, sobre la parte antigua de la serie:
 
 $$
-p_{2212}^{2208} \;=\; \frac{p_{2208}^{2208}}{p_{2208}^{2212}} \cdot 100 \;=\; \frac{100}{220}\cdot 100 \;=\; `r fmt(100/220*100, 4)`.
+p_{2212}^{2208} \;=\; \frac{p_{2208}^{2208}}{p_{2208}^{2212}} \cdot 100 \;=\; \frac{100}{220}\cdot 100 \;=\; 45{,}4545.
 $$
 
 $$
-p_{2212}^{2210} \;=\; \frac{p_{2208}^{2210}}{p_{2208}^{2212}} \cdot 100 \;=\; \frac{160}{220}\cdot 100 \;=\; `r fmt(160/220*100, 4)`.
+p_{2212}^{2210} \;=\; \frac{p_{2208}^{2210}}{p_{2208}^{2212}} \cdot 100 \;=\; \frac{160}{220}\cdot 100 \;=\; 72{,}7273.
 $$
 
-El resultado se lee así: con la nueva base $2212=100$, el nivel de precios de $2208$ era $`r fmt(100/220*100, 2)`$ (es decir, un $`r fmt(100 - 100/220*100, 1)`\,\%$ inferior al de $2212$); y el de $2210$ era $`r fmt(160/220*100, 2)`$ (un $`r fmt(100 - 160/220*100, 1)`\,\%$ inferior). La serie enlazada ofrece ahora una única lectura, con la misma escala de referencia, tanto para los años antiguos como para los nuevos.
+El resultado se lee así: con la nueva base $2212=100$, el nivel de precios de $2208$ era $45{,}45$ (es decir, un $54{,}5\,\%$ inferior al de $2212$); y el de $2210$ era $72{,}73$ (un $27{,}3\,\%$ inferior). La serie enlazada ofrece ahora una única lectura, con la misma escala de referencia, tanto para los años antiguos como para los nuevos.
+
+Un matiz que no siempre se subraya lo suficiente: el enlace mediante la propiedad de proporcionalidad **preserva exactamente las tasas de variación** de la serie original, año a año. Lo único que cambia es la escala de referencia. Y por eso las cláusulas de revisión de rentas ligadas al IPC pueden atravesar sin problemas los sucesivos cambios de base a lo largo de las décadas: la información sobre variaciones que contenían los índices originales no se pierde en la operación.
 
 ## Deflactación de series económicas. {#deflactacion}
 
 Llegamos a la aplicación más importante, con diferencia, de todo lo anterior. Los precios no son magnitudes inmóviles: cambian con el tiempo, casi siempre al alza (a la caída también, pero eso ya es tema para el capítulo de casos especiales de cualquier libro de historia económica). Y ese hecho, aparentemente inocuo, tiene una consecuencia perversa que puede confundir a cualquier analista poco entrenado: **las cifras económicas en unidades monetarias pueden crecer sin que realmente crezca la actividad**, simplemente porque los precios están subiendo.
 
+### La fábula de Isla Cinturón. {#fabula-isla-cinturon}
+
 Ilustrémoslo con una fábula muy sencilla. Un pequeño planeta (llamémoslo *Isla Cinturón*, en las afueras del Sistema Astolat) produce, en el año $0$, cuatro bienes y servicios distintos:
 
-```{r isla-anio-0}
-isla_0 <- tibble(
-  Bien = c("Coco melifluo", "Vino de anillo", "Cesta de mimbre plasma", "Excursión orbital en grupo"),
-  q0   = c(2500, 800, 600, 34),
-  p0   = c(2, 6, 20, 800),
-  V0   = q0 * p0
-)
+Table: **Tabla:** Producción de Isla Cinturón en el año 0. Los precios están en PAVOs y las cantidades en las unidades habituales de cada bien.
 
-isla_0 %>%
-  transmute(
-    `Bien o servicio` = Bien,
-    `Cantidad ($q_{0}$)` = fmtint(q0),
-    `Precio año 0 ($p_{0}$)` = fmtint(p0),
-    `Valor año 0 ($p_{0} q_{0}$)` = fmtint(V0)
-  ) %>%
-  kable(
-    caption = "Producción de Isla Cinturón en el año 0. Los precios están en PAVOs y las cantidades en las unidades habituales de cada bien.",
-    align    = "lccc",
-    booktabs = TRUE,
-    escape   = FALSE
-  ) %>%
-  kable_styling(
-    bootstrap_options = c("hover", "condensed"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  )
-```
+| Bien o servicio            | Cantidad ($q_{0}$) | Precio año 0 ($p_{0}$) | Valor año 0 ($p_{0} q_{0}$) |
+| -------------------------- | ------------------ | ---------------------- | --------------------------- |
+| Coco melifluo              | 2.500              | 2                      | 5.000                       |
+| Vino de anillo             | 800                | 6                      | 4.800                       |
+| Cesta de mimbre plasma     | 600                | 20                     | 12.000                      |
+| Excursión orbital en grupo | 34                 | 800                    | 27.200                      |
 
-El valor total de la producción del año $0$ es de $`r fmtint(sum(isla_0$V0))`$ PAVOs. Pasan algunos años; llega un año $t$ posterior, con nuevos precios y nuevas cantidades:
+El valor total de la producción del año $0$ es de $49.000$ PAVOs. Pasan algunos años; llega un año $t$ posterior, con nuevos precios y nuevas cantidades:
 
-```{r isla-anio-t}
-isla_t <- tibble(
-  Bien = c("Coco melifluo", "Vino de anillo", "Cesta de mimbre plasma", "Excursión orbital en grupo"),
-  qt   = c(2000, 800, 800, 25),
-  pt   = c(4, 8, 15, 1000)
-) %>%
-  mutate(Vt = qt * pt)
+Table: **Tabla:** Producción de Isla Cinturón en el año t. Ninguno de los cuatro precios se ha mantenido estable respecto del año 0.
 
-isla_t %>%
-  transmute(
-    `Bien o servicio` = Bien,
-    `Cantidad ($q_{t}$)` = fmtint(qt),
-    `Precio año $t$ ($p_{t}$)` = fmtint(pt),
-    `Valor año $t$ ($p_{t} q_{t}$)` = fmtint(Vt)
-  ) %>%
-  kable(
-    caption = "Producción de Isla Cinturón en el año t. Ninguno de los cuatro precios se ha mantenido estable respecto del año 0.",
-    align    = "lccc",
-    booktabs = TRUE,
-    escape   = FALSE
-  ) %>%
-  kable_styling(
-    bootstrap_options = c("hover", "condensed"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  )
-```
+| Bien o servicio            | Cantidad ($q_{t}$) | Precio año $t$ ($p_{t}$) | Valor año $t$ ($p_{t} q_{t}$) |
+| -------------------------- | ------------------ | ------------------------ | ----------------------------- |
+| Coco melifluo              | 2.000              | 4                        | 8.000                         |
+| Vino de anillo             | 800                | 8                        | 6.400                         |
+| Cesta de mimbre plasma     | 800                | 15                       | 12.000                        |
+| Excursión orbital en grupo | 25                 | 1.000                    | 25.000                        |
 
-```{r isla-tasa-nominal}
-V0_tot <- sum(isla_0$V0)
-Vt_tot <- sum(isla_t$Vt)
-tasa_nominal <- (Vt_tot - V0_tot) / V0_tot * 100
-```
-
-Un directivo apresurado, que se limitara a comparar el valor total del año $0$ ($`r fmtint(V0_tot)`$ PAVOs) con el del año $t$ ($`r fmtint(Vt_tot)`$ PAVOs), anunciaría —con un ligero tinte triunfalista— que la producción de Isla Cinturón ha crecido un $`r fmt(tasa_nominal, 2)`\,\%$. Pero no ha comparado producciones: ha comparado **facturaciones**. Y facturar más no siempre es producir más.
+Un directivo apresurado, que se limitara a comparar el valor total del año $0$ ($49.000$ PAVOs) con el del año $t$ ($51.400$ PAVOs), anunciaría —con un ligero tinte triunfalista— que la producción de Isla Cinturón ha crecido un $4{,}90\,\%$. Pero no ha comparado producciones: ha comparado **facturaciones**. Y facturar más no siempre es producir más.
 
 Para ver qué ha ocurrido realmente con las **cantidades** producidas, hay que valorar la producción del año $t$ **a los precios del año $0$**, no a los precios del año $t$. Es decir, quitar el efecto de la subida (y la bajada) de precios:
 
-```{r isla-tasa-real}
-isla_real <- isla_t %>%
-  mutate(V_real = qt * isla_0$p0)
+Table: **Tabla:** Producción del año t valorada a precios del año 0. Ahora sí se compara producción con producción.
 
-Vt_real <- sum(isla_real$V_real)
-tasa_real <- (Vt_real - V0_tot) / V0_tot * 100
+| Bien o servicio            | Cantidad ($q_{t}$) | Precio año 0 ($p_{0}$) | Valor año $t$ a precios de $0$ ($p_{0} q_{t}$) |
+| -------------------------- | ------------------ | ---------------------- | ---------------------------------------------- |
+| Coco melifluo              | 2.000              | 2                      | 4.000                                          |
+| Vino de anillo             | 800                | 6                      | 4.800                                          |
+| Cesta de mimbre plasma     | 800                | 20                     | 16.000                                         |
+| Excursión orbital en grupo | 25                 | 800                    | 20.000                                         |
 
-isla_real %>%
-  transmute(
-    `Bien o servicio` = Bien,
-    `Cantidad ($q_{t}$)` = fmtint(qt),
-    `Precio año 0 ($p_{0}$)` = fmtint(isla_0$p0),
-    `Valor año $t$ a precios de $0$ ($p_{0} q_{t}$)` = fmtint(V_real)
-  ) %>%
-  kable(
-    caption   = "Producción del año t valorada a precios del año 0. Ahora sí se compara producción con producción.",
-    align     = "lccc",
-    booktabs  = TRUE,
-    escape    = FALSE
-  ) %>%
-  kable_styling(
-    bootstrap_options = c("hover", "condensed"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  )
-```
-
-Con precios homogéneos, la conclusión cambia de signo: la producción no ha crecido un $`r fmt(tasa_nominal, 2)`\,\%$; en realidad, **ha decrecido** un $`r fmt(-tasa_real, 2)`\,\%$. Isla Cinturón produce menos cocos y menos excursiones que antes; solo la subida general de precios había disimulado ese retroceso al mirar la cifra en PAVOs corrientes.
+Con precios homogéneos, la conclusión cambia de signo: la producción no ha crecido un $4{,}90\,\%$; en realidad, **ha decrecido** un $8{,}57\,\%$. Isla Cinturón produce menos cocos y menos excursiones que antes; solo la subida general de precios había disimulado ese retroceso al mirar la cifra en PAVOs corrientes.
 
 ### Nominal, real y deflactor. {#deflactacion-conceptos}
 
 De este pequeño experimento nace la distinción fundamental que utilizará cualquier analista económico:
 
-::: {.definicion}
 Una variable económica está expresada a **precios corrientes** o en términos **nominales** cuando los valores de cada período utilizan los **precios propios de ese período**. Está expresada a **precios constantes** o en términos **reales** cuando todos los valores están calculados con los **precios de un mismo período de referencia**.
-:::
 
 La inmensa mayoría de las estadísticas económicas se publican, de partida, en términos nominales (así se recaudan, sin más manipulación). Convertirlas a términos reales es una operación que se llama **deflactación**, y que consiste en dividir la serie nominal por un **número índice de precios** adecuado, llamado **deflactor**.
 
@@ -651,80 +573,73 @@ $$
 
 donde el $\times 100$ hace falta si el deflactor está publicado en escala porcentual (que es lo habitual). El resultado es una serie expresada en unidades monetarias del año base del deflactor.
 
-Elegir bien el deflactor no es trivial: para un gasto en consumo, el deflactor natural es el IPC; para el PIB, el deflactor implícito del PIB; para las ventas de un sector concreto, un índice de precios de producción sectorial. Regla informal: úsese el deflactor **más ajustado posible** a la magnitud que se quiere deflactar, y no el primero que se tenga a mano.
+Elegir bien el deflactor no es trivial: para un gasto en consumo, el deflactor natural es el IPC; para el PIB, el deflactor implícito del PIB; para las ventas de un sector concreto, un índice de precios de producción sectorial (el **IPRI** terráqueo, por ejemplo). Regla informal: úsese el deflactor **más ajustado posible** a la magnitud que se quiere deflactar, y no el primero que se tenga a mano. Deflactar un salario con el deflactor del PIB, en lugar de con el IPC, es un error habitual de estudiantes primerizos —y a veces también de columnistas de opinión— que puede desplazar la conclusión final entre uno y dos puntos porcentuales.
 
 ### Un ejemplo con datos anuales. {#deflactacion-ejemplo}
 
 Supongamos que el *Consejo Estelar de Estadística Galáctica* publica anualmente el gasto en consumo final del Sistema Astolat (en millones de PAVOs corrientes) y, en paralelo, un **Índice General de Precios Galácticos** (IPGG) con base $2210 = 100$, que resume la evolución del nivel de precios del conjunto de bienes y servicios de consumo. Los datos publicados son:
 
-```{r deflactar-serie}
-serie <- tibble(
-  Anio      = 2209:2214,
-  Nominal   = c(4500, 4800, 5200, 5900, 6300, 6600),
-  IPGG      = c(95.5, 100.0, 106.2, 118.4, 125.7, 130.3)
-) %>%
-  mutate(
-    Real2210 = Nominal / IPGG * 100
-  )
+Table: **Tabla:** Gasto en consumo final del Sistema Astolat: paso de nominal a real usando el IPGG como deflactor.
 
-serie %>%
-  transmute(
-    `Año` = Anio,
-    `Gasto nominal (millones PAVOs)` = fmtint(Nominal),
-    `IPGG (base 2210 = 100)` = fmt(IPGG, 2),
-    `Gasto real (millones PAVOs de 2210)` = fmt(Real2210, 2)
-  ) %>%
-  kable(
-    caption   = "Gasto en consumo final del Sistema Astolat: paso de nominal a real usando el IPGG como deflactor.",
-    align     = "cccc",
-    booktabs  = TRUE
-  ) %>%
-  kable_styling(
-    bootstrap_options = c("hover", "condensed"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  )
-```
+| Año  | Gasto nominal (millones PAVOs) | IPGG (base 2210 = 100) | Gasto real (millones PAVOs de 2210) |
+| ---- | ------------------------------ | ---------------------- | ----------------------------------- |
+| 2209 | 4.500                          | 95,50                  | 4.712,04                            |
+| 2210 | 4.800                          | 100,00                 | 4.800,00                            |
+| 2211 | 5.200                          | 106,20                 | 4.896,42                            |
+| 2212 | 5.900                          | 118,40                 | 4.983,11                            |
+| 2213 | 6.300                          | 125,70                 | 5.011,93                            |
+| 2214 | 6.600                          | 130,30                 | 5.065,23                            |
 
 Un ejemplo de cálculo, para el año $2213$:
 
 $$
-\text{Gasto}_{2213}^{\text{real (a precios de 2210)}} \;=\; \frac{6\,300}{125{,}7}\cdot 100 \;=\; `r fmt(6300/125.7*100, 2)` \ \text{millones de PAVOs de 2210}.
+\text{Gasto}_{2213}^{\text{real (a precios de 2210)}} \;=\; \frac{6\,300}{125{,}7}\cdot 100 \;=\; 5.011{,}93 \ \text{millones de PAVOs de 2210}.
 $$
 
 Y, graficando las dos series juntas:
 
-```{r fig-deflactacion, fig.width=6.5, fig.height=4}
-serie_long <- serie %>%
-  transmute(
-    Anio,
-    `Nominal (PAVOs corrientes)`      = Nominal,
-    `Real (PAVOs constantes de 2210)` = Real2210
-  ) %>%
-  pivot_longer(-Anio, names_to = "Serie", values_to = "Valor")
+```{r fig-deflactacion-cap06, fig.cap="Gasto en consumo final del Sistema Astolat: series nominal y real, con base 2210 = 100."}
+df_defla <- tibble(
+  Anio     = 2209:2214,
+  Nominal  = c(4500, 4800, 5200, 5900, 6300, 6600),
+  Real2210 = c(4712.04, 4800.00, 4896.42, 4983.11, 5011.93, 5065.23)
+) |>
+  pivot_longer(-Anio, names_to = "Serie", values_to = "Millones")
 
-ggplot(serie_long, aes(Anio, Valor, color = Serie, shape = Serie)) +
-  geom_line(linewidth = 1) +
-  geom_point(size = 2.6) +
-  scale_color_manual(values = c(pal_libro[1], pal_alerta)) +
-  scale_y_continuous(labels = label_number(big.mark = ".", decimal.mark = ",")) +
+ggplot(df_defla, aes(Anio, Millones, color = Serie)) +
+  geom_line(linewidth = 0.9) +
+  geom_point(size = 2.4) +
+  scale_color_manual(values = c(pal_libro[1], pal_alerta),
+                     labels = c("Nominal", "Real (base 2210)")) +
   scale_x_continuous(breaks = 2209:2214) +
-  labs(title    = "Gasto en consumo final del Sistema Astolat",
-       subtitle = "Nominal vs. real (deflactado con el IPGG, base 2210)",
-       x = NULL, y = "Millones de PAVOs",
-       color = NULL, shape = NULL) +
+  scale_y_continuous(labels = label_number(big.mark = ".", decimal.mark = ",")) +
+  labs(x = NULL, y = "Millones de PAVOs", color = NULL) +
   theme_libro()
 ```
 
-```{r crec-nominal-real}
-crec_nominal <- (serie$Nominal[6] / serie$Nominal[1] - 1) * 100
-crec_real    <- (serie$Real2210[6] / serie$Real2210[1] - 1) * 100
-```
-
-Las dos series cuentan historias distintas. En términos nominales, el gasto en consumo del Sistema Astolat pasó de $`r fmtint(serie$Nominal[1])`$ millones en $2209$ a $`r fmtint(serie$Nominal[6])`$ millones en $2214$: un aumento del $`r fmt(crec_nominal, 1)`\,\%$. En términos reales, sin embargo, el gasto solo creció un $`r fmt(crec_real, 1)`\,\%$ (de $`r fmt(serie$Real2210[1], 0)`$ a $`r fmt(serie$Real2210[6], 0)`$ millones de PAVOs de $2210$). La diferencia entre ambas cifras —aproximadamente $`r fmt(crec_nominal - crec_real, 1)`$ puntos porcentuales— corresponde íntegramente al efecto de la inflación galáctica: no es que Astolat consuma mucho más, es que las cosas cuestan considerablemente más caras.
+Las dos series cuentan historias distintas. En términos nominales, el gasto en consumo del Sistema Astolat pasó de $4.500$ millones en $2209$ a $6.600$ millones en $2214$: un aumento del $46{,}7\,\%$. En términos reales, sin embargo, el gasto solo creció un $7{,}5\,\%$ (de $4.712$ a $5.065$ millones de PAVOs de $2210$). La diferencia entre ambas cifras —aproximadamente $39{,}2$ puntos porcentuales— corresponde íntegramente al efecto de la inflación galáctica: no es que Astolat consuma mucho más, es que las cosas cuestan considerablemente más caras.
 
 Y esa distinción, tan sencilla y tan a menudo obviada, es lo que le da a este bloque de la asignatura toda su importancia práctica: cualquier decisión empresarial o de política económica basada en cifras nominales sin deflactar corre el riesgo de estar comparando cosas que, sencillamente, ya no comparten unidad de medida.
+
+## La familia de números índice en el mundo real. {#familia-indices}
+
+Buena parte del capítulo lo hemos dedicado, casi por herencia bibliográfica, al Índice de Precios de Consumo. Pero conviene, al menos, saber que el IPC es solo uno de una familia mucho más numerosa de indicadores que un economista se encontrará en el ejercicio profesional. Un breve panorama, sin entrar en detalles:
+
+- El **IPC** (Índice de Precios de Consumo) mide la evolución del nivel de precios de los bienes y servicios que compran los hogares residentes. En su versión armonizada (**IPCA**), permite comparaciones entre países de la UE y sirve como referencia para la política monetaria del Banco Central Europeo.
+- El **deflactor implícito del PIB** cubre todos los bienes y servicios que se producen en la economía (no solo los que consumen los hogares) y es el índice natural para pasar el PIB nominal a PIB real. A diferencia del IPC, se calcula como un **Paasche implícito**: no se recoge una cesta específica; sale del cociente entre el PIB nominal y el PIB en volumen.
+- El **Índice de Precios Industriales (IPRI)** mide la evolución de los precios a los que las empresas industriales venden a los mayoristas. Es el deflactor natural para las ventas industriales y para muchos análisis empresariales sectoriales.
+- El **Índice de Precios de Vivienda (IPV)** aporta un dato específico para un mercado —el inmobiliario— donde el IPC recoge solo la parte de alquileres, y no la de compraventa, que no forma parte técnica del consumo corriente.
+- Los **índices bursátiles** (IBEX 35, EuroStoxx 50, S&P 500, y sus análogos galácticos como el KESSEL 20) son también, en rigor, números índice de precios: cocientes de la capitalización actual respecto a una base, con ponderaciones que son las capitalizaciones relativas de las empresas incluidas. El IBEX 35 es, de hecho, un Laspeyres muy peculiar: reajusta su composición dos veces al año, con un comité que decide qué compañías entran y salen.
+- **Índices espaciales** como las **paridades de poder adquisitivo (PPP)** que la ONU y la OCDE publican periódicamente permiten comparar el nivel de precios entre países en un momento dado del tiempo, no entre momentos del tiempo dentro de un mismo país. Formalmente son primos hermanos del IPC, pero cambiando el eje temporal por el eje geográfico.
+
+Y luego, en el terreno más directamente empresarial, aparecen las **cláusulas de actualización** de contratos y rentas, que probablemente sea la aplicación más cercana y visible del IPC para el ciudadano medio:
+
+- Las **rentas de alquiler** de vivienda se revisan típicamente por IPC (con matices legales que varían de un año a otro).
+- Las **pensiones** públicas también, en la mayoría de sistemas de reparto contemporáneos.
+- Los **salarios** en muchos convenios colectivos incluyen cláusulas de garantía ligadas al IPC.
+- Las **primas de seguros** de vehículos, viviendas o vida se actualizan anualmente por IPC.
+
+Todo esto explica por qué un dato como el IPC anual no es solo un indicador coyuntural más: es un multiplicador que se aplica, literalmente, sobre millones de contratos vigentes. Un error metodológico de una décima acumulada durante cinco años puede desplazar cientos de millones de euros de un lado a otro de una economía nacional. Por eso los institutos estadísticos son tan cuidadosos —a veces conservadores, incluso— con sus metodologías.
 
 ## Recapitulación. {#recapitulacion-cap06}
 
@@ -732,8 +647,11 @@ Este capítulo ha sido el más "operativo" del libro hasta ahora. En él hemos a
 
 - Un **número índice simple** compara los valores de una única magnitud entre un período **base** y un período **actual**, mediante un cociente. Puede ser de **base fija** (la base no cambia) o **encadenado** (cada valor se compara con el inmediatamente anterior).
 - Los **índices simples de precios, cantidades y valor** están ligados por una relación multiplicativa: $V_{0}^{t} = p_{0}^{t}\cdot q_{0}^{t}$.
-- Todo número índice bien construido debe cumplir cuatro **propiedades** naturales: unicidad, identidad, reversión cronológica y proporcionalidad constante independiente de la base.
+- Todo número índice bien construido debe cumplir cuatro **propiedades** naturales: existencia, identidad, reversión cronológica y proporcionalidad constante independiente de la base.
 - Cuando la magnitud a resumir agrupa **varios** productos, se usan **números índice complejos**, que son promedios ponderados de los índices simples. Según cómo se definan las ponderaciones aparecen los tres índices clásicos: **Laspeyres** (pesos del período base), **Paasche** (pesos del período actual) y **Fisher** (media geométrica de ambos). Solo Fisher preserva íntegramente la descomposición valor $=$ precio $\times$ cantidad.
+- La elección entre Laspeyres, Paasche y Fisher no es teórica sino **operativa**: Laspeyres es barato (solo necesita cantidades del período base) pero tiende a sobrestimar la inflación por el **sesgo de sustitución**; Paasche es teóricamente más fiel al comportamiento actual del consumidor pero informacionalmente muy costoso (obliga a actualizar cantidades cada año); Fisher combina lo mejor de ambos pero exige toda la información de los dos.
+- Los índices complejos reales —el IPC, principalmente— se construyen sobre una **cesta** de cientos de artículos seleccionados según su representatividad, con **ponderaciones** derivadas de la Contabilidad Nacional y la Encuesta de Presupuestos Familiares, y con una recogida masiva de precios que combina agentes de campo, *scanner data* de supermercados y *web scraping* automatizado.
+- En la práctica moderna, el estándar internacional es el **Laspeyres encadenado**: se aplica la fórmula de Laspeyres dentro de cada tramo anual pero se actualizan las ponderaciones año a año y se empalman los tramos, capturando así los cambios en la estructura de consumo sin renunciar al bajo coste de Laspeyres. Como contrapartida, se pierde la **aditividad** y puede aparecer un pequeño *chain drift*.
 - El **cambio de base** de una serie de índices no requiere volver a los datos originales: basta aplicar la propiedad de proporcionalidad para reexpresar toda la serie en la nueva base.
 - Finalmente, la **deflactación** es la aplicación más importante de todo lo anterior: consiste en dividir una serie económica nominal por un índice de precios adecuado (el deflactor) para obtener la serie en términos reales, expresada en unidades monetarias de un año de referencia. Sin este paso previo, muchas comparaciones intertemporales pierden todo su sentido económico.
 
