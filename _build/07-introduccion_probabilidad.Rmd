@@ -23,7 +23,7 @@ library(scales)
 library(patchwork)
 library(readxl)
 
-# Paleta y tema del libro (idénticos a los capítulos 1–5).
+# Paleta y tema del libro (idénticos a los capítulos 1–6).
 pal_libro  <- c("#475569", "#64748b", "#94a3b8", "#cbd5e1",
                 "#0f172a", "#1e293b", "#334155")
 pal_acento <- "#475569"
@@ -77,16 +77,16 @@ rstars <- read_excel("data/interestelar_300.xlsx", sheet = "Datos")
 
 
 ::: {style="text-align: center;"}
-**Figura 6.1.** [La probabilidad nació sobre el tapete: dados, cartas y algún cazarrecompensas con demasiado tiempo libre.]{.smallcaps}
+**Figura 7.1.** [La probabilidad nació sobre el tapete: dados, cartas y algún cazarrecompensas con demasiado tiempo libre.]{.smallcaps}
 :::
 
-Los cinco capítulos anteriores han estado dedicados a **describir**. Con la ayuda de *Hyperdrive Express*, *Shuttlepod Movers*, la flota de los tres astilleros galácticos y la muestra completa de $`r fmtint(300)`$ compañías del universo R-Stars, hemos aprendido a resumir información con medidas de posición y dispersión, a estudiar la relación entre variables mediante tablas de contingencia y coeficientes de correlación, a ajustar modelos de regresión y, en el capítulo anterior, a construir números índice para comparar magnitudes económicas en el tiempo. Ha sido, en cierto modo, un ejercicio de **cartografía**: dibujar el mapa de lo que hay.
+Los seis capítulos anteriores han estado dedicados a **describir**. Con la ayuda de *Hyperdrive Express*, *Shuttlepod Movers*, la flota de los tres astilleros galácticos y la muestra completa de $`r fmtint(300)`$ compañías del universo R-Stars, hemos aprendido a resumir información con medidas de posición y dispersión, a estudiar la relación entre variables mediante tablas de contingencia y coeficientes de correlación, a ajustar modelos de regresión y, en el capítulo anterior, a construir números índice para comparar magnitudes económicas en el tiempo. Ha sido, en cierto modo, un ejercicio de **cartografía**: dibujar el mapa de lo que hay.
 
-A partir de este capítulo abrimos un bloque distinto. En lugar de describir *lo que ha pasado*, empezaremos a hablar de *lo que podría pasar*. En lugar de decir que «los cargueros de la flota tienen un tonelaje medio de `r fmt(mean(astilleros$TONELAJE),2)` miles de toneladas», querremos decir cosas como: «si mañana escogemos al azar un carguero de la flota galáctica, ¿qué **probabilidad** hay de que sea pesado?»; o «entre las compañías R-Stars que han tenido pérdidas este año, ¿cuál es la probabilidad de que tengan la flota categorizada como *ANTIGUA*?»; o el clásico dilema del jefe de mantenimiento estelar: «acaba de fallar una nave; ¿de qué astillero es más probable que provenga?».
+A partir de este capítulo abrimos un bloque distinto. En lugar de describir *lo que ha pasado*, empezaremos a hablar de *lo que podría pasar*. En lugar de decir que «los cargueros de la flota tienen un tonelaje medio de `r fmt(mean(astilleros$TONELAJE),2)` miles de toneladas», querremos decir cosas como: «si mañana escogemos al azar un carguero de la flota galáctica, ¿qué **probabilidad** hay de que sea pesado?»; o «entre las compañías R-Stars con la flota categorizada como *ANTIGUA*, ¿qué probabilidad hay de que su índice de digitalización sea bajo?»; o el clásico dilema del jefe de mantenimiento estelar: «acaba de fallar una nave; ¿de qué astillero es más probable que provenga?».
 
 Pasar de la descripción a la incertidumbre exige un **nuevo lenguaje**. No basta con hablar de frecuencias observadas: necesitamos formalizar qué queremos decir cuando afirmamos que un suceso es «poco probable», «casi seguro» o «igual de probable que el otro». Ese lenguaje es el **Cálculo de Probabilidades**, cuyos cimientos ocupan este capítulo y los tres siguientes.
 
-Como todo lenguaje, tiene su historia. La probabilidad no nació en un aula universitaria, sino sobre un **tapete de juego**: en el siglo XVII, un aficionado a los dados llamado *Chevalier de Méré* le pidió a Blaise Pascal que le explicara por qué perdía dinero de forma sistemática apostando de cierta manera. Pascal escribió a Fermat, Fermat le contestó y, entre los dos, pusieron los cimientos de lo que hoy manejamos con toda naturalidad en balances, seguros y modelos de riesgo. Casi tres siglos más tarde, un ruso serio llamado *Andrei N. Kolmogorov* pondría orden axiomático en un jardín que empezaba a parecerse mucho a un tiovivo. Los cargueros galácticos aún no existían, pero, si hubieran existido, seguro que Pascal habría escrito otra carta.
+Como todo lenguaje, tiene su historia. La probabilidad no nació en un aula universitaria, sino sobre un **tapete de juego**: en el siglo XVII, un aficionado a los dados llamado *Chevalier de Méré* le pidió a Blaise Pascal que le explicara por qué perdía dinero de forma sistemática apostando de cierta manera. Pascal escribió a Fermat, Fermat le contestó y, entre los dos, pusieron los cimientos de lo que hoy manejamos con toda naturalidad en balances, seguros y modelos de riesgo. Casi tres siglos más tarde, un ruso serio llamado *Andrei N. Kolmogorov* pondría orden axiomático en un jardín que empezaba a parecerse mucho a un tiovivo. Y ya en el siglo XX, gente como *Frank P. Ramsey*, *Bruno de Finetti* o *Leonard J. Savage* daría un giro copernicano al concepto y sentaría las bases de la estadística bayesiana moderna. Los cargueros galácticos aún no existían, pero, si hubieran existido, seguro que Pascal habría escrito otra carta.
 
 ## Conceptos básicos. Sucesos aleatorios. {#conceptos-basicos-sucesos}
 
@@ -250,7 +250,7 @@ $$
 (S_1 \cap S_2)^{*} \;=\; S_1^{*} \cup S_2^{*}.
 $$
 
-En cristiano: la negación de un «o» es un «y de negaciones», y la negación de un «y» es un «o de negaciones». Traducido a la vida cotidiana, «no compraré ni Coca-Cola ni Pepsi» equivale a «no compraré Coca-Cola **y** no compraré Pepsi», que es exactamente la primera ley. Traducido a nuestro universo galáctico: **no** aceptar un contrato para KORRIGAN o para ARCTURUS equivale a **no** aceptarlo para KORRIGAN y, además, **no** aceptarlo para ARCTURUS.
+Dicho de otro modo: la negación de un «o» es un «y de negaciones», y la negación de un «y» es un «o de negaciones». Traducido a la vida cotidiana, «no compraré ni Coca-Cola ni Pepsi» equivale a «no compraré Coca-Cola **y** no compraré Pepsi», que es exactamente la primera ley. Traducido a nuestro universo galáctico: **no** aceptar un contrato para KORRIGAN o para ARCTURUS equivale a **no** aceptarlo para KORRIGAN y, además, **no** aceptarlo para ARCTURUS.
 
 Finalmente, dos sucesos $S$ y $S^{*}$ son **complementarios** si constituyen una partición del espacio muestral: cubren $E$ entero sin solaparse. En nuestro ejemplo, «ser pesado» y «ser ligero» son sucesos complementarios; también lo son «ser de KORRIGAN» y «no ser de KORRIGAN» (aunque este último es en realidad la unión $S \cup A$).
 
@@ -262,7 +262,7 @@ $$
 P: \Omega \longrightarrow [0,1], \qquad P(S) = \text{«medida de la certidumbre de que ocurra } S\text{»}.
 $$
 
-Que existan varias formas de definir formalmente esa medida no es un accidente histórico ni una pedantería: cada una de ellas resuelve un tipo distinto de problema. Vamos a repasarlas por orden cronológico.
+Que existan varias formas de definir formalmente esa medida no es un accidente histórico ni una pedantería: cada una de ellas resuelve un tipo distinto de problema. Vamos a repasarlas por orden cronológico. Al final del apartado dispondremos de un pequeño **mapa comparativo** que ayudará a decidir cuál usar en cada situación.
 
 ### La visión clásica: Laplace. {#laplace}
 
@@ -387,7 +387,17 @@ ggplot(df_frec, aes(x = vuelo, y = f_relativa)) +
 :::
 
 
-La lectura frecuentista tiene un enorme atractivo práctico: convierte la probabilidad en algo **medible** a partir de datos. Pero, filosóficamente, tiene un flanco delicado. El «límite cuando $N \to \infty$» exige repetir el experimento en las mismas condiciones un número infinito de veces, y ni la logística de *Arrakis Freight* ni la propia realidad se prestan a semejante despliegue. Además, no aclara qué probabilidad asignar a un suceso que ocurre una sola vez y no se puede repetir (¿probabilidad de que la fusión anunciada entre las dos mayores navieras del sector se cierre este trimestre?).
+Ese comportamiento —la frecuencia relativa se calma en torno a un valor a medida que crece el número de repeticiones— tiene nombre propio en probabilidad: se llama **Ley de los Grandes Números**, y es uno de los resultados más importantes de todo el edificio probabilístico. La estudiaremos con detalle en el capítulo dedicado a la inferencia; por ahora, basta con saber que el gráfico anterior no es una casualidad ni un sesgo del generador aleatorio: es la manifestación empírica de un teorema que, sin él, buena parte de la estadística no tendría sentido.
+
+::: callout-tip
+**Ley de los Grandes Números (versión intuitiva).** Si repetimos un experimento aleatorio en las mismas condiciones y de forma independiente, la frecuencia relativa con que ocurre cualquier suceso $A$ **tiende** a su probabilidad $P(A)$ conforme el número de repeticiones crece. Dicho de otra manera: la probabilidad es aquello a lo que se parecen, a la larga, las frecuencias observadas.
+:::
+
+La lectura frecuentista tiene un enorme atractivo práctico: convierte la probabilidad en algo **medible** a partir de datos. Es la base, por ejemplo, de la industria del **seguro**: una compañía no sabe si un cliente concreto tendrá un siniestro, pero, mirando decenas de miles de pólizas históricas, puede afirmar con notable confianza que el $2{,}3\,\%$ de los cargueros veteranos sufre un siniestro en un año, y con ese número calcula la prima. Es también la base de los **estudios epidemiológicos**, del **control estadístico de calidad** en factorías y de los **paneles de audiencia** que fijan el precio de la publicidad. Sin frecuencias grandes y estables, muchas industrias se irían a pique.
+
+Y hoy en día tiene una prima cercana, la **simulación de Monte Carlo**: cuando la probabilidad de un suceso es difícil o imposible de calcular analíticamente, podemos simular por ordenador $N$ veces el experimento, contar cuántas ocurre el suceso y aproximar $P(A) \approx n_A / N$. Es el motor detrás de la valoración de derivados financieros complejos, la evaluación de riesgos en centrales nucleares o la calibración de modelos climáticos. En el fondo, es la Ley de los Grandes Números convertida en algoritmo.
+
+Pero, filosóficamente, el enfoque frecuentista tiene un flanco delicado. El «límite cuando $N \to \infty$» exige repetir el experimento en las mismas condiciones un número infinito de veces, y ni la logística de *Arrakis Freight* ni la propia realidad se prestan a semejante despliegue. Además, no aclara qué probabilidad asignar a un suceso que ocurre una sola vez y no se puede repetir (¿probabilidad de que la fusión anunciada entre las dos mayores navieras del sector se cierre este trimestre?). Ese hueco lo cubrirá, más adelante, el enfoque subjetivo.
 
 ### La visión axiomática: Kolmogorov. {#kolmogorov}
 
@@ -426,6 +436,69 @@ $$
 
 Es decir, algo más de la mitad de los cargueros elegidos al azar de la flota son de KORRIGAN, o veteranos, o ambas cosas. La regla del complementario nos dice, sin más, que el resto —poco menos de la mitad— no cumple ninguna de las dos condiciones.
 
+### La visión subjetiva: Ramsey, de Finetti y el bayesianismo moderno. {#subjetivista}
+
+Los tres enfoques anteriores comparten un supuesto: que existe una probabilidad **objetiva**, ahí fuera, esperando ser calculada (por conteo, por frecuencia o por axioma). Pero, ¿qué hacer cuando el suceso no es repetible? ¿Qué probabilidad asignamos a que el próximo lanzamiento del carguero *Millennium Freight* llegue con retraso, cuando es su viaje inaugural y no hay historial? ¿Qué probabilidad a que la nueva regulación aduanera de la Confederación Estelar se apruebe antes de fin de año? ¿Qué probabilidad a que la fusión anunciada entre dos navieras se cierre? Estos son sucesos únicos, sin frecuencias históricas ni casos equiprobables.
+
+La respuesta la dieron, en los años 1920–1950, matemáticos como *Frank P. Ramsey*, *Bruno de Finetti* y *Leonard J. Savage*: la probabilidad es un **grado de creencia** que un agente racional asigna a un suceso, y se puede medir observando cómo el agente **apostaría** por él. Si estamos dispuestos a apostar 30 PAVOs contra 70 para ganar 100 en caso de que la fusión se cierre, estamos revelando que nuestra probabilidad subjetiva es $0{,}30$.
+
+Lo notable —y lo que hace del enfoque subjetivo una teoría matemática y no una simple opinión de barra de bar— es que, si esas apuestas cumplen ciertas condiciones mínimas de coherencia (esencialmente, no aceptar sistemas de apuestas que garanticen perder dinero, lo que se conoce como *Dutch book*), entonces las probabilidades resultantes **satisfacen automáticamente los axiomas de Kolmogorov**. Es decir, el enfoque subjetivo produce probabilidades matemáticamente idénticas a las otras tres vías; simplemente, las interpreta de otra forma.
+
+Y sobre esa reinterpretación se ha construido el **bayesianismo moderno**, el enfoque probabilístico que domina hoy la estadística aplicada, la inteligencia artificial y buena parte del análisis económico y financiero. La idea central es sencillísima y ya la manejaremos formalmente en la Sección \@ref(bayes):
+
+1.  Empezamos con una **creencia previa** sobre un suceso o parámetro, expresada como probabilidad (la *prior*).
+2.  Observamos **evidencia** nueva (datos, un test, una señal).
+3.  Actualizamos nuestra creencia usando el **Teorema de Bayes** para obtener la **creencia posterior**.
+4.  Repetimos con la siguiente evidencia. Y así indefinidamente.
+
+Así es como piensa hoy un motor de scoring de crédito, un filtro antispam, un sistema de recomendación de Netflix o un modelo epidemiológico. Y así es como piensa —con o sin fórmulas— cualquier gestor razonable: se parte de una creencia, se observan datos, se ajusta. Volveremos a esta idea, ya con la maquinaria del Teorema de Bayes, en la Sección \@ref(bayes).
+
+### Cómo elegir el enfoque. Un mapa comparativo. {#mapa-enfoques}
+
+Los cuatro enfoques que hemos visto no son alternativas rivales sino **herramientas complementarias**. Cada uno funciona mejor en un tipo de problema. La Tabla \@ref(tab:enfoques) los resume.
+
+```{r enfoques}
+tibble(
+  Enfoque  = c("**Clásico** (Laplace, 1812)",
+               "**Frecuentista** (Von Mises, 1919)",
+               "**Axiomático** (Kolmogorov, 1933)",
+               "**Subjetivo** (Ramsey, de Finetti, 1930s)"),
+  Idea     = c("Casos favorables entre casos posibles.",
+               "Frecuencia relativa observada en muchas repeticiones.",
+               "Función que cumple tres axiomas mínimos.",
+               "Grado de creencia racional revelado por apuestas coherentes."),
+  Requiere = c("Casos finitos y equiprobables.",
+               "Poder repetir el experimento muchas veces.",
+               "Un espacio $(E,\\Omega)$ bien definido.",
+               "Un agente racional y evidencia disponible."),
+  `Ejemplo típico` = c("Loterías, juegos de azar, muestreos.",
+               "Seguros, control de calidad, epidemiología.",
+               "Toda la matemática de la probabilidad.",
+               "Fusiones, riesgos únicos, machine learning bayesiano.")
+) |>
+  kable(
+    
+    align    = c("l","l","l","l"),
+    booktabs = TRUE,
+    escape   = FALSE
+  ) |>
+  kable_styling(
+    bootstrap_options = c("hover","condensed"),
+    full_width        = TRUE,
+    position          = "center",
+    font_size         = 12
+  )
+```
+
+::: {style="text-align: center;"}
+**Tabla 7.3.** Los cuatro enfoques del concepto de probabilidad.
+:::
+
+
+Un consejo práctico: **no elija un enfoque, elija el mejor enfoque para su problema**. Si está calculando el pago esperado de un juego con dados o barajando muestras aleatorias, Laplace. Si tiene registros históricos abundantes y estables, frecuentista. Si necesita demostrar propiedades matemáticas, Kolmogorov. Si el suceso es único y sin frecuencia histórica, subjetivo/bayesiano. Todos son legítimos, y la mayoría de análisis reales combina varios sin darse cuenta.
+
+En el resto del libro, siguiendo la tradición de la estadística inferencial que se enseña en los cursos introductorios, adoptaremos preferentemente los enfoques **clásico** y **frecuentista**. Pero conviene tener en mente que existe una vía alternativa muy potente, que es la que rige buena parte del análisis de datos moderno.
+
 ## Probabilidad condicionada. {#probabilidad-condicionada}
 
 Hasta aquí hemos hablado de probabilidades **absolutas**: la probabilidad de un suceso a secas, sin condicionantes. Pero en la práctica pocas veces trabajamos con probabilidades absolutas puras: casi siempre disponemos de **información parcial** que modifica lo que sabemos sobre el experimento.
@@ -458,7 +531,7 @@ $$
 P(S_1 \cap S) \;=\; P(S) \cdot P(S_1 \mid S).
 $$
 
-En cristiano: la probabilidad de que ocurran los dos sucesos a la vez es la probabilidad de que ocurra uno multiplicada por la probabilidad del otro **dado** el primero. Esta identidad es el motor de la **regla de la multiplicación**.
+En definitiva: la probabilidad de que ocurran los dos sucesos a la vez es la probabilidad de que ocurra uno multiplicada por la probabilidad del otro **dado** el primero. Esta identidad es el motor de la **regla de la multiplicación**.
 
 ### Regla de la multiplicación. {#regla-multiplicacion}
 
@@ -480,6 +553,75 @@ $$
 
 Es decir, cerca de un $`r fmt((16/48)*(15/47)*(14/46)*100,1)`\,\%$: bajo, pero no despreciable, y desde luego bastante más alto de lo que uno esperaría a ojo si no ha calculado nada.
 
+### Diagramas de árbol. {#diagramas-arbol}
+
+Antes de entrar en los dos grandes teoremas que quedan por ver, conviene presentar una herramienta visual que hará el resto del capítulo mucho más digerible: el **diagrama de árbol**. Un árbol de probabilidad organiza gráficamente una sucesión de sucesos, poniendo en cada rama la **probabilidad condicionada** correspondiente. La regla de la multiplicación se convierte entonces en una simple recorrido: para calcular la probabilidad conjunta de un camino, se multiplican las probabilidades que hay a lo largo de él.
+
+Anticipemos el escenario que usaremos también en las dos secciones siguientes. El Consejo Estelar de Ingeniería ha emitido un informe de fiabilidad sobre los tres astilleros galácticos. Cada astillero coloca en el mercado el mismo número de naves, de forma que la probabilidad *a priori* de que una nave nueva provenga de un astillero cualquiera es $P(K) = P(S) = P(A) = 1/3$. La probabilidad de que una nave sufra un **fallo grave durante su primer año de servicio** varía según el astillero de origen: $0{,}10$ para KORRIGAN, $0{,}02$ para SELENE y $0{,}06$ para ARCTURUS. La Figura \@ref(fig:arbol) representa este experimento como un árbol.
+
+```{r arbol, fig.width=7.5, fig.height=4.2}
+# Nodo raíz en (0,0). Ramas de nivel 1 hacia (1, +1), (1, 0), (1, -1).
+# Ramas de nivel 2 hacia (2, y ± 0.35).
+nodos <- tibble(
+  x     = c(0, 1, 1, 1, 2, 2, 2, 2, 2, 2),
+  y     = c(0, 1.1, 0, -1.1, 1.4, 0.8, 0.3, -0.3, -0.8, -1.4),
+  label = c("Nave",
+            "KORRIGAN", "SELENE", "ARCTURUS",
+            "F", "F*", "F", "F*", "F", "F*")
+)
+
+ramas <- tibble(
+  x1 = c(0,0,0,   1,1,   1,1,   1,1),
+  y1 = c(0,0,0,   1.1,1.1, 0,0, -1.1,-1.1),
+  x2 = c(1,1,1,   2,2,   2,2,   2,2),
+  y2 = c(1.1,0,-1.1, 1.4,0.8, 0.3,-0.3, -0.8,-1.4),
+  lab= c("1/3","1/3","1/3",
+         "0,10","0,90",
+         "0,02","0,98",
+         "0,06","0,94"),
+  lx = c(0.5,0.5,0.5, 1.5,1.5, 1.5,1.5, 1.5,1.5),
+  ly = c(0.65, 0.05, -0.65, 1.32, 0.88, 0.22, -0.22, -0.88, -1.32)
+)
+
+conj <- tibble(
+  x = 2.9, 
+  y = c(1.4, 0.8, 0.3, -0.3, -0.8, -1.4),
+  label = c(
+    paste0("P(K \u2229 F)  = ",  fmt(1/3*0.10,4)),
+    paste0("P(K \u2229 F*) = ", fmt(1/3*0.90,4)),
+    paste0("P(S \u2229 F)  = ",  fmt(1/3*0.02,4)),
+    paste0("P(S \u2229 F*) = ", fmt(1/3*0.98,4)),
+    paste0("P(A \u2229 F)  = ",  fmt(1/3*0.06,4)),
+    paste0("P(A \u2229 F*) = ", fmt(1/3*0.94,4))
+  )
+)
+
+ggplot() +
+  geom_segment(data = ramas,
+               aes(x = x1, y = y1, xend = x2, yend = y2),
+               color = pal_libro[2], linewidth = 0.5) +
+  geom_text(data = ramas,
+            aes(x = lx, y = ly, label = lab),
+            color = pal_alerta, size = 3.1, fontface = "italic") +
+  geom_label(data = nodos,
+             aes(x = x, y = y, label = label),
+             fill = "white", color = "#1e293b",
+             label.size = 0.25, size = 3.2, fontface = "bold") +
+  geom_text(data = conj,
+            aes(x = x, y = y, label = label),
+            hjust = 0, color = "#334155", size = 3.1) +
+  coord_cartesian(xlim = c(-0.2, 4.2), ylim = c(-1.7, 1.7)) +
+  theme_void() +
+  theme(plot.margin = margin(4,4,4,4))
+```
+
+::: {style="text-align: center;"}
+**Figura 7.3.** Diagrama de árbol para el experimento «elegir al azar una nave del mercado y observar si sufre un fallo grave durante el primer año». En cada rama se anota la probabilidad condicionada correspondiente. Los productos de las ramas de cada camino dan las seis probabilidades conjuntas del cuadro derecho.
+:::
+
+
+Fíjese cómo cada uno de los seis caminos posibles termina en una probabilidad conjunta $P(\text{astillero} \cap \text{efecto})$, obtenida multiplicando las probabilidades del camino. Los seis números suman $1$ (compruebe usted mismo), como debe ocurrir con cualquier partición del espacio muestral. Y observará también que, aunque las tres «cuotas» de mercado son iguales ($1/3$), las probabilidades conjuntas no lo son en absoluto: $P(K \cap F) = `r fmt(1/3*0.10,4)`$ es cinco veces mayor que $P(S \cap F) = `r fmt(1/3*0.02,4)`$. Toda esta información está encerrada en el árbol de forma visual, y va a ser la puerta natural a los dos grandes teoremas que vienen a continuación.
+
 ### Teorema de la probabilidad total. {#probabilidad-total}
 
 Muchos problemas tienen la siguiente estructura: nos interesa la probabilidad de un suceso $A$, y el espacio muestral se puede repartir en varios subgrupos $S_1, S_2, \ldots, S_n$ que forman una **partición** de $E$. Conocemos la probabilidad de $A$ **dentro** de cada subgrupo, es decir, las probabilidades condicionadas $P(A \mid S_i)$, así como la probabilidad de caer en cada subgrupo, $P(S_i)$. El **Teorema de la Probabilidad Total** nos permite ensamblar esa información para obtener $P(A)$:
@@ -490,44 +632,14 @@ $$
 
 Se lee como una **media ponderada**: la probabilidad global de $A$ es la media de sus probabilidades dentro de cada grupo, ponderada por el peso relativo de los grupos. La intuición no puede ser más limpia.
 
-Ejemplo. El Consejo Estelar de Ingeniería ha realizado un estudio de fiabilidad sobre los tres astilleros galácticos. Cada astillero entrega el mismo número de unidades al mercado, de modo que la probabilidad *a priori* de que una nave nueva provenga de un astillero cualquiera es $P(K) = P(S) = P(A) = 1/3$. La probabilidad de que una nave sufra un **fallo grave durante su primer año de servicio**, según cada astillero, aparece en la Tabla \@ref(tab:bayes-datos):
-
-```{r bayes-datos}
-tab_bayes <- tibble(
-  Astillero = c("KORRIGAN", "SELENE", "ARCTURUS"),
-  Cuota     = c("$1/3$", "$1/3$", "$1/3$"),
-  `P(F \\mid \\cdot)` = c("$0,10$", "$0,02$", "$0,06$")
-)
-
-tab_bayes |>
-  kable(
-    
-    align     = c("l","c","c"),
-    booktabs  = TRUE,
-    escape    = FALSE,
-    col.names = c("Astillero", "Cuota de mercado", "P(fallo grave)")
-  ) |>
-  kable_styling(
-    bootstrap_options = c("hover","condensed"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  )
-```
-
-::: {style="text-align: center;"}
-**Tabla 7.3.** Cuota de producción y probabilidad de sufrir un fallo grave durante el primer año de servicio, por astillero. Fuente: Consejo Estelar de Ingeniería (datos ad hoc con fines ilustrativos, coherentes con la fiabilidad histórica de la flota real).
-:::
-
-
-¿Cuál es la probabilidad de que una nave **cualquiera** (sin saber de qué astillero proviene) sufra un fallo grave en su primer año? La respuesta la da el Teorema de la Probabilidad Total:
+En términos del árbol: **sume las probabilidades conjuntas de todos los caminos que llegan a** $A$. En nuestro ejemplo, la probabilidad de que una nave cualquiera sufra un fallo grave es la suma de los tres caminos que terminan en $F$:
 
 $$
 P(F) \;=\; P(F \mid K)\, P(K) + P(F \mid S)\, P(S) + P(F \mid A)\, P(A)
      \;=\; 0{,}10 \cdot \tfrac{1}{3} + 0{,}02 \cdot \tfrac{1}{3} + 0{,}06 \cdot \tfrac{1}{3} \;=\; `r fmt((0.10+0.02+0.06)/3,4)`.
 $$
 
-Un $6\,\%$: la tasa global de fallo de la flota, ponderando por la cuota de producción de cada astillero. Ni la peor de los tres (KORRIGAN) ni la mejor (SELENE) contaría por sí sola: la media pesa cada una en su justa proporción.
+Un $6\,\%$: la tasa global de fallo de la flota, ponderando por la cuota de producción de cada astillero. Ni la peor de los tres (KORRIGAN) ni la mejor (SELENE) contaría por sí sola: la media pesa cada una en su justa proporción. Este número —la probabilidad marginal del efecto— será clave para el siguiente paso.
 
 ### Teorema de Bayes. {#bayes}
 
@@ -541,7 +653,7 @@ $$
 
 Fíjese cómo el denominador es exactamente el resultado del Teorema de la Probabilidad Total. Podemos, pues, calcular Bayes en dos pasos: primero, la probabilidad total $P(A)$; después, actualizamos.
 
-Retomemos el ejemplo. Un operario del hangar acaba de recibir el parte de averías: **una nave ha sufrido un fallo grave**. Antes de enviar la factura, quiere saber a qué astillero es más probable que apuntar. Aplicando Bayes:
+Retomemos el ejemplo. Un operario del hangar acaba de recibir el parte de averías: **una nave ha sufrido un fallo grave**. Antes de enviar la factura, quiere saber a qué astillero es más probable apuntar. Aplicando Bayes:
 
 $$
 P(K \mid F) = \frac{P(F \mid K)\, P(K)}{P(F)} = \frac{0{,}10 \cdot 1/3}{0{,}06} = `r fmt(0.10*(1/3)/0.06,4)` \;=\; \tfrac{5}{9},
@@ -555,6 +667,59 @@ $$
 La lectura empresarial es limpia y algo despiadada: **más de la mitad** de las probabilidades de que la avería sea de KORRIGAN, un tercio de que sea de ARCTURUS, y solo una entre nueve de que sea del hasta ahora impoluto SELENE. Se puede comprobar que las tres probabilidades suman $1$, lo cual es reconfortante: era imprescindible que el astillero culpable fuera **alguno** de los tres.
 
 Antes de cerrar la sección, un aviso pedagógico que conviene grabar en el ordenador de vuelo: $P(K \mid F)$ no es lo mismo que $P(F \mid K)$, ni suele parecerse. El primer número es $5/9 \approx `r fmt(5/9,4)`$; el segundo, $0{,}10$. Confundir el condicionamiento en un sentido con el condicionamiento en el otro es, probablemente, el error más habitual —y más caro— del razonamiento probabilístico. En la literatura anglosajona se le llama *confusion of the inverse*, y ha protagonizado desde diagnósticos médicos erróneos hasta sentencias judiciales injustas. En el mundo galáctico, alguna que otra reclamación mal dirigida a un astillero inocente.
+
+### Bayes en acción: el detector de morosidad. {#bayes-morosidad}
+
+El ejemplo anterior es limpio porque las probabilidades *a priori* son iguales entre sí. En la práctica económica, sin embargo, casi siempre lo interesante ocurre cuando el **prior no es uniforme**, y en concreto cuando la causa que buscamos es **rara**. Es el terreno donde Bayes hace magia —y donde la intuición del gestor menos entrenado suele fallar de forma escandalosa. Veámoslo con un ejemplo económico central.
+
+El *Consorcio Financiero de Coruscant* concede microcréditos a compañías de logística galáctica. Su departamento de riesgo ha desarrollado un algoritmo de *scoring* que, tras analizar los balances de una compañía, la marca como «sospechosa de futuro impago» o como «solvente». El algoritmo tiene, según sus propios ingenieros, unas prestaciones muy dignas:
+
+-   Si la compañía va realmente a impagar (suceso $M$, «morosa»), el algoritmo lo detecta con probabilidad $P(D \mid M) = 0{,}90$ (**sensibilidad** del $90\,\%$).
+-   Si la compañía es solvente ($M^{*}$), el algoritmo la deja pasar con probabilidad $P(D^{*} \mid M^{*}) = 0{,}90$ (**especificidad** del $90\,\%$; es decir, un $10\,\%$ de falsos positivos).
+
+En el histórico del Consorcio, la tasa de morosidad del sector es de $P(M) = 0{,}05$: solo cinco de cada cien compañías acaban impagando. Un buen día, el algoritmo marca a una compañía cliente, *Palpatine Interstellar Ltd.*, como sospechosa. **¿Con qué probabilidad *Palpatine* va realmente a impagar?**
+
+La respuesta que dictaría la intuición no entrenada sería «$90\,\%$, como la sensibilidad del test». La respuesta correcta —la que da Bayes— es bastante menos alarmante. Aplicamos primero la probabilidad total:
+
+$$
+P(D) \;=\; P(D \mid M)\, P(M) + P(D \mid M^{*})\, P(M^{*}) \;=\; 0{,}90 \cdot 0{,}05 + 0{,}10 \cdot 0{,}95 \;=\; `r fmt(0.90*0.05+0.10*0.95,4)`.
+$$
+
+Y ahora Bayes:
+
+$$
+P(M \mid D) \;=\; \frac{P(D \mid M)\, P(M)}{P(D)} \;=\; \frac{0{,}90 \cdot 0{,}05}{`r fmt(0.90*0.05+0.10*0.95,4)`} \;=\; `r fmt((0.90*0.05)/(0.90*0.05+0.10*0.95),4)`.
+$$
+
+Sorpresa mayúscula: aunque el algoritmo tenga un $90\,\%$ de sensibilidad y un $90\,\%$ de especificidad, ¡solo un $`r fmt((0.90*0.05)/(0.90*0.05+0.10*0.95)*100,1)`\,\%$ de las compañías marcadas acaba realmente impagando! Casi tres de cada cuatro alertas son **falsos positivos**. Si el Consorcio denegara automáticamente el crédito a toda compañía marcada, estaría penalizando injustamente a la mayoría de sus clientes sospechosos.
+
+¿De dónde sale este resultado tan contraintuitivo? De un fenómeno conocido como **paradoja de la tasa base** (*base rate fallacy*). Cuando el suceso que se busca es raro (una tasa base de $5\,\%$), incluso un test muy bueno genera muchísimos más falsos positivos que verdaderos positivos, simplemente porque hay muchas más compañías no morosas que morosas. Un algoritmo con estas cifras es útil, sin duda, pero para nada infalible: divide la población de solicitantes en un grupo pequeño con **alta concentración de riesgo** (donde $P(M \mid D) = `r fmt((0.90*0.05)/(0.90*0.05+0.10*0.95),4)`$, casi nueve veces la tasa base) y otro con **muy baja concentración de riesgo** (donde $P(M \mid D^{*}) = `r fmt((0.10*0.05)/(0.10*0.05+0.90*0.95),4)`$, casi cero). Pero convertir cada alerta en una condena es un error caro.
+
+Este razonamiento es exactamente el que rige el diseño de los sistemas de detección de fraude bancario, los filtros antispam, los tests de cribado médico y las alertas de riesgo geopolítico. Comprender bien la paradoja de la tasa base es, seguramente, la lección más rentable de todo el curso.
+
+### Bayes en odds: una forma cómoda de actualizar. {#bayes-odds}
+
+Existe una manera alternativa —y muy práctica— de escribir el Teorema de Bayes, muy usada en el mundo del *scoring*, las apuestas deportivas y la epidemiología. Se basa en las **odds** (o «cociente de apuestas») de un suceso, definidas como:
+
+$$
+\text{odds}(A) \;=\; \frac{P(A)}{P(A^{*})}.
+$$
+
+Las odds miden «cuántas veces es más probable que ocurra $A$ frente a que no ocurra». Por ejemplo, si $P(M) = 0{,}05$, entonces $\text{odds}(M) = 0{,}05/0{,}95 \approx `r fmt(0.05/0.95,4)`$, es decir, aproximadamente $1$ a $19$: por cada compañía morosa hay unas $19$ solventes.
+
+Con esta notación, Bayes toma una forma casi mnemotécnica:
+
+$$
+\underbrace{\frac{P(M \mid D)}{P(M^{*} \mid D)}}_{\text{odds a posteriori}} \;=\; \underbrace{\frac{P(M)}{P(M^{*})}}_{\text{odds a priori}} \cdot \underbrace{\frac{P(D \mid M)}{P(D \mid M^{*})}}_{\text{cociente de verosimilitudes (LR)}}.
+$$
+
+En palabras: para actualizar las odds tras observar la evidencia, basta **multiplicarlas por el cociente de verosimilitudes** $LR$. En nuestro caso, $LR = 0{,}90 / 0{,}10 = 9$: el algoritmo hace la hipótesis de morosidad nueve veces más verosímil que la de solvencia. Entonces:
+
+$$
+\text{odds}(M \mid D) \;=\; \tfrac{0{,}05}{0{,}95} \cdot 9 \;=\; `r fmt((0.05/0.95)*9,4)`.
+$$
+
+Y para volver a probabilidad: $P(M \mid D) = 0{,}4737 / (1 + 0{,}4737) = `r fmt(0.4737/(1+0.4737),4)`$, que coincide (salvo redondeo) con lo que obtuvimos antes. La forma odds resulta enormemente cómoda cuando llegan varias evidencias sucesivas y hay que actualizar una y otra vez: cada evidencia $D_k$ simplemente multiplica las odds por su propio $LR_k$. Es, literalmente, la manera en que un motor de scoring de crédito o un filtro antispam procesan la información.
 
 ## Independencia de sucesos. {#independencia-sucesos}
 
@@ -608,27 +773,75 @@ $$
 
 ### La independencia es una hipótesis. {#indep-hipotesis}
 
-Terminamos con una nota didáctica sobre el estatus del concepto de independencia, porque uno tiene tendencia natural a suponer independencia sin cuestionarla. Volvamos a la flota galáctica. Los sucesos $A_r$ = «carguero de ARCTURUS» y $P$ = «carguero pesado», ¿son independientes?
+Terminamos con una nota didáctica sobre el estatus del concepto de independencia, porque uno tiene tendencia natural a suponer independencia sin cuestionarla. Contrastemos dos escenarios de nuestro universo, uno donde la independencia se cumple *casi*, y otro donde no se cumple *para nada*.
 
-Comprobémoslo. Tenemos $P(A_r) = 16/48 = `r fmt(16/48,4)`$ y $P(P) = 26/48 = `r fmt(26/48,4)`$. Si los sucesos fueran independientes, la probabilidad de la intersección debería ser el producto:
+**Escenario 1 (independencia aproximada).** Volvamos a la flota galáctica. Los sucesos $A_r$ = «carguero de ARCTURUS» y $P$ = «carguero pesado», ¿son independientes? Tenemos $P(A_r) = 16/48 = `r fmt(16/48,4)`$ y $P(P) = 26/48 = `r fmt(26/48,4)`$. Si los sucesos fueran independientes, la probabilidad de la intersección debería ser el producto:
 
 $$
 P(A_r) \cdot P(P) \;=\; `r fmt(16/48,4)` \cdot `r fmt(26/48,4)` \;=\; `r fmt((16/48)*(26/48),4)`.
 $$
 
-Pero la intersección real, contando en el fichero, es $P(A_r \cap P) = 9/48 = `r fmt(9/48,4)`$. Los dos números no coinciden. Los sucesos **no** son estrictamente independientes en esta flota. Ahora bien: la diferencia es pequeña. Y, de hecho, $P(A_r \mid P) = 9/26 = `r fmt(9/26,4)`$ está bastante cerca de $P(A_r) = `r fmt(16/48,4)`$. Lo que ARCTURUS hace en tonelaje se parece bastante a lo que hace el conjunto de la flota. La lección: la independencia es una **hipótesis**, no una descripción. Se cumple exactamente en muy pocos casos reales; se cumple *aproximadamente* en muchos, lo suficiente para que los cálculos sigan dando resultados útiles.
+Pero la intersección real es $P(A_r \cap P) = 9/48 = `r fmt(9/48,4)`$. Los dos números no coinciden exactamente, pero se parecen bastante. De hecho, $P(A_r \mid P) = 9/26 = `r fmt(9/26,4)`$ está bastante cerca de $P(A_r) = `r fmt(16/48,4)`$: lo que ARCTURUS hace en tonelaje se parece a lo que hace el conjunto de la flota. La independencia sería aquí una aproximación aceptable.
+
+**Escenario 2 (dependencia fortísima).** Cambiemos ahora al fichero de las $`r fmtint(300)`$ compañías del universo R-Stars. Consideremos dos sucesos: $R$ = «la compañía tiene flota RENOVADA» y $D_{\text{alto}}$ = «la compañía tiene índice de digitalización por encima de la mediana». La Tabla \@ref(tab:crosseflodig) recoge el cruce.
+
+```{r crosseflodig}
+umb_idig <- median(rstars$IDIG)
+tab_ed <- rstars |>
+  mutate(IDIG_CAT = ifelse(IDIG > umb_idig, "IDIG alto", "IDIG bajo"),
+         EFLO = factor(EFLO, levels = c("RENOVADA","MADURA","ANTIGUA"))) |>
+  count(EFLO, IDIG_CAT) |>
+  pivot_wider(names_from = IDIG_CAT, values_from = n, values_fill = 0) |>
+  mutate(Total = `IDIG alto` + `IDIG bajo`)
+
+tot_ed <- tibble(
+  EFLO = "Total",
+  `IDIG alto` = sum(tab_ed$`IDIG alto`),
+  `IDIG bajo` = sum(tab_ed$`IDIG bajo`),
+  Total       = sum(tab_ed$Total)
+)
+
+tab_ed |>
+  mutate(EFLO = as.character(EFLO)) |>
+  bind_rows(tot_ed) |>
+  kable(
+    
+    align     = c("l","r","r","r"),
+    booktabs  = TRUE
+  ) |>
+  kable_styling(
+    bootstrap_options = c("hover","condensed"),
+    full_width        = FALSE,
+    position          = "center",
+    font_size         = 13
+  ) |>
+  row_spec(nrow(tab_ed) + 1, bold = TRUE,
+           extra_css = "border-top: 1px solid #cbd5e1;")
+```
+
+::: {style="text-align: center;"}
+**Tabla 7.4.** Cruce entre estado de la flota (EFLO) e índice de digitalización (IDIG) en las 300 compañías R-Stars. Se ha dicotomizado IDIG por su mediana.
+:::
+
+
+De la tabla se lee que $P(R) = 62/300 = `r fmt(62/300,4)`$ y $P(D_{\text{alto}}) = 150/300 = `r fmt(150/300,4)`$. Si los sucesos fueran independientes, $P(R \cap D_{\text{alto}})$ debería valer $`r fmt((62/300)*(150/300),4)`$. Pero la intersección real es $P(R \cap D_{\text{alto}}) = 62/300 = `r fmt(62/300,4)`$ (¡las $62$ compañías con flota renovada tienen **todas** digitalización alta!). Y, más aún, $P(R \mid D_{\text{alto}}) = 62/150 = `r fmt(62/150,4)`$ frente a $P(R) = `r fmt(62/300,4)`$: la información sobre la digitalización **duplica** la probabilidad de que la flota sea renovada. La independencia aquí ni por asomo.
+
+La lección conjunta de los dos escenarios: la independencia es una **hipótesis**, no una descripción. Se cumple exactamente en muy pocos casos reales; se cumple *aproximadamente* en muchos, lo suficiente para que los cálculos sigan dando resultados útiles; y no se cumple en absoluto cuando las variables comparten mecanismo generador (una compañía moderna tiende a modernizarse en todos los frentes a la vez).
 
 Al final del bloque, cuando estudiemos los modelos teóricos y la inferencia estadística, veremos que muchos supuestos fundacionales (independencia de observaciones sucesivas, independencia entre variables aleatorias) tienen esta misma textura: idealizaciones que funcionan porque están **razonablemente cerca** de la realidad, no porque sean literalmente ciertas. Como en tantas otras cosas de la vida, lo importante es saber cuándo la idealización cruje.
 
-## Recapitulación. {#recap-cap07}
+## Recapitulación y puente al próximo capítulo. {#recap-cap07}
 
 Este capítulo ha puesto los cimientos del bloque de probabilidad. A modo de mapa mental, conviene tener a mano lo siguiente:
 
 -   Un **experimento aleatorio** es una acción cuyo resultado no está determinado de antemano, pero cuyo conjunto de resultados posibles (el **espacio muestral** $E$) sí conocemos.
 -   Un **suceso** es cualquier subconjunto de $E$. Los sucesos se combinan mediante **unión**, **intersección** y **complementario**, con las propiedades algebraicas de siempre (incluidas las leyes de De Morgan).
--   La **probabilidad** asigna a cada suceso un número entre $0$ y $1$. Puede introducirse por vía **clásica** (Laplace, casos equiprobables), **frecuentista** (Von Mises, frecuencias relativas en el límite) o **axiomática** (Kolmogorov, tres axiomas y una función). Los tres enfoques son compatibles y se refuerzan mutuamente: la vía axiomática justifica lo que las otras dos ya usaban por intuición.
--   La **probabilidad condicionada**, $P(A \mid B)$, mide cómo cambia nuestra estimación de $A$ cuando ya sabemos que ha ocurrido $B$. Es una **actualización** de creencias, no un cambio del mundo.
--   Los teoremas de la **probabilidad total** y de **Bayes** completan la caja de herramientas. El primero permite calcular $P(A)$ como media ponderada sobre una partición del espacio muestral; el segundo permite **invertir** el condicionamiento, y con ello reajustar las probabilidades *a priori* de las causas a la vista de un efecto observado.
+-   La **probabilidad** asigna a cada suceso un número entre $0$ y $1$. Puede introducirse por vía **clásica** (Laplace, casos equiprobables), **frecuentista** (Von Mises, frecuencias relativas en el límite, respaldadas por la Ley de los Grandes Números), **axiomática** (Kolmogorov, tres axiomas y una función) o **subjetiva** (Ramsey, de Finetti, grado de creencia coherente). Los cuatro enfoques son compatibles y se refuerzan mutuamente: la vía axiomática justifica formalmente lo que las otras tres usaban por intuición.
+-   La **probabilidad condicionada**, $P(A \mid B)$, mide cómo cambia nuestra estimación de $A$ cuando ya sabemos que ha ocurrido $B$. Es una **actualización** de creencias, no un cambio del mundo. Los **diagramas de árbol** son la herramienta visual natural para trabajar con ella.
+-   Los teoremas de la **probabilidad total** y de **Bayes** completan la caja de herramientas. El primero permite calcular $P(A)$ como media ponderada sobre una partición del espacio muestral; el segundo permite **invertir** el condicionamiento, y con ello reajustar las probabilidades *a priori* de las causas a la vista de un efecto observado. La forma en **odds** del Teorema de Bayes (`odds posterior = odds prior · LR`) es la que hoy rige buena parte del *scoring* económico y financiero.
+-   Cuidado con la **paradoja de la tasa base**: cuando el suceso buscado es raro, un test bueno genera muchos falsos positivos. Es el error más caro que puede cometer un gestor con datos.
 -   La **independencia** de sucesos es el caso límite en el que la información sobre uno no aporta nada sobre el otro. Se caracteriza por la factorización $P(A \cap B) = P(A) \cdot P(B)$. Es una hipótesis muy fuerte y muy útil, siempre que se sepa cuándo es razonable adoptarla.
 
-En el siguiente capítulo daremos el salto natural. Hasta aquí hemos hablado de sucesos, es decir, de resultados cualitativos («la nave es de KORRIGAN», «la ruta tuvo incidencia»). Pronto, sin embargo, querremos **medir** el resultado de un experimento aleatorio: cuántas incidencias hay en un año, cuánto tarda una nave en llegar, cuánto factura una compañía el próximo trimestre. Ese salto —del suceso a la magnitud numérica— se articula en torno al concepto de **variable aleatoria**, protagonista del capítulo que viene. *Hyperdrive Express*, *Arrakis Freight*, *Shuttlepod Movers* y los astilleros galácticos seguirán con nosotros; solo que, a partir de ahora, en lugar de decir «ocurrió» o «no ocurrió», empezaremos a decir «ocurrió con este número».
+En el siguiente capítulo daremos el salto natural. Hasta aquí hemos hablado de sucesos, es decir, de resultados **cualitativos** («la nave es de KORRIGAN», «la ruta tuvo incidencia»). Pero muchas veces el resultado de un experimento aleatorio tiene forma **numérica**: cuántas incidencias hay en un año, cuánto tarda una nave en llegar, cuánto factura una compañía el próximo trimestre, cuántas de las diez próximas compañías solicitantes de crédito acabarán impagando. Ese salto —del suceso a la magnitud numérica— se articula en torno al concepto de **variable aleatoria**, protagonista del próximo capítulo.
+
+Una variable aleatoria es, sencillamente, una regla que asigna un número a cada resultado del experimento. Piénselo así: si el experimento es «elegir una nave al azar de la flota», podemos definir la variable aleatoria $X$ = «tonelaje de la nave» o $Y$ = «$1$ si es pesada, $0$ si es ligera». Con esa traducción, todo el instrumental del cálculo diferencial e integral queda disponible para calcular medias, varianzas, cuantiles y —lo más útil de todo— **valores esperados** que sirven para tomar decisiones económicas bajo incertidumbre. *Hyperdrive Express*, *Arrakis Freight*, *Shuttlepod Movers* y los astilleros galácticos seguirán con nosotros; solo que, a partir de ahora, en lugar de decir «ocurrió» o «no ocurrió», empezaremos a decir «ocurrió con este número».

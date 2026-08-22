@@ -183,11 +183,16 @@ concepto-probabilidad
 laplace
 von-mises
 kolmogorov
+subjetivista
+mapa-enfoques
 probabilidad-condicionada
 definicion-condicional
 regla-multiplicacion
+diagramas-arbol
 probabilidad-total
 bayes
+bayes-morosidad
+bayes-odds
 independencia-sucesos
 reemplazamiento
 indep-generalizado
@@ -223,7 +228,12 @@ varianza-y-desviación-típica
 ejemplo-discreto-cargueros-a-tiempo-1
 ejemplo-continuo-la-grúa-korrigan-1
 propiedades-de-la-varianza
+tipificada
+asimetria-curtosis
+transformaciones-va
+chebyshev
 resumen-visual-la-anatomía-de-una-distribución
+decision-media-varianza
 va-bidimensionales
 la-idea
 función-de-distribución-conjunta
@@ -231,6 +241,7 @@ distribuciones-marginales
 ejemplo-intuitivo-la-comisión-interestelar-de-transporte
 independencia
 covarianza-el-resumen-bidimensional
+simulacion-va
 cierre-cap08
 modelos-discretos
 intro-cap09

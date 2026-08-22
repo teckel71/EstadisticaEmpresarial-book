@@ -110,7 +110,7 @@
 <span class="header-section-number">8.1</span> De la probabilidad a la variable aleatoria<a class="anchor" aria-label="anchor" href="#de-probabilidad-a-va"><i class="fas fa-link"></i></a>
 </h2>
 <p>En el capítulo anterior aprendimos a <strong>medir la incertidumbre</strong>. Dábamos con un experimento aleatorio, describíamos su espacio muestral <span class="math inline">\(E\)</span>, agrupábamos resultados en sucesos y asignábamos a cada suceso un número entre 0 y 1: su probabilidad. Un ejemplo doméstico: la empresa <em>arrakis freight</em> despacha esta noche un carguero por la ruta Arrakis–Klendathu. El experimento tiene dos resultados posibles: <em>llega a tiempo</em> o <em>llega tarde</em>. Con eso ya sabemos hablar en probabilidades.</p>
-<p>Ahora bien, en cuanto la empresa despacha <strong>no uno, sino veintitrés cargueros</strong>, describir cada suceso con palabras se vuelve incómodo. ¿De verdad vamos a enumerar <code>{tarde, tarde, a tiempo, tarde, a tiempo, ...}</code> para las <span class="math inline">\(2^{23}\)</span> combinaciones posibles? Sería tedioso incluso para un droide protocolario. Lo natural es asignar <strong>un número</strong> a cada resultado —por ejemplo, “número de cargueros que llegan a tiempo”— y trabajar con ese número.</p>
+<p>Ahora bien, en cuanto la empresa despacha <strong>no uno, sino veintitrés cargueros</strong>, describir cada suceso con palabras se vuelve incómodo. Enumerar <code>{tarde, tarde, a tiempo, tarde, a tiempo, ...}</code> para las <span class="math inline">\(2^{23}\)</span> combinaciones posibles sería tedioso incluso para un droide protocolario. Lo natural es asignar <strong>un número</strong> a cada resultado —por ejemplo, “número de cargueros que llegan a tiempo”— y trabajar con ese número.</p>
 <p>Ese salto —del suceso al número— es exactamente lo que hace una <strong>variable aleatoria</strong>. Y con él ganamos dos cosas enormes:</p>
 <ol style="list-style-type: decimal">
 <li>Podemos usar toda la maquinaria del cálculo (sumas, integrales, medias, varianzas) sobre los resultados de un experimento aleatorio.</li>
@@ -246,7 +246,7 @@ Suceso
 <h3>
 <span class="header-section-number">8.3.3</span> El puente frecuentista<a class="anchor" aria-label="anchor" href="#el-puente-frecuentista"><i class="fas fa-link"></i></a>
 </h3>
-<p>¿Y por qué se parecen tanto? Porque el <strong>enfoque frecuentista</strong> de la probabilidad nos dice que, si repitiéramos el experimento muchas veces, las frecuencias relativas de cada resultado se estabilizarían en torno a un número: precisamente su probabilidad. Es decir, si observamos suficientes datos, la variable estadística tiende a comportarse como si fuera la realización empírica de una variable aleatoria subyacente.</p>
+<p>¿Y por qué se parecen tanto? Porque el <strong>enfoque frecuentista</strong> de la probabilidad nos dice que, si repitiéramos el experimento muchas veces, las frecuencias relativas de cada resultado se estabilizarían en torno a un número: precisamente su probabilidad. Es decir, si observamos suficientes datos, la variable estadística tiende a comportarse como si fuera la realización empírica de una variable aleatoria subyacente. Es exactamente la <strong>Ley de los Grandes Números</strong> que ya conocimos en el capítulo anterior.</p>
 <p>Ilustrémoslo. Tomemos la variable <code>FLOTA</code> de las 300 empresas de la base <code>interestelar_300</code>. Ese histograma es una <strong>fotografía descriptiva</strong>. Pero si pensamos que esas 300 empresas son una muestra de una “población interestelar” enorme, y que la flota de una empresa cualquiera es una variable aleatoria <span class="math inline">\(\xi\)</span>, entonces el histograma es una <strong>aproximación empírica</strong> a la distribución de probabilidad de <span class="math inline">\(\xi\)</span>.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-frecuentismo-flota-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
@@ -254,7 +254,7 @@ Suceso
 </div>
 <p>La barra que muestra “hay tantas empresas con flotas entre 20 y 24 cargueros” es un dato descriptivo. Pero si dividimos su altura por el total y por la anchura del intervalo, empieza a parecerse mucho a un valor de probabilidad. <strong>Ese es el puente</strong>: la estadística descriptiva y la teoría de la probabilidad se dan la mano en el límite, cuando la muestra crece.</p>
 <div class="rmdimportant">
-<p><strong>Regla mnemotécnica.</strong> La variable estadística <em>cuenta</em>; la variable aleatoria <em>predice</em>. La primera trabaja con lo que ya ocurrió; la segunda, con lo que puede ocurrir. Y en el límite —cuando repetimos el experimento hasta el aburrimiento cósmico— las dos convergen.</p>
+<p><strong>Regla mnemotécnica.</strong> La variable estadística <em>cuenta</em>; la variable aleatoria <em>predice</em>. La primera trabaja con lo que ya ocurrió; la segunda, con lo que puede ocurrir. Y en el límite —cuando repetimos el experimento muchas veces— las dos convergen.</p>
 </div>
 </div>
 </div>
@@ -267,7 +267,7 @@ Suceso
 <p><span class="math display">\[
 F(x) = P(\xi \le x), \qquad \forall x \in \mathbb{R}.
 \]</span></p>
-<p>En cristiano: <span class="math inline">\(F(x)\)</span> es la probabilidad de que la variable aleatoria tome un valor menor o igual que <span class="math inline">\(x\)</span>. Es una función acumulativa: va sumando probabilidad de izquierda a derecha.</p>
+<p>Dicho con palabras: <span class="math inline">\(F(x)\)</span> es la probabilidad de que la variable aleatoria tome un valor menor o igual que <span class="math inline">\(x\)</span>. Es una función acumulativa: va sumando probabilidad de izquierda a derecha. En inglés se la conoce también como <em>cumulative distribution function</em> (<strong>CDF</strong>), abreviatura que se encontrará el estudiante una y otra vez en la literatura de econometría o <em>data science</em>.</p>
 <div id="propiedades" class="section level3" number="8.4.1">
 <h3>
 <span class="header-section-number">8.4.1</span> Propiedades<a class="anchor" aria-label="anchor" href="#propiedades"><i class="fas fa-link"></i></a>
@@ -294,18 +294,18 @@ F(x) = P(\xi \le x), \qquad \forall x \in \mathbb{R}.
 <li>El número de cargueros que despacha una empresa en una noche.</li>
 <li>El número de rutas activas de <em>hyperdrive express</em> en un trimestre.</li>
 <li>El número de empleados de una empresa (<code>EMPLEA</code>).</li>
-<li>El número de tripulantes que ascienden en el departamento de <em>Personal Navegación</em>.</li>
+<li>El número de averías graves acumuladas por una nave a lo largo de su vida (<code>IIG</code>).</li>
 </ul>
 <p>Todos son enteros. No hay 26,7 cargueros ni 14,3 empleados. Y si los hay, mal asunto para la empresa.</p>
 <div id="función-de-cuantía-o-función-de-masa" class="section level3" number="8.5.1">
 <h3>
 <span class="header-section-number">8.5.1</span> Función de cuantía (o función de masa)<a class="anchor" aria-label="anchor" href="#funci%C3%B3n-de-cuant%C3%ADa-o-funci%C3%B3n-de-masa"><i class="fas fa-link"></i></a>
 </h3>
-<p>Para una variable discreta, la forma más directa de describir su distribución es asignando a cada valor posible su probabilidad. Esa función se llama <strong>función de cuantía</strong> o <strong>función de masa de probabilidad</strong>:</p>
+<p>Para una variable discreta, la forma más directa de describir su distribución es asignando a cada valor posible su probabilidad. Esa función se llama <strong>función de cuantía</strong> o <strong>función de masa de probabilidad</strong> (<em>probability mass function</em>, PMF, en la literatura anglosajona):</p>
 <p><span class="math display">\[
 p_i = P(\xi = x_i), \qquad p_i &gt; 0, \qquad \sum_i p_i = 1.
 \]</span></p>
-<p>Dicho con manos: para cada valor <span class="math inline">\(x_i\)</span> en el campo de variación, <span class="math inline">\(p_i\)</span> te dice qué cantidad de probabilidad tiene <em>pegada</em>. La suma de todas esas cantidades debe dar 1: la probabilidad total no puede desaparecer ni fugarse a otra galaxia.</p>
+<p>Dicho gráficamente: para cada valor <span class="math inline">\(x_i\)</span> en el campo de variación, <span class="math inline">\(p_i\)</span> te dice qué cantidad de probabilidad tiene <em>pegada</em>. La suma de todas esas cantidades debe dar 1: la probabilidad total no puede desaparecer ni fugarse a otra galaxia.</p>
 </div>
 <div id="relación-con-la-función-de-distribución" class="section level3" number="8.5.2">
 <h3>
@@ -420,7 +420,7 @@ P(\xi = a) = 0 \quad \text{para cualquier } a.
 <h3>
 <span class="header-section-number">8.6.2</span> Función de densidad<a class="anchor" aria-label="anchor" href="#funci%C3%B3n-de-densidad"><i class="fas fa-link"></i></a>
 </h3>
-<p>Para una variable continua, la función de distribución <span class="math inline">\(F(x)\)</span> es continua y derivable. Su <strong>derivada</strong> es una función especial llamada <strong>función de densidad</strong>:</p>
+<p>Para una variable continua, la función de distribución <span class="math inline">\(F(x)\)</span> es continua y derivable. Su <strong>derivada</strong> es una función especial llamada <strong>función de densidad</strong> (<em>probability density function</em>, PDF):</p>
 <p><span class="math display">\[
 f(x) = \lim_{\Delta x \to 0} \frac{F(x + \Delta x) - F(x)}{\Delta x} = F'(x).
 \]</span></p>
@@ -429,7 +429,7 @@ f(x) = \lim_{\Delta x \to 0} \frac{F(x + \Delta x) - F(x)}{\Delta x} = F'(x).
 f(x) \ge 0 \qquad \text{y} \qquad \int_{-\infty}^{+\infty} f(x)\, dx = 1.
 \]</span></p>
 <div class="rmdwarning">
-<p><strong>Cuidado: la densidad NO es una probabilidad.</strong> Es una velocidad de acumulación de probabilidad, si se me permite la imagen. Puede tomar valores mayores que 1 sin que el universo tiemble. Lo que sí es una probabilidad es <span class="math inline">\(f(x)\,dx\)</span>: la probabilidad asignada a un intervalo infinitesimal alrededor de <span class="math inline">\(x\)</span>. O, más útil aún, el área bajo la curva de <span class="math inline">\(f\)</span> en un intervalo:</p>
+<p><strong>Cuidado: la densidad NO es una probabilidad.</strong> Es más bien una velocidad de acumulación de probabilidad. Puede tomar valores mayores que 1 sin que el universo tiemble. Lo que sí es una probabilidad es <span class="math inline">\(f(x)\,dx\)</span>: la probabilidad asignada a un intervalo infinitesimal alrededor de <span class="math inline">\(x\)</span>. O, más útil aún, el área bajo la curva de <span class="math inline">\(f\)</span> en un intervalo:</p>
 <p><span class="math display">\[
 P(a &lt; \xi \le b) = \int_a^b f(x)\, dx = F(b) - F(a).
 \]</span></p>
@@ -487,7 +487,7 @@ P(1 &lt; \xi &lt; 2) = \int_1^2 \frac{1}{8} x\, dx = \frac{1}{8} \cdot \left[\fr
 <p><span class="math display">\[
 \mu_r = E\left[(\xi - \mu)^r\right], \qquad \mu = \alpha_1.
 \]</span></p>
-<p>De todos ellos, los que más nos van a servir en la práctica son los dos primeros. El resto viven en los libros gordos.</p>
+<p>De todos ellos, los cuatro primeros tienen nombre propio y significado empresarial: la <strong>esperanza</strong> (dónde está el centro), la <strong>varianza</strong> (cómo de dispersa está la distribución), la <strong>asimetría</strong> (si se inclina hacia un lado) y la <strong>curtosis</strong> (si tiene colas gruesas o finas). Los estudiaremos por orden, del más importante al menos.</p>
 </div>
 <div id="esperanza-matemática" class="section level3" number="8.7.2">
 <h3>
@@ -502,7 +502,7 @@ P(1 &lt; \xi &lt; 2) = \int_1^2 \frac{1}{8} x\, dx = \frac{1}{8} \cdot \left[\fr
 \end{cases}
 \]</span></p>
 <div class="rmdnote">
-<p><strong>La intuición del casino galáctico.</strong> Piensa en la esperanza como en el <em>promedio a largo plazo</em>. Si repitiéramos el experimento un número enorme de veces, la media aritmética de los resultados observados tendería al valor <span class="math inline">\(E(\xi)\)</span>. Por eso las casas de apuestas de Coruscant nunca quiebran: aunque en cada partida individual pueden perder, la esperanza matemática de la ganancia por partida —de ellos, no del jugador— es positiva.</p>
+<p><strong>La intuición del casino galáctico.</strong> La esperanza es el <em>promedio a largo plazo</em>. Si repitiéramos el experimento un número enorme de veces, la media aritmética de los resultados observados tendería al valor <span class="math inline">\(E(\xi)\)</span>. Por eso las casas de apuestas de Coruscant nunca quiebran: aunque en cada partida individual pueden perder, la esperanza matemática de la ganancia por partida —de ellos, no del jugador— es positiva.</p>
 </div>
 <div id="ejemplo-discreto-cargueros-a-tiempo" class="section level4" number="8.7.2.1">
 <h4>
@@ -551,13 +551,13 @@ E(\xi) = \int_0^4 x \cdot \frac{x}{8}\, dx = \frac{1}{8} \int_0^4 x^2\, dx = \fr
 <p><span class="math display">\[
 \mathrm{Var}(\xi) = \sigma^2 = \mu_2 = E\left[(\xi - \mu)^2\right] = E(\xi^2) - [E(\xi)]^2 = \alpha_2 - \alpha_1^2.
 \]</span></p>
-<p>La última expresión —varianza igual al momento de orden 2 respecto al origen menos la esperanza al cuadrado— es la fórmula de cálculo más cómoda y la que se usa en el 90% de los problemas.</p>
+<p>La última expresión —varianza igual al momento de orden 2 respecto al origen menos la esperanza al cuadrado— es la fórmula de cálculo más cómoda y la que se usa en el 90 % de los problemas.</p>
 <p>La raíz positiva de la varianza es la <strong>desviación típica</strong>:</p>
 <p><span class="math display">\[
 \sigma = +\sqrt{\sigma^2}.
 \]</span></p>
 <div class="rmdimportant">
-<p><strong>Traducción intuitiva.</strong> La esperanza dice <em>dónde</em> está el centro; la varianza dice <em>cómo de repartida</em> está la distribución alrededor de ese centro. Una varianza pequeña indica valores muy concentrados en torno a la media; una varianza grande, valores dispersos —y por tanto un experimento más incierto—.</p>
+<p><strong>Traducción intuitiva.</strong> La esperanza dice <em>dónde</em> está el centro; la varianza dice <em>cómo de repartida</em> está la distribución alrededor de ese centro. Una varianza pequeña indica valores muy concentrados en torno a la media; una varianza grande, valores dispersos —y por tanto un experimento más incierto—. En finanzas, la desviación típica de la rentabilidad de un activo es, literalmente, el nombre que reciben los “riesgos” a corto plazo.</p>
 </div>
 <div id="ejemplo-discreto-cargueros-a-tiempo-1" class="section level4" number="8.7.3.1">
 <h4>
@@ -595,31 +595,125 @@ E(\xi^2) &amp;= \int_0^4 x^2 \cdot \frac{x}{8}\, dx = \frac{1}{8} \cdot \frac{4^
 <li>
 <span class="math inline">\(\mathrm{Var}(\xi) = \sigma^2 \ge 0\)</span>. (Al elevar al cuadrado, nunca sale negativa. Y sólo vale 0 si la variable es constante, en cuyo caso apenas merece llamarse “aleatoria”.)</li>
 <li>
-<span class="math inline">\(\mathrm{Var}(\xi_1 \pm \xi_2 \pm \cdots \pm \xi_n) = \mathrm{Var}(\xi_1) + \mathrm{Var}(\xi_2) + \cdots + \mathrm{Var}(\xi_n)\)</span> <strong>si y sólo si</strong> las variables son independientes. (Ojo: aunque el signo sea de resta, las varianzas se suman. Sí, es raro. Sí, es verdad.)</li>
+<span class="math inline">\(\mathrm{Var}(\xi_1 \pm \xi_2 \pm \cdots \pm \xi_n) = \mathrm{Var}(\xi_1) + \mathrm{Var}(\xi_2) + \cdots + \mathrm{Var}(\xi_n)\)</span> <strong>si y sólo si</strong> las variables son independientes. (Aunque el signo sea de resta, las varianzas se suman. La razón: la varianza mide “cuánto oscila” la variable, y dos oscilaciones independientes se acumulan aunque una se reste de la otra.)</li>
 <li>
-<span class="math inline">\(\mathrm{Var}(A + B\xi) = B^2 \cdot \mathrm{Var}(\xi)\)</span> si <span class="math inline">\(A, B\)</span> son constantes. (Sumar una constante no cambia la dispersión; multiplicar por <span class="math inline">\(B\)</span> la escala en <span class="math inline">\(|B|\)</span>, así que la varianza se escala en <span class="math inline">\(B^2\)</span>.)</li>
+<span class="math inline">\(\mathrm{Var}(A + B\xi) = B^2 \cdot \mathrm{Var}(\xi)\)</span> si <span class="math inline">\(A, B\)</span> son constantes. (Sumar una constante no cambia la dispersión; multiplicar por <span class="math inline">\(B\)</span> cambia la escala en <span class="math inline">\(|B|\)</span>, así que la varianza se escala en <span class="math inline">\(B^2\)</span>.)</li>
 </ol>
 </div>
 </div>
-<div id="resumen-visual-la-anatomía-de-una-distribución" class="section level3" number="8.7.4">
+<div id="tipificada" class="section level3" number="8.7.4">
 <h3>
-<span class="header-section-number">8.7.4</span> Resumen visual: la anatomía de una distribución<a class="anchor" aria-label="anchor" href="#resumen-visual-la-anatom%C3%ADa-de-una-distribuci%C3%B3n"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.7.4</span> La variable tipificada (o estandarizada)<a class="anchor" aria-label="anchor" href="#tipificada"><i class="fas fa-link"></i></a>
+</h3>
+<p>De todas las transformaciones que se le pueden aplicar a una variable aleatoria, una destaca por su enorme utilidad práctica: la <strong>tipificación</strong> o <strong>estandarización</strong>. Consiste en restar la esperanza y dividir por la desviación típica:</p>
+<p><span class="math display">\[
+Z \;=\; \frac{\xi - \mu}{\sigma}.
+\]</span></p>
+<p>La variable <span class="math inline">\(Z\)</span> resultante tiene siempre, por construcción, esperanza <span class="math inline">\(E(Z) = 0\)</span> y varianza <span class="math inline">\(\mathrm{Var}(Z) = 1\)</span>, sea cual sea la variable de la que se parte. Es decir, la tipificación coloca cualquier distribución en una <strong>escala común</strong>: cero es “estar en la media”, uno es “estar a una desviación típica por encima”, menos uno “a una por debajo”.</p>
+<p>Esta idea, que ahora puede parecer un juego algebraico, resultará <strong>decisiva</strong> cuando lleguemos a la distribución normal: nos permitirá reducir toda normal a <strong>una única</strong> —la normal estándar— y consultar sus probabilidades en tablas o funciones únicas. Y es la manera en que los analistas comparan magnitudes tan dispares como la rentabilidad de un fondo (en %), el tamaño de una empresa (en miles de PAVOs) o el número de rutas (en enteros): todas ellas se pueden traducir a “unidades de desviación típica” y compararse en pie de igualdad.</p>
+<div class="rmdnote">
+<p><strong>Regla práctica.</strong> Cuando alguien dice “esta empresa está tres sigmas por encima de la media del sector”, está usando implícitamente una variable tipificada. Y cuando un banco pone un umbral de “score de riesgo por encima de 2”, suele significar “más de dos desviaciones típicas por encima del riesgo esperado”. Aprender a leer en unidades de <span class="math inline">\(\sigma\)</span> es la puerta de entrada a la lectura financiera moderna.</p>
+</div>
+</div>
+<div id="asimetria-curtosis" class="section level3" number="8.7.5">
+<h3>
+<span class="header-section-number">8.7.5</span> Asimetría y curtosis: los momentos que faltan<a class="anchor" aria-label="anchor" href="#asimetria-curtosis"><i class="fas fa-link"></i></a>
+</h3>
+<p>Con la esperanza (orden 1) y la varianza (orden 2) capturamos <em>dónde</em> está la distribución y <em>cuánto</em> oscila. Pero dos distribuciones con la misma media y la misma varianza pueden ser muy distintas: una simétrica y bien portada, otra inclinada hacia un lado, otra con colas muy largas donde de vez en cuando aparecen valores extremos. Para capturar esa “forma”, necesitamos los momentos de orden 3 y 4, respectivamente <strong>asimetría</strong> y <strong>curtosis</strong>.</p>
+<p>Se definen habitualmente en su forma <strong>estandarizada</strong> (dividiendo por la desviación típica al cubo o a la cuarta, para hacerlos comparables entre distribuciones):</p>
+<p><span class="math display">\[
+\gamma_1 \;=\; \frac{E\!\left[(\xi - \mu)^3\right]}{\sigma^3} \qquad \text{(coeficiente de asimetría)}
+\]</span></p>
+<p><span class="math display">\[
+\gamma_2 \;=\; \frac{E\!\left[(\xi - \mu)^4\right]}{\sigma^4} - 3 \qquad \text{(exceso de curtosis)}
+\]</span></p>
+<p>La lectura empresarial es sencilla:</p>
+<ul>
+<li>
+<strong>Asimetría</strong> <span class="math inline">\(\gamma_1\)</span>: si es cero, la distribución es simétrica alrededor de la media; si es positiva, tiene una cola larga hacia la derecha (valores altos raros pero posibles); si es negativa, la cola larga está a la izquierda.</li>
+<li>
+<strong>Curtosis (exceso)</strong> <span class="math inline">\(\gamma_2\)</span>: si es cero, la forma es “normal” (la campana de Gauss se toma como referencia); si es positiva, la distribución es <strong>leptocúrtica</strong> —tiene colas más gruesas que la normal—; si es negativa, es <strong>platicúrtica</strong> —colas más finas—. Se resta 3 en la definición precisamente para que la normal tenga curtosis 0 como referencia.</li>
+</ul>
+<p>Nada de esto es abstracto en el mundo económico. La distribución de la variable <code>IIG</code> (número de averías graves acumuladas por una nave) del fichero <code>astilleros_48</code> es un ejemplo perfecto de asimetría positiva con colas gruesas: la mayoría de las naves acumulan pocas averías, pero una tiene 35 y otra 16.</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-asimetria-iig-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 8.5.</strong> Distribución empírica del número de averías graves acumuladas (IIG) por las 48 naves del fichero de astilleros. Fuerte asimetría a la derecha y presencia de valores extremos: un caso paradigmático de distribución con cola pesada.</p>
+</div>
+<p>Este patrón es, precisamente, el que interesa vigilar en gestión de riesgos: no importa tanto la nave “media” como esa <strong>cola larga</strong> que agrupa las poquísimas naves problemáticas que, sin embargo, concentran el grueso de los costes de mantenimiento. En finanzas se emplea la misma idea: los retornos de un activo pueden tener media y varianza dignas, pero si su curtosis es alta —colas gruesas—, quedan expuestos a <strong>eventos raros pero catastróficos</strong>. Es la lección de los “cisnes negros” de Nassim Taleb, y su descubrimiento tardío por parte de algunos gestores bancarios costó, allá por 2008, muy caro.</p>
+</div>
+<div id="transformaciones-va" class="section level3" number="8.7.6">
+<h3>
+<span class="header-section-number">8.7.6</span> Transformaciones de una variable aleatoria<a class="anchor" aria-label="anchor" href="#transformaciones-va"><i class="fas fa-link"></i></a>
+</h3>
+<p>En muchas situaciones económicas, la variable aleatoria de interés <strong>no</strong> es la observada directamente, sino una <strong>función</strong> de ella. Un economista que estudia los ingresos <span class="math inline">\(\xi\)</span> puede querer trabajar con su logaritmo, <span class="math inline">\(Y = \log \xi\)</span>, para modelar retornos porcentuales. Un actuario que estudia los siniestros <span class="math inline">\(\xi\)</span> puede querer estudiar <span class="math inline">\(Y = \max(\xi - k, 0)\)</span>, el pago del seguro con franquicia <span class="math inline">\(k\)</span>. Un inversor puede querer transformar los retornos <span class="math inline">\(\xi\)</span> mediante una función de utilidad cóncava <span class="math inline">\(U(\xi)\)</span> que refleje su aversión al riesgo.</p>
+<p>En todos estos casos, tenemos una nueva variable aleatoria <span class="math inline">\(Y = g(\xi)\)</span>. Y afortunadamente, para calcular su esperanza <strong>no hace falta derivar antes la distribución de</strong> <span class="math inline">\(Y\)</span>; basta con integrar la función <span class="math inline">\(g\)</span> ponderada por la distribución original:</p>
+<p><span class="math display">\[
+E[g(\xi)] =
+\begin{cases}
+\displaystyle \sum_i g(x_i) \cdot p_i &amp; \text{caso discreto} \\[6pt]
+\displaystyle \int_{-\infty}^{+\infty} g(x) \cdot f(x)\, dx &amp; \text{caso continuo.}
+\end{cases}
+\]</span></p>
+<p>Este resultado, tan cómodo como poderoso, se conoce en la literatura como <strong>regla del estadístico inconsciente</strong> (<em>Law of the Unconscious Statistician</em>, LOTUS): calculamos la esperanza de la nueva variable “sin darnos cuenta” de que tendríamos que haber pasado por su distribución. Es, sin exagerar, uno de los tres o cuatro resultados que un estudiante de ADE debería memorizar para siempre.</p>
+<p><strong>Ejemplo económico.</strong> Supongamos que los beneficios netos <span class="math inline">\(\xi\)</span> (en miles de PAVOs) de una filial de <em>hyperdrive express</em> siguen una distribución con esperanza <span class="math inline">\(E(\xi) = 200\)</span> y varianza <span class="math inline">\(\mathrm{Var}(\xi) = 400\)</span>. La casa matriz aplica un impuesto de sociedades del <span class="math inline">\(25\,\%\)</span> sobre los beneficios positivos, más una tasa fija de <span class="math inline">\(10\)</span> miles de PAVOs. El pago fiscal es la variable aleatoria <span class="math inline">\(Y = 10 + 0{,}25\, \xi\)</span>. Por linealidad de la esperanza:</p>
+<p><span class="math display">\[
+E(Y) = 10 + 0{,}25 \cdot 200 = 60, \qquad \mathrm{Var}(Y) = 0{,}25^2 \cdot 400 = 25.
+\]</span></p>
+<p>Es decir, la casa matriz puede planificar un pago fiscal esperado de <span class="math inline">\(60\)</span> miles de PAVOs con una desviación típica de <span class="math inline">\(5\)</span>: información imprescindible para su tesorería. Y todo ello <strong>sin necesidad de conocer la distribución exacta</strong> de los beneficios.</p>
+</div>
+<div id="chebyshev" class="section level3" number="8.7.7">
+<h3>
+<span class="header-section-number">8.7.7</span> Una cota general: la desigualdad de Chebyshev<a class="anchor" aria-label="anchor" href="#chebyshev"><i class="fas fa-link"></i></a>
+</h3>
+<p>Antes de cerrar el bloque de características, conviene presentar un resultado sorprendentemente potente: <strong>con sólo conocer la media y la desviación típica de una variable aleatoria, ya podemos poner cotas a la probabilidad de que la variable se aleje mucho de su centro</strong>, sin importar cuál sea su distribución.</p>
+<div class="rmdimportant">
+<p><strong>Desigualdad de Chebyshev.</strong> Para cualquier variable aleatoria <span class="math inline">\(\xi\)</span> con esperanza <span class="math inline">\(\mu\)</span> y desviación típica <span class="math inline">\(\sigma\)</span> finita, y para cualquier constante <span class="math inline">\(k &gt; 0\)</span>:</p>
+<p><span class="math display">\[
+P\!\left(|\xi - \mu| \ge k \sigma \right) \;\le\; \frac{1}{k^2}.
+\]</span></p>
+</div>
+<p>Lectura: la probabilidad de que la variable se aleje de la media más de <span class="math inline">\(k\)</span> desviaciones típicas es, como mucho, <span class="math inline">\(1/k^2\)</span>. Para <span class="math inline">\(k = 2\)</span>, no más del <span class="math inline">\(25\,\%\)</span> de las veces; para <span class="math inline">\(k = 3\)</span>, no más del <span class="math inline">\(11\,\%\)</span>; para <span class="math inline">\(k = 5\)</span>, no más del <span class="math inline">\(4\,\%\)</span>. Y esto <strong>para cualquier distribución</strong>, sin necesidad de hipótesis sobre su forma. Es el equivalente probabilístico de un “seguro contra sorpresas”: aun sin saber cómo se comporta exactamente una variable, sabemos que no puede desmadrarse impunemente.</p>
+<p>En la práctica, cuando la distribución es conocida (por ejemplo, la normal), las cotas exactas son mucho más ajustadas que las de Chebyshev. La utilidad de la desigualdad es precisamente cuando <strong>no</strong> conocemos la distribución: nos protege ante lo desconocido.</p>
+</div>
+<div id="resumen-visual-la-anatomía-de-una-distribución" class="section level3" number="8.7.8">
+<h3>
+<span class="header-section-number">8.7.8</span> Resumen visual: la anatomía de una distribución<a class="anchor" aria-label="anchor" href="#resumen-visual-la-anatom%C3%ADa-de-una-distribuci%C3%B3n"><i class="fas fa-link"></i></a>
 </h3>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-anatomia-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 8.5.</strong> Anatomía de una variable aleatoria continua: la esperanza señala el centro; la desviación típica, cómo de ancha es la distribución.</p>
+<p><strong>Figura 8.6.</strong> Anatomía de una variable aleatoria continua: la esperanza <span class="math inline">\(\\mu\)</span> señala el centro; la desviación típica <span class="math inline">\(\\sigma\)</span>, cómo de ancha es la distribución. El área sombreada cubre el intervalo <span class="math inline">\([\\mu - \\sigma,\\ \\mu + \\sigma]\)</span>.</p>
 </div>
 </div>
 </div>
-<div id="va-bidimensionales" class="section level2" number="8.8">
+<div id="decision-media-varianza" class="section level2" number="8.8">
 <h2>
-<span class="header-section-number">8.8</span> Variables aleatorias bidimensionales<a class="anchor" aria-label="anchor" href="#va-bidimensionales"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.8</span> Decisión bajo incertidumbre: media, varianza y elección racional<a class="anchor" aria-label="anchor" href="#decision-media-varianza"><i class="fas fa-link"></i></a>
+</h2>
+<p>Antes de cerrar este bloque unidimensional, dediquemos una sección a la <strong>utilidad económica</strong> de la esperanza y la varianza. Porque, a fin de cuentas, ¿para qué queremos toda esta maquinaria?</p>
+<p>El operador logístico de <em>Kaiju Haulage Co.</em> debe elegir entre dos rutas alternativas para su próximo trimestre. Los ingenieros han modelado el beneficio (en miles de PAVOs) que cada ruta generará como una variable aleatoria:</p>
+<ul>
+<li>Ruta <strong>A</strong> (ruta segura, dentro de la Vía Láctea): <span class="math inline">\(E(\xi_A) = 100\)</span>, <span class="math inline">\(\sigma_A = 20\)</span>.</li>
+<li>Ruta <strong>B</strong> (ruta larga hacia Andrómeda): <span class="math inline">\(E(\xi_B) = 130\)</span>, <span class="math inline">\(\sigma_B = 60\)</span>.</li>
+</ul>
+<p>¿Cuál elegir?</p>
+<p>Si el criterio fuera <strong>puramente el beneficio esperado</strong>, la respuesta es inmediata: B, con <span class="math inline">\(130 &gt; 100\)</span>. Pero eso ignora el riesgo. Con la desigualdad de Chebyshev sabemos que, en la ruta B, el beneficio puede alejarse fácilmente de <span class="math inline">\(130\)</span> en dos <span class="math inline">\(\sigma\)</span>: podría caer a <span class="math inline">\(10\)</span> mil PAVOs (o menos) en un trimestre malo. En la ruta A, la caída correspondiente lleva el beneficio a <span class="math inline">\(60\)</span>: mucho más contenida.</p>
+<p>La elección racional depende de la <strong>actitud frente al riesgo</strong> del decisor:</p>
+<ul>
+<li>Un decisor <strong>neutral al riesgo</strong> elige por la esperanza. Iría a la ruta B.</li>
+<li>Un decisor <strong>averso al riesgo</strong> penaliza la varianza. Aparece de forma natural el criterio <strong>media-varianza</strong>: elegir la alternativa que maximiza <span class="math inline">\(E(\xi) - \lambda \cdot \mathrm{Var}(\xi)\)</span>, con <span class="math inline">\(\lambda &gt; 0\)</span> un coeficiente de aversión al riesgo. Si <span class="math inline">\(\lambda = 0{,}02\)</span>, por ejemplo, la ruta A puntúa <span class="math inline">\(100 - 0{,}02 \cdot 400 = 92\)</span> y la B puntúa <span class="math inline">\(130 - 0{,}02 \cdot 3600 = 58\)</span>: ganaría la A.</li>
+<li>Un decisor <strong>amante del riesgo</strong> (raro, pero existe) iría a la B, y quizá también a la C si la hubiera.</li>
+</ul>
+<p>Este razonamiento —resumir una alternativa por su pareja <span class="math inline">\((\mu, \sigma^2)\)</span> y elegir entre pares— es la base del <strong>análisis media-varianza de carteras</strong> desarrollado por Harry Markowitz en los años 50, que le valió el Nobel de Economía en 1990 y sigue siendo el punto de partida canónico de las finanzas modernas. Que la lección esencial de un curso introductorio de probabilidad sea, precisamente, la base de las finanzas contemporáneas dice bastante sobre la centralidad de estos conceptos.</p>
+</div>
+<div id="va-bidimensionales" class="section level2" number="8.9">
+<h2>
+<span class="header-section-number">8.9</span> Variables aleatorias bidimensionales<a class="anchor" aria-label="anchor" href="#va-bidimensionales"><i class="fas fa-link"></i></a>
 </h2>
 <p>Hasta ahora hemos trabajado con <strong>una</strong> variable aleatoria. Pero en el mundo empresarial casi nada ocurre en solitario. Nos interesa, por ejemplo, saber si el número de rutas de una empresa y su número de empleados van de la mano, o si el tonelaje de una nave y su antigüedad guardan relación. Aparece entonces la idea de <strong>variable aleatoria bidimensional</strong>.</p>
 <p>Sin entrar en la maquinaria pesada —que se parece mucho a la unidimensional, sólo que con dos “ejes” de probabilidad—, quedémonos con los conceptos clave.</p>
-<div id="la-idea" class="section level3" number="8.8.1">
+<div id="la-idea" class="section level3" number="8.9.1">
 <h3>
-<span class="header-section-number">8.8.1</span> La idea<a class="anchor" aria-label="anchor" href="#la-idea"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.9.1</span> La idea<a class="anchor" aria-label="anchor" href="#la-idea"><i class="fas fa-link"></i></a>
 </h3>
 <p>Una <strong>variable aleatoria bidimensional</strong> es un vector <span class="math inline">\((\xi, \eta)\)</span> cuyas componentes son dos variables aleatorias definidas sobre el mismo experimento. Por ejemplo:</p>
 <p><span class="math display">\[
@@ -627,9 +721,9 @@ E(\xi^2) &amp;= \int_0^4 x^2 \cdot \frac{x}{8}\, dx = \frac{1}{8} \cdot \frac{4^
 \]</span></p>
 <p>Ambas se observan a la vez. La descripción probabilística conjunta responde a preguntas del estilo: ¿cuál es la probabilidad de que una nave elegida al azar pese entre 800 y 900 toneladas <strong>y</strong> tenga menos de 5 años?</p>
 </div>
-<div id="función-de-distribución-conjunta" class="section level3" number="8.8.2">
+<div id="función-de-distribución-conjunta" class="section level3" number="8.9.2">
 <h3>
-<span class="header-section-number">8.8.2</span> Función de distribución conjunta<a class="anchor" aria-label="anchor" href="#funci%C3%B3n-de-distribuci%C3%B3n-conjunta"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.9.2</span> Función de distribución conjunta<a class="anchor" aria-label="anchor" href="#funci%C3%B3n-de-distribuci%C3%B3n-conjunta"><i class="fas fa-link"></i></a>
 </h3>
 <p>Se define, como en el caso unidimensional, de forma acumulativa:</p>
 <p><span class="math display">\[
@@ -637,20 +731,20 @@ F(x, y) = P(\xi \le x,\ \eta \le y).
 \]</span></p>
 <p>La probabilidad se acumula ahora en el plano en lugar de en la recta.</p>
 </div>
-<div id="distribuciones-marginales" class="section level3" number="8.8.3">
+<div id="distribuciones-marginales" class="section level3" number="8.9.3">
 <h3>
-<span class="header-section-number">8.8.3</span> Distribuciones marginales<a class="anchor" aria-label="anchor" href="#distribuciones-marginales"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.9.3</span> Distribuciones marginales<a class="anchor" aria-label="anchor" href="#distribuciones-marginales"><i class="fas fa-link"></i></a>
 </h3>
 <p>Si la conjunta <span class="math inline">\(F(x, y)\)</span> describe cómo se reparte la probabilidad en el plano, las <strong>distribuciones marginales</strong> describen cómo se comporta cada componente por separado. Se obtienen “olvidándonos” de la otra variable:</p>
 <ul>
 <li>En el caso <strong>discreto</strong>: <span class="math inline">\(p_{i \bullet} = \sum_j p_{ij}\)</span> y <span class="math inline">\(p_{\bullet j} = \sum_i p_{ij}\)</span>.</li>
 <li>En el caso <strong>continuo</strong>: <span class="math inline">\(f_\xi(x) = \int f(x, y)\, dy\)</span> y <span class="math inline">\(f_\eta(y) = \int f(x, y)\, dx\)</span>.</li>
 </ul>
-<p>En cristiano: la distribución marginal de <span class="math inline">\(\xi\)</span> es lo que veríamos si ignorásemos completamente <span class="math inline">\(\eta\)</span>. Es la distribución de <span class="math inline">\(\xi\)</span> tal cual, sin más.</p>
+<p>Dicho de otra forma: la distribución marginal de <span class="math inline">\(\xi\)</span> es la que veríamos si ignorásemos completamente <span class="math inline">\(\eta\)</span>. Es la distribución de <span class="math inline">\(\xi\)</span> tal cual, sin más.</p>
 </div>
-<div id="ejemplo-intuitivo-la-comisión-interestelar-de-transporte" class="section level3" number="8.8.4">
+<div id="ejemplo-intuitivo-la-comisión-interestelar-de-transporte" class="section level3" number="8.9.4">
 <h3>
-<span class="header-section-number">8.8.4</span> Ejemplo intuitivo: la Comisión Interestelar de Transporte<a class="anchor" aria-label="anchor" href="#ejemplo-intuitivo-la-comisi%C3%B3n-interestelar-de-transporte"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.9.4</span> Ejemplo intuitivo: la Comisión Interestelar de Transporte<a class="anchor" aria-label="anchor" href="#ejemplo-intuitivo-la-comisi%C3%B3n-interestelar-de-transporte"><i class="fas fa-link"></i></a>
 </h3>
 <p>Imaginemos que la Comisión Interestelar de Transporte (CIT) audita al azar una empresa de la base <code>interestelar_300</code>. Define:</p>
 <ul>
@@ -754,9 +848,9 @@ ANTIGUA
 </div>
 <p>De aquí se lee, por ejemplo, que la probabilidad de que la empresa auditada opere en 2 galaxias y tenga flota MADURA es <span class="math inline">\(0{,}15\)</span>. Que opere en 3 galaxias, sea cual sea su flota, es <span class="math inline">\(0{,}22\)</span> (la marginal de <span class="math inline">\(\xi\)</span> para el valor 3). Y así con todo.</p>
 </div>
-<div id="independencia" class="section level3" number="8.8.5">
+<div id="independencia" class="section level3" number="8.9.5">
 <h3>
-<span class="header-section-number">8.8.5</span> Independencia<a class="anchor" aria-label="anchor" href="#independencia"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.9.5</span> Independencia<a class="anchor" aria-label="anchor" href="#independencia"><i class="fas fa-link"></i></a>
 </h3>
 <p>Dos variables aleatorias <span class="math inline">\(\xi\)</span> y <span class="math inline">\(\eta\)</span> son <strong>independientes</strong> cuando el valor que toma una no aporta información sobre el valor que toma la otra. Matemáticamente:</p>
 <ul>
@@ -765,9 +859,9 @@ ANTIGUA
 </ul>
 <p>En el ejemplo de la CIT, ¿son <span class="math inline">\(\xi\)</span> y <span class="math inline">\(\eta\)</span> independientes? Miremos la casilla <span class="math inline">\((3 \text{ galaxias}, \text{RENOVADA})\)</span>: la conjunta vale <span class="math inline">\(0{,}07\)</span>. El producto de marginales vale <span class="math inline">\(0{,}22 \cdot 0{,}20 = 0{,}044\)</span>. Como <span class="math inline">\(0{,}07 \ne 0{,}044\)</span>, <strong>no son independientes</strong>. Lo cual tiene sentido: probablemente una empresa que opera en tres galaxias tenga más incentivos —y más presupuesto— para renovar flota.</p>
 </div>
-<div id="covarianza-el-resumen-bidimensional" class="section level3" number="8.8.6">
+<div id="covarianza-el-resumen-bidimensional" class="section level3" number="8.9.6">
 <h3>
-<span class="header-section-number">8.8.6</span> Covarianza: el resumen bidimensional<a class="anchor" aria-label="anchor" href="#covarianza-el-resumen-bidimensional"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.9.6</span> Covarianza: el resumen bidimensional<a class="anchor" aria-label="anchor" href="#covarianza-el-resumen-bidimensional"><i class="fas fa-link"></i></a>
 </h3>
 <p>De todos los momentos bidimensionales, el que más nos interesa es la <strong>covarianza</strong>:</p>
 <p><span class="math display">\[
@@ -778,19 +872,76 @@ ANTIGUA
 <p><strong>Propiedad útil.</strong> Si dos variables aleatorias son <strong>independientes</strong>, su covarianza es <strong>nula</strong>. El recíproco, en cambio, no siempre se cumple: puede haber variables con covarianza cero que estén relacionadas de forma no lineal. Es una lección que muchos analistas de la Federación Comercial han tenido que aprender por las malas.</p>
 </div>
 </div>
+<div id="correlacion" class="section level3" number="8.9.7">
+<h3>
+<span class="header-section-number">8.9.7</span> Coeficiente de correlación: la versión normalizada<a class="anchor" aria-label="anchor" href="#correlacion"><i class="fas fa-link"></i></a>
+</h3>
+<p>La covarianza tiene un defecto molesto: sus unidades son “unidades de <span class="math inline">\(\xi\)</span> por unidades de <span class="math inline">\(\eta\)</span>”, con lo cual su valor absoluto depende de las escalas empleadas. Una covarianza de <span class="math inline">\(500\)</span> entre ingresos (miles de PAVOs) y flota (nº de naves) no dice, por sí sola, si la relación es fuerte o débil.</p>
+<p>La solución la aporta el <strong>coeficiente de correlación de Pearson</strong>, la versión estandarizada de la covarianza:</p>
+<p><span class="math display">\[
+\rho_{\xi\eta} \;=\; \frac{\mathrm{Cov}(\xi, \eta)}{\sigma_\xi \cdot \sigma_\eta}.
+\]</span></p>
+<p>Este número —el mismo que se estudió en el capítulo 3 sobre variables estadísticas bidimensionales— cumple <strong>siempre</strong> que <span class="math inline">\(-1 \le \rho_{\xi\eta} \le 1\)</span>:</p>
+<ul>
+<li>
+<span class="math inline">\(\rho = 1\)</span>: relación lineal positiva perfecta (cuando una crece, la otra crece exactamente en proporción fija).</li>
+<li>
+<span class="math inline">\(\rho = -1\)</span>: relación lineal negativa perfecta.</li>
+<li>
+<span class="math inline">\(\rho = 0\)</span>: <strong>no</strong> hay relación lineal (puede haber otras, no lineales).</li>
+<li>Valores intermedios miden la intensidad y el signo de la relación lineal.</li>
+</ul>
+<p>La ventaja: es <strong>adimensional</strong> y comparable entre pares de variables muy distintos. En finanzas se emplea de forma masiva para medir la relación entre rentabilidades de activos, y es la piedra angular sobre la que se construye la <strong>diversificación de carteras</strong>: combinar activos con correlación baja (o negativa) reduce el riesgo total sin sacrificar necesariamente la rentabilidad esperada. La correlación es, en efecto, uno de los pocos conceptos estadísticos que tienen valor de mercado.</p>
 </div>
-<div id="cierre-cap08" class="section level2" number="8.9">
+</div>
+<div id="simulacion-va" class="section level2" number="8.10">
 <h2>
-<span class="header-section-number">8.9</span> Cierre<a class="anchor" aria-label="anchor" href="#cierre-cap08"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.10</span> Simulación de variables aleatorias con R<a class="anchor" aria-label="anchor" href="#simulacion-va"><i class="fas fa-link"></i></a>
+</h2>
+<p>Todo lo visto hasta ahora es matemática pura. Pero, en la práctica del día a día del analista, muchas veces basta con <strong>simular</strong> la variable aleatoria en el ordenador: pedirle a R que “invente” miles de realizaciones plausibles del experimento y estudiar sus propiedades de forma empírica. Es la manera moderna, potentísima y bastante lúdica de trabajar con variables aleatorias.</p>
+<p>R proporciona funciones estándar para simular las distribuciones más habituales. Por ejemplo, el fragmento siguiente simula <span class="math inline">\(10\,000\)</span> noches de <em>arrakis freight</em> (con tres despachos por noche, cada uno con probabilidad de éxito <span class="math inline">\(0{,}5\)</span>) y compara la frecuencia empírica de cada resultado con la probabilidad teórica:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">n_sim</span> <span class="op">&lt;-</span> <span class="fl">10000</span></span>
+<span><span class="va">xi_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="va">n_sim</span>, size <span class="op">=</span> <span class="fl">3</span>, prob <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">comparacion</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span></span>
+<span>  x       <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">3</span>,</span>
+<span>  teorica <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fl">8</span>,</span>
+<span>  simulada <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">xi_sim</span>, levels <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="va">n_sim</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">pivot_longer</span><span class="op">(</span><span class="op">-</span><span class="va">x</span>, names_to <span class="op">=</span> <span class="st">"tipo"</span>, values_to <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">comparacion</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">prob</span>, fill <span class="op">=</span> <span class="va">tipo</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_col</span><span class="op">(</span>position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>teorica <span class="op">=</span> <span class="va">col_soft</span>, simulada <span class="op">=</span> <span class="va">col_disc</span><span class="op">)</span>,</span>
+<span>                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Teórica"</span>, <span class="st">"Simulada (n = 10.000)"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">xi</span><span class="op">)</span>, y <span class="op">=</span> <span class="st">"Probabilidad"</span>, fill <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/simulacion-arrakis-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 8.7.</strong> Comparación entre la distribución teórica de <span class="math inline">\(\\xi\)</span> (barras claras) y la distribución empírica obtenida simulando 10.000 noches (barras oscuras). Con tantas repeticiones, ambas se solapan casi perfectamente: Ley de los Grandes Números en acción.</p>
+</div>
+<p>Cuatro líneas de código y hemos verificado empíricamente lo que la teoría nos dice. Este enfoque —<strong>simulación de Monte Carlo</strong>, ya mencionado en el capítulo anterior— es la herramienta cotidiana del analista de riesgos financieros, del actuario, del ingeniero de fiabilidad y del científico de datos. Cuando una variable aleatoria es demasiado complicada para calcular sus propiedades analíticamente, simulamos miles (o millones) de realizaciones y aproximamos lo que queramos: esperanzas, varianzas, cuantiles, probabilidades de sucesos raros. Un salto conceptual enorme respecto a la estadística de hace medio siglo.</p>
+</div>
+<div id="cierre-cap08" class="section level2" number="8.11">
+<h2>
+<span class="header-section-number">8.11</span> Cierre<a class="anchor" aria-label="anchor" href="#cierre-cap08"><i class="fas fa-link"></i></a>
 </h2>
 <p>Recapitulemos el viaje del capítulo:</p>
 <ol style="list-style-type: decimal">
 <li>Partimos de la probabilidad y aprendimos a <strong>traducir sucesos a números</strong> mediante variables aleatorias.</li>
-<li>Vimos que la variable aleatoria y la variable estadística son <strong>primas hermanas</strong>: la primera predice, la segunda cuenta, y ambas se encuentran en el límite frecuentista.</li>
+<li>Vimos que la variable aleatoria y la variable estadística son <strong>primas hermanas</strong>: la primera predice, la segunda cuenta, y ambas se encuentran en el límite frecuentista (Ley de los Grandes Números).</li>
 <li>Aprendimos la <strong>función de distribución</strong> como forma universal de describir cualquier variable aleatoria.</li>
 <li>Distinguimos las <strong>variables discretas</strong> —con su función de cuantía— de las <strong>continuas</strong> —con su función de densidad—.</li>
-<li>Definimos las <strong>características</strong> de una variable aleatoria: esperanza (dónde está el centro) y varianza (cómo de dispersa es la cosa).</li>
-<li>Asomamos la nariz al mundo <strong>bidimensional</strong> para entender que dos variables aleatorias pueden ir de la mano —o no— y que existen herramientas (marginales, independencia, covarianza) para estudiarlo.</li>
+<li>Definimos las <strong>características</strong> de una variable aleatoria: esperanza (dónde está el centro), varianza (cómo de dispersa es), asimetría y curtosis (qué forma tienen sus colas).</li>
+<li>Presentamos la <strong>variable tipificada</strong>, con esperanza 0 y varianza 1, que unifica la lectura de cualquier distribución en unidades de <span class="math inline">\(\sigma\)</span> y prepara el terreno para la normal.</li>
+<li>Vimos que, al <strong>transformar</strong> una variable aleatoria mediante una función <span class="math inline">\(g(\xi)\)</span>, podemos calcular su esperanza sin conocer siquiera la distribución del resultado (regla del estadístico inconsciente).</li>
+<li>Recogimos la <strong>desigualdad de Chebyshev</strong> como cota general válida para cualquier variable con media y varianza finitas.</li>
+<li>Aplicamos todo lo anterior a un problema económico canónico: la <strong>decisión bajo incertidumbre</strong> con el criterio media-varianza, embrión del análisis moderno de carteras.</li>
+<li>Asomamos la nariz al mundo <strong>bidimensional</strong> para entender que dos variables aleatorias pueden ir de la mano —o no—: marginales, independencia, covarianza y <strong>coeficiente de correlación</strong> conforman el kit básico.</li>
+<li>Y, finalmente, comprobamos que en la práctica moderna gran parte del trabajo se realiza <strong>simulando</strong> variables aleatorias con R, aplicando la Ley de los Grandes Números a golpe de teclado.</li>
 </ol>
 <p>En los capítulos siguientes daremos nombre y ficha técnica a las <strong>distribuciones de probabilidad más importantes</strong>: la binomial, la Poisson, la normal… Cada una es una variable aleatoria con una función de cuantía o de densidad concreta, y todas ellas serán, a partir de ahora, herramientas de trabajo estándar en el maletín del analista empresarial.</p>
 <p>Que la esperanza (matemática) sea siempre positiva contigo.</p>
@@ -841,20 +992,27 @@ ANTIGUA
 <li><a class="nav-link" href="#momentos-la-maquinaria-com%C3%BAn"><span class="header-section-number">8.7.1</span> Momentos: la maquinaria común</a></li>
 <li><a class="nav-link" href="#esperanza-matem%C3%A1tica"><span class="header-section-number">8.7.2</span> Esperanza matemática</a></li>
 <li><a class="nav-link" href="#varianza-y-desviaci%C3%B3n-t%C3%ADpica"><span class="header-section-number">8.7.3</span> Varianza y desviación típica</a></li>
-<li><a class="nav-link" href="#resumen-visual-la-anatom%C3%ADa-de-una-distribuci%C3%B3n"><span class="header-section-number">8.7.4</span> Resumen visual: la anatomía de una distribución</a></li>
+<li><a class="nav-link" href="#tipificada"><span class="header-section-number">8.7.4</span> La variable tipificada (o estandarizada)</a></li>
+<li><a class="nav-link" href="#asimetria-curtosis"><span class="header-section-number">8.7.5</span> Asimetría y curtosis: los momentos que faltan</a></li>
+<li><a class="nav-link" href="#transformaciones-va"><span class="header-section-number">8.7.6</span> Transformaciones de una variable aleatoria</a></li>
+<li><a class="nav-link" href="#chebyshev"><span class="header-section-number">8.7.7</span> Una cota general: la desigualdad de Chebyshev</a></li>
+<li><a class="nav-link" href="#resumen-visual-la-anatom%C3%ADa-de-una-distribuci%C3%B3n"><span class="header-section-number">8.7.8</span> Resumen visual: la anatomía de una distribución</a></li>
 </ul>
 </li>
+<li><a class="nav-link" href="#decision-media-varianza"><span class="header-section-number">8.8</span> Decisión bajo incertidumbre: media, varianza y elección racional</a></li>
 <li>
-<a class="nav-link" href="#va-bidimensionales"><span class="header-section-number">8.8</span> Variables aleatorias bidimensionales</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#la-idea"><span class="header-section-number">8.8.1</span> La idea</a></li>
-<li><a class="nav-link" href="#funci%C3%B3n-de-distribuci%C3%B3n-conjunta"><span class="header-section-number">8.8.2</span> Función de distribución conjunta</a></li>
-<li><a class="nav-link" href="#distribuciones-marginales"><span class="header-section-number">8.8.3</span> Distribuciones marginales</a></li>
-<li><a class="nav-link" href="#ejemplo-intuitivo-la-comisi%C3%B3n-interestelar-de-transporte"><span class="header-section-number">8.8.4</span> Ejemplo intuitivo: la Comisión Interestelar de Transporte</a></li>
-<li><a class="nav-link" href="#independencia"><span class="header-section-number">8.8.5</span> Independencia</a></li>
-<li><a class="nav-link" href="#covarianza-el-resumen-bidimensional"><span class="header-section-number">8.8.6</span> Covarianza: el resumen bidimensional</a></li>
+<a class="nav-link" href="#va-bidimensionales"><span class="header-section-number">8.9</span> Variables aleatorias bidimensionales</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#la-idea"><span class="header-section-number">8.9.1</span> La idea</a></li>
+<li><a class="nav-link" href="#funci%C3%B3n-de-distribuci%C3%B3n-conjunta"><span class="header-section-number">8.9.2</span> Función de distribución conjunta</a></li>
+<li><a class="nav-link" href="#distribuciones-marginales"><span class="header-section-number">8.9.3</span> Distribuciones marginales</a></li>
+<li><a class="nav-link" href="#ejemplo-intuitivo-la-comisi%C3%B3n-interestelar-de-transporte"><span class="header-section-number">8.9.4</span> Ejemplo intuitivo: la Comisión Interestelar de Transporte</a></li>
+<li><a class="nav-link" href="#independencia"><span class="header-section-number">8.9.5</span> Independencia</a></li>
+<li><a class="nav-link" href="#covarianza-el-resumen-bidimensional"><span class="header-section-number">8.9.6</span> Covarianza: el resumen bidimensional</a></li>
+<li><a class="nav-link" href="#correlacion"><span class="header-section-number">8.9.7</span> Coeficiente de correlación: la versión normalizada</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#cierre-cap08"><span class="header-section-number">8.9</span> Cierre</a></li>
+<li><a class="nav-link" href="#simulacion-va"><span class="header-section-number">8.10</span> Simulación de variables aleatorias con R</a></li>
+<li><a class="nav-link" href="#cierre-cap08"><span class="header-section-number">8.11</span> Cierre</a></li>
 </ul>
 
       <div class="book-extra">
@@ -871,7 +1029,7 @@ ANTIGUA
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-03.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
