@@ -8,6 +8,7 @@ fig:fig-unif-klendathu
 fig:fig-exp-korrigan
 fig:fig-normal-estandar
 fig:fig-normal-ire
+fig:fig-var-normal
 fig:fig-aprox-normal
 fig:fig-tcl-costop
 estadistica-economica-empresarial
@@ -298,10 +299,12 @@ normal-tipificacion
 normal-tabla
 normal-ejemplo1
 normal-ejemplo2
+normal-var
 normal-aproximaciones
 lognormal
 ln-intuicion
 ln-ejemplo
+sim-continuos
 guia-continuas
 recap-cap10
 tcl

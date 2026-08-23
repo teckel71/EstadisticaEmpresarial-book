@@ -109,8 +109,8 @@
 <h2>
 <span class="header-section-number">10.1</span> Introducción<a class="anchor" aria-label="anchor" href="#intro-cap10"><i class="fas fa-link"></i></a>
 </h2>
-<p>En el capítulo anterior catalogamos los modelos discretos que aparecen una y otra vez en la práctica: Bernoulli, binomial, Poisson, binomial negativa e hipergeométrica. Todos ellos comparten un rasgo común: la variable modelada solo puede tomar un conjunto —finito o numerable— de valores enteros. Cargueros que llegan a tiempo, averías al año, reactores defectuosos, empresas con flota renovada. Contamos.</p>
-<p>Este capítulo cambia el chip. Las variables que aquí interesan son <strong>continuas</strong>: pueden tomar cualquier valor en un intervalo. No cuántas naves aterrizan, sino <strong>cuánto tarda</strong> una nave en aterrizar. No cuántos empleados hay en la plantilla, sino <strong>cuánto cobra</strong> cada uno de ellos. No cuántas averías registra una flota este año, sino <strong>cuánto tiempo pasa</strong> entre dos averías consecutivas. La aritmética cambia porque, como se vio en el capítulo 7, en una variable continua la probabilidad de un valor puntual es cero; lo que tiene sentido son las probabilidades sobre intervalos, calculadas como áreas bajo la función de densidad.</p>
+<p>En el capítulo anterior catalogamos los modelos discretos que aparecen una y otra vez en la práctica: uniforme discreta, Bernoulli, binomial, Poisson, binomial negativa e hipergeométrica. Todos ellos comparten un rasgo común: la variable modelada solo puede tomar un conjunto —finito o numerable— de valores enteros. Cargueros que llegan a tiempo, averías al año, reactores defectuosos, empresas con flota renovada. Contamos.</p>
+<p>Este capítulo cambia el chip. Las variables que aquí interesan son <strong>continuas</strong>: pueden tomar cualquier valor en un intervalo. No cuántas naves aterrizan, sino <strong>cuánto tarda</strong> una nave en aterrizar. No cuántos empleados hay en la plantilla, sino <strong>cuánto cobra</strong> cada uno de ellos. No cuántas averías registra una flota este año, sino <strong>cuánto tiempo pasa</strong> entre dos averías consecutivas. La aritmética cambia porque, como se vio en el capítulo 8, en una variable continua la probabilidad de un valor puntual es cero; lo que tiene sentido son las probabilidades sobre intervalos, calculadas como áreas bajo la función de densidad.</p>
 <p>Nos concentraremos aquí en cuatro modelos, en este orden:</p>
 <ol style="list-style-type: decimal">
 <li>La <strong>distribución uniforme continua</strong>, el modelo más sencillo posible: “todos los valores del intervalo son igualmente verosímiles”.</li>
@@ -200,7 +200,7 @@ Figure 10.1: Función de densidad de <span class="math inline">\(\xi \to U(0;\, 
 <span class="header-section-number">10.2.4</span> Cuándo (y cuándo no) es razonable la uniforme<a class="anchor" aria-label="anchor" href="#uniforme-avisos"><i class="fas fa-link"></i></a>
 </h3>
 <p>La uniforme es un modelo tentador por su simplicidad, pero conviene no abusar de ella. En muchos problemas se aplica por comodidad —“no sé bien cómo se comporta esta variable, así que asumo que es uniforme entre estos dos valores”— cuando la realidad la contradice sin disimulo. Si a un piloto de <em>hyperdrive express</em> se le pregunta el minuto de aterrizaje real y sus datos históricos se apiñan en la parte final de la ventana (porque tiende a apurar), la uniforme mentirá: la densidad debería crecer hacia la derecha. La uniforme, como cualquier modelo, es una hipótesis, no una comodidad.</p>
-<p>Un uso particularmente valioso de la uniforme es como <strong>modelo de referencia</strong>: en simulación estocástica, los generadores de números aleatorios producen precisamente valores <span class="math inline">\(U(0; 1)\)</span>, y a partir de ahí se generan realizaciones de cualquier otra distribución. Pero eso lo dejamos para más adelante.</p>
+<p>Un uso particularmente valioso de la uniforme es como <strong>modelo de referencia</strong>: en simulación estocástica, los generadores de números aleatorios producen precisamente valores <span class="math inline">\(U(0; 1)\)</span>, y a partir de ahí se generan realizaciones de cualquier otra distribución. Lo veremos, con código incluido, al final de este capítulo.</p>
 </div>
 </div>
 <div id="exponencial" class="section level2" number="10.3">
@@ -234,6 +234,11 @@ F(x) = P(\xi \leq x) = 1 - e^{-q x}, \qquad x \geq 0,
 \mu = E(\xi) = \frac{1}{q}, \qquad \sigma^{2} = \operatorname{Var}(\xi) = \frac{1}{q^{2}}.
 \]</span></p>
 <p>Un hecho llamativo: <strong>media y desviación típica coinciden</strong>, ambas iguales a <span class="math inline">\(1/q\)</span>. La exponencial es una distribución muy dispersa en términos relativos; su coeficiente de variación es siempre igual a <span class="math inline">\(1\)</span>.</p>
+<p><strong>Mediana y cuantiles.</strong> Invirtiendo la función de distribución se obtiene el cuantil de nivel <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[
+x_{p} = -\frac{\ln(1 - p)}{q}.
+\]</span></p>
+<p>La <strong>mediana</strong> es el cuantil de nivel <span class="math inline">\(0{,}5\)</span>: <span class="math inline">\(\mathrm{Me} = \ln 2 / q \approx 0{,}693 / q\)</span>. Es sistemáticamente <strong>menor</strong> que la media <span class="math inline">\(1/q\)</span>: la exponencial es asimétrica a la derecha, y la media queda tirada por la cola larga. Esta distinción es importante en actuaría, donde la <strong>vida media</strong> de una póliza o de un contrato se suele reportar como mediana, no como media. Decir que “la vida media de este equipo es de 3 años” es sensiblemente distinto según hablemos de mediana o de esperanza.</p>
 </div>
 <div id="exp-memoria" class="section level3" number="10.3.3">
 <h3>
@@ -257,7 +262,8 @@ P(\xi &gt; a + b \mid \xi &gt; b) \;=\; P(\xi &gt; a) \quad \text{para todo } a,
 <p><span class="math display">\[
 \xi = \text{"tiempo, en años, hasta la siguiente avería grave"} \;\to\; \mathrm{Exp}(1{,}8).
 \]</span></p>
-<p>El tiempo medio hasta el próximo incidente es <span class="math inline">\(\mu = 1 / 1{,}8 \approx 0{,}556\)</span> años, o alrededor de <span class="math inline">\(6{,}7\)</span> meses. Algunas probabilidades relevantes para el jefe de mantenimiento, Anakin Falco:</p>
+<p>El tiempo medio hasta el próximo incidente es <span class="math inline">\(\mu = 1 / 1{,}8 \approx 0{,}556\)</span> años, o alrededor de <span class="math inline">\(6{,}7\)</span> meses. La mediana es <span class="math inline">\(\mathrm{Me} = \ln 2 / 1{,}8 \approx 0{,}385\)</span> años, o unos <span class="math inline">\(4{,}6\)</span> meses: la mitad de las averías llegan antes de los cinco meses, aunque la media sea de casi siete. Es el efecto de la cola: unas pocas esperas largas tiran de la media hacia arriba.</p>
+<p>Algunas probabilidades relevantes para el jefe de mantenimiento, Anakin Falco:</p>
 <ul>
 <li>
 <p><strong>Que la próxima avería llegue en menos de seis meses (<span class="math inline">\(x = 0{,}5\)</span> años).</strong></p>
@@ -429,25 +435,61 @@ Figure 10.4: Función de densidad de <span class="math inline">\(\xi \to N(76{,}
 <p>Pregunta operativa: <strong>¿qué probabilidad hay de que el tonelaje total supere las <span class="math inline">\(4\,700\)</span> miles de toneladas?</strong></p>
 <p>Tipificamos: <span class="math inline">\(z = (4\,700 - 4\,407{,}6) / 280{,}5 \approx 1{,}04\)</span>. Por tabla, <span class="math inline">\(P(\eta &gt; 4\,700) \approx 0,1492\)</span>, en torno al <span class="math inline">\(15\)</span> % de las expediciones.</p>
 </div>
-<div id="normal-aproximaciones" class="section level3" number="10.4.7">
+<div id="normal-var" class="section level3" number="10.4.7">
 <h3>
-<span class="header-section-number">10.4.7</span> La normal como aproximación: cierre del círculo<a class="anchor" aria-label="anchor" href="#normal-aproximaciones"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.4.7</span> Cuantiles y aplicación financiera: el Valor en Riesgo (VaR)<a class="anchor" aria-label="anchor" href="#normal-var"><i class="fas fa-link"></i></a>
 </h3>
-<p>En el capítulo 8 vimos que la binomial se aproximaba a la Poisson bajo ciertas condiciones. Aquí cerramos el otro extremo: <strong>la normal aproxima muy bien tanto a la binomial como a la Poisson cuando los parámetros son suficientemente grandes</strong>. Los criterios usuales son:</p>
+<p>Hasta ahora hemos hecho siempre la misma pregunta: fijado un valor, ¿qué probabilidad hay de que la variable lo supere? En muchas aplicaciones económicas se hace la pregunta <strong>inversa</strong>: fijada una probabilidad, ¿qué valor la asegura? Esa pregunta lleva al concepto de <strong>cuantil</strong>.</p>
+<p>El <strong>cuantil de nivel <span class="math inline">\(\alpha\)</span></strong> de una variable aleatoria <span class="math inline">\(\xi\)</span>, denotado <span class="math inline">\(z_{\alpha}\)</span>, es el valor tal que <span class="math inline">\(P(\xi \leq z_{\alpha}) = \alpha\)</span>. Para la normal, los cuantiles se pueden leer directamente de la tabla o calcular con software: <span class="math inline">\(z_{0{,}95} \approx 1{,}645\)</span>, <span class="math inline">\(z_{0{,}975} \approx 1{,}96\)</span>, <span class="math inline">\(z_{0{,}99} \approx 2{,}326\)</span>, <span class="math inline">\(z_{0{,}995} \approx 2{,}576\)</span> (todos referidos a la <span class="math inline">\(N(0; 1)\)</span>; para otras normales, se desestandariza).</p>
+<p>Sobre esta idea de cuantil descansa una de las herramientas más utilizadas de las finanzas modernas: el <strong>Valor en Riesgo</strong> (<em>Value at Risk</em>, VaR). El VaR es, sencillamente, un cuantil de la distribución de <strong>pérdidas</strong> de una cartera. Cuando un banco dice “el VaR diario al <span class="math inline">\(95\)</span> % de esta cartera es <span class="math inline">\(2\)</span> millones de PAVOs”, está diciendo:</p>
+<blockquote>
+<p>Con probabilidad <span class="math inline">\(0{,}95\)</span>, las pérdidas de un día no superarán los <span class="math inline">\(2\)</span> millones; equivalentemente, solo en el <span class="math inline">\(5\)</span> % de los días peores esperamos perder más de esa cifra.</p>
+</blockquote>
+<p>El VaR es el estándar regulatorio para cuantificar el riesgo de mercado (acuerdos de Basilea en banca, Solvencia II en seguros). Y su cálculo, en su versión más simple —el llamado <strong>VaR paramétrico normal</strong>— es una aplicación directa de lo que hemos visto.</p>
+<p><strong>Un ejemplo.</strong> El fondo “Andrómeda-Vía Láctea” de <em>hyperdrive express</em> invierte en un índice de rentabilidades diarias que se puede modelar como <span class="math inline">\(\xi \to N(0{,}10\,\%;\, 1{,}50\,\%)\)</span> (media y desviación típica en porcentaje diario). El gestor dispone de un capital de <span class="math inline">\(C = 10\)</span> millones de PAVOs y quiere calcular el VaR al <span class="math inline">\(95\)</span> % y al <span class="math inline">\(99\)</span> %.</p>
+<p><strong>Paso 1: cuantil de la pérdida.</strong> La pérdida diaria es <span class="math inline">\(L = -C \cdot \xi\)</span>. Como <span class="math inline">\(\xi \sim N\)</span>, la pérdida es también normal: <span class="math inline">\(L \to N(-0{,}10\,\% \cdot 10, \; 1{,}50\,\% \cdot 10) = N(-0{,}01;\, 0{,}15)\)</span> millones. El VaR es el cuantil superior de <span class="math inline">\(L\)</span>:</p>
+<p><span class="math display">\[
+\mathrm{VaR}_{0{,}95} = \mu_{L} + z_{0{,}95} \cdot \sigma_{L}, \qquad z_{0{,}95} = 1{,}645.
+\]</span></p>
+<p><strong>Paso 2: cálculo.</strong></p>
+<ul>
+<li>
+<strong>VaR al 95 %:</strong> <span class="math inline">\(\mathrm{VaR}_{0{,}95} = -0{,}01 + 1{,}645 \cdot 0{,}15 \approx 0,237\)</span> millones de PAVOs. En días normales, no se espera perder más de unos <span class="math inline">\(237\)</span> mil PAVOs.</li>
+<li>
+<strong>VaR al 99 %:</strong> <span class="math inline">\(\mathrm{VaR}_{0{,}99} = -0{,}01 + 2{,}326 \cdot 0{,}15 \approx 0,339\)</span> millones. Ampliando el nivel de confianza, la reserva prudencial sube a <span class="math inline">\(339\)</span> mil PAVOs.</li>
+</ul>
+<p>La figura <a href="modelos-continuos.html#fig:fig-var-normal">10.5</a> visualiza el concepto sobre la distribución de pérdidas. El VaR es el punto que deja a su derecha la probabilidad <span class="math inline">\(1 - \alpha\)</span>: <strong>el umbral que separa los días “normales” de los días “malos”</strong>.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:fig-var-normal"></span>
+<img src="EstadisticaEmpresarial_files/figure-html/fig-var-normal-1.png" alt="Distribución de pérdidas diarias de una cartera modelada como normal $L \to N(-0{,}01;\, 0{,}15)$ (millones de PAVOs). El VaR al 95 % ($\approx 237$ mil PAVOs) y al 99 % ($\approx 339$ mil PAVOs) son los cuantiles de nivel $0{,}95$ y $0{,}99$ de esta distribución: los umbrales que las pérdidas no superan salvo, respectivamente, en el 5 % y el 1 % de los días." width="85%"><p class="caption">
+Figure 10.5: Distribución de pérdidas diarias de una cartera modelada como normal <span class="math inline">\(L \to N(-0{,}01;\, 0{,}15)\)</span> (millones de PAVOs). El VaR al 95 % (<span class="math inline">\(\approx 237\)</span> mil PAVOs) y al 99 % (<span class="math inline">\(\approx 339\)</span> mil PAVOs) son los cuantiles de nivel <span class="math inline">\(0{,}95\)</span> y <span class="math inline">\(0{,}99\)</span> de esta distribución: los umbrales que las pérdidas no superan salvo, respectivamente, en el 5 % y el 1 % de los días.
+</p>
+</div>
+<div class="callout-note">
+<p><strong>Un aviso sobre el VaR.</strong> El VaR paramétrico normal es cómodo y muy usado, pero descansa sobre una hipótesis crítica: que las rentabilidades sean normales. Las rentabilidades reales de los activos financieros suelen tener <strong>colas más gruesas</strong> que la normal, y también asimetría. Cuando ocurre un “cisne negro” —una caída de mercado extrema como la de octubre de 2008—, el VaR calculado con la normal subestima gravemente el riesgo. Por eso los reguladores exigen, además, complementarlo con medidas como el <em>Expected Shortfall</em> (o <em>CVaR</em>): la pérdida media condicionada a que se supere el VaR. La normal es una primera aproximación, no la última palabra.</p>
+</div>
+</div>
+<div id="normal-aproximaciones" class="section level3" number="10.4.8">
+<h3>
+<span class="header-section-number">10.4.8</span> La normal como aproximación: cierre del círculo<a class="anchor" aria-label="anchor" href="#normal-aproximaciones"><i class="fas fa-link"></i></a>
+</h3>
+<p>En el capítulo 9 vimos que la binomial se aproximaba a la Poisson bajo ciertas condiciones. Aquí cerramos el otro extremo: <strong>la normal aproxima muy bien tanto a la binomial como a la Poisson cuando los parámetros son suficientemente grandes</strong>. Los criterios usuales son:</p>
 <ul>
 <li>
 <strong>Binomial → Normal (De Moivre–Laplace).</strong> Si <span class="math inline">\(\xi \to B(n; p)\)</span> con <span class="math inline">\(n\)</span> grande y <span class="math inline">\(p\)</span> no demasiado próximo a <span class="math inline">\(0\)</span> ni a <span class="math inline">\(1\)</span> —criterio práctico: <span class="math inline">\(n p \geq 5\)</span> y <span class="math inline">\(n q \geq 5\)</span>—, entonces <span class="math inline">\(\xi \approx N(n p;\, \sqrt{n p q})\)</span>.</li>
 <li>
 <strong>Poisson → Normal.</strong> Si <span class="math inline">\(\xi \to \mathrm{Po}(\lambda)\)</span> con <span class="math inline">\(\lambda \geq 10\)</span> (algunos textos exigen <span class="math inline">\(\lambda \geq 5\)</span>), entonces <span class="math inline">\(\xi \approx N(\lambda;\, \sqrt{\lambda})\)</span>.</li>
 </ul>
-<p>Ambas aproximaciones se justifican por el mismo teorema central del límite. La binomial es una suma de <span class="math inline">\(n\)</span> Bernoullis independientes, y para <span class="math inline">\(n\)</span> grande esa suma tiende a ser normal. La Poisson es un límite de binomiales, con lo que hereda la aproximación por transitividad. La figura <a href="modelos-continuos.html#fig:fig-aprox-normal">10.5</a> ilustra la calidad de la aproximación en un caso concreto: una binomial <span class="math inline">\(B(50;\, 0{,}4)\)</span> (barras) frente a la <span class="math inline">\(N(20;\, \sqrt{12})\)</span> correspondiente (curva). El ajuste es prácticamente perfecto salvo en las colas más extremas.</p>
+<p>Ambas aproximaciones se justifican por el mismo teorema central del límite. La binomial es una suma de <span class="math inline">\(n\)</span> Bernoullis independientes, y para <span class="math inline">\(n\)</span> grande esa suma tiende a ser normal. La Poisson es un límite de binomiales, con lo que hereda la aproximación por transitividad. La figura <a href="modelos-continuos.html#fig:fig-aprox-normal">10.6</a> ilustra la calidad de la aproximación en un caso concreto: una binomial <span class="math inline">\(B(50;\, 0{,}4)\)</span> (barras) frente a la <span class="math inline">\(N(20;\, \sqrt{12})\)</span> correspondiente (curva). El ajuste es prácticamente perfecto salvo en las colas más extremas.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:fig-aprox-normal"></span>
 <img src="EstadisticaEmpresarial_files/figure-html/fig-aprox-normal-1.png" alt="Comparación entre las probabilidades exactas de una binomial $B(50;\, 0{,}4)$ (barras) y su aproximación normal $N(20;\, \sqrt{12})$ (curva). Con $n p = 20$ y $n q = 30$ ambos claramente por encima de 5, la aproximación es muy buena en toda la masa de la distribución." width="85%"><p class="caption">
-Figure 10.5: Comparación entre las probabilidades exactas de una binomial <span class="math inline">\(B(50;\, 0{,}4)\)</span> (barras) y su aproximación normal <span class="math inline">\(N(20;\, \sqrt{12})\)</span> (curva). Con <span class="math inline">\(n p = 20\)</span> y <span class="math inline">\(n q = 30\)</span> ambos claramente por encima de 5, la aproximación es muy buena en toda la masa de la distribución.
+Figure 10.6: Comparación entre las probabilidades exactas de una binomial <span class="math inline">\(B(50;\, 0{,}4)\)</span> (barras) y su aproximación normal <span class="math inline">\(N(20;\, \sqrt{12})\)</span> (curva). Con <span class="math inline">\(n p = 20\)</span> y <span class="math inline">\(n q = 30\)</span> ambos claramente por encima de 5, la aproximación es muy buena en toda la masa de la distribución.
 </p>
 </div>
-<p>En términos operativos: cuando aparezca una binomial con <span class="math inline">\(n\)</span> enorme (miles) o una Poisson con <span class="math inline">\(\lambda\)</span> grande (decenas), no calcule sumas monstruosas con <span class="math inline">\(n\)</span> términos. Aproxime por normal y termine el problema tipificando.</p>
+<p><strong>Corrección por continuidad.</strong> Al aproximar una variable discreta por una continua se pierde inevitablemente un poco de precisión al identificar qué punto de la continua corresponde a qué valor entero de la discreta. Una técnica sencilla y muy eficaz para reducir ese error es la <strong>corrección por continuidad</strong>: al calcular <span class="math inline">\(P(\xi \leq k)\)</span> con la aproximación normal, se sustituye por <span class="math inline">\(P(Y \leq k + 0{,}5)\)</span>, donde <span class="math inline">\(Y\)</span> es la normal aproximante; análogamente <span class="math inline">\(P(\xi \geq k) \approx P(Y \geq k - 0{,}5)\)</span>. La intuición es que el valor discreto <span class="math inline">\(k\)</span> “ocupa” un rectángulo de anchura <span class="math inline">\(1\)</span> centrado en <span class="math inline">\(k\)</span>, así que hay que capturar sus extremos.</p>
+<p>Con nuestro ejemplo <span class="math inline">\(B(50;\, 0{,}4)\)</span>: la probabilidad exacta <span class="math inline">\(P(\xi \leq 20) \approx 0,5610\)</span>. La aproximación sin corrección da <span class="math inline">\(P(Y \leq 20) \approx 0,5000\)</span>; con corrección, <span class="math inline">\(P(Y \leq 20{,}5) \approx 0,5574\)</span>. La corrección afila la aproximación en varias décimas.</p>
+<p>En términos operativos: cuando aparezca una binomial con <span class="math inline">\(n\)</span> enorme (miles) o una Poisson con <span class="math inline">\(\lambda\)</span> grande (decenas), no calcule sumas monstruosas con <span class="math inline">\(n\)</span> términos. Aproxime por normal —con corrección por continuidad si busca precisión— y termine el problema tipificando.</p>
 </div>
 </div>
 <div id="lognormal" class="section level2" number="10.5">
@@ -473,6 +515,9 @@ f(x) \;=\; \frac{1}{x \sigma \sqrt{2\pi}} \cdot e^{-\dfrac{(\ln x - \mu)^{2}}{2 
 E(\xi) = e^{\mu + \sigma^{2}/2}, \qquad \operatorname{Var}(\xi) = \left( e^{\sigma^{2}} - 1 \right) \cdot e^{2\mu + \sigma^{2}}.
 \]</span></p>
 <p>La lectura operativa de por qué la log-normal es tan frecuente en economía la propuso el ingeniero estadounidense Robert Gibrat en los años treinta: si el crecimiento de una empresa (o de un salario, o de un patrimonio) en cada periodo es un porcentaje aleatorio con esperanza pequeña y varianza moderada, el logaritmo del valor final es la suma acumulada de esos porcentajes; por el teorema central del límite, la suma se aproxima a una normal, y el valor final —la exponencial de esa normal— es log-normal. Los procesos multiplicativos, en el largo plazo, producen log-normales del mismo modo que los aditivos producen normales.</p>
+<div class="callout-note">
+<p><strong>La log-normal en finanzas: el modelo de Black-Scholes.</strong> El modelo probabilístico más famoso de la historia de las finanzas —el que valió el Nobel de Economía a Merton y Scholes en 1997— asume que el precio de una acción sigue un proceso cuyos incrementos porcentuales son normales, es decir, que <strong>el precio en el instante <span class="math inline">\(t\)</span> sigue una distribución log-normal</strong>. Toda la valoración clásica de opciones financieras (calls, puts, derivados en general) descansa sobre esa hipótesis. Que un modelo introductorio como este permita entender —al menos en su esqueleto— la matemática detrás de un premio Nobel no es cosa menor.</p>
+</div>
 </div>
 <div id="ln-ejemplo" class="section level3" number="10.5.2">
 <h3>
@@ -601,13 +646,113 @@ Diferencia
 </tbody>
 </table></div>
 <div class="callout-note">
-<p><strong>Log-normal y desigualdad.</strong> No es casualidad que las distribuciones de renta y riqueza sean aproximadamente log-normales (con una cola de Pareto en el extremo superior, para los muy ricos, que la log-normal no captura). El mecanismo multiplicativo que la genera —cada año, un porcentaje aleatorio de crecimiento— es también el mecanismo económico que produce desigualdad: pequeñas ventajas iniciales, compuestas durante décadas, generan brechas enormes. La log-normal es el retrato estadístico de esa asimetría acumulativa.</p>
+<p><strong>Log-normal y desigualdad.</strong> No es casualidad que las distribuciones de renta y riqueza sean aproximadamente log-normales, aunque con una cola aún más gruesa en el extremo superior —los muy ricos— que la log-normal no captura del todo. Para ese extremo se emplean las <strong>distribuciones de Pareto</strong> (o <em>leyes de potencia</em>), en las que la densidad decae como <span class="math inline">\(x^{-\alpha}\)</span> y los valores extremos son mucho más frecuentes que en cualquier distribución con cola exponencial. La regla informal “el <span class="math inline">\(80\)</span> % de la riqueza está en manos del <span class="math inline">\(20\)</span> % de la población” (el famoso principio de Pareto) es una manifestación de este patrón. El mecanismo multiplicativo que produce la log-normal —cada año, un porcentaje aleatorio de crecimiento— es también el mecanismo económico que produce desigualdad: pequeñas ventajas iniciales, compuestas durante décadas, generan brechas enormes. La log-normal es el retrato estadístico de esa asimetría acumulativa.</p>
 </div>
 </div>
 </div>
-<div id="guia-continuas" class="section level2" number="10.6">
+<div id="sim-continuos" class="section level2" number="10.6">
 <h2>
-<span class="header-section-number">10.6</span> Guía rápida de decisión<a class="anchor" aria-label="anchor" href="#guia-continuas"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.6</span> Simulación de modelos continuos con R<a class="anchor" aria-label="anchor" href="#sim-continuos"><i class="fas fa-link"></i></a>
+</h2>
+<p>Todas las distribuciones vistas en este capítulo están implementadas en R con las cuatro funciones estándar <code>d*</code>, <code>p*</code>, <code>q*</code> y <code>r*</code> (densidad, distribución acumulada, cuantiles y simulación). La tabla <a href="#tab:tab-r-cont"><strong>??</strong></a> resume las llamadas para los cuatro modelos.</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+Modelo
+</th>
+<th style="text-align:left;">
+Función R
+</th>
+<th style="text-align:left;">
+Ejemplo
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Uniforme
+</td>
+<td style="text-align:left;">
+<code>runif(n, min, max)</code>
+</td>
+<td style="text-align:left;">
+<code>runif(1000, 0, 20)</code>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Exponencial
+</td>
+<td style="text-align:left;">
+<code>rexp(n, rate)</code>
+</td>
+<td style="text-align:left;">
+<code>rexp(1000, 1.8)</code>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Normal
+</td>
+<td style="text-align:left;">
+<code>rnorm(n, mean, sd)</code>
+</td>
+<td style="text-align:left;">
+<code>rnorm(1000, 76, 8.2)</code>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Log-normal
+</td>
+<td style="text-align:left;">
+<code>rlnorm(n, meanlog, sdlog)</code>
+</td>
+<td style="text-align:left;">
+<code>rlnorm(1000, 3.4, 1.2)</code>
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 10.1.</strong> Funciones de R para simular los modelos continuos del capítulo. Cambiando la letra <code>r</code> inicial por <code>d</code>, <code>p</code> o <code>q</code> se accede, respectivamente, a la densidad, la función de distribución acumulada y los cuantiles.</p>
+</div>
+<p>Como aplicación práctica, retomemos el ejemplo del VaR de la sección anterior. Al gestor del fondo “Andrómeda-Vía Láctea” le interesa <strong>estimar el VaR sin depender de la fórmula analítica</strong>, para prepararse ante el día en que el modelo normal no sea válido (colas gruesas, asimetría) y ya no sirva la fórmula cerrada. La técnica moderna para hacerlo es la <strong>simulación de Monte Carlo</strong>: se simulan miles de rentabilidades diarias del modelo elegido y se estima el VaR como el cuantil empírico correspondiente. En pocas líneas:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">n_sim</span> <span class="op">&lt;-</span> <span class="fl">10000</span></span>
+<span><span class="va">mu_r</span>  <span class="op">&lt;-</span> <span class="fl">0.0010</span>; <span class="va">sd_r</span> <span class="op">&lt;-</span> <span class="fl">0.0150</span>      <span class="co"># rentabilidad diaria (proporción)</span></span>
+<span><span class="va">capital</span> <span class="op">&lt;-</span> <span class="fl">10</span>                        <span class="co"># millones de PAVOs</span></span>
+<span></span>
+<span><span class="co"># Simulamos rentabilidades y calculamos las pérdidas</span></span>
+<span><span class="va">rent_sim</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n_sim</span>, <span class="va">mu_r</span>, <span class="va">sd_r</span><span class="op">)</span></span>
+<span><span class="va">perdidas</span>   <span class="op">&lt;-</span> <span class="op">-</span><span class="va">capital</span> <span class="op">*</span> <span class="va">rent_sim</span></span>
+<span></span>
+<span><span class="co"># VaR estimado como cuantil empírico</span></span>
+<span><span class="va">var95_mc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">perdidas</span>, <span class="fl">0.95</span><span class="op">)</span></span>
+<span><span class="va">var99_mc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">perdidas</span>, <span class="fl">0.99</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="fu">tibble</span><span class="op">(</span>L <span class="op">=</span> <span class="va">perdidas</span><span class="op">)</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">L</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">50</span>, fill <span class="op">=</span> <span class="va">pal_apoyo</span>, alpha <span class="op">=</span> <span class="fl">0.65</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">var95_mc</span>, <span class="va">var99_mc</span><span class="op">)</span>,</span>
+<span>             color <span class="op">=</span> <span class="va">pal_acento</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, linewidth <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="va">var95_mc</span>, y <span class="op">=</span> <span class="fl">550</span>,</span>
+<span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"VaR 95% (MC) ≈ "</span>, <span class="fu">fmt</span><span class="op">(</span><span class="va">var95_mc</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>           color <span class="op">=</span> <span class="va">pal_acento</span>, size <span class="op">=</span> <span class="fl">3</span>, hjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.03</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="va">var99_mc</span>, y <span class="op">=</span> <span class="fl">400</span>,</span>
+<span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"VaR 99% (MC) ≈ "</span>, <span class="fu">fmt</span><span class="op">(</span><span class="va">var99_mc</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>           color <span class="op">=</span> <span class="va">pal_acento</span>, size <span class="op">=</span> <span class="fl">3</span>, hjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.03</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Pérdida diaria simulada (millones de PAVOs)"</span>, y <span class="op">=</span> <span class="st">"Frecuencia"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_libro</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/sim-var-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><strong>Figura 10.3.</strong> Distribución simulada de pérdidas diarias de la cartera (10.000 simulaciones bajo el modelo normal). Las líneas verticales rojas marcan los VaR al 95 % y al 99 % estimados como cuantiles empíricos. El resultado coincide, salvo la variabilidad Monte Carlo, con el cálculo analítico de la sección anterior.</p>
+</div>
+<p>Los VaR estimados por simulación coinciden, salvo la propia variabilidad de la muestra, con los que obtuvimos analíticamente. La ventaja del enfoque simulado es que <strong>funciona con cualquier distribución</strong>, incluso cuando no existe fórmula cerrada. Basta cambiar <code>rnorm</code> por, por ejemplo, <code>rt</code> (t de Student, con colas más gruesas) o por una mezcla de distribuciones para modelar rentabilidades más realistas. Es la manera en que los sistemas de gestión de riesgos de la banca contemporánea calculan sus VaR y sus <em>Expected Shortfall</em> día tras día.</p>
+</div>
+<div id="guia-continuas" class="section level2" number="10.7">
+<h2>
+<span class="header-section-number">10.7</span> Guía rápida de decisión<a class="anchor" aria-label="anchor" href="#guia-continuas"><i class="fas fa-link"></i></a>
 </h2>
 <p>Con cuatro modelos continuos sobre la mesa, la pregunta operativa vuelve a ser: <strong>“¿qué modelo aplico?”</strong>. La tabla <a href="#tab:tab-decision-cont"><strong>??</strong></a> resume el criterio.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -653,7 +798,7 @@ Variable resultado de sumar muchos efectos pequeños e independientes.
 Normal, <span class="math inline">\(N(\mu; \sigma)\)</span>.
 </td>
 <td style="text-align:left;">
-IRE de una nave; tonelaje total de una flotilla.
+IRE de una nave; tonelaje total de una flotilla; rentabilidad diaria.
 </td>
 </tr>
 <tr>
@@ -664,20 +809,20 @@ Variable estrictamente positiva y muy asimétrica a la derecha, generada por un 
 Log-normal, <span class="math inline">\(\mathrm{LN}(\mu; \sigma)\)</span>.
 </td>
 <td style="text-align:left;">
-Costes operativos de las empresas interestelares; salarios; precios de activos.
+Costes operativos; salarios; precios de activos.
 </td>
 </tr>
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 10.1</strong></p>
+<p><strong>Tabla 10.2</strong></p>
 </div>
 <p>Y las relaciones-puente que conviene tener en la cabeza al terminar este capítulo:</p>
 <ul>
 <li>
 <strong>Poisson <span class="math inline">\(\leftrightarrow\)</span> Exponencial</strong> son la misma moneda vista por sus dos caras: la Poisson cuenta sucesos en un intervalo fijo, la exponencial mide tiempos entre sucesos consecutivos. La tasa <span class="math inline">\(q\)</span> es la <span class="math inline">\(\lambda\)</span> del proceso Poisson subyacente.</li>
 <li>
-<strong>Binomial <span class="math inline">\(\to\)</span> Normal</strong> (De Moivre–Laplace) cuando <span class="math inline">\(n p \geq 5\)</span> y <span class="math inline">\(n q \geq 5\)</span>.</li>
+<strong>Binomial <span class="math inline">\(\to\)</span> Normal</strong> (De Moivre–Laplace) cuando <span class="math inline">\(n p \geq 5\)</span> y <span class="math inline">\(n q \geq 5\)</span>, con opcional corrección por continuidad.</li>
 <li>
 <strong>Poisson <span class="math inline">\(\to\)</span> Normal</strong> cuando <span class="math inline">\(\lambda \geq 10\)</span> (algunos manuales aceptan <span class="math inline">\(\lambda \geq 5\)</span>).</li>
 <li>
@@ -685,17 +830,18 @@ Costes operativos de las empresas interestelares; salarios; precios de activos.
 </ul>
 <p>Estas conexiones no son mnemotécnicas caprichosas: reflejan que todos los modelos, discretos y continuos, forman una <strong>familia</strong> entrelazada por el teorema central del límite. En el largo plazo y con muestras grandes, la normal aparece por todas partes.</p>
 </div>
-<div id="recap-cap10" class="section level2" number="10.7">
+<div id="recap-cap10" class="section level2" number="10.8">
 <h2>
-<span class="header-section-number">10.7</span> Recapitulación<a class="anchor" aria-label="anchor" href="#recap-cap10"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.8</span> Recapitulación<a class="anchor" aria-label="anchor" href="#recap-cap10"><i class="fas fa-link"></i></a>
 </h2>
-<p>Este capítulo ha catalogado cuatro modelos continuos y las relaciones que los enlazan. Las tres ideas que conviene retener por encima de las demás son:</p>
+<p>Este capítulo ha catalogado cuatro modelos continuos y las relaciones que los enlazan. Las cuatro ideas que conviene retener por encima de las demás son:</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Cada modelo describe una intuición del mundo real.</strong> La uniforme, la ausencia de preferencia dentro de un intervalo. La exponencial, tiempos de espera memoryless. La normal, la suma de muchos efectos independientes. La log-normal, el producto de muchos efectos independientes. Identificar bien la intuición es identificar bien el modelo.</p></li>
+<li><p><strong>Cada modelo describe una intuición del mundo real.</strong> La uniforme, la ausencia de preferencia dentro de un intervalo. La exponencial, tiempos de espera <em>memoryless</em>. La normal, la suma de muchos efectos independientes. La log-normal, el producto de muchos efectos independientes. Identificar bien la intuición es identificar bien el modelo.</p></li>
 <li><p><strong>La normal es la reina, pero no es universal.</strong> Su ubicuidad está justificada por el teorema central del límite, pero no todo es normal: variables acotadas, tiempos de espera, magnitudes multiplicativas y fenómenos con colas gruesas necesitan otros modelos. Aplicar la normal por defecto es un error frecuente y evitable.</p></li>
 <li><p><strong>Las probabilidades se calculan tipificando.</strong> Casi cualquier problema con una normal —y muchos con otras distribuciones que se aproximan por normal— se reduce a preguntas del tipo “¿a cuántas desviaciones típicas de la media está este valor?”. Interiorizar esta pregunta, y su respuesta vía tabla, es interiorizar la mitad del temario de inferencia que viene después.</p></li>
+<li><p><strong>Los cuantiles son la puerta a las aplicaciones económicas.</strong> El VaR de la gestión de riesgos financieros, las primas actuariales, los límites de garantía industrial, los intervalos de confianza que veremos en el próximo bloque… todos son cuantiles de alguna distribución. Aprender a leer la tabla en los dos sentidos —dada la probabilidad, buscar el valor, y viceversa— duplica de golpe la capacidad operativa del estudiante.</p></li>
 </ol>
-<p>En el próximo capítulo daremos el salto conceptual más importante del curso: pasaremos de describir distribuciones a <strong>inferir</strong> sus parámetros a partir de muestras. Ahí aparecerá con todo su esplendor el teorema central del límite, que hemos ido invocando desde las sombras, y quedará claro por qué la normal —aún sin aparecer explícitamente en los datos originales— acaba gobernando el comportamiento de las medias muestrales. La estadística inferencial, esa cosa que da miedo por su nombre pero se sostiene sobre las distribuciones que ya conocemos, está a un capítulo de distancia.</p>
+<p>En el próximo capítulo daremos el salto conceptual más importante del curso: pasaremos de describir distribuciones a <strong>inferir</strong> sus parámetros a partir de muestras. Ahí aparecerá con todo su esplendor el teorema central del límite, que hemos ido invocando desde las sombras, y quedará claro por qué la normal —aún sin aparecer explícitamente en los datos originales— acaba gobernando el comportamiento de las medias muestrales. Aparecerán también, y ya no como añadido sino como protagonistas de pleno derecho, algunas distribuciones nuevas: la <strong>t de Student</strong>, la <strong>ji-cuadrado</strong> y la <strong>F de Snedecor</strong>, todas ellas derivadas de la normal y todas ellas indispensables para inferir con muestras finitas. La estadística inferencial, esa cosa que da miedo por su nombre pero se sostiene sobre las distribuciones que ya conocemos, está a un capítulo de distancia.</p>
 
 </div>
 </div>
@@ -732,7 +878,8 @@ Costes operativos de las empresas interestelares; salarios; precios de activos.
 <li><a class="nav-link" href="#normal-tabla"><span class="header-section-number">10.4.4</span> Uso de la tabla: ejemplos guiados</a></li>
 <li><a class="nav-link" href="#normal-ejemplo1"><span class="header-section-number">10.4.5</span> Ejemplo 1: rendimiento energético de las naves KORRIGAN</a></li>
 <li><a class="nav-link" href="#normal-ejemplo2"><span class="header-section-number">10.4.6</span> Ejemplo 2: tonelaje total de una flota (propiedad reproductiva)</a></li>
-<li><a class="nav-link" href="#normal-aproximaciones"><span class="header-section-number">10.4.7</span> La normal como aproximación: cierre del círculo</a></li>
+<li><a class="nav-link" href="#normal-var"><span class="header-section-number">10.4.7</span> Cuantiles y aplicación financiera: el Valor en Riesgo (VaR)</a></li>
+<li><a class="nav-link" href="#normal-aproximaciones"><span class="header-section-number">10.4.8</span> La normal como aproximación: cierre del círculo</a></li>
 </ul>
 </li>
 <li>
@@ -741,8 +888,9 @@ Costes operativos de las empresas interestelares; salarios; precios de activos.
 <li><a class="nav-link" href="#ln-ejemplo"><span class="header-section-number">10.5.2</span> Ejemplo: costes operativos de las empresas interestelares</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#guia-continuas"><span class="header-section-number">10.6</span> Guía rápida de decisión</a></li>
-<li><a class="nav-link" href="#recap-cap10"><span class="header-section-number">10.7</span> Recapitulación</a></li>
+<li><a class="nav-link" href="#sim-continuos"><span class="header-section-number">10.6</span> Simulación de modelos continuos con R</a></li>
+<li><a class="nav-link" href="#guia-continuas"><span class="header-section-number">10.7</span> Guía rápida de decisión</a></li>
+<li><a class="nav-link" href="#recap-cap10"><span class="header-section-number">10.8</span> Recapitulación</a></li>
 </ul>
 
       <div class="book-extra">
