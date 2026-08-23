@@ -14,6 +14,7 @@ library(readxl)
 library(knitr)
 library(kableExtra)
 library(scales)
+library(patchwork)
 
 # Paleta coherente con capítulos previos.
 pal_libro  <- c("#2C6E91", "#B85450", "#E4B363", "#6A8E7F", "#8E6C88")
@@ -33,11 +34,17 @@ theme_libro <- function(base_size = 11) {
     )
 }
 
-# Formateador de números con coma decimal española.
-fmt <- function(x, d = 4) formatC(x, format = "f", digits = d, decimal.mark = ",")
+# Formateadores.
+fmt    <- function(x, d = 4) formatC(x, format = "f", digits = d, decimal.mark = ",")
+fmtint <- function(x) format(x, big.mark = ".", decimal.mark = ",", trim = TRUE)
 
 # Semilla común para reproducir las simulaciones.
 set.seed(2025)
+```
+
+```{r datos-cap11}
+interestelar <- read_excel("data/interestelar_300.xlsx", sheet = "Datos")
+astilleros   <- read_excel("data/astilleros_48.xlsx",   sheet = "Datos")
 ```
 
 ![Cada carguero, tomado uno a uno, tiene su carácter. La flotilla, en promedio, no tiene ninguno: es simplemente normal.](figuras/10_limite.jpg){.portada-img width="100%"}
@@ -54,7 +61,7 @@ Este capítulo se organiza en torno a tres ideas:
 
 1. Antes de hablar de un *teorema del límite* hace falta precisar qué significa **que una sucesión de variables aleatorias tienda a algo**. Introducimos brevemente los modos de convergencia relevantes y enunciamos la ley de los grandes números como aperitivo.
 2. Presentamos el **TCL en su forma general** (Lindeberg–Lévy) y sus dos casos particulares más útiles en la práctica: la aproximación **binomial → normal** (De Moivre–Laplace) y la aproximación **Poisson → normal**.
-3. Cerramos el círculo con el **esquema completo de aproximaciones** que enlaza a la binomial, la Poisson y la normal, junto con las reglas prácticas que determinan cuándo aplicar cada una.
+3. Cerramos el círculo con el **esquema completo de aproximaciones** que enlaza a la binomial, la Poisson y la normal, junto con las reglas prácticas que determinan cuándo aplicar cada una, y con las **aplicaciones económicas** que el TCL habilita: diversificación, encuestas, seguros e inferencia.
 
 ::: {.callout-tip}
 **Cómo leer este capítulo.** El capítulo es teórico —no hay una nueva distribución que memorizar—, pero se apoya en simulaciones y ejemplos numéricos con entidades del universo RStars. Al terminar debería quedar claro por qué, en la práctica, casi cualquier promedio muestral acaba pareciendo una campana, aunque los datos originales no la tengan ni de lejos.
@@ -72,11 +79,11 @@ $$
 \lim_{n \to \infty} P\left( |\xi_{n} - \xi| > \varepsilon \right) \;=\; 0.
 $$
 
-Se escribe $\xi_{n} \xrightarrow{P} \xi$. Traducido a román paladino: **por grande que sea $n$, la probabilidad de que $\xi_{n}$ se aleje del límite en más que un margen fijo tiende a cero**. No es que $\xi_{n}$ sea exactamente $\xi$ para $n$ grande —de hecho, no lo será casi nunca—, pero la probabilidad de errar por mucho se hace despreciable.
+Se escribe $\xi_{n} \xrightarrow{P} \xi$. En palabras: **por grande que sea $n$, la probabilidad de que $\xi_{n}$ se aleje del límite en más que un margen fijo tiende a cero**. No es que $\xi_{n}$ sea exactamente $\xi$ para $n$ grande —de hecho, no lo será casi nunca—, pero la probabilidad de errar por mucho se hace despreciable.
 
 ### La ley (débil) de los grandes números {#lgn}
 
-El ejemplo canónico —y el más importante en la práctica— de convergencia en probabilidad es la **ley (débil) de los grandes números**. Si $\xi_{1}, \xi_{2}, \ldots$ son variables aleatorias independientes e idénticamente distribuidas (i.i.d., abreviatura estándar) con media $\mu$ y varianza finita, entonces la **media muestral**
+El ejemplo canónico —y el más importante en la práctica— de convergencia en probabilidad es la **ley (débil) de los grandes números** (LGN). Si $\xi_{1}, \xi_{2}, \ldots$ son variables aleatorias independientes e idénticamente distribuidas (i.i.d., abreviatura estándar) con media $\mu$ y varianza finita, entonces la **media muestral**
 
 $$
 \bar{\xi}_{n} \;=\; \frac{\xi_{1} + \xi_{2} + \cdots + \xi_{n}}{n}
@@ -88,9 +95,23 @@ $$
 \bar{\xi}_{n} \;\xrightarrow{P}\; \mu \quad \text{cuando } n \to \infty.
 $$
 
-En palabras llanas: **si tomamos suficientes observaciones y calculamos su media, esa media se parecerá tanto como queramos a la verdadera media poblacional**. Es el principio que legitima usar una muestra grande para estimar un parámetro desconocido, y también el argumento subyacente cuando un casino informa a un cliente enfadado que "a la larga la casa siempre gana": no es un capricho probabilístico, es la LGN aplicada al margen del jugador.
+En palabras llanas: **si tomamos suficientes observaciones y calculamos su media, esa media se parecerá tanto como queramos a la verdadera media poblacional**. Es el principio que legitima usar una muestra grande para estimar un parámetro desconocido.
+
+Existe también una versión más fuerte —la **ley fuerte de los grandes números**— que garantiza que la convergencia ocurre no solo "en probabilidad" sino "casi seguramente": el conjunto de las sucesiones $(\xi_1, \xi_2, \ldots)$ para las que la media muestral **no** tiende a $\mu$ tiene probabilidad cero. Para el uso ordinario en un curso de ADE la distinción es puramente académica; la LGN débil resuelve todos los problemas prácticos que nos vamos a plantear. Basta con saber que existen dos versiones y que la fuerte implica a la débil.
 
 Un pequeño aviso: la LGN dice **a dónde tiende** la media muestral, pero **no** dice a qué velocidad ni con qué error. Para eso hará falta el TCL.
+
+### La LGN en la vida económica: seguros, casinos y encuestas {#lgn-economia}
+
+Antes de continuar, merece la pena detenerse un momento en el enorme peso económico de la LGN, porque tres industrias multimillonarias descansan literalmente sobre ella.
+
+**Los seguros.** Una compañía de seguros no puede predecir si el asegurado individual Ripley Strix sufrirá un siniestro este año; su probabilidad es una lotería. Pero si la compañía asegura a decenas de miles de perfiles similares, el **coste promedio** por póliza —que es lo único que necesita saber para fijar primas y provisiones— será, por LGN, casi exactamente el coste esperado teórico. La aseguradora convierte, gracias al agregado, incertidumbre individual en previsibilidad colectiva. Es literalmente el modelo de negocio.
+
+**Los casinos.** La casa no puede prever si un jugador concreto se irá con las manos vacías o con un jackpot. Pero como cada juego ofrece a la casa una esperanza matemática ligeramente positiva y se juegan millones de manos al día, por LGN el beneficio agregado del casino converge al valor esperado teórico. Cuando un cliente enfadado protesta que "a la larga la casa siempre gana", no se le está escamoteando nada: se está enunciando la LGN aplicada al margen del jugador.
+
+**Las encuestas y el *market making*.** Una encuesta a 2.000 votantes no acierta lo que va a votar cada uno; acierta —por LGN— la proporción del colectivo. Un *market maker* que compra y vende millones de acciones al día no gana ni pierde en cada operación; gana, por LGN, la esperanza matemática del *spread*. Sin la LGN, ni las encuestas ni la microestructura de los mercados financieros modernos serían viables.
+
+Retengamos la idea general: **el negocio de vender previsibilidad, en cualquiera de sus formas, es el negocio de aplicar la LGN a escala industrial**.
 
 ### Convergencia en distribución {#conv-distribucion}
 
@@ -119,8 +140,7 @@ La respuesta la anticipa el TCL: **conforme $n$ crece, la distribución de $\bar
 La figura \@ref(fig:fig-tcl-costop) hace visible este fenómeno. En el primer panel se muestra la distribución empírica de `COSTOP` sobre las 300 empresas: fuertemente asimétrica. En los paneles siguientes se muestra la distribución de la media muestral $\bar{\xi}_{n}$ para tamaños $n = 3, 10, 30$ y $100$, obtenida remuestreando 5000 veces sobre la población. El progreso hacia la campana es visible y sistemático: cuanto mayor es $n$, más simétrica, más concentrada y más *normal* es la distribución de la media.
 
 ```{r fig-tcl-costop, fig.cap="Ilustración empírica del TCL. En el panel etiquetado como $n = 1$ se muestra la distribución original de la variable `COSTOP` (costes operativos, en miles de PAVOs) sobre las 300 empresas del fichero `interestelar_300.xlsx`: fuertemente asimétrica, muy lejos de una normal. En los paneles restantes se muestra la distribución de la media muestral $\\bar{\\xi}_{n}$ para tamaños $n = 3, 10, 30, 100$, obtenida remuestreando 5000 veces con reemplazamiento. La curva roja superpone en cada caso la normal $N(\\mu;\\, \\sigma/\\sqrt{n})$ predicha por el TCL. La convergencia a la campana es sistemática, aun cuando la distribución de partida no lo es en absoluto.", fig.height=5.2}
-costop <- read_excel("data/interestelar_300.xlsx", sheet = "Datos") |>
-  pull(COSTOP)
+costop <- interestelar |> pull(COSTOP)
 
 mu_pop <- mean(costop)
 sd_pop <- sd(costop)
@@ -230,6 +250,49 @@ Las condiciones son sorprendentemente laxas: independencia, distribución común
 **¿Y si las condiciones no se cumplen?** El TCL tiene versiones más generales para variables no idénticamente distribuidas (condición de Lindeberg), débilmente dependientes (procesos estacionarios), o incluso vectoriales (TCL multivariante). En cualquier introducción como esta bastará con Lindeberg–Lévy. Cuando una variable tenga colas tan pesadas que su varianza no exista —como la distribución de Cauchy—, el TCL clásico falla y aparecen distribuciones límite alternativas ($\alpha$-estables). Es un mundo interesante, pero muy fuera del alcance de este manual.
 :::
 
+### El error estándar y las cuatro fórmulas de referencia {#error-estandar}
+
+La cantidad $\sigma / \sqrt{n}$ que aparece en el denominador del TCL para medias tiene tal centralidad práctica que ha ganado nombre propio: se denomina **error estándar** (*standard error*, SE) de la media muestral. No es la desviación típica de la variable original, sino la **desviación típica del estimador**: mide cuánto oscila la media muestral en torno a la verdadera media poblacional cuando repetimos el muestreo.
+
+Es imprescindible distinguir bien los dos conceptos:
+
+- $\sigma$ es la **variabilidad de la población**. No depende de $n$: es la que hay.
+- $\sigma / \sqrt{n}$ es la **variabilidad de la media muestral**. Sí depende de $n$: al aumentar el tamaño muestral, cae como $1/\sqrt{n}$.
+
+Toda la inferencia estadística del próximo bloque se moverá entre estos dos conceptos. Diremos "el error estándar" muchísimas veces; conviene tenerlo instalado desde ya.
+
+Con el error estándar en la mano, el TCL admite cuatro aplicaciones canónicas que aparecen sistemáticamente en la práctica del analista. La tabla \@ref(tab:tab-tcl-usos) las resume.
+
+```{r tab-tcl-usos}
+tibble(
+  Estadístico = c(
+    "**Suma** $\\eta_n = \\xi_1 + \\cdots + \\xi_n$",
+    "**Media muestral** $\\bar\\xi_n$",
+    "**Proporción muestral** $\\hat p = X/n$ (con $X \\to B(n; p)$)",
+    "**Diferencia de medias** $\\bar\\xi_n - \\bar\\eta_m$ (muestras indep.)"
+  ),
+  Distribucion = c(
+    "$N\\!\\left(n\\mu;\\; \\sigma\\sqrt{n}\\right)$",
+    "$N\\!\\left(\\mu;\\; \\sigma / \\sqrt{n}\\right)$",
+    "$N\\!\\left(p;\\; \\sqrt{p q / n}\\right)$",
+    "$N\\!\\left(\\mu_1 - \\mu_2;\\; \\sqrt{\\sigma_1^{2}/n + \\sigma_2^{2}/m}\\right)$"
+  ),
+  Uso_tipico = c(
+    "Tonelaje total, ingresos anuales agregados, siniestros totales.",
+    "Precio medio, tiempo medio, coste medio.",
+    "Encuestas electorales, tasa de fallo, tasa de conversión.",
+    "Comparar dos grupos: test A/B, dos sucursales, dos periodos."
+  )
+) |>
+  kable(escape = FALSE, align = "lll",
+        col.names = c("Estadístico", "Distribución aproximada", "Uso típico"),
+        caption = "Las cuatro aplicaciones canónicas del TCL. Todas comparten la misma raíz: la suma o el promedio de variables aleatorias independientes es aproximadamente normal para $n$ grande. Las tres últimas líneas serán la base operativa de la inferencia estadística del próximo bloque.") |>
+  kable_styling(bootstrap_options = c("hover", "condensed"),
+                full_width = FALSE, position = "center", font_size = 12)
+```
+
+Los tres últimos casos son la base operativa de casi cualquier análisis empresarial que involucre datos: encuestas, tests A/B para comparar dos versiones de una web, estudios de impacto para comparar dos periodos, control de calidad, gestión de riesgos… En cada uno de ellos, la estrategia es siempre la misma: identificar el estimador, calcular su error estándar, tipificar y consultar la normal.
+
 ### ¿Qué significa "$n$ suficientemente grande"? {#tcl-n-grande}
 
 La pregunta pragmática que sigue al enunciado es: **¿a partir de qué $n$ podemos empezar a usar el TCL sin sonrojarnos?** La respuesta honesta es "depende de la distribución de partida":
@@ -254,13 +317,13 @@ $$
 
 con los $\xi_{j}$ exponenciales i.i.d. con media $12$ y desviación típica $12$.
 
-**¿Qué distribución sigue $\bar{\xi}_{60}$?** La distribución exponencial es asimétrica —lo vimos en el capítulo 9— y por tanto los tiempos individuales *no* son normales. Pero por el TCL (Lindeberg–Lévy), con $n = 60$ el promedio ya se comporta aproximadamente como una normal:
+**¿Qué distribución sigue $\bar{\xi}_{60}$?** La distribución exponencial es asimétrica —lo vimos en el capítulo 10— y por tanto los tiempos individuales *no* son normales. Pero por el TCL (Lindeberg–Lévy), con $n = 60$ el promedio ya se comporta aproximadamente como una normal, con error estándar $\sigma / \sqrt{n} = 12/\sqrt{60} \approx 1{,}549$:
 
 $$
 \bar{\xi}_{60} \;\approx\; N\!\left( 12;\; \frac{12}{\sqrt{60}} \right) \;=\; N(12;\, 1{,}549).
 $$
 
-La media es la misma que la de un tiempo individual ($12$ minutos). Pero la desviación típica, ¡solo $1{,}55$ minutos! El promedio de 60 contenedores es unas $\sqrt{60} \approx 7{,}75$ veces más *concentrado* que un contenedor individual. Es la razón matemática por la que promediar reduce el ruido: no es magia, es TCL.
+La media es la misma que la de un tiempo individual ($12$ minutos). Pero el error estándar es solo $1{,}55$ minutos: el promedio de 60 contenedores es unas $\sqrt{60} \approx 7{,}75$ veces más *concentrado* que un contenedor individual. Es la razón matemática por la que promediar reduce el ruido: no es magia, es TCL.
 
 ```{r calc-descarga}
 mu_desc <- 12
@@ -277,13 +340,13 @@ Preguntas concretas del informe de Padmé Ardea:
 
 - **Que el tiempo medio de descarga del turno sea inferior a $11$ minutos.**
 
-  Tipificando con $\mu = 12$ y $\sigma / \sqrt{n} \approx 1{,}549$:
+  Tipificando con $\mu = 12$ y error estándar $\approx 1{,}549$:
 
   $$
   z = \frac{11 - 12}{1{,}549} \approx -0{,}65 \quad\Longrightarrow\quad P(\bar{\xi}_{60} < 11) \approx `r fmt(p_menos_11)`.
   $$
 
-  Alrededor de un $26$ % de los turnos, la operación transcurre con inusual soltura.
+  Alrededor de un $26\,\%$ de los turnos, la operación transcurre con inusual soltura.
 
 - **Que la media caiga en la franja aceptable $[10;\, 13]$ minutos.**
 
@@ -299,10 +362,10 @@ Preguntas concretas del informe de Padmé Ardea:
   P(\bar{\xi}_{60} > 14) \approx `r fmt(p_mas_14)`.
   $$
 
-  Menos de un $10$ % de los turnos, aproximadamente un turno de cada diez.
+  Menos de un $10\,\%$ de los turnos, aproximadamente un turno de cada diez.
 
 ::: {.callout-tip}
-**Un ejercicio mental que conviene hacer.** La misma pregunta sobre un contenedor individual da resultados muy diferentes. La probabilidad de que un contenedor individual tarde más de 14 minutos, siendo su tiempo exponencial de media 12, es $P(\xi > 14) = e^{-14/12} \approx `r fmt(exp(-14/12))`$ —¡más del $31$ %! El promedio de 60 contenedores no supera los 14 minutos casi nunca, aunque uno de cada tres contenedores individualmente sí lo haga. La agregación *concentra* al arrastrar los valores hacia la media. Esa es la lección práctica del TCL, resumida en una línea.
+**Un ejercicio mental que conviene hacer.** La misma pregunta sobre un contenedor individual da resultados muy diferentes. La probabilidad de que un contenedor individual tarde más de 14 minutos, siendo su tiempo exponencial de media 12, es $P(\xi > 14) = e^{-14/12} \approx `r fmt(exp(-14/12))`$ —¡más del $31\,\%$! El promedio de 60 contenedores no supera los 14 minutos casi nunca, aunque uno de cada tres contenedores individualmente sí lo haga. La agregación *concentra* al arrastrar los valores hacia la media. Esa es la lección práctica del TCL, resumida en una línea.
 :::
 
 ## Teorema central del límite: el caso binomial {#tcl-binomial}
@@ -382,7 +445,7 @@ Preguntas de la analista Ripley Strix al preparar la memoria trimestral:
   P(\eta < 130) \;\approx\; P(\xi^{*} < -1{,}54) \;=\; `r fmt(p_menos_130_sc)`.
   $$
 
-  Alrededor de un $6$ % de las semanas. Poco frecuente, pero no imposible.
+  Alrededor de un $6\,\%$ de las semanas. Poco frecuente, pero no imposible.
 
 - **Probabilidad de completar entre $130$ y $150$ rutas.**
 
@@ -390,7 +453,7 @@ Preguntas de la analista Ripley Strix al preparar la memoria trimestral:
   P(130 \leq \eta \leq 150) \;\approx\; `r fmt(p_entre_sc)`.
   $$
 
-  Alrededor del $\hbox{85 \%}$ de las semanas. La franja habitual.
+  Alrededor del $85\,\%$ de las semanas. La franja habitual.
 
 - **Probabilidad de completar $150$ o más rutas.**
 
@@ -398,7 +461,7 @@ Preguntas de la analista Ripley Strix al preparar la memoria trimestral:
   P(\eta \geq 150) \;\approx\; `r fmt(p_150_o_mas_sc)`.
   $$
 
-  Alrededor de un $6$ % de las semanas. Semanas de gloria, dignas de mención en el informe.
+  Alrededor de un $6\,\%$ de las semanas. Semanas de gloria, dignas de mención en el informe.
 
 Sin la aproximación normal, habría que sumar términos binomiales del tipo $\binom{200}{k}\, 0{,}7^{k}\, 0{,}3^{200-k}$ para todos los $k$ relevantes. Con la aproximación, tres tipificaciones y una consulta a la tabla resuelven el problema. Y el error, como veremos enseguida, es minúsculo.
 
@@ -469,9 +532,9 @@ Es decir, la Poisson se aproxima por una normal con la misma media y desviación
 
 ### Ejemplo: incidencias graves acumuladas en la flota KORRIGAN {#poisson-normal-ejemplo}
 
-El astillero KORRIGAN opera $16$ cargueros según el fichero `astilleros_48.xlsx`. Las incidencias graves (variable `IIG`) se distribuyen razonablemente como una Poisson, con una tasa media de $4{,}0$ incidencias por nave a lo largo de la vida operativa registrada.[^korrigan-lambda] El **ingeniero Anakin Falco**, jefe de mantenimiento —a quien ya conocimos en el capítulo 9—, quiere estimar el número total de incidencias graves esperado en la flota completa durante los próximos cinco años, suponiendo constante la tasa histórica.
+El astillero KORRIGAN opera $16$ cargueros según el fichero `astilleros_48.xlsx`. Las incidencias graves (variable `IIG`) se distribuyen razonablemente como una Poisson, con una tasa media de $4{,}0$ incidencias por nave a lo largo de la vida operativa registrada.[^korrigan-lambda] El **ingeniero Anakin Falco**, jefe de mantenimiento —a quien ya conocimos en el capítulo 10—, quiere estimar el número total de incidencias graves esperado en la flota completa durante los próximos cinco años, suponiendo constante la tasa histórica.
 
-[^korrigan-lambda]: El fichero registra un promedio empírico de $4{,}06$ incidencias graves por nave KORRIGAN sobre la vida operativa completa (mediana $\approx 13{,}6$ años). Para un horizonte de cinco años, el número esperado por nave es proporcional al tiempo, lo que da la tasa de $1{,}5$ del enunciado.
+[^korrigan-lambda]: El fichero registra un promedio empírico de $4{,}06$ incidencias graves por nave KORRIGAN sobre la vida operativa completa (mediana $\approx 13{,}6$ años). Para un horizonte de cinco años, el número esperado por nave es proporcional al tiempo, lo que da la tasa de $1{,}5$ del enunciado. Nótese que en el capítulo 9 vimos que `IIG` en el conjunto de la flota es en realidad muy sobredispersa y se ajusta mejor por una binomial negativa; aquí simplificamos a Poisson por concentrarnos en las naves KORRIGAN, más homogéneas entre sí.
 
 Si por cada nave se esperan aproximadamente $1{,}5$ incidencias en los próximos cinco años, el total esperado para las $16$ naves es $\lambda = 16 \cdot 1{,}5 = 24$. Sea
 
@@ -504,7 +567,7 @@ Preguntas de Anakin Falco al preparar el presupuesto de mantenimiento:
   P(\eta < 20) \;\approx\; `r fmt(p_menos_20_k)`.
   $$
 
-  Alrededor de un $\hbox{20 \%}$: un escenario optimista pero no desechable.
+  Alrededor de un $20\,\%$: un escenario optimista pero no desechable.
 
 - **Probabilidad de que las incidencias caigan en el rango de planificación $[18;\, 30]$.**
 
@@ -512,7 +575,7 @@ Preguntas de Anakin Falco al preparar el presupuesto de mantenimiento:
   P(18 \leq \eta \leq 30) \;\approx\; `r fmt(p_entre_k)`.
   $$
 
-  Alrededor del $\hbox{80 \%}$ de los escenarios. El presupuesto se dimensiona sobre este rango.
+  Alrededor del $80\,\%$ de los escenarios. El presupuesto se dimensiona sobre este rango.
 
 - **Probabilidad de exceder las $35$ incidencias (umbral que dispararía una revisión estratégica).**
 
@@ -522,7 +585,7 @@ Preguntas de Anakin Falco al preparar el presupuesto de mantenimiento:
   P(\eta > 35) \;\approx\; `r fmt(p_mas_35_k)`.
   $$
 
-  Alrededor de un $1$ %. Muy poco probable, aunque prudencia dicta contemplarlo. El valor exacto de Poisson, para comparación, es $`r fmt(p_mas_35_ex)`$: prácticamente idéntico. La aproximación es excelente.
+  Alrededor de un $1\,\%$. Muy poco probable, aunque prudencia dicta contemplarlo. El valor exacto de Poisson, para comparación, es $`r fmt(p_mas_35_ex)`$: prácticamente idéntico. La aproximación es excelente.
 
 ::: {.callout-note}
 **El caso agregado como TCL puro.** La flota KORRIGAN es un caso instructivo porque el TCL opera dos veces sin decirlo. En primer lugar, cada nave individual acumula incidencias en cinco años como una Poisson pequeña ($\lambda_{j} = 1{,}5$), asimétrica y muy poco normal. Al **sumar** las 16 naves, obtenemos una Poisson agregada con $\lambda = 24$ que ya es prácticamente indistinguible de una normal. La agregación —de naves, de rutas, de contenedores, de trabajadores— es el motor silencioso por el que la normal aparece en todo problema empresarial mínimamente colectivo.
@@ -530,7 +593,7 @@ Preguntas de Anakin Falco al preparar el presupuesto de mantenimiento:
 
 ## El esquema completo de aproximaciones {#esquema}
 
-Recogemos ahora todas las aproximaciones vistas hasta aquí, incluidas las del capítulo 8 (binomial → Poisson), en un solo mapa. La figura \@ref(fig:fig-esquema-aprox) es el resumen visual, y la tabla \@ref(tab:tab-esquema) da los criterios operativos.
+Recogemos ahora todas las aproximaciones vistas hasta aquí, incluidas las del capítulo 9 (binomial → Poisson), en un solo mapa. La figura \@ref(fig:fig-esquema-aprox) es el resumen visual, y la tabla \@ref(tab:tab-esquema) da los criterios operativos.
 
 ```{r fig-esquema-aprox, fig.cap="Esquema de las aproximaciones entre modelos discretos y normal. La binomial admite dos rutas de aproximación: hacia Poisson (cuando $p$ es pequeño y $n$ es moderado o grande) y hacia normal (cuando ni $p$ ni $q$ son extremos). La Poisson, a su vez, se aproxima por normal cuando $\\lambda$ es grande. La normal es el destino común de todas las trayectorias: es el atractor probabilístico universal.", fig.height=3.6}
 df_nodes <- tibble(
@@ -659,24 +722,108 @@ La lectura práctica es que, **para el rango de parámetros en el que ambas cond
 En cualquier duda razonable, calcule por dos vías y compare. Es la mejor forma de verificar que la aproximación empleada es aceptable.
 :::
 
+## El TCL como matemática de la diversificación {#tcl-diversificacion}
+
+Ninguna aplicación económica del TCL es tan universalmente citada como la **diversificación de riesgos**. La idea aparece en cualquier introducción a las finanzas ("no pongas todos los huevos en la misma cesta"), pero su fundamento matemático es exactamente el error estándar $\sigma / \sqrt{n}$ que llevamos toda la sección utilizando.
+
+Supongamos que la analista Ripley Strix está diseñando una cartera para *kaiju haulage co.*, formada por $n$ contratos comerciales independientes. Cada contrato $j = 1, \ldots, n$ tiene una rentabilidad aleatoria $\xi_{j}$ con esperanza $E(\xi_{j}) = \mu$ y desviación típica $\sigma$ **idénticas** para todos ellos.[^cartera-simple] La cartera reparte por igual el capital, con lo que su rentabilidad es la media $\bar{\xi}_{n}$ de las $n$ rentabilidades individuales.
+
+[^cartera-simple]: La hipótesis de que las rentabilidades son independientes e idénticamente distribuidas simplifica enormemente el análisis. En la práctica financiera existen correlaciones entre activos, y el análisis media-varianza de Markowitz —brevemente introducido en el capítulo 8— se encarga de gestionarlas. La conclusión cualitativa que sigue se mantiene, aunque los números concretos cambian.
+
+- La **rentabilidad esperada** de la cartera es la misma que la de un contrato individual: $E(\bar\xi_{n}) = \mu$. Diversificar no cambia el retorno esperado.
+- El **riesgo** de la cartera —medido como desviación típica— es el error estándar: $\sigma_{\bar\xi_{n}} = \sigma / \sqrt{n}$. Diversificar sí reduce el riesgo, y lo hace a razón de $1/\sqrt{n}$.
+
+En cifras: con un solo contrato ($n = 1$), el riesgo es $\sigma$. Con cuatro contratos, cae a $\sigma / 2$. Con cien, a $\sigma / 10$. Con diez mil, a $\sigma / 100$. Y el fenómeno **no depende de la forma** de la distribución individual: pueden ser exponenciales, log-normales o cualquier otra cosa. El TCL, además, garantiza que para $n$ grande la rentabilidad total se distribuya aproximadamente como una normal, aunque cada contrato individual no lo fuera. La figura \@ref(fig:fig-diversificacion) lo ilustra.
+
+```{r fig-diversificacion, fig.cap="Reducción del riesgo por diversificación. Manteniendo constante la rentabilidad esperada, el riesgo de una cartera de $n$ activos independientes cae como $\\sigma/\\sqrt{n}$. Con solo $10$ activos, el riesgo se reduce en más del $65\\,\\%$ respecto al del activo individual; con $100$, en un $90\\,\\%$. La marginalidad del beneficio de añadir activos disminuye rápidamente: es la ley de rendimientos decrecientes de la diversificación.", fig.height=3.4}
+sigma_ind <- 1
+df_div <- tibble(
+  n = 1:200,
+  riesgo    = sigma_ind / sqrt(n),
+  reduccion = 1 - riesgo / sigma_ind
+)
+
+ggplot(df_div, aes(x = n, y = riesgo)) +
+  geom_line(color = pal_apoyo, linewidth = 1.1) +
+  geom_hline(yintercept = sigma_ind, linetype = "dashed", color = pal_gris) +
+  annotate("text", x = 195, y = sigma_ind, label = "riesgo de un solo activo",
+           color = pal_gris, size = 3.2, hjust = 1, vjust = -0.5) +
+  geom_point(data = df_div |> filter(n %in% c(1, 4, 10, 50, 100)),
+             color = pal_acento, size = 2.5) +
+  geom_text(data = df_div |> filter(n %in% c(4, 10, 50, 100)),
+            aes(label = paste0("n=", n, "\n", fmt(riesgo * 100, 0), "%")),
+            color = pal_acento, size = 3, vjust = -0.8, hjust = 0.5) +
+  scale_x_continuous(breaks = c(1, 10, 50, 100, 200)) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(x = "Número de activos en la cartera (n)",
+       y = "Riesgo relativo (σ_cartera / σ_activo)") +
+  theme_libro()
+```
+
+Esta ley de $1/\sqrt{n}$ es la razón matemática por la que las carteras diversificadas dominan a las concentradas, por la que un fondo indexado en 500 empresas es menos volátil que una empresa individual, y por la que los seguros pueden ofrecer coberturas por primas relativamente bajas. Es también la razón por la que **añadir el activo número 100 a una cartera de 99 reduce muy poco el riesgo**: la caída marginal es proporcional a $1/\sqrt{n+1} - 1/\sqrt{n}$, cada vez más pequeña. Hay rendimientos decrecientes también en la diversificación.
+
+## Simulación del TCL con R {#sim-tcl}
+
+Todo el capítulo se puede *ver funcionar en vivo* con unas pocas líneas de código. El chunk siguiente, con `echo = TRUE`, replica el fenómeno central del TCL: tomamos una variable ferozmente no normal —la exponencial— y comprobamos que su media muestral, incluso con $n$ modesto, ya se comporta como una campana.
+
+```{r sim-tcl-live, echo=TRUE, fig.cap="Simulación en vivo del TCL. La distribución individual (panel izquierdo) es una exponencial de tasa 1: asimétrica, con moda en 0 y una cola larga hacia la derecha. La distribución de la media muestral de $n = 30$ observaciones (panel derecho), sobre 5.000 réplicas simuladas, es visiblemente una campana. La curva roja es la normal $N(\\mu;\\, \\sigma/\\sqrt{n})$ predicha por el TCL, con $\\mu = 1$ y $\\sigma = 1$.", fig.height=3.4, out.width="90%"}
+set.seed(11)
+n     <- 30       # tamaño de cada muestra
+reps  <- 5000     # número de réplicas simuladas
+lam   <- 1        # tasa de la exponencial: media 1, sd 1
+
+# Distribución individual: una muestra grande de exponenciales
+individuales <- rexp(reps, rate = lam)
+
+# Distribución de la media muestral: reps réplicas, cada una la media de n exponenciales
+medias <- replicate(reps, mean(rexp(n, rate = lam)))
+
+# Dos paneles superpuestos con patchwork
+g1 <- ggplot(tibble(x = individuales), aes(x)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 40,
+                 fill = pal_apoyo, alpha = 0.55, color = "white") +
+  labs(title = "Distribución individual", x = "ξ (exponencial)", y = "Densidad") +
+  theme_libro()
+
+g2 <- ggplot(tibble(x = medias), aes(x)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 40,
+                 fill = pal_apoyo, alpha = 0.55, color = "white") +
+  stat_function(fun = dnorm, args = list(mean = 1/lam, sd = (1/lam)/sqrt(n)),
+                color = pal_acento, linewidth = 1) +
+  labs(title = paste0("Media muestral (n = ", n, ")"),
+       x = "Media muestral", y = "Densidad") +
+  theme_libro()
+
+g1 + g2
+```
+
+En pocas líneas se ha condensado toda la mecánica: `rexp(n, lam)` genera muestras de la variable no normal; `replicate(..., mean(...))` calcula miles de medias muestrales; el histograma resultante es prácticamente una campana. Cambiando `rexp` por `runif`, `rlnorm`, `rpois` o cualquier otra función de simulación, el fenómeno se reproduce con la misma limpieza. **Esta es la manera moderna —simple, rápida y persuasiva— de entender el TCL**: por observación empírica del fenómeno, antes que por manipulación algebraica del enunciado.
+
 ## Consecuencias del TCL: puente hacia la inferencia {#consecuencias}
 
-Cerramos el capítulo con una anticipación del papel del TCL en lo que viene, que no es poco. Prácticamente **toda** la estadística inferencial que se cursa en un grado en Economía o ADE se sostiene sobre el teorema central del límite, aunque no siempre se explicite. Tres consecuencias concretas anticipan por qué:
+Cerramos el capítulo con una anticipación del papel del TCL en lo que viene, que no es poco. Prácticamente **toda** la estadística inferencial que se cursa en un grado en Economía o ADE se sostiene sobre el teorema central del límite, aunque no siempre se explicite. Cuatro consecuencias concretas anticipan por qué:
 
 1. **La media muestral de casi cualquier variable es aproximadamente normal.** Cuando dispongamos de una muestra de $n$ observaciones, $\bar{X}_{n} \approx N(\mu;\, \sigma / \sqrt{n})$, y podremos construir intervalos de confianza y tests de hipótesis para $\mu$ tipificando —tal cual, como en este capítulo—, sin conocer la forma exacta de la distribución de la variable original.
 2. **La proporción muestral es aproximadamente normal.** Si en $n$ ensayos independientes contamos $X$ éxitos con probabilidad $p$, la proporción muestral $\hat{p} = X/n$ es una binomial reescalada, y por De Moivre–Laplace su distribución es aproximadamente $N(p;\, \sqrt{p q / n})$. Es la base de las encuestas y estimaciones electorales.
-3. **La diferencia de medias muestrales de dos poblaciones es aproximadamente normal.** Combinando el TCL con la propiedad reproductiva de la normal, dos medias muestrales independientes generan una diferencia normal, con lo que se pueden construir tests de igualdad de medias. La base de la comparación estadística de dos grupos.
+3. **La diferencia de medias muestrales de dos poblaciones es aproximadamente normal.** Combinando el TCL con la propiedad reproductiva de la normal, dos medias muestrales independientes generan una diferencia normal, con lo que se pueden construir tests de igualdad de medias. La base de la comparación estadística de dos grupos, y del muy popular *test A/B* que usan hoy todas las empresas tecnológicas.
+4. **Cuando σ es desconocida, aparece la t de Student.** Esta es la sutileza importante: en la práctica casi nunca conocemos la desviación típica poblacional $\sigma$; la estimamos con la desviación típica muestral $s$. Ese pequeño cambio hace que la distribución del cociente $(\bar{X}_{n} - \mu) / (s / \sqrt{n})$ deje de ser exactamente normal y pase a ser una **t de Student con $n - 1$ grados de libertad**, con colas ligeramente más gruesas que la normal. Para $n$ moderado o grande, la diferencia es despreciable y la normal sirve; para $n$ pequeño, hay que usar la t. Este matiz es el pan de cada día del bloque de inferencia.
 
-En los tres casos, la normal aparece como distribución de un **estimador**, no como distribución de los datos. Los datos originales pueden ser discretos, asimétricos, exóticos o directamente feos; la distribución del estimador —bajo condiciones muy generales— será la campana familiar. Es la razón por la que el resto del curso puede resolverse con una única tabla, la de la normal estándar.
+En los cuatro casos, la normal aparece como distribución de un **estimador**, no como distribución de los datos. Los datos originales pueden ser discretos, asimétricos, exóticos o directamente feos; la distribución del estimador —bajo condiciones muy generales— será la campana familiar. Es la razón por la que el resto del curso puede resolverse con una única tabla, la de la normal estándar (y la de la t, casi indistinguible de la normal para $n$ grande).
+
+::: {.callout-note}
+**El bootstrap: TCL a golpe de teclado.** Cuando ni siquiera se sabe qué distribución sigue el estimador —o cuando el TCL no aplica bien porque $n$ es pequeño o hay dependencias—, existe una alternativa moderna que ya asomó en los capítulos 10 y 11 mediante simulación de Monte Carlo: el **bootstrap**, propuesto por Bradley Efron en 1979. La idea es escandalosamente simple: se generan miles de "muestras artificiales" remuestreando con reemplazamiento la muestra original, se calcula el estimador en cada una y se estudia empíricamente su distribución. Es TCL sin fórmulas, computado por fuerza bruta. Hoy es la técnica de referencia en gran parte del análisis de datos moderno —desde riesgos financieros hasta *machine learning*—, y una de las cosas más útiles que un estudiante de ADE puede aprender por su cuenta después del curso.
+:::
 
 ## Recapitulación {#recap-cap11}
 
-Tres ideas conviene retener de este capítulo por encima del resto:
+Cuatro ideas conviene retener de este capítulo por encima del resto:
 
 1. **El TCL es un teorema sobre distribuciones límite, no sobre datos.** Los datos originales no tienen por qué ser normales para que sus sumas o promedios lo sean. La ubicuidad de la campana en la práctica empresarial no se debe a que la realidad "sea normal", sino a que las variables que miramos son casi siempre agregados —tonelajes totales, medias diarias, sumas semanales, proporciones muestrales— y los agregados tienden a la normal por el TCL. Esta distinción disuelve un malentendido frecuente.
 
 2. **Las aproximaciones binomial → Poisson → normal no son atajos independientes, sino manifestaciones del mismo mecanismo.** Todas son consecuencia, directa o indirecta, del TCL. Los criterios operativos ($n \geq 100$ y $p \leq 0{,}05$; $n p \geq 5$ y $n q \geq 5$; $\lambda \geq 10$) son heurísticos calibrados para que el error sea aceptable en la práctica, no fronteras rígidas.
 
-3. **La agregación reduce la incertidumbre relativa.** La media muestral de $n$ observaciones tiene desviación típica $\sigma / \sqrt{n}$: si $n = 100$, el ruido se divide por diez; si $n = 10\,000$, por cien. Es la razón matemática por la que las encuestas grandes son más fiables que las pequeñas, por la que promediar reduce el error de un instrumento, y por la que las flotas grandes son operativamente más predecibles que las flotas pequeñas. La diversificación, medida en términos de riesgo, es una consecuencia numérica del TCL.
+3. **La agregación reduce la incertidumbre relativa a razón de $1/\sqrt{n}$.** La media muestral de $n$ observaciones tiene error estándar $\sigma / \sqrt{n}$: si $n = 100$, el ruido se divide por diez; si $n = 10\,000$, por cien. Es la razón matemática por la que las encuestas grandes son más fiables que las pequeñas, por la que promediar reduce el error de un instrumento, por la que las flotas grandes son operativamente más predecibles que las flotas pequeñas y por la que la diversificación reduce el riesgo de una cartera. Cuatro fenómenos aparentemente inconexos que descansan sobre la misma fórmula.
 
-En el próximo capítulo, con el TCL como llave maestra, entraremos por fin en **inferencia estadística**: distribuciones muestrales, estimadores, intervalos de confianza. La normal, que ha ido asomando desde el capítulo 7, acabará de instalarse como protagonista absoluta —no de los datos, sino de las conclusiones que sobre los datos se pueden extraer.
+4. **La LGN es la base del negocio de vender previsibilidad; el TCL es la base de la inferencia.** Los seguros, los casinos, los *market makers* y las encuestas funcionan porque la LGN convierte incertidumbre individual en previsibilidad colectiva. Los intervalos de confianza, los tests de hipótesis y los tests A/B funcionan porque el TCL nos garantiza que la distribución de nuestros estimadores es aproximadamente normal. Sin estos dos teoremas, ni la industria del riesgo ni la estadística inferencial tendrían base matemática. Con ellos, se sostiene todo el bloque de aplicaciones que sigue.
+
+En el próximo capítulo, con el TCL como llave maestra, entraremos por fin en **inferencia estadística**: distribuciones muestrales, estimadores, intervalos de confianza. La normal, que ha ido asomando desde el capítulo 7, acabará de instalarse como protagonista absoluta —no de los datos, sino de las conclusiones que sobre los datos se pueden extraer. Aparecerán como aliadas la ya insinuada **t de Student**, y también la **ji-cuadrado** y la **F de Snedecor**, todas ellas derivadas de la normal y todas ellas nacidas del TCL aplicado a estadísticos de segundo orden. La estadística inferencial, que da miedo por su nombre pero se sostiene sobre las distribuciones que ya conocemos, está por fin a un capítulo de distancia.

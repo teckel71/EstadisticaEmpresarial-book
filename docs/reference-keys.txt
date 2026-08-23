@@ -11,6 +11,8 @@ fig:fig-normal-ire
 fig:fig-var-normal
 fig:fig-aprox-normal
 fig:fig-tcl-costop
+fig:fig-diversificacion
+fig:sim-tcl-live
 estadistica-economica-empresarial
 que-es-la-estadistica
 estadistica-y-economia
@@ -312,10 +314,12 @@ intro-cap11
 convergencia
 conv-probabilidad
 lgn
+lgn-economia
 conv-distribucion
 tcl-general
 tcl-intuicion
 tcl-lindeberg
+error-estandar
 tcl-n-grande
 tcl-ejemplo
 tcl-binomial
@@ -326,5 +330,7 @@ poisson-normal-enunciado
 poisson-normal-ejemplo
 esquema
 esquema-ejemplo
+tcl-diversificacion
+sim-tcl
 consecuencias
 recap-cap11

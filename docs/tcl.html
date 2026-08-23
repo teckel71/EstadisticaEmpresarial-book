@@ -115,7 +115,7 @@
 <ol style="list-style-type: decimal">
 <li>Antes de hablar de un <em>teorema del límite</em> hace falta precisar qué significa <strong>que una sucesión de variables aleatorias tienda a algo</strong>. Introducimos brevemente los modos de convergencia relevantes y enunciamos la ley de los grandes números como aperitivo.</li>
 <li>Presentamos el <strong>TCL en su forma general</strong> (Lindeberg–Lévy) y sus dos casos particulares más útiles en la práctica: la aproximación <strong>binomial → normal</strong> (De Moivre–Laplace) y la aproximación <strong>Poisson → normal</strong>.</li>
-<li>Cerramos el círculo con el <strong>esquema completo de aproximaciones</strong> que enlaza a la binomial, la Poisson y la normal, junto con las reglas prácticas que determinan cuándo aplicar cada una.</li>
+<li>Cerramos el círculo con el <strong>esquema completo de aproximaciones</strong> que enlaza a la binomial, la Poisson y la normal, junto con las reglas prácticas que determinan cuándo aplicar cada una, y con las <strong>aplicaciones económicas</strong> que el TCL habilita: diversificación, encuestas, seguros e inferencia.</li>
 </ol>
 <div class="callout-tip">
 <p><strong>Cómo leer este capítulo.</strong> El capítulo es teórico —no hay una nueva distribución que memorizar—, pero se apoya en simulaciones y ejemplos numéricos con entidades del universo RStars. Al terminar debería quedar claro por qué, en la práctica, casi cualquier promedio muestral acaba pareciendo una campana, aunque los datos originales no la tengan ni de lejos.</p>
@@ -134,13 +134,13 @@
 <p><span class="math display">\[
 \lim_{n \to \infty} P\left( |\xi_{n} - \xi| &gt; \varepsilon \right) \;=\; 0.
 \]</span></p>
-<p>Se escribe <span class="math inline">\(\xi_{n} \xrightarrow{P} \xi\)</span>. Traducido a román paladino: <strong>por grande que sea <span class="math inline">\(n\)</span>, la probabilidad de que <span class="math inline">\(\xi_{n}\)</span> se aleje del límite en más que un margen fijo tiende a cero</strong>. No es que <span class="math inline">\(\xi_{n}\)</span> sea exactamente <span class="math inline">\(\xi\)</span> para <span class="math inline">\(n\)</span> grande —de hecho, no lo será casi nunca—, pero la probabilidad de errar por mucho se hace despreciable.</p>
+<p>Se escribe <span class="math inline">\(\xi_{n} \xrightarrow{P} \xi\)</span>. En palabras: <strong>por grande que sea <span class="math inline">\(n\)</span>, la probabilidad de que <span class="math inline">\(\xi_{n}\)</span> se aleje del límite en más que un margen fijo tiende a cero</strong>. No es que <span class="math inline">\(\xi_{n}\)</span> sea exactamente <span class="math inline">\(\xi\)</span> para <span class="math inline">\(n\)</span> grande —de hecho, no lo será casi nunca—, pero la probabilidad de errar por mucho se hace despreciable.</p>
 </div>
 <div id="lgn" class="section level3" number="11.2.2">
 <h3>
 <span class="header-section-number">11.2.2</span> La ley (débil) de los grandes números<a class="anchor" aria-label="anchor" href="#lgn"><i class="fas fa-link"></i></a>
 </h3>
-<p>El ejemplo canónico —y el más importante en la práctica— de convergencia en probabilidad es la <strong>ley (débil) de los grandes números</strong>. Si <span class="math inline">\(\xi_{1}, \xi_{2}, \ldots\)</span> son variables aleatorias independientes e idénticamente distribuidas (i.i.d., abreviatura estándar) con media <span class="math inline">\(\mu\)</span> y varianza finita, entonces la <strong>media muestral</strong></p>
+<p>El ejemplo canónico —y el más importante en la práctica— de convergencia en probabilidad es la <strong>ley (débil) de los grandes números</strong> (LGN). Si <span class="math inline">\(\xi_{1}, \xi_{2}, \ldots\)</span> son variables aleatorias independientes e idénticamente distribuidas (i.i.d., abreviatura estándar) con media <span class="math inline">\(\mu\)</span> y varianza finita, entonces la <strong>media muestral</strong></p>
 <p><span class="math display">\[
 \bar{\xi}_{n} \;=\; \frac{\xi_{1} + \xi_{2} + \cdots + \xi_{n}}{n}
 \]</span></p>
@@ -148,12 +148,23 @@
 <p><span class="math display">\[
 \bar{\xi}_{n} \;\xrightarrow{P}\; \mu \quad \text{cuando } n \to \infty.
 \]</span></p>
-<p>En palabras llanas: <strong>si tomamos suficientes observaciones y calculamos su media, esa media se parecerá tanto como queramos a la verdadera media poblacional</strong>. Es el principio que legitima usar una muestra grande para estimar un parámetro desconocido, y también el argumento subyacente cuando un casino informa a un cliente enfadado que “a la larga la casa siempre gana”: no es un capricho probabilístico, es la LGN aplicada al margen del jugador.</p>
+<p>En palabras llanas: <strong>si tomamos suficientes observaciones y calculamos su media, esa media se parecerá tanto como queramos a la verdadera media poblacional</strong>. Es el principio que legitima usar una muestra grande para estimar un parámetro desconocido.</p>
+<p>Existe también una versión más fuerte —la <strong>ley fuerte de los grandes números</strong>— que garantiza que la convergencia ocurre no solo “en probabilidad” sino “casi seguramente”: el conjunto de las sucesiones <span class="math inline">\((\xi_1, \xi_2, \ldots)\)</span> para las que la media muestral <strong>no</strong> tiende a <span class="math inline">\(\mu\)</span> tiene probabilidad cero. Para el uso ordinario en un curso de ADE la distinción es puramente académica; la LGN débil resuelve todos los problemas prácticos que nos vamos a plantear. Basta con saber que existen dos versiones y que la fuerte implica a la débil.</p>
 <p>Un pequeño aviso: la LGN dice <strong>a dónde tiende</strong> la media muestral, pero <strong>no</strong> dice a qué velocidad ni con qué error. Para eso hará falta el TCL.</p>
 </div>
-<div id="conv-distribucion" class="section level3" number="11.2.3">
+<div id="lgn-economia" class="section level3" number="11.2.3">
 <h3>
-<span class="header-section-number">11.2.3</span> Convergencia en distribución<a class="anchor" aria-label="anchor" href="#conv-distribucion"><i class="fas fa-link"></i></a>
+<span class="header-section-number">11.2.3</span> La LGN en la vida económica: seguros, casinos y encuestas<a class="anchor" aria-label="anchor" href="#lgn-economia"><i class="fas fa-link"></i></a>
+</h3>
+<p>Antes de continuar, merece la pena detenerse un momento en el enorme peso económico de la LGN, porque tres industrias multimillonarias descansan literalmente sobre ella.</p>
+<p><strong>Los seguros.</strong> Una compañía de seguros no puede predecir si el asegurado individual Ripley Strix sufrirá un siniestro este año; su probabilidad es una lotería. Pero si la compañía asegura a decenas de miles de perfiles similares, el <strong>coste promedio</strong> por póliza —que es lo único que necesita saber para fijar primas y provisiones— será, por LGN, casi exactamente el coste esperado teórico. La aseguradora convierte, gracias al agregado, incertidumbre individual en previsibilidad colectiva. Es literalmente el modelo de negocio.</p>
+<p><strong>Los casinos.</strong> La casa no puede prever si un jugador concreto se irá con las manos vacías o con un jackpot. Pero como cada juego ofrece a la casa una esperanza matemática ligeramente positiva y se juegan millones de manos al día, por LGN el beneficio agregado del casino converge al valor esperado teórico. Cuando un cliente enfadado protesta que “a la larga la casa siempre gana”, no se le está escamoteando nada: se está enunciando la LGN aplicada al margen del jugador.</p>
+<p><strong>Las encuestas y el <em>market making</em>.</strong> Una encuesta a 2.000 votantes no acierta lo que va a votar cada uno; acierta —por LGN— la proporción del colectivo. Un <em>market maker</em> que compra y vende millones de acciones al día no gana ni pierde en cada operación; gana, por LGN, la esperanza matemática del <em>spread</em>. Sin la LGN, ni las encuestas ni la microestructura de los mercados financieros modernos serían viables.</p>
+<p>Retengamos la idea general: <strong>el negocio de vender previsibilidad, en cualquiera de sus formas, es el negocio de aplicar la LGN a escala industrial</strong>.</p>
+</div>
+<div id="conv-distribucion" class="section level3" number="11.2.4">
+<h3>
+<span class="header-section-number">11.2.4</span> Convergencia en distribución<a class="anchor" aria-label="anchor" href="#conv-distribucion"><i class="fas fa-link"></i></a>
 </h3>
 <p>La segunda noción es más débil pero más útil en los teoremas del límite. Se dice que <span class="math inline">\(\{\xi_{n}\}\)</span> <strong>converge en distribución</strong> a una variable <span class="math inline">\(\xi\)</span> si, para todo punto <span class="math inline">\(x\)</span> de continuidad de la función de distribución límite <span class="math inline">\(F\)</span>,</p>
 <p><span class="math display">\[
@@ -296,9 +307,87 @@ SD teórica <span class="math inline">\(\sigma / \sqrt{n}\)</span>
 <p><strong>¿Y si las condiciones no se cumplen?</strong> El TCL tiene versiones más generales para variables no idénticamente distribuidas (condición de Lindeberg), débilmente dependientes (procesos estacionarios), o incluso vectoriales (TCL multivariante). En cualquier introducción como esta bastará con Lindeberg–Lévy. Cuando una variable tenga colas tan pesadas que su varianza no exista —como la distribución de Cauchy—, el TCL clásico falla y aparecen distribuciones límite alternativas (<span class="math inline">\(\alpha\)</span>-estables). Es un mundo interesante, pero muy fuera del alcance de este manual.</p>
 </div>
 </div>
-<div id="tcl-n-grande" class="section level3" number="11.3.3">
+<div id="error-estandar" class="section level3" number="11.3.3">
 <h3>
-<span class="header-section-number">11.3.3</span> ¿Qué significa “<span class="math inline">\(n\)</span> suficientemente grande”?<a class="anchor" aria-label="anchor" href="#tcl-n-grande"><i class="fas fa-link"></i></a>
+<span class="header-section-number">11.3.3</span> El error estándar y las cuatro fórmulas de referencia<a class="anchor" aria-label="anchor" href="#error-estandar"><i class="fas fa-link"></i></a>
+</h3>
+<p>La cantidad <span class="math inline">\(\sigma / \sqrt{n}\)</span> que aparece en el denominador del TCL para medias tiene tal centralidad práctica que ha ganado nombre propio: se denomina <strong>error estándar</strong> (<em>standard error</em>, SE) de la media muestral. No es la desviación típica de la variable original, sino la <strong>desviación típica del estimador</strong>: mide cuánto oscila la media muestral en torno a la verdadera media poblacional cuando repetimos el muestreo.</p>
+<p>Es imprescindible distinguir bien los dos conceptos:</p>
+<ul>
+<li>
+<span class="math inline">\(\sigma\)</span> es la <strong>variabilidad de la población</strong>. No depende de <span class="math inline">\(n\)</span>: es la que hay.</li>
+<li>
+<span class="math inline">\(\sigma / \sqrt{n}\)</span> es la <strong>variabilidad de la media muestral</strong>. Sí depende de <span class="math inline">\(n\)</span>: al aumentar el tamaño muestral, cae como <span class="math inline">\(1/\sqrt{n}\)</span>.</li>
+</ul>
+<p>Toda la inferencia estadística del próximo bloque se moverá entre estos dos conceptos. Diremos “el error estándar” muchísimas veces; conviene tenerlo instalado desde ya.</p>
+<p>Con el error estándar en la mano, el TCL admite cuatro aplicaciones canónicas que aparecen sistemáticamente en la práctica del analista. La tabla <a href="#tab:tab-tcl-usos"><strong>??</strong></a> las resume.</p>
+<div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+Estadístico
+</th>
+<th style="text-align:left;">
+Distribución aproximada
+</th>
+<th style="text-align:left;">
+Uso típico
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<strong>Suma</strong> <span class="math inline">\(\eta_n = \xi_1 + \cdots + \xi_n\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(N\!\left(n\mu;\; \sigma\sqrt{n}\right)\)</span>
+</td>
+<td style="text-align:left;">
+Tonelaje total, ingresos anuales agregados, siniestros totales.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<strong>Media muestral</strong> <span class="math inline">\(\bar\xi_n\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(N\!\left(\mu;\; \sigma / \sqrt{n}\right)\)</span>
+</td>
+<td style="text-align:left;">
+Precio medio, tiempo medio, coste medio.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<strong>Proporción muestral</strong> <span class="math inline">\(\hat p = X/n\)</span> (con <span class="math inline">\(X \to B(n; p)\)</span>)
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(N\!\left(p;\; \sqrt{p q / n}\right)\)</span>
+</td>
+<td style="text-align:left;">
+Encuestas electorales, tasa de fallo, tasa de conversión.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<strong>Diferencia de medias</strong> <span class="math inline">\(\bar\xi_n - \bar\eta_m\)</span> (muestras indep.)
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(N\!\left(\mu_1 - \mu_2;\; \sqrt{\sigma_1^{2}/n + \sigma_2^{2}/m}\right)\)</span>
+</td>
+<td style="text-align:left;">
+Comparar dos grupos: test A/B, dos sucursales, dos periodos.
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 11.2</strong></p>
+</div>
+<p>Los tres últimos casos son la base operativa de casi cualquier análisis empresarial que involucre datos: encuestas, tests A/B para comparar dos versiones de una web, estudios de impacto para comparar dos periodos, control de calidad, gestión de riesgos… En cada uno de ellos, la estrategia es siempre la misma: identificar el estimador, calcular su error estándar, tipificar y consultar la normal.</p>
+</div>
+<div id="tcl-n-grande" class="section level3" number="11.3.4">
+<h3>
+<span class="header-section-number">11.3.4</span> ¿Qué significa “<span class="math inline">\(n\)</span> suficientemente grande”?<a class="anchor" aria-label="anchor" href="#tcl-n-grande"><i class="fas fa-link"></i></a>
 </h3>
 <p>La pregunta pragmática que sigue al enunciado es: <strong>¿a partir de qué <span class="math inline">\(n\)</span> podemos empezar a usar el TCL sin sonrojarnos?</strong> La respuesta honesta es “depende de la distribución de partida”:</p>
 <ul>
@@ -308,9 +397,9 @@ SD teórica <span class="math inline">\(\sigma / \sqrt{n}\)</span>
 </ul>
 <p>En cualquier caso, <strong>el TCL es un teorema asintótico</strong>: cuanto mayor sea <span class="math inline">\(n\)</span>, mejor será la aproximación. Los umbrales son heurísticos.</p>
 </div>
-<div id="tcl-ejemplo" class="section level3" number="11.3.4">
+<div id="tcl-ejemplo" class="section level3" number="11.3.5">
 <h3>
-<span class="header-section-number">11.3.4</span> Ejemplo: tiempo medio de descarga en Klendathu<a class="anchor" aria-label="anchor" href="#tcl-ejemplo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">11.3.5</span> Ejemplo: tiempo medio de descarga en Klendathu<a class="anchor" aria-label="anchor" href="#tcl-ejemplo"><i class="fas fa-link"></i></a>
 </h3>
 <p>Pasamos ahora a un ejemplo numérico concreto. El astropuerto de Klendathu, base operativa de cuatro cargueros por astillero según el fichero <code>astilleros_48.xlsx</code>, procesa a lo largo del día un elevado número de descargas. El <strong>tiempo de descarga</strong> de un contenedor individual, medido en minutos, es una variable claramente <strong>no</strong> normal: la mayoría de contenedores se despachan en <span class="math inline">\(8\)</span>–<span class="math inline">\(15\)</span> minutos, pero algunos —los que exigen inspección aduanera, o los que llegan con documentación irregular— se prolongan una hora o más. La distribución tiene una fuerte cola derecha y se aproxima razonablemente por una exponencial con media <span class="math inline">\(\mu = 12\)</span> minutos y desviación típica <span class="math inline">\(\sigma = 12\)</span> minutos (recuerde: en la exponencial, media y desviación típica coinciden).<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Los tiempos individuales de descarga no figuran en el fichero, que se refiere a características agregadas de la nave (tonelaje, antigüedad, IRE, IIG). El parámetro &lt;span class="math inline"&gt;\(\mu = 12\)&lt;/span&gt; minutos es una hipótesis operativa razonable para el astropuerto de referencia, coherente con los volúmenes de tráfico descritos.&lt;/p&gt;'><sup>6</sup></a></p>
 <p>La jefa de operaciones del turno, <strong>Padmé Ardea</strong>, prepara un informe semanal donde figura el <strong>tiempo medio de descarga de los primeros <span class="math inline">\(n = 60\)</span> contenedores del turno</strong>. Es decir, la variable</p>
@@ -318,20 +407,20 @@ SD teórica <span class="math inline">\(\sigma / \sqrt{n}\)</span>
 \bar{\xi}_{60} \;=\; \frac{\xi_{1} + \xi_{2} + \cdots + \xi_{60}}{60},
 \]</span></p>
 <p>con los <span class="math inline">\(\xi_{j}\)</span> exponenciales i.i.d. con media <span class="math inline">\(12\)</span> y desviación típica <span class="math inline">\(12\)</span>.</p>
-<p><strong>¿Qué distribución sigue <span class="math inline">\(\bar{\xi}_{60}\)</span>?</strong> La distribución exponencial es asimétrica —lo vimos en el capítulo 9— y por tanto los tiempos individuales <em>no</em> son normales. Pero por el TCL (Lindeberg–Lévy), con <span class="math inline">\(n = 60\)</span> el promedio ya se comporta aproximadamente como una normal:</p>
+<p><strong>¿Qué distribución sigue <span class="math inline">\(\bar{\xi}_{60}\)</span>?</strong> La distribución exponencial es asimétrica —lo vimos en el capítulo 10— y por tanto los tiempos individuales <em>no</em> son normales. Pero por el TCL (Lindeberg–Lévy), con <span class="math inline">\(n = 60\)</span> el promedio ya se comporta aproximadamente como una normal, con error estándar <span class="math inline">\(\sigma / \sqrt{n} = 12/\sqrt{60} \approx 1{,}549\)</span>:</p>
 <p><span class="math display">\[
 \bar{\xi}_{60} \;\approx\; N\!\left( 12;\; \frac{12}{\sqrt{60}} \right) \;=\; N(12;\, 1{,}549).
 \]</span></p>
-<p>La media es la misma que la de un tiempo individual (<span class="math inline">\(12\)</span> minutos). Pero la desviación típica, ¡solo <span class="math inline">\(1{,}55\)</span> minutos! El promedio de 60 contenedores es unas <span class="math inline">\(\sqrt{60} \approx 7{,}75\)</span> veces más <em>concentrado</em> que un contenedor individual. Es la razón matemática por la que promediar reduce el ruido: no es magia, es TCL.</p>
+<p>La media es la misma que la de un tiempo individual (<span class="math inline">\(12\)</span> minutos). Pero el error estándar es solo <span class="math inline">\(1{,}55\)</span> minutos: el promedio de 60 contenedores es unas <span class="math inline">\(\sqrt{60} \approx 7{,}75\)</span> veces más <em>concentrado</em> que un contenedor individual. Es la razón matemática por la que promediar reduce el ruido: no es magia, es TCL.</p>
 <p>Preguntas concretas del informe de Padmé Ardea:</p>
 <ul>
 <li>
 <p><strong>Que el tiempo medio de descarga del turno sea inferior a <span class="math inline">\(11\)</span> minutos.</strong></p>
-<p>Tipificando con <span class="math inline">\(\mu = 12\)</span> y <span class="math inline">\(\sigma / \sqrt{n} \approx 1{,}549\)</span>:</p>
+<p>Tipificando con <span class="math inline">\(\mu = 12\)</span> y error estándar <span class="math inline">\(\approx 1{,}549\)</span>:</p>
 <p><span class="math display">\[
 z = \frac{11 - 12}{1{,}549} \approx -0{,}65 \quad\Longrightarrow\quad P(\bar{\xi}_{60} &lt; 11) \approx 0,2593.
 \]</span></p>
-<p>Alrededor de un <span class="math inline">\(26\)</span> % de los turnos, la operación transcurre con inusual soltura.</p>
+<p>Alrededor de un <span class="math inline">\(26\,\%\)</span> de los turnos, la operación transcurre con inusual soltura.</p>
 </li>
 <li>
 <p><strong>Que la media caiga en la franja aceptable <span class="math inline">\([10;\, 13]\)</span> minutos.</strong></p>
@@ -345,11 +434,11 @@ P(10 \leq \bar{\xi}_{60} \leq 13) \approx 0,6423.
 <p><span class="math display">\[
 P(\bar{\xi}_{60} &gt; 14) \approx 0,0984.
 \]</span></p>
-<p>Menos de un <span class="math inline">\(10\)</span> % de los turnos, aproximadamente un turno de cada diez.</p>
+<p>Menos de un <span class="math inline">\(10\,\%\)</span> de los turnos, aproximadamente un turno de cada diez.</p>
 </li>
 </ul>
 <div class="callout-tip">
-<p><strong>Un ejercicio mental que conviene hacer.</strong> La misma pregunta sobre un contenedor individual da resultados muy diferentes. La probabilidad de que un contenedor individual tarde más de 14 minutos, siendo su tiempo exponencial de media 12, es <span class="math inline">\(P(\xi &gt; 14) = e^{-14/12} \approx 0,3114\)</span> —¡más del <span class="math inline">\(31\)</span> %! El promedio de 60 contenedores no supera los 14 minutos casi nunca, aunque uno de cada tres contenedores individualmente sí lo haga. La agregación <em>concentra</em> al arrastrar los valores hacia la media. Esa es la lección práctica del TCL, resumida en una línea.</p>
+<p><strong>Un ejercicio mental que conviene hacer.</strong> La misma pregunta sobre un contenedor individual da resultados muy diferentes. La probabilidad de que un contenedor individual tarde más de 14 minutos, siendo su tiempo exponencial de media 12, es <span class="math inline">\(P(\xi &gt; 14) = e^{-14/12} \approx 0,3114\)</span> —¡más del <span class="math inline">\(31\,\%\)</span>! El promedio de 60 contenedores no supera los 14 minutos casi nunca, aunque uno de cada tres contenedores individualmente sí lo haga. La agregación <em>concentra</em> al arrastrar los valores hacia la media. Esa es la lección práctica del TCL, resumida en una línea.</p>
 </div>
 </div>
 </div>
@@ -400,21 +489,21 @@ n p \geq 5 \quad \text{y} \quad n q \geq 5.
 <p><span class="math display">\[
 P(\eta &lt; 130) \;\approx\; P(\xi^{*} &lt; -1{,}54) \;=\; 0,0614.
 \]</span></p>
-<p>Alrededor de un <span class="math inline">\(6\)</span> % de las semanas. Poco frecuente, pero no imposible.</p>
+<p>Alrededor de un <span class="math inline">\(6\,\%\)</span> de las semanas. Poco frecuente, pero no imposible.</p>
 </li>
 <li>
 <p><strong>Probabilidad de completar entre <span class="math inline">\(130\)</span> y <span class="math inline">\(150\)</span> rutas.</strong></p>
 <p><span class="math display">\[
 P(130 \leq \eta \leq 150) \;\approx\; 0,8772.
 \]</span></p>
-<p>Alrededor del <span class="math inline">\(\hbox{85 \%}\)</span> de las semanas. La franja habitual.</p>
+<p>Alrededor del <span class="math inline">\(85\,\%\)</span> de las semanas. La franja habitual.</p>
 </li>
 <li>
 <p><strong>Probabilidad de completar <span class="math inline">\(150\)</span> o más rutas.</strong></p>
 <p><span class="math display">\[
 P(\eta \geq 150) \;\approx\; 0,0614.
 \]</span></p>
-<p>Alrededor de un <span class="math inline">\(6\)</span> % de las semanas. Semanas de gloria, dignas de mención en el informe.</p>
+<p>Alrededor de un <span class="math inline">\(6\,\%\)</span> de las semanas. Semanas de gloria, dignas de mención en el informe.</p>
 </li>
 </ul>
 <p>Sin la aproximación normal, habría que sumar términos binomiales del tipo <span class="math inline">\(\binom{200}{k}\, 0{,}7^{k}\, 0{,}3^{200-k}\)</span> para todos los <span class="math inline">\(k\)</span> relevantes. Con la aproximación, tres tipificaciones y una consulta a la tabla resuelven el problema. Y el error, como veremos enseguida, es minúsculo.</p>
@@ -486,7 +575,7 @@ Aproximación normal (con corrección)
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 11.2</strong></p>
+<p><strong>Tabla 11.3</strong></p>
 </div>
 <p>En la práctica: para <span class="math inline">\(n\)</span> moderado (digamos <span class="math inline">\(n &lt; 100\)</span>) la corrección por continuidad merece la pena; para <span class="math inline">\(n\)</span> grande el efecto es despreciable y suele omitirse. En este manual seguiremos la convención del material docente y <strong>no aplicaremos</strong> la corrección por defecto, aunque conviene tenerla presente y aplicarla si se pide expresamente o si el resultado va a compararse con probabilidades exactas.</p>
 </div>
@@ -510,7 +599,7 @@ Aproximación normal (con corrección)
 <h3>
 <span class="header-section-number">11.5.2</span> Ejemplo: incidencias graves acumuladas en la flota KORRIGAN<a class="anchor" aria-label="anchor" href="#poisson-normal-ejemplo"><i class="fas fa-link"></i></a>
 </h3>
-<p>El astillero KORRIGAN opera <span class="math inline">\(16\)</span> cargueros según el fichero <code>astilleros_48.xlsx</code>. Las incidencias graves (variable <code>IIG</code>) se distribuyen razonablemente como una Poisson, con una tasa media de <span class="math inline">\(4{,}0\)</span> incidencias por nave a lo largo de la vida operativa registrada.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;El fichero registra un promedio empírico de &lt;span class="math inline"&gt;\(4{,}06\)&lt;/span&gt; incidencias graves por nave KORRIGAN sobre la vida operativa completa (mediana &lt;span class="math inline"&gt;\(\approx 13{,}6\)&lt;/span&gt; años). Para un horizonte de cinco años, el número esperado por nave es proporcional al tiempo, lo que da la tasa de &lt;span class="math inline"&gt;\(1{,}5\)&lt;/span&gt; del enunciado.&lt;/p&gt;'><sup>8</sup></a> El <strong>ingeniero Anakin Falco</strong>, jefe de mantenimiento —a quien ya conocimos en el capítulo 9—, quiere estimar el número total de incidencias graves esperado en la flota completa durante los próximos cinco años, suponiendo constante la tasa histórica.</p>
+<p>El astillero KORRIGAN opera <span class="math inline">\(16\)</span> cargueros según el fichero <code>astilleros_48.xlsx</code>. Las incidencias graves (variable <code>IIG</code>) se distribuyen razonablemente como una Poisson, con una tasa media de <span class="math inline">\(4{,}0\)</span> incidencias por nave a lo largo de la vida operativa registrada.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;El fichero registra un promedio empírico de &lt;span class="math inline"&gt;\(4{,}06\)&lt;/span&gt; incidencias graves por nave KORRIGAN sobre la vida operativa completa (mediana &lt;span class="math inline"&gt;\(\approx 13{,}6\)&lt;/span&gt; años). Para un horizonte de cinco años, el número esperado por nave es proporcional al tiempo, lo que da la tasa de &lt;span class="math inline"&gt;\(1{,}5\)&lt;/span&gt; del enunciado. Nótese que en el capítulo 9 vimos que &lt;code&gt;IIG&lt;/code&gt; en el conjunto de la flota es en realidad muy sobredispersa y se ajusta mejor por una binomial negativa; aquí simplificamos a Poisson por concentrarnos en las naves KORRIGAN, más homogéneas entre sí.&lt;/p&gt;'><sup>8</sup></a> El <strong>ingeniero Anakin Falco</strong>, jefe de mantenimiento —a quien ya conocimos en el capítulo 10—, quiere estimar el número total de incidencias graves esperado en la flota completa durante los próximos cinco años, suponiendo constante la tasa histórica.</p>
 <p>Si por cada nave se esperan aproximadamente <span class="math inline">\(1{,}5\)</span> incidencias en los próximos cinco años, el total esperado para las <span class="math inline">\(16\)</span> naves es <span class="math inline">\(\lambda = 16 \cdot 1{,}5 = 24\)</span>. Sea</p>
 <p><span class="math display">\[
 \eta \;=\; \text{"nº total de incidencias graves en la flota KORRIGAN a 5 años"} \;\to\; \mathrm{Po}(24).
@@ -527,14 +616,14 @@ Aproximación normal (con corrección)
 <p><span class="math display">\[
 P(\eta &lt; 20) \;\approx\; 0,2071.
 \]</span></p>
-<p>Alrededor de un <span class="math inline">\(\hbox{20 \%}\)</span>: un escenario optimista pero no desechable.</p>
+<p>Alrededor de un <span class="math inline">\(20\,\%\)</span>: un escenario optimista pero no desechable.</p>
 </li>
 <li>
 <p><strong>Probabilidad de que las incidencias caigan en el rango de planificación <span class="math inline">\([18;\, 30]\)</span>.</strong></p>
 <p><span class="math display">\[
 P(18 \leq \eta \leq 30) \;\approx\; 0,7793.
 \]</span></p>
-<p>Alrededor del <span class="math inline">\(\hbox{80 \%}\)</span> de los escenarios. El presupuesto se dimensiona sobre este rango.</p>
+<p>Alrededor del <span class="math inline">\(80\,\%\)</span> de los escenarios. El presupuesto se dimensiona sobre este rango.</p>
 </li>
 <li>
 <p><strong>Probabilidad de exceder las <span class="math inline">\(35\)</span> incidencias (umbral que dispararía una revisión estratégica).</strong></p>
@@ -542,7 +631,7 @@ P(18 \leq \eta \leq 30) \;\approx\; 0,7793.
 <p><span class="math display">\[
 P(\eta &gt; 35) \;\approx\; 0,0124.
 \]</span></p>
-<p>Alrededor de un <span class="math inline">\(1\)</span> %. Muy poco probable, aunque prudencia dicta contemplarlo. El valor exacto de Poisson, para comparación, es <span class="math inline">\(0,0132\)</span>: prácticamente idéntico. La aproximación es excelente.</p>
+<p>Alrededor de un <span class="math inline">\(1\,\%\)</span>. Muy poco probable, aunque prudencia dicta contemplarlo. El valor exacto de Poisson, para comparación, es <span class="math inline">\(0,0132\)</span>: prácticamente idéntico. La aproximación es excelente.</p>
 </li>
 </ul>
 <div class="callout-note">
@@ -554,7 +643,7 @@ P(\eta &gt; 35) \;\approx\; 0,0124.
 <h2>
 <span class="header-section-number">11.6</span> El esquema completo de aproximaciones<a class="anchor" aria-label="anchor" href="#esquema"><i class="fas fa-link"></i></a>
 </h2>
-<p>Recogemos ahora todas las aproximaciones vistas hasta aquí, incluidas las del capítulo 8 (binomial → Poisson), en un solo mapa. La figura <a href="#fig:fig-esquema-aprox"><strong>??</strong></a> es el resumen visual, y la tabla <a href="#tab:tab-esquema"><strong>??</strong></a> da los criterios operativos.</p>
+<p>Recogemos ahora todas las aproximaciones vistas hasta aquí, incluidas las del capítulo 9 (binomial → Poisson), en un solo mapa. La figura <a href="#fig:fig-esquema-aprox"><strong>??</strong></a> es el resumen visual, y la tabla <a href="#tab:tab-esquema"><strong>??</strong></a> da los criterios operativos.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-esquema-aprox-1.png" alt="" width="85%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
 <p><strong>Figura 11.2.</strong> Esquema de las aproximaciones entre modelos discretos y normal. La binomial admite dos rutas de aproximación: hacia Poisson (cuando <span class="math inline">\(p\)</span> es pequeño y <span class="math inline">\(n\)</span> es moderado o grande) y hacia normal (cuando ni <span class="math inline">\(p\)</span> ni <span class="math inline">\(q\)</span> son extremos). La Poisson, a su vez, se aproxima por normal cuando <span class="math inline">\(\\lambda\)</span> es grande. La normal es el destino común de todas las trayectorias: es el atractor probabilístico universal.</p>
@@ -620,7 +709,7 @@ TCL: una Poisson de parámetro grande es suma de muchas Poisson pequeñas.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 11.3</strong></p>
+<p><strong>Tabla 11.4</strong></p>
 </div>
 <div id="esquema-ejemplo" class="section level3" number="11.6.1">
 <h3>
@@ -683,7 +772,7 @@ Normal desde Poisson
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 11.4</strong></p>
+<p><strong>Tabla 11.5</strong></p>
 </div>
 <p>La lectura práctica es que, <strong>para el rango de parámetros en el que ambas condiciones se cumplen holgadamente, cualquiera de las aproximaciones ordena bien las probabilidades</strong>. En términos de comodidad de cálculo, la normal es la más rápida (una sola tipificación); en términos de exactitud, la Poisson exacta queda notablemente más cerca del valor binomial que las normales, sobre todo en las colas. La brecha de unos tres puntos porcentuales entre las exactas y las normales se debe al desajuste entre lo discreto y lo continuo, y desaparece con la corrección por continuidad —comprobación que se deja como ejercicio para el lector curioso.</p>
 <div class="callout-tip">
@@ -697,32 +786,99 @@ Normal desde Poisson
 </div>
 </div>
 </div>
-<div id="consecuencias" class="section level2" number="11.7">
+<div id="tcl-diversificacion" class="section level2" number="11.7">
 <h2>
-<span class="header-section-number">11.7</span> Consecuencias del TCL: puente hacia la inferencia<a class="anchor" aria-label="anchor" href="#consecuencias"><i class="fas fa-link"></i></a>
+<span class="header-section-number">11.7</span> El TCL como matemática de la diversificación<a class="anchor" aria-label="anchor" href="#tcl-diversificacion"><i class="fas fa-link"></i></a>
 </h2>
-<p>Cerramos el capítulo con una anticipación del papel del TCL en lo que viene, que no es poco. Prácticamente <strong>toda</strong> la estadística inferencial que se cursa en un grado en Economía o ADE se sostiene sobre el teorema central del límite, aunque no siempre se explicite. Tres consecuencias concretas anticipan por qué:</p>
+<p>Ninguna aplicación económica del TCL es tan universalmente citada como la <strong>diversificación de riesgos</strong>. La idea aparece en cualquier introducción a las finanzas (“no pongas todos los huevos en la misma cesta”), pero su fundamento matemático es exactamente el error estándar <span class="math inline">\(\sigma / \sqrt{n}\)</span> que llevamos toda la sección utilizando.</p>
+<p>Supongamos que la analista Ripley Strix está diseñando una cartera para <em>kaiju haulage co.</em>, formada por <span class="math inline">\(n\)</span> contratos comerciales independientes. Cada contrato <span class="math inline">\(j = 1, \ldots, n\)</span> tiene una rentabilidad aleatoria <span class="math inline">\(\xi_{j}\)</span> con esperanza <span class="math inline">\(E(\xi_{j}) = \mu\)</span> y desviación típica <span class="math inline">\(\sigma\)</span> <strong>idénticas</strong> para todos ellos.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;La hipótesis de que las rentabilidades son independientes e idénticamente distribuidas simplifica enormemente el análisis. En la práctica financiera existen correlaciones entre activos, y el análisis media-varianza de Markowitz —brevemente introducido en el capítulo 8— se encarga de gestionarlas. La conclusión cualitativa que sigue se mantiene, aunque los números concretos cambian.&lt;/p&gt;"><sup>9</sup></a> La cartera reparte por igual el capital, con lo que su rentabilidad es la media <span class="math inline">\(\bar{\xi}_{n}\)</span> de las <span class="math inline">\(n\)</span> rentabilidades individuales.</p>
+<ul>
+<li>La <strong>rentabilidad esperada</strong> de la cartera es la misma que la de un contrato individual: <span class="math inline">\(E(\bar\xi_{n}) = \mu\)</span>. Diversificar no cambia el retorno esperado.</li>
+<li>El <strong>riesgo</strong> de la cartera —medido como desviación típica— es el error estándar: <span class="math inline">\(\sigma_{\bar\xi_{n}} = \sigma / \sqrt{n}\)</span>. Diversificar sí reduce el riesgo, y lo hace a razón de <span class="math inline">\(1/\sqrt{n}\)</span>.</li>
+</ul>
+<p>En cifras: con un solo contrato (<span class="math inline">\(n = 1\)</span>), el riesgo es <span class="math inline">\(\sigma\)</span>. Con cuatro contratos, cae a <span class="math inline">\(\sigma / 2\)</span>. Con cien, a <span class="math inline">\(\sigma / 10\)</span>. Con diez mil, a <span class="math inline">\(\sigma / 100\)</span>. Y el fenómeno <strong>no depende de la forma</strong> de la distribución individual: pueden ser exponenciales, log-normales o cualquier otra cosa. El TCL, además, garantiza que para <span class="math inline">\(n\)</span> grande la rentabilidad total se distribuya aproximadamente como una normal, aunque cada contrato individual no lo fuera. La figura <a href="tcl.html#fig:fig-diversificacion">11.2</a> lo ilustra.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:fig-diversificacion"></span>
+<img src="EstadisticaEmpresarial_files/figure-html/fig-diversificacion-1.png" alt="Reducción del riesgo por diversificación. Manteniendo constante la rentabilidad esperada, el riesgo de una cartera de $n$ activos independientes cae como $\sigma/\sqrt{n}$. Con solo $10$ activos, el riesgo se reduce en más del $65\,\%$ respecto al del activo individual; con $100$, en un $90\,\%$. La marginalidad del beneficio de añadir activos disminuye rápidamente: es la ley de rendimientos decrecientes de la diversificación." width="85%"><p class="caption">
+Figure 11.2: Reducción del riesgo por diversificación. Manteniendo constante la rentabilidad esperada, el riesgo de una cartera de <span class="math inline">\(n\)</span> activos independientes cae como <span class="math inline">\(\sigma/\sqrt{n}\)</span>. Con solo <span class="math inline">\(10\)</span> activos, el riesgo se reduce en más del <span class="math inline">\(65\,\%\)</span> respecto al del activo individual; con <span class="math inline">\(100\)</span>, en un <span class="math inline">\(90\,\%\)</span>. La marginalidad del beneficio de añadir activos disminuye rápidamente: es la ley de rendimientos decrecientes de la diversificación.
+</p>
+</div>
+<p>Esta ley de <span class="math inline">\(1/\sqrt{n}\)</span> es la razón matemática por la que las carteras diversificadas dominan a las concentradas, por la que un fondo indexado en 500 empresas es menos volátil que una empresa individual, y por la que los seguros pueden ofrecer coberturas por primas relativamente bajas. Es también la razón por la que <strong>añadir el activo número 100 a una cartera de 99 reduce muy poco el riesgo</strong>: la caída marginal es proporcional a <span class="math inline">\(1/\sqrt{n+1} - 1/\sqrt{n}\)</span>, cada vez más pequeña. Hay rendimientos decrecientes también en la diversificación.</p>
+</div>
+<div id="sim-tcl" class="section level2" number="11.8">
+<h2>
+<span class="header-section-number">11.8</span> Simulación del TCL con R<a class="anchor" aria-label="anchor" href="#sim-tcl"><i class="fas fa-link"></i></a>
+</h2>
+<p>Todo el capítulo se puede <em>ver funcionar en vivo</em> con unas pocas líneas de código. El chunk siguiente, con <code>echo = TRUE</code>, replica el fenómeno central del TCL: tomamos una variable ferozmente no normal —la exponencial— y comprobamos que su media muestral, incluso con <span class="math inline">\(n\)</span> modesto, ya se comporta como una campana.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">11</span><span class="op">)</span></span>
+<span><span class="va">n</span>     <span class="op">&lt;-</span> <span class="fl">30</span>       <span class="co"># tamaño de cada muestra</span></span>
+<span><span class="va">reps</span>  <span class="op">&lt;-</span> <span class="fl">5000</span>     <span class="co"># número de réplicas simuladas</span></span>
+<span><span class="va">lam</span>   <span class="op">&lt;-</span> <span class="fl">1</span>        <span class="co"># tasa de la exponencial: media 1, sd 1</span></span>
+<span></span>
+<span><span class="co"># Distribución individual: una muestra grande de exponenciales</span></span>
+<span><span class="va">individuales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">rexp</a></span><span class="op">(</span><span class="va">reps</span>, rate <span class="op">=</span> <span class="va">lam</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Distribución de la media muestral: reps réplicas, cada una la media de n exponenciales</span></span>
+<span><span class="va">medias</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="va">reps</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">rexp</a></span><span class="op">(</span><span class="va">n</span>, rate <span class="op">=</span> <span class="va">lam</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Dos paneles superpuestos con patchwork</span></span>
+<span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="fu">tibble</span><span class="op">(</span>x <span class="op">=</span> <span class="va">individuales</span><span class="op">)</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">40</span>,</span>
+<span>                 fill <span class="op">=</span> <span class="va">pal_apoyo</span>, alpha <span class="op">=</span> <span class="fl">0.55</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Distribución individual"</span>, x <span class="op">=</span> <span class="st">"ξ (exponencial)"</span>, y <span class="op">=</span> <span class="st">"Densidad"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_libro</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="fu">tibble</span><span class="op">(</span>x <span class="op">=</span> <span class="va">medias</span><span class="op">)</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">density</span><span class="op">)</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">40</span>,</span>
+<span>                 fill <span class="op">=</span> <span class="va">pal_apoyo</span>, alpha <span class="op">=</span> <span class="fl">0.55</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">stat_function</span><span class="op">(</span>fun <span class="op">=</span> <span class="va">dnorm</span>, args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">lam</span>, sd <span class="op">=</span> <span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">lam</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                color <span class="op">=</span> <span class="va">pal_acento</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Media muestral (n = "</span>, <span class="va">n</span>, <span class="st">")"</span><span class="op">)</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Media muestral"</span>, y <span class="op">=</span> <span class="st">"Densidad"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_libro</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">g1</span> <span class="op">+</span> <span class="va">g2</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:sim-tcl-live"></span>
+<img src="EstadisticaEmpresarial_files/figure-html/sim-tcl-live-1.png" alt="Simulación en vivo del TCL. La distribución individual (panel izquierdo) es una exponencial de tasa 1: asimétrica, con moda en 0 y una cola larga hacia la derecha. La distribución de la media muestral de $n = 30$ observaciones (panel derecho), sobre 5.000 réplicas simuladas, es visiblemente una campana. La curva roja es la normal $N(\mu;\, \sigma/\sqrt{n})$ predicha por el TCL, con $\mu = 1$ y $\sigma = 1$." width="90%"><p class="caption">
+Figure 11.3: Simulación en vivo del TCL. La distribución individual (panel izquierdo) es una exponencial de tasa 1: asimétrica, con moda en 0 y una cola larga hacia la derecha. La distribución de la media muestral de <span class="math inline">\(n = 30\)</span> observaciones (panel derecho), sobre 5.000 réplicas simuladas, es visiblemente una campana. La curva roja es la normal <span class="math inline">\(N(\mu;\, \sigma/\sqrt{n})\)</span> predicha por el TCL, con <span class="math inline">\(\mu = 1\)</span> y <span class="math inline">\(\sigma = 1\)</span>.
+</p>
+</div>
+<p>En pocas líneas se ha condensado toda la mecánica: <code>rexp(n, lam)</code> genera muestras de la variable no normal; <code>replicate(..., mean(...))</code> calcula miles de medias muestrales; el histograma resultante es prácticamente una campana. Cambiando <code>rexp</code> por <code>runif</code>, <code>rlnorm</code>, <code>rpois</code> o cualquier otra función de simulación, el fenómeno se reproduce con la misma limpieza. <strong>Esta es la manera moderna —simple, rápida y persuasiva— de entender el TCL</strong>: por observación empírica del fenómeno, antes que por manipulación algebraica del enunciado.</p>
+</div>
+<div id="consecuencias" class="section level2" number="11.9">
+<h2>
+<span class="header-section-number">11.9</span> Consecuencias del TCL: puente hacia la inferencia<a class="anchor" aria-label="anchor" href="#consecuencias"><i class="fas fa-link"></i></a>
+</h2>
+<p>Cerramos el capítulo con una anticipación del papel del TCL en lo que viene, que no es poco. Prácticamente <strong>toda</strong> la estadística inferencial que se cursa en un grado en Economía o ADE se sostiene sobre el teorema central del límite, aunque no siempre se explicite. Cuatro consecuencias concretas anticipan por qué:</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong>La media muestral de casi cualquier variable es aproximadamente normal.</strong> Cuando dispongamos de una muestra de <span class="math inline">\(n\)</span> observaciones, <span class="math inline">\(\bar{X}_{n} \approx N(\mu;\, \sigma / \sqrt{n})\)</span>, y podremos construir intervalos de confianza y tests de hipótesis para <span class="math inline">\(\mu\)</span> tipificando —tal cual, como en este capítulo—, sin conocer la forma exacta de la distribución de la variable original.</li>
 <li>
 <strong>La proporción muestral es aproximadamente normal.</strong> Si en <span class="math inline">\(n\)</span> ensayos independientes contamos <span class="math inline">\(X\)</span> éxitos con probabilidad <span class="math inline">\(p\)</span>, la proporción muestral <span class="math inline">\(\hat{p} = X/n\)</span> es una binomial reescalada, y por De Moivre–Laplace su distribución es aproximadamente <span class="math inline">\(N(p;\, \sqrt{p q / n})\)</span>. Es la base de las encuestas y estimaciones electorales.</li>
 <li>
-<strong>La diferencia de medias muestrales de dos poblaciones es aproximadamente normal.</strong> Combinando el TCL con la propiedad reproductiva de la normal, dos medias muestrales independientes generan una diferencia normal, con lo que se pueden construir tests de igualdad de medias. La base de la comparación estadística de dos grupos.</li>
+<strong>La diferencia de medias muestrales de dos poblaciones es aproximadamente normal.</strong> Combinando el TCL con la propiedad reproductiva de la normal, dos medias muestrales independientes generan una diferencia normal, con lo que se pueden construir tests de igualdad de medias. La base de la comparación estadística de dos grupos, y del muy popular <em>test A/B</em> que usan hoy todas las empresas tecnológicas.</li>
+<li>
+<strong>Cuando σ es desconocida, aparece la t de Student.</strong> Esta es la sutileza importante: en la práctica casi nunca conocemos la desviación típica poblacional <span class="math inline">\(\sigma\)</span>; la estimamos con la desviación típica muestral <span class="math inline">\(s\)</span>. Ese pequeño cambio hace que la distribución del cociente <span class="math inline">\((\bar{X}_{n} - \mu) / (s / \sqrt{n})\)</span> deje de ser exactamente normal y pase a ser una <strong>t de Student con <span class="math inline">\(n - 1\)</span> grados de libertad</strong>, con colas ligeramente más gruesas que la normal. Para <span class="math inline">\(n\)</span> moderado o grande, la diferencia es despreciable y la normal sirve; para <span class="math inline">\(n\)</span> pequeño, hay que usar la t. Este matiz es el pan de cada día del bloque de inferencia.</li>
 </ol>
-<p>En los tres casos, la normal aparece como distribución de un <strong>estimador</strong>, no como distribución de los datos. Los datos originales pueden ser discretos, asimétricos, exóticos o directamente feos; la distribución del estimador —bajo condiciones muy generales— será la campana familiar. Es la razón por la que el resto del curso puede resolverse con una única tabla, la de la normal estándar.</p>
+<p>En los cuatro casos, la normal aparece como distribución de un <strong>estimador</strong>, no como distribución de los datos. Los datos originales pueden ser discretos, asimétricos, exóticos o directamente feos; la distribución del estimador —bajo condiciones muy generales— será la campana familiar. Es la razón por la que el resto del curso puede resolverse con una única tabla, la de la normal estándar (y la de la t, casi indistinguible de la normal para <span class="math inline">\(n\)</span> grande).</p>
+<div class="callout-note">
+<p><strong>El bootstrap: TCL a golpe de teclado.</strong> Cuando ni siquiera se sabe qué distribución sigue el estimador —o cuando el TCL no aplica bien porque <span class="math inline">\(n\)</span> es pequeño o hay dependencias—, existe una alternativa moderna que ya asomó en los capítulos 10 y 11 mediante simulación de Monte Carlo: el <strong>bootstrap</strong>, propuesto por Bradley Efron en 1979. La idea es escandalosamente simple: se generan miles de “muestras artificiales” remuestreando con reemplazamiento la muestra original, se calcula el estimador en cada una y se estudia empíricamente su distribución. Es TCL sin fórmulas, computado por fuerza bruta. Hoy es la técnica de referencia en gran parte del análisis de datos moderno —desde riesgos financieros hasta <em>machine learning</em>—, y una de las cosas más útiles que un estudiante de ADE puede aprender por su cuenta después del curso.</p>
 </div>
-<div id="recap-cap11" class="section level2" number="11.8">
+</div>
+<div id="recap-cap11" class="section level2" number="11.10">
 <h2>
-<span class="header-section-number">11.8</span> Recapitulación<a class="anchor" aria-label="anchor" href="#recap-cap11"><i class="fas fa-link"></i></a>
+<span class="header-section-number">11.10</span> Recapitulación<a class="anchor" aria-label="anchor" href="#recap-cap11"><i class="fas fa-link"></i></a>
 </h2>
-<p>Tres ideas conviene retener de este capítulo por encima del resto:</p>
+<p>Cuatro ideas conviene retener de este capítulo por encima del resto:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>El TCL es un teorema sobre distribuciones límite, no sobre datos.</strong> Los datos originales no tienen por qué ser normales para que sus sumas o promedios lo sean. La ubicuidad de la campana en la práctica empresarial no se debe a que la realidad “sea normal”, sino a que las variables que miramos son casi siempre agregados —tonelajes totales, medias diarias, sumas semanales, proporciones muestrales— y los agregados tienden a la normal por el TCL. Esta distinción disuelve un malentendido frecuente.</p></li>
 <li><p><strong>Las aproximaciones binomial → Poisson → normal no son atajos independientes, sino manifestaciones del mismo mecanismo.</strong> Todas son consecuencia, directa o indirecta, del TCL. Los criterios operativos (<span class="math inline">\(n \geq 100\)</span> y <span class="math inline">\(p \leq 0{,}05\)</span>; <span class="math inline">\(n p \geq 5\)</span> y <span class="math inline">\(n q \geq 5\)</span>; <span class="math inline">\(\lambda \geq 10\)</span>) son heurísticos calibrados para que el error sea aceptable en la práctica, no fronteras rígidas.</p></li>
-<li><p><strong>La agregación reduce la incertidumbre relativa.</strong> La media muestral de <span class="math inline">\(n\)</span> observaciones tiene desviación típica <span class="math inline">\(\sigma / \sqrt{n}\)</span>: si <span class="math inline">\(n = 100\)</span>, el ruido se divide por diez; si <span class="math inline">\(n = 10\,000\)</span>, por cien. Es la razón matemática por la que las encuestas grandes son más fiables que las pequeñas, por la que promediar reduce el error de un instrumento, y por la que las flotas grandes son operativamente más predecibles que las flotas pequeñas. La diversificación, medida en términos de riesgo, es una consecuencia numérica del TCL.</p></li>
+<li><p><strong>La agregación reduce la incertidumbre relativa a razón de <span class="math inline">\(1/\sqrt{n}\)</span>.</strong> La media muestral de <span class="math inline">\(n\)</span> observaciones tiene error estándar <span class="math inline">\(\sigma / \sqrt{n}\)</span>: si <span class="math inline">\(n = 100\)</span>, el ruido se divide por diez; si <span class="math inline">\(n = 10\,000\)</span>, por cien. Es la razón matemática por la que las encuestas grandes son más fiables que las pequeñas, por la que promediar reduce el error de un instrumento, por la que las flotas grandes son operativamente más predecibles que las flotas pequeñas y por la que la diversificación reduce el riesgo de una cartera. Cuatro fenómenos aparentemente inconexos que descansan sobre la misma fórmula.</p></li>
+<li><p><strong>La LGN es la base del negocio de vender previsibilidad; el TCL es la base de la inferencia.</strong> Los seguros, los casinos, los <em>market makers</em> y las encuestas funcionan porque la LGN convierte incertidumbre individual en previsibilidad colectiva. Los intervalos de confianza, los tests de hipótesis y los tests A/B funcionan porque el TCL nos garantiza que la distribución de nuestros estimadores es aproximadamente normal. Sin estos dos teoremas, ni la industria del riesgo ni la estadística inferencial tendrían base matemática. Con ellos, se sostiene todo el bloque de aplicaciones que sigue.</p></li>
 </ol>
-<p>En el próximo capítulo, con el TCL como llave maestra, entraremos por fin en <strong>inferencia estadística</strong>: distribuciones muestrales, estimadores, intervalos de confianza. La normal, que ha ido asomando desde el capítulo 7, acabará de instalarse como protagonista absoluta —no de los datos, sino de las conclusiones que sobre los datos se pueden extraer.</p>
+<p>En el próximo capítulo, con el TCL como llave maestra, entraremos por fin en <strong>inferencia estadística</strong>: distribuciones muestrales, estimadores, intervalos de confianza. La normal, que ha ido asomando desde el capítulo 7, acabará de instalarse como protagonista absoluta —no de los datos, sino de las conclusiones que sobre los datos se pueden extraer. Aparecerán como aliadas la ya insinuada <strong>t de Student</strong>, y también la <strong>ji-cuadrado</strong> y la <strong>F de Snedecor</strong>, todas ellas derivadas de la normal y todas ellas nacidas del TCL aplicado a estadísticos de segundo orden. La estadística inferencial, que da miedo por su nombre pero se sostiene sobre las distribuciones que ya conocemos, está por fin a un capítulo de distancia.</p>
 
 </div>
 </div>
@@ -739,15 +895,17 @@ Normal desde Poisson
 <a class="nav-link" href="#convergencia"><span class="header-section-number">11.2</span> Convergencia de sucesiones de variables aleatorias</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#conv-probabilidad"><span class="header-section-number">11.2.1</span> Convergencia en probabilidad</a></li>
 <li><a class="nav-link" href="#lgn"><span class="header-section-number">11.2.2</span> La ley (débil) de los grandes números</a></li>
-<li><a class="nav-link" href="#conv-distribucion"><span class="header-section-number">11.2.3</span> Convergencia en distribución</a></li>
+<li><a class="nav-link" href="#lgn-economia"><span class="header-section-number">11.2.3</span> La LGN en la vida económica: seguros, casinos y encuestas</a></li>
+<li><a class="nav-link" href="#conv-distribucion"><span class="header-section-number">11.2.4</span> Convergencia en distribución</a></li>
 </ul>
 </li>
 <li>
 <a class="nav-link" href="#tcl-general"><span class="header-section-number">11.3</span> Teorema central del límite: la versión general</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#tcl-intuicion"><span class="header-section-number">11.3.1</span> La intuición: la campana emergente</a></li>
 <li><a class="nav-link" href="#tcl-lindeberg"><span class="header-section-number">11.3.2</span> Enunciado (Lindeberg–Lévy)</a></li>
-<li><a class="nav-link" href="#tcl-n-grande"><span class="header-section-number">11.3.3</span> ¿Qué significa “\(n\) suficientemente grande”?</a></li>
-<li><a class="nav-link" href="#tcl-ejemplo"><span class="header-section-number">11.3.4</span> Ejemplo: tiempo medio de descarga en Klendathu</a></li>
+<li><a class="nav-link" href="#error-estandar"><span class="header-section-number">11.3.3</span> El error estándar y las cuatro fórmulas de referencia</a></li>
+<li><a class="nav-link" href="#tcl-n-grande"><span class="header-section-number">11.3.4</span> ¿Qué significa “\(n\) suficientemente grande”?</a></li>
+<li><a class="nav-link" href="#tcl-ejemplo"><span class="header-section-number">11.3.5</span> Ejemplo: tiempo medio de descarga en Klendathu</a></li>
 </ul>
 </li>
 <li>
@@ -766,8 +924,10 @@ Normal desde Poisson
 <li>
 <a class="nav-link" href="#esquema"><span class="header-section-number">11.6</span> El esquema completo de aproximaciones</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esquema-ejemplo"><span class="header-section-number">11.6.1</span> Ejemplo integrado: pruebas de nuevos motores en el astillero SELENE</a></li></ul>
 </li>
-<li><a class="nav-link" href="#consecuencias"><span class="header-section-number">11.7</span> Consecuencias del TCL: puente hacia la inferencia</a></li>
-<li><a class="nav-link" href="#recap-cap11"><span class="header-section-number">11.8</span> Recapitulación</a></li>
+<li><a class="nav-link" href="#tcl-diversificacion"><span class="header-section-number">11.7</span> El TCL como matemática de la diversificación</a></li>
+<li><a class="nav-link" href="#sim-tcl"><span class="header-section-number">11.8</span> Simulación del TCL con R</a></li>
+<li><a class="nav-link" href="#consecuencias"><span class="header-section-number">11.9</span> Consecuencias del TCL: puente hacia la inferencia</a></li>
+<li><a class="nav-link" href="#recap-cap11"><span class="header-section-number">11.10</span> Recapitulación</a></li>
 </ul>
 
       <div class="book-extra">
