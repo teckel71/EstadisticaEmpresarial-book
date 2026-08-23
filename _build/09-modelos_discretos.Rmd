@@ -14,6 +14,7 @@ library(readxl)
 library(knitr)
 library(kableExtra)
 library(scales)
+library(patchwork)
 
 # Paleta coherente con capítulos previos.
 pal_libro  <- c("#2C6E91", "#B85450", "#E4B363", "#6A8E7F", "#8E6C88")
@@ -34,7 +35,13 @@ theme_libro <- function(base_size = 11) {
 }
 
 # Formateador de números con coma decimal española.
-fmt <- function(x, d = 4) formatC(x, format = "f", digits = d, decimal.mark = ",")
+fmt    <- function(x, d = 4) formatC(x, format = "f", digits = d, decimal.mark = ",")
+fmtint <- function(x) format(x, big.mark = ".", decimal.mark = ",", trim = TRUE)
+```
+
+```{r datos-cap09}
+astilleros   <- read_excel("data/astilleros_48.xlsx",   sheet = "Datos")
+interestelar <- read_excel("data/interestelar_300.xlsx", sheet = "Datos")
 ```
 
 ![](figuras/08_discreto.jpg){.portada-img width="100%"}
@@ -56,11 +63,12 @@ Este capítulo cataloga los principales **modelos discretos**: las plantillas ma
 
 Nos ocuparemos aquí de las siguientes distribuciones, en este orden:
 
-1. El **experimento de Bernoulli**, que es la piedra angular sobre la que se apoyan todas las demás.
-2. La **distribución binomial**, para contar éxitos en $n$ intentos independientes.
-3. La **distribución de Poisson**, apropiada para contar sucesos raros que ocurren en un intervalo de tiempo o de espacio.
-4. La **distribución binomial negativa**, que da la vuelta a la pregunta binomial: en lugar de fijar el número de intentos, fija el número de éxitos y cuenta cuántos fracasos aparecen por el camino. Como caso particular, aparecerá la **distribución geométrica**.
-5. La **distribución hipergeométrica**, para el conteo de éxitos en muestreos sin reemplazamiento.
+1. La **distribución uniforme discreta**, el modelo más elemental: todos los valores posibles son equiprobables.
+2. El **experimento de Bernoulli**, que es la piedra angular sobre la que se apoyan todas las demás.
+3. La **distribución binomial**, para contar éxitos en $n$ intentos independientes.
+4. La **distribución de Poisson**, apropiada para contar sucesos raros que ocurren en un intervalo de tiempo o de espacio.
+5. La **distribución binomial negativa**, que da la vuelta a la pregunta binomial: en lugar de fijar el número de intentos, fija el número de éxitos y cuenta cuántos fracasos aparecen por el camino. Como caso particular, aparecerá la **distribución geométrica**.
+6. La **distribución hipergeométrica**, para el conteo de éxitos en muestreos sin reemplazamiento.
 
 Omitiremos deliberadamente las funciones generatrices; no las echaremos de menos.
 
@@ -68,11 +76,37 @@ Omitiremos deliberadamente las funciones generatrices; no las echaremos de menos
 **Cómo leer este capítulo.** Para cada modelo se sigue el mismo guion: primero, el *experimento canónico* que da lugar al modelo (la intuición); a continuación, la *variable aleatoria* que se modela y sus *parámetros*; después, la *función de cuantía*, la media y la varianza; y por último, uno o varios *ejemplos* pensados para que se distinga en qué situaciones aplicar cada distribución. Al final del capítulo hay una guía rápida de decisión que responde a la pregunta clave: "¿qué modelo uso?".
 :::
 
+## Distribución uniforme discreta {#uniforme-discreta}
+
+### La intuición: todos los resultados con la misma probabilidad {#unif-intuicion}
+
+El modelo más simple imaginable, incluso más que el de Bernoulli: un experimento con un número finito de resultados equiprobables. Si el astropuerto de Coruscant asigna aleatoriamente uno de los ocho muelles disponibles a un carguero que aterriza, la variable "muelle asignado" sigue una **distribución uniforme discreta** sobre $\{1, 2, \ldots, 8\}$. Cada muelle tiene la misma probabilidad, $1/8$, de recibir al carguero.
+
+Otros ejemplos con el mismo esqueleto: la variable "número que sale al lanzar un dado equilibrado" (uniforme sobre $\{1, \ldots, 6\}$); "identificador de una empresa elegida al azar entre las 300 del fichero `interestelar_300`" (uniforme sobre $\{1, \ldots, 300\}$); "asiento asignado al pasajero en la lotería semanal del club de vuelo de Naboo".
+
+### Definición formal {#unif-formal}
+
+Una variable aleatoria $\xi$ sigue una **distribución uniforme discreta** sobre el conjunto de $k$ enteros $\{a, a+1, \ldots, b\}$ (con $k = b - a + 1$) si asigna la misma probabilidad a cada uno de ellos:
+
+$$
+\xi \to U(a, b), \qquad P(\xi = x) = \frac{1}{k}, \qquad x \in \{a, a+1, \ldots, b\}.
+$$
+
+**Media y varianza** (cálculo directo por sumas de progresiones):
+
+$$
+\mu = \frac{a + b}{2}, \qquad \sigma^{2} = \frac{k^{2} - 1}{12}.
+$$
+
+La media es simplemente el punto medio del rango; la varianza crece con la amplitud del intervalo. Nada más profundo.
+
+Este modelo aparece rara vez en solitario en el mundo empresarial, pero es la base de dos aplicaciones enormemente importantes: el **muestreo aleatorio simple** —cada elemento de una población tiene la misma probabilidad de ser elegido— y la **generación de números aleatorios** en el ordenador, que es el punto de partida de casi cualquier simulación estadística contemporánea. Cada vez que R responde a `sample(1:300, 10)`, está sacando diez números de una uniforme discreta.
+
 ## Experimento de Bernoulli {#bernoulli}
 
 ### La intuición: éxito o fracaso {#bernoulli-intuicion}
 
-Todo empieza con la situación más simple imaginable: **un experimento que solo puede dar dos resultados**. Nada de matices, nada de terceras vías. Es lo que se conoce como un **experimento de Bernoulli**, en honor a Jacob Bernoulli, quien lo formalizó hacia finales del siglo XVII y con ello dejó, sin saberlo, el andamio matemático para todo lo que sigue.
+Después del uniforme, la situación más simple imaginable: **un experimento que solo puede dar dos resultados**. Nada de matices, nada de terceras vías. Es lo que se conoce como un **experimento de Bernoulli**, en honor a Jacob Bernoulli, quien lo formalizó hacia finales del siglo XVII y con ello dejó, sin saberlo, el andamio matemático para todo lo que sigue.
 
 Un carguero de *arrakis freight* sale esta madrugada de Arrakis con destino a Klendathu. Al aterrizar mañana en el astropuerto de destino, solo pueden pasar dos cosas: que llegue a tiempo (llamémoslo **éxito**) o que no lo haga (llamémoslo **fracaso**). No hay medias tintas: o cumple ventana o no la cumple.[^bernoulli-etiqueta] Ese es, entero y verdadero, un experimento de Bernoulli.
 
@@ -82,13 +116,13 @@ Otros ejemplos, con el mismo esqueleto: el auditor Luke Diomedea abre un contene
 
 ### Definición formal {#bernoulli-formal}
 
-Sea un experimento con dos resultados posibles, **éxito** y **fracaso**. Codifiquemos el resultado con una variable numérica: $\xi = 1$ si sale éxito, $\xi = 0$ si sale fracaso. Sea $p \in (0, 1)$ la probabilidad de éxito (y por tanto $q = 1 - p$ la de fracaso). La variable $\xi$ así definida sigue una **distribución de Bernoulli** de parámetro $p$, y escribimos:
+Sea un experimento con dos resultados posibles, **éxito** y **fracaso**. Codifiquemos el resultado con una variable numérica: $\xi = 1$ si sale éxito, $\xi = 0$ si sale fracaso. Sea $p \in [0, 1]$ la probabilidad de éxito (y por tanto $q = 1 - p$ la de fracaso). La variable $\xi$ así definida sigue una **distribución de Bernoulli** de parámetro $p$, y escribimos:
 
 $$
 \xi \to B(1; p).
 $$
 
-El único parámetro del modelo es $p$, la probabilidad de éxito. Con él queda todo dicho.
+El único parámetro del modelo es $p$, la probabilidad de éxito. Con él queda todo dicho. Los casos $p = 0$ o $p = 1$ son admisibles pero degenerados: la variable es en realidad determinista.
 
 **Función de cuantía.** La probabilidad de cada uno de los dos únicos valores posibles se puede escribir de forma compacta:
 
@@ -218,7 +252,7 @@ La binomial funciona *solo* cuando los ensayos son independientes y la probabili
 
 La **distribución de Poisson** aparece cuando se cuenta el número de veces que sucede un evento **raro**, pero con **muchísimas oportunidades** de suceder. El ejemplo prototípico: no cuentan a los cargueros que llegan a tiempo, sino a los que sufren una **avería grave** durante un viaje. La avería es rara, sí; pero se dispone de un año entero, con decenas de miles de trayectos, para que ocurra. ¿Cuántas averías ocurrirán este año?
 
-Estrictamente hablando, cualquier proceso de conteo de este tipo es una binomial: si hay $n = 250{,}000$ oportunidades y en cada una la probabilidad de avería es $p = 8 \cdot 10^{-6}$, el número de averías es $B(n; p)$. Pero calcular $\binom{250{,}000}{x} \cdot p^{x} \cdot q^{n-x}$ es incómodo (por decirlo suavemente) y, cuando $n$ es grande y $p$ pequeño, hay una fórmula mucho más ligera que da prácticamente el mismo resultado: la de Poisson.
+Estrictamente hablando, cualquier proceso de conteo de este tipo es una binomial: si hay $n = 250{.}000$ oportunidades y en cada una la probabilidad de avería es $p = 8 \cdot 10^{-6}$, el número de averías es $B(n; p)$. Pero calcular $\binom{250{.}000}{x} \cdot p^{x} \cdot q^{n-x}$ es incómodo (por decirlo suavemente) y, cuando $n$ es grande y $p$ pequeño, hay una fórmula mucho más ligera que da prácticamente el mismo resultado: la de Poisson.
 
 ### Definición formal {#poisson-formal}
 
@@ -244,7 +278,7 @@ $$
 \mu = E(\xi) = \lambda, \qquad \sigma^{2} = \operatorname{Var}(\xi) = \lambda.
 $$
 
-Una de las señas de identidad de la Poisson es que **su media coincide con su varianza**. Este hecho, que no tiene análogo en la binomial, sirve incluso como test empírico: si en unos datos de conteo la varianza es aproximadamente igual a la media, la Poisson es una candidata razonable; si es mucho mayor (sobre-dispersión), no lo es.
+Una de las señas de identidad de la Poisson es que **su media coincide con su varianza**. Este hecho, que no tiene análogo en la binomial, sirve incluso como test empírico: si en unos datos de conteo la varianza es aproximadamente igual a la media, la Poisson es una candidata razonable; si es mucho mayor (sobredispersión), no lo es. Volveremos sobre esto en un momento.
 
 **Propiedad reproductiva.** La Poisson también se suma bien: si $\xi_1 \to \mathrm{Po}(\lambda_1)$ y $\xi_2 \to \mathrm{Po}(\lambda_2)$ son independientes, entonces $\xi_1 + \xi_2 \to \mathrm{Po}(\lambda_1 + \lambda_2)$. Traducido a operaciones: si en el sector A del hipercorredor Coruscant–Naboo se avistan piratas espaciales con tasa $1{,}0$ por semana, y en el sector B con tasa $1{,}3$, entonces en el corredor completo se avistan con tasa $2{,}3$ por semana.
 
@@ -318,39 +352,56 @@ La coincidencia hasta la quinta cifra decimal no es casualidad: se puede demostr
 **Regla práctica (Binomial → Poisson).** Si $n \geq 30$ y $p \leq 0{,}05$ (idealmente $p \leq 0{,}01$), la aproximación $B(n; p) \approx \mathrm{Po}(n \cdot p)$ suele ser excelente. Cuanto más grande sea $n$ y más pequeña sea $p$, mejor.
 :::
 
-### Cómo distinguir binomial de Poisson {#binomial-vs-poisson}
+### Ejemplo 3: llegada de clientes y el proceso de Poisson {#poisson-clientes}
 
-Estas dos son las distribuciones que más se confunden entre sí, porque ambas cuentan éxitos. La diferencia está en **qué es lo que se cuenta y cómo está delimitado el experimento**. Esta tabla condensa el criterio:
+Existe una tercera aplicación del modelo, particularmente frecuente en economía y en gestión de operaciones: los procesos de **llegada** —clientes a un mostrador, pedidos a un almacén, siniestros a una aseguradora, órdenes de compra a un sistema de trading—. Cuando los eventos ocurren de forma independiente y a una tasa media estable, el número de eventos en un intervalo de tiempo dado sigue una Poisson. Esta idea, formalizada, se conoce como **proceso de Poisson**.
 
-```{r tab-bin-vs-poi}
-tab <- tribble(
-  ~Criterio,
-  ~Binomial, ~Poisson,
-  "Número de ensayos",           "Fijo y conocido: $n$.",       "No hay un $n$ fijo; se cuenta sobre un intervalo (tiempo, espacio, oportunidades).",
-  "Probabilidad de éxito",       "Constante y no muy pequeña.",  "Se traduce en una tasa $\\lambda$; los sucesos son raros pero el intervalo es amplio.",
-  "Máximo posible",              "El total de ensayos, $n$.",    "No hay máximo teórico.",
-  "Media y varianza",            "$\\mu = np,\\; \\sigma^2 = npq$.", "$\\mu = \\lambda,\\; \\sigma^2 = \\lambda$ (iguales).",
-  "Ejemplo típico",              "Cargueros a tiempo de 12 despachados.", "Averías al año en toda una flota."
-)
+La agencia bancaria que la empresa *hyperdrive express* tiene en Coruscant registra, en promedio, $\lambda = 6$ clientes por hora en su ventanilla de operaciones interestelares. Modelando el flujo como un proceso de Poisson:
 
-kable(tab,
-      align   = "lll",
-      
-      escape  = FALSE) |>
-  kable_styling(
-    bootstrap_options = c("hover", "condensed"),
-    full_width        = FALSE,
-    position          = "center",
-    font_size         = 13
-  )
+- Probabilidad de que en una hora concreta lleguen exactamente $4$ clientes:
+  $$
+  P(\xi = 4) = \frac{e^{-6} \, 6^{4}}{4!} \approx `r fmt(dpois(4, 6))`.
+  $$
+- Probabilidad de una hora sin clientes (¿día festivo galáctico?):
+  $$
+  P(\xi = 0) = e^{-6} \approx `r fmt(exp(-6))`.
+  $$
+- Probabilidad de una hora "punta" con más de 10 clientes:
+  $$
+  P(\xi > 10) = 1 - P(\xi \le 10) \approx `r fmt(1 - ppois(10, 6))`.
+  $$
+
+Este mismo esquema es la base de la **teoría de colas** —cuántas ventanillas abrir, cuánto personal contratar— y de la **teoría del riesgo actuarial** —cómo tarificar una prima cuando los siniestros llegan según un proceso de Poisson—. Dos aplicaciones económicas de primerísimo nivel, ambas apoyadas sobre la misma fórmula con la que hemos contado piratas.
+
+### Cuando la Poisson no basta: la sobredispersión {#poisson-sobredispersion}
+
+La Poisson es un modelo generoso, pero exige que **media y varianza coincidan**. En la práctica empresarial, esta condición se cumple en pocas ocasiones. Los datos reales de conteo suelen presentar **sobredispersión**: la varianza empírica es notablemente mayor que la media, porque los individuos no son homogéneos (unas unidades son más propensas al suceso que otras) o porque los eventos tienden a llegar en rachas.
+
+Un ejemplo con datos R-Stars. La variable `IIG` del fichero `astilleros_48` recoge el **número de averías graves acumuladas** por cada una de las 48 naves de la flota galáctica a lo largo de su vida operativa. Si el proceso de fallo fuera puramente Poisson, esperaríamos que la varianza empírica se pareciera a la media empírica. Veamos:
+
+```{r poisson-iig}
+mu_iig  <- mean(astilleros$IIG)
+var_iig <- var(astilleros$IIG)
+tibble(
+  Estadístico = c("Media $\\bar x$", "Varianza $s^2$", "Ratio $s^2 / \\bar x$"),
+  Valor = c(fmt(mu_iig, 2), fmt(var_iig, 2), fmt(var_iig / mu_iig, 2))
+) |>
+  kable(align = "lc", escape = FALSE,
+        ) |>
+  kable_styling(bootstrap_options = c("hover", "condensed"),
+                full_width = FALSE, position = "center", font_size = 13)
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 9.1**
+**Tabla 9.1.** Media y varianza empíricas de la variable `IIG` (averías graves acumuladas por nave). El ratio, muy superior a 1, es un indicador claro de sobredispersión.
 :::
 
 
-En una palabra: **si podemos poner un número $n$ de intentos por delante, es binomial; si contamos sucesos en un continuo, es Poisson**. Y si $n$ es tan grande y $p$ tan pequeño que da lo mismo cuál usemos, use la Poisson: le ahorrará cálculos.
+Con un ratio varianza/media de más de $9$, la variable `IIG` está **muy lejos** de comportarse como una Poisson. La razón es empíricamente evidente: la mayor parte de las naves acumulan pocas averías, pero un pequeño número de ellas —dos o tres unidades problemáticas— arrastran valores muy altos ($16$ y $35$ averías) que hinchan la varianza sin afectar demasiado a la media. En el capítulo anterior ya vimos este patrón: es una distribución con **cola pesada**.
+
+::: {.callout-note}
+**Regla práctica.** Si en unos datos de conteo el ratio $s^2 / \bar x$ está cercano a 1, la Poisson es una buena candidata. Si es sustancialmente mayor que 1 (por ejemplo, mayor que 2), hay sobredispersión y conviene buscar otro modelo. El candidato natural, como veremos enseguida, es la **binomial negativa**.
+:::
 
 ## Distribución binomial negativa {#binomial-negativa}
 
@@ -390,7 +441,7 @@ $$
 \mu = E(\xi) = r \cdot \frac{q}{p}, \qquad \sigma^{2} = \operatorname{Var}(\xi) = r \cdot \frac{q}{p^{2}}.
 $$
 
-Que la media dependa de $q/p$ tiene una interpretación transparente: si $p$ es alto, $q/p$ es pequeño y los fracasos previsiblemente serán pocos; si $p$ es bajo, se acumularán muchos fracasos por cada éxito conseguido.
+Que la media dependa de $q/p$ tiene una interpretación transparente: si $p$ es alto, $q/p$ es pequeño y los fracasos previsiblemente serán pocos; si $p$ es bajo, se acumularán muchos fracasos por cada éxito conseguido. Y nótese que la varianza siempre es mayor que la media: la BN es un modelo *naturalmente sobredisperso*, y por eso tan útil, como veremos, para modelar recuentos empresariales reales.
 
 **Propiedad reproductiva.** Si $\xi_1 \to \mathrm{BN}(r_1; p)$, $\xi_2 \to \mathrm{BN}(r_2; p)$ son independientes con **la misma $p$**, entonces $\xi_1 + \xi_2 \to \mathrm{BN}(r_1 + r_2; p)$.
 
@@ -453,11 +504,58 @@ $$
 P(\xi = 2) = 0{,}6 \cdot 0{,}4^{2} = 0{,}0960.
 $$
 
-En promedio, Rey esperará $q/p = 0{,}67$ intentos fallidos —casi ninguno, aunque estos casos casi nunca van "casi bien"— antes de coronar el aterrizaje.
+En promedio, Rey esperará $q/p \approx 0{,}67$ intentos fallidos —casi ninguno, aunque estos casos casi nunca van "casi bien"— antes de coronar el aterrizaje.
 
 ::: {.callout-note}
 **Cuidado con la convención.** Algunos textos llaman "distribución geométrica" al número de **intentos totales** hasta el primer éxito, no al número de fracasos previos. Ambas convenciones son legítimas, se relacionan por un desfase de una unidad, pero sus medias son distintas ($1/p$ frente a $q/p$). En este manual seguimos la convención "fracasos previos", coherente con la binomial negativa que la contiene.
 :::
+
+### Un uso moderno: la BN como remedio a la sobredispersión {#bn-sobredispersion}
+
+Al margen de su interpretación clásica —"cuántos fracasos antes del $r$-ésimo éxito"—, la distribución binomial negativa tiene hoy en día un papel de primerísima línea en la **econometría de recuentos**: es el modelo de referencia para variables de conteo que presentan sobredispersión, es decir, casi todas las variables de conteo con las que se topa un economista.
+
+Recuperemos el ejemplo de la variable `IIG` (averías graves acumuladas). La Poisson, con media y varianza forzadas a coincidir, fracasa: no sabe reproducir la cola larga de las naves problemáticas. La binomial negativa, con su parámetro extra, sí puede: su varianza $\sigma^{2} = r q / p^{2}$ es siempre mayor que su media $\mu = r q / p$, y ajustando adecuadamente los parámetros $r$ y $p$ podemos hacer que reproduzca el nivel de sobredispersión observado en los datos.
+
+La figura \@ref(fig:fig-poisson-bn-iig) compara las tres cosas: la distribución empírica de `IIG`, el ajuste Poisson (deficiente) y el ajuste binomial negativa (bastante mejor).
+
+```{r fig-poisson-bn-iig, fig.height=3.8}
+mu_iig  <- mean(astilleros$IIG)
+var_iig <- var(astilleros$IIG)
+
+# Parámetros MOM para la binomial negativa (convención de R: size = r, mu = mean)
+size_bn <- mu_iig^2 / (var_iig - mu_iig)
+prob_bn <- size_bn / (size_bn + mu_iig)
+
+xs <- 0:35
+df_ajuste <- tibble(
+  x       = xs,
+  emp     = as.numeric(table(factor(astilleros$IIG, levels = xs))) / nrow(astilleros),
+  poi     = dpois(xs, lambda = mu_iig),
+  bn      = dnbinom(xs, size = size_bn, prob = prob_bn)
+) |>
+  pivot_longer(-x, names_to = "modelo", values_to = "prob") |>
+  mutate(modelo = factor(modelo,
+                         levels = c("emp", "poi", "bn"),
+                         labels = c("Datos observados",
+                                    paste0("Ajuste Poisson (λ = ", fmt(mu_iig, 2), ")"),
+                                    "Ajuste binomial negativa")))
+
+ggplot(df_ajuste, aes(x = x, y = prob, fill = modelo)) +
+  geom_col(position = position_dodge(width = 0.75), width = 0.7) +
+  scale_fill_manual(values = c(pal_libro[1], pal_libro[2], pal_libro[4])) +
+  scale_x_continuous(breaks = seq(0, 35, 5)) +
+  labs(x = "IIG: nº averías graves acumuladas",
+       y = "Probabilidad / frecuencia relativa", fill = NULL) +
+  theme_libro() +
+  theme(legend.position = "bottom")
+```
+
+::: {style="text-align: center;"}
+**Figura 9.2.** Distribución empírica del número de averías graves acumuladas (`IIG`) por las 48 naves de la flota galáctica, comparada con dos ajustes teóricos. La Poisson (rojo) infraestima gravemente la cola larga; la binomial negativa (verde), calibrada para reproducir la sobredispersión observada, se ajusta bastante mejor.
+:::
+
+
+Este uso moderno de la BN —como Poisson "flexible" que admite sobredispersión— es el que aparece cuando un banco modela el número anual de reclamaciones por cliente, cuando una aseguradora modela el número de siniestros por póliza, o cuando un ecommerce modela el número de compras por usuario. Su versatilidad la ha convertido en una herramienta habitual de la caja de herramientas del analista económico.
 
 ## Distribución hipergeométrica {#hipergeometrica}
 
@@ -541,7 +639,7 @@ ggplot(df_hyp, aes(x = x, y = p)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 9.2.** Función de cuantía de $\\xi \\to H(300;\\, 10;\\, 62/300)$: número de empresas con flota renovada en una muestra aleatoria de 10 empresas auditadas.
+**Figura 9.3.** Función de cuantía de $\\xi \\to H(300;\\, 10;\\, 62/300)$: número de empresas con flota renovada en una muestra aleatoria de 10 empresas auditadas.
 :::
 
 
@@ -596,21 +694,107 @@ kable(comp,
 
 Cuando la aproximación es válida, se prefiere la binomial por dos motivos: la fórmula es más sencilla y no requiere conocer el tamaño de la población $N$, solo la proporción de éxitos.
 
+## Simulación de modelos discretos con R {#sim-discretos}
+
+Todas las distribuciones vistas están implementadas en R con las cuatro funciones estándar `d*`, `p*`, `q*` y `r*`. Cerramos el capítulo con una vuelta práctica: la letra `r` corresponde a la simulación, y permite generar realizaciones aleatorias de cualquiera de los modelos con una sola línea de código. La tabla \@ref(tab:tab-r-funciones) resume las llamadas para las distribuciones de este capítulo.
+
+```{r tab-r-funciones}
+tribble(
+  ~Modelo,               ~`Función R`,                    ~Ejemplo,
+  "Uniforme discreta",   "`sample(a:b, n, replace = TRUE)`", "`sample(1:6, 100, replace = TRUE)`",
+  "Bernoulli",           "`rbinom(n, 1, p)`",               "`rbinom(50, 1, 0.85)`",
+  "Binomial",            "`rbinom(n, size, prob)`",         "`rbinom(1000, 12, 0.85)`",
+  "Poisson",             "`rpois(n, lambda)`",              "`rpois(1000, 2.3)`",
+  "Binomial negativa",   "`rnbinom(n, size, prob)`",        "`rnbinom(1000, 3, 0.8)`",
+  "Geométrica",          "`rgeom(n, prob)`",                "`rgeom(1000, 0.6)`",
+  "Hipergeométrica",     "`rhyper(nn, m, n, k)`",           "`rhyper(1000, 62, 238, 10)`"
+) |>
+  kable(
+        escape = FALSE, align = "lll") |>
+  kable_styling(bootstrap_options = c("hover", "condensed"),
+                full_width = FALSE, position = "center", font_size = 12)
+```
+
+::: {style="text-align: center;"}
+**Tabla 9.3.** Funciones de R para simular los modelos discretos del capítulo. Cambiando la letra `r` inicial por `d`, `p` o `q` se accede, respectivamente, a la función de cuantía, la de distribución acumulada y los cuantiles.
+:::
+
+
+La figura \@ref(fig:fig-sim-cuatro) simula 5.000 realizaciones de cada uno de los cuatro modelos "de conteo" más importantes del capítulo, aplicados a los escenarios que hemos ido presentando, y compara el histograma empírico con las probabilidades teóricas. La coincidencia es —como debe— casi perfecta.
+
+```{r fig-sim-cuatro, echo=TRUE, fig.height=5.5, out.width="90%"}
+set.seed(9)
+N <- 5000
+
+# Cuatro simulaciones distintas
+sim_bin <- tibble(modelo = "Binomial B(12; 0,85)",
+                  x = rbinom(N, 12, 0.85))
+sim_poi <- tibble(modelo = "Poisson Po(2,3)",
+                  x = rpois(N, 2.3))
+sim_bn  <- tibble(modelo = "BinNeg BN(3; 0,8)",
+                  x = rnbinom(N, 3, 0.8))
+sim_hyp <- tibble(modelo = "Hipergeom H(300;10;0,207)",
+                  x = rhyper(N, 62, 238, 10))
+
+sim_all <- bind_rows(sim_bin, sim_poi, sim_bn, sim_hyp) |>
+  mutate(modelo = factor(modelo, levels = c(
+    "Binomial B(12; 0,85)", "Poisson Po(2,3)",
+    "BinNeg BN(3; 0,8)",    "Hipergeom H(300;10;0,207)"
+  )))
+
+teor <- bind_rows(
+  tibble(modelo = "Binomial B(12; 0,85)",   x = 0:12,
+         p = dbinom(0:12, 12, 0.85)),
+  tibble(modelo = "Poisson Po(2,3)",        x = 0:10,
+         p = dpois(0:10, 2.3)),
+  tibble(modelo = "BinNeg BN(3; 0,8)",      x = 0:10,
+         p = dnbinom(0:10, 3, 0.8)),
+  tibble(modelo = "Hipergeom H(300;10;0,207)", x = 0:10,
+         p = dhyper(0:10, 62, 238, 10))
+) |>
+  mutate(modelo = factor(modelo, levels = levels(sim_all$modelo)))
+
+ggplot(sim_all, aes(x = x)) +
+  geom_bar(aes(y = after_stat(prop), group = 1),
+           fill = pal_apoyo, alpha = 0.85, width = 0.7) +
+  geom_point(data = teor, aes(x = x, y = p),
+             color = pal_acento, size = 2) +
+  geom_line(data = teor, aes(x = x, y = p, group = 1),
+            color = pal_acento, linewidth = 0.6) +
+  facet_wrap(~ modelo, scales = "free", ncol = 2) +
+  labs(x = expression(xi), y = "Probabilidad / frecuencia relativa") +
+  theme_libro()
+```
+
+::: {style="text-align: center;"}
+**Figura 9.4.** Simulación de 5.000 realizaciones de cada uno de los cuatro modelos discretos principales del capítulo. La línea roja muestra la probabilidad teórica; las barras azules, la frecuencia relativa observada. La Ley de los Grandes Números en pleno funcionamiento.
+:::
+
+
+Este ejercicio es más que decorativo: es la manera en que un analista moderno verifica que ha identificado el modelo correcto (los histogramas empíricos deben parecerse a las probabilidades teóricas) y es también la puerta a la **simulación de Monte Carlo**, que en el capítulo anterior mencionamos como herramienta para estimar cualquier probabilidad, por complicada que sea, sin fórmulas cerradas. Con estas siete funciones y un ordenador, el analista tiene ya casi todo lo necesario para modelar procesos aleatorios discretos en el ámbito empresarial.
+
 ## Guía rápida de decisión {#guia-rapida}
 
-Con cinco modelos sobre la mesa, la pregunta operativa que un lector debe hacerse cuando se enfrenta a un problema real es: **"¿qué modelo aplico?"**. La tabla \@ref(tab:tab-decision) responde a esta pregunta con un pequeño árbol de decisión textual.
+Con seis modelos sobre la mesa, la pregunta operativa que un lector debe hacerse cuando se enfrenta a un problema real es: **"¿qué modelo aplico?"**. La tabla \@ref(tab:tab-decision) responde a esta pregunta con un pequeño árbol de decisión textual.
 
 ```{r tab-decision}
 guia <- tribble(
   ~Situación, ~Modelo, ~Ejemplo,
-  "Un único ensayo con dos resultados posibles.", "Bernoulli, $B(1; p)$.",
+  "Un valor elegido al azar entre $k$ opciones equiprobables.",
+  "Uniforme discreta, $U(a, b)$.",
+  "Muelle asignado al carguero al aterrizar.",
+  "Un único ensayo con dos resultados posibles.",
+  "Bernoulli, $B(1; p)$.",
   "Un carguero llega a tiempo o no llega.",
   "Número fijo $n$ de ensayos independientes con misma $p$; se cuentan éxitos.",
   "Binomial, $B(n; p)$.",
   "Cargueros a tiempo de 12 despachados.",
   "Muchos ensayos, éxitos raros; se cuentan sucesos por unidad de tiempo o espacio.",
   "Poisson, $\\mathrm{Po}(\\lambda)$.",
-  "Avistamientos de piratas por semana en una ruta.",
+  "Avistamientos de piratas por semana; llegadas de clientes.",
+  "Conteos que exhiben sobredispersión (varianza $\\gg$ media).",
+  "Binomial negativa, $\\mathrm{BN}(r; p)$.",
+  "Averías graves por nave; siniestros por póliza.",
   "Se fija el número $r$ de éxitos; se cuentan los fracasos previos.",
   "Binomial negativa, $\\mathrm{BN}(r; p)$.",
   "Reactores defectuosos antes del 3.º válido.",
@@ -635,23 +819,38 @@ kable(guia,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 9.3**
+**Tabla 9.4**
 :::
 
 
-Y las dos relaciones-puente entre modelos, que conviene tener en la cabeza:
+Y las relaciones-puente entre modelos, que conviene tener en la cabeza:
 
 - **Binomial → Poisson** cuando $n$ es grande y $p$ pequeño (regla práctica: $n \geq 30$, $p \leq 0{,}05$).
 - **Hipergeométrica → Binomial** cuando $p = N_1 / N$ es pequeño (regla práctica: $p < 0{,}1$) o cuando la muestra es una fracción reducida de la población.
+- **Binomial negativa → Poisson** cuando los datos son *equidispersos* (varianza $\approx$ media); a la inversa, cuando aparece sobredispersión, la Poisson se sustituye por la BN.
 
-Ambas aproximaciones se enseñan como atajos de cálculo, pero también son conceptualmente reveladoras: la Poisson es una binomial "muy diluida", y la binomial es una hipergeométrica "sobre una población inagotable". Los tres modelos, al final del día, son variaciones sobre el mismo tema: **contar éxitos**.
+Estas relaciones se enseñan como atajos de cálculo, pero también son conceptualmente reveladoras: la Poisson es una binomial "muy diluida"; la binomial es una hipergeométrica "sobre una población inagotable"; la BN es una Poisson enriquecida con un parámetro extra que absorbe la sobredispersión. Los cuatro modelos, al final del día, son variaciones sobre el mismo tema: **contar éxitos**.
+
+## Un puente al próximo capítulo: la binomial se vuelve normal {#puente-normal}
+
+Antes de cerrar, cabe adelantar una tercera aproximación entre modelos, esta vez apuntando **fuera** del universo discreto. Ya hemos visto que, cuando $n$ es grande y $p$ pequeño, la binomial se parece a la Poisson. Pero cuando $n$ es grande y $p$ **no** es pequeño (por ejemplo, $p$ moderado, alejado de $0$ y $1$), la binomial se parece a otra distribución muy distinta: la **normal**, que estudiaremos con detalle en el próximo capítulo. Concretamente:
+
+$$
+B(n; p) \;\xrightarrow[n \text{ grande}]{}\; N\!\left(n p,\; \sqrt{n p q}\right).
+$$
+
+La regla práctica que se suele dar es que la aproximación funciona bien cuando $n p \geq 5$ **y** $n q \geq 5$. En el ejemplo de *arrakis freight*, con $n = 12$ y $p = 0{,}85$, tenemos $n p = 10{,}2$ y $n q = 1{,}8$: se cumple una condición pero no la otra, así que la aproximación normal aún no es aceptable. En cambio, si en lugar de $12$ cargueros la empresa despachara $200$ con la misma $p$, tendríamos $n p = 170$ y $n q = 30$ —ambos holgadamente por encima de $5$— y la aproximación normal sería casi perfecta.
+
+Este resultado no es una casualidad ni un truco aislado: es una manifestación particular del **teorema central del límite**, uno de los teoremas más profundos y bellos de toda la matemática, que explica por qué la campana de Gauss aparece por todas partes en la naturaleza y en la economía. Le dedicaremos el corazón del próximo capítulo.
 
 ## Recapitulación {#recap-cap09}
 
-Este capítulo ha catalogado cinco distribuciones discretas y las relaciones que las enlazan. Las dos ideas que conviene retener por encima de las demás son:
+Este capítulo ha catalogado seis distribuciones discretas y las relaciones que las enlazan. Las tres ideas que conviene retener por encima de las demás son:
 
-1. **Cada modelo es un patrón, no una fórmula**. La fórmula solo aparece después, cuando ya hemos identificado bien qué se cuenta, cuántos ensayos hay y si son o no independientes. Elegir el modelo correcto es lo verdaderamente importante; la aritmética viene rodada.
+1. **Cada modelo es un patrón, no una fórmula.** La fórmula solo aparece después, cuando ya hemos identificado bien qué se cuenta, cuántos ensayos hay y si son o no independientes. Elegir el modelo correcto es lo verdaderamente importante; la aritmética viene rodada.
 
-2. **Los modelos no son excluyentes**. La Poisson es una binomial en el límite; la hipergeométrica se colapsa en una binomial cuando la población es grande; la binomial es el resultado de sumar Bernoullis. Verlos como una familia, y no como una lista arbitraria, hace que se recuerden mucho mejor.
+2. **Los modelos no son excluyentes.** La Poisson es una binomial en el límite; la hipergeométrica se colapsa en una binomial cuando la población es grande; la binomial es el resultado de sumar Bernoullis; la binomial negativa se colapsa en la Poisson cuando desaparece la sobredispersión. Verlos como una familia, y no como una lista arbitraria, hace que se recuerden mucho mejor.
+
+3. **La sobredispersión es la regla, no la excepción, en los datos económicos reales.** Cuando la Poisson deja de funcionar —y lo hará en casi todos los datos empresariales de conteo—, la binomial negativa toma el relevo. Este es el modelo que un analista de riesgos, un actuario o un economista aplicado usará el 90 % de las veces en la vida real.
 
 Nos falta todavía una gran clase de variables aleatorias por modelar: las **continuas**. En el próximo capítulo entraremos en el modelo continuo por antonomasia —la distribución normal—, y con ella el fenómeno más asombroso de toda la estadística clásica: el **teorema central del límite**, ese que hace que cargueros, reactores, piratas y auditorías conspiren, en el largo plazo, para producir la misma campana. Preparen el hipermotor.
