@@ -1013,7 +1013,804 @@ g_2 = \frac{m_4}{S^{\,4}} - 3 = \frac{3\,313{,}22}{5{,}96^{4}} - 3 = -0{,}37.
 </ul>
 <p>Un principio ha atravesado todo el capítulo: <strong>antes de resumir, mire los datos</strong>. Los casos atípicos deben localizarse —el box-plot, apoyado en el IQR, es la herramienta estándar— y decidir si se corrigen, se eliminan, se conservan o se analizan por separado. Las medidas más elegantes son también, casi siempre, las más frágiles: media, varianza, coeficientes de forma, Gini… todas ellas se distorsionan con facilidad ante un puñado de valores extremos. La CEO de <em>Hyperdrive Express</em> nos lo ha ilustrado con creces: un solo caso extremo modifica la media un 8 %, dispara los coeficientes de forma y añade cinco puntos al índice de Gini.</p>
 <p>Con estas herramientas ya podemos caracterizar cualquier variable de una empresa, un sector o una galaxia. En el capítulo siguiente daremos el salto a <strong>dos variables</strong>: cómo se relacionan entre sí y qué medidas resumen esa relación. <em>Hyperdrive Express</em> seguirá con nosotros, y también seguirán acompañándonos las 300 compañías R-Stars a las que ya nos hemos asomado en los ejemplos de asimetría, curtosis y concentración.</p>
-
+</div>
+<div id="problemas-cap03" class="section level2" number="3.8">
+<h2>
+<span class="header-section-number">3.8</span> Problemas propuestos.<a class="anchor" aria-label="anchor" href="#problemas-cap03"><i class="fas fa-link"></i></a>
+</h2>
+<p>Los ejercicios que siguen combinan <strong>cálculo controlado</strong> —los estrictamente necesarios para asentar cuartiles, coeficientes de variación o el efecto de un <em>outlier</em>— con un peso importante de <strong>interpretación</strong> de resultados ya elaborados. Varios problemas dan la fotografía descriptiva ya calculada y piden al analista decidir qué comunicar, qué medida elegir y qué preguntas formular a la vista de las cifras. Todas las soluciones detalladas se recogen al final del capítulo.</p>
+<div id="problema-3.1.-qué-medida-de-posición-central-publicar" class="section level3" number="3.8.1">
+<h3>
+<span class="header-section-number">3.8.1</span> Problema 3.1. ¿Qué medida de posición central publicar?<a class="anchor" aria-label="anchor" href="#problema-3.1.-qu%C3%A9-medida-de-posici%C3%B3n-central-publicar"><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada una de las siguientes situaciones, indica qué medida de posición central (media, mediana o moda) sería la más apropiada para comunicar el fenómeno en un informe, y <strong>justifica</strong> la elección:</p>
+<ol style="list-style-type: lower-alpha">
+<li>
+<strong>Sagan Olbers</strong> prepara la ficha del sector R-Stars para el próximo <em>Anuario Interestelar de Economía</em>. Quiere resumir en una única cifra el <strong>tamaño (ingresos anuales)</strong> de una compañía representativa del sector. Sabe que los ingresos siguen una distribución muy asimétrica a la derecha (<span class="math inline">\(g_1 = 4{,}03\)</span>).</li>
+<li>
+<strong>Xelia Bluebird</strong> quiere describir la variable <em>“astillero constructor mayoritario de la flota”</em> del sector R-Stars, en un gráfico introductorio del <em>Informe Bluebird</em>.</li>
+<li>Un analista financiero prepara el resumen ejecutivo del sector de <strong>fondos de inversión galácticos</strong> durante el último trimestre. La distribución de rentabilidades presenta unos pocos fondos con ganancias enormes (por descubrimiento inesperado de vetas de proto-especia) y unos pocos con pérdidas catastróficas (por siniestros en Klendathu). La mayoría se mueve alrededor de un valor razonable.</li>
+</ol>
+</div>
+<div id="problema-3.2.-dos-plantillas-una-misma-media." class="section level3" number="3.8.2">
+<h3>
+<span class="header-section-number">3.8.2</span> Problema 3.2. Dos plantillas, una misma media.<a class="anchor" aria-label="anchor" href="#problema-3.2.-dos-plantillas-una-misma-media."><i class="fas fa-link"></i></a>
+</h3>
+<p>Las plantillas de dos compañías galácticas de tamaño operativo similar presentan los siguientes estadísticos descriptivos para el salario mensual (en cientos de PAVOs):</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="33%">
+<col width="34%">
+<col width="32%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="center"><em>Corellian Freightworks</em></th>
+<th align="center"><em>Enterprise Logistics</em></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Número de empleados</td>
+<td align="center">80</td>
+<td align="center">80</td>
+</tr>
+<tr class="even">
+<td align="left">Salario medio</td>
+<td align="center">20,0</td>
+<td align="center">20,0</td>
+</tr>
+<tr class="odd">
+<td align="left">Desviación típica</td>
+<td align="center">6,4</td>
+<td align="center">1,8</td>
+</tr>
+<tr class="even">
+<td align="left">Salario mínimo</td>
+<td align="center">8</td>
+<td align="center">17</td>
+</tr>
+<tr class="odd">
+<td align="left">Salario máximo</td>
+<td align="center">42</td>
+<td align="center">24</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.6</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula el coeficiente de variación de Pearson para cada compañía.</li>
+<li>¿En cuál de las dos compañías la media aritmética es una medida <strong>más representativa</strong> del salario de un empleado cualquiera? Justifica.</li>
+<li>Un asesor propone comunicar en ambos casos el mismo mensaje: <em>“En esta compañía se cobra, en promedio, 2 000 PAVOs al mes”</em>. ¿Es igualmente honesto en las dos plantillas? ¿Qué información adicional debería acompañar a esa frase?</li>
+</ol>
+</div>
+<div id="problema-3.3.-márgenes-agrupados-media-mediana-y-el-error-de-agrupamiento." class="section level3" number="3.8.3">
+<h3>
+<span class="header-section-number">3.8.3</span> Problema 3.3. Márgenes agrupados: media, mediana y el error de agrupamiento.<a class="anchor" aria-label="anchor" href="#problema-3.3.-m%C3%A1rgenes-agrupados-media-mediana-y-el-error-de-agrupamiento."><i class="fas fa-link"></i></a>
+</h3>
+<p>La <strong>Autoridad Interestelar del Transporte de Mercancías (AITM)</strong> ha publicado la distribución agrupada del <strong>margen operativo</strong> (en %) de las 200 compañías R-Stars con facturación intergaláctica:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Margen (%)</th>
+<th align="center"><span class="math inline">\(n_i\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">(0, 20]</td>
+<td align="center">15</td>
+</tr>
+<tr class="even">
+<td align="center">(20, 40]</td>
+<td align="center">30</td>
+</tr>
+<tr class="odd">
+<td align="center">(40, 60]</td>
+<td align="center">80</td>
+</tr>
+<tr class="even">
+<td align="center">(60, 80]</td>
+<td align="center">60</td>
+</tr>
+<tr class="odd">
+<td align="center">(80, 100]</td>
+<td align="center">15</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.7</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula la <strong>media</strong> y la <strong>mediana</strong> agrupadas del margen operativo.</li>
+<li>Interpreta cada cifra en clave de gestión sectorial: ¿qué le dirías a la CEO de una compañía que opera con un margen del 55%?</li>
+<li>Sagan Olbers, que tiene los datos originales sin agrupar, calcula sobre ellos una media de <strong>54,3%</strong> y una mediana de <strong>55,1%</strong>. ¿A qué se debe la diferencia con los valores obtenidos en el apartado a)? ¿Qué característica de esta tabla concreta agrava el error de agrupamiento?</li>
+</ol>
+</div>
+<div id="problema-3.4.-cuartiles-y-box-plot-de-la-antigüedad-de-una-flota." class="section level3" number="3.8.4">
+<h3>
+<span class="header-section-number">3.8.4</span> Problema 3.4. Cuartiles y box-plot de la antigüedad de una flota.<a class="anchor" aria-label="anchor" href="#problema-3.4.-cuartiles-y-box-plot-de-la-antig%C3%BCedad-de-una-flota."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Kaiju Haulage Co.</em> dispone de una flota de 12 cargueros. La antigüedad (en años) de cada nave, ordenada, es:</p>
+<p><span class="math display">\[1,\ 2,\ 2,\ 3,\ 3,\ 4,\ 5,\ 6,\ 8,\ 10,\ 12,\ 30\]</span></p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula el primer cuartil <span class="math inline">\(Q_1\)</span>, la mediana <span class="math inline">\(Q_2\)</span> y el tercer cuartil <span class="math inline">\(Q_3\)</span>. Calcula el recorrido intercuartílico <span class="math inline">\(\text{IQR}\)</span>.</li>
+<li>Aplica la regla de Tukey (<span class="math inline">\(Q_1 - 1{,}5\cdot\text{IQR}\)</span>; <span class="math inline">\(Q_3 + 1{,}5\cdot\text{IQR}\)</span>) para identificar los umbrales de detección de <em>outliers</em>.</li>
+<li>¿Cuántos <em>outliers</em> detecta la regla? Identifícalos.</li>
+<li>Describe qué aspecto tendría el box-plot de esta flota (dónde estaría la caja, dónde los bigotes, dónde el punto atípico).</li>
+<li>Antes de decidir qué hacer con el o los casos atípicos, ¿qué comprobaciones concretas deberías realizar sobre cada uno de ellos? (Recuerda las tres explicaciones posibles del capítulo 2.)</li>
+</ol>
+</div>
+<div id="problema-3.5.-comparar-la-dispersión-salarial-de-dos-compañías." class="section level3" number="3.8.5">
+<h3>
+<span class="header-section-number">3.8.5</span> Problema 3.5. Comparar la dispersión salarial de dos compañías.<a class="anchor" aria-label="anchor" href="#problema-3.5.-comparar-la-dispersi%C3%B3n-salarial-de-dos-compa%C3%B1%C3%ADas."><i class="fas fa-link"></i></a>
+</h3>
+<p>Se comparan las plantillas de dos compañías galácticas del mismo sector:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="center"><em>Vader &amp; Company</em></th>
+<th align="center"><em>Arrakis Freight</em></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Empleados</td>
+<td align="center">120</td>
+<td align="center">95</td>
+</tr>
+<tr class="even">
+<td align="left">Salario medio (c.PAVOs)</td>
+<td align="center">22,0</td>
+<td align="center">15,0</td>
+</tr>
+<tr class="odd">
+<td align="left">Desviación típica</td>
+<td align="center">8,0</td>
+<td align="center">4,5</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.8</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula el coeficiente de variación de Pearson para cada compañía.</li>
+<li>¿Dónde tiene el salario mayor dispersión <strong>absoluta</strong>? ¿Y mayor dispersión <strong>relativa</strong>? Explica por qué las dos preguntas no dan la misma respuesta.</li>
+<li>En cuál de las dos compañías el salario medio es una <strong>mejor síntesis</strong> de la retribución típica de un empleado. Justifica.</li>
+</ol>
+</div>
+<div id="problema-3.6.-comparar-variables-incomparables." class="section level3" number="3.8.6">
+<h3>
+<span class="header-section-number">3.8.6</span> Problema 3.6. Comparar variables incomparables.<a class="anchor" aria-label="anchor" href="#problema-3.6.-comparar-variables-incomparables."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sobre las 300 compañías R-Stars se han calculado los siguientes descriptivos:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Variable</th>
+<th align="center">Media</th>
+<th align="center">Desviación típica</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Salario medio (c. PAVOs)</td>
+<td align="center">17,2</td>
+<td align="center">5,96</td>
+</tr>
+<tr class="even">
+<td align="left">Rentabilidad neta (%)</td>
+<td align="center">60,16</td>
+<td align="center">12,3</td>
+</tr>
+<tr class="odd">
+<td align="left">Tamaño de flota (nº de naves)</td>
+<td align="center">42</td>
+<td align="center">18</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.9</strong></p>
+</div>
+<p>Un directivo mira las tres desviaciones típicas y concluye: <em>“El salario es la variable menos dispersa del sector, con diferencia.”</em> Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Puede el directivo llegar a esa conclusión comparando directamente las tres desviaciones típicas? ¿Por qué?</li>
+<li>Calcula el coeficiente de variación de las tres variables e interprétalos comparativamente.</li>
+<li>¿Cuál es la variable con <strong>mayor dispersión relativa</strong> y cuál con <strong>menor</strong>? ¿Coincide con la intuición del directivo?</li>
+</ol>
+</div>
+<div id="problema-3.7.-el-efecto-ceo-sobre-la-fotografía-descriptiva." class="section level3" number="3.8.7">
+<h3>
+<span class="header-section-number">3.8.7</span> Problema 3.7. El “efecto CEO” sobre la fotografía descriptiva.<a class="anchor" aria-label="anchor" href="#problema-3.7.-el-efecto-ceo-sobre-la-fotograf%C3%ADa-descriptiva."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Hyperdrive Express</em> elabora dos versiones del cuadro descriptivo de su política salarial: una sin la CEO (plantilla habitual, <span class="math inline">\(N = 60\)</span>) y otra incluyéndola (<span class="math inline">\(N = 61\)</span>; su salario es de 100 cientos de PAVOs). Los resultados son:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Medida</th>
+<th align="center">Sin CEO (<span class="math inline">\(N=60\)</span>)</th>
+<th align="center">Con CEO (<span class="math inline">\(N=61\)</span>)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Media</td>
+<td align="center">17,20</td>
+<td align="center">18,56</td>
+</tr>
+<tr class="even">
+<td align="left">Mediana</td>
+<td align="center">15,00</td>
+<td align="center">15,00</td>
+</tr>
+<tr class="odd">
+<td align="left">Moda</td>
+<td align="center">15,00</td>
+<td align="center">15,00</td>
+</tr>
+<tr class="even">
+<td align="left">Desviación típica <span class="math inline">\(S\)</span>
+</td>
+<td align="center">5,96</td>
+<td align="center">11,55</td>
+</tr>
+<tr class="odd">
+<td align="left">Coeficiente de variación <span class="math inline">\(V\)</span>
+</td>
+<td align="center">34,6%</td>
+<td align="center">62,2%</td>
+</tr>
+<tr class="even">
+<td align="left">
+<span class="math inline">\(Q_1\)</span> / <span class="math inline">\(Q_3\)</span>
+</td>
+<td align="center">12,0 / 20,5</td>
+<td align="center">12,0 / 22,0</td>
+</tr>
+<tr class="odd">
+<td align="left">IQR</td>
+<td align="center">8,5</td>
+<td align="center">10,0</td>
+</tr>
+<tr class="even">
+<td align="left">Coef. asimetría <span class="math inline">\(g_1\)</span>
+</td>
+<td align="center">0,55</td>
+<td align="center">5,03</td>
+</tr>
+<tr class="odd">
+<td align="left">Coef. curtosis <span class="math inline">\(g_2\)</span>
+</td>
+<td align="center"><span class="math inline">\(-0{,}37\)</span></td>
+<td align="center">31,20</td>
+</tr>
+<tr class="even">
+<td align="left">Índice de Gini</td>
+<td align="center">0,193</td>
+<td align="center">0,245</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.10</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Clasifica cada medida en dos grupos: <strong>robustas</strong> frente al <em>outlier</em> y <strong>sensibles</strong> al mismo. Justifica en cada caso por qué se comporta como lo hace.</li>
+<li>¿Cuál es la medida más espectacularmente afectada por la CEO, y por qué? ¿Es una casualidad o hay una razón estructural?</li>
+<li>Si tuvieras que reportar a la ARTI el <em>salario típico</em> de la compañía en una única cifra, ¿publicarías la media o la mediana? Justifica tu decisión con al menos dos argumentos del cuadro.</li>
+<li>Reproduce el argumento con el que el propio capítulo concluye que la CEO debe analizarse <strong>por separado</strong> del resto de la plantilla. ¿Qué principio del capítulo 2 se está aplicando aquí?</li>
+</ol>
+</div>
+<div id="problema-3.8.-lorenz-gini-y-dinámica-sectorial." class="section level3" number="3.8.8">
+<h3>
+<span class="header-section-number">3.8.8</span> Problema 3.8. Lorenz, Gini y dinámica sectorial.<a class="anchor" aria-label="anchor" href="#problema-3.8.-lorenz-gini-y-din%C3%A1mica-sectorial."><i class="fas fa-link"></i></a>
+</h3>
+<p>Xelia Bluebird ha calculado las curvas de Lorenz de dos sectores en el <em>Informe Bluebird</em> del ejercicio 2210:</p>
+<ul>
+<li>
+<strong>Sector A — Servicios de mantenimiento orbital.</strong> Índice de Gini <span class="math inline">\(G = 0{,}32\)</span>. El 50% de las compañías con menores ingresos acumula el 38% de la facturación total del sector; el 10% con mayores ingresos concentra el 21%.</li>
+<li>
+<strong>Sector B — Transporte interestelar de mercancías.</strong> Índice de Gini <span class="math inline">\(G = 0{,}60\)</span>. El 50% con menores ingresos acumula el 18% de la facturación total; el 10% con mayores ingresos concentra el 46%.</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cuál de los dos sectores presenta mayor concentración? Justifica leyendo las tres cifras (Gini, el 50% inferior y el 10% superior).</li>
+<li>Dibuja esquemáticamente ambas curvas de Lorenz sobre el mismo gráfico (la diagonal, el sector A y el sector B). No es necesaria precisión: sí lo es respetar el orden relativo de las tres curvas y explicar qué representa cada una.</li>
+<li>Uno de los dos sectores está claramente <strong>maduro y muy competitivo</strong>; el otro presenta un <strong>oligopolio de facto</strong>, con dos o tres grandes compañías que dominan el mercado. ¿Cuál dirías que es cuál? Justifica.</li>
+<li>Un consultor propone al presidente del <strong>Consejo Galáctico de Comercio</strong> una regulación <em>antitrust</em> sobre el sector B, orientada a forzar la desinversión de las dos compañías más grandes. Cualitativamente, ¿en qué sentido esperarías que se mueva el índice de Gini del sector si la regulación se implementa con éxito?</li>
+</ol>
+</div>
+<div id="problema-3.9.-la-compañía-típica-del-sector-r-stars." class="section level3" number="3.8.9">
+<h3>
+<span class="header-section-number">3.8.9</span> Problema 3.9. La compañía “típica” del sector R-Stars.<a class="anchor" aria-label="anchor" href="#problema-3.9.-la-compa%C3%B1%C3%ADa-t%C3%ADpica-del-sector-r-stars."><i class="fas fa-link"></i></a>
+</h3>
+<p>El equipo de Sagan Olbers ha reunido los siguientes descriptivos sobre los <strong>ingresos anuales</strong> (en miles de PAVOs) de las 300 compañías R-Stars:</p>
+<ul>
+<li>Media aritmética: <strong>218</strong>.</li>
+<li>Mediana: <strong>130</strong>.</li>
+<li>Coeficiente de asimetría de Fisher: <span class="math inline">\(g_1 = 4{,}03\)</span>.</li>
+<li>Coeficiente de curtosis de Fisher: <span class="math inline">\(g_2 = 22{,}5\)</span>.</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Qué forma tiene esta distribución? Descríbela cualitativamente.</li>
+<li>El <em>Interstellar Weekly</em> prepara un reportaje sobre el sector y anuncia el titular: <em>“La compañía media del sector R-Stars factura 218 mil PAVOs al año.”</em> ¿Es una comunicación honesta? ¿Qué titular alternativo propondrías?</li>
+<li>Recuerda las relaciones típicas entre media, mediana y moda para las tres formas de asimetría (positiva, simétrica, negativa). ¿Es coherente el orden <code>Mediana &lt; Media</code> con el signo de <span class="math inline">\(g_1\)</span>?</li>
+<li>Un analista propone añadir al reportaje una fotografía complementaria: <em>“El 20% de las compañías más grandes concentra el 64% de la facturación del sector.”</em> ¿A qué medida del capítulo remite implícitamente esta afirmación, y con qué principio empresarial clásico se relaciona?</li>
+</ol>
+</div>
+<div id="problema-3.10.-curtosis-y-riesgo-de-cola." class="section level3" number="3.8.10">
+<h3>
+<span class="header-section-number">3.8.10</span> Problema 3.10. Curtosis y riesgo de cola.<a class="anchor" aria-label="anchor" href="#problema-3.10.-curtosis-y-riesgo-de-cola."><i class="fas fa-link"></i></a>
+</h3>
+<p>Dos activos financieros del <strong>hipermercado bursátil de Corellia</strong> presentan los siguientes descriptivos de su rentabilidad mensual (%):</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="center">Activo A</th>
+<th align="center">Activo B</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Rentabilidad media</td>
+<td align="center">0,8</td>
+<td align="center">0,8</td>
+</tr>
+<tr class="even">
+<td align="left">Desviación típica</td>
+<td align="center">4,0</td>
+<td align="center">4,0</td>
+</tr>
+<tr class="odd">
+<td align="left">Coef. de asimetría <span class="math inline">\(g_1\)</span>
+</td>
+<td align="center">0,00</td>
+<td align="center">0,00</td>
+</tr>
+<tr class="even">
+<td align="left">Coef. de curtosis <span class="math inline">\(g_2\)</span>
+</td>
+<td align="center">0,00</td>
+<td align="center">5,00</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.11</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Son los dos activos igual de “arriesgados” en el sentido tradicional de la palabra (variabilidad de la rentabilidad)? ¿Y en el sentido moderno del <strong>riesgo de cola</strong> (<em>tail risk</em>)?</li>
+<li>Interpreta qué significa exactamente que el activo B tenga <span class="math inline">\(g_2 = 5\)</span> pese a tener la misma dispersión que A.</li>
+<li>¿Cuál de los dos activos esperarías que corresponda a las acciones de una <strong>compañía consolidada del sector transporte</strong> (por ejemplo, <em>Hyperdrive Express</em>) y cuál a las de una <strong>compañía innovadora recién listada</strong> (por ejemplo, una <em>startup</em> de motores de curvatura)? Justifica.</li>
+<li>Un gestor de fondos afirma: <em>“Como los dos activos tienen la misma media y la misma S, invertir en uno o en otro es indiferente.”</em> ¿En qué se equivoca?</li>
+</ol>
+</div>
+<div id="problema-3.11.-estandarizar-para-comparar." class="section level3" number="3.8.11">
+<h3>
+<span class="header-section-number">3.8.11</span> Problema 3.11. Estandarizar para comparar.<a class="anchor" aria-label="anchor" href="#problema-3.11.-estandarizar-para-comparar."><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Tasha Tachybaptus</strong>, directora de RR.HH. de <em>Shuttlepod Movers</em>, está evaluando dos candidatos internos para un puesto directivo. Cada uno destaca en una dimensión distinta:</p>
+<ul>
+<li>
+<strong>Candidato A</strong> ocupa una posición salarial de 22 cientos de PAVOs, en una plantilla con salario medio 17,20 y desviación típica 5,96.</li>
+<li>
+<strong>Candidato B</strong> genera personalmente una facturación anual de 45 miles de PAVOs para la compañía, en un departamento con facturación media por empleado de 32 miles de PAVOs y desviación típica de 18 miles.</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula el z-score de cada candidato en su respectiva distribución.</li>
+<li>¿Cuál de los dos ocupa una posición <strong>relativa</strong> más destacada dentro de su grupo de comparación?</li>
+<li>Explica por qué comparar el salario absoluto de A con la facturación absoluta de B carecería de sentido, mientras que comparar sus z-scores sí lo tiene.</li>
+<li>Recuerda la <strong>regla empírica 68–95–99,7</strong>: ¿en qué percentil aproximado se sitúa cada candidato (asumiendo, con cierta laxitud, distribución aproximadamente normal en sus respectivos grupos)?</li>
+</ol>
+</div>
+<div id="problema-3.12.-diagnosticar-una-distribución-sin-ver-el-histograma." class="section level3" number="3.8.12">
+<h3>
+<span class="header-section-number">3.8.12</span> Problema 3.12. Diagnosticar una distribución sin ver el histograma.<a class="anchor" aria-label="anchor" href="#problema-3.12.-diagnosticar-una-distribuci%C3%B3n-sin-ver-el-histograma."><i class="fas fa-link"></i></a>
+</h3>
+<p>Se dispone de los siguientes descriptivos de una variable numérica medida en una muestra de 250 compañías:</p>
+<ul>
+<li>
+<span class="math inline">\(N = 250\)</span>.</li>
+<li>Mínimo = 25; Máximo = 68.</li>
+<li>
+<span class="math inline">\(\overline{x} = 45\)</span>; Mediana = 42; Moda = 40.</li>
+<li>
+<span class="math inline">\(S = 8\)</span>; <span class="math inline">\(V = 17{,}8\%\)</span>.</li>
+<li>
+<span class="math inline">\(Q_1 = 39\)</span>; <span class="math inline">\(Q_3 = 51\)</span>.</li>
+<li>
+<span class="math inline">\(g_1 = 0{,}45\)</span>; <span class="math inline">\(g_2 = -0{,}20\)</span>.</li>
+</ul>
+<p>Se pide (sin construir el histograma):</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Qué forma tiene la distribución (asimetría y curtosis)? ¿Es coherente el orden <code>Moda &lt; Mediana &lt; Media</code> con el signo del coeficiente <span class="math inline">\(g_1\)</span>?</li>
+<li>Aplica la regla del IQR para determinar si cabe esperar <em>outliers</em>.</li>
+<li>¿La media es una medida representativa del valor típico de la variable en esta muestra? Apoya tu respuesta en el coeficiente de variación.</li>
+<li>Utilizando la regla empírica 68–95–99,7 sobre esta distribución (que no es exactamente normal, pero se aproxima razonablemente), ¿en qué intervalo cabría esperar aproximadamente el 95% de los casos? ¿Es consistente con el mínimo y el máximo observados?</li>
+<li>Dibuja un esquema <strong>a mano alzada</strong> de cómo esperarías que fuera el histograma (posición del pico, extensión hacia cada lado, colas).</li>
+</ol>
+</div>
+<div id="problema-3.13.-un-informe-salarial-que-no-cuadra." class="section level3" number="3.8.13">
+<h3>
+<span class="header-section-number">3.8.13</span> Problema 3.13. Un informe salarial que no cuadra.<a class="anchor" aria-label="anchor" href="#problema-3.13.-un-informe-salarial-que-no-cuadra."><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Mara Qyà</strong> recibe de <em>Kaiju Haulage Co.</em> el siguiente informe descriptivo de su política salarial (en cientos de PAVOs):</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Medida</th>
+<th align="center">Valor</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">Media aritmética</td>
+<td align="center">22</td>
+</tr>
+<tr class="even">
+<td align="center">Mediana</td>
+<td align="center">15</td>
+</tr>
+<tr class="odd">
+<td align="center">Primer cuartil <span class="math inline">\(Q_1\)</span>
+</td>
+<td align="center">18</td>
+</tr>
+<tr class="even">
+<td align="center">Tercer cuartil <span class="math inline">\(Q_3\)</span>
+</td>
+<td align="center">25</td>
+</tr>
+<tr class="odd">
+<td align="center">Desviación típica <span class="math inline">\(S\)</span>
+</td>
+<td align="center">3</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 3.12</strong></p>
+</div>
+<p>A los pocos segundos de leer el cuadro, Mara escribe al equipo de Kaiju: <em>“Alguna de estas cifras está mal. Revísenlas antes de que la ARTI acepte el informe.”</em> Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica la <strong>contradicción evidente</strong> entre las medidas de posición no central y la mediana. ¿Por qué no puede ser cierta a la vez la mediana 15 con <span class="math inline">\(Q_1 = 18\)</span>?</li>
+<li>Aplica la <strong>regla empírica 68–95–99,7</strong> al par (media = 22; <span class="math inline">\(S = 3\)</span>) y comprueba en qué franja debería situarse aproximadamente el 95% de los salarios. ¿Es esa franja compatible con una mediana de 15?</li>
+<li>Formula al menos <strong>dos hipótesis plausibles</strong> sobre el origen del error (por ejemplo: cifras cruzadas entre variables, decimales mal indicados, mediana calculada sobre otro subgrupo…).</li>
+<li>¿Qué <strong>pruebas concretas</strong> le pedirías al equipo de Kaiju para poder validar el informe? Enumera al menos tres.</li>
+</ol>
+</div>
+</div>
+<div id="soluciones-cap03" class="section level2" number="3.9">
+<h2>
+<span class="header-section-number">3.9</span> Soluciones a los problemas propuestos.<a class="anchor" aria-label="anchor" href="#soluciones-cap03"><i class="fas fa-link"></i></a>
+</h2>
+<div id="solución-al-problema-3.1." class="section level3" number="3.9.1">
+<h3>
+<span class="header-section-number">3.9.1</span> Solución al Problema 3.1.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.1."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>Mediana.</strong> En variables de tamaño empresarial (ingresos, activos, plantilla, facturación) la asimetría positiva es la norma: una minoría de compañías muy grandes tira de la media hacia arriba. Publicar la <strong>media</strong> (218 mil PAVOs, según los datos del propio capítulo) daría al lector la impresión de un sector poblado por compañías grandes cuando, en realidad, más del 50% de las empresas factura menos de 130 mil PAVOs. La <strong>mediana</strong> transmite mejor “cuánto factura una compañía típica del sector”.</p></li>
+<li><p><strong>Moda.</strong> <em>Astillero constructor mayoritario</em> es un atributo <strong>nominal</strong>: no admite orden ni operaciones aritméticas. La única medida de posición central aplicable es la <strong>moda</strong>, que se leería como “el astillero más frecuente” (por ejemplo, KORRIGAN si es el que aparece en más flotas). Hablar de “astillero medio” o “astillero mediano” no tiene sentido.</p></li>
+<li><p><strong>Mediana.</strong> Aunque los rendimientos financieros son variables cuantitativas y admiten media, la presencia de <em>outliers</em> extremos en ambas colas (grandes ganancias y grandes pérdidas) desplaza la media hacia el lado en que el desequilibrio sea mayor, sin que ninguno de los fondos “típicos” tenga que ver con esa cifra. La <strong>mediana</strong> es más robusta y ofrece una lectura más honesta del <em>fondo típico</em>.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-3.2." class="section level3" number="3.9.2">
+<h3>
+<span class="header-section-number">3.9.2</span> Solución al Problema 3.2.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.2."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Coeficientes de variación:</p>
+<ul>
+<li>
+<em>Corellian Freightworks</em>: <span class="math inline">\(V = 6{,}4/20{,}0 = 0{,}32 = 32{,}0\%\)</span>.</li>
+<li>
+<em>Enterprise Logistics</em>: <span class="math inline">\(V = 1{,}8/20{,}0 = 0{,}09 = 9{,}0\%\)</span>.</li>
+</ul>
+</li>
+<li><p>En <em>Enterprise Logistics</em> la media es <strong>mucho más representativa</strong>. Con una dispersión relativa del 9%, los salarios están muy concentrados alrededor de 20 (efectivamente, todos entre 17 y 24), de manera que decir “en esta compañía se cobra en promedio 20 cientos de PAVOs al mes” describe bien lo que le pasa a cualquier empleado. En <em>Corellian</em>, con <span class="math inline">\(V = 32\%\)</span> y salarios que van de 8 a 42, la media es solo un dato de referencia: muchos empleados están lejos de ese valor en ambas direcciones.</p></li>
+<li><p><strong>No</strong> es igualmente honesto. En <em>Enterprise</em> la frase resume razonablemente la realidad; en <em>Corellian</em> oculta una dispersión salarial fuerte y podría inducir a error a un lector desinformado (por ejemplo, un candidato que decida aceptar una oferta pensando que 2 000 PAVOs es “lo normal”). En un informe profesional, la media siempre debería ir acompañada, al menos, de una medida de <strong>dispersión</strong> (desviación típica o CV) y, en casos de dispersión alta, también de la <strong>mediana</strong> y algún <strong>cuantil</strong> (min, max, Q1, Q3).</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-3.3." class="section level3" number="3.9.3">
+<h3>
+<span class="header-section-number">3.9.3</span> Solución al Problema 3.3.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.3."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Cálculo con las marcas de clase <span class="math inline">\(x_i = 10, 30, 50, 70, 90\)</span>:</p>
+<table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Intervalo</th>
+<th align="center"><span class="math inline">\(x_i\)</span></th>
+<th align="center"><span class="math inline">\(n_i\)</span></th>
+<th align="center"><span class="math inline">\(N_i\)</span></th>
+<th align="center"><span class="math inline">\(x_i \cdot n_i\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">(0, 20]</td>
+<td align="center">10</td>
+<td align="center">15</td>
+<td align="center">15</td>
+<td align="center">150</td>
+</tr>
+<tr class="even">
+<td align="center">(20, 40]</td>
+<td align="center">30</td>
+<td align="center">30</td>
+<td align="center">45</td>
+<td align="center">900</td>
+</tr>
+<tr class="odd">
+<td align="center">(40, 60]</td>
+<td align="center">50</td>
+<td align="center">80</td>
+<td align="center">125</td>
+<td align="center">4 000</td>
+</tr>
+<tr class="even">
+<td align="center">(60, 80]</td>
+<td align="center">70</td>
+<td align="center">60</td>
+<td align="center">185</td>
+<td align="center">4 200</td>
+</tr>
+<tr class="odd">
+<td align="center">(80, 100]</td>
+<td align="center">90</td>
+<td align="center">15</td>
+<td align="center">200</td>
+<td align="center">1 350</td>
+</tr>
+<tr class="even">
+<td align="center">Total</td>
+<td align="center"></td>
+<td align="center">200</td>
+<td align="center"></td>
+<td align="center"><strong>10 600</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Media agrupada:</strong> <span class="math inline">\(\overline{x} = 10\,600 / 200 = 53{,}0\%\)</span>.</p>
+<p><strong>Mediana agrupada:</strong> <span class="math inline">\(N/2 = 100\)</span> cae en el intervalo (40, 60], que se convierte en el intervalo mediano (<span class="math inline">\(L_{i-1} = 40\)</span>, <span class="math inline">\(N_{i-1} = 45\)</span>, <span class="math inline">\(n_i = 80\)</span>, <span class="math inline">\(c_i = 20\)</span>). Interpolando:</p>
+<p><span class="math display">\[\text{Me} = 40 + \frac{100 - 45}{80}\cdot 20 = 40 + 13{,}75 = 53{,}75\%.\]</span></p>
+</li>
+<li><p>Interpretación en clave de gestión: el sector opera con un margen medio (y mediano) en torno al 53-54%. Una CEO con margen del 55% se sitúa <strong>muy cerca del centro</strong> de la distribución (ligeramente por encima). Es un margen sano en términos sectoriales, aunque lejos del cuartil superior de las compañías líderes. Convendría contextualizarlo cruzándolo con el CV y con el <span class="math inline">\(Q_3\)</span> del sector antes de valorar si conviene forzar una mejora.</p></li>
+<li><p>La diferencia con los valores originales (media 54,3%, mediana 55,1%) es un <strong>error de agrupamiento</strong>. La causa concreta es la <strong>frecuencia desigual dentro de los intervalos</strong>: en (40, 60] hay 80 casos que no están uniformemente repartidos entre 40 y 60, sino concentrados hacia la derecha del intervalo. Al usar la marca de clase 50 como representante, la fórmula “supone” un reparto uniforme y subestima el promedio real. El intervalo (60, 80] tiene 60 casos, un peso considerable, lo que agrava el problema. <strong>Moraleja:</strong> cuando existan los datos originales, siempre son preferibles.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-3.4." class="section level3" number="3.9.4">
+<h3>
+<span class="header-section-number">3.9.4</span> Solución al Problema 3.4.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.4."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Datos ordenados: 1, 2, 2, 3, 3, 4, 5, 6, 8, 10, 12, 30. <span class="math inline">\(N = 12\)</span>.</p>
+<p>Utilizando el método de posiciones <span class="math inline">\(p\cdot(N+1)\)</span> con interpolación lineal:</p>
+<ul>
+<li>
+<span class="math inline">\(Q_1\)</span>: posición <span class="math inline">\(0{,}25 \cdot 13 = 3{,}25 \Rightarrow Q_1 = 2 + 0{,}25\cdot(3-2) = 2{,}25\)</span>.</li>
+<li>
+<span class="math inline">\(Q_2\)</span> (mediana): posición <span class="math inline">\(0{,}50 \cdot 13 = 6{,}5 \Rightarrow \text{Me} = (4 + 5)/2 = 4{,}5\)</span>.</li>
+<li>
+<span class="math inline">\(Q_3\)</span>: posición <span class="math inline">\(0{,}75 \cdot 13 = 9{,}75 \Rightarrow Q_3 = 8 + 0{,}75\cdot(10-8) = 9{,}5\)</span>.</li>
+</ul>
+<p><span class="math inline">\(\text{IQR} = 9{,}5 - 2{,}25 = 7{,}25\)</span> años.</p>
+<p>(Otras convenciones para el cálculo de cuartiles dan resultados muy próximos.)</p>
+</li>
+<li>
+<p>Umbrales de Tukey:</p>
+<ul>
+<li>Inferior: <span class="math inline">\(Q_1 - 1{,}5\cdot\text{IQR} = 2{,}25 - 10{,}875 = -8{,}6\)</span>.</li>
+<li>Superior: <span class="math inline">\(Q_3 + 1{,}5\cdot\text{IQR} = 9{,}5 + 10{,}875 = 20{,}4\)</span>.</li>
+</ul>
+</li>
+<li><p>Un único <em>outlier</em>: la nave con <strong>30 años</strong> de antigüedad, muy por encima del umbral superior de 20,4.</p></li>
+<li><p>El box-plot tendría la caja entre 2,25 y 9,5, con la línea de la mediana en 4,5; los bigotes alcanzarían el mínimo (1) y el máximo <em>no atípico</em> (12); y aparecería un <strong>punto aislado en 30</strong>, muy alejado de todo lo demás. Visualmente, el box-plot dejaría en evidencia inmediata la anomalía: una nave que dobla la antigüedad del segundo carguero más viejo.</p></li>
+<li>
+<p>Las tres comprobaciones que ya vimos en el capítulo 2 aplican aquí:</p>
+<ul>
+<li>
+<strong>¿Error de codificación?</strong> ¿No serán “30” meses en lugar de años, o un cero de más? Revisar el registro original.</li>
+<li>
+<strong>¿Caso legítimo excepcional?</strong> ¿Es una nave vintage que la compañía mantiene por motivos históricos o simbólicos? Si es así, es un dato correcto que merece analizarse <strong>por separado</strong>.</li>
+<li>
+<strong>¿Individuo de otra población?</strong> ¿Estamos ante un carguero museo, o una nave de práctica de escuela técnica que se registró por error en la flota comercial? En ese caso, no comparte la naturaleza del resto de la flota.</li>
+</ul>
+<p>Solo tras esas comprobaciones puede decidirse si corresponde corregir, excluir, mantener o transformar. Borrar sin más equivale a esconder la señal más informativa de la muestra.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-3.5." class="section level3" number="3.9.5">
+<h3>
+<span class="header-section-number">3.9.5</span> Solución al Problema 3.5.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.5."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Coeficientes de variación:</p>
+<ul>
+<li>
+<em>Vader &amp; Company</em>: <span class="math inline">\(V = 8{,}0/22{,}0 \approx 0{,}364 = 36{,}4\%\)</span>.</li>
+<li>
+<em>Arrakis Freight</em>: <span class="math inline">\(V = 4{,}5/15{,}0 = 0{,}300 = 30{,}0\%\)</span>.</li>
+</ul>
+</li>
+<li><p>Dispersión <strong>absoluta</strong> mayor en <em>Vader &amp; Company</em> (<span class="math inline">\(S = 8{,}0\)</span> frente a <span class="math inline">\(S = 4{,}5\)</span>). Dispersión <strong>relativa</strong> también mayor en <em>Vader</em> (36,4% frente a 30,0%), pero por menos margen. Las dos preguntas no dan la misma respuesta con la misma intensidad porque <em>Vader</em> tiene también una <strong>media mayor</strong>, así que parte de su mayor <span class="math inline">\(S\)</span> “se diluye” al pasarla a términos relativos. En general, comparar <span class="math inline">\(S\)</span> entre distribuciones con medias distintas es engañoso: se está comparando en unidades no equivalentes.</p></li>
+<li><p>El salario medio es una <strong>mejor síntesis</strong> en <em>Arrakis Freight</em> (menor CV). En <em>Vader &amp; Company</em>, con CV = 36,4%, el salario medio de 22 cientos de PAVOs está acompañado de una dispersión relativa considerable, y bastantes empleados se apartarán sensiblemente de ese valor. En <em>Arrakis</em>, la media describe con mayor fidelidad lo que le ocurre a un empleado cualquiera. Aun así, ambas plantillas presentan CVs relativamente altos: sería prudente reportar la media junto con la desviación típica y los cuartiles para no dar una imagen incompleta.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-3.6." class="section level3" number="3.9.6">
+<h3>
+<span class="header-section-number">3.9.6</span> Solución al Problema 3.6.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.6."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>No</strong>, el directivo no puede llegar a esa conclusión. Las tres desviaciones típicas están medidas en <strong>unidades distintas</strong> (cientos de PAVOs, puntos porcentuales, número de naves): no son magnitudes comparables entre sí. Comparar <span class="math inline">\(S = 5{,}96\)</span> con <span class="math inline">\(S = 18\)</span> es como comparar 6 kilómetros con 18 años.</p></li>
+<li>
+<p>Coeficientes de variación:</p>
+<ul>
+<li>Salario medio: <span class="math inline">\(V = 5{,}96/17{,}20 \approx 0{,}346 = 34{,}6\%\)</span>.</li>
+<li>Rentabilidad neta: <span class="math inline">\(V = 12{,}3/60{,}16 \approx 0{,}204 = 20{,}4\%\)</span>.</li>
+<li>Tamaño de flota: <span class="math inline">\(V = 18/42 \approx 0{,}429 = 42{,}9\%\)</span>.</li>
+</ul>
+</li>
+<li><p>La variable con <strong>mayor dispersión relativa</strong> es el <strong>tamaño de flota</strong> (42,9%); la de <strong>menor</strong>, la <strong>rentabilidad neta</strong> (20,4%). El salario queda en un lugar intermedio. La intuición del directivo era exactamente al revés de lo que muestran los datos: había confundido “<span class="math inline">\(S\)</span> pequeña” con “dispersión pequeña”, olvidando que <span class="math inline">\(S\)</span> depende de las unidades. La rentabilidad neta es, en términos relativos, la variable <strong>más homogénea</strong> del sector; el tamaño de flota, la <strong>más heterogénea</strong> (compatible con la coexistencia de compañías con muy pocos cargueros junto a otras con flotas enormes).</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-3.7." class="section level3" number="3.9.7">
+<h3>
+<span class="header-section-number">3.9.7</span> Solución al Problema 3.7.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.7."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Clasificación de medidas:</p>
+<ul>
+<li>
+<strong>Robustas</strong> (apenas se mueven al incorporar la CEO): <strong>Mediana</strong>, <strong>Moda</strong>, <strong><span class="math inline">\(Q_1\)</span></strong>. Todas ellas dependen del <strong>orden</strong> de los valores, no de sus magnitudes; añadir un caso extremo desplaza como mucho una posición.</li>
+<li>
+<strong>Sensibles</strong> (se mueven con distinta intensidad): <strong>Media</strong> (usa todos los valores), <strong>Desviación típica</strong>, <strong>CV</strong>, <strong><span class="math inline">\(Q_3\)</span></strong> (leve, porque la CEO se cuela como valor más alto), <strong>IQR</strong>, <strong><span class="math inline">\(g_1\)</span></strong>, <strong><span class="math inline">\(g_2\)</span></strong>, <strong>Gini</strong>. Las más sensibles son las que involucran <strong>potencias</strong> de las diferencias respecto a la media: <span class="math inline">\(S\)</span> (cuadrados), <span class="math inline">\(g_1\)</span> (cubos), <span class="math inline">\(g_2\)</span> (cuartas potencias). Elevar al cubo o a la cuarta amplifica desproporcionadamente el efecto de un caso alejado del centro.</li>
+</ul>
+</li>
+<li><p>La medida más espectacularmente afectada es <strong><span class="math inline">\(g_2\)</span></strong> (curtosis), que pasa de <span class="math inline">\(-0{,}37\)</span> a <strong>31,20</strong>. La razón es estructural: el coeficiente se calcula con el momento central de orden 4, que eleva a la <strong>cuarta potencia</strong> la distancia entre cada valor y la media. Un solo caso a <span class="math inline">\(\approx 82\)</span> unidades de la media multiplica por <span class="math inline">\(82^4 \approx 45\)</span> millones el “aporte” de ese individuo al cálculo. No es casualidad: es el precio de usar potencias altas.</p></li>
+<li>
+<p><strong>La mediana</strong>, con dos argumentos claros del cuadro:</p>
+<ul>
+<li>La media (18,56) da la impresión de un salario típico que <strong>ningún empleado cobra realmente</strong>: los que cobran menos están en 15, los que cobran más en 30, y solo la CEO está muy por encima. La mediana (15) describe honestamente lo que cobra el empleado central.</li>
+<li>La media se ha desplazado un 8% por incorporar una sola persona; la mediana no se ha movido. Reportar la media obligaría a explicar caso a caso ese desplazamiento, mientras que la mediana ofrece una lectura estable y comparable en el tiempo.</li>
+</ul>
+</li>
+<li><p>El argumento del capítulo es que <strong>la política salarial de la plantilla y la retribución de la dirección son dos fenómenos económicos distintos</strong>. Mezclarlos en un único cálculo produce cifras que no describen a ninguno de los dos grupos con precisión. Es exactamente la aplicación del principio del capítulo 2 sobre <em>outliers</em>: cuando un caso pertenece con toda probabilidad a <strong>otra población</strong>, la decisión correcta no es borrar el dato ni imputarlo, sino <strong>analizarlo por separado</strong>.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-3.8." class="section level3" number="3.9.8">
+<h3>
+<span class="header-section-number">3.9.8</span> Solución al Problema 3.8.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.8."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>El <strong>sector B</strong> presenta mayor concentración. Tres lecturas convergentes:</p>
+<ul>
+<li>El <strong>Gini</strong> es casi el doble (0,60 frente a 0,32).</li>
+<li>En A, el 50% inferior acumula un 38% (relativamente cerca del 50% igualitario); en B, solo un 18% (muy lejos del igualitario).</li>
+<li>En A, el 10% superior acumula un 21% (poco más que su “cuota igualitaria” del 10%); en B, un 46% (casi cinco veces su cuota).</li>
+</ul>
+</li>
+<li>
+<p>Esquema:</p>
+<ul>
+<li>Diagonal <span class="math inline">\(y = x\)</span>: recta de equidistribución.</li>
+<li>Curva de A: por debajo de la diagonal, próxima a ella. Pasa por <span class="math inline">\((0{,}5; 0{,}38)\)</span> y <span class="math inline">\((0{,}9; 0{,}79)\)</span> aproximadamente.</li>
+<li>Curva de B: mucho más hundida. Pasa por <span class="math inline">\((0{,}5; 0{,}18)\)</span> y <span class="math inline">\((0{,}9; 0{,}54)\)</span> aproximadamente.</li>
+</ul>
+<p>El área entre la diagonal y cada curva refleja gráficamente el Gini: mayor cuanto más hundida está la curva.</p>
+</li>
+<li><p>El <strong>sector A</strong> (mantenimiento orbital) presenta las características del sector maduro y competitivo: reparto relativamente equilibrado del negocio, sin líderes muy dominantes. El <strong>sector B</strong> (transporte interestelar general) presenta un patrón típico de <strong>oligopolio</strong>: unas pocas compañías (las mismas que dan lugar a la asimetría <span class="math inline">\(g_1 = 4{,}03\)</span> que vimos en el capítulo, y al 20% que acumula el 64%) concentran una fracción desproporcionada del sector, muy por encima de lo que les correspondería en una distribución equilibrada.</p></li>
+<li><p>Cabe esperar que el Gini del sector B <strong>disminuya</strong>. La regulación <em>antitrust</em> pretende precisamente redistribuir el negocio entre más agentes, lo que aproximaría la curva de Lorenz a la diagonal y reduciría el área que mide el Gini. Es la lectura inversa del efecto CEO del apartado c) del ejercicio 3.7: si añadir un caso extremo aumentaba el Gini, forzar la desinversión de los casos extremos lo reduce.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-3.9." class="section level3" number="3.9.9">
+<h3>
+<span class="header-section-number">3.9.9</span> Solución al Problema 3.9.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.9."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Distribución fuertemente <strong>asimétrica a la derecha</strong> (cola larga hacia los ingresos altos), con <strong>curtosis altísima</strong> (<span class="math inline">\(g_2 = 22{,}5\)</span>, muy leptocúrtica: enorme concentración cerca del centro y colas muy pesadas). Un histograma de esta distribución mostraría una acumulación pronunciada en los valores bajos, con una cola larga y poblada solo por unas pocas compañías gigantes.</p></li>
+<li><p><strong>No es honesta.</strong> La media (218) está inflada por unas pocas compañías enormes, y no describe a “una compañía media” del sector: más del 50% de las empresas factura menos que la mediana (130 mil PAVOs), muy por debajo de la cifra del titular. Un titular alternativo más honesto sería: <em>“La mitad de las compañías del sector R-Stars factura menos de 130 mil PAVOs al año, aunque la media sectorial —arrastrada por unos pocos gigantes— supera los 218 mil.”</em> Reportar la <strong>mediana</strong> junto a la media es la práctica estándar cuando la asimetría es importante.</p></li>
+<li>
+<p>Las tres relaciones típicas son:</p>
+<ul>
+<li>Asimetría <strong>positiva</strong>: <span class="math inline">\(\text{Mo} &lt; \text{Me} &lt; \overline{x}\)</span>.</li>
+<li>Simetría: <span class="math inline">\(\text{Mo} = \text{Me} = \overline{x}\)</span>.</li>
+<li>Asimetría <strong>negativa</strong>: <span class="math inline">\(\overline{x} &lt; \text{Me} &lt; \text{Mo}\)</span>.</li>
+</ul>
+<p>En este caso, <span class="math inline">\(\text{Me} = 130 &lt; \overline{x} = 218\)</span>, orden coherente con el signo positivo de <span class="math inline">\(g_1\)</span>. (La moda no se ha reportado, pero por la asimetría fuerte cabe esperar que se sitúe aún por debajo de la mediana.)</p>
+</li>
+<li><p>La afirmación remite implícitamente al <strong>índice de Gini</strong> (y a la <strong>curva de Lorenz</strong>): describe una fuerte concentración del sector en unos pocos casos, exactamente lo que Lorenz-Gini formaliza. Se relaciona directamente con el <strong>principio de Pareto</strong> (regla 80-20), reencontrado en Contabilidad de costes (análisis ABC de inventarios), en Marketing (cuentas clave) y en Producción (defectos críticos). El sector R-Stars no llega al 80-20 clásico (harían falta el 35% de las compañías para alcanzar el 80% de la facturación), pero se comporta según la misma lógica.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-3.10." class="section level3" number="3.9.10">
+<h3>
+<span class="header-section-number">3.9.10</span> Solución al Problema 3.10.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.10."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>En sentido <strong>tradicional</strong> (variabilidad de la rentabilidad, medida por <span class="math inline">\(S\)</span>), sí: ambos activos tienen la misma media y la misma desviación típica, es decir, la misma “amplitud media” de las variaciones. En sentido <strong>moderno</strong> (riesgo de cola), <strong>no</strong>: la curtosis mucho mayor del activo B indica que los movimientos verdaderamente extremos —caídas del <span class="math inline">\(-15\%\)</span>, <span class="math inline">\(-20\%\)</span>, <span class="math inline">\(-25\%\)</span> o mayores— son mucho más probables en B que en A.</p></li>
+<li><p>Que <span class="math inline">\(g_2 = 5\)</span> significa que la distribución de B es <strong>leptocúrtica pronunciada</strong>: en comparación con una normal, la campana está más apuntada (más masa de probabilidad concentrada cerca de la media) y las colas son mucho más pesadas (los rendimientos extremos ocurren con más frecuencia). Con la misma dispersión “media” que A, B produce muchas rentabilidades pequeñas alrededor del 0,8% y, de vez en cuando, rentabilidades muy extremas —tanto positivas como negativas— que en A serían prácticamente imposibles.</p></li>
+<li><p>El activo A —con curtosis 0, comportamiento próximo a la normal— correspondería a una <strong>compañía consolidada</strong> como <em>Hyperdrive Express</em>: rentabilidades relativamente predecibles, sin sorpresas espectaculares. El activo B —con colas pesadas— sería típico de una <strong>compañía innovadora</strong> recién listada: la mayoría de los meses el rendimiento es tranquilo, pero cualquier noticia (una patente concedida, un fracaso técnico) puede desatar movimientos extremos. Es el clásico perfil de las <em>startups</em> en un sector técnicamente disruptivo.</p></li>
+<li><p>Se equivoca porque la media y la <span class="math inline">\(S\)</span> no capturan la <strong>forma completa</strong> de la distribución. Un fondo de pensiones con horizonte largo y bajo apetito por sorpresas debería preferir A; un especulador dispuesto a asumir riesgo extremo a cambio de participar en eventos raros pero muy rentables podría preferir B. La misma media y la misma <span class="math inline">\(S\)</span> son perfectamente compatibles con perfiles de riesgo muy distintos: el detalle está en la <strong>cuarta letra del alfabeto descriptivo</strong>, la curtosis.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-3.11." class="section level3" number="3.9.11">
+<h3>
+<span class="header-section-number">3.9.11</span> Solución al Problema 3.11.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.11."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Z-scores:</p>
+<ul>
+<li>Candidato A: <span class="math inline">\(z_A = (22 - 17{,}20)/5{,}96 \approx 0{,}81\)</span>.</li>
+<li>Candidato B: <span class="math inline">\(z_B = (45 - 32)/18 \approx 0{,}72\)</span>.</li>
+</ul>
+</li>
+<li><p>El <strong>candidato A</strong> ocupa una posición relativa <strong>ligeramente mejor</strong> dentro de su grupo de comparación (0,81 desviaciones típicas por encima de la media, frente a 0,72 del candidato B). La diferencia es pequeña, pero la comparación en términos absolutos (<span class="math inline">\(22\)</span> frente a <span class="math inline">\(45\)</span>) sería completamente engañosa: ambas cifras están medidas en variables y unidades distintas.</p></li>
+<li><p>Comparar el salario absoluto de A (22 cientos de PAVOs) con la facturación absoluta de B (45 miles de PAVOs) carecería de sentido: son variables medidas en escalas distintas y con significados distintos. El z-score, al ser <strong>adimensional</strong>, convierte cualquier cifra en “cuántas desviaciones típicas se aparta de la media de su grupo”, y ese sí es un lenguaje común que permite compararlas.</p></li>
+<li><p>Aproximación con la regla empírica: en una normal, <span class="math inline">\(z = 0{,}81\)</span> corresponde al percentil <span class="math inline">\(\approx 79\)</span> y <span class="math inline">\(z = 0{,}72\)</span> al percentil <span class="math inline">\(\approx 76\)</span>. Ambos candidatos están dentro del cuartil superior de sus respectivos grupos, pero A supera aproximadamente al 79% de su plantilla mientras que B supera al 76% de su departamento. La diferencia es pequeña; la decisión final debería incorporar criterios cualitativos adicionales, no basarse solo en el z-score.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-3.12." class="section level3" number="3.9.12">
+<h3>
+<span class="header-section-number">3.9.12</span> Solución al Problema 3.12.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.12."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Se cumple <span class="math inline">\(\text{Mo} = 40 &lt; \text{Me} = 42 &lt; \overline{x} = 45\)</span>: el orden típico de la <strong>asimetría positiva</strong>. Es coherente con <span class="math inline">\(g_1 = 0{,}45 &gt; 0\)</span> (asimetría positiva leve, según el criterio orientativo del capítulo). En cuanto a la curtosis, <span class="math inline">\(g_2 = -0{,}20\)</span> indica una distribución muy ligeramente <strong>platicúrtica</strong>: el pico central está algo más aplanado que el de una normal, pero muy cerca de la mesocurtosis.</p></li>
+<li><p>Umbrales de Tukey: <span class="math inline">\(Q_1 - 1{,}5\cdot\text{IQR} = 39 - 18 = 21\)</span>; <span class="math inline">\(Q_3 + 1{,}5\cdot\text{IQR} = 51 + 18 = 69\)</span>. El <strong>mínimo observado</strong> es 25 (por encima de 21) y el <strong>máximo</strong> es 68 (por debajo de 69). <strong>Ningún</strong> valor cae fuera de los umbrales: no hay <em>outliers</em> según la regla del box-plot.</p></li>
+<li><p><span class="math inline">\(V = 17{,}8\%\)</span>: una dispersión relativa <strong>moderada-baja</strong>. La media es una síntesis <strong>razonablemente representativa</strong> de la variable, aunque no ideal. Reportarla debe ir acompañado, como buena práctica, de la mediana (42) y de la desviación típica (8), para dar la imagen completa.</p></li>
+<li><p>Intervalo aproximado del 95%: <span class="math inline">\(\overline{x} \pm 2S = 45 \pm 16 = [29, 61]\)</span>. Es consistente con el mínimo (25) y el máximo (68), aunque estos quedan algo fuera del intervalo, lo cual es de esperar: la regla dice “aproximadamente 95%”, no “todos”. Los dos valores fuera del intervalo (25 y 68) son perfectamente compatibles con una muestra de 250 casos de una distribución cuasi-normal, y de hecho no son <em>outliers</em> según el apartado b).</p></li>
+<li>
+<p>Un esquema razonable a mano alzada:</p>
+<ul>
+<li>Pico centrado en <span class="math inline">\(\approx 40\)</span> (la moda).</li>
+<li>Ligeramente extendido hacia la derecha (asimetría positiva leve).</li>
+<li>Colas moderadas: el mínimo (25) y el máximo (68) están cerca de <span class="math inline">\(\overline{x} \pm 2{,}5\,S\)</span>.</li>
+<li>Pico ligeramente aplanado (platicurtosis leve, casi imperceptible).</li>
+</ul>
+<p>Es una distribución “razonablemente normal, con un poco de cola a la derecha”.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-3.13." class="section level3" number="3.9.13">
+<h3>
+<span class="header-section-number">3.9.13</span> Solución al Problema 3.13.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-3.13."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Por definición, los cuartiles cumplen <span class="math inline">\(Q_1 \le \text{Me} \le Q_3\)</span>: la mediana <strong>no puede ser inferior al primer cuartil</strong>. Que <span class="math inline">\(\text{Me} = 15\)</span> y <span class="math inline">\(Q_1 = 18\)</span> implicaría que el 50% de la plantilla cobra 15 o menos, pero simultáneamente que el 25% cobra 18 o menos; lógicamente imposible. Ya solo con esa contradicción, el informe es descartable sin más lectura.</p></li>
+<li><p>Con media 22 y desviación típica 3, la regla empírica sitúa aproximadamente el 95% de los salarios en el intervalo <span class="math inline">\(22 \pm 2\cdot 3 = [16, 28]\)</span>. Una <strong>mediana de 15</strong> quedaría <strong>fuera</strong> de ese intervalo, lo cual es prácticamente imposible en una distribución razonablemente unimodal y campaniforme. La contradicción se refuerza: no es solo entre mediana y <span class="math inline">\(Q_1\)</span>, sino entre mediana y la propia <span class="math inline">\((\overline{x}, S)\)</span>.</p></li>
+<li>
+<p>Hipótesis plausibles del error:</p>
+<ul>
+<li>
+<strong>Cifras cruzadas.</strong> Media y mediana pueden estar intercambiadas: valores media = 15 y mediana = 22 (con <span class="math inline">\(Q_1 = 18\)</span>, <span class="math inline">\(Q_3 = 25\)</span>) serían internamente consistentes y sugerirían una plantilla con leve asimetría negativa.</li>
+<li>
+<strong>Decimales o unidades mal indicadas.</strong> Quizá la mediana no está en cientos de PAVOs sino en otra unidad (miles, o cientos de otro periodo), o falta un cero.</li>
+<li>
+<strong>Mediana calculada sobre un subgrupo distinto</strong> (por ejemplo, solo el personal de almacén, o solo empleados con contrato temporal), reportada por error como mediana global.</li>
+<li>
+<strong>Fichero mal depurado.</strong> Si hay valores negativos, códigos de missing tratados como cifras válidas, o duplicaciones, cualquier cálculo posterior arrastra el error. Es exactamente el escenario que motivaba las precauciones del capítulo 2.</li>
+</ul>
+</li>
+<li>
+<p>Pruebas concretas para validar el informe:</p>
+<ul>
+<li>El <strong>fichero original</strong> de nóminas (o al menos, la muestra sobre la que se calcularon los estadísticos), para poder recalcular las medidas de forma independiente.</li>
+<li>El <strong>diccionario de datos</strong> correspondiente (con unidades, rango válido, definición de la variable “salario” —¿bruto, neto, con o sin variables?).</li>
+<li>El <strong>valor mínimo y el máximo</strong> observados y el <strong>tamaño de muestra</strong> <span class="math inline">\(N\)</span>: sirven de test de coherencia adicional.</li>
+<li>La <strong>fecha de corte</strong> y la <strong>población de referencia</strong> exacta (¿toda la plantilla?, ¿solo indefinidos?, ¿solo cierto departamento?).</li>
+<li>Si es factible, la <strong>distribución de frecuencias completa</strong> o el <strong>histograma</strong>: cualquier discrepancia interna se detecta a simple vista.</li>
+</ul>
+<p>Y una recomendación de fondo: en un informe que va a la ARTI, cualquier resumen descriptivo debería acompañarse de las cifras que permitan <strong>auditarlo internamente</strong> (mínimo, máximo, <span class="math inline">\(N\)</span>, <span class="math inline">\(Q_1\)</span>, mediana, <span class="math inline">\(Q_3\)</span>, media y <span class="math inline">\(S\)</span>) precisamente para hacer imposibles errores tan gruesos como este.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
   <div class="chapter-nav">
@@ -1063,6 +1860,40 @@ g_2 = \frac{m_4}{S^{\,4}} - 3 = \frac{3\,313{,}22}{5{,}96^{4}} - 3 = -0{,}37.
 </ul>
 </li>
 <li><a class="nav-link" href="#recapitulacion-cap03"><span class="header-section-number">3.7</span> Recapitulación.</a></li>
+<li>
+<a class="nav-link" href="#problemas-cap03"><span class="header-section-number">3.8</span> Problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#problema-3.1.-qu%C3%A9-medida-de-posici%C3%B3n-central-publicar"><span class="header-section-number">3.8.1</span> Problema 3.1. ¿Qué medida de posición central publicar?</a></li>
+<li><a class="nav-link" href="#problema-3.2.-dos-plantillas-una-misma-media."><span class="header-section-number">3.8.2</span> Problema 3.2. Dos plantillas, una misma media.</a></li>
+<li><a class="nav-link" href="#problema-3.3.-m%C3%A1rgenes-agrupados-media-mediana-y-el-error-de-agrupamiento."><span class="header-section-number">3.8.3</span> Problema 3.3. Márgenes agrupados: media, mediana y el error de agrupamiento.</a></li>
+<li><a class="nav-link" href="#problema-3.4.-cuartiles-y-box-plot-de-la-antig%C3%BCedad-de-una-flota."><span class="header-section-number">3.8.4</span> Problema 3.4. Cuartiles y box-plot de la antigüedad de una flota.</a></li>
+<li><a class="nav-link" href="#problema-3.5.-comparar-la-dispersi%C3%B3n-salarial-de-dos-compa%C3%B1%C3%ADas."><span class="header-section-number">3.8.5</span> Problema 3.5. Comparar la dispersión salarial de dos compañías.</a></li>
+<li><a class="nav-link" href="#problema-3.6.-comparar-variables-incomparables."><span class="header-section-number">3.8.6</span> Problema 3.6. Comparar variables incomparables.</a></li>
+<li><a class="nav-link" href="#problema-3.7.-el-efecto-ceo-sobre-la-fotograf%C3%ADa-descriptiva."><span class="header-section-number">3.8.7</span> Problema 3.7. El “efecto CEO” sobre la fotografía descriptiva.</a></li>
+<li><a class="nav-link" href="#problema-3.8.-lorenz-gini-y-din%C3%A1mica-sectorial."><span class="header-section-number">3.8.8</span> Problema 3.8. Lorenz, Gini y dinámica sectorial.</a></li>
+<li><a class="nav-link" href="#problema-3.9.-la-compa%C3%B1%C3%ADa-t%C3%ADpica-del-sector-r-stars."><span class="header-section-number">3.8.9</span> Problema 3.9. La compañía “típica” del sector R-Stars.</a></li>
+<li><a class="nav-link" href="#problema-3.10.-curtosis-y-riesgo-de-cola."><span class="header-section-number">3.8.10</span> Problema 3.10. Curtosis y riesgo de cola.</a></li>
+<li><a class="nav-link" href="#problema-3.11.-estandarizar-para-comparar."><span class="header-section-number">3.8.11</span> Problema 3.11. Estandarizar para comparar.</a></li>
+<li><a class="nav-link" href="#problema-3.12.-diagnosticar-una-distribuci%C3%B3n-sin-ver-el-histograma."><span class="header-section-number">3.8.12</span> Problema 3.12. Diagnosticar una distribución sin ver el histograma.</a></li>
+<li><a class="nav-link" href="#problema-3.13.-un-informe-salarial-que-no-cuadra."><span class="header-section-number">3.8.13</span> Problema 3.13. Un informe salarial que no cuadra.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#soluciones-cap03"><span class="header-section-number">3.9</span> Soluciones a los problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.1."><span class="header-section-number">3.9.1</span> Solución al Problema 3.1.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.2."><span class="header-section-number">3.9.2</span> Solución al Problema 3.2.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.3."><span class="header-section-number">3.9.3</span> Solución al Problema 3.3.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.4."><span class="header-section-number">3.9.4</span> Solución al Problema 3.4.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.5."><span class="header-section-number">3.9.5</span> Solución al Problema 3.5.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.6."><span class="header-section-number">3.9.6</span> Solución al Problema 3.6.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.7."><span class="header-section-number">3.9.7</span> Solución al Problema 3.7.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.8."><span class="header-section-number">3.9.8</span> Solución al Problema 3.8.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.9."><span class="header-section-number">3.9.9</span> Solución al Problema 3.9.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.10."><span class="header-section-number">3.9.10</span> Solución al Problema 3.10.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.11."><span class="header-section-number">3.9.11</span> Solución al Problema 3.11.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.12."><span class="header-section-number">3.9.12</span> Solución al Problema 3.12.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-3.13."><span class="header-section-number">3.9.13</span> Solución al Problema 3.13.</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">

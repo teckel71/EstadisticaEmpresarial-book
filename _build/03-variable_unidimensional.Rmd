@@ -911,3 +911,471 @@ En este capítulo hemos aprendido a **resumir** una variable estadística unidim
 Un principio ha atravesado todo el capítulo: **antes de resumir, mire los datos**. Los casos atípicos deben localizarse —el box-plot, apoyado en el IQR, es la herramienta estándar— y decidir si se corrigen, se eliminan, se conservan o se analizan por separado. Las medidas más elegantes son también, casi siempre, las más frágiles: media, varianza, coeficientes de forma, Gini... todas ellas se distorsionan con facilidad ante un puñado de valores extremos. La CEO de *Hyperdrive Express* nos lo ha ilustrado con creces: un solo caso extremo modifica la media un 8 %, dispara los coeficientes de forma y añade cinco puntos al índice de Gini.
 
 Con estas herramientas ya podemos caracterizar cualquier variable de una empresa, un sector o una galaxia. En el capítulo siguiente daremos el salto a **dos variables**: cómo se relacionan entre sí y qué medidas resumen esa relación. *Hyperdrive Express* seguirá con nosotros, y también seguirán acompañándonos las 300 compañías R-Stars a las que ya nos hemos asomado en los ejemplos de asimetría, curtosis y concentración.
+
+## Problemas propuestos. {#problemas-cap03}
+
+Los ejercicios que siguen combinan **cálculo controlado** —los estrictamente necesarios para asentar cuartiles, coeficientes de variación o el efecto de un *outlier*— con un peso importante de **interpretación** de resultados ya elaborados. Varios problemas dan la fotografía descriptiva ya calculada y piden al analista decidir qué comunicar, qué medida elegir y qué preguntas formular a la vista de las cifras. Todas las soluciones detalladas se recogen al final del capítulo.
+
+### Problema 3.1. ¿Qué medida de posición central publicar?
+
+Para cada una de las siguientes situaciones, indica qué medida de posición central (media, mediana o moda) sería la más apropiada para comunicar el fenómeno en un informe, y **justifica** la elección:
+
+a)  **Sagan Olbers** prepara la ficha del sector R-Stars para el próximo *Anuario Interestelar de Economía*. Quiere resumir en una única cifra el **tamaño (ingresos anuales)** de una compañía representativa del sector. Sabe que los ingresos siguen una distribución muy asimétrica a la derecha ($g_1 = 4{,}03$).
+b)  **Xelia Bluebird** quiere describir la variable *"astillero constructor mayoritario de la flota"* del sector R-Stars, en un gráfico introductorio del *Informe Bluebird*.
+c)  Un analista financiero prepara el resumen ejecutivo del sector de **fondos de inversión galácticos** durante el último trimestre. La distribución de rentabilidades presenta unos pocos fondos con ganancias enormes (por descubrimiento inesperado de vetas de proto-especia) y unos pocos con pérdidas catastróficas (por siniestros en Klendathu). La mayoría se mueve alrededor de un valor razonable.
+
+### Problema 3.2. Dos plantillas, una misma media.
+
+Las plantillas de dos compañías galácticas de tamaño operativo similar presentan los siguientes estadísticos descriptivos para el salario mensual (en cientos de PAVOs):
+
+|                         | *Corellian Freightworks* | *Enterprise Logistics* |
+|:------------------------|:------------------------:|:----------------------:|
+| Número de empleados     | 80                       | 80                     |
+| Salario medio           | 20,0                     | 20,0                   |
+| Desviación típica       | 6,4                      | 1,8                    |
+| Salario mínimo          | 8                        | 17                     |
+| Salario máximo          | 42                       | 24                     |
+
+::: {style="text-align: center;"}
+**Tabla 3.6**
+:::
+
+
+Se pide:
+
+a)  Calcula el coeficiente de variación de Pearson para cada compañía.
+b)  ¿En cuál de las dos compañías la media aritmética es una medida **más representativa** del salario de un empleado cualquiera? Justifica.
+c)  Un asesor propone comunicar en ambos casos el mismo mensaje: *"En esta compañía se cobra, en promedio, 2 000 PAVOs al mes"*. ¿Es igualmente honesto en las dos plantillas? ¿Qué información adicional debería acompañar a esa frase?
+
+### Problema 3.3. Márgenes agrupados: media, mediana y el error de agrupamiento.
+
+La **Autoridad Interestelar del Transporte de Mercancías (AITM)** ha publicado la distribución agrupada del **margen operativo** (en %) de las 200 compañías R-Stars con facturación intergaláctica:
+
+| Margen (%) | $n_i$ |
+|:----------:|:-----:|
+|  (0, 20]   |  15   |
+|  (20, 40]  |  30   |
+|  (40, 60]  |  80   |
+|  (60, 80]  |  60   |
+| (80, 100]  |  15   |
+
+::: {style="text-align: center;"}
+**Tabla 3.7**
+:::
+
+
+Se pide:
+
+a)  Calcula la **media** y la **mediana** agrupadas del margen operativo.
+b)  Interpreta cada cifra en clave de gestión sectorial: ¿qué le dirías a la CEO de una compañía que opera con un margen del 55%?
+c)  Sagan Olbers, que tiene los datos originales sin agrupar, calcula sobre ellos una media de **54,3%** y una mediana de **55,1%**. ¿A qué se debe la diferencia con los valores obtenidos en el apartado a)? ¿Qué característica de esta tabla concreta agrava el error de agrupamiento?
+
+### Problema 3.4. Cuartiles y box-plot de la antigüedad de una flota.
+
+*Kaiju Haulage Co.* dispone de una flota de 12 cargueros. La antigüedad (en años) de cada nave, ordenada, es:
+
+$$1,\ 2,\ 2,\ 3,\ 3,\ 4,\ 5,\ 6,\ 8,\ 10,\ 12,\ 30$$
+
+Se pide:
+
+a)  Calcula el primer cuartil $Q_1$, la mediana $Q_2$ y el tercer cuartil $Q_3$. Calcula el recorrido intercuartílico $\text{IQR}$.
+b)  Aplica la regla de Tukey ($Q_1 - 1{,}5\cdot\text{IQR}$; $Q_3 + 1{,}5\cdot\text{IQR}$) para identificar los umbrales de detección de *outliers*.
+c)  ¿Cuántos *outliers* detecta la regla? Identifícalos.
+d)  Describe qué aspecto tendría el box-plot de esta flota (dónde estaría la caja, dónde los bigotes, dónde el punto atípico).
+e)  Antes de decidir qué hacer con el o los casos atípicos, ¿qué comprobaciones concretas deberías realizar sobre cada uno de ellos? (Recuerda las tres explicaciones posibles del capítulo 2.)
+
+### Problema 3.5. Comparar la dispersión salarial de dos compañías.
+
+Se comparan las plantillas de dos compañías galácticas del mismo sector:
+
+|                       | *Vader & Company* | *Arrakis Freight* |
+|:----------------------|:-----------------:|:-----------------:|
+| Empleados             | 120               | 95                |
+| Salario medio (c.PAVOs)| 22,0             | 15,0              |
+| Desviación típica     | 8,0               | 4,5               |
+
+::: {style="text-align: center;"}
+**Tabla 3.8**
+:::
+
+
+Se pide:
+
+a)  Calcula el coeficiente de variación de Pearson para cada compañía.
+b)  ¿Dónde tiene el salario mayor dispersión **absoluta**? ¿Y mayor dispersión **relativa**? Explica por qué las dos preguntas no dan la misma respuesta.
+c)  En cuál de las dos compañías el salario medio es una **mejor síntesis** de la retribución típica de un empleado. Justifica.
+
+### Problema 3.6. Comparar variables incomparables.
+
+Sobre las 300 compañías R-Stars se han calculado los siguientes descriptivos:
+
+| Variable                        | Media  | Desviación típica |
+|:--------------------------------|:------:|:-----------------:|
+| Salario medio (c. PAVOs)        | 17,2   |  5,96             |
+| Rentabilidad neta (%)           | 60,16  | 12,3              |
+| Tamaño de flota (nº de naves)   | 42     | 18                |
+
+::: {style="text-align: center;"}
+**Tabla 3.9**
+:::
+
+
+Un directivo mira las tres desviaciones típicas y concluye: *"El salario es la variable menos dispersa del sector, con diferencia."* Se pide:
+
+a)  ¿Puede el directivo llegar a esa conclusión comparando directamente las tres desviaciones típicas? ¿Por qué?
+b)  Calcula el coeficiente de variación de las tres variables e interprétalos comparativamente.
+c)  ¿Cuál es la variable con **mayor dispersión relativa** y cuál con **menor**? ¿Coincide con la intuición del directivo?
+
+### Problema 3.7. El "efecto CEO" sobre la fotografía descriptiva.
+
+*Hyperdrive Express* elabora dos versiones del cuadro descriptivo de su política salarial: una sin la CEO (plantilla habitual, $N = 60$) y otra incluyéndola ($N = 61$; su salario es de 100 cientos de PAVOs). Los resultados son:
+
+| Medida                         | Sin CEO ($N=60$) | Con CEO ($N=61$) |
+|:-------------------------------|:----------------:|:----------------:|
+| Media                          |     17,20        |     18,56        |
+| Mediana                        |     15,00        |     15,00        |
+| Moda                           |     15,00        |     15,00        |
+| Desviación típica $S$          |      5,96        |     11,55        |
+| Coeficiente de variación $V$   |     34,6%        |     62,2%        |
+| $Q_1$ / $Q_3$                  |   12,0 / 20,5    |   12,0 / 22,0    |
+| IQR                            |      8,5         |     10,0         |
+| Coef. asimetría $g_1$          |      0,55        |      5,03        |
+| Coef. curtosis $g_2$           |     $-0{,}37$    |     31,20        |
+| Índice de Gini                 |     0,193        |     0,245        |
+
+::: {style="text-align: center;"}
+**Tabla 3.10**
+:::
+
+
+Se pide:
+
+a)  Clasifica cada medida en dos grupos: **robustas** frente al *outlier* y **sensibles** al mismo. Justifica en cada caso por qué se comporta como lo hace.
+b)  ¿Cuál es la medida más espectacularmente afectada por la CEO, y por qué? ¿Es una casualidad o hay una razón estructural?
+c)  Si tuvieras que reportar a la ARTI el *salario típico* de la compañía en una única cifra, ¿publicarías la media o la mediana? Justifica tu decisión con al menos dos argumentos del cuadro.
+d)  Reproduce el argumento con el que el propio capítulo concluye que la CEO debe analizarse **por separado** del resto de la plantilla. ¿Qué principio del capítulo 2 se está aplicando aquí?
+
+### Problema 3.8. Lorenz, Gini y dinámica sectorial.
+
+Xelia Bluebird ha calculado las curvas de Lorenz de dos sectores en el *Informe Bluebird* del ejercicio 2210:
+
+-   **Sector A — Servicios de mantenimiento orbital.** Índice de Gini $G = 0{,}32$. El 50% de las compañías con menores ingresos acumula el 38% de la facturación total del sector; el 10% con mayores ingresos concentra el 21%.
+-   **Sector B — Transporte interestelar de mercancías.** Índice de Gini $G = 0{,}60$. El 50% con menores ingresos acumula el 18% de la facturación total; el 10% con mayores ingresos concentra el 46%.
+
+Se pide:
+
+a)  ¿Cuál de los dos sectores presenta mayor concentración? Justifica leyendo las tres cifras (Gini, el 50% inferior y el 10% superior).
+b)  Dibuja esquemáticamente ambas curvas de Lorenz sobre el mismo gráfico (la diagonal, el sector A y el sector B). No es necesaria precisión: sí lo es respetar el orden relativo de las tres curvas y explicar qué representa cada una.
+c)  Uno de los dos sectores está claramente **maduro y muy competitivo**; el otro presenta un **oligopolio de facto**, con dos o tres grandes compañías que dominan el mercado. ¿Cuál dirías que es cuál? Justifica.
+d)  Un consultor propone al presidente del **Consejo Galáctico de Comercio** una regulación *antitrust* sobre el sector B, orientada a forzar la desinversión de las dos compañías más grandes. Cualitativamente, ¿en qué sentido esperarías que se mueva el índice de Gini del sector si la regulación se implementa con éxito?
+
+### Problema 3.9. La compañía "típica" del sector R-Stars.
+
+El equipo de Sagan Olbers ha reunido los siguientes descriptivos sobre los **ingresos anuales** (en miles de PAVOs) de las 300 compañías R-Stars:
+
+- Media aritmética: **218**.
+- Mediana: **130**.
+- Coeficiente de asimetría de Fisher: $g_1 = 4{,}03$.
+- Coeficiente de curtosis de Fisher: $g_2 = 22{,}5$.
+
+Se pide:
+
+a)  ¿Qué forma tiene esta distribución? Descríbela cualitativamente.
+b)  El *Interstellar Weekly* prepara un reportaje sobre el sector y anuncia el titular: *"La compañía media del sector R-Stars factura 218 mil PAVOs al año."* ¿Es una comunicación honesta? ¿Qué titular alternativo propondrías?
+c)  Recuerda las relaciones típicas entre media, mediana y moda para las tres formas de asimetría (positiva, simétrica, negativa). ¿Es coherente el orden `Mediana < Media` con el signo de $g_1$?
+d)  Un analista propone añadir al reportaje una fotografía complementaria: *"El 20% de las compañías más grandes concentra el 64% de la facturación del sector."* ¿A qué medida del capítulo remite implícitamente esta afirmación, y con qué principio empresarial clásico se relaciona?
+
+### Problema 3.10. Curtosis y riesgo de cola.
+
+Dos activos financieros del **hipermercado bursátil de Corellia** presentan los siguientes descriptivos de su rentabilidad mensual (%):
+
+|                         | Activo A | Activo B |
+|:------------------------|:--------:|:--------:|
+| Rentabilidad media      |   0,8    |   0,8    |
+| Desviación típica       |   4,0    |   4,0    |
+| Coef. de asimetría $g_1$|   0,00   |   0,00   |
+| Coef. de curtosis $g_2$ |   0,00   |   5,00   |
+
+::: {style="text-align: center;"}
+**Tabla 3.11**
+:::
+
+
+Se pide:
+
+a)  ¿Son los dos activos igual de "arriesgados" en el sentido tradicional de la palabra (variabilidad de la rentabilidad)? ¿Y en el sentido moderno del **riesgo de cola** (*tail risk*)?
+b)  Interpreta qué significa exactamente que el activo B tenga $g_2 = 5$ pese a tener la misma dispersión que A.
+c)  ¿Cuál de los dos activos esperarías que corresponda a las acciones de una **compañía consolidada del sector transporte** (por ejemplo, *Hyperdrive Express*) y cuál a las de una **compañía innovadora recién listada** (por ejemplo, una *startup* de motores de curvatura)? Justifica.
+d)  Un gestor de fondos afirma: *"Como los dos activos tienen la misma media y la misma S, invertir en uno o en otro es indiferente."* ¿En qué se equivoca?
+
+### Problema 3.11. Estandarizar para comparar.
+
+**Tasha Tachybaptus**, directora de RR.HH. de *Shuttlepod Movers*, está evaluando dos candidatos internos para un puesto directivo. Cada uno destaca en una dimensión distinta:
+
+-   **Candidato A** ocupa una posición salarial de 22 cientos de PAVOs, en una plantilla con salario medio 17,20 y desviación típica 5,96.
+-   **Candidato B** genera personalmente una facturación anual de 45 miles de PAVOs para la compañía, en un departamento con facturación media por empleado de 32 miles de PAVOs y desviación típica de 18 miles.
+
+Se pide:
+
+a)  Calcula el z-score de cada candidato en su respectiva distribución.
+b)  ¿Cuál de los dos ocupa una posición **relativa** más destacada dentro de su grupo de comparación?
+c)  Explica por qué comparar el salario absoluto de A con la facturación absoluta de B carecería de sentido, mientras que comparar sus z-scores sí lo tiene.
+d)  Recuerda la **regla empírica 68–95–99,7**: ¿en qué percentil aproximado se sitúa cada candidato (asumiendo, con cierta laxitud, distribución aproximadamente normal en sus respectivos grupos)?
+
+### Problema 3.12. Diagnosticar una distribución sin ver el histograma.
+
+Se dispone de los siguientes descriptivos de una variable numérica medida en una muestra de 250 compañías:
+
+- $N = 250$.
+- Mínimo = 25; Máximo = 68.
+- $\overline{x} = 45$; Mediana = 42; Moda = 40.
+- $S = 8$; $V = 17{,}8\%$.
+- $Q_1 = 39$; $Q_3 = 51$.
+- $g_1 = 0{,}45$; $g_2 = -0{,}20$.
+
+Se pide (sin construir el histograma):
+
+a)  ¿Qué forma tiene la distribución (asimetría y curtosis)? ¿Es coherente el orden `Moda < Mediana < Media` con el signo del coeficiente $g_1$?
+b)  Aplica la regla del IQR para determinar si cabe esperar *outliers*.
+c)  ¿La media es una medida representativa del valor típico de la variable en esta muestra? Apoya tu respuesta en el coeficiente de variación.
+d)  Utilizando la regla empírica 68–95–99,7 sobre esta distribución (que no es exactamente normal, pero se aproxima razonablemente), ¿en qué intervalo cabría esperar aproximadamente el 95% de los casos? ¿Es consistente con el mínimo y el máximo observados?
+e)  Dibuja un esquema **a mano alzada** de cómo esperarías que fuera el histograma (posición del pico, extensión hacia cada lado, colas).
+
+### Problema 3.13. Un informe salarial que no cuadra.
+
+**Mara Qyà** recibe de *Kaiju Haulage Co.* el siguiente informe descriptivo de su política salarial (en cientos de PAVOs):
+
+|         Medida         | Valor  |
+|:----------------------:|:------:|
+| Media aritmética       |  22    |
+| Mediana                |  15    |
+| Primer cuartil $Q_1$   |  18    |
+| Tercer cuartil $Q_3$   |  25    |
+| Desviación típica $S$  |   3    |
+
+::: {style="text-align: center;"}
+**Tabla 3.12**
+:::
+
+
+A los pocos segundos de leer el cuadro, Mara escribe al equipo de Kaiju: *"Alguna de estas cifras está mal. Revísenlas antes de que la ARTI acepte el informe."* Se pide:
+
+a)  Identifica la **contradicción evidente** entre las medidas de posición no central y la mediana. ¿Por qué no puede ser cierta a la vez la mediana 15 con $Q_1 = 18$?
+b)  Aplica la **regla empírica 68–95–99,7** al par (media = 22; $S = 3$) y comprueba en qué franja debería situarse aproximadamente el 95% de los salarios. ¿Es esa franja compatible con una mediana de 15?
+c)  Formula al menos **dos hipótesis plausibles** sobre el origen del error (por ejemplo: cifras cruzadas entre variables, decimales mal indicados, mediana calculada sobre otro subgrupo…).
+d)  ¿Qué **pruebas concretas** le pedirías al equipo de Kaiju para poder validar el informe? Enumera al menos tres.
+
+## Soluciones a los problemas propuestos. {#soluciones-cap03}
+
+### Solución al Problema 3.1.
+
+a)  **Mediana.** En variables de tamaño empresarial (ingresos, activos, plantilla, facturación) la asimetría positiva es la norma: una minoría de compañías muy grandes tira de la media hacia arriba. Publicar la **media** (218 mil PAVOs, según los datos del propio capítulo) daría al lector la impresión de un sector poblado por compañías grandes cuando, en realidad, más del 50% de las empresas factura menos de 130 mil PAVOs. La **mediana** transmite mejor "cuánto factura una compañía típica del sector".
+
+b)  **Moda.** *Astillero constructor mayoritario* es un atributo **nominal**: no admite orden ni operaciones aritméticas. La única medida de posición central aplicable es la **moda**, que se leería como "el astillero más frecuente" (por ejemplo, KORRIGAN si es el que aparece en más flotas). Hablar de "astillero medio" o "astillero mediano" no tiene sentido.
+
+c)  **Mediana.** Aunque los rendimientos financieros son variables cuantitativas y admiten media, la presencia de *outliers* extremos en ambas colas (grandes ganancias y grandes pérdidas) desplaza la media hacia el lado en que el desequilibrio sea mayor, sin que ninguno de los fondos "típicos" tenga que ver con esa cifra. La **mediana** es más robusta y ofrece una lectura más honesta del *fondo típico*.
+
+### Solución al Problema 3.2.
+
+a)  Coeficientes de variación:
+
+    -   *Corellian Freightworks*: $V = 6{,}4/20{,}0 = 0{,}32 = 32{,}0\%$.
+    -   *Enterprise Logistics*: $V = 1{,}8/20{,}0 = 0{,}09 = 9{,}0\%$.
+
+b)  En *Enterprise Logistics* la media es **mucho más representativa**. Con una dispersión relativa del 9%, los salarios están muy concentrados alrededor de 20 (efectivamente, todos entre 17 y 24), de manera que decir "en esta compañía se cobra en promedio 20 cientos de PAVOs al mes" describe bien lo que le pasa a cualquier empleado. En *Corellian*, con $V = 32\%$ y salarios que van de 8 a 42, la media es solo un dato de referencia: muchos empleados están lejos de ese valor en ambas direcciones.
+
+c)  **No** es igualmente honesto. En *Enterprise* la frase resume razonablemente la realidad; en *Corellian* oculta una dispersión salarial fuerte y podría inducir a error a un lector desinformado (por ejemplo, un candidato que decida aceptar una oferta pensando que 2 000 PAVOs es "lo normal"). En un informe profesional, la media siempre debería ir acompañada, al menos, de una medida de **dispersión** (desviación típica o CV) y, en casos de dispersión alta, también de la **mediana** y algún **cuantil** (min, max, Q1, Q3).
+
+### Solución al Problema 3.3.
+
+a)  Cálculo con las marcas de clase $x_i = 10, 30, 50, 70, 90$:
+
+    | Intervalo | $x_i$ | $n_i$ | $N_i$ | $x_i \cdot n_i$ |
+    |:---------:|:-----:|:-----:|:-----:|:---------------:|
+    | (0, 20]   | 10    |  15   |  15   |      150        |
+    | (20, 40]  | 30    |  30   |  45   |      900        |
+    | (40, 60]  | 50    |  80   | 125   |    4 000        |
+    | (60, 80]  | 70    |  60   | 185   |    4 200        |
+    | (80, 100] | 90    |  15   | 200   |    1 350        |
+    | Total     |       | 200   |       | **10 600**      |
+
+    **Media agrupada:** $\overline{x} = 10\,600 / 200 = 53{,}0\%$.
+
+    **Mediana agrupada:** $N/2 = 100$ cae en el intervalo (40, 60], que se convierte en el intervalo mediano ($L_{i-1} = 40$, $N_{i-1} = 45$, $n_i = 80$, $c_i = 20$). Interpolando:
+
+    $$\text{Me} = 40 + \frac{100 - 45}{80}\cdot 20 = 40 + 13{,}75 = 53{,}75\%.$$
+
+b)  Interpretación en clave de gestión: el sector opera con un margen medio (y mediano) en torno al 53-54%. Una CEO con margen del 55% se sitúa **muy cerca del centro** de la distribución (ligeramente por encima). Es un margen sano en términos sectoriales, aunque lejos del cuartil superior de las compañías líderes. Convendría contextualizarlo cruzándolo con el CV y con el $Q_3$ del sector antes de valorar si conviene forzar una mejora.
+
+c)  La diferencia con los valores originales (media 54,3%, mediana 55,1%) es un **error de agrupamiento**. La causa concreta es la **frecuencia desigual dentro de los intervalos**: en (40, 60] hay 80 casos que no están uniformemente repartidos entre 40 y 60, sino concentrados hacia la derecha del intervalo. Al usar la marca de clase 50 como representante, la fórmula "supone" un reparto uniforme y subestima el promedio real. El intervalo (60, 80] tiene 60 casos, un peso considerable, lo que agrava el problema. **Moraleja:** cuando existan los datos originales, siempre son preferibles.
+
+### Solución al Problema 3.4.
+
+a)  Datos ordenados: 1, 2, 2, 3, 3, 4, 5, 6, 8, 10, 12, 30. $N = 12$.
+
+    Utilizando el método de posiciones $p\cdot(N+1)$ con interpolación lineal:
+
+    -   $Q_1$: posición $0{,}25 \cdot 13 = 3{,}25 \Rightarrow Q_1 = 2 + 0{,}25\cdot(3-2) = 2{,}25$.
+    -   $Q_2$ (mediana): posición $0{,}50 \cdot 13 = 6{,}5 \Rightarrow \text{Me} = (4 + 5)/2 = 4{,}5$.
+    -   $Q_3$: posición $0{,}75 \cdot 13 = 9{,}75 \Rightarrow Q_3 = 8 + 0{,}75\cdot(10-8) = 9{,}5$.
+
+    $\text{IQR} = 9{,}5 - 2{,}25 = 7{,}25$ años.
+
+    (Otras convenciones para el cálculo de cuartiles dan resultados muy próximos.)
+
+b)  Umbrales de Tukey:
+
+    -   Inferior: $Q_1 - 1{,}5\cdot\text{IQR} = 2{,}25 - 10{,}875 = -8{,}6$.
+    -   Superior: $Q_3 + 1{,}5\cdot\text{IQR} = 9{,}5 + 10{,}875 = 20{,}4$.
+
+c)  Un único *outlier*: la nave con **30 años** de antigüedad, muy por encima del umbral superior de 20,4.
+
+d)  El box-plot tendría la caja entre 2,25 y 9,5, con la línea de la mediana en 4,5; los bigotes alcanzarían el mínimo (1) y el máximo *no atípico* (12); y aparecería un **punto aislado en 30**, muy alejado de todo lo demás. Visualmente, el box-plot dejaría en evidencia inmediata la anomalía: una nave que dobla la antigüedad del segundo carguero más viejo.
+
+e)  Las tres comprobaciones que ya vimos en el capítulo 2 aplican aquí:
+
+    -   **¿Error de codificación?** ¿No serán "30" meses en lugar de años, o un cero de más? Revisar el registro original.
+    -   **¿Caso legítimo excepcional?** ¿Es una nave vintage que la compañía mantiene por motivos históricos o simbólicos? Si es así, es un dato correcto que merece analizarse **por separado**.
+    -   **¿Individuo de otra población?** ¿Estamos ante un carguero museo, o una nave de práctica de escuela técnica que se registró por error en la flota comercial? En ese caso, no comparte la naturaleza del resto de la flota.
+
+    Solo tras esas comprobaciones puede decidirse si corresponde corregir, excluir, mantener o transformar. Borrar sin más equivale a esconder la señal más informativa de la muestra.
+
+### Solución al Problema 3.5.
+
+a)  Coeficientes de variación:
+
+    -   *Vader & Company*: $V = 8{,}0/22{,}0 \approx 0{,}364 = 36{,}4\%$.
+    -   *Arrakis Freight*: $V = 4{,}5/15{,}0 = 0{,}300 = 30{,}0\%$.
+
+b)  Dispersión **absoluta** mayor en *Vader & Company* ($S = 8{,}0$ frente a $S = 4{,}5$). Dispersión **relativa** también mayor en *Vader* (36,4% frente a 30,0%), pero por menos margen. Las dos preguntas no dan la misma respuesta con la misma intensidad porque *Vader* tiene también una **media mayor**, así que parte de su mayor $S$ "se diluye" al pasarla a términos relativos. En general, comparar $S$ entre distribuciones con medias distintas es engañoso: se está comparando en unidades no equivalentes.
+
+c)  El salario medio es una **mejor síntesis** en *Arrakis Freight* (menor CV). En *Vader & Company*, con CV = 36,4%, el salario medio de 22 cientos de PAVOs está acompañado de una dispersión relativa considerable, y bastantes empleados se apartarán sensiblemente de ese valor. En *Arrakis*, la media describe con mayor fidelidad lo que le ocurre a un empleado cualquiera. Aun así, ambas plantillas presentan CVs relativamente altos: sería prudente reportar la media junto con la desviación típica y los cuartiles para no dar una imagen incompleta.
+
+### Solución al Problema 3.6.
+
+a)  **No**, el directivo no puede llegar a esa conclusión. Las tres desviaciones típicas están medidas en **unidades distintas** (cientos de PAVOs, puntos porcentuales, número de naves): no son magnitudes comparables entre sí. Comparar $S = 5{,}96$ con $S = 18$ es como comparar 6 kilómetros con 18 años.
+
+b)  Coeficientes de variación:
+
+    -   Salario medio: $V = 5{,}96/17{,}20 \approx 0{,}346 = 34{,}6\%$.
+    -   Rentabilidad neta: $V = 12{,}3/60{,}16 \approx 0{,}204 = 20{,}4\%$.
+    -   Tamaño de flota: $V = 18/42 \approx 0{,}429 = 42{,}9\%$.
+
+c)  La variable con **mayor dispersión relativa** es el **tamaño de flota** (42,9%); la de **menor**, la **rentabilidad neta** (20,4%). El salario queda en un lugar intermedio. La intuición del directivo era exactamente al revés de lo que muestran los datos: había confundido "$S$ pequeña" con "dispersión pequeña", olvidando que $S$ depende de las unidades. La rentabilidad neta es, en términos relativos, la variable **más homogénea** del sector; el tamaño de flota, la **más heterogénea** (compatible con la coexistencia de compañías con muy pocos cargueros junto a otras con flotas enormes).
+
+### Solución al Problema 3.7.
+
+a)  Clasificación de medidas:
+
+    -   **Robustas** (apenas se mueven al incorporar la CEO): **Mediana**, **Moda**, **$Q_1$**. Todas ellas dependen del **orden** de los valores, no de sus magnitudes; añadir un caso extremo desplaza como mucho una posición.
+    -   **Sensibles** (se mueven con distinta intensidad): **Media** (usa todos los valores), **Desviación típica**, **CV**, **$Q_3$** (leve, porque la CEO se cuela como valor más alto), **IQR**, **$g_1$**, **$g_2$**, **Gini**. Las más sensibles son las que involucran **potencias** de las diferencias respecto a la media: $S$ (cuadrados), $g_1$ (cubos), $g_2$ (cuartas potencias). Elevar al cubo o a la cuarta amplifica desproporcionadamente el efecto de un caso alejado del centro.
+
+b)  La medida más espectacularmente afectada es **$g_2$** (curtosis), que pasa de $-0{,}37$ a **31,20**. La razón es estructural: el coeficiente se calcula con el momento central de orden 4, que eleva a la **cuarta potencia** la distancia entre cada valor y la media. Un solo caso a $\approx 82$ unidades de la media multiplica por $82^4 \approx 45$ millones el "aporte" de ese individuo al cálculo. No es casualidad: es el precio de usar potencias altas.
+
+c)  **La mediana**, con dos argumentos claros del cuadro:
+
+    -   La media (18,56) da la impresión de un salario típico que **ningún empleado cobra realmente**: los que cobran menos están en 15, los que cobran más en 30, y solo la CEO está muy por encima. La mediana (15) describe honestamente lo que cobra el empleado central.
+    -   La media se ha desplazado un 8% por incorporar una sola persona; la mediana no se ha movido. Reportar la media obligaría a explicar caso a caso ese desplazamiento, mientras que la mediana ofrece una lectura estable y comparable en el tiempo.
+
+d)  El argumento del capítulo es que **la política salarial de la plantilla y la retribución de la dirección son dos fenómenos económicos distintos**. Mezclarlos en un único cálculo produce cifras que no describen a ninguno de los dos grupos con precisión. Es exactamente la aplicación del principio del capítulo 2 sobre *outliers*: cuando un caso pertenece con toda probabilidad a **otra población**, la decisión correcta no es borrar el dato ni imputarlo, sino **analizarlo por separado**.
+
+### Solución al Problema 3.8.
+
+a)  El **sector B** presenta mayor concentración. Tres lecturas convergentes:
+
+    -   El **Gini** es casi el doble (0,60 frente a 0,32).
+    -   En A, el 50% inferior acumula un 38% (relativamente cerca del 50% igualitario); en B, solo un 18% (muy lejos del igualitario).
+    -   En A, el 10% superior acumula un 21% (poco más que su "cuota igualitaria" del 10%); en B, un 46% (casi cinco veces su cuota).
+
+b)  Esquema:
+
+    -   Diagonal $y = x$: recta de equidistribución.
+    -   Curva de A: por debajo de la diagonal, próxima a ella. Pasa por $(0{,}5; 0{,}38)$ y $(0{,}9; 0{,}79)$ aproximadamente.
+    -   Curva de B: mucho más hundida. Pasa por $(0{,}5; 0{,}18)$ y $(0{,}9; 0{,}54)$ aproximadamente.
+
+    El área entre la diagonal y cada curva refleja gráficamente el Gini: mayor cuanto más hundida está la curva.
+
+c)  El **sector A** (mantenimiento orbital) presenta las características del sector maduro y competitivo: reparto relativamente equilibrado del negocio, sin líderes muy dominantes. El **sector B** (transporte interestelar general) presenta un patrón típico de **oligopolio**: unas pocas compañías (las mismas que dan lugar a la asimetría $g_1 = 4{,}03$ que vimos en el capítulo, y al 20% que acumula el 64%) concentran una fracción desproporcionada del sector, muy por encima de lo que les correspondería en una distribución equilibrada.
+
+d)  Cabe esperar que el Gini del sector B **disminuya**. La regulación *antitrust* pretende precisamente redistribuir el negocio entre más agentes, lo que aproximaría la curva de Lorenz a la diagonal y reduciría el área que mide el Gini. Es la lectura inversa del efecto CEO del apartado c) del ejercicio 3.7: si añadir un caso extremo aumentaba el Gini, forzar la desinversión de los casos extremos lo reduce.
+
+### Solución al Problema 3.9.
+
+a)  Distribución fuertemente **asimétrica a la derecha** (cola larga hacia los ingresos altos), con **curtosis altísima** ($g_2 = 22{,}5$, muy leptocúrtica: enorme concentración cerca del centro y colas muy pesadas). Un histograma de esta distribución mostraría una acumulación pronunciada en los valores bajos, con una cola larga y poblada solo por unas pocas compañías gigantes.
+
+b)  **No es honesta.** La media (218) está inflada por unas pocas compañías enormes, y no describe a "una compañía media" del sector: más del 50% de las empresas factura menos que la mediana (130 mil PAVOs), muy por debajo de la cifra del titular. Un titular alternativo más honesto sería: *"La mitad de las compañías del sector R-Stars factura menos de 130 mil PAVOs al año, aunque la media sectorial —arrastrada por unos pocos gigantes— supera los 218 mil."* Reportar la **mediana** junto a la media es la práctica estándar cuando la asimetría es importante.
+
+c)  Las tres relaciones típicas son:
+
+    -   Asimetría **positiva**: $\text{Mo} < \text{Me} < \overline{x}$.
+    -   Simetría: $\text{Mo} = \text{Me} = \overline{x}$.
+    -   Asimetría **negativa**: $\overline{x} < \text{Me} < \text{Mo}$.
+
+    En este caso, $\text{Me} = 130 < \overline{x} = 218$, orden coherente con el signo positivo de $g_1$. (La moda no se ha reportado, pero por la asimetría fuerte cabe esperar que se sitúe aún por debajo de la mediana.)
+
+d)  La afirmación remite implícitamente al **índice de Gini** (y a la **curva de Lorenz**): describe una fuerte concentración del sector en unos pocos casos, exactamente lo que Lorenz-Gini formaliza. Se relaciona directamente con el **principio de Pareto** (regla 80-20), reencontrado en Contabilidad de costes (análisis ABC de inventarios), en Marketing (cuentas clave) y en Producción (defectos críticos). El sector R-Stars no llega al 80-20 clásico (harían falta el 35% de las compañías para alcanzar el 80% de la facturación), pero se comporta según la misma lógica.
+
+### Solución al Problema 3.10.
+
+a)  En sentido **tradicional** (variabilidad de la rentabilidad, medida por $S$), sí: ambos activos tienen la misma media y la misma desviación típica, es decir, la misma "amplitud media" de las variaciones. En sentido **moderno** (riesgo de cola), **no**: la curtosis mucho mayor del activo B indica que los movimientos verdaderamente extremos —caídas del $-15\%$, $-20\%$, $-25\%$ o mayores— son mucho más probables en B que en A.
+
+b)  Que $g_2 = 5$ significa que la distribución de B es **leptocúrtica pronunciada**: en comparación con una normal, la campana está más apuntada (más masa de probabilidad concentrada cerca de la media) y las colas son mucho más pesadas (los rendimientos extremos ocurren con más frecuencia). Con la misma dispersión "media" que A, B produce muchas rentabilidades pequeñas alrededor del 0,8% y, de vez en cuando, rentabilidades muy extremas —tanto positivas como negativas— que en A serían prácticamente imposibles.
+
+c)  El activo A —con curtosis 0, comportamiento próximo a la normal— correspondería a una **compañía consolidada** como *Hyperdrive Express*: rentabilidades relativamente predecibles, sin sorpresas espectaculares. El activo B —con colas pesadas— sería típico de una **compañía innovadora** recién listada: la mayoría de los meses el rendimiento es tranquilo, pero cualquier noticia (una patente concedida, un fracaso técnico) puede desatar movimientos extremos. Es el clásico perfil de las *startups* en un sector técnicamente disruptivo.
+
+d)  Se equivoca porque la media y la $S$ no capturan la **forma completa** de la distribución. Un fondo de pensiones con horizonte largo y bajo apetito por sorpresas debería preferir A; un especulador dispuesto a asumir riesgo extremo a cambio de participar en eventos raros pero muy rentables podría preferir B. La misma media y la misma $S$ son perfectamente compatibles con perfiles de riesgo muy distintos: el detalle está en la **cuarta letra del alfabeto descriptivo**, la curtosis.
+
+### Solución al Problema 3.11.
+
+a)  Z-scores:
+
+    -   Candidato A: $z_A = (22 - 17{,}20)/5{,}96 \approx 0{,}81$.
+    -   Candidato B: $z_B = (45 - 32)/18 \approx 0{,}72$.
+
+b)  El **candidato A** ocupa una posición relativa **ligeramente mejor** dentro de su grupo de comparación (0,81 desviaciones típicas por encima de la media, frente a 0,72 del candidato B). La diferencia es pequeña, pero la comparación en términos absolutos ($22$ frente a $45$) sería completamente engañosa: ambas cifras están medidas en variables y unidades distintas.
+
+c)  Comparar el salario absoluto de A (22 cientos de PAVOs) con la facturación absoluta de B (45 miles de PAVOs) carecería de sentido: son variables medidas en escalas distintas y con significados distintos. El z-score, al ser **adimensional**, convierte cualquier cifra en "cuántas desviaciones típicas se aparta de la media de su grupo", y ese sí es un lenguaje común que permite compararlas.
+
+d)  Aproximación con la regla empírica: en una normal, $z = 0{,}81$ corresponde al percentil $\approx 79$ y $z = 0{,}72$ al percentil $\approx 76$. Ambos candidatos están dentro del cuartil superior de sus respectivos grupos, pero A supera aproximadamente al 79% de su plantilla mientras que B supera al 76% de su departamento. La diferencia es pequeña; la decisión final debería incorporar criterios cualitativos adicionales, no basarse solo en el z-score.
+
+### Solución al Problema 3.12.
+
+a)  Se cumple $\text{Mo} = 40 < \text{Me} = 42 < \overline{x} = 45$: el orden típico de la **asimetría positiva**. Es coherente con $g_1 = 0{,}45 > 0$ (asimetría positiva leve, según el criterio orientativo del capítulo). En cuanto a la curtosis, $g_2 = -0{,}20$ indica una distribución muy ligeramente **platicúrtica**: el pico central está algo más aplanado que el de una normal, pero muy cerca de la mesocurtosis.
+
+b)  Umbrales de Tukey: $Q_1 - 1{,}5\cdot\text{IQR} = 39 - 18 = 21$; $Q_3 + 1{,}5\cdot\text{IQR} = 51 + 18 = 69$. El **mínimo observado** es 25 (por encima de 21) y el **máximo** es 68 (por debajo de 69). **Ningún** valor cae fuera de los umbrales: no hay *outliers* según la regla del box-plot.
+
+c)  $V = 17{,}8\%$: una dispersión relativa **moderada-baja**. La media es una síntesis **razonablemente representativa** de la variable, aunque no ideal. Reportarla debe ir acompañado, como buena práctica, de la mediana (42) y de la desviación típica (8), para dar la imagen completa.
+
+d)  Intervalo aproximado del 95%: $\overline{x} \pm 2S = 45 \pm 16 = [29, 61]$. Es consistente con el mínimo (25) y el máximo (68), aunque estos quedan algo fuera del intervalo, lo cual es de esperar: la regla dice "aproximadamente 95%", no "todos". Los dos valores fuera del intervalo (25 y 68) son perfectamente compatibles con una muestra de 250 casos de una distribución cuasi-normal, y de hecho no son *outliers* según el apartado b).
+
+e)  Un esquema razonable a mano alzada:
+
+    -   Pico centrado en $\approx 40$ (la moda).
+    -   Ligeramente extendido hacia la derecha (asimetría positiva leve).
+    -   Colas moderadas: el mínimo (25) y el máximo (68) están cerca de $\overline{x} \pm 2{,}5\,S$.
+    -   Pico ligeramente aplanado (platicurtosis leve, casi imperceptible).
+
+    Es una distribución "razonablemente normal, con un poco de cola a la derecha".
+
+### Solución al Problema 3.13.
+
+a)  Por definición, los cuartiles cumplen $Q_1 \le \text{Me} \le Q_3$: la mediana **no puede ser inferior al primer cuartil**. Que $\text{Me} = 15$ y $Q_1 = 18$ implicaría que el 50% de la plantilla cobra 15 o menos, pero simultáneamente que el 25% cobra 18 o menos; lógicamente imposible. Ya solo con esa contradicción, el informe es descartable sin más lectura.
+
+b)  Con media 22 y desviación típica 3, la regla empírica sitúa aproximadamente el 95% de los salarios en el intervalo $22 \pm 2\cdot 3 = [16, 28]$. Una **mediana de 15** quedaría **fuera** de ese intervalo, lo cual es prácticamente imposible en una distribución razonablemente unimodal y campaniforme. La contradicción se refuerza: no es solo entre mediana y $Q_1$, sino entre mediana y la propia $(\overline{x}, S)$.
+
+c)  Hipótesis plausibles del error:
+
+    -   **Cifras cruzadas.** Media y mediana pueden estar intercambiadas: valores media = 15 y mediana = 22 (con $Q_1 = 18$, $Q_3 = 25$) serían internamente consistentes y sugerirían una plantilla con leve asimetría negativa.
+    -   **Decimales o unidades mal indicadas.** Quizá la mediana no está en cientos de PAVOs sino en otra unidad (miles, o cientos de otro periodo), o falta un cero.
+    -   **Mediana calculada sobre un subgrupo distinto** (por ejemplo, solo el personal de almacén, o solo empleados con contrato temporal), reportada por error como mediana global.
+    -   **Fichero mal depurado.** Si hay valores negativos, códigos de missing tratados como cifras válidas, o duplicaciones, cualquier cálculo posterior arrastra el error. Es exactamente el escenario que motivaba las precauciones del capítulo 2.
+
+d)  Pruebas concretas para validar el informe:
+
+    -   El **fichero original** de nóminas (o al menos, la muestra sobre la que se calcularon los estadísticos), para poder recalcular las medidas de forma independiente.
+    -   El **diccionario de datos** correspondiente (con unidades, rango válido, definición de la variable "salario" —¿bruto, neto, con o sin variables?).
+    -   El **valor mínimo y el máximo** observados y el **tamaño de muestra** $N$: sirven de test de coherencia adicional.
+    -   La **fecha de corte** y la **población de referencia** exacta (¿toda la plantilla?, ¿solo indefinidos?, ¿solo cierto departamento?).
+    -   Si es factible, la **distribución de frecuencias completa** o el **histograma**: cualquier discrepancia interna se detecta a simple vista.
+
+    Y una recomendación de fondo: en un informe que va a la ARTI, cualquier resumen descriptivo debería acompañarse de las cifras que permitan **auditarlo internamente** (mínimo, máximo, $N$, $Q_1$, mediana, $Q_3$, media y $S$) precisamente para hacer imposibles errores tan gruesos como este.
