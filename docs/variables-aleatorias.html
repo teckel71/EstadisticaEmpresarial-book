@@ -900,7 +900,7 @@ ANTIGUA
 </h2>
 <p>Todo lo visto hasta ahora es matemática pura. Pero, en la práctica del día a día del analista, muchas veces basta con <strong>simular</strong> la variable aleatoria en el ordenador: pedirle a R que “invente” miles de realizaciones plausibles del experimento y estudiar sus propiedades de forma empírica. Es la manera moderna, potentísima y bastante lúdica de trabajar con variables aleatorias.</p>
 <p>R proporciona funciones estándar para simular las distribuciones más habituales. Por ejemplo, el fragmento siguiente simula <span class="math inline">\(10\,000\)</span> noches de <em>arrakis freight</em> (con tres despachos por noche, cada uno con probabilidad de éxito <span class="math inline">\(0{,}5\)</span>) y compara la frecuencia empírica de cada resultado con la probabilidad teórica:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span></span>
 <span><span class="va">n_sim</span> <span class="op">&lt;-</span> <span class="fl">10000</span></span>
 <span><span class="va">xi_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="va">n_sim</span>, size <span class="op">=</span> <span class="fl">3</span>, prob <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
@@ -1029,7 +1029,7 @@ ANTIGUA
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-23.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

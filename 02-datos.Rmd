@@ -744,3 +744,395 @@ En este capítulo hemos hecho el recorrido completo desde que los datos "no exis
 -   Hemos cerrado con las **implicaciones éticas y legales** del trabajo con datos, especialmente el RGPD y el secreto estadístico.
 
 A partir de aquí podemos empezar a **resumir** los datos con las medidas de posición, dispersión, forma y concentración. Ese es el objeto del próximo capítulo, en el que *Hyperdrive Express* volverá a acompañarnos.
+
+## Problemas propuestos. {#problemas-cap02}
+
+Este capítulo trata de **criterio profesional** más que de aritmética. Los ejercicios que siguen son, en su mayoría, casos y escenarios en los que hay que **diagnosticar** (qué tipo de fuente, qué método de muestreo, qué clase de valor perdido) y **decidir** (qué tratamiento, qué reformulación, qué salvaguarda). Aparecen dos ejercicios con cuentas menores (imputación y regla del IQR) para aterrizar los conceptos numéricamente; el resto se resuelve pensando. Todas las soluciones detalladas se recogen al final del capítulo.
+
+### Problema 2.1. Primario o secundario, esa es la cuestión.
+
+**Sagan Olbers** prepara un dossier para la próxima reunión del comité de la Base de Datos Interestelar y quiere clasificar bien de dónde viene cada pieza de información que planea incluir. Para cada una de las siguientes fuentes, indica si se trata —**desde el punto de vista de la Base de Datos Interestelar**— de una **fuente primaria** o de una **fuente secundaria**, y justifícalo brevemente:
+
+a)  El fichero interno de nóminas de *Shuttlepod Movers*, cedido bajo convenio a la AITM.
+b)  Los indicadores agregados publicados por la *Federación de Rutas Espaciales de Andrómeda*.
+c)  Una encuesta que la propia AITM ha diseñado y aplicado a los pilotos de largo recorrido para medir su percepción de las nuevas rutas de la Nube de Magallanes.
+d)  Los datos del **Índice de Digitalización Sectorial** que la revista *Interstellar Weekly* publica cada semestre a partir de balances públicos.
+e)  Las lecturas del sensor de consumo de especia que la nave *Iron Sovereign* transmite en tiempo real a la sede de *Arrakis Freight*, extraídas por la AITM mediante API.
+
+### Problema 2.2. Elegir el sistema de obtención.
+
+Para cada uno de los siguientes escenarios, indica cuál es el sistema de obtención de datos **más adecuado** —descarga directa, API, *web scraping* o conexión SQL a base de datos interna— y justifica en una o dos líneas por qué:
+
+a)  El equipo de *business intelligence* de *Hyperdrive Express* necesita el salario medio mensual por departamento, **actualizado a diario**, sobre una plantilla de 60 empleados almacenada en su ERP corporativo.
+b)  Un analista de la ARTI quiere descargar, **una vez al año**, la última versión del fichero público `interestelar_300.xlsx` que la AITM publica en su web.
+c)  Un consultor quiere comparar los precios de recambios para cargueros en las tres principales tiendas de la Vía Láctea. Las tres tienen web pero **no publican los precios en fichero ni ofrecen API**.
+d)  La *Federación de Rutas Espaciales de Andrómeda* alimenta un cuadro de mando en vivo que necesita las cotizaciones **diarias** del melangium en el mercado de Arrakis. Existe una API oficial que devuelve el precio en JSON.
+e)  Una investigadora de la Universidad de Arrakis prepara un estudio histórico sobre la evolución del PIB galáctico durante los últimos veinte años. La AITM publica los datos en un fichero XLSX que **no se ha actualizado desde hace un año**.
+
+### Problema 2.3. Un CSV problemático.
+
+Un becario de la ARTI descarga el fichero `flotas_2210.csv` del portal de datos abiertos del sector. En R lo abre con:
+
+```{r csv-becario, echo=TRUE, eval=FALSE}
+flotas <- read.csv("flotas_2210.csv")
+```
+
+Al inspeccionar el resultado observa que:
+
+-   El fichero tiene **una única columna** que agrupa todas las variables juntas en cada fila.
+-   Cuando lo abre en un editor de texto, ve que los valores están separados por **punto y coma** y los decimales aparecen con **coma** (`3,14`, no `3.14`).
+-   Las letras acentuadas como *á* o *ñ* aparecen como caracteres extraños: `Ã¡`, `Ã±`.
+
+Se pide:
+
+a)  ¿Qué **tres problemas técnicos** concretos ha encontrado el becario, y cómo se llaman en la jerga habitual del intercambio de ficheros?
+b)  ¿Qué función alternativa de R debería haber usado para leer bien el fichero por lo del separador y el decimal? Explica en una línea por qué esa función lo resuelve.
+c)  ¿Qué parámetro adicional habría que fijar para resolver el tercer problema (los caracteres extraños)?
+d)  ¿Qué moraleja general extraes sobre la lectura de ficheros CSV?
+
+### Problema 2.4. Diccionario de datos por reconstruir.
+
+Al llegar el nuevo becario al equipo de la ARTI, **Mara Qyà** le entrega un fichero llamado `flota_incidencias.xlsx` con seis columnas: `ID_NAVE`, `AST`, `ANIOP`, `ROUTE_KM`, `IIG` y `ESTADO`. El fichero **no viene acompañado de ningún diccionario**. Tras dos horas intentando descifrar los datos, el becario decide construirlo él mismo.
+
+Se sabe que las variables corresponden, respectivamente, al **identificador único de la nave**, al **astillero constructor** (uno de los tres grandes), al **año de puesta en servicio**, al **kilometraje intergaláctico acumulado**, al **Índice de Incidencias Graves** y al **estado operativo actual** (Activa, En reparación o Retirada).
+
+Se pide:
+
+a)  ¿Por qué la ausencia del diccionario de datos es un problema serio, más allá de la incomodidad para el becario? Da al menos tres razones.
+b)  Construye una **tabla de diccionario de datos** con los siete campos que se han presentado en el capítulo (nombre técnico, descripción, unidad o categorías, tipo, rango válido, fuente y fecha de última actualización). Puedes inventar los valores que no se te den, siempre que sean razonables.
+c)  ¿Qué campo del diccionario protege específicamente contra el error clásico de teclear `220` en lugar de `22`? Explica cómo.
+
+### Problema 2.5. Los cargueros que vuelven.
+
+Un directivo de la aseguradora *Galactic Casualty & Loss* revisa los partes de siniestralidad de los cargueros que atraviesan la zona de piratería de **Klendathu** y comprueba que la mayor parte de las naves que han **sobrevivido** a un incidente presenta daños importantes en las **secciones exteriores de las bodegas de carga** y en el **estabilizador de estribor**. Casi ninguna reporta daños en el **puente de mando** ni en el **núcleo de propulsión**. El directivo, satisfecho, propone reforzar el blindaje de las bodegas y del estabilizador de estribor.
+
+Se pide:
+
+a)  ¿Qué **error metodológico clásico** está cometiendo el directivo? Nómbralo.
+b)  Explica el razonamiento correcto: ¿dónde debería reforzar el blindaje y por qué?
+c)  Cita al menos dos ejemplos económico-empresariales (fuera del contexto R-Stars) donde este mismo tipo de sesgo se manifiesta y produce recomendaciones equivocadas.
+
+### Problema 2.6. El *Interstellar Digest* del año galáctico 2136.
+
+En 2136, la revista *Interstellar Digest* quiso predecir el resultado de la elección para presidente del **Consejo Galáctico**. Para ello envió **doce millones** de cuestionarios a suscriptores de la propia revista, propietarios de nave privada y miembros de la *Asociación de Comerciantes Intergalácticos*, recibiendo respuesta de **tres millones y medio**. En paralelo, un joven estadístico de la Universidad de Arrakis, el **Dr. Kepler-9**, entrevistó a **80 000** votantes seleccionados con criterio de representatividad por galaxia, ocupación y nivel de renta.
+
+-   *Interstellar Digest* pronosticó una victoria arrolladora del **candidato liberal** (63% de los votos).
+-   El Dr. Kepler-9 pronosticó una victoria ajustada del **candidato progresista** (52% de los votos).
+
+Ganó el candidato progresista.
+
+Se pide:
+
+a)  ¿Cómo puede una muestra 44 veces más pequeña acertar donde falla una muestra masiva?
+b)  ¿Qué tipo específico de sesgo sufre la muestra del *Interstellar Digest*?
+c)  ¿Cuál es la moraleja de este caso para cualquier futuro directivo del sector R-Stars?
+
+### Problema 2.7. Elegir el tipo de muestreo.
+
+Para cada uno de los siguientes escenarios de recogida de datos en el sector R-Stars, indica cuál sería el tipo de muestreo más adecuado (aleatorio simple, sistemático, estratificado, por conglomerados, polietápico, o alguno de los no probabilísticos), y justifica en una o dos líneas la elección:
+
+a)  La AITM quiere estimar la satisfacción laboral de los pilotos activos de todo el sector, garantizando que estén representados los pilotos de las cinco galaxias **en proporción** al número de pilotos que operan en cada una.
+b)  Un equipo de investigación de la Universidad de Arrakis quiere estudiar el nivel de ruido en los puentes de mando de los cargueros de la clase *Hyperion*. Existe la **lista completa y actualizada** de las 340 naves de esa clase.
+c)  **Xelia Bluebird** quiere hacer una prueba piloto **rápida y muy barata** de un nuevo cuestionario sobre digitalización antes de aplicarlo formalmente al sector, y solo necesita saber si las preguntas se entienden bien.
+d)  Se desea entrevistar a **contrabandistas activos** de melangium en el sistema de Klendathu, un colectivo por definición poco dispuesto a facilitar su localización.
+e)  La *Federación de Rutas Espaciales de Andrómeda* organiza una encuesta a hogares del sector residencial de Tatooine. **No existe** un listado individualizado de hogares, pero sí un censo detallado de todos los edificios residenciales.
+
+### Problema 2.8. Cuestionario a revisión.
+
+La AITM se plantea enviar el siguiente borrador de encuesta a los pilotos del sector para medir su satisfacción laboral:
+
+> **1.** ¿Está usted de acuerdo con la excelente política laboral del sector R-Stars?
+>
+> **2.** ¿Le parece adecuada la retribución y el trato personal que recibe en su compañía?
+>
+> **3.** Valore de 1 a 5 su satisfacción global. Valore de 1 a 7 el ambiente en la tripulación. Valore de 0 a 10 la calidad de las instalaciones de descanso.
+>
+> **4.** ¿Está usted a favor de la desregulación asimétrica del hipercomercio interplanetario aplicada al régimen fiscal de la especia?
+>
+> **5.** Sexo. Edad. Galaxia de nacimiento. Renta bruta anual.
+>
+> **6.** ¿No es cierto que las nuevas rutas hacia la Pequeña Nube de Magallanes son peligrosas?
+
+Se pide:
+
+a)  Identifica los **defectos** concretos de cada pregunta a la luz de los principios de diseño de cuestionarios revisados en el capítulo.
+b)  Propón una **reformulación** adecuada para cada una.
+c)  ¿Qué recomendaciones darías sobre el **orden** de las preguntas en el cuestionario definitivo?
+
+### Problema 2.9. Elegir el método de encuestación.
+
+Para cada uno de estos escenarios, indica qué **método de encuestación** (PAPI, CATI, CAPI, CAWI o panel) sería el más adecuado y justifica brevemente por qué:
+
+a)  La *Federación de Rutas Espaciales de Andrómeda* quiere hacer una encuesta rápida y **barata** a nivel intergaláctico sobre percepción del sector, sin exigencias muy estrictas de representatividad.
+b)  La ARTI quiere seguir **mensualmente durante dos años** cómo evoluciona la percepción sobre la seguridad de las rutas entre un grupo estable de 500 pilotos de largo recorrido.
+c)  Un estudio para el Gobierno de Tatooine sobre pobreza infantil en **asentamientos remotos**, donde el acceso a internet es prácticamente nulo y el idioma vernáculo se pierde al escribir.
+d)  Un sondeo **urgente** para la CEO de *Kaiju Haulage Co.* sobre la reacción de sus clientes ante una subida de tarifas anunciada esa misma mañana. Los datos se necesitan al día siguiente.
+e)  Un estudio sobre condiciones laborales en los astilleros orbitales, en el que se aprovecha la **visita presencial** del encuestador para verificar sobre el terreno el estado de las instalaciones.
+
+### Problema 2.10. Diagnóstico de valores perdidos.
+
+Para cada una de las siguientes situaciones, identifica el tipo de valor perdido (**MCAR**, **MAR** o **MNAR**) y propón la estrategia de tratamiento más razonable:
+
+a)  En un fichero de plantilla, faltan **al azar** 3 registros del año de nacimiento por errores del sistema al migrar de un ERP a otro.
+b)  En una encuesta a pilotos, la variable *"número de infracciones cometidas en los últimos 12 meses"* está en blanco para el **24%** de los encuestados. El resto ha declarado, en promedio, 0,4 infracciones anuales.
+c)  En un fichero de RR.HH., el nivel de estudios está ausente para el **40%** de los trabajadores del departamento de Almacén, mientras que solo falta para el **2%** del departamento de Dirección.
+d)  Un sensor de consumo de especia en los cargueros de *Arrakis Freight* tiene una avería aleatoria: aproximadamente el 5% de las lecturas se registran como `-99` (valor de error del propio sensor).
+e)  En una encuesta sobre satisfacción de clientes corporativos, el **30%** no ha respondido a la pregunta *"¿ha considerado cambiar de proveedor?"*.
+
+### Problema 2.11. Imputar por la media o por la mediana.
+
+En un fichero con 10 empleados de una compañía, los salarios anuales (en cientos de PAVOs) son:
+
+$$12,\ 14,\ 15,\ 15,\ 16,\ 18,\ 18,\ 20,\ 22,\ \text{NA}$$
+
+El salario del último trabajador **no está registrado** por un error administrativo. Se pide:
+
+a)  Calcula la **media** y la **mediana** de los 9 salarios observados.
+b)  ¿Qué valor asignarías al salario faltante si aplicaras **imputación por la media**? ¿Y **por la mediana**? En este ejemplo, ¿qué diferencia hay entre ambas imputaciones?
+c)  Supón ahora que el décimo valor observado, en lugar de `NA`, fuera **75** (el salario del CEO, incluido por error en el fichero de operarios). Vuelve a calcular la media y la mediana. ¿Cuál de las dos se ha visto más afectada por la presencia del *outlier*? ¿Qué recomiendas hacer con el fichero?
+d)  ¿Qué **gran limitación** —comentada en el capítulo— tiene la imputación por una estimación puntual, que ni la media ni la mediana resuelven?
+
+### Problema 2.12. *Outliers* con la regla del IQR.
+
+*Kaiju Haulage Co.* tiene 12 cargueros en su flota. El Índice de Incidencias Graves (IIG) de cada uno, ordenado, es:
+
+$$1,\ 1,\ 2,\ 2,\ 3,\ 3,\ 3,\ 4,\ 4,\ 5,\ 6,\ 35$$
+
+Se pide:
+
+a)  Calcula el primer y el tercer cuartil, $Q_1$ y $Q_3$, y el recorrido intercuartílico $\text{IQR}$.
+b)  Aplica la **regla del IQR** para determinar los umbrales por encima y por debajo de los cuales un valor se considera atípico.
+c)  ¿Cuántos *outliers* hay en la flota según esta regla? Identifícalos.
+d)  Antes de decidir borrar el dato del carguero atípico, ¿qué **comprobaciones concretas** debería hacer **Oren Crestfall** antes de tocar nada?
+e)  ¿Cuál de las tres explicaciones típicas de un *outlier* (error de codificación, caso legítimo excepcional, individuo de otra población) te parece más plausible en este caso, y por qué?
+
+### Problema 2.13. Un dilema ético en la ARTI.
+
+El departamento de análisis de **Mara Qyà** recibe una petición interna: preparar un informe con los **salarios individuales** de los 25 CEOs del sector R-Stars, sus **direcciones personales** y una **valoración cualitativa** del "riesgo reputacional" de cada uno. La petición viene firmada por el director de comunicación de la agencia, que quiere usarla para una campaña de imagen de la ARTI en las próximas semanas.
+
+Se pide:
+
+a)  A la luz de los principios del **RGPD** y del **secreto estadístico** revisados en el capítulo, ¿qué problemas concretos presenta esta petición? Menciona al menos **tres** principios que se estarían vulnerando.
+b)  ¿Puede la ARTI publicar el **salario medio** de los CEOs del sector? ¿Y su **distribución en cinco tramos**? Justifica.
+c)  ¿Qué relación tiene esta situación con el problema del **sesgo algorítmico**? ¿Podría un modelo entrenado con esta información inducir a decisiones discriminatorias?
+d)  ¿Cómo debería responder formalmente Mara Qyà a la petición?
+
+## Soluciones a los problemas propuestos. {#soluciones-cap02}
+
+### Solución al Problema 2.1.
+
+a)  **Secundaria.** La AITM no ha recogido los datos: los ha recibido de un tercero (*Shuttlepod Movers*) ya construidos. Que la cesión sea legítima y bajo convenio no cambia el origen de la información.
+b)  **Secundaria.** La *Federación* es un tercero que publica indicadores ya elaborados.
+c)  **Primaria.** La AITM diseña, aplica y recoge la encuesta directamente. Es información construida por el propio analista.
+d)  **Secundaria.** La AITM se limita a leer los datos que otro (la revista *Interstellar Weekly*) ha calculado y publicado. Aunque los balances de partida sean públicos, el *Índice de Digitalización* es una elaboración editorial.
+e)  **Primaria**, con matices. La lectura procede directamente del individuo (la nave) y llega a la AITM sin intermediarios editoriales. Que el canal sea una API no cambia la naturaleza primaria de la medición: la API es solo el vehículo. Podría argumentarse que es "secundaria de *Arrakis Freight*" en la medida en que la AITM depende de que la compañía transmita los datos, pero desde el punto de vista de la Base de Datos Interestelar, es la fuente **más cercana al fenómeno**.
+
+Este apartado ilustra una idea importante: **primario o secundario no es una etiqueta absoluta**, sino relativa al analista que trabaja con los datos. Un mismo fichero puede ser primario para quien lo construyó y secundario para quien lo utiliza después.
+
+### Solución al Problema 2.2.
+
+a)  **Conexión SQL** a la base interna (ERP). Es información propia de la compañía, con actualización diaria y agregaciones estándar. Descargar el fichero completo cada día sería absurdo pudiendo lanzar una consulta que devuelva solo el resultado agregado.
+b)  **Descarga directa.** Fichero público, actualización anual, no requiere ninguna infraestructura. Escenario canónico para descarga manual.
+c)  **Web scraping.** No hay ni fichero ni API, y la información está en páginas web. Con las cautelas habituales: revisar términos de uso y aceptar la fragilidad del *scraper* ante rediseños.
+d)  **API.** Actualización diaria, datos estructurados en JSON, requisito de automatización. Es exactamente el nicho de las APIs.
+e)  **Descarga directa.** Aunque teóricamente podría publicarse por API, para un estudio histórico único, con un fichero XLSX que no cambia, no compensa el esfuerzo de programar contra una API. Descargar una vez, guardar y trabajar en local.
+
+### Solución al Problema 2.3.
+
+a)  Los tres problemas son los clásicos del CSV:
+
+    -   **Separador de campos incorrecto.** El fichero usa punto y coma (`;`), pero `read.csv` (por defecto) espera coma (`,`). Por eso todo el contenido queda apelotonado en una sola columna.
+    -   **Marca decimal incorrecta.** El fichero usa la coma como separador decimal (convenio español), pero `read.csv` espera punto (convenio anglosajón).
+    -   **Codificación de caracteres incorrecta.** El fichero está probablemente en **Latin-1** o **Windows-1252**, y `read.csv` lo lee como si fuera **UTF-8**. El resultado son caracteres "mojibake" (`Ã¡` donde debería ir `á`).
+
+b)  **`read.csv2()`**. Es la función pensada para el "CSV español": separador `;` y marca decimal `,`. Los dos primeros problemas se resuelven de un plumazo.
+
+c)  El parámetro **`fileEncoding = "Latin1"`** (o `"windows-1252"`, según el origen). Ejemplo:
+
+    ```{r csv-solucion, echo=TRUE, eval=FALSE}
+    flotas <- read.csv2("flotas_2210.csv", fileEncoding = "Latin1")
+    ```
+
+d)  Moraleja: **ningún CSV es "el CSV"**. Antes de abrirlo con la primera función que suene bien, hay que inspeccionarlo con un editor de texto y confirmar tres cosas: qué **separador** usa, qué **marca decimal** y en qué **codificación** está guardado. Cinco minutos de inspección ahorran una tarde entera de resultados sin sentido.
+
+### Solución al Problema 2.4.
+
+a)  Razones por las que la ausencia del diccionario es un problema serio:
+
+    -   **Impide interpretar correctamente los datos.** Nada garantiza que `AST` sea el astillero constructor: podría ser la aseguradora, la asignación operativa, etc. La probabilidad de malinterpretar una variable y publicar cifras falsas es alta.
+    -   **Impide validar los datos.** Sin conocer el rango válido de `IIG`, no puede saltar la alarma cuando aparezca un 35 sospechoso.
+    -   **Compromete la reproducibilidad.** Cualquier otro analista que herede el fichero necesitará repetir las dos horas del becario, o peor, se las saltará y publicará algo distinto.
+    -   **Hace la auditoría imposible.** Si mañana un directivo pregunta "¿de dónde salieron estos números?", nadie podrá contestar con precisión.
+
+    La regla del sector es *"si no está documentado, no existe"*.
+
+b)  Diccionario propuesto:
+
+    | Nombre | Descripción | Unidad / Categorías | Tipo | Rango válido | Fuente | Última actualización |
+    |:---|:---|:---|:---|:---|:---|:---|
+    | `ID_NAVE` | Identificador único de la nave | Cadena alfanumérica | Texto | Sin restricción | Registro AITM | 30/06/2210 |
+    | `AST` | Astillero constructor | KORRIGAN / SELENE / ARCTURUS | Factor nominal | Uno de esos tres | Registro AITM | 30/06/2210 |
+    | `ANIOP` | Año galáctico de puesta en servicio | Año | Entero | 2150-2210 | Registro AITM | 30/06/2210 |
+    | `ROUTE_KM` | Kilometraje intergaláctico acumulado | Millones de km | Numérico | $\geq 0$ | Registro operativo de la compañía | 30/06/2210 |
+    | `IIG` | Índice de Incidencias Graves | Nº de averías mayores acumuladas | Entero | 0-50 | Registro de incidencias AITM | 30/06/2210 |
+    | `ESTADO` | Estado operativo actual de la nave | Activa / En reparación / Retirada | Factor | Uno de esos tres | Registro AITM | 30/06/2210 |
+
+c)  El campo **"Rango válido"**. Si el diccionario declara que `IIG` va de 0 a 50, cualquier valor por encima disparará una alerta automática antes de contaminar el análisis. Es un uso **operativo**, no meramente descriptivo, del diccionario: sirve para validar los datos en la entrada, no solo para documentarlos a posteriori.
+
+### Solución al Problema 2.5.
+
+a)  El directivo comete un **sesgo de supervivencia** (*survivorship bias*). Está analizando solo las naves que **han vuelto** del ataque pirata, cuando la muestra realmente relevante debería incluir también a las que **no volvieron** (fueron destruidas o capturadas).
+
+b)  El razonamiento correcto es el de Wald (bombarderos de 1943, salvando galaxias): las naves que muestran daños en bodegas y estabilizador **han vuelto precisamente porque** los daños en esas zonas no son mortales. Las que no vuelven son las que reciben impactos en puente de mando y núcleo de propulsión: por eso no hay partes de siniestralidad con daños en esas zonas. El blindaje adicional debe reforzar precisamente el **puente de mando** y el **núcleo de propulsión**, no las bodegas.
+
+c)  Ejemplos empresariales del mismo sesgo:
+
+    -   **Rentabilidad de fondos de inversión.** Los rankings a 10 años suelen calcularse solo con los fondos que **siguen operativos hoy**. Los que quebraron o se cerraron por bajo rendimiento se excluyen, inflando artificialmente la rentabilidad "media" del sector.
+    -   **Estrategias empresariales exitosas.** Los libros de negocios estudian las estrategias de las empresas líderes actuales e infieren de ellas las claves del éxito, ignorando que otras empresas aplicaron exactamente las mismas estrategias y no sobrevivieron. La correlación observada no es entre estrategia y éxito, sino entre estrategia y **haber sobrevivido**.
+    -   **Encuestas a millonarios sobre "cómo se hicieron ricos".** Los ricos actuales cuentan sus decisiones acertadas; los que tomaron esas mismas decisiones y perdieron todo no aparecen en la muestra.
+
+### Solución al Problema 2.6.
+
+a)  Una muestra 44 veces menor puede acertar donde falla una masiva si —como en este caso— la masiva está **sistemáticamente sesgada** y la pequeña está **cuidadosamente diseñada**. Los tres canales del *Interstellar Digest* (suscriptores de una revista de prestigio, propietarios de nave privada, miembros de una asociación de comerciantes intergalácticos) son todos ellos indicadores de **clase social alta** en el año 2136. Se ha entrevistado a los votantes más ricos del sector, no a un espejo del electorado. La muestra del Dr. Kepler-9, aunque mucho más pequeña, ha sido diseñada para reproducir la **estructura de la población** por galaxia, ocupación y renta.
+
+b)  Sesgo de **cobertura** (o de **marco muestral**): el marco desde el que se extrae la muestra no representa a toda la población de interés. A esto se suma un sesgo secundario de **autoselección**: solo el 29% de los cuestionarios enviados fueron devueltos, y quienes se molestan en responder tampoco son un grupo cualquiera.
+
+c)  Moraleja: **el tamaño no compensa el sesgo**. Una muestra bien diseñada de tamaño moderado bate a una muestra masiva mal diseñada. En términos de gestión: es preferible invertir en un **buen diseño metodológico** que en recolectar cada vez más datos por defecto. Y una advertencia particularmente actual en el sector R-Stars: cuando hoy hablamos de *big data*, esta lección **no ha caducado en absoluto**; simplemente los sesgos se hacen aún más difíciles de detectar porque las muestras son enormes.
+
+### Solución al Problema 2.7.
+
+a)  **Estratificado**, con las cinco galaxias como estratos y muestreo aleatorio dentro de cada uno. Garantiza que la estructura muestral reproduzca la de la población en la variable de estratificación (proporción de pilotos por galaxia).
+b)  **Aleatorio simple**. La población (340 naves) es pequeña y hay marco muestral completo. Es el escenario canónico del aleatorio simple.
+c)  **De conveniencia** (no probabilístico). Para una prueba piloto orientada a comprobar la comprensión de las preguntas no se necesita representatividad; se necesita rapidez y coste bajo. El uso profesional posterior sí requerirá un muestreo probabilístico.
+d)  **Bola de nieve**. Poblaciones ocultas o de difícil localización (contrabandistas activos) rara vez son accesibles por métodos probabilísticos. Cada entrevistado sugiere al siguiente. Se acepta la falta de representatividad como coste de acceder a la información.
+e)  **Por conglomerados** (edificios como conglomerados de hogares), o **polietápico** si además se estratifica por barrios de Tatooine. Es exactamente el caso en el que no hay marco individual pero sí marco de conglomerados.
+
+### Solución al Problema 2.8.
+
+a)  y b) Defectos y reformulación pregunta a pregunta:
+
+<!-- -->
+
+1.  *"¿Está usted de acuerdo con la **excelente** política laboral del sector R-Stars?"* → Pregunta **cargada**: contiene la valoración positiva ("excelente") en el enunciado, condicionando la respuesta.
+
+    **Reformulación:** *"¿Cómo valora la política laboral del sector R-Stars? Muy mala / Mala / Regular / Buena / Muy buena."*
+
+2.  *"¿Le parece adecuada la retribución **y** el trato personal que recibe en su compañía?"* → **Dos asuntos en una sola pregunta**, que pueden ir en sentidos opuestos.
+
+    **Reformulación:** separar en dos preguntas independientes, una para retribución y otra para trato personal.
+
+3.  Tres preguntas de valoración con **escalas distintas** (1-5, 1-7, 0-10). El cambio de escala en mitad del cuestionario multiplica los errores de respuesta.
+
+    **Reformulación:** unificar la escala en las tres valoraciones (por ejemplo, todas de 1 a 5).
+
+4.  *"¿Está usted a favor de la desregulación asimétrica del hipercomercio interplanetario aplicada al régimen fiscal de la especia?"* → **Falta de claridad**: vocabulario técnico incomprensible para la mayor parte de los pilotos.
+
+    **Reformulación:** o se elimina, o se traduce a lenguaje accesible ("¿Cree que las tasas al comercio de especia deberían ser distintas según la galaxia?").
+
+5.  *"Sexo. Edad. Galaxia de nacimiento. Renta bruta anual."* → **Preguntas sociodemográficas al principio**; deberían ir al **final**. Además, "renta bruta anual" es especialmente sensible y no debería preguntarse a bocajarro: conviene ofrecer tramos ("de 0 a 20 000 PAVOs / de 20 000 a 40 000 / ...") en lugar de pedir la cifra exacta.
+
+6.  *"¿No es cierto que las nuevas rutas hacia la Pequeña Nube de Magallanes son peligrosas?"* → **Doble negación** con la respuesta prácticamente implícita. La formulación empuja al "sí".
+
+    **Reformulación:** *"¿Cómo percibe la seguridad de las nuevas rutas hacia la Pequeña Nube de Magallanes? Muy segura / Segura / Regular / Insegura / Muy insegura."*
+
+<!-- -->
+
+c)  Recomendaciones sobre el **orden**:
+
+    -   Empezar con preguntas **neutras y generales** (percepción global del sector).
+    -   Continuar con las preguntas específicas sobre el trabajo y la satisfacción.
+    -   Dejar las preguntas sensibles (satisfacción con el jefe, política salarial) para la parte media-alta del cuestionario.
+    -   Terminar con las preguntas **sociodemográficas** (sexo, edad, galaxia, renta por tramos): útiles para la ponderación posterior y con menor impacto sobre la fatiga cuando ya se ha respondido lo importante.
+
+### Solución al Problema 2.9.
+
+a)  **CAWI.** Coste mínimo, alcance intergaláctico casi inmediato. Coherente con la ausencia de exigencia estricta de representatividad.
+b)  **Encuesta por panel.** Es el instrumento diseñado para seguir cambios individuales a lo largo del tiempo. Hay que tener presente que a lo largo de dos años el panelista se cansa y su comportamiento deja de ser el de un piloto medio: conviene rotar parcialmente el panel.
+c)  **PAPI.** En asentamientos remotos sin internet, con problemas de alfabetización digital y de lengua vernácula, la entrevista personal con cuestionario en papel es la única opción seria. Es caro pero es el único método viable.
+d)  **CATI.** La rapidez telefónica es imbatible cuando el resultado se necesita al día siguiente. Un CAWI podría funcionar también, pero el CATI ofrece un control mayor sobre el ritmo de respuesta.
+e)  **CAPI.** Combina la calidad de la entrevista personal (útil para verificar sobre el terreno el estado de las instalaciones) con la agilidad del registro digital. Es exactamente el escenario para el que se diseñó.
+
+### Solución al Problema 2.10.
+
+a)  **MCAR.** Error aleatorio del proceso técnico, sin relación con nada. **Estrategia:** eliminar los tres casos (si el fichero es grande) o intentar recuperar el dato en el ERP de origen. Ambas opciones son seguras.
+
+b)  **MNAR.** Los pilotos con más infracciones son también los que menos las declaran: la probabilidad de no responder depende del propio valor faltante. **Estrategia:** no hay corrección estadística que resuelva el problema sin información adicional; en el análisis debe **reportarse esta limitación abiertamente**. Cualquier cifra sobre "número medio de infracciones" que se publique estará infraestimando la realidad, y así hay que decirlo.
+
+c)  **MAR.** La probabilidad de que falte el dato depende de una variable **observable** (el departamento). **Estrategia:** imputar por subgrupos (por moda del nivel de estudios dentro de "Almacén"), o modelar la ausencia condicionada al departamento.
+
+d)  **MCAR.** La avería del sensor es aleatoria e independiente del valor del consumo. **Estrategia:** ¡lo primero, **recodificar** los `-99` como `NA` explícitos! Si se dejan como valor válido, un solo cálculo de la media convierte a los sensores averiados en los cargueros más eficientes de la flota. Una vez recodificados, cualquier técnica razonable —incluida la imputación por la media— es aceptable.
+
+e)  **MNAR** con alta probabilidad. Los clientes que "están pensando cambiar de proveedor" son los menos dispuestos a dejarlo por escrito. **Estrategia:** similar a la del caso (b); no puede resolverse sin información adicional (por ejemplo, cruzar con la evolución posterior de la relación comercial). Nuevamente, reportar la limitación en el informe es parte de la honestidad estadística mínima.
+
+### Solución al Problema 2.11.
+
+a)  Los 9 salarios observados son: 12, 14, 15, 15, 16, 18, 18, 20, 22.
+
+    -   Suma = 150. **Media** = $150/9 \approx 16{,}67$ cientos de PAVOs.
+    -   **Mediana:** con 9 datos ordenados, es el 5.º valor = **16** cientos de PAVOs.
+
+b)  Imputación por la media: NA → 16,67. Imputación por la mediana: NA → 16. La diferencia entre ambas es pequeña en este caso porque la distribución es bastante simétrica y sin *outliers*. Cualquiera de las dos es una imputación razonable.
+
+c)  Ahora los 10 salarios son: 12, 14, 15, 15, 16, 18, 18, 20, 22, **75**.
+
+    -   Suma = 225. **Media** = $225/10 = 22{,}5$ cientos de PAVOs.
+    -   **Mediana:** con 10 datos, es el promedio de las posiciones 5.ª y 6.ª = $(16 + 18)/2 = 17$ cientos de PAVOs.
+
+    La media se ha visto **radicalmente** afectada por el *outlier* (de 16,67 a 22,5: casi un 35% más). La mediana apenas se mueve (de 16 a 17). **Recomendación:** para este fichero conviene usar la **mediana** como estimador de referencia y, en caso de futuros NA, como valor de imputación; alternativamente, y aún mejor, **excluir al CEO del fichero** de operarios, porque no comparte con ellos la característica que define la población de interés. Analizar la retribución de los operarios mezclada con la del CEO es analizar dos poblaciones distintas.
+
+d)  La gran limitación es que la imputación puntual **infravalora la varianza** de la variable: todos los NA se sustituyen por un mismo valor central, lo que artificialmente **concentra** los datos alrededor de ese punto y hace que la dispersión calculada sea menor de la real. Este problema no lo resuelve ni la media ni la mediana; solo lo mitigan las imputaciones más sofisticadas (regresión, *k-NN*, imputación múltiple), que incorporan variabilidad al valor imputado.
+
+### Solución al Problema 2.12.
+
+a)  Datos ordenados: 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 6, 35. $N = 12$.
+
+    Cuartiles (por interpolación en las posiciones $0{,}25\cdot(N+1) = 3{,}25$ y $0{,}75\cdot(N+1) = 9{,}75$):
+
+    -   $Q_1 = 2 + 0{,}25 \cdot (2 - 2) = 2$.
+    -   $Q_3 = 4 + 0{,}75 \cdot (5 - 4) = 4{,}75$.
+
+    (Distintas implementaciones dan resultados ligeramente distintos; en R, `quantile()` por defecto da valores muy cercanos.)
+
+    $\text{IQR} = Q_3 - Q_1 = 4{,}75 - 2 = 2{,}75$.
+
+b)  Umbrales de la regla del IQR:
+
+    -   Inferior: $Q_1 - 1{,}5 \cdot \text{IQR} = 2 - 4{,}125 = -2{,}125$.
+    -   Superior: $Q_3 + 1{,}5 \cdot \text{IQR} = 4{,}75 + 4{,}125 = 8{,}875$.
+
+c)  Cualquier valor por encima de **8,88** aproximadamente (o por debajo de $-2{,}13$, algo imposible con un IIG) se considera atípico. En la flota hay **un único *outlier***: la nave con $\text{IIG} = 35$, muy por encima del umbral superior.
+
+d)  Antes de decidir nada, Oren Crestfall debería comprobar:
+
+    -   **Que la nave existe.** No sea una avería del sistema de contaje o una duplicación de identificador que agrega mal las incidencias.
+    -   **La antigüedad de la nave.** 35 incidencias en una nave con 30 años de servicio no es lo mismo que en una que lleva 3 años.
+    -   **La ruta que cubre.** ¿Es una ruta especialmente hostil (Klendathu, cinturón de Magallanes)?
+    -   **El astillero constructor.** ¿Es una serie con un defecto conocido? En el capítulo se menciona precisamente el caso de la *Trade Wind* de ARCTURUS, sospechosamente joven para sus 35 incidencias.
+    -   **El registro de mantenimiento.** ¿Ha recibido revisiones periódicas?
+
+e)  Sin más información es difícil pronunciarse, pero la explicación más plausible es la **segunda** (caso legítimo excepcional): la nave existe, opera y arrastra un problema real (posiblemente un defecto de serie o un mal mantenimiento sistemático). Sería el tipo de dato del que Crestfall probablemente quiera **saber más**, no borrarlo sin más. Si fuera un error de codificación (por ejemplo, 3,5 tecleado como 35), sería fácil de comprobar en la fuente. Si perteneciera a "otra población" (una nave de guerra clasificada por error como carguero), la solución sería recodificar la naturaleza del registro, no borrarlo. La regla del capítulo es taxativa: **borrar un *outlier* sin entender por qué es atípico equivale a esconder información**.
+
+### Solución al Problema 2.13.
+
+a)  Principios del RGPD y del secreto estadístico que se estarían vulnerando:
+
+    -   **Limitación de la finalidad.** Los datos personales de los CEOs no se recogieron para "una campaña de imagen", sino para el análisis regulatorio del sector. Reutilizarlos para otro fin es incompatible con la base legal original.
+    -   **Minimización.** No hay razón alguna por la que una campaña de imagen requiera el **salario individual** ni la **dirección personal**. Se están solicitando muchos más datos de los estrictamente necesarios.
+    -   **Secreto estadístico.** Publicar información que identifica a individuos concretos (los salarios de 25 CEOs identificables) vulnera el principio básico de la estadística pública. Solo cabe publicar información agregada que no permita identificar a nadie.
+    -   **Licitud, lealtad y transparencia.** Los CEOs no han sido informados de que sus datos personales se van a usar para una campaña de comunicación.
+    -   **Confidencialidad.** Se estaría facilitando información personal (la dirección) a un uso interno no previsto en el propósito de la recogida.
+
+    Con tres bastaba, pero salen cinco sin esforzarse. La petición es sencillamente inviable en su forma actual.
+
+b)  Publicar el **salario medio** de los CEOs del sector está, en principio, autorizado: es una cifra agregada que no permite identificar a nadie. Publicar la **distribución en cinco tramos** es más delicado: con solo 25 CEOs, algunos tramos pueden contener uno o dos individuos, en cuyo caso el secreto estadístico obligaría a fusionar tramos o a suprimir las cifras concretas de esas celdas. La regla operativa habitual es no publicar celdas con menos de tres (a veces cinco) individuos.
+
+c)  La relación con el **sesgo algorítmico** es directa: si estos datos se usaran para entrenar un modelo que evaluara automáticamente el "riesgo reputacional" de futuros directivos, el modelo aprendería la lógica implícita de la valoración —que a menudo refleja sesgos históricos de género, nacionalidad, forma jurídica de la empresa, incluso especie— y los aplicaría con **apariencia de objetividad matemática**. Un modelo entrenado sobre 25 casos, además, es un modelo estadísticamente indefendible: cualquier idiosincrasia de esos 25 individuos se convierte en "ley" para el algoritmo. La responsabilidad del analista incluye detectar y advertir sobre este riesgo, no solo cumplir el aspecto legal.
+
+d)  Mara Qyà debería:
+
+    -   **Rechazar formalmente** la petición en su forma actual, por incompatibilidad con los principios del RGPD y del secreto estadístico.
+    -   **Documentar** el rechazo y la argumentación jurídica (por qué se rechaza y con qué apoyo normativo).
+    -   Ofrecer una **alternativa lícita**: publicar el salario medio de los CEOs (una cifra), o una distribución en tramos suficientemente amplios como para no identificar a ningún CEO, sin ningún dato de dirección ni valoración reputacional individual.
+    -   Elevar la incidencia al **Delegado de Protección de Datos** de la ARTI, figura obligatoria en organismos que traten datos personales a gran escala.
+
+    Y, como recordatorio interno, dejar clara la regla general: la Estadística **puede** hacer muchas cosas con los datos, pero eso no significa que **deba** hacerlas todas. Parte del oficio del analista es saber cuándo la respuesta profesional correcta es *"no"*.

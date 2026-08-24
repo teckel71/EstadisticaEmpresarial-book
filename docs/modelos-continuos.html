@@ -718,7 +718,7 @@ Log-normal
 <p><strong>Tabla 10.1.</strong> Funciones de R para simular los modelos continuos del capítulo. Cambiando la letra <code>r</code> inicial por <code>d</code>, <code>p</code> o <code>q</code> se accede, respectivamente, a la densidad, la función de distribución acumulada y los cuantiles.</p>
 </div>
 <p>Como aplicación práctica, retomemos el ejemplo del VaR de la sección anterior. Al gestor del fondo “Andrómeda-Vía Láctea” le interesa <strong>estimar el VaR sin depender de la fórmula analítica</strong>, para prepararse ante el día en que el modelo normal no sea válido (colas gruesas, asimetría) y ya no sirva la fórmula cerrada. La técnica moderna para hacerlo es la <strong>simulación de Monte Carlo</strong>: se simulan miles de rentabilidades diarias del modelo elegido y se estima el VaR como el cuantil empírico correspondiente. En pocas líneas:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">n_sim</span> <span class="op">&lt;-</span> <span class="fl">10000</span></span>
 <span><span class="va">mu_r</span>  <span class="op">&lt;-</span> <span class="fl">0.0010</span>; <span class="va">sd_r</span> <span class="op">&lt;-</span> <span class="fl">0.0150</span>      <span class="co"># rentabilidad diaria (proporción)</span></span>
@@ -907,7 +907,7 @@ Costes operativos; salarios; precios de activos.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-23.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

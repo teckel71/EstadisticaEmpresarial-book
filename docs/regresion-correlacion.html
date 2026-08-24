@@ -496,7 +496,7 @@ S_{xy}   \;=\; a_{11} - a_{10}\cdot a_{01} \;=\; 380,1270.
 </div>
 <p>La recta atraviesa la nube con obediencia razonable, pero es evidente que la dispersión alrededor de ella no es despreciable: hay cargueros viejos y ligeros, cargueros nuevos y pesados. La nube tiene una tendencia clara, sí; pero también un ruido considerable. Cuantificar cuán bien —o cuán mal— la recta representa a la nube es la tarea de la sección siguiente.</p>
 <p>Antes de eso, un pequeño paréntesis muy útil en la práctica moderna: todo lo que hemos calculado a mano cabe en dos líneas de <code>R</code>. La función <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> (por <em>linear model</em>) ajusta la recta y guarda todos los resultados en un objeto que después puede consultarse con <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, <code><a href="https://rdrr.io/r/stats/coef.html">coef()</a></code>, <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> y compañía:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">modelo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">TONELAJE</span> <span class="op">~</span> <span class="va">ANTIG</span>, data <span class="op">=</span> <span class="va">astilleros</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">modelo</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## (Intercept)       ANTIG 
@@ -585,7 +585,7 @@ S_{xy}   \;=\; a_{11} - a_{10}\cdot a_{01} \;=\; 380,1270.
 <p><strong>Figura 5.3.</strong> Regresión de tipo I (puntos oscuros: medias condicionadas del tonelaje por intervalo de antigüedad, con tamaño proporcional a la frecuencia) frente a regresión de tipo II (recta mínimo-cuadrática) sobre la flota.</p>
 </div>
 <p>Y aquí una comprobación numérica que ilustra la propiedad de equivalencia: si ajustamos por mínimos cuadrados una recta a los <strong>cinco puntos de las medias condicionadas</strong> ponderándolos por sus frecuencias <span class="math inline">\(n_{i\bullet}\)</span>, obtenemos exactamente los mismos coeficientes que ajustar la recta a los <span class="math inline">\(48\)</span> cargueros originales. La regresión de tipo II es —literalmente— la traducción analítica lineal de la regresión de tipo I.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MCO sobre los 5 puntos (xi, medias_cond) ponderados por n_i</span></span>
 <span><span class="va">xbar_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">xi</span> <span class="op">*</span> <span class="va">ni_ast</span><span class="op">)</span> <span class="op">/</span> <span class="va">N_ast</span></span>
 <span><span class="va">ybar_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">medias_cond</span> <span class="op">*</span> <span class="va">ni_ast</span><span class="op">)</span> <span class="op">/</span> <span class="va">N_ast</span></span>
@@ -1023,7 +1023,7 @@ Tiempo por revisión (<span class="math inline">\(y_j\)</span>, min)
 \widehat{\text{TONELAJE}}_i \;=\; b_0 \;+\; b_1\cdot \text{ANTIG}_i \;+\; b_2\cdot D_{K,i} \;+\; b_3\cdot D_{S,i},
 \]</span></p>
 <p>y su estimación —esta vez sí, la delegamos con toda tranquilidad en <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>— entrega:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">modelo_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">TONELAJE</span> <span class="op">~</span> <span class="va">ANTIG</span>, data <span class="op">=</span> <span class="va">astilleros</span><span class="op">)</span></span>
 <span><span class="va">modelo_mult</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">TONELAJE</span> <span class="op">~</span> <span class="va">ANTIG</span> <span class="op">+</span> <span class="va">ASTILLERO</span>, data <span class="op">=</span> <span class="va">astilleros</span><span class="op">)</span></span>
 <span></span>
@@ -1039,7 +1039,7 @@ Tiempo por revisión (<span class="math inline">\(y_j\)</span>, min)
 <pre><code>##                                   Modelo        R2  R2_ajust
 ## 1               Simple: TONELAJE ~ ANTIG 0.3939398 0.3807646
 ## 2 Múltiple: TONELAJE ~ ANTIG + ASTILLERO 0.7055211 0.6854430</code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">modelo_mult</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##       (Intercept)             ANTIG ASTILLEROKORRIGAN   ASTILLEROSELENE 
 ##         722.46076           1.44467         107.06812        -111.48040</code></pre>
@@ -1145,7 +1145,7 @@ R^{2}_{\text{aj}} \;=\; 1 \;-\; (1 - R^{2})\cdot \dfrac{N-1}{N-p-1},
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-23.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

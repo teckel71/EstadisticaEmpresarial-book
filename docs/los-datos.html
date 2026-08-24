@@ -1561,7 +1561,594 @@ Estudios rigurosos con MAR
 <li>Hemos cerrado con las <strong>implicaciones éticas y legales</strong> del trabajo con datos, especialmente el RGPD y el secreto estadístico.</li>
 </ul>
 <p>A partir de aquí podemos empezar a <strong>resumir</strong> los datos con las medidas de posición, dispersión, forma y concentración. Ese es el objeto del próximo capítulo, en el que <em>Hyperdrive Express</em> volverá a acompañarnos.</p>
-
+</div>
+<div id="problemas-cap02" class="section level2" number="2.9">
+<h2>
+<span class="header-section-number">2.9</span> Problemas propuestos.<a class="anchor" aria-label="anchor" href="#problemas-cap02"><i class="fas fa-link"></i></a>
+</h2>
+<p>Este capítulo trata de <strong>criterio profesional</strong> más que de aritmética. Los ejercicios que siguen son, en su mayoría, casos y escenarios en los que hay que <strong>diagnosticar</strong> (qué tipo de fuente, qué método de muestreo, qué clase de valor perdido) y <strong>decidir</strong> (qué tratamiento, qué reformulación, qué salvaguarda). Aparecen dos ejercicios con cuentas menores (imputación y regla del IQR) para aterrizar los conceptos numéricamente; el resto se resuelve pensando. Todas las soluciones detalladas se recogen al final del capítulo.</p>
+<div id="problema-2.1.-primario-o-secundario-esa-es-la-cuestión." class="section level3" number="2.9.1">
+<h3>
+<span class="header-section-number">2.9.1</span> Problema 2.1. Primario o secundario, esa es la cuestión.<a class="anchor" aria-label="anchor" href="#problema-2.1.-primario-o-secundario-esa-es-la-cuesti%C3%B3n."><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Sagan Olbers</strong> prepara un dossier para la próxima reunión del comité de la Base de Datos Interestelar y quiere clasificar bien de dónde viene cada pieza de información que planea incluir. Para cada una de las siguientes fuentes, indica si se trata —<strong>desde el punto de vista de la Base de Datos Interestelar</strong>— de una <strong>fuente primaria</strong> o de una <strong>fuente secundaria</strong>, y justifícalo brevemente:</p>
+<ol style="list-style-type: lower-alpha">
+<li>El fichero interno de nóminas de <em>Shuttlepod Movers</em>, cedido bajo convenio a la AITM.</li>
+<li>Los indicadores agregados publicados por la <em>Federación de Rutas Espaciales de Andrómeda</em>.</li>
+<li>Una encuesta que la propia AITM ha diseñado y aplicado a los pilotos de largo recorrido para medir su percepción de las nuevas rutas de la Nube de Magallanes.</li>
+<li>Los datos del <strong>Índice de Digitalización Sectorial</strong> que la revista <em>Interstellar Weekly</em> publica cada semestre a partir de balances públicos.</li>
+<li>Las lecturas del sensor de consumo de especia que la nave <em>Iron Sovereign</em> transmite en tiempo real a la sede de <em>Arrakis Freight</em>, extraídas por la AITM mediante API.</li>
+</ol>
+</div>
+<div id="problema-2.2.-elegir-el-sistema-de-obtención." class="section level3" number="2.9.2">
+<h3>
+<span class="header-section-number">2.9.2</span> Problema 2.2. Elegir el sistema de obtención.<a class="anchor" aria-label="anchor" href="#problema-2.2.-elegir-el-sistema-de-obtenci%C3%B3n."><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada uno de los siguientes escenarios, indica cuál es el sistema de obtención de datos <strong>más adecuado</strong> —descarga directa, API, <em>web scraping</em> o conexión SQL a base de datos interna— y justifica en una o dos líneas por qué:</p>
+<ol style="list-style-type: lower-alpha">
+<li>El equipo de <em>business intelligence</em> de <em>Hyperdrive Express</em> necesita el salario medio mensual por departamento, <strong>actualizado a diario</strong>, sobre una plantilla de 60 empleados almacenada en su ERP corporativo.</li>
+<li>Un analista de la ARTI quiere descargar, <strong>una vez al año</strong>, la última versión del fichero público <code>interestelar_300.xlsx</code> que la AITM publica en su web.</li>
+<li>Un consultor quiere comparar los precios de recambios para cargueros en las tres principales tiendas de la Vía Láctea. Las tres tienen web pero <strong>no publican los precios en fichero ni ofrecen API</strong>.</li>
+<li>La <em>Federación de Rutas Espaciales de Andrómeda</em> alimenta un cuadro de mando en vivo que necesita las cotizaciones <strong>diarias</strong> del melangium en el mercado de Arrakis. Existe una API oficial que devuelve el precio en JSON.</li>
+<li>Una investigadora de la Universidad de Arrakis prepara un estudio histórico sobre la evolución del PIB galáctico durante los últimos veinte años. La AITM publica los datos en un fichero XLSX que <strong>no se ha actualizado desde hace un año</strong>.</li>
+</ol>
+</div>
+<div id="problema-2.3.-un-csv-problemático." class="section level3" number="2.9.3">
+<h3>
+<span class="header-section-number">2.9.3</span> Problema 2.3. Un CSV problemático.<a class="anchor" aria-label="anchor" href="#problema-2.3.-un-csv-problem%C3%A1tico."><i class="fas fa-link"></i></a>
+</h3>
+<p>Un becario de la ARTI descarga el fichero <code>flotas_2210.csv</code> del portal de datos abiertos del sector. En R lo abre con:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flotas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"flotas_2210.csv"</span><span class="op">)</span></span></code></pre></div>
+<p>Al inspeccionar el resultado observa que:</p>
+<ul>
+<li>El fichero tiene <strong>una única columna</strong> que agrupa todas las variables juntas en cada fila.</li>
+<li>Cuando lo abre en un editor de texto, ve que los valores están separados por <strong>punto y coma</strong> y los decimales aparecen con <strong>coma</strong> (<code>3,14</code>, no <code>3.14</code>).</li>
+<li>Las letras acentuadas como <em>á</em> o <em>ñ</em> aparecen como caracteres extraños: <code>Ã¡</code>, <code>Ã±</code>.</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Qué <strong>tres problemas técnicos</strong> concretos ha encontrado el becario, y cómo se llaman en la jerga habitual del intercambio de ficheros?</li>
+<li>¿Qué función alternativa de R debería haber usado para leer bien el fichero por lo del separador y el decimal? Explica en una línea por qué esa función lo resuelve.</li>
+<li>¿Qué parámetro adicional habría que fijar para resolver el tercer problema (los caracteres extraños)?</li>
+<li>¿Qué moraleja general extraes sobre la lectura de ficheros CSV?</li>
+</ol>
+</div>
+<div id="problema-2.4.-diccionario-de-datos-por-reconstruir." class="section level3" number="2.9.4">
+<h3>
+<span class="header-section-number">2.9.4</span> Problema 2.4. Diccionario de datos por reconstruir.<a class="anchor" aria-label="anchor" href="#problema-2.4.-diccionario-de-datos-por-reconstruir."><i class="fas fa-link"></i></a>
+</h3>
+<p>Al llegar el nuevo becario al equipo de la ARTI, <strong>Mara Qyà</strong> le entrega un fichero llamado <code>flota_incidencias.xlsx</code> con seis columnas: <code>ID_NAVE</code>, <code>AST</code>, <code>ANIOP</code>, <code>ROUTE_KM</code>, <code>IIG</code> y <code>ESTADO</code>. El fichero <strong>no viene acompañado de ningún diccionario</strong>. Tras dos horas intentando descifrar los datos, el becario decide construirlo él mismo.</p>
+<p>Se sabe que las variables corresponden, respectivamente, al <strong>identificador único de la nave</strong>, al <strong>astillero constructor</strong> (uno de los tres grandes), al <strong>año de puesta en servicio</strong>, al <strong>kilometraje intergaláctico acumulado</strong>, al <strong>Índice de Incidencias Graves</strong> y al <strong>estado operativo actual</strong> (Activa, En reparación o Retirada).</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Por qué la ausencia del diccionario de datos es un problema serio, más allá de la incomodidad para el becario? Da al menos tres razones.</li>
+<li>Construye una <strong>tabla de diccionario de datos</strong> con los siete campos que se han presentado en el capítulo (nombre técnico, descripción, unidad o categorías, tipo, rango válido, fuente y fecha de última actualización). Puedes inventar los valores que no se te den, siempre que sean razonables.</li>
+<li>¿Qué campo del diccionario protege específicamente contra el error clásico de teclear <code>220</code> en lugar de <code>22</code>? Explica cómo.</li>
+</ol>
+</div>
+<div id="problema-2.5.-los-cargueros-que-vuelven." class="section level3" number="2.9.5">
+<h3>
+<span class="header-section-number">2.9.5</span> Problema 2.5. Los cargueros que vuelven.<a class="anchor" aria-label="anchor" href="#problema-2.5.-los-cargueros-que-vuelven."><i class="fas fa-link"></i></a>
+</h3>
+<p>Un directivo de la aseguradora <em>Galactic Casualty &amp; Loss</em> revisa los partes de siniestralidad de los cargueros que atraviesan la zona de piratería de <strong>Klendathu</strong> y comprueba que la mayor parte de las naves que han <strong>sobrevivido</strong> a un incidente presenta daños importantes en las <strong>secciones exteriores de las bodegas de carga</strong> y en el <strong>estabilizador de estribor</strong>. Casi ninguna reporta daños en el <strong>puente de mando</strong> ni en el <strong>núcleo de propulsión</strong>. El directivo, satisfecho, propone reforzar el blindaje de las bodegas y del estabilizador de estribor.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Qué <strong>error metodológico clásico</strong> está cometiendo el directivo? Nómbralo.</li>
+<li>Explica el razonamiento correcto: ¿dónde debería reforzar el blindaje y por qué?</li>
+<li>Cita al menos dos ejemplos económico-empresariales (fuera del contexto R-Stars) donde este mismo tipo de sesgo se manifiesta y produce recomendaciones equivocadas.</li>
+</ol>
+</div>
+<div id="problema-2.6.-el-interstellar-digest-del-año-galáctico-2136." class="section level3" number="2.9.6">
+<h3>
+<span class="header-section-number">2.9.6</span> Problema 2.6. El <em>Interstellar Digest</em> del año galáctico 2136.<a class="anchor" aria-label="anchor" href="#problema-2.6.-el-interstellar-digest-del-a%C3%B1o-gal%C3%A1ctico-2136."><i class="fas fa-link"></i></a>
+</h3>
+<p>En 2136, la revista <em>Interstellar Digest</em> quiso predecir el resultado de la elección para presidente del <strong>Consejo Galáctico</strong>. Para ello envió <strong>doce millones</strong> de cuestionarios a suscriptores de la propia revista, propietarios de nave privada y miembros de la <em>Asociación de Comerciantes Intergalácticos</em>, recibiendo respuesta de <strong>tres millones y medio</strong>. En paralelo, un joven estadístico de la Universidad de Arrakis, el <strong>Dr. Kepler-9</strong>, entrevistó a <strong>80 000</strong> votantes seleccionados con criterio de representatividad por galaxia, ocupación y nivel de renta.</p>
+<ul>
+<li>
+<em>Interstellar Digest</em> pronosticó una victoria arrolladora del <strong>candidato liberal</strong> (63% de los votos).</li>
+<li>El Dr. Kepler-9 pronosticó una victoria ajustada del <strong>candidato progresista</strong> (52% de los votos).</li>
+</ul>
+<p>Ganó el candidato progresista.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cómo puede una muestra 44 veces más pequeña acertar donde falla una muestra masiva?</li>
+<li>¿Qué tipo específico de sesgo sufre la muestra del <em>Interstellar Digest</em>?</li>
+<li>¿Cuál es la moraleja de este caso para cualquier futuro directivo del sector R-Stars?</li>
+</ol>
+</div>
+<div id="problema-2.7.-elegir-el-tipo-de-muestreo." class="section level3" number="2.9.7">
+<h3>
+<span class="header-section-number">2.9.7</span> Problema 2.7. Elegir el tipo de muestreo.<a class="anchor" aria-label="anchor" href="#problema-2.7.-elegir-el-tipo-de-muestreo."><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada uno de los siguientes escenarios de recogida de datos en el sector R-Stars, indica cuál sería el tipo de muestreo más adecuado (aleatorio simple, sistemático, estratificado, por conglomerados, polietápico, o alguno de los no probabilísticos), y justifica en una o dos líneas la elección:</p>
+<ol style="list-style-type: lower-alpha">
+<li>La AITM quiere estimar la satisfacción laboral de los pilotos activos de todo el sector, garantizando que estén representados los pilotos de las cinco galaxias <strong>en proporción</strong> al número de pilotos que operan en cada una.</li>
+<li>Un equipo de investigación de la Universidad de Arrakis quiere estudiar el nivel de ruido en los puentes de mando de los cargueros de la clase <em>Hyperion</em>. Existe la <strong>lista completa y actualizada</strong> de las 340 naves de esa clase.</li>
+<li>
+<strong>Xelia Bluebird</strong> quiere hacer una prueba piloto <strong>rápida y muy barata</strong> de un nuevo cuestionario sobre digitalización antes de aplicarlo formalmente al sector, y solo necesita saber si las preguntas se entienden bien.</li>
+<li>Se desea entrevistar a <strong>contrabandistas activos</strong> de melangium en el sistema de Klendathu, un colectivo por definición poco dispuesto a facilitar su localización.</li>
+<li>La <em>Federación de Rutas Espaciales de Andrómeda</em> organiza una encuesta a hogares del sector residencial de Tatooine. <strong>No existe</strong> un listado individualizado de hogares, pero sí un censo detallado de todos los edificios residenciales.</li>
+</ol>
+</div>
+<div id="problema-2.8.-cuestionario-a-revisión." class="section level3" number="2.9.8">
+<h3>
+<span class="header-section-number">2.9.8</span> Problema 2.8. Cuestionario a revisión.<a class="anchor" aria-label="anchor" href="#problema-2.8.-cuestionario-a-revisi%C3%B3n."><i class="fas fa-link"></i></a>
+</h3>
+<p>La AITM se plantea enviar el siguiente borrador de encuesta a los pilotos del sector para medir su satisfacción laboral:</p>
+<blockquote>
+<p><strong>1.</strong> ¿Está usted de acuerdo con la excelente política laboral del sector R-Stars?</p>
+<p><strong>2.</strong> ¿Le parece adecuada la retribución y el trato personal que recibe en su compañía?</p>
+<p><strong>3.</strong> Valore de 1 a 5 su satisfacción global. Valore de 1 a 7 el ambiente en la tripulación. Valore de 0 a 10 la calidad de las instalaciones de descanso.</p>
+<p><strong>4.</strong> ¿Está usted a favor de la desregulación asimétrica del hipercomercio interplanetario aplicada al régimen fiscal de la especia?</p>
+<p><strong>5.</strong> Sexo. Edad. Galaxia de nacimiento. Renta bruta anual.</p>
+<p><strong>6.</strong> ¿No es cierto que las nuevas rutas hacia la Pequeña Nube de Magallanes son peligrosas?</p>
+</blockquote>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica los <strong>defectos</strong> concretos de cada pregunta a la luz de los principios de diseño de cuestionarios revisados en el capítulo.</li>
+<li>Propón una <strong>reformulación</strong> adecuada para cada una.</li>
+<li>¿Qué recomendaciones darías sobre el <strong>orden</strong> de las preguntas en el cuestionario definitivo?</li>
+</ol>
+</div>
+<div id="problema-2.9.-elegir-el-método-de-encuestación." class="section level3" number="2.9.9">
+<h3>
+<span class="header-section-number">2.9.9</span> Problema 2.9. Elegir el método de encuestación.<a class="anchor" aria-label="anchor" href="#problema-2.9.-elegir-el-m%C3%A9todo-de-encuestaci%C3%B3n."><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada uno de estos escenarios, indica qué <strong>método de encuestación</strong> (PAPI, CATI, CAPI, CAWI o panel) sería el más adecuado y justifica brevemente por qué:</p>
+<ol style="list-style-type: lower-alpha">
+<li>La <em>Federación de Rutas Espaciales de Andrómeda</em> quiere hacer una encuesta rápida y <strong>barata</strong> a nivel intergaláctico sobre percepción del sector, sin exigencias muy estrictas de representatividad.</li>
+<li>La ARTI quiere seguir <strong>mensualmente durante dos años</strong> cómo evoluciona la percepción sobre la seguridad de las rutas entre un grupo estable de 500 pilotos de largo recorrido.</li>
+<li>Un estudio para el Gobierno de Tatooine sobre pobreza infantil en <strong>asentamientos remotos</strong>, donde el acceso a internet es prácticamente nulo y el idioma vernáculo se pierde al escribir.</li>
+<li>Un sondeo <strong>urgente</strong> para la CEO de <em>Kaiju Haulage Co.</em> sobre la reacción de sus clientes ante una subida de tarifas anunciada esa misma mañana. Los datos se necesitan al día siguiente.</li>
+<li>Un estudio sobre condiciones laborales en los astilleros orbitales, en el que se aprovecha la <strong>visita presencial</strong> del encuestador para verificar sobre el terreno el estado de las instalaciones.</li>
+</ol>
+</div>
+<div id="problema-2.10.-diagnóstico-de-valores-perdidos." class="section level3" number="2.9.10">
+<h3>
+<span class="header-section-number">2.9.10</span> Problema 2.10. Diagnóstico de valores perdidos.<a class="anchor" aria-label="anchor" href="#problema-2.10.-diagn%C3%B3stico-de-valores-perdidos."><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada una de las siguientes situaciones, identifica el tipo de valor perdido (<strong>MCAR</strong>, <strong>MAR</strong> o <strong>MNAR</strong>) y propón la estrategia de tratamiento más razonable:</p>
+<ol style="list-style-type: lower-alpha">
+<li>En un fichero de plantilla, faltan <strong>al azar</strong> 3 registros del año de nacimiento por errores del sistema al migrar de un ERP a otro.</li>
+<li>En una encuesta a pilotos, la variable <em>“número de infracciones cometidas en los últimos 12 meses”</em> está en blanco para el <strong>24%</strong> de los encuestados. El resto ha declarado, en promedio, 0,4 infracciones anuales.</li>
+<li>En un fichero de RR.HH., el nivel de estudios está ausente para el <strong>40%</strong> de los trabajadores del departamento de Almacén, mientras que solo falta para el <strong>2%</strong> del departamento de Dirección.</li>
+<li>Un sensor de consumo de especia en los cargueros de <em>Arrakis Freight</em> tiene una avería aleatoria: aproximadamente el 5% de las lecturas se registran como <code>-99</code> (valor de error del propio sensor).</li>
+<li>En una encuesta sobre satisfacción de clientes corporativos, el <strong>30%</strong> no ha respondido a la pregunta <em>“¿ha considerado cambiar de proveedor?”</em>.</li>
+</ol>
+</div>
+<div id="problema-2.11.-imputar-por-la-media-o-por-la-mediana." class="section level3" number="2.9.11">
+<h3>
+<span class="header-section-number">2.9.11</span> Problema 2.11. Imputar por la media o por la mediana.<a class="anchor" aria-label="anchor" href="#problema-2.11.-imputar-por-la-media-o-por-la-mediana."><i class="fas fa-link"></i></a>
+</h3>
+<p>En un fichero con 10 empleados de una compañía, los salarios anuales (en cientos de PAVOs) son:</p>
+<p><span class="math display">\[12,\ 14,\ 15,\ 15,\ 16,\ 18,\ 18,\ 20,\ 22,\ \text{NA}\]</span></p>
+<p>El salario del último trabajador <strong>no está registrado</strong> por un error administrativo. Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula la <strong>media</strong> y la <strong>mediana</strong> de los 9 salarios observados.</li>
+<li>¿Qué valor asignarías al salario faltante si aplicaras <strong>imputación por la media</strong>? ¿Y <strong>por la mediana</strong>? En este ejemplo, ¿qué diferencia hay entre ambas imputaciones?</li>
+<li>Supón ahora que el décimo valor observado, en lugar de <code>NA</code>, fuera <strong>75</strong> (el salario del CEO, incluido por error en el fichero de operarios). Vuelve a calcular la media y la mediana. ¿Cuál de las dos se ha visto más afectada por la presencia del <em>outlier</em>? ¿Qué recomiendas hacer con el fichero?</li>
+<li>¿Qué <strong>gran limitación</strong> —comentada en el capítulo— tiene la imputación por una estimación puntual, que ni la media ni la mediana resuelven?</li>
+</ol>
+</div>
+<div id="problema-2.12.-outliers-con-la-regla-del-iqr." class="section level3" number="2.9.12">
+<h3>
+<span class="header-section-number">2.9.12</span> Problema 2.12. <em>Outliers</em> con la regla del IQR.<a class="anchor" aria-label="anchor" href="#problema-2.12.-outliers-con-la-regla-del-iqr."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Kaiju Haulage Co.</em> tiene 12 cargueros en su flota. El Índice de Incidencias Graves (IIG) de cada uno, ordenado, es:</p>
+<p><span class="math display">\[1,\ 1,\ 2,\ 2,\ 3,\ 3,\ 3,\ 4,\ 4,\ 5,\ 6,\ 35\]</span></p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula el primer y el tercer cuartil, <span class="math inline">\(Q_1\)</span> y <span class="math inline">\(Q_3\)</span>, y el recorrido intercuartílico <span class="math inline">\(\text{IQR}\)</span>.</li>
+<li>Aplica la <strong>regla del IQR</strong> para determinar los umbrales por encima y por debajo de los cuales un valor se considera atípico.</li>
+<li>¿Cuántos <em>outliers</em> hay en la flota según esta regla? Identifícalos.</li>
+<li>Antes de decidir borrar el dato del carguero atípico, ¿qué <strong>comprobaciones concretas</strong> debería hacer <strong>Oren Crestfall</strong> antes de tocar nada?</li>
+<li>¿Cuál de las tres explicaciones típicas de un <em>outlier</em> (error de codificación, caso legítimo excepcional, individuo de otra población) te parece más plausible en este caso, y por qué?</li>
+</ol>
+</div>
+<div id="problema-2.13.-un-dilema-ético-en-la-arti." class="section level3" number="2.9.13">
+<h3>
+<span class="header-section-number">2.9.13</span> Problema 2.13. Un dilema ético en la ARTI.<a class="anchor" aria-label="anchor" href="#problema-2.13.-un-dilema-%C3%A9tico-en-la-arti."><i class="fas fa-link"></i></a>
+</h3>
+<p>El departamento de análisis de <strong>Mara Qyà</strong> recibe una petición interna: preparar un informe con los <strong>salarios individuales</strong> de los 25 CEOs del sector R-Stars, sus <strong>direcciones personales</strong> y una <strong>valoración cualitativa</strong> del “riesgo reputacional” de cada uno. La petición viene firmada por el director de comunicación de la agencia, que quiere usarla para una campaña de imagen de la ARTI en las próximas semanas.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>A la luz de los principios del <strong>RGPD</strong> y del <strong>secreto estadístico</strong> revisados en el capítulo, ¿qué problemas concretos presenta esta petición? Menciona al menos <strong>tres</strong> principios que se estarían vulnerando.</li>
+<li>¿Puede la ARTI publicar el <strong>salario medio</strong> de los CEOs del sector? ¿Y su <strong>distribución en cinco tramos</strong>? Justifica.</li>
+<li>¿Qué relación tiene esta situación con el problema del <strong>sesgo algorítmico</strong>? ¿Podría un modelo entrenado con esta información inducir a decisiones discriminatorias?</li>
+<li>¿Cómo debería responder formalmente Mara Qyà a la petición?</li>
+</ol>
+</div>
+</div>
+<div id="soluciones-cap02" class="section level2" number="2.10">
+<h2>
+<span class="header-section-number">2.10</span> Soluciones a los problemas propuestos.<a class="anchor" aria-label="anchor" href="#soluciones-cap02"><i class="fas fa-link"></i></a>
+</h2>
+<div id="solución-al-problema-2.1." class="section level3" number="2.10.1">
+<h3>
+<span class="header-section-number">2.10.1</span> Solución al Problema 2.1.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.1."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<strong>Secundaria.</strong> La AITM no ha recogido los datos: los ha recibido de un tercero (<em>Shuttlepod Movers</em>) ya construidos. Que la cesión sea legítima y bajo convenio no cambia el origen de la información.</li>
+<li>
+<strong>Secundaria.</strong> La <em>Federación</em> es un tercero que publica indicadores ya elaborados.</li>
+<li>
+<strong>Primaria.</strong> La AITM diseña, aplica y recoge la encuesta directamente. Es información construida por el propio analista.</li>
+<li>
+<strong>Secundaria.</strong> La AITM se limita a leer los datos que otro (la revista <em>Interstellar Weekly</em>) ha calculado y publicado. Aunque los balances de partida sean públicos, el <em>Índice de Digitalización</em> es una elaboración editorial.</li>
+<li>
+<strong>Primaria</strong>, con matices. La lectura procede directamente del individuo (la nave) y llega a la AITM sin intermediarios editoriales. Que el canal sea una API no cambia la naturaleza primaria de la medición: la API es solo el vehículo. Podría argumentarse que es “secundaria de <em>Arrakis Freight</em>” en la medida en que la AITM depende de que la compañía transmita los datos, pero desde el punto de vista de la Base de Datos Interestelar, es la fuente <strong>más cercana al fenómeno</strong>.</li>
+</ol>
+<p>Este apartado ilustra una idea importante: <strong>primario o secundario no es una etiqueta absoluta</strong>, sino relativa al analista que trabaja con los datos. Un mismo fichero puede ser primario para quien lo construyó y secundario para quien lo utiliza después.</p>
+</div>
+<div id="solución-al-problema-2.2." class="section level3" number="2.10.2">
+<h3>
+<span class="header-section-number">2.10.2</span> Solución al Problema 2.2.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.2."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<strong>Conexión SQL</strong> a la base interna (ERP). Es información propia de la compañía, con actualización diaria y agregaciones estándar. Descargar el fichero completo cada día sería absurdo pudiendo lanzar una consulta que devuelva solo el resultado agregado.</li>
+<li>
+<strong>Descarga directa.</strong> Fichero público, actualización anual, no requiere ninguna infraestructura. Escenario canónico para descarga manual.</li>
+<li>
+<strong>Web scraping.</strong> No hay ni fichero ni API, y la información está en páginas web. Con las cautelas habituales: revisar términos de uso y aceptar la fragilidad del <em>scraper</em> ante rediseños.</li>
+<li>
+<strong>API.</strong> Actualización diaria, datos estructurados en JSON, requisito de automatización. Es exactamente el nicho de las APIs.</li>
+<li>
+<strong>Descarga directa.</strong> Aunque teóricamente podría publicarse por API, para un estudio histórico único, con un fichero XLSX que no cambia, no compensa el esfuerzo de programar contra una API. Descargar una vez, guardar y trabajar en local.</li>
+</ol>
+</div>
+<div id="solución-al-problema-2.3." class="section level3" number="2.10.3">
+<h3>
+<span class="header-section-number">2.10.3</span> Solución al Problema 2.3.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.3."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Los tres problemas son los clásicos del CSV:</p>
+<ul>
+<li>
+<strong>Separador de campos incorrecto.</strong> El fichero usa punto y coma (<code>;</code>), pero <code>read.csv</code> (por defecto) espera coma (<code>,</code>). Por eso todo el contenido queda apelotonado en una sola columna.</li>
+<li>
+<strong>Marca decimal incorrecta.</strong> El fichero usa la coma como separador decimal (convenio español), pero <code>read.csv</code> espera punto (convenio anglosajón).</li>
+<li>
+<strong>Codificación de caracteres incorrecta.</strong> El fichero está probablemente en <strong>Latin-1</strong> o <strong>Windows-1252</strong>, y <code>read.csv</code> lo lee como si fuera <strong>UTF-8</strong>. El resultado son caracteres “mojibake” (<code>Ã¡</code> donde debería ir <code>á</code>).</li>
+</ul>
+</li>
+<li><p><strong><code><a href="https://rdrr.io/r/utils/read.table.html">read.csv2()</a></code></strong>. Es la función pensada para el “CSV español”: separador <code>;</code> y marca decimal <code>,</code>. Los dos primeros problemas se resuelven de un plumazo.</p></li>
+<li>
+<p>El parámetro <strong><code>fileEncoding = "Latin1"</code></strong> (o <code>"windows-1252"</code>, según el origen). Ejemplo:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flotas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv2</a></span><span class="op">(</span><span class="st">"flotas_2210.csv"</span>, fileEncoding <span class="op">=</span> <span class="st">"Latin1"</span><span class="op">)</span></span></code></pre></div>
+</li>
+<li><p>Moraleja: <strong>ningún CSV es “el CSV”</strong>. Antes de abrirlo con la primera función que suene bien, hay que inspeccionarlo con un editor de texto y confirmar tres cosas: qué <strong>separador</strong> usa, qué <strong>marca decimal</strong> y en qué <strong>codificación</strong> está guardado. Cinco minutos de inspección ahorran una tarde entera de resultados sin sentido.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-2.4." class="section level3" number="2.10.4">
+<h3>
+<span class="header-section-number">2.10.4</span> Solución al Problema 2.4.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.4."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Razones por las que la ausencia del diccionario es un problema serio:</p>
+<ul>
+<li>
+<strong>Impide interpretar correctamente los datos.</strong> Nada garantiza que <code>AST</code> sea el astillero constructor: podría ser la aseguradora, la asignación operativa, etc. La probabilidad de malinterpretar una variable y publicar cifras falsas es alta.</li>
+<li>
+<strong>Impide validar los datos.</strong> Sin conocer el rango válido de <code>IIG</code>, no puede saltar la alarma cuando aparezca un 35 sospechoso.</li>
+<li>
+<strong>Compromete la reproducibilidad.</strong> Cualquier otro analista que herede el fichero necesitará repetir las dos horas del becario, o peor, se las saltará y publicará algo distinto.</li>
+<li>
+<strong>Hace la auditoría imposible.</strong> Si mañana un directivo pregunta “¿de dónde salieron estos números?”, nadie podrá contestar con precisión.</li>
+</ul>
+<p>La regla del sector es <em>“si no está documentado, no existe”</em>.</p>
+</li>
+<li>
+<p>Diccionario propuesto:</p>
+<table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+<col width="14%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Nombre</th>
+<th align="left">Descripción</th>
+<th align="left">Unidad / Categorías</th>
+<th align="left">Tipo</th>
+<th align="left">Rango válido</th>
+<th align="left">Fuente</th>
+<th align="left">Última actualización</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>ID_NAVE</code></td>
+<td align="left">Identificador único de la nave</td>
+<td align="left">Cadena alfanumérica</td>
+<td align="left">Texto</td>
+<td align="left">Sin restricción</td>
+<td align="left">Registro AITM</td>
+<td align="left">30/06/2210</td>
+</tr>
+<tr class="even">
+<td align="left"><code>AST</code></td>
+<td align="left">Astillero constructor</td>
+<td align="left">KORRIGAN / SELENE / ARCTURUS</td>
+<td align="left">Factor nominal</td>
+<td align="left">Uno de esos tres</td>
+<td align="left">Registro AITM</td>
+<td align="left">30/06/2210</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>ANIOP</code></td>
+<td align="left">Año galáctico de puesta en servicio</td>
+<td align="left">Año</td>
+<td align="left">Entero</td>
+<td align="left">2150-2210</td>
+<td align="left">Registro AITM</td>
+<td align="left">30/06/2210</td>
+</tr>
+<tr class="even">
+<td align="left"><code>ROUTE_KM</code></td>
+<td align="left">Kilometraje intergaláctico acumulado</td>
+<td align="left">Millones de km</td>
+<td align="left">Numérico</td>
+<td align="left"><span class="math inline">\(\geq 0\)</span></td>
+<td align="left">Registro operativo de la compañía</td>
+<td align="left">30/06/2210</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>IIG</code></td>
+<td align="left">Índice de Incidencias Graves</td>
+<td align="left">Nº de averías mayores acumuladas</td>
+<td align="left">Entero</td>
+<td align="left">0-50</td>
+<td align="left">Registro de incidencias AITM</td>
+<td align="left">30/06/2210</td>
+</tr>
+<tr class="even">
+<td align="left"><code>ESTADO</code></td>
+<td align="left">Estado operativo actual de la nave</td>
+<td align="left">Activa / En reparación / Retirada</td>
+<td align="left">Factor</td>
+<td align="left">Uno de esos tres</td>
+<td align="left">Registro AITM</td>
+<td align="left">30/06/2210</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>El campo <strong>“Rango válido”</strong>. Si el diccionario declara que <code>IIG</code> va de 0 a 50, cualquier valor por encima disparará una alerta automática antes de contaminar el análisis. Es un uso <strong>operativo</strong>, no meramente descriptivo, del diccionario: sirve para validar los datos en la entrada, no solo para documentarlos a posteriori.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-2.5." class="section level3" number="2.10.5">
+<h3>
+<span class="header-section-number">2.10.5</span> Solución al Problema 2.5.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.5."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>El directivo comete un <strong>sesgo de supervivencia</strong> (<em>survivorship bias</em>). Está analizando solo las naves que <strong>han vuelto</strong> del ataque pirata, cuando la muestra realmente relevante debería incluir también a las que <strong>no volvieron</strong> (fueron destruidas o capturadas).</p></li>
+<li><p>El razonamiento correcto es el de Wald (bombarderos de 1943, salvando galaxias): las naves que muestran daños en bodegas y estabilizador <strong>han vuelto precisamente porque</strong> los daños en esas zonas no son mortales. Las que no vuelven son las que reciben impactos en puente de mando y núcleo de propulsión: por eso no hay partes de siniestralidad con daños en esas zonas. El blindaje adicional debe reforzar precisamente el <strong>puente de mando</strong> y el <strong>núcleo de propulsión</strong>, no las bodegas.</p></li>
+<li>
+<p>Ejemplos empresariales del mismo sesgo:</p>
+<ul>
+<li>
+<strong>Rentabilidad de fondos de inversión.</strong> Los rankings a 10 años suelen calcularse solo con los fondos que <strong>siguen operativos hoy</strong>. Los que quebraron o se cerraron por bajo rendimiento se excluyen, inflando artificialmente la rentabilidad “media” del sector.</li>
+<li>
+<strong>Estrategias empresariales exitosas.</strong> Los libros de negocios estudian las estrategias de las empresas líderes actuales e infieren de ellas las claves del éxito, ignorando que otras empresas aplicaron exactamente las mismas estrategias y no sobrevivieron. La correlación observada no es entre estrategia y éxito, sino entre estrategia y <strong>haber sobrevivido</strong>.</li>
+<li>
+<strong>Encuestas a millonarios sobre “cómo se hicieron ricos”.</strong> Los ricos actuales cuentan sus decisiones acertadas; los que tomaron esas mismas decisiones y perdieron todo no aparecen en la muestra.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-2.6." class="section level3" number="2.10.6">
+<h3>
+<span class="header-section-number">2.10.6</span> Solución al Problema 2.6.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.6."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Una muestra 44 veces menor puede acertar donde falla una masiva si —como en este caso— la masiva está <strong>sistemáticamente sesgada</strong> y la pequeña está <strong>cuidadosamente diseñada</strong>. Los tres canales del <em>Interstellar Digest</em> (suscriptores de una revista de prestigio, propietarios de nave privada, miembros de una asociación de comerciantes intergalácticos) son todos ellos indicadores de <strong>clase social alta</strong> en el año 2136. Se ha entrevistado a los votantes más ricos del sector, no a un espejo del electorado. La muestra del Dr. Kepler-9, aunque mucho más pequeña, ha sido diseñada para reproducir la <strong>estructura de la población</strong> por galaxia, ocupación y renta.</p></li>
+<li><p>Sesgo de <strong>cobertura</strong> (o de <strong>marco muestral</strong>): el marco desde el que se extrae la muestra no representa a toda la población de interés. A esto se suma un sesgo secundario de <strong>autoselección</strong>: solo el 29% de los cuestionarios enviados fueron devueltos, y quienes se molestan en responder tampoco son un grupo cualquiera.</p></li>
+<li><p>Moraleja: <strong>el tamaño no compensa el sesgo</strong>. Una muestra bien diseñada de tamaño moderado bate a una muestra masiva mal diseñada. En términos de gestión: es preferible invertir en un <strong>buen diseño metodológico</strong> que en recolectar cada vez más datos por defecto. Y una advertencia particularmente actual en el sector R-Stars: cuando hoy hablamos de <em>big data</em>, esta lección <strong>no ha caducado en absoluto</strong>; simplemente los sesgos se hacen aún más difíciles de detectar porque las muestras son enormes.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-2.7." class="section level3" number="2.10.7">
+<h3>
+<span class="header-section-number">2.10.7</span> Solución al Problema 2.7.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.7."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<strong>Estratificado</strong>, con las cinco galaxias como estratos y muestreo aleatorio dentro de cada uno. Garantiza que la estructura muestral reproduzca la de la población en la variable de estratificación (proporción de pilotos por galaxia).</li>
+<li>
+<strong>Aleatorio simple</strong>. La población (340 naves) es pequeña y hay marco muestral completo. Es el escenario canónico del aleatorio simple.</li>
+<li>
+<strong>De conveniencia</strong> (no probabilístico). Para una prueba piloto orientada a comprobar la comprensión de las preguntas no se necesita representatividad; se necesita rapidez y coste bajo. El uso profesional posterior sí requerirá un muestreo probabilístico.</li>
+<li>
+<strong>Bola de nieve</strong>. Poblaciones ocultas o de difícil localización (contrabandistas activos) rara vez son accesibles por métodos probabilísticos. Cada entrevistado sugiere al siguiente. Se acepta la falta de representatividad como coste de acceder a la información.</li>
+<li>
+<strong>Por conglomerados</strong> (edificios como conglomerados de hogares), o <strong>polietápico</strong> si además se estratifica por barrios de Tatooine. Es exactamente el caso en el que no hay marco individual pero sí marco de conglomerados.</li>
+</ol>
+</div>
+<div id="solución-al-problema-2.8." class="section level3" number="2.10.8">
+<h3>
+<span class="header-section-number">2.10.8</span> Solución al Problema 2.8.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.8."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>y b) Defectos y reformulación pregunta a pregunta:</li>
+</ol>
+<!-- --><ol style="list-style-type: decimal">
+<li>
+<p><em>“¿Está usted de acuerdo con la <strong>excelente</strong> política laboral del sector R-Stars?”</em> → Pregunta <strong>cargada</strong>: contiene la valoración positiva (“excelente”) en el enunciado, condicionando la respuesta.</p>
+<p><strong>Reformulación:</strong> <em>“¿Cómo valora la política laboral del sector R-Stars? Muy mala / Mala / Regular / Buena / Muy buena.”</em></p>
+</li>
+<li>
+<p><em>“¿Le parece adecuada la retribución <strong>y</strong> el trato personal que recibe en su compañía?”</em> → <strong>Dos asuntos en una sola pregunta</strong>, que pueden ir en sentidos opuestos.</p>
+<p><strong>Reformulación:</strong> separar en dos preguntas independientes, una para retribución y otra para trato personal.</p>
+</li>
+<li>
+<p>Tres preguntas de valoración con <strong>escalas distintas</strong> (1-5, 1-7, 0-10). El cambio de escala en mitad del cuestionario multiplica los errores de respuesta.</p>
+<p><strong>Reformulación:</strong> unificar la escala en las tres valoraciones (por ejemplo, todas de 1 a 5).</p>
+</li>
+<li>
+<p><em>“¿Está usted a favor de la desregulación asimétrica del hipercomercio interplanetario aplicada al régimen fiscal de la especia?”</em> → <strong>Falta de claridad</strong>: vocabulario técnico incomprensible para la mayor parte de los pilotos.</p>
+<p><strong>Reformulación:</strong> o se elimina, o se traduce a lenguaje accesible (“¿Cree que las tasas al comercio de especia deberían ser distintas según la galaxia?”).</p>
+</li>
+<li><p><em>“Sexo. Edad. Galaxia de nacimiento. Renta bruta anual.”</em> → <strong>Preguntas sociodemográficas al principio</strong>; deberían ir al <strong>final</strong>. Además, “renta bruta anual” es especialmente sensible y no debería preguntarse a bocajarro: conviene ofrecer tramos (“de 0 a 20 000 PAVOs / de 20 000 a 40 000 / …”) en lugar de pedir la cifra exacta.</p></li>
+<li>
+<p><em>“¿No es cierto que las nuevas rutas hacia la Pequeña Nube de Magallanes son peligrosas?”</em> → <strong>Doble negación</strong> con la respuesta prácticamente implícita. La formulación empuja al “sí”.</p>
+<p><strong>Reformulación:</strong> <em>“¿Cómo percibe la seguridad de las nuevas rutas hacia la Pequeña Nube de Magallanes? Muy segura / Segura / Regular / Insegura / Muy insegura.”</em></p>
+</li>
+</ol>
+<!-- --><ol start="3" style="list-style-type: lower-alpha">
+<li>
+<p>Recomendaciones sobre el <strong>orden</strong>:</p>
+<ul>
+<li>Empezar con preguntas <strong>neutras y generales</strong> (percepción global del sector).</li>
+<li>Continuar con las preguntas específicas sobre el trabajo y la satisfacción.</li>
+<li>Dejar las preguntas sensibles (satisfacción con el jefe, política salarial) para la parte media-alta del cuestionario.</li>
+<li>Terminar con las preguntas <strong>sociodemográficas</strong> (sexo, edad, galaxia, renta por tramos): útiles para la ponderación posterior y con menor impacto sobre la fatiga cuando ya se ha respondido lo importante.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-2.9." class="section level3" number="2.10.9">
+<h3>
+<span class="header-section-number">2.10.9</span> Solución al Problema 2.9.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.9."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<strong>CAWI.</strong> Coste mínimo, alcance intergaláctico casi inmediato. Coherente con la ausencia de exigencia estricta de representatividad.</li>
+<li>
+<strong>Encuesta por panel.</strong> Es el instrumento diseñado para seguir cambios individuales a lo largo del tiempo. Hay que tener presente que a lo largo de dos años el panelista se cansa y su comportamiento deja de ser el de un piloto medio: conviene rotar parcialmente el panel.</li>
+<li>
+<strong>PAPI.</strong> En asentamientos remotos sin internet, con problemas de alfabetización digital y de lengua vernácula, la entrevista personal con cuestionario en papel es la única opción seria. Es caro pero es el único método viable.</li>
+<li>
+<strong>CATI.</strong> La rapidez telefónica es imbatible cuando el resultado se necesita al día siguiente. Un CAWI podría funcionar también, pero el CATI ofrece un control mayor sobre el ritmo de respuesta.</li>
+<li>
+<strong>CAPI.</strong> Combina la calidad de la entrevista personal (útil para verificar sobre el terreno el estado de las instalaciones) con la agilidad del registro digital. Es exactamente el escenario para el que se diseñó.</li>
+</ol>
+</div>
+<div id="solución-al-problema-2.10." class="section level3" number="2.10.10">
+<h3>
+<span class="header-section-number">2.10.10</span> Solución al Problema 2.10.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.10."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>MCAR.</strong> Error aleatorio del proceso técnico, sin relación con nada. <strong>Estrategia:</strong> eliminar los tres casos (si el fichero es grande) o intentar recuperar el dato en el ERP de origen. Ambas opciones son seguras.</p></li>
+<li><p><strong>MNAR.</strong> Los pilotos con más infracciones son también los que menos las declaran: la probabilidad de no responder depende del propio valor faltante. <strong>Estrategia:</strong> no hay corrección estadística que resuelva el problema sin información adicional; en el análisis debe <strong>reportarse esta limitación abiertamente</strong>. Cualquier cifra sobre “número medio de infracciones” que se publique estará infraestimando la realidad, y así hay que decirlo.</p></li>
+<li><p><strong>MAR.</strong> La probabilidad de que falte el dato depende de una variable <strong>observable</strong> (el departamento). <strong>Estrategia:</strong> imputar por subgrupos (por moda del nivel de estudios dentro de “Almacén”), o modelar la ausencia condicionada al departamento.</p></li>
+<li><p><strong>MCAR.</strong> La avería del sensor es aleatoria e independiente del valor del consumo. <strong>Estrategia:</strong> ¡lo primero, <strong>recodificar</strong> los <code>-99</code> como <code>NA</code> explícitos! Si se dejan como valor válido, un solo cálculo de la media convierte a los sensores averiados en los cargueros más eficientes de la flota. Una vez recodificados, cualquier técnica razonable —incluida la imputación por la media— es aceptable.</p></li>
+<li><p><strong>MNAR</strong> con alta probabilidad. Los clientes que “están pensando cambiar de proveedor” son los menos dispuestos a dejarlo por escrito. <strong>Estrategia:</strong> similar a la del caso (b); no puede resolverse sin información adicional (por ejemplo, cruzar con la evolución posterior de la relación comercial). Nuevamente, reportar la limitación en el informe es parte de la honestidad estadística mínima.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-2.11." class="section level3" number="2.10.11">
+<h3>
+<span class="header-section-number">2.10.11</span> Solución al Problema 2.11.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.11."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Los 9 salarios observados son: 12, 14, 15, 15, 16, 18, 18, 20, 22.</p>
+<ul>
+<li>Suma = 150. <strong>Media</strong> = <span class="math inline">\(150/9 \approx 16{,}67\)</span> cientos de PAVOs.</li>
+<li>
+<strong>Mediana:</strong> con 9 datos ordenados, es el 5.º valor = <strong>16</strong> cientos de PAVOs.</li>
+</ul>
+</li>
+<li><p>Imputación por la media: NA → 16,67. Imputación por la mediana: NA → 16. La diferencia entre ambas es pequeña en este caso porque la distribución es bastante simétrica y sin <em>outliers</em>. Cualquiera de las dos es una imputación razonable.</p></li>
+<li>
+<p>Ahora los 10 salarios son: 12, 14, 15, 15, 16, 18, 18, 20, 22, <strong>75</strong>.</p>
+<ul>
+<li>Suma = 225. <strong>Media</strong> = <span class="math inline">\(225/10 = 22{,}5\)</span> cientos de PAVOs.</li>
+<li>
+<strong>Mediana:</strong> con 10 datos, es el promedio de las posiciones 5.ª y 6.ª = <span class="math inline">\((16 + 18)/2 = 17\)</span> cientos de PAVOs.</li>
+</ul>
+<p>La media se ha visto <strong>radicalmente</strong> afectada por el <em>outlier</em> (de 16,67 a 22,5: casi un 35% más). La mediana apenas se mueve (de 16 a 17). <strong>Recomendación:</strong> para este fichero conviene usar la <strong>mediana</strong> como estimador de referencia y, en caso de futuros NA, como valor de imputación; alternativamente, y aún mejor, <strong>excluir al CEO del fichero</strong> de operarios, porque no comparte con ellos la característica que define la población de interés. Analizar la retribución de los operarios mezclada con la del CEO es analizar dos poblaciones distintas.</p>
+</li>
+<li><p>La gran limitación es que la imputación puntual <strong>infravalora la varianza</strong> de la variable: todos los NA se sustituyen por un mismo valor central, lo que artificialmente <strong>concentra</strong> los datos alrededor de ese punto y hace que la dispersión calculada sea menor de la real. Este problema no lo resuelve ni la media ni la mediana; solo lo mitigan las imputaciones más sofisticadas (regresión, <em>k-NN</em>, imputación múltiple), que incorporan variabilidad al valor imputado.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-2.12." class="section level3" number="2.10.12">
+<h3>
+<span class="header-section-number">2.10.12</span> Solución al Problema 2.12.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.12."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Datos ordenados: 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 6, 35. <span class="math inline">\(N = 12\)</span>.</p>
+<p>Cuartiles (por interpolación en las posiciones <span class="math inline">\(0{,}25\cdot(N+1) = 3{,}25\)</span> y <span class="math inline">\(0{,}75\cdot(N+1) = 9{,}75\)</span>):</p>
+<ul>
+<li>
+<span class="math inline">\(Q_1 = 2 + 0{,}25 \cdot (2 - 2) = 2\)</span>.</li>
+<li>
+<span class="math inline">\(Q_3 = 4 + 0{,}75 \cdot (5 - 4) = 4{,}75\)</span>.</li>
+</ul>
+<p>(Distintas implementaciones dan resultados ligeramente distintos; en R, <code><a href="https://rdrr.io/r/stats/quantile.html">quantile()</a></code> por defecto da valores muy cercanos.)</p>
+<p><span class="math inline">\(\text{IQR} = Q_3 - Q_1 = 4{,}75 - 2 = 2{,}75\)</span>.</p>
+</li>
+<li>
+<p>Umbrales de la regla del IQR:</p>
+<ul>
+<li>Inferior: <span class="math inline">\(Q_1 - 1{,}5 \cdot \text{IQR} = 2 - 4{,}125 = -2{,}125\)</span>.</li>
+<li>Superior: <span class="math inline">\(Q_3 + 1{,}5 \cdot \text{IQR} = 4{,}75 + 4{,}125 = 8{,}875\)</span>.</li>
+</ul>
+</li>
+<li><p>Cualquier valor por encima de <strong>8,88</strong> aproximadamente (o por debajo de <span class="math inline">\(-2{,}13\)</span>, algo imposible con un IIG) se considera atípico. En la flota hay <strong>un único <em>outlier</em></strong>: la nave con <span class="math inline">\(\text{IIG} = 35\)</span>, muy por encima del umbral superior.</p></li>
+<li>
+<p>Antes de decidir nada, Oren Crestfall debería comprobar:</p>
+<ul>
+<li>
+<strong>Que la nave existe.</strong> No sea una avería del sistema de contaje o una duplicación de identificador que agrega mal las incidencias.</li>
+<li>
+<strong>La antigüedad de la nave.</strong> 35 incidencias en una nave con 30 años de servicio no es lo mismo que en una que lleva 3 años.</li>
+<li>
+<strong>La ruta que cubre.</strong> ¿Es una ruta especialmente hostil (Klendathu, cinturón de Magallanes)?</li>
+<li>
+<strong>El astillero constructor.</strong> ¿Es una serie con un defecto conocido? En el capítulo se menciona precisamente el caso de la <em>Trade Wind</em> de ARCTURUS, sospechosamente joven para sus 35 incidencias.</li>
+<li>
+<strong>El registro de mantenimiento.</strong> ¿Ha recibido revisiones periódicas?</li>
+</ul>
+</li>
+<li><p>Sin más información es difícil pronunciarse, pero la explicación más plausible es la <strong>segunda</strong> (caso legítimo excepcional): la nave existe, opera y arrastra un problema real (posiblemente un defecto de serie o un mal mantenimiento sistemático). Sería el tipo de dato del que Crestfall probablemente quiera <strong>saber más</strong>, no borrarlo sin más. Si fuera un error de codificación (por ejemplo, 3,5 tecleado como 35), sería fácil de comprobar en la fuente. Si perteneciera a “otra población” (una nave de guerra clasificada por error como carguero), la solución sería recodificar la naturaleza del registro, no borrarlo. La regla del capítulo es taxativa: <strong>borrar un <em>outlier</em> sin entender por qué es atípico equivale a esconder información</strong>.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-2.13." class="section level3" number="2.10.13">
+<h3>
+<span class="header-section-number">2.10.13</span> Solución al Problema 2.13.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-2.13."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Principios del RGPD y del secreto estadístico que se estarían vulnerando:</p>
+<ul>
+<li>
+<strong>Limitación de la finalidad.</strong> Los datos personales de los CEOs no se recogieron para “una campaña de imagen”, sino para el análisis regulatorio del sector. Reutilizarlos para otro fin es incompatible con la base legal original.</li>
+<li>
+<strong>Minimización.</strong> No hay razón alguna por la que una campaña de imagen requiera el <strong>salario individual</strong> ni la <strong>dirección personal</strong>. Se están solicitando muchos más datos de los estrictamente necesarios.</li>
+<li>
+<strong>Secreto estadístico.</strong> Publicar información que identifica a individuos concretos (los salarios de 25 CEOs identificables) vulnera el principio básico de la estadística pública. Solo cabe publicar información agregada que no permita identificar a nadie.</li>
+<li>
+<strong>Licitud, lealtad y transparencia.</strong> Los CEOs no han sido informados de que sus datos personales se van a usar para una campaña de comunicación.</li>
+<li>
+<strong>Confidencialidad.</strong> Se estaría facilitando información personal (la dirección) a un uso interno no previsto en el propósito de la recogida.</li>
+</ul>
+<p>Con tres bastaba, pero salen cinco sin esforzarse. La petición es sencillamente inviable en su forma actual.</p>
+</li>
+<li><p>Publicar el <strong>salario medio</strong> de los CEOs del sector está, en principio, autorizado: es una cifra agregada que no permite identificar a nadie. Publicar la <strong>distribución en cinco tramos</strong> es más delicado: con solo 25 CEOs, algunos tramos pueden contener uno o dos individuos, en cuyo caso el secreto estadístico obligaría a fusionar tramos o a suprimir las cifras concretas de esas celdas. La regla operativa habitual es no publicar celdas con menos de tres (a veces cinco) individuos.</p></li>
+<li><p>La relación con el <strong>sesgo algorítmico</strong> es directa: si estos datos se usaran para entrenar un modelo que evaluara automáticamente el “riesgo reputacional” de futuros directivos, el modelo aprendería la lógica implícita de la valoración —que a menudo refleja sesgos históricos de género, nacionalidad, forma jurídica de la empresa, incluso especie— y los aplicaría con <strong>apariencia de objetividad matemática</strong>. Un modelo entrenado sobre 25 casos, además, es un modelo estadísticamente indefendible: cualquier idiosincrasia de esos 25 individuos se convierte en “ley” para el algoritmo. La responsabilidad del analista incluye detectar y advertir sobre este riesgo, no solo cumplir el aspecto legal.</p></li>
+<li>
+<p>Mara Qyà debería:</p>
+<ul>
+<li>
+<strong>Rechazar formalmente</strong> la petición en su forma actual, por incompatibilidad con los principios del RGPD y del secreto estadístico.</li>
+<li>
+<strong>Documentar</strong> el rechazo y la argumentación jurídica (por qué se rechaza y con qué apoyo normativo).</li>
+<li>Ofrecer una <strong>alternativa lícita</strong>: publicar el salario medio de los CEOs (una cifra), o una distribución en tramos suficientemente amplios como para no identificar a ningún CEO, sin ningún dato de dirección ni valoración reputacional individual.</li>
+<li>Elevar la incidencia al <strong>Delegado de Protección de Datos</strong> de la ARTI, figura obligatoria en organismos que traten datos personales a gran escala.</li>
+</ul>
+<p>Y, como recordatorio interno, dejar clara la regla general: la Estadística <strong>puede</strong> hacer muchas cosas con los datos, pero eso no significa que <strong>deba</strong> hacerlas todas. Parte del oficio del analista es saber cuándo la respuesta profesional correcta es <em>“no”</em>.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
   <div class="chapter-nav">
@@ -1612,6 +2199,40 @@ Estudios rigurosos con MAR
 </li>
 <li><a class="nav-link" href="#etica-datos"><span class="header-section-number">2.7</span> Ética, privacidad y protección de datos.</a></li>
 <li><a class="nav-link" href="#recapitulacion-cap02"><span class="header-section-number">2.8</span> Recapitulación.</a></li>
+<li>
+<a class="nav-link" href="#problemas-cap02"><span class="header-section-number">2.9</span> Problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#problema-2.1.-primario-o-secundario-esa-es-la-cuesti%C3%B3n."><span class="header-section-number">2.9.1</span> Problema 2.1. Primario o secundario, esa es la cuestión.</a></li>
+<li><a class="nav-link" href="#problema-2.2.-elegir-el-sistema-de-obtenci%C3%B3n."><span class="header-section-number">2.9.2</span> Problema 2.2. Elegir el sistema de obtención.</a></li>
+<li><a class="nav-link" href="#problema-2.3.-un-csv-problem%C3%A1tico."><span class="header-section-number">2.9.3</span> Problema 2.3. Un CSV problemático.</a></li>
+<li><a class="nav-link" href="#problema-2.4.-diccionario-de-datos-por-reconstruir."><span class="header-section-number">2.9.4</span> Problema 2.4. Diccionario de datos por reconstruir.</a></li>
+<li><a class="nav-link" href="#problema-2.5.-los-cargueros-que-vuelven."><span class="header-section-number">2.9.5</span> Problema 2.5. Los cargueros que vuelven.</a></li>
+<li><a class="nav-link" href="#problema-2.6.-el-interstellar-digest-del-a%C3%B1o-gal%C3%A1ctico-2136."><span class="header-section-number">2.9.6</span> Problema 2.6. El Interstellar Digest del año galáctico 2136.</a></li>
+<li><a class="nav-link" href="#problema-2.7.-elegir-el-tipo-de-muestreo."><span class="header-section-number">2.9.7</span> Problema 2.7. Elegir el tipo de muestreo.</a></li>
+<li><a class="nav-link" href="#problema-2.8.-cuestionario-a-revisi%C3%B3n."><span class="header-section-number">2.9.8</span> Problema 2.8. Cuestionario a revisión.</a></li>
+<li><a class="nav-link" href="#problema-2.9.-elegir-el-m%C3%A9todo-de-encuestaci%C3%B3n."><span class="header-section-number">2.9.9</span> Problema 2.9. Elegir el método de encuestación.</a></li>
+<li><a class="nav-link" href="#problema-2.10.-diagn%C3%B3stico-de-valores-perdidos."><span class="header-section-number">2.9.10</span> Problema 2.10. Diagnóstico de valores perdidos.</a></li>
+<li><a class="nav-link" href="#problema-2.11.-imputar-por-la-media-o-por-la-mediana."><span class="header-section-number">2.9.11</span> Problema 2.11. Imputar por la media o por la mediana.</a></li>
+<li><a class="nav-link" href="#problema-2.12.-outliers-con-la-regla-del-iqr."><span class="header-section-number">2.9.12</span> Problema 2.12. Outliers con la regla del IQR.</a></li>
+<li><a class="nav-link" href="#problema-2.13.-un-dilema-%C3%A9tico-en-la-arti."><span class="header-section-number">2.9.13</span> Problema 2.13. Un dilema ético en la ARTI.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#soluciones-cap02"><span class="header-section-number">2.10</span> Soluciones a los problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.1."><span class="header-section-number">2.10.1</span> Solución al Problema 2.1.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.2."><span class="header-section-number">2.10.2</span> Solución al Problema 2.2.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.3."><span class="header-section-number">2.10.3</span> Solución al Problema 2.3.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.4."><span class="header-section-number">2.10.4</span> Solución al Problema 2.4.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.5."><span class="header-section-number">2.10.5</span> Solución al Problema 2.5.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.6."><span class="header-section-number">2.10.6</span> Solución al Problema 2.6.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.7."><span class="header-section-number">2.10.7</span> Solución al Problema 2.7.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.8."><span class="header-section-number">2.10.8</span> Solución al Problema 2.8.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.9."><span class="header-section-number">2.10.9</span> Solución al Problema 2.9.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.10."><span class="header-section-number">2.10.10</span> Solución al Problema 2.10.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.11."><span class="header-section-number">2.10.11</span> Solución al Problema 2.11.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.12."><span class="header-section-number">2.10.12</span> Solución al Problema 2.12.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-2.13."><span class="header-section-number">2.10.13</span> Solución al Problema 2.13.</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -1628,7 +2249,7 @@ Estudios rigurosos con MAR
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-23.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

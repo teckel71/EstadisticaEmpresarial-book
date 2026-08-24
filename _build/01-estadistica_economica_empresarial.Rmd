@@ -856,3 +856,414 @@ En este capítulo hemos sentado las bases que utilizaremos durante todo el curso
 -   El primer paso de cualquier análisis es construir **distribuciones de frecuencias**, eventualmente **agrupadas en intervalos**, e ilustrarlas con las **representaciones gráficas** adecuadas a la naturaleza de la característica.
 
 A partir de aquí, en el siguiente capítulo profundizaremos en cómo **resumir** una variable estadística unidimensional mediante medidas de posición, dispersión, forma y concentración. *Hyperdrive Express* nos seguirá acompañando.
+
+## Problemas propuestos. {#problemas-cap01}
+
+Los ejercicios que siguen son en su mayoría **conceptuales e interpretativos**: en este primer capítulo aún no disponemos de la maquinaria numérica de los capítulos siguientes, así que la exigencia recae sobre la lectura crítica de datos, la delimitación correcta de los estudios y la selección adecuada de gráficos. Todas las soluciones detalladas se recogen al final del capítulo.
+
+### Problema 1.1. La Estadística según se mire.
+
+Durante una sesión formativa en la **Autoridad Reguladora del Transporte Interestelar (ARTI)**, su directora **Mara Qyà** pide a los analistas junior que resuman en una frase el papel de la Estadística en su trabajo diario. Se recogen dos respuestas:
+
+- **Analista A.** *"La Estadística es el corazón de nuestra actividad: sin ella, no podríamos ni justificar una auditoría."*
+- **Analista B.** *"La Estadística es solo un instrumento; nuestro trabajo es económico, no matemático."*
+
+Se pide:
+
+a)  ¿Cuál de las dos afirmaciones se acerca más al carácter de la Estadística como **ciencia instrumental**?
+b)  Reformula la afirmación que hayas elegido en el apartado anterior para que refleje con mayor precisión ese carácter, sin traicionar el sentido de la respuesta original.
+
+### Problema 1.2. Población, individuo y característica en el *Informe Bluebird*.
+
+La **Dra. Xelia Bluebird**, de la AITM, prepara el borrador del próximo *Informe Bluebird* y ha definido cinco líneas de trabajo:
+
+i)   Índice medio de digitalización de las compañías del sector R-Stars con **actividad intergaláctica**.
+ii)  Antigüedad media de los cargueros activos de la flota de *Kaiju Haulage Co.*
+iii) Nivel de satisfacción declarado por los pilotos de largo recorrido de las cinco galaxias.
+iv)  Cuota de mercado, en toneladas transportadas, de los **tres grandes astilleros** durante 2210.
+v)   Estado financiero (Saneado / En Vigilancia / En *Distress*) de las compañías con sede en la **Gran Nube de Magallanes**.
+
+Para cada línea de trabajo, identifica: (1) **población**, (2) **individuo**, (3) **característica principal**, (4) **tipo** (variable o atributo) y (5) **escala de medida**.
+
+### Problema 1.3. Censo o muestra en la Base de Datos Interestelar.
+
+El equipo del **Dr. Sagan Olbers** debate cómo alimentar el próximo corte trimestral de la **Base de Datos Interestelar**. Un miembro del equipo propone recoger indicadores solo de una **muestra de 60 compañías**, argumentando que *"para 300 compañías, con 60 basta"*. Otro sostiene que *"si tenemos las 300, hagamos censo, y así ahorramos margen de error"*.
+
+Se pide:
+
+a)  ¿En qué condiciones tiene sentido optar por el **censo** en lugar de por la **muestra**? ¿Y al revés?
+b)  ¿Qué argumentos añadirías al debate específicamente para el caso de la Base de Datos Interestelar?
+c)  Si se optara finalmente por muestra, ¿qué requisito imprescindible debe cumplir para que las conclusiones sobre las 300 compañías tengan validez?
+
+### Problema 1.4. Descripción o inferencia.
+
+Clasifica cada una de las siguientes preguntas de un informe de la AITM como propia de la **Estadística Descriptiva** o de la **Estadística Inferencial**, y justifica brevemente por qué:
+
+a)  ¿Cuál fue la rentabilidad media de las 300 compañías del sector en 2210?
+b)  A la vista de los datos de 2210, ¿podemos afirmar que la rentabilidad media del sector supera el 55%?
+c)  ¿Cuántos cargueros con más de 10 años de antigüedad hay actualmente en la flota de *Arrakis Freight*?
+d)  A partir de una muestra de 500 rutas atravesadas por el sistema **Klendathu**, ¿cuál es la probabilidad de que una ruta cualquiera de esa zona sufra un ataque pirata?
+e)  Distribución del nivel de estudios de la plantilla completa de *Hyperdrive Express*.
+
+### Problema 1.5. Variables, atributos y escalas: fichero de una compañía.
+
+La ARTI ha extraído el siguiente listado de campos del expediente de una compañía cualquiera del sector. Para cada uno, indica si se trata de una **variable** o de un **atributo**, cuál es su **escala de medida** (nominal, ordinal o métrica), y si tiene o no sentido calcular la **media aritmética**:
+
+-   Facturación anual (millones de PAVOs).
+-   Galaxia de la sede (Vía Láctea, Andrómeda, Triángulo, LMC, SMC).
+-   Forma jurídica (Sociedad Anónima Galáctica, Compañía Galáctica, Cooperativa Interestelar).
+-   Número de rutas activas.
+-   Estado financiero según ARTI (Saneado, En Vigilancia, En *Distress*).
+-   Antigüedad media de la flota (años).
+-   Astillero constructor mayoritario (Korrigan Heavy Works, Selene Dynamics, Arcturus Shipyards).
+-   Índice de digitalización del *Informe Bluebird* (escala 0-100).
+
+### Problema 1.6. Distribución de rutas intergalácticas.
+
+El siguiente extracto corresponde a la distribución de frecuencias del **número de rutas intergalácticas activas** operadas por las 200 compañías R-Stars con actividad intergaláctica. La tabla está incompleta a propósito:
+
+| $x_i$ (rutas) | $n_i$ | $N_i$ | $f_i$ | $F_i$ |
+|:-------------:|:-----:|:-----:|:-----:|:-----:|
+|       1       |  40   |  40   | 0,200 | 0,200 |
+|       2       |  60   |       | 0,300 |       |
+|       3       |       |  150  |       | 0,750 |
+|       4       |  30   |       |       |       |
+|       5       |  20   |       |       |       |
+
+::: {style="text-align: center;"}
+**Tabla 1.8**
+:::
+
+
+Se pide:
+
+a)  Completa los huecos de la tabla.
+b)  ¿Qué proporción de compañías intergalácticas operan como mucho 3 rutas?
+c)  Xelia Bluebird propone segmentar el mercado en **operadores pequeños** (1-2 rutas) y **operadores medianos-grandes** (3 rutas o más). ¿Qué proporción de compañías cae en cada segmento?
+d)  ¿Esta distribución sugiere un mercado **atomizado** (muchas compañías pequeñas) o **concentrado** (pocas grandes)? Justifica.
+
+### Problema 1.7. Frecuencias acumuladas: sentido y sinsentido.
+
+Un directivo de *Kaiju Haulage Co.* solicita al equipo de estudios *"las frecuencias absolutas y acumuladas del planeta de origen de la plantilla"* de la compañía. El equipo pone en la mesa la tabla siguiente, con los planetas ordenados **alfabéticamente**:
+
+|  Planeta  | $n_i$ | $N_i$ | $f_i$ | $F_i$ |
+|:---------:|:-----:|:-----:|:-----:|:-----:|
+| Coruscant |   8   |   8   | 0,10  | 0,10  |
+|  Miranda  |  12   |  20   | 0,15  | 0,25  |
+| Mustafar  |  40   |  60   | 0,50  | 0,75  |
+| Tatooine  |  20   |  80   | 0,25  | 1,00  |
+
+::: {style="text-align: center;"}
+**Tabla 1.9**
+:::
+
+
+El directivo lee la última fila y afirma que *"el 75% de la plantilla es como mucho de Mustafar"*.
+
+Se pide:
+
+a)  ¿Qué error conceptual está cometiendo el directivo?
+b)  ¿Qué columnas de la tabla anterior son legítimas y cuáles no lo son en este contexto?
+c)  Propón una lectura que sí sería correcta a partir de las columnas legítimas.
+
+### Problema 1.8. Salarios en Shuttlepod Movers: intervalos desiguales.
+
+**Tasha Tachybaptus**, CEO de *Shuttlepod Movers*, ha pedido a su equipo de RR.HH. que agrupe los salarios anuales de la plantilla (en miles de PAVOs) en intervalos **deliberadamente desiguales**, para reflejar mejor la escala salarial interna:
+
+|  Intervalo (miles PAVOs)  | $n_i$ | $c_i$ | $x_i$ | $d_i$ |
+|:-------------------------:|:-----:|:-----:|:-----:|:-----:|
+|         (10, 15]          |  10   |   5   | 12,5  |  2,0  |
+|         (15, 20]          |  15   |   5   | 17,5  |  3,0  |
+|         (20, 30]          |  18   |  10   | 25,0  |  1,8  |
+|         (30, 50]          |   6   |  20   | 40,0  |  0,3  |
+
+::: {style="text-align: center;"}
+**Tabla 1.10**
+:::
+
+
+Un miembro del equipo directivo, al ver la tabla, se queja: *"El intervalo (20, 30] es el que concentra a más gente, así que ahí está el salario típico de la compañía."*
+
+Se pide:
+
+a)  ¿Es correcto ese razonamiento? ¿Por qué?
+b)  ¿Cuál sería la lectura correcta a partir de la columna de **densidad** $d_i$?
+c)  ¿Qué representación gráfica evitaría el equívoco: histograma con altura $n_i$ o histograma con altura $d_i$? Justifica.
+
+### Problema 1.9. Antigüedad de la flota de Selene Dynamics.
+
+La AITM ha reunido datos sobre la **antigüedad (en años)** de los 250 cargueros producidos por *Selene Dynamics* durante la última década. La antigüedad mínima observada es de 1 año y la máxima, de 12 años.
+
+Se pide:
+
+a)  Aplica la **regla de Sturges** para determinar el número de intervalos que sugiere para el histograma.
+b)  Calcula la amplitud teórica $c$ correspondiente.
+c)  Propón unos cortes **cómodos** para presentar en el eje horizontal del histograma. Justifica la decisión, aunque implique alejarse ligeramente del $k$ teórico.
+d)  Comenta en qué situación te llevaría a preferir la regla de **Freedman-Diaconis** en lugar de la de Sturges.
+
+### Problema 1.10. Interpretación de una distribución de márgenes.
+
+La siguiente tabla resume el **margen operativo (en %)** de las 300 compañías del sector R-Stars según el último corte de la Base de Datos Interestelar:
+
+| Margen (%) | $n_i$ | $f_i$ | $F_i$ |
+|:----------:|:-----:|:-----:|:-----:|
+|  (0, 20]   |  15   | 0,050 | 0,050 |
+|  (20, 40]  |  45   | 0,150 | 0,200 |
+|  (40, 60]  |  120  | 0,400 | 0,600 |
+|  (60, 80]  |  90   | 0,300 | 0,900 |
+| (80, 100]  |  30   | 0,100 | 1,000 |
+
+::: {style="text-align: center;"}
+**Tabla 1.11**
+:::
+
+
+Se pide:
+
+a)  ¿En qué intervalo se sitúa la mayor concentración de compañías?
+b)  ¿Qué porcentaje de compañías tiene un margen operativo por debajo del 60%?
+c)  La AITM utiliza la rentabilidad media del sector (**60,16%**) como referencia oficial. ¿Es coherente esta distribución con esa cifra media? ¿Qué tipo de asimetría sugiere?
+d)  Sagan Olbers propone considerar *"empresas de alto rendimiento"* a las que superan el 80% de margen. ¿Es este umbral demasiado exigente a la luz de la tabla?
+
+### Problema 1.11. Pareto en Arrakis Freight.
+
+*Arrakis Freight* ha ordenado a sus 10 mayores clientes según la facturación (millones de PAVOs) generada durante 2210:
+
+| Cliente | Facturación (M PAVOs) |
+|:-------:|:---------------------:|
+|  C-01   |          180          |
+|  C-02   |          140          |
+|  C-03   |          90           |
+|  C-04   |          60           |
+|  C-05   |          40           |
+|  C-06   |          25           |
+|  C-07   |          20           |
+|  C-08   |          18           |
+|  C-09   |          15           |
+|  C-10   |          12           |
+
+::: {style="text-align: center;"}
+**Tabla 1.12**
+:::
+
+
+Se pide:
+
+a)  Construye una tabla con la facturación acumulada y su porcentaje sobre el total.
+b)  ¿Cuántos clientes concentran aproximadamente el 80% de la facturación?
+c)  Interpreta el resultado en clave de **regla 80-20** y sugiere una implicación de gestión para el director comercial de la compañía.
+
+### Problema 1.12. Diagnóstico crítico de un gráfico.
+
+La revista *Interstellar Weekly* publica un gráfico de barras comparando la **cuota de mercado** (en %) de los tres grandes astilleros —*Korrigan Heavy Works*, *Selene Dynamics* y *Arcturus Shipyards*—. Un analista de la ARTI describe la imagen así:
+
+> *"Es un gráfico de barras en 3D con fondo degradado azul metalizado y sombras marcadas. El eje vertical arranca en el 28% y termina en el 42%. Las tres barras están ordenadas alfabéticamente por astillero. Las cifras exactas no aparecen sobre las barras, sino en una leyenda en tipografía muy pequeña. El título del gráfico es 'Cuota de mercado 2210'. No se cita ninguna fuente."*
+
+Enumera los defectos gráficos de la imagen a la luz de las **buenas prácticas** revisadas en el capítulo, y explica cómo corregirías cada uno.
+
+### Problema 1.13. Cuadro de mando de Hyperdrive Express.
+
+Un extracto del cuadro de mando trimestral de *Hyperdrive Express* recoge la facturación de la compañía (en millones de PAVOs) por trimestre durante los últimos tres años:
+
+| Año  | T1  | T2  | T3  | T4  |
+|:----:|:---:|:---:|:---:|:---:|
+| 2208 | 140 | 158 | 172 | 195 |
+| 2209 | 152 | 170 | 185 | 210 |
+| 2210 | 168 | 188 | 205 | 232 |
+
+::: {style="text-align: center;"}
+**Tabla 1.13**
+:::
+
+
+Se pide:
+
+a)  ¿Qué tipo de gráfico sería el más adecuado para representar estos datos y por qué?
+b)  Describe cualitativamente la **tendencia** y la **estacionalidad** que se observan.
+c)  La CEO pide *"una previsión firme para T1 y T2 de 2211"*. Explica por qué la respuesta rigurosa a esa pregunta ya no pertenece a la Estadística Descriptiva. ¿A qué rama del método estadístico correspondería, y qué requisitos adicionales sería razonable exigir para responderla?
+
+## Soluciones a los problemas propuestos. {#soluciones-cap01}
+
+### Solución al Problema 1.1.
+
+a)  La afirmación de la **analista B** ("solo un instrumento") se acerca más al carácter de la Estadística como **ciencia instrumental**. La ARTI no audita las compañías "porque sí" con un estadístico: audita su salud económico-financiera, y para hacerlo con rigor necesita la Estadística. La finalidad es económica; la Estadística es la vía.
+
+    Ahora bien, la formulación tan tajante ("*solo* un instrumento") es incompleta: minimiza el hecho de que, sin ese instrumento, no puede tomarse una decisión bien fundamentada. Un instrumento imprescindible no es "solo un instrumento". De ahí que la afirmación de la **analista A** contenga también una parte de razón —enfatiza la centralidad del método—, aunque la exprese de forma imprecisa (la Estadística no es el corazón de la actividad *auditora*, es su andamiaje metodológico).
+
+b)  Reformulación compatible: *"La Estadística es el instrumento sin el cual nuestro trabajo económico no sería fiable: no es el objeto de nuestras auditorías, pero es el andamiaje que las hace defendibles."* Se preserva la centralidad del método en el proceso y, a la vez, se reconoce que su papel es servir a un objetivo económico.
+
+### Solución al Problema 1.2.
+
+| Línea | Población                                           | Individuo    | Característica            | Tipo      | Escala    |
+|:-----:|:----------------------------------------------------|:-------------|:--------------------------|:----------|:----------|
+| i     | Compañías R-Stars con actividad intergaláctica      | Una compañía | Índice de digitalización  | Variable  | Métrica   |
+| ii    | Cargueros activos de la flota de *Kaiju Haulage*    | Un carguero  | Antigüedad (años)         | Variable  | Métrica   |
+| iii   | Pilotos de largo recorrido de las 5 galaxias        | Un piloto    | Nivel de satisfacción     | Atributo  | Ordinal   |
+| iv    | Los tres grandes astilleros                         | Un astillero | Cuota de mercado (Tm)     | Variable  | Métrica   |
+| v     | Compañías con sede en la Gran Nube de Magallanes    | Una compañía | Estado financiero (S/V/D) | Atributo  | Ordinal   |
+
+::: {style="text-align: center;"}
+**Tabla 1.14**
+:::
+
+
+**Comentarios.** En (iv), la interpretación más frecuente en un informe sectorial es la que hemos elegido (los astilleros como individuos y la cuota como variable). También cabría entender como individuo cada tonelada transportada y como característica el astillero constructor (que pasaría a ser atributo nominal); ambas son legítimas, pero responden a preguntas distintas. En (iii), la escala es **ordinal** y no métrica: un "Muy satisfecho" no es "el doble" de un "Poco satisfecho".
+
+### Solución al Problema 1.3.
+
+a)  El **censo** es preferible cuando la población es pequeña y accesible, y el coste incremental de observarla íntegramente es asumible. La **muestra** se justifica cuando el censo es inviable por coste, tiempo o accesibilidad, o cuando observar un individuo lo destruye o lo altera (control de calidad destructivo).
+
+b)  Para la Base de Datos Interestelar hay que tener en cuenta que las 300 compañías del sector están identificadas y reportan periódicamente a la AITM: los indicadores del corte trimestral son de acceso relativamente barato. En este contexto, el **censo** tiene ventajas claras: no hay error de muestreo, y las conclusiones **son** las del sector, no una estimación. La muestra solo se justificaría si el corte trimestral incluyera indicadores caros de generar (auditorías profundas, verificaciones sobre el terreno); para agregados estándar (facturación, plantilla, flota), lo natural es el censo.
+
+c)  Si se optara por muestra, el requisito imprescindible es la **representatividad**: la muestra debe reproducir a pequeña escala la estructura de la población (galaxia, tamaño, tipo de actividad…) mediante un procedimiento probabilístico de selección (aleatorio simple, estratificado…) y un tamaño suficiente para acotar el error a un nivel prefijado. Una muestra "de conveniencia" (por ejemplo, las 60 compañías más grandes) no serviría: sesgaría todas las conclusiones hacia el segmento premium del sector.
+
+### Solución al Problema 1.4.
+
+a)  **Descriptiva.** Se pregunta por una cifra referida al conjunto observado (las 300 compañías en 2210). No se generaliza a nada.
+b)  **Inferencial.** La formulación "podemos afirmar" incorpora incertidumbre: se está contrastando si el valor teórico del parámetro *rentabilidad del sector* supera un umbral. Aunque contemos con el censo de 2210, entender ese año como una realización del sector y no como el sector en abstracto convierte la pregunta en un contraste de hipótesis.
+c)  **Descriptiva.** Recuento en una población identificada (la flota actual de *Arrakis Freight*).
+d)  **Inferencial.** Se usa una muestra (500 rutas) para estimar una probabilidad ("una ruta cualquiera de esa zona"), lo que requiere modelo probabilístico y una acotación de la incertidumbre.
+e)  **Descriptiva.** Se caracteriza el conjunto observado (plantilla completa).
+
+### Solución al Problema 1.5.
+
+| Campo                          | Tipo     | Escala   | ¿Media?           |
+|:-------------------------------|:---------|:---------|:------------------|
+| Facturación anual              | Variable | Métrica  | Sí                |
+| Galaxia de la sede             | Atributo | Nominal  | No                |
+| Forma jurídica                 | Atributo | Nominal  | No                |
+| Número de rutas activas        | Variable | Métrica  | Sí                |
+| Estado financiero (S / V / D)  | Atributo | Ordinal  | No (véase abajo)  |
+| Antigüedad de la flota         | Variable | Métrica  | Sí                |
+| Astillero constructor          | Atributo | Nominal  | No                |
+| Índice de digitalización       | Variable | Métrica  | Sí                |
+
+::: {style="text-align: center;"}
+**Tabla 1.15**
+:::
+
+
+**Comentario sobre el estado financiero.** En la práctica se ven "índices" que recodifican Saneado = 1, En Vigilancia = 2, En *Distress* = 3 y calculan medias. Esto es *técnicamente* posible, pero conceptualmente resbaladizo: el promedio entre "Saneado" y "En Vigilancia" (1,5) no es una categoría reconocible. La distancia entre categorías ordinales no está garantizada; por eso la escala ordinal admite orden pero no operaciones aritméticas.
+
+### Solución al Problema 1.6.
+
+a)  Como $\sum n_i = 200$, es inmediato completar:
+
+    | $x_i$ | $n_i$ | $N_i$ | $f_i$ | $F_i$ |
+    |:-----:|:-----:|:-----:|:-----:|:-----:|
+    |   1   |  40   |  40   | 0,200 | 0,200 |
+    |   2   |  60   |  100  | 0,300 | 0,500 |
+    |   3   |  50   |  150  | 0,250 | 0,750 |
+    |   4   |  30   |  180  | 0,150 | 0,900 |
+    |   5   |  20   |  200  | 0,100 | 1,000 |
+
+b)  $F_3 = 0{,}750$: el **75%** de las compañías intergalácticas operan como mucho 3 rutas.
+
+c)  Operadores pequeños (1-2): $f_1 + f_2 = 0{,}500$. Medianos-grandes (3 o más): $f_3 + f_4 + f_5 = 0{,}500$. La segmentación de Xelia deja los dos grupos con el mismo número de compañías.
+
+d)  La distribución sugiere un mercado más bien **atomizado**: la mitad de las compañías con actividad intergaláctica operan solo 1 o 2 rutas, y solo el 10% opera 5 rutas o más. Ahora bien, no debe confundirse **número de compañías** con **volumen de negocio**: es perfectamente compatible con esta distribución que las pocas grandes (4-5 rutas) concentren la mayor parte del negocio del sector. El *Informe Bluebird* tendrá que medirlo cuando cruce esta variable con la facturación.
+
+### Solución al Problema 1.7.
+
+a)  El error está en tratar un **atributo nominal** como si fuera ordinal. "Planeta de origen" no tiene orden natural entre Coruscant, Miranda, Mustafar y Tatooine. Las columnas $N_i$ y $F_i$ están calculadas sobre un orden **arbitrario** (el alfabético del nombre del planeta), no sobre un orden intrínseco a los datos. Por eso su lectura es sinsentido: "el 75% es como mucho de Mustafar" solo tendría interpretación si "hasta Mustafar" significara algo, y aquí solo significa "los planetas cuyo nombre en castellano precede alfabéticamente a Tatooine".
+
+b)  **Legítimas:** $n_i$ y $f_i$. **No legítimas:** $N_i$ y $F_i$, que deberían suprimirse de la tabla.
+
+c)  Lectura correcta: *"Mustafar es el planeta de origen mayoritario de la plantilla (el 50%), seguido de Tatooine (25%), Miranda (15%) y Coruscant (10%). La moda del atributo es Mustafar."*
+
+### Solución al Problema 1.8.
+
+a)  **No** es correcto. El intervalo (20, 30] tiene la mayor frecuencia absoluta ($n_i = 18$), pero es también el **segundo más ancho** ($c_i = 10$). Parte de esa frecuencia mayor se debe simplemente a que el intervalo cubre más rango salarial, no a una mayor concentración por unidad de escala.
+
+b)  La densidad $d_i = n_i / c_i$ corrige por la anchura del intervalo:
+
+    - (10, 15]: $d_i = 2{,}0$.
+    - (15, 20]: $d_i = 3{,}0$ &nbsp; ← **máxima densidad**.
+    - (20, 30]: $d_i = 1{,}8$.
+    - (30, 50]: $d_i = 0{,}3$.
+
+    El intervalo más denso es (15, 20]: por cada mil PAVOs de escala, es ahí donde hay más empleados. El "salario típico" de la compañía se sitúa alrededor de 17-18 miles de PAVOs, no en la franja 20-30.
+
+c)  El histograma correcto es el que utiliza **altura = densidad**. Con altura $= n_i$, la barra de (20, 30] parece dominar visualmente y transmite el mensaje equivocado (el mismo que ha caído el directivo). Con altura $= d_i$, la barra alta pasa a ser (15, 20], que es la lectura correcta. Esta es la razón última por la que el histograma se construye con densidad cuando los intervalos son desiguales: para que **el área** de cada rectángulo sea proporcional a la frecuencia y las comparaciones visuales entre intervalos sean honestas.
+
+### Solución al Problema 1.9.
+
+a)  Regla de Sturges: $k = 1 + \log_2 N = 1 + \log_2 250 \approx 1 + 7{,}97 = 8{,}97$, redondeando a $k = 9$ intervalos.
+
+b)  Amplitud teórica: $c = (12 - 1) / 9 = 11/9 \approx 1{,}22$ años. Los cortes teóricos serían $1;\ 2{,}22;\ 3{,}44;\ 4{,}67;\ 5{,}89;\ 7{,}11;\ 8{,}33;\ 9{,}56;\ 10{,}78;\ 12$. Poco presentables.
+
+c)  Un redondeo razonable a valores cómodos es tomar **6 intervalos de amplitud 2 años**, con cortes en $0;\ 2;\ 4;\ 6;\ 8;\ 10;\ 12$ (o alternativamente $1;\ 3;\ 5;\ 7;\ 9;\ 11;\ 13$). Se sacrifican 3 intervalos respecto al $k$ de Sturges, pero se gana enormemente en comunicabilidad: los años enteros pares son la lectura natural para un directivo de la ARTI o del propio astillero, y la información apenas se pierde. Esta clase de compromiso —el número óptimo en abstracto frente al número cómodo para el lector— es la norma en estadística descriptiva profesional.
+
+d)  Preferiríamos **Freedman-Diaconis** si sospecháramos que la distribución de antigüedades presenta **colas** o **valores atípicos**: por ejemplo, cargueros vintage muy antiguos (30 años y pico) que *Selene Dynamics* aún mantiene por prestigio, o cargueros prototipo casi nuevos (menos de un año). En esos casos, la $N$ que utiliza Sturges no aporta información sobre la forma, mientras que el $IQR$ que utiliza Freedman-Diaconis es robusto frente a esas colas. El cálculo requiere el $IQR$, definido en el capítulo siguiente.
+
+### Solución al Problema 1.10.
+
+a)  La mayor concentración está en el intervalo **(40, 60]**: 120 compañías, el 40% del sector.
+
+b)  $F_{60} = 0{,}600$: el **60%** de las compañías tiene margen operativo por debajo del 60%.
+
+c)  La rentabilidad media oficial del sector es del **60,16%**. La distribución muestra que el 60% de las compañías está por debajo de ese umbral, es decir, la media queda **ligeramente por encima** de la mediana (que estaría en algún punto del intervalo (40, 60]). Esto es coherente con una distribución **asimétrica a la derecha**: la cola alta (30 compañías por encima del 80%) tira de la media hacia arriba respecto de la mediana. Es un patrón habitual en sectores donde unos pocos operadores capturan márgenes desproporcionados —típicamente los que dominan las rutas más rentables, en nuestro caso las intergalácticas.
+
+d)  Superan el 80%: 30 compañías, el 10% del sector. No es un umbral especialmente exigente: el 10% mejor de un sector es una franja bastante generosa (por comparación, "el 5% de las mejores" sería más exclusivo). Depende del uso previsto: para un ranking anual del *Informe Bluebird*, el 10% es una convención razonable; si Sagan Olbers quiere identificar solo un puñado de casos excepcionales para un análisis cualitativo, quizá conviene endurecer el criterio (por ejemplo, 90% de margen y por encima, que dejaría un grupo mucho menor).
+
+### Solución al Problema 1.11.
+
+a)  Total de facturación: $180 + 140 + 90 + 60 + 40 + 25 + 20 + 18 + 15 + 12 = 600$ M PAVOs.
+
+    | Cliente | Facturación | Acumulada | % del total | % acum. |
+    |:-------:|:-----------:|:---------:|:-----------:|:-------:|
+    |  C-01   |     180     |    180    |    30,0     |  30,0   |
+    |  C-02   |     140     |    320    |    23,3     |  53,3   |
+    |  C-03   |     90      |    410    |    15,0     |  68,3   |
+    |  C-04   |     60      |    470    |    10,0     |  78,3   |
+    |  C-05   |     40      |    510    |     6,7     |  85,0   |
+    |  C-06   |     25      |    535    |     4,2     |  89,2   |
+    |  C-07   |     20      |    555    |     3,3     |  92,5   |
+    |  C-08   |     18      |    573    |     3,0     |  95,5   |
+    |  C-09   |     15      |    588    |     2,5     |  98,0   |
+    |  C-10   |     12      |    600    |     2,0     | 100,0   |
+
+b)  Con **4 clientes** ya se llega al 78,3%; con **5**, al 85%. Aproximadamente **4-5 clientes** concentran el 80% de la facturación.
+
+c)  La regla 80-20 canónica sostiene que "el 20% de los clientes generan el 80% de la facturación". En *Arrakis Freight*, la concentración es alta pero algo menos extrema que en el caso canónico: hace falta el **40-50%** de los clientes (4-5 sobre 10) para llegar al 80%. Aun así, la asimetría es fuerte: los tres primeros clientes (C-01 a C-03) ya explican el **68%** de la facturación.
+
+    **Implicación de gestión:** la política de fidelización debe centrarse claramente en la **cabeza** de la lista. Perder a C-01 supondría un impacto del 30% en la facturación total; perder al trío C-01, C-02, C-03, más del doble. Un director comercial prudente destinará recursos de retención desproporcionados a este grupo (SLA reforzados, gestor de cuenta dedicado). La cola de clientes pequeños, aunque menos crítica en volumen, importa a efectos de **diversificación de riesgo**: si el sector se contrae y desaparece uno de los grandes, los pequeños son la red que evita el colapso.
+
+### Solución al Problema 1.12.
+
+Los defectos y sus correcciones, uno por uno:
+
+1.  **Barras en 3D con fondo degradado y sombras.** Todo elemento decorativo (3D, degradados, sombras) suma "tinta que no es dato" y distorsiona la percepción de las alturas: en 3D, las barras del fondo parecen más pequeñas por efecto de perspectiva. → **Corrección:** 2D plano, fondo blanco o gris muy claro, sin sombras.
+
+2.  **Eje vertical truncado (28-42%).** Truncar el eje exagera visualmente las diferencias entre las tres barras y es una de las prácticas manipuladoras más frecuentes en comunicación empresarial. → **Corrección:** el eje debe empezar en 0. Si las diferencias entre las tres cuotas son pequeñas y se quiere destacarlas, hágase con anotación numérica, no con manipulación del eje.
+
+3.  **Orden alfabético.** El orden alfabético del nombre no aporta información sobre el fenómeno. → **Corrección:** ordenar las barras por cuota (de mayor a menor), para que la lectura visual sea inmediata.
+
+4.  **Cifras exactas fuera del gráfico, en leyenda pequeña.** Obliga al lector a ir y venir entre gráfico y leyenda. → **Corrección:** anotar la cuota directamente encima de cada barra, con tipografía legible.
+
+5.  **Título neutro.** *"Cuota de mercado 2210"* no dice nada más allá de la descripción. → **Corrección:** título con **mensaje** (*"Selene Dynamics lidera el mercado con el 39% en 2210"* o similar), y subtítulo con el contexto (fuente, año, unidad).
+
+6.  **Sin fuente.** Un gráfico sin fuente es un gráfico sin credibilidad, especialmente en un contexto sectorial regulado. → **Corrección:** pie de gráfico con *"Fuente: AITM / Informe Bluebird 2210"*.
+
+7.  **Sobreuso del color.** El "azul metalizado" ya sugiere que el color se ha usado como decoración, no como recurso informativo. → **Corrección:** paleta neutra (gris suave) con un único **color de acento** aplicado, por ejemplo, solo a la barra que se quiera destacar (el líder de cuota, o el astillero que sea objeto del reportaje).
+
+En conjunto, el gráfico descrito es un catálogo casi completo de malas prácticas. Rehecho conforme a las recomendaciones del capítulo, transmitiría exactamente la misma información con muchísima más claridad y sin manipulación.
+
+### Solución al Problema 1.13.
+
+a)  El gráfico adecuado es el **gráfico de líneas**, con el tiempo (trimestre a trimestre, desde T1-2208 hasta T4-2210) en el eje horizontal y la facturación en el eje vertical. La línea permite apreciar simultáneamente la evolución global, la periodicidad interna y las variaciones puntuales; ningún gráfico de barras ofrece esta lectura con la misma claridad.
+
+b)  
+
+    -   **Tendencia:** claramente **creciente** a lo largo de los tres años. Comparando trimestres homólogos: T1 pasa de 140 (2208) a 152 (2209) a 168 (2210); T4, de 195 a 210 a 232. La facturación crece cada año en cada trimestre comparable, en torno al 8-10% anual.
+    -   **Estacionalidad:** dentro de cada año se repite el patrón $T_4 > T_3 > T_2 > T_1$. El cierre de año es sistemáticamente el trimestre más fuerte, y el arranque el más flojo. Es una estacionalidad muy definida, consistente con la campaña de Navidad interestelar y con la mayor actividad comercial asociada al cierre fiscal del sector.
+
+c)  Predecir T1 y T2 de 2211 **no** es una tarea de la Estadística Descriptiva: la descriptiva describe lo observado, no extrapola. Cualquier previsión firme requiere asumir un modelo (que la tendencia y la estacionalidad se mantienen) y aceptar que la respuesta viene con incertidumbre. Esto es propio de la **Estadística Inferencial** y, más concretamente, del **análisis de series temporales**, que hereda buena parte de sus herramientas.
+
+    Requisitos razonables para que la respuesta a la CEO sea profesionalmente defendible:
+
+    -   Un **modelo explícito** (por ejemplo, descomposición tendencia + estacionalidad + componente irregular, o un ARIMA estacional).
+    -   Una previsión **con intervalo**, no un único valor "firme": la respuesta rigurosa incluye la incertidumbre.
+    -   Una discusión honesta de los **supuestos**: ¿es razonable pensar que la tendencia se mantiene?, ¿hay factores externos (nuevas rutas de la competencia, cambios regulatorios de la ARTI, oscilaciones en el precio de la especia) que podrían romper el patrón?
+
+    La lección económico-empresarial es la misma que aparece implícita en todo el capítulo: la Estadística no elimina la incertidumbre —eso es imposible—, pero permite **cuantificarla**, y ese es exactamente el valor añadido que la CEO necesita cuando toma decisiones apoyadas en una previsión.
