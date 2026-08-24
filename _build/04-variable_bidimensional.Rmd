@@ -1080,3 +1080,558 @@ En este capítulo hemos dado el salto de una a dos variables (y hemos apuntado e
 - En **tablas de contingencia** entre atributos, se compara la tabla observada con la que produciría la independencia. El **estadístico ji-cuadrado de Pearson** resume esa comparación en un solo número: cerca de cero, no hay evidencia de asociación; muy grande, sí la hay.
 
 Este capítulo se ha limitado a la pregunta **cualitativa**: ¿existe o no existe relación estadística? En el próximo daremos el siguiente paso lógico. Cuando la relación exista, será importante medir **cuán intensa** es (mediante el **coeficiente de correlación**), y **qué forma** tiene, es decir, cómo se puede aproximar una variable a partir de la otra (mediante la **regresión**). *Hyperdrive Express*, *Shuttlepod Movers*, la flota de astilleros y la muestra completa de $300$ compañías R-Stars nos seguirán acompañando: ya conocemos su fotografía univariante y bidimensional; toca cuantificar lo que se ve.
+
+## Problemas propuestos. {#problemas-cap04}
+
+Los ejercicios que siguen combinan **cálculo controlado** —principalmente el chequeo operativo de independencia, la covarianza, el $\chi^{2}$ y la V de Cramér sobre tablas pequeñas— con un peso importante de **interpretación**: qué responde cada dirección de una condicionada, cuándo la covarianza engaña, cómo se comparan asociaciones entre tablas de tamaños distintos y por qué el patrón agregado puede invertirse al desagregar. Todas las soluciones detalladas se recogen al final del capítulo.
+
+### Problema 4.1. Leer una tabla de contingencia.
+
+La AITM publica esta tabla de doble entrada que cruza el **estado de la flota** con la **galaxia de sede** de las 300 compañías R-Stars:
+
+|                | Vía Láctea | Andrómeda | Triángulo | LMC | SMC | Marg. $X$ |
+|:--------------:|:----------:|:---------:|:---------:|:---:|:---:|:---------:|
+| Antigua        |    20      |    15     |    10     |  8  |  7  |    60     |
+| Madura         |    40      |    30     |    25     | 15  | 10  |   120     |
+| Renovada       |    40      |    45     |    25     |  7  |  3  |   120     |
+| **Marg. $Y$**  |   100      |    90     |    60     | 30  | 20  |   300     |
+
+::: {style="text-align: center;"}
+**Tabla 4.13**
+:::
+
+
+Se pide:
+
+a)  ¿Qué proporción de compañías tiene su sede en la **Vía Láctea**?
+b)  De las compañías con flota **renovada**, ¿qué proporción tiene sede en **Andrómeda**?
+c)  De las compañías con sede en **Andrómeda**, ¿qué proporción tiene flota **renovada**?
+d)  ¿A qué pregunta empresarial concreta responde cada una de las dos cifras anteriores? Explica por qué las dos proporciones son distintas aunque provengan de la misma celda.
+
+### Problema 4.2. Dos lecturas de un mismo cruce.
+
+Sobre una muestra de 200 empleados de *Kaiju Haulage Co.*, se ha cruzado el **turno** (Diurno / Nocturno) con la **categoría profesional** (Piloto / Mecánico / Administrativo):
+
+|           | Piloto | Mecánico | Admin. | Marg. |
+|:---------:|:------:|:--------:|:------:|:-----:|
+| Diurno    |   30   |    20    |   50   |  100  |
+| Nocturno  |   50   |    40    |   10   |  100  |
+| Marg.     |   80   |    60    |   60   |  200  |
+
+::: {style="text-align: center;"}
+**Tabla 4.14**
+:::
+
+
+Se pide:
+
+a)  Construye la tabla de distribuciones **condicionadas al turno** (cada fila suma 1). Describe el perfil profesional de cada turno.
+b)  Construye la tabla de distribuciones **condicionadas a la categoría profesional** (cada columna suma 1). Describe el turno preferente de cada categoría.
+c)  El **director de operaciones nocturnas** pregunta: *"¿Qué categorías predominan en el turno de noche?"*. ¿Cuál de las dos tablas debe consultar?
+d)  El **jefe del departamento administrativo** pregunta: *"¿En qué turno trabajan mayoritariamente los administrativos?"*. ¿Cuál de las dos tablas debe consultar?
+
+### Problema 4.3. Comprobación operativa de independencia.
+
+Se dispone del siguiente cruce de dos atributos $X$ (P / Q) e $Y$ (A / B) en una muestra de 100 compañías del sector:
+
+|         |  A  |  B  | Marg. |
+|:-------:|:---:|:---:|:-----:|
+| **P**   |  12 |  18 |   30  |
+| **Q**   |  28 |  42 |   70  |
+| Marg.   |  40 |  60 |  100  |
+
+::: {style="text-align: center;"}
+**Tabla 4.15**
+:::
+
+
+Se pide:
+
+a)  Calcula las frecuencias relativas conjuntas $f_{ij}$ y las marginales $f_{i\bullet}$ y $f_{\bullet j}$.
+b)  Comprueba si se cumple la condición operativa de independencia, $f_{ij} = f_{i\bullet}\cdot f_{\bullet j}$, en las cuatro celdas.
+c)  A la vista de la comprobación, ¿son $X$ e $Y$ estadísticamente independientes?
+d)  ¿Cómo lucirían las **distribuciones condicionadas** en este caso? Descríbelas sin necesidad de calcularlas explícitamente.
+
+### Problema 4.4. Frecuencias esperadas bajo independencia.
+
+Se conocen únicamente las **frecuencias marginales** del cruce forma jurídica $\times$ estado de la flota en las 300 compañías R-Stars:
+
+|         | Antigua | Madura | Renovada | Marg. $X$ |
+|:-------:|:-------:|:------:|:--------:|:---------:|
+| CG      |         |        |          |    90     |
+| SAG     |         |        |          |   120     |
+| SLG     |         |        |          |    90     |
+| Marg. $Y$ |   60   |  120  |   120    |   300     |
+
+::: {style="text-align: center;"}
+**Tabla 4.16**
+:::
+
+
+Se pide:
+
+a)  Calcula todas las frecuencias **esperadas bajo independencia** $n^{*}_{ij}$.
+b)  Si se observaran **50** SAG con flota renovada, ¿cuánta discrepancia habría con la cifra esperada bajo independencia? ¿Cómo la interpretarías?
+c)  Si en cambio se observaran **48**, ¿qué conclusión distinta extraerías?
+d)  ¿Qué ventaja tiene calcular las esperadas **antes** de mirar las observadas?
+
+### Problema 4.5. Dependencia estadística no es causalidad.
+
+En un estudio sobre 500 compañías del sector R-Stars se detecta una asociación positiva marcada entre el **gasto anual en publicidad institucional** (variable $X$, en miles de PAVOs) y la **facturación anual** (variable $Y$, en millones de PAVOs). La CEO de una compañía mediana lee el informe y concluye: *"Duplicar el presupuesto de publicidad duplicaría nuestra facturación."*
+
+Se pide:
+
+a)  ¿Está justificada la conclusión de la CEO a partir de la sola asociación estadística observada? Justifica.
+b)  Propón al menos **dos** hipótesis alternativas —causales o no— que puedan explicar la coincidencia entre gasto publicitario y facturación en el sector.
+c)  Cita una **tercera variable** (factor de confusión) que pueda estar detrás de la asociación, y explica cómo la generaría.
+d)  ¿Qué tipo de diseño de investigación permitiría, al menos en principio, distinguir entre las hipótesis anteriores?
+
+### Problema 4.6. Paradoja de Simpson en el sector R-Stars.
+
+Al comparar la **rentabilidad media** de las Sociedades Anónimas Galácticas (SAG) y las Sociedades Limitadas Galácticas (SLG) sobre las 300 compañías R-Stars, **Sagan Olbers** obtiene:
+
+| Forma jurídica | Rentabilidad media (%) |
+|:--------------:|:----------------------:|
+| SAG            |          62            |
+| SLG            |          55            |
+
+::: {style="text-align: center;"}
+**Tabla 4.17**
+:::
+
+
+Parece que las SAG rinden más. Pero al desagregar por **sector operativo**, los datos son:
+
+|            | SAG (rent. media) | SLG (rent. media) |
+|:----------:|:-----------------:|:-----------------:|
+| Carga      |        45%        |        50%        |
+| Pasajeros  |        68%        |        70%        |
+| Servicios  |        78%        |        80%        |
+
+::: {style="text-align: center;"}
+**Tabla 4.18**
+:::
+
+
+Se pide:
+
+a)  Dentro de cada sector operativo, ¿qué forma jurídica rinde más? ¿Es coherente con la comparación agregada del cuadro anterior?
+b)  ¿Cómo se llama este fenómeno? Explica intuitivamente en qué consiste.
+c)  Sabiendo que la distribución por sector de SAG y SLG es muy desigual, ¿qué **composición** por sector explicaría la aparente ventaja global de las SAG?
+d)  ¿Qué le diría Sagan Olbers a la CEO de una SLG que se plantea *reconvertirse* en SAG *para ser más rentable*?
+
+### Problema 4.7. Signos de covarianza y tipos de relación.
+
+Sobre las 300 compañías R-Stars se han calculado las siguientes covarianzas entre pares de variables:
+
+| Cruce                                              | Covarianza $S_{xy}$ |
+|:---------------------------------------------------|:-------------------:|
+| Antigüedad flota × Estado flota (codificado 1-2-3) |     $-15{,}2$       |
+| Facturación × Tamaño flota                          |    $+230{,}5$       |
+| Rentabilidad × Índice de digitalización            |      $+8{,}4$       |
+| Gasto en cantina × Distancia al sistema Klendathu  |     $-0{,}03$       |
+
+::: {style="text-align: center;"}
+**Tabla 4.19**
+:::
+
+
+Se pide, para cada uno de los cuatro cruces:
+
+a)  Interpreta el **signo** de la covarianza: ¿qué tipo de relación estadística (directa, inversa, prácticamente nula) sugiere?
+b)  ¿Puedes comparar las **magnitudes** de las cuatro covarianzas para decir cuál es la relación "más intensa"? Justifica.
+c)  **Xelia Bluebird** propone reportar en el próximo *Informe Bluebird* la afirmación: *"La antigüedad de la flota está fuertemente asociada al estado de la flota."*. ¿Es defendible con solo la covarianza? ¿Qué información adicional necesitaría para respaldar el "fuertemente"?
+d)  ¿Qué medida del **capítulo siguiente** hará mucho más fácil comparar la intensidad de las cuatro relaciones?
+
+### Problema 4.8. Cálculo de una covarianza con datos pequeños.
+
+*Arrakis Freight* dispone de 5 cargueros, para los que se ha medido la **antigüedad** ($X$, en años) y el **número de averías mayores** en el último año ($Y$):
+
+| Carguero | $x_i$ (años) | $y_i$ (averías) |
+|:--------:|:------------:|:---------------:|
+|    1     |      2       |        1        |
+|    2     |      5       |        2        |
+|    3     |      8       |        3        |
+|    4     |     12       |        4        |
+|    5     |     15       |        5        |
+
+::: {style="text-align: center;"}
+**Tabla 4.20**
+:::
+
+
+Se pide:
+
+a)  Calcula $\overline{x}$ y $\overline{y}$.
+b)  Calcula $a_{11} = \dfrac{1}{N}\sum x_i\,y_i$ y, a partir de ahí, la covarianza $S_{xy} = a_{11} - \overline{x}\cdot\overline{y}$.
+c)  Interpreta el resultado en clave económica.
+d)  Un directivo pregunta si la relación es *"muy intensa"*. ¿Puedes contestarle con la covarianza sola? ¿Qué te faltaría?
+
+### Problema 4.9. Covarianza nula no implica independencia.
+
+Sobre una muestra de 100 empresas se ha medido la relación entre el **gasto en I+D** ($X$, miles de PAVOs) y el **margen operativo** ($Y$, %). El diagrama de dispersión revela una **relación en forma de U**: las empresas con gasto muy bajo tienen margen alto (operan austeras y eficientes), las de gasto muy alto también (I+D bien orientada), y las de gasto **intermedio** tienen margen bajo (gasto ineficiente que no llega a rentabilizarse). Al calcular la covarianza, un analista obtiene $S_{xy} \approx 0$.
+
+Se pide:
+
+a)  ¿Puede el analista concluir que gasto en I+D y margen operativo son **estadísticamente independientes** en esta muestra? Justifica.
+b)  ¿Qué tipo específico de relación **sí** descarta la covarianza próxima a cero?
+c)  Explica por qué la covarianza es incapaz de detectar la relación en U en este caso concreto (piensa en el signo del producto $(x_i - \overline{x})(y_j - \overline{y})$ en las distintas zonas de la nube).
+d)  ¿Qué **hábito de trabajo** debería adoptar el analista para no volver a caer en un diagnóstico erróneo como este?
+
+### Problema 4.10. $\chi^{2}$ y V de Cramér en una tabla $2\times 2$.
+
+Un estudio piloto de la ARTI cruza el **estado de mantenimiento** de 200 cargueros (Al día / Con retraso) con la **existencia de siniestros** en el último año (Sí / No):
+
+|                | Con siniestro | Sin siniestro | Marg. |
+|:--------------:|:-------------:|:-------------:|:-----:|
+| Mant. al día   |       10      |       90      |  100  |
+| Mant. retraso  |       40      |       60      |  100  |
+| Marg.          |       50      |      150      |  200  |
+
+::: {style="text-align: center;"}
+**Tabla 4.21**
+:::
+
+
+Se pide:
+
+a)  Calcula las frecuencias esperadas $n^{*}_{ij}$ bajo independencia para las cuatro celdas.
+b)  Calcula el estadístico $\chi^{2}$ de Pearson.
+c)  Calcula la V de Cramér e interprétala en la escala del capítulo.
+d)  ¿En qué celdas está la evidencia más fuerte de asociación? ¿Qué mensaje **operativo** para la gestión de la flota extraes del resultado?
+
+### Problema 4.11. Comparar tres asociaciones vía V de Cramér.
+
+Un informe de la AITM presenta tres cruces distintos con los siguientes indicadores:
+
+| Cruce                                       | Tamaño tabla | $N$  | $\chi^{2}$ |
+|:--------------------------------------------|:------------:|:----:|:----------:|
+| Forma jurídica × Estado de la flota         | $3\times 3$  | 300  |   3,86     |
+| Sector operativo × Galaxia de sede          | $4\times 5$  | 300  |  75,00     |
+| Astillero × Nivel de digitalización         | $3\times 4$  |  48  |  12,20     |
+
+::: {style="text-align: center;"}
+**Tabla 4.22**
+:::
+
+
+Se pide:
+
+a)  Calcula la V de Cramér de cada cruce.
+b)  Clasifica cada asociación según los umbrales del capítulo (despreciable / débil / moderada / fuerte).
+c)  Un lector precipitado observa que el segundo cruce tiene un $\chi^{2}$ mucho mayor que los otros dos y concluye que se trata *"con diferencia, de la asociación más fuerte del informe"*. ¿Es correcta esa conclusión?
+d)  Explica **con tus propias palabras** por qué la V de Cramér es preferible al $\chi^{2}$ crudo cuando se comparan asociaciones entre tablas de tamaños o muestras distintos.
+
+### Problema 4.12. Residuos estandarizados: dónde vive la asociación.
+
+En un cruce del *Informe Bluebird* entre **tamaño de la compañía** (Small / Medium / Large) y **política de digitalización** (Nula / Parcial / Total), tras calcular el $\chi^{2}$ y confirmar la existencia de asociación, aparece el siguiente mapa de residuos estandarizados $r_{ij} = (n_{ij} - n^{*}_{ij})/\sqrt{n^{*}_{ij}}$:
+
+|              | Nula   | Parcial | Total  |
+|:------------:|:------:|:-------:|:------:|
+| **Small**    | +2,80  | +0,10   | -3,00  |
+| **Medium**   | -0,50  | +1,20   | -0,60  |
+| **Large**    | -2,60  | -1,30   | +3,90  |
+
+::: {style="text-align: center;"}
+**Tabla 4.23**
+:::
+
+
+Se pide:
+
+a)  Identifica las dos celdas con **mayor residuo positivo** y las dos con **mayor residuo negativo**. ¿Qué te dicen sobre la asociación entre tamaño y digitalización?
+b)  Describe cualitativamente el **patrón global** que emerge del mapa.
+c)  Un analista propone reportar únicamente el $\chi^{2}$ global sin mostrar los residuos, para "no cansar al lector". ¿Qué información se pierde con esa decisión?
+d)  Si fueras responsable de estrategia en una compañía **Small**, ¿qué **decisión empresarial** te sugeriría este mapa? Justifica leyendo el mapa.
+
+### Problema 4.13. Auditoría integradora en el sector R-Stars.
+
+**Xelia Bluebird** está preparando un capítulo sobre "sector y forma jurídica" del próximo *Informe Bluebird* y quiere presentar un análisis riguroso del cruce. La tabla observada sobre las 300 compañías R-Stars es:
+
+|              | CG  | SAG | SLG | Marg. |
+|:------------:|:---:|:---:|:---:|:-----:|
+| Carga        | 20  | 60  | 40  |  120  |
+| Pasajeros    | 30  | 30  | 30  |   90  |
+| Servicios    | 40  | 30  | 20  |   90  |
+| Marg.        | 90  | 120 | 90  |  300  |
+
+::: {style="text-align: center;"}
+**Tabla 4.24**
+:::
+
+
+Se pide:
+
+a)  Calcula las nueve frecuencias esperadas bajo independencia $n^{*}_{ij}$.
+b)  Calcula el estadístico $\chi^{2}$ y la V de Cramér.
+c)  Interpreta el nivel de asociación de acuerdo con los umbrales del capítulo.
+d)  Calcula los residuos estandarizados $r_{ij}$ e identifica las **combinaciones sobrerrepresentadas** y las **infrarrepresentadas** frente a lo que produciría la independencia.
+e)  Xelia detecta que las cifras del sector **Carga** están claramente sesgadas hacia las **SAG**. Se pregunta si esa asociación puede reflejar **factores de confusión**. Menciona al menos **dos** variables no observadas del universo R-Stars que podrían mediar o explicar (total o parcialmente) esa asociación.
+f)  ¿Qué precaución concreta expresaría Xelia en el informe respecto a la asociación detectada, aplicando el aviso central del capítulo sobre dependencia y causalidad?
+
+## Soluciones a los problemas propuestos. {#soluciones-cap04}
+
+### Solución al Problema 4.1.
+
+a)  $f_{\bullet \text{VíaLáctea}} = 100/300 = 0{,}333$: el **33,3%** de las compañías tiene sede en la Vía Láctea.
+
+b)  Condicionamos a *"flota renovada"* (el total condicionante es $n_{\text{Renov}\bullet} = 120$). De ellas, 45 están en Andrómeda: $45/120 = 0{,}375 = 37{,}5\%$.
+
+c)  Condicionamos a *"sede en Andrómeda"* (el total condicionante es $n_{\bullet\text{Andr}} = 90$). De ellas, 45 tienen flota renovada: $45/90 = 0{,}500 = 50\%$.
+
+d)  Aunque las dos cifras provienen de la misma celda ($n_{ij} = 45$), responden a preguntas distintas y por eso llevan denominadores distintos:
+
+    -   **La b)** responde a: *"En la cartera de compañías con flota renovada, ¿qué peso tiene Andrómeda?"* Perspectiva del **departamento comercial** que segmenta por estado de flota y quiere saber qué galaxias predominan en cada segmento.
+    -   **La c)** responde a: *"Entre las compañías con sede en Andrómeda, ¿qué peso tienen las flotas renovadas?"* Perspectiva del **regulador galáctico** que evalúa el estado del parque flotante en cada galaxia.
+
+    Es exactamente la misma dualidad que en el capítulo se ilustra con Shuttlepod Movers: la condicional $f_{X\mid Y}$ contesta a una parte del negocio; la condicional $f_{Y\mid X}$ a otra parte. Ambas son legítimas.
+
+### Solución al Problema 4.2.
+
+a)  Condicionadas al **turno** (cada fila suma 1):
+
+    |           | Piloto | Mecánico | Admin. | Suma |
+    |:---------:|:------:|:--------:|:------:|:----:|
+    | Diurno    | 0,30   |  0,20    | 0,50   | 1,00 |
+    | Nocturno  | 0,50   |  0,40    | 0,10   | 1,00 |
+
+    **Perfil del turno diurno:** dominan los administrativos (50%), seguidos de pilotos (30%) y mecánicos (20%). **Perfil del turno nocturno:** dominan los pilotos (50%), seguidos de mecánicos (40%); apenas hay administrativos (10%).
+
+b)  Condicionadas a la **categoría** (cada columna suma 1):
+
+    |           | Piloto  | Mecánico | Admin.  |
+    |:---------:|:-------:|:--------:|:-------:|
+    | Diurno    | 30/80 = 0,375 | 20/60 ≈ 0,333 | 50/60 ≈ 0,833 |
+    | Nocturno  | 50/80 = 0,625 | 40/60 ≈ 0,667 | 10/60 ≈ 0,167 |
+
+    **Perfil por categoría:** pilotos y mecánicos son mayoritariamente nocturnos (unos dos tercios). Los administrativos son abrumadoramente diurnos (más del 83%).
+
+c)  El **director de operaciones nocturnas** debe consultar la tabla del apartado (a): fija el turno y pregunta por la distribución interna de categorías. La respuesta directa es "en el turno de noche, la mitad son pilotos".
+
+d)  El **jefe del departamento administrativo** debe consultar la tabla del apartado (b): fija la categoría (administrativos) y pregunta por su distribución interna en turnos. La respuesta directa es "el 83% de los administrativos trabaja en el turno diurno".
+
+    Es un ejemplo perfecto de que a una misma tabla se le pueden hacer dos preguntas distintas, y de que **cada pregunta exige mirar la condicional adecuada**.
+
+### Solución al Problema 4.3.
+
+a)  Con $N = 100$:
+
+    -   Frecuencias relativas conjuntas: $f_{PA} = 0{,}12$, $f_{PB} = 0{,}18$, $f_{QA} = 0{,}28$, $f_{QB} = 0{,}42$.
+    -   Marginales de $X$: $f_{P\bullet} = 0{,}30$, $f_{Q\bullet} = 0{,}70$.
+    -   Marginales de $Y$: $f_{\bullet A} = 0{,}40$, $f_{\bullet B} = 0{,}60$.
+
+b)  Comprobación celda a celda:
+
+    -   $f_{P\bullet}\cdot f_{\bullet A} = 0{,}30\cdot 0{,}40 = 0{,}12 = f_{PA}$ ✓
+    -   $f_{P\bullet}\cdot f_{\bullet B} = 0{,}30\cdot 0{,}60 = 0{,}18 = f_{PB}$ ✓
+    -   $f_{Q\bullet}\cdot f_{\bullet A} = 0{,}70\cdot 0{,}40 = 0{,}28 = f_{QA}$ ✓
+    -   $f_{Q\bullet}\cdot f_{\bullet B} = 0{,}70\cdot 0{,}60 = 0{,}42 = f_{QB}$ ✓
+
+    Las cuatro igualdades se cumplen exactamente.
+
+c)  Sí. Los dos atributos son **estadísticamente independientes**. Conocer si una compañía es P o Q no aporta información sobre si su otro atributo es A o B, y viceversa.
+
+d)  Bajo independencia, la distribución condicionada del segundo atributo debe ser **la misma en todos los grupos del primero** —y coincidir con la marginal—. Aquí:
+
+    -   Entre las P: 40% A y 60% B.
+    -   Entre las Q: exactamente lo mismo, 40% A y 60% B.
+    -   Marginal de $Y$: 40% A y 60% B.
+
+    Los tres perfiles son idénticos. Visualmente, si dibujáramos las dos condicionadas en un gráfico de barras apiladas al 100%, obtendríamos **dos barras iguales**.
+
+### Solución al Problema 4.4.
+
+a)  Aplicando $n^{*}_{ij} = n_{i\bullet}\cdot n_{\bullet j}/N$ con $N = 300$:
+
+    |         | Antigua | Madura | Renovada | Marg. $X$ |
+    |:-------:|:-------:|:------:|:--------:|:---------:|
+    | CG      |   18    |   36   |    36    |    90     |
+    | SAG     |   24    |   48   |    48    |   120     |
+    | SLG     |   18    |   36   |    36    |    90     |
+    | Marg. $Y$ |   60  |  120   |   120    |   300     |
+
+    (Verificación rápida: las sumas por fila y por columna reproducen las marginales originales.)
+
+b)  Observadas 50, esperadas 48. La diferencia es **+2**, muy pequeña. Comportamiento **prácticamente coincidente** con la independencia: no hay evidencia específica de asociación entre "ser SAG" y "tener flota renovada" en esta celda.
+
+c)  Observadas **48**, esperadas **48**. Diferencia **exactamente cero**. Se trata precisamente del valor que la independencia predice: ninguna asociación específica en esa celda.
+
+d)  Disponer de las esperadas **antes** de mirar las observadas evita el error de valorar una cifra en abstracto ("50 SAG con flota renovada es mucho o poco"). Con las esperadas en la mano, cualquier lectura se hace en clave de **diferencia respecto a lo que la independencia produciría**, que es lo único que aporta información sobre la asociación. Es la misma lógica que subyace al $\chi^{2}$ y al mapa de residuos estandarizados.
+
+### Solución al Problema 4.5.
+
+a)  **No está justificada.** El estudio detecta una **asociación estadística**, pero *asociación no es causalidad*. Que el gasto en publicidad y la facturación se muevan juntos en el sector no implica que aumentar el primero cause aumentar la segunda. La CEO está haciendo el salto inferencial más frecuente y más peligroso en gestión.
+
+b)  Hipótesis alternativas:
+
+    -   **Causalidad inversa.** Son las compañías que ya facturan mucho las que **pueden permitirse** presupuestos publicitarios altos: la facturación causa el gasto, no al revés.
+    -   **Autoselección de compañías fuertes.** Las compañías dinámicas y bien gestionadas invierten simultáneamente en publicidad y en otras palancas (fuerza comercial, calidad, digitalización). El gasto en publicidad es un **marcador** de calidad de gestión, no su causa.
+    -   **Causalidad parcial con rendimientos decrecientes.** Puede haber algún efecto causal, pero mucho más débil de lo que la asociación sugiere; y con toda seguridad no proporcional.
+
+c)  Un factor de confusión clásico es el **tamaño de la compañía**. Las compañías más grandes tienen simultáneamente presupuestos publicitarios altos (pueden asumirlos) y facturación alta (por escala y cuota de mercado). Ninguna de las dos causa a la otra: ambas son consecuencia del tamaño. Otros candidatos: la **antigüedad**, la **cuota de mercado previa**, la **galaxia de operación**.
+
+d)  Un **experimento aleatorizado** con dos grupos de compañías comparables, uno de los cuales aumenta el gasto publicitario y el otro lo mantiene, sería la vía canónica. En un sector real esto es rara vez posible, y se recurre entonces a **diseños cuasi-experimentales** (diferencias en diferencias, variables instrumentales, discontinuidades en regla) que aproximan la comparación. Sin un diseño así, la afirmación de la CEO no es más que una hipótesis atractiva.
+
+### Solución al Problema 4.6.
+
+a)  Dentro de **cada** sector, las **SLG** rinden más que las SAG (50 > 45; 70 > 68; 80 > 78). Sin embargo, en el agregado, aparece justo lo contrario: SAG (62%) por encima de SLG (55%). **No es coherente en absoluto** con la lectura desagregada.
+
+b)  Es la **paradoja de Simpson**, presentada en el capítulo. Consiste en que una relación observada entre dos variables se **invierte** al controlar por una tercera. Ocurre cuando esa tercera variable actúa como factor de confusión: no está distribuida por igual en los dos grupos comparados, y arrastra el promedio agregado en dirección contraria a la desagregada.
+
+c)  La composición sectorial debe ser **muy desigual**. Cabe pensar que las **SAG** están fuertemente concentradas en **Servicios** (el sector con rentabilidad media 78-80%) y minoritariamente en **Carga** (45-50%); mientras que las **SLG** están más presentes en **Carga** y menos en **Servicios**. Cuando promediamos, las SAG "heredan" el alto rendimiento del sector Servicios y las SLG "heredan" el bajo rendimiento del sector Carga. El resultado es que las SAG aparecen como más rentables *aunque en cada sector rindan peor*.
+
+    Numéricamente, basta con una composición del tipo *SAG = 10% carga + 20% pasajeros + 70% servicios* y *SLG = 60% carga + 20% pasajeros + 20% servicios* (u otras similares) para reproducir la paradoja.
+
+d)  Sagan Olbers le diría: *"No se reconvierta buscando ese objetivo. Dentro de su sector, las SLG rinden más que las SAG. La aparente ventaja global de las SAG se debe a que operan en sectores más rentables, no a que la forma jurídica sea 'mejor'. Si le preocupa la rentabilidad, la palanca no está en el estatuto legal, sino en el sector, en el tamaño, en la política de digitalización o en la eficiencia operativa."*
+
+    Es exactamente el aviso que la paradoja de Simpson pretende hacer visible: **agregar sin controlar puede invertir el mensaje**.
+
+### Solución al Problema 4.7.
+
+a)  Interpretación por cruce:
+
+    -   Antigüedad × Estado (codificado): $S_{xy} = -15{,}2$: relación **inversa**. A mayor antigüedad, valor codificado del estado menor (probablemente 1 = Antigua, 2 = Madura, 3 = Renovada): las flotas antiguas se asocian a estados peores. Coherente con el sentido común.
+    -   Facturación × Tamaño de flota: $+230{,}5$: **directa**. Grandes flotas facturan más. Coherente con la escala del negocio.
+    -   Rentabilidad × Digitalización: $+8{,}4$: **directa**. Las compañías más digitalizadas tienden a ser más rentables.
+    -   Gasto en cantina × Distancia a Klendathu: $-0{,}03$: prácticamente **nula**. No hay evidencia de relación entre gasto cantinero y distancia al sistema de Klendathu; sería sorprendente que la hubiera.
+
+b)  **No.** Las magnitudes no son comparables entre sí porque la covarianza **arrastra las unidades** de las dos variables: años·(código), millones de PAVOs·naves, %·puntos de digitalización, y PAVOs·pársecs, respectivamente. Cambiar la escala de una sola variable altera radicalmente el número sin cambiar la naturaleza de la relación.
+
+c)  **No** es defendible. El signo negativo indica una relación inversa, pero la **intensidad** —cuán fuerte es esa relación— no puede leerse del solo valor de $-15{,}2$: podría ser una tendencia leve o una casi determinación, según cuáles sean las unidades y las dispersiones de cada variable. Para hablar de *"fuertemente"*, Xelia necesita una **medida adimensional** de la intensidad.
+
+d)  El **coeficiente de correlación lineal de Pearson**, que se estudia en el capítulo siguiente. Está normalizado por las desviaciones típicas de $X$ e $Y$, es adimensional y toma valores entre $-1$ y $+1$, con lo que permite comparar directamente la intensidad de asociaciones entre pares de variables muy distintos.
+
+### Solución al Problema 4.8.
+
+a)  $\overline{x} = (2+5+8+12+15)/5 = 42/5 = 8{,}4$ años. $\overline{y} = (1+2+3+4+5)/5 = 15/5 = 3$ averías.
+
+b)  $a_{11} = \dfrac{1}{5}\sum x_i y_i = \dfrac{2\cdot 1 + 5\cdot 2 + 8\cdot 3 + 12\cdot 4 + 15\cdot 5}{5} = \dfrac{2 + 10 + 24 + 48 + 75}{5} = \dfrac{159}{5} = 31{,}8$.
+
+    $S_{xy} = a_{11} - \overline{x}\cdot\overline{y} = 31{,}8 - 8{,}4\cdot 3 = 31{,}8 - 25{,}2 = \mathbf{6{,}6}$ (años · averías).
+
+c)  El signo es **positivo**: relación **directa** entre antigüedad y averías. Los cargueros más antiguos acumulan más averías en el último año; los más nuevos, menos. Es un resultado esperable a la vista del desgaste operativo y consistente con la señal detectada en la flota R-Stars completa.
+
+d)  **No**, con la sola covarianza no se puede calificar de "muy intensa". La magnitud 6,6 depende de las unidades (años y averías) y no admite una interpretación absoluta. Para una respuesta firme haría falta el **coeficiente de correlación de Pearson** —capítulo siguiente— que normaliza la covarianza por las desviaciones típicas y se mueve en la escala $[-1, +1]$.
+
+### Solución al Problema 4.9.
+
+a)  **No.** Que $S_{xy} \approx 0$ **no implica** independencia estadística. Solo implica **ausencia de relación lineal**. Puede haber (y en este caso hay) una relación estadística clara pero **no lineal**, como muestra el diagrama de dispersión en forma de U.
+
+b)  Descarta la **relación lineal** (esa clase muy concreta de asociación en la que valores por encima de la media en una variable van sistemáticamente con valores por encima o por debajo en la otra). No descarta relaciones cuadráticas, exponenciales, en U, en forma de círculo, etcétera.
+
+c)  En la nube en U, los cuadrantes se comportan así:
+
+    -   Valores extremos de $X$ (muy bajos y muy altos): $Y$ alto. Ambos desvíos $(x_i - \overline{x})$ son grandes (uno positivo, otro negativo) y $(y_j - \overline{y})$ es positivo. Los productos $(x_i - \overline{x})(y_j - \overline{y})$ son **de signos opuestos** y grandes.
+    -   Valores medios de $X$: $Y$ bajo. $(x_i - \overline{x})$ pequeño y $(y_j - \overline{y})$ negativo. Productos pequeños.
+
+    Al **promediar** los productos, los grandes de signos opuestos se cancelan entre sí y quedan solo los pequeños del centro, que no bastan para producir una covarianza notable. La medida es literalmente ciega a esta forma de asociación.
+
+d)  El hábito irrenunciable: **antes de fiarse de un coeficiente numérico, mirar la nube de puntos**. Un diagrama de dispersión habría revelado la U de un vistazo. Es exactamente la lección del cuarteto de nubes con covarianza nula que aparece en el capítulo: los cuatro paneles con $S_{xy} \approx 0$ y estructuras radicalmente distintas.
+
+### Solución al Problema 4.10.
+
+a)  Esperadas $n^{*}_{ij} = n_{i\bullet}\cdot n_{\bullet j}/N$ con $N = 200$:
+
+    -   Mant. al día × Con siniestro: $100\cdot 50/200 = 25$.
+    -   Mant. al día × Sin siniestro: $100\cdot 150/200 = 75$.
+    -   Mant. retraso × Con siniestro: $100\cdot 50/200 = 25$.
+    -   Mant. retraso × Sin siniestro: $100\cdot 150/200 = 75$.
+
+b)  Aplicando la fórmula de Pearson:
+
+    -   $(10 - 25)^2/25 = 225/25 = 9{,}00$.
+    -   $(90 - 75)^2/75 = 225/75 = 3{,}00$.
+    -   $(40 - 25)^2/25 = 225/25 = 9{,}00$.
+    -   $(60 - 75)^2/75 = 225/75 = 3{,}00$.
+
+    $\chi^{2} = 9 + 3 + 9 + 3 = \mathbf{24{,}00}$.
+
+c)  Con $\min(h, k) - 1 = 1$: $V = \sqrt{24 / (200\cdot 1)} = \sqrt{0{,}12} \approx \mathbf{0{,}346}$. Según los umbrales del capítulo (0,30-0,50), asociación **moderada**.
+
+d)  La contribución al $\chi^{2}$ es idéntica en las dos celdas de la columna "Con siniestro" (9 cada una), y menor en las de "Sin siniestro" (3). Es allí, en la coincidencia de mantenimiento y siniestralidad, donde vive la evidencia principal de asociación. **Mensaje operativo:** el mantenimiento al día se asocia a **menos** siniestros (10 observados frente a 25 esperados: 60% menos), y el mantenimiento con retraso a **más** siniestros (40 frente a 25 esperados: 60% más). El resultado ofrece un aval empírico para reforzar los programas de mantenimiento preventivo, con la salvedad —siempre— de que la asociación estadística no prueba automáticamente causalidad: podría haber una tercera variable (edad de las naves, calidad general de la gestión) detrás de las dos.
+
+### Solución al Problema 4.11.
+
+a)  Coeficientes de Cramér, aplicando $V = \sqrt{\chi^{2}/(N\cdot(\min(h,k)-1))}$:
+
+    -   FJUR × EFLO ($3\times 3$, $N = 300$, $\min - 1 = 2$): $V = \sqrt{3{,}86/(300\cdot 2)} = \sqrt{0{,}00643} \approx \mathbf{0{,}080}$.
+    -   Sector × Galaxia ($4\times 5$, $N = 300$, $\min - 1 = 3$): $V = \sqrt{75/(300\cdot 3)} = \sqrt{0{,}0833} \approx \mathbf{0{,}289}$.
+    -   Astillero × Digitalización ($3\times 4$, $N = 48$, $\min - 1 = 2$): $V = \sqrt{12{,}20/(48\cdot 2)} = \sqrt{0{,}127} \approx \mathbf{0{,}357}$.
+
+b)  Clasificación:
+
+    -   FJUR × EFLO: $V \approx 0{,}080$ → **despreciable** (por debajo de 0,10).
+    -   Sector × Galaxia: $V \approx 0{,}289$ → **débil**, casi en la frontera con "moderada".
+    -   Astillero × Digitalización: $V \approx 0{,}357$ → **moderada**.
+
+c)  **No.** El cruce de Sector × Galaxia tiene el $\chi^{2}$ más alto sencillamente porque combina una muestra grande ($N = 300$) con una tabla mayor ($4\times 5 = 20$ celdas). El $\chi^{2}$ crecería aunque la asociación fuese moderada o incluso débil, sencillamente por el tamaño. Una vez normalizado con V de Cramér, la asociación **más intensa** de las tres es la de **Astillero × Digitalización** (0,357), a pesar de tener el $\chi^{2}$ intermedio y $N$ mucho menor.
+
+d)  Con tus palabras: el $\chi^{2}$ **crudo** es sensible al tamaño de la muestra (crece linealmente con $N$) y al tamaño de la tabla (más celdas dan típicamente más $\chi^{2}$ sencillamente por acumulación). Compararlo directamente entre tablas es como comparar el consumo total de combustible de dos flotas sin ajustar por número de naves ni por distancia recorrida. La V de Cramér ajusta simultáneamente por muestra y por tamaño de tabla, y comprime la escala a $[0, 1]$: la lectura resultante es directamente comparable y admite umbrales de interpretación fijos.
+
+### Solución al Problema 4.12.
+
+a)  Mayor residuo positivo: **(Large, Total) con +3,90** y **(Small, Nula) con +2,80**. Mayor residuo negativo: **(Small, Total) con -3,00** y **(Large, Nula) con -2,60**.
+
+    Lectura: hay muchas más compañías Small con digitalización Nula, y muchas más Large con digitalización Total, de lo que la independencia produciría. Simétricamente, faltan compañías Small con digitalización Total y Large con digitalización Nula.
+
+b)  Patrón claramente **diagonal**: la digitalización crece con el tamaño de la compañía. Las Small se concentran en el extremo bajo (Nula), las Large en el extremo alto (Total), y las Medium ocupan una posición intermedia, sin picos marcados (todos sus residuos son pequeños). Es la firma numérica de una asociación **monotónica** entre tamaño y grado de digitalización, con transición gradual por el medio.
+
+c)  El $\chi^{2}$ global resume en un único número que **hay** asociación, pero no dice **dónde**. Sin los residuos se pierde toda la información sobre la **estructura interna** del cruce: si la asociación es diagonal (como aquí), en aspa, concentrada en una sola celda o repartida homogéneamente en varias combinaciones. La diferencia entre "hay asociación" y "las compañías grandes se digitalizan sistemáticamente más que las pequeñas" es enorme para cualquier lector operativo.
+
+d)  El mapa sugiere que las Small **no están** digitalizadas total ni prácticamente parcialmente; las Large **sí**. Como responsable de estrategia de una compañía Small, hay varias lecturas defendibles: **(i)** aceptar que la digitalización total es propia de otro segmento y no invertir en ella; **(ii)** tomar el patrón como **oportunidad de diferenciación**: si nadie de tu tamaño está digitalizado y todos los grandes sí lo están, apostar por digitalización parcial (residuo +0,10, prácticamente coincidente con la independencia, sugiere que el hueco está ocupado a nivel esperado y no hay saturación) puede ser una vía para competir en un terreno inusual para las Small; **(iii)** analizar si el patrón encierra un factor de confusión (por ejemplo, presupuesto), lo que reconducirá la conversación estratégica desde la digitalización hacia la financiación. Ninguna respuesta es *la* correcta: es una decisión de gestión, y el mapa está aquí para informarla, no para dictarla.
+
+### Solución al Problema 4.13.
+
+a)  Aplicando $n^{*}_{ij} = n_{i\bullet}\cdot n_{\bullet j}/N$ con $N = 300$:
+
+    |            | CG    | SAG   | SLG   |
+    |:----------:|:-----:|:-----:|:-----:|
+    | Carga      | 36,00 | 48,00 | 36,00 |
+    | Pasajeros  | 27,00 | 36,00 | 27,00 |
+    | Servicios  | 27,00 | 36,00 | 27,00 |
+
+    (Verificación por filas: 36+48+36 = 120 ✓; 27+36+27 = 90 ✓; 27+36+27 = 90 ✓.)
+
+b)  Contribuciones celda a celda a $\chi^{2}$:
+
+    -   Carga-CG: $(20 - 36)^2/36 = 256/36 \approx 7{,}111$.
+    -   Carga-SAG: $(60 - 48)^2/48 = 144/48 = 3{,}000$.
+    -   Carga-SLG: $(40 - 36)^2/36 = 16/36 \approx 0{,}444$.
+    -   Pas-CG: $(30 - 27)^2/27 = 9/27 \approx 0{,}333$.
+    -   Pas-SAG: $(30 - 36)^2/36 = 36/36 = 1{,}000$.
+    -   Pas-SLG: $(30 - 27)^2/27 = 9/27 \approx 0{,}333$.
+    -   Serv-CG: $(40 - 27)^2/27 = 169/27 \approx 6{,}259$.
+    -   Serv-SAG: $(30 - 36)^2/36 = 36/36 = 1{,}000$.
+    -   Serv-SLG: $(20 - 27)^2/27 = 49/27 \approx 1{,}815$.
+
+    $\chi^{2} \approx 7{,}111 + 3{,}000 + 0{,}444 + 0{,}333 + 1{,}000 + 0{,}333 + 6{,}259 + 1{,}000 + 1{,}815 \approx \mathbf{21{,}30}$.
+
+    V de Cramér, con $\min(h,k)-1 = 2$: $V = \sqrt{21{,}30/(300\cdot 2)} = \sqrt{0{,}0355} \approx \mathbf{0{,}188}$.
+
+c)  Según los umbrales del capítulo, $V \approx 0{,}188$ corresponde a una asociación **débil**. Hay evidencia clara de asociación entre sector y forma jurídica, pero el patrón no es determinante: dentro de cada sector conviven las tres formas jurídicas en proporciones desiguales.
+
+d)  Residuos estandarizados $r_{ij} = (n_{ij} - n^{*}_{ij})/\sqrt{n^{*}_{ij}}$:
+
+    |            | CG              | SAG             | SLG             |
+    |:----------:|:---------------:|:---------------:|:---------------:|
+    | Carga      | $(20-36)/6 = -2{,}67$ | $(60-48)/\sqrt{48} \approx +1{,}73$ | $(40-36)/6 \approx +0{,}67$ |
+    | Pasajeros  | $(30-27)/\sqrt{27} \approx +0{,}58$ | $(30-36)/\sqrt{48} \approx -0{,}87$ | $(30-27)/\sqrt{27} \approx +0{,}58$ |
+    | Servicios  | $(40-27)/\sqrt{27} \approx +2{,}50$ | $(30-36)/\sqrt{48} \approx -0{,}87$ | $(20-27)/\sqrt{27} \approx -1{,}35$ |
+
+    -   **Sobrerrepresentadas** (residuo positivo notable): **Servicios × CG (+2,50)** y **Carga × SAG (+1,73)**.
+    -   **Infrarrepresentadas** (residuo negativo notable): **Carga × CG (-2,67)** y, en menor medida, **Servicios × SLG (-1,35)**.
+
+    La lectura estructural es clara: las Compañías Galácticas (CG) apenas están en Carga y sobresalen en Servicios; las SAG están sobrerrepresentadas en Carga; las SLG están escasas en Servicios. Las Pasajeros funcionan cerca de la independencia.
+
+e)  Factores de confusión posibles (no observados en la tabla):
+
+    -   **Tamaño de la compañía.** Las SAG suelen ser más grandes; los grandes operadores tienden a concentrarse en Carga por economías de escala. La asociación Carga-SAG podría estar mediada por el tamaño.
+    -   **Antigüedad / historia.** Las SAG suelen ser más antiguas y arrastran una tradición histórica en el transporte de carga (el sector originario del negocio interestelar).
+    -   **Galaxia de sede.** Ciertas galaxias han desarrollado más el sector Servicios y otras han sido tradicionalmente galaxias de Carga; si además la distribución de formas jurídicas varía por galaxia, tenemos una confusión geográfica clásica.
+    -   **Régimen fiscal.** Algunos regímenes fiscales especiales solo se aplican a ciertos sectores o a ciertas formas jurídicas.
+
+f)  **Precaución para el informe.** Xelia debería redactar algo del tipo:
+
+    > *"Los datos revelan una asociación estadística débil pero no despreciable entre sector operativo y forma jurídica: las CG tienden a operar en Servicios, las SAG concentran una presencia notable en Carga, mientras que las SLG tienen una menor participación en Servicios. Esta asociación **no debe interpretarse causalmente**: adoptar una forma jurídica determinada no lleva por sí solo a operar en un sector específico. La asociación observada puede reflejar factores estructurales no controlados en esta tabla —tamaño de la compañía, antigüedad, galaxia de sede, régimen fiscal aplicable— cuyo estudio conjunto requeriría un análisis multivariante. Los resultados que siguen deben leerse, por tanto, como una descripción del cruce y no como una explicación del mismo."*
+
+    Es exactamente el tipo de aviso que el capítulo pide: distinguir claramente entre **detectar una coincidencia sistemática** y **explicarla causalmente**. El primer paso es tarea de la estadística descriptiva; el segundo, en un sector como el de R-Stars, es tarea de un análisis mucho más profundo, del que este cruce es solo el punto de partida.
