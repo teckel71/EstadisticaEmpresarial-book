@@ -1078,7 +1078,755 @@ R^{2}_{\text{aj}} \;=\; 1 \;-\; (1 - R^{2})\cdot \dfrac{N-1}{N-p-1},
 <li>La <strong>regresión múltiple</strong> generaliza el planteamiento cuando hay varias variables explicativas. Su ejemplo en la flota (añadir la identidad del astillero elevó el <span class="math inline">\(R^{2}\)</span> del <span class="math inline">\(39\,\%\)</span> al <span class="math inline">\(71\,\%\)</span>) muestra que el diagnóstico de residuos suele apuntar directamente a la variable que falta. El <strong><span class="math inline">\(R^{2}\)</span> ajustado</strong> corrige el sesgo del <span class="math inline">\(R^{2}\)</span> ordinario a favor de los modelos con más variables.</li>
 </ul>
 <p>Con esto damos por cerrado el bloque de estadística descriptiva bidimensional. El siguiente bloque del curso da un giro conceptual: dejamos por un tiempo el análisis de datos observados y entramos en el terreno de la <strong>probabilidad</strong>, la herramienta que permitirá, más adelante, transformar todas estas descripciones en instrumentos de <strong>inferencia</strong> sobre poblaciones. Cuando volvamos a los datos, ya no serán solo los que tenemos delante: serán una ventana estadísticamente honesta a lo que ocurre en el universo del que provienen.</p>
-
+</div>
+<div id="problemas-cap05" class="section level2" number="5.7">
+<h2>
+<span class="header-section-number">5.7</span> Problemas propuestos.<a class="anchor" aria-label="anchor" href="#problemas-cap05"><i class="fas fa-link"></i></a>
+</h2>
+<p>Los ejercicios que siguen combinan <strong>cálculo controlado</strong> —fórmulas MCO sobre datos pequeños, verificación de la identidad <span class="math inline">\(\hat{b}\cdot\hat{b}' = R^2\)</span>, linealización log-log— con un peso importante de <strong>interpretación</strong>: qué significa la pendiente en unidades del problema, cuándo una predicción cae fuera del rango razonable, qué revela un <span class="math inline">\(R^2\)</span> modesto, y cómo detectar una variable acechante detrás de una regresión simple aparentemente convincente. Todas las soluciones detalladas se recogen al final del capítulo.</p>
+<div id="problema-5.1.-leer-una-recta-ya-ajustada." class="section level3" number="5.7.1">
+<h3>
+<span class="header-section-number">5.7.1</span> Problema 5.1. Leer una recta ya ajustada.<a class="anchor" aria-label="anchor" href="#problema-5.1.-leer-una-recta-ya-ajustada."><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Sagan Olbers</strong> ha ajustado, sobre las 300 compañías R-Stars, la recta de regresión de la <strong>facturación anual</strong> (<span class="math inline">\(Y\)</span>, en millones de PAVOs) sobre el <strong>número de rutas activas</strong> (<span class="math inline">\(X\)</span>):</p>
+<p><span class="math display">\[\hat{y} \;=\; 12{,}4 \;+\; 3{,}8\cdot x, \qquad R^{2} \;=\; 0{,}78.\]</span></p>
+<p>El número de rutas de las compañías del fichero oscila entre <strong>1 y 25</strong>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Interpreta económicamente los coeficientes <span class="math inline">\(\hat{a} = 12{,}4\)</span> y <span class="math inline">\(\hat{b} = 3{,}8\)</span>. ¿Tiene sentido literal el término independiente en este contexto?</li>
+<li>Interpreta el coeficiente de determinación <span class="math inline">\(R^{2} = 0{,}78\)</span>.</li>
+<li>La CEO de una compañía con <strong>8 rutas activas</strong> quiere saber cuál sería la facturación esperada según el modelo. Aplícalo.</li>
+<li>Un consultor sugiere aplicar la recta para estimar la facturación esperada de una compañía con <strong>60 rutas activas</strong>. ¿Es una predicción defendible? Justifica.</li>
+</ol>
+</div>
+<div id="problema-5.2.-calcular-la-recta-desde-cero." class="section level3" number="5.7.2">
+<h3>
+<span class="header-section-number">5.7.2</span> Problema 5.2. Calcular la recta desde cero.<a class="anchor" aria-label="anchor" href="#problema-5.2.-calcular-la-recta-desde-cero."><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Xelia Bluebird</strong> dispone de datos sobre 5 compañías del sector, con la <strong>inversión anual en digitalización</strong> (<span class="math inline">\(X\)</span>, en miles de PAVOs) y el <strong>margen operativo</strong> (<span class="math inline">\(Y\)</span>, en %):</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Compañía</th>
+<th align="center"><span class="math inline">\(x_i\)</span></th>
+<th align="center"><span class="math inline">\(y_i\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">C-01</td>
+<td align="center">2</td>
+<td align="center">40</td>
+</tr>
+<tr class="even">
+<td align="center">C-02</td>
+<td align="center">4</td>
+<td align="center">45</td>
+</tr>
+<tr class="odd">
+<td align="center">C-03</td>
+<td align="center">6</td>
+<td align="center">55</td>
+</tr>
+<tr class="even">
+<td align="center">C-04</td>
+<td align="center">8</td>
+<td align="center">60</td>
+</tr>
+<tr class="odd">
+<td align="center">C-05</td>
+<td align="center">10</td>
+<td align="center">70</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 5.3</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula las medias <span class="math inline">\(\overline{x}\)</span> y <span class="math inline">\(\overline{y}\)</span>.</li>
+<li>Calcula la varianza de <span class="math inline">\(X\)</span> y la covarianza <span class="math inline">\(S_{xy}\)</span>.</li>
+<li>Aplica las fórmulas mínimo-cuadráticas y escribe la ecuación de la recta <span class="math inline">\(\hat{y} = \hat{a} + \hat{b}\, x\)</span>.</li>
+<li>Interpreta económicamente los coeficientes obtenidos. ¿Qué margen operativo predice el modelo para una compañía con <strong>5 mil PAVOs</strong> de inversión digital?</li>
+</ol>
+</div>
+<div id="problema-5.3.-predicción-y-extrapolación-en-la-flota." class="section level3" number="5.7.3">
+<h3>
+<span class="header-section-number">5.7.3</span> Problema 5.3. Predicción y extrapolación en la flota.<a class="anchor" aria-label="anchor" href="#problema-5.3.-predicci%C3%B3n-y-extrapolaci%C3%B3n-en-la-flota."><i class="fas fa-link"></i></a>
+</h3>
+<p>Un analista de la ARTI ha ajustado, sobre datos de cargueros cuya antigüedad oscila entre <strong>2 y 25 años</strong>, la recta que predice el <strong>tonelaje</strong> de una nave a partir de su antigüedad:</p>
+<p><span class="math display">\[\hat{y} \;=\; 628 \;+\; 11{,}6\cdot x, \qquad R^{2} \;=\; 0{,}38.\]</span></p>
+<p>(tonelaje en miles de toneladas, antigüedad en años.)</p>
+<p>Se pide, para cada uno de los siguientes usos del modelo:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Predecir el tonelaje de un carguero con <strong>8 años</strong> de antigüedad. ¿Es una predicción defendible?</li>
+<li>Predecir el tonelaje de un carguero <strong>recién estrenado</strong> (<span class="math inline">\(x = 0\)</span>). ¿Es defendible en este caso?</li>
+<li>Predecir el tonelaje de un <strong>carguero experimental de 40 años</strong> (<span class="math inline">\(x = 40\)</span>). ¿Es defendible?</li>
+<li>La ARTI encarga una predicción <strong>individualizada</strong> del tonelaje de un carguero concreto de 8 años matriculado en Mustafar. ¿Es la recta un instrumento adecuado para responder? Justifica.</li>
+</ol>
+</div>
+<div id="problema-5.4.-el-efecto-de-un-outlier-sobre-la-recta." class="section level3" number="5.7.4">
+<h3>
+<span class="header-section-number">5.7.4</span> Problema 5.4. El efecto de un <em>outlier</em> sobre la recta.<a class="anchor" aria-label="anchor" href="#problema-5.4.-el-efecto-de-un-outlier-sobre-la-recta."><i class="fas fa-link"></i></a>
+</h3>
+<p>Un analista ha ajustado una recta sobre 30 cargueros de una serie regular de <em>Selene Dynamics</em>. Después incorpora al análisis un <strong>prototipo experimental</strong> de <em>Wraith Industries</em>, extremadamente ligero pese a llevar 15 años en servicio. Los coeficientes obtenidos antes y después de añadir el prototipo son:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="center">Sin prototipo</th>
+<th align="center">Con prototipo</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ordenada <span class="math inline">\(\hat{a}\)</span>
+</td>
+<td align="center">30,0</td>
+<td align="center">45,0</td>
+</tr>
+<tr class="even">
+<td align="left">Pendiente <span class="math inline">\(\hat{b}\)</span>
+</td>
+<td align="center">8,0</td>
+<td align="center">3,5</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(R^{2}\)</span></td>
+<td align="center">0,83</td>
+<td align="center">0,26</td>
+</tr>
+<tr class="even">
+<td align="left">Correlación <span class="math inline">\(R\)</span>
+</td>
+<td align="center">0,91</td>
+<td align="center">0,51</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 5.4</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Qué coeficientes se han visto más afectados por la incorporación del prototipo? ¿Cómo interpretas ese cambio?</li>
+<li>¿Por qué el <span class="math inline">\(R^{2}\)</span> se hunde de manera tan drástica al añadir una sola observación entre treinta?</li>
+<li>La recta con prototipo asigna a un carguero de 15 años una previsión de tonelaje muy distinta a la que le asignaría la recta sin él. ¿Cuál de las dos rectas es la más defendible como <em>“recta representativa del comportamiento habitual de la flota”</em>?</li>
+<li>A la vista del efecto observado, ¿cuál debería ser la primera decisión analítica antes de dar por bueno el modelo?</li>
+</ol>
+</div>
+<div id="problema-5.5.-regresión-de-tipo-i-y-tipo-ii-sobre-la-misma-tabla." class="section level3" number="5.7.5">
+<h3>
+<span class="header-section-number">5.7.5</span> Problema 5.5. Regresión de tipo I y tipo II sobre la misma tabla.<a class="anchor" aria-label="anchor" href="#problema-5.5.-regresi%C3%B3n-de-tipo-i-y-tipo-ii-sobre-la-misma-tabla."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sobre 60 cargueros de un cierto sector se ha construido una tabla de correlación entre <strong>años en servicio</strong> (<span class="math inline">\(X\)</span>) y <strong>coste medio de mantenimiento anual</strong> (<span class="math inline">\(Y\)</span>, en miles de PAVOs). Las medias condicionadas del coste dentro de cada intervalo de antigüedad son:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="26%">
+<col width="15%">
+<col width="19%">
+<col width="37%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Intervalo antigüedad</th>
+<th align="center">Marca <span class="math inline">\(x_i\)</span>
+</th>
+<th align="center"><span class="math inline">\(n_{i\bullet}\)</span></th>
+<th align="center"><span class="math inline">\(\overline{y}_{\,\mid\, x_i}\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">(0, 5]</td>
+<td align="center">2,5</td>
+<td align="center">12</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center">(5, 10]</td>
+<td align="center">7,5</td>
+<td align="center">15</td>
+<td align="center">22</td>
+</tr>
+<tr class="odd">
+<td align="center">(10, 15]</td>
+<td align="center">12,5</td>
+<td align="center">18</td>
+<td align="center">25</td>
+</tr>
+<tr class="even">
+<td align="center">(15, 20]</td>
+<td align="center">17,5</td>
+<td align="center">10</td>
+<td align="center">40</td>
+</tr>
+<tr class="odd">
+<td align="center">(20, 30]</td>
+<td align="center">25</td>
+<td align="center">5</td>
+<td align="center">70</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 5.5</strong></p>
+</div>
+<p>Sobre los mismos datos se ha ajustado, por MCO, la recta <span class="math inline">\(\hat{y} = 5 + 2{,}0\cdot x\)</span> con <span class="math inline">\(R^{2} = 0{,}48\)</span>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Dibuja mentalmente (o esquemáticamente) los cinco puntos <span class="math inline">\((x_i,\, \overline{y}_{\,\mid\, x_i})\)</span> que constituyen la <strong>regresión de tipo I</strong>. ¿Sugieren un comportamiento lineal, o hay algún salto?</li>
+<li>¿Es coherente el <span class="math inline">\(R^{2} = 0{,}48\)</span> con la comparación visual entre las medias condicionadas y la recta MCO?</li>
+<li>¿Qué forma funcional del capítulo podría capturar mejor este patrón que una recta simple?</li>
+<li>¿Qué conclusión de gestión extrae el responsable de mantenimiento al ver estas medias condicionadas: <em>“el mantenimiento crece linealmente con la antigüedad”</em> o <em>“hay un umbral crítico a partir del cual el coste se dispara”</em>?</li>
+</ol>
+</div>
+<div id="problema-5.6.-descomposición-de-la-varianza." class="section level3" number="5.7.6">
+<h3>
+<span class="header-section-number">5.7.6</span> Problema 5.6. Descomposición de la varianza.<a class="anchor" aria-label="anchor" href="#problema-5.6.-descomposici%C3%B3n-de-la-varianza."><i class="fas fa-link"></i></a>
+</h3>
+<p>De un ajuste lineal sobre 200 compañías se conocen los siguientes valores:</p>
+<ul>
+<li>Varianza total de <span class="math inline">\(Y\)</span>: <span class="math inline">\(S_y^{\,2} = 100\)</span>.</li>
+<li>Varianza residual: <span class="math inline">\(S_e^{\,2} = 25\)</span>.</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula la varianza explicada <span class="math inline">\(S_{\hat{y}}^{\,2}\)</span>.</li>
+<li>Calcula el coeficiente de determinación <span class="math inline">\(R^{2}\)</span>.</li>
+<li>Interpreta el resultado en clave de bondad del ajuste.</li>
+<li>Si un directivo pregunta <em>“¿qué proporción de la variabilidad de <span class="math inline">\(Y\)</span> queda sin explicar por la regresión?”</em>, ¿qué respuesta le das y cómo la derivas de los datos anteriores?</li>
+</ol>
+</div>
+<div id="problema-5.7.-comparar-cuatro-regresiones-por-su-r2." class="section level3" number="5.7.7">
+<h3>
+<span class="header-section-number">5.7.7</span> Problema 5.7. Comparar cuatro regresiones por su <span class="math inline">\(R^{2}\)</span>.<a class="anchor" aria-label="anchor" href="#problema-5.7.-comparar-cuatro-regresiones-por-su-r2."><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Sagan Olbers</strong> ha ajustado, sobre las 300 compañías R-Stars, cuatro regresiones lineales simples con distintas variables explicativas para predecir la <strong>rentabilidad anual</strong> (<span class="math inline">\(Y\)</span>, en %):</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Explicativa (<span class="math inline">\(X\)</span>)</th>
+<th align="center"><span class="math inline">\(R^{2}\)</span></th>
+<th align="center"><span class="math inline">\(R\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ingresos totales</td>
+<td align="center">0,08</td>
+<td align="center">+0,28</td>
+</tr>
+<tr class="even">
+<td align="left">Índice de digitalización</td>
+<td align="center">0,45</td>
+<td align="center">+0,67</td>
+</tr>
+<tr class="odd">
+<td align="left">Antigüedad media de la flota</td>
+<td align="center">0,12</td>
+<td align="center">-0,35</td>
+</tr>
+<tr class="even">
+<td align="left">Tamaño de la flota (nº de cargueros)</td>
+<td align="center">0,03</td>
+<td align="center">+0,17</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 5.6</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Clasifica las cuatro asociaciones por intensidad, según la escala orientativa del capítulo.</li>
+<li>¿Qué signos tienen las relaciones y qué te dicen sobre el sector?</li>
+<li>Si tuvieras que <strong>elegir una única variable</strong> explicativa para incluir en un modelo simple de rentabilidad, ¿cuál elegirías? Justifica.</li>
+<li>¿Puede afirmarse, a la vista de estos <span class="math inline">\(R^{2}\)</span>, que <em>la digitalización causa mayor rentabilidad</em>? Justifica.</li>
+</ol>
+</div>
+<div id="problema-5.8.-cuarteto-de-anscombe-en-clave-r-stars." class="section level3" number="5.7.8">
+<h3>
+<span class="header-section-number">5.7.8</span> Problema 5.8. Cuarteto de Anscombe en clave R-Stars.<a class="anchor" aria-label="anchor" href="#problema-5.8.-cuarteto-de-anscombe-en-clave-r-stars."><i class="fas fa-link"></i></a>
+</h3>
+<p>Cuatro conjuntos de datos —cada uno con 11 cargueros— presentan estos descriptivos <strong>idénticos</strong>:</p>
+<ul>
+<li>
+<span class="math inline">\(\overline{x} = 9\)</span>; <span class="math inline">\(\overline{y} = 7{,}5\)</span>.</li>
+<li>Recta ajustada: <span class="math inline">\(\hat{y} = 3 + 0{,}5\cdot x\)</span>.</li>
+<li>
+<span class="math inline">\(R^{2} = 0{,}67\)</span>; <span class="math inline">\(R = 0{,}82\)</span>.</li>
+</ul>
+<p>Sin embargo, al examinar los diagramas de dispersión, un analista describe cuatro estructuras muy distintas:</p>
+<ul>
+<li>
+<strong>Nube (I).</strong> Puntos dispersos alrededor de la recta, sin patrón sistemático.</li>
+<li>
+<strong>Nube (II).</strong> Patrón claramente <strong>curvo</strong> (parabólico), en forma de arco.</li>
+<li>
+<strong>Nube (III).</strong> 10 puntos alineados casi perfectamente sobre una recta y <strong>un solo punto muy separado</strong> del patrón (<em>outlier</em> vertical).</li>
+<li>
+<strong>Nube (IV).</strong> Todos los cargueros tienen la misma antigüedad excepto uno, cuya antigüedad muy distinta arrastra por sí sola toda la pendiente (<strong>punto de alta palanca</strong>).</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿En cuál de las cuatro nubes la recta <span class="math inline">\(\hat{y} = 3 + 0{,}5\, x\)</span> es un resumen <strong>honesto</strong> de la relación?</li>
+<li>Para cada una de las otras tres nubes, ¿qué acción emprenderías <strong>antes</strong> de reportar el modelo?</li>
+<li>¿Qué moraleja del capítulo ilustra este cuarteto sobre el uso del <span class="math inline">\(R^{2}\)</span> y de los coeficientes de la recta?</li>
+<li>Si el <span class="math inline">\(R^{2}\)</span> y los coeficientes son idénticos en las cuatro nubes, ¿qué herramienta —barata y rápida— permite distinguirlas?</li>
+</ol>
+</div>
+<div id="problema-5.9.-las-dos-rectas-y-r2." class="section level3" number="5.7.9">
+<h3>
+<span class="header-section-number">5.7.9</span> Problema 5.9. Las dos rectas y <span class="math inline">\(R^{2}\)</span>.<a class="anchor" aria-label="anchor" href="#problema-5.9.-las-dos-rectas-y-r2."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sobre un cruce de dos variables cuantitativas en 100 compañías del sector se conocen los siguientes momentos:</p>
+<ul>
+<li>
+<span class="math inline">\(\overline{x} = 20\)</span>; <span class="math inline">\(\overline{y} = 50\)</span>.</li>
+<li>
+<span class="math inline">\(S_x^{\,2} = 4\)</span>; <span class="math inline">\(S_y^{\,2} = 9\)</span>; <span class="math inline">\(S_{xy} = 3\)</span>.</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula la pendiente y la ordenada de la recta de regresión de <span class="math inline">\(Y\)</span> sobre <span class="math inline">\(X\)</span>.</li>
+<li>Calcula la pendiente y la ordenada de la recta de regresión de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(Y\)</span>.</li>
+<li>Calcula el coeficiente de determinación por <strong>dos vías</strong>: mediante <span class="math inline">\(R^{2} = S_{xy}^{\,2}/(S_x^{\,2}\cdot S_y^{\,2})\)</span> y mediante <span class="math inline">\(\hat{b}\cdot \hat{b}'\)</span>. Comprueba que coinciden.</li>
+<li>Calcula el coeficiente de correlación <span class="math inline">\(R\)</span> e interprétalo. Describe cualitativamente cómo se abren las dos rectas en torno al punto <span class="math inline">\((\overline{x}, \overline{y})\)</span>.</li>
+</ol>
+</div>
+<div id="problema-5.10.-interpretar-coeficientes-de-correlación." class="section level3" number="5.7.10">
+<h3>
+<span class="header-section-number">5.7.10</span> Problema 5.10. Interpretar coeficientes de correlación.<a class="anchor" aria-label="anchor" href="#problema-5.10.-interpretar-coeficientes-de-correlaci%C3%B3n."><i class="fas fa-link"></i></a>
+</h3>
+<p>La AITM ha calculado los siguientes coeficientes de correlación lineal <span class="math inline">\(R\)</span> entre pares de variables sobre las 300 compañías R-Stars:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Cruce</th>
+<th align="center"><span class="math inline">\(R\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ingresos × Costos operativos</td>
+<td align="center">+0,96</td>
+</tr>
+<tr class="even">
+<td align="left">Rentabilidad × Índice de digitalización</td>
+<td align="center">+0,67</td>
+</tr>
+<tr class="odd">
+<td align="left">Antigüedad flota × Índice de digitalización</td>
+<td align="center">-0,45</td>
+</tr>
+<tr class="even">
+<td align="left">Nº de rutas × Nº de tripulantes</td>
+<td align="center">+0,88</td>
+</tr>
+<tr class="odd">
+<td align="left">Gasto en cantina × Distancia al sistema Klendathu</td>
+<td align="center">-0,03</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 5.7</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Clasifica cada relación por <strong>intensidad</strong> y <strong>signo</strong>, según la escala del capítulo.</li>
+<li>¿Cuál es la relación más <em>“casi determinista”</em> del sector, y qué explicación económica sugieres?</li>
+<li>La relación <strong>negativa</strong> entre antigüedad de la flota e índice de digitalización, ¿te sorprende? Explica.</li>
+<li>Un directivo lee las cifras y concluye: <em>“digitalizar la compañía causa un aumento de la rentabilidad en 0,67 puntos por cada punto de índice.”</em> ¿Qué <strong>dos errores</strong> contiene esa afirmación?</li>
+</ol>
+</div>
+<div id="problema-5.11.-correlación-y-causalidad-segunda-vuelta." class="section level3" number="5.7.11">
+<h3>
+<span class="header-section-number">5.7.11</span> Problema 5.11. Correlación y causalidad (segunda vuelta).<a class="anchor" aria-label="anchor" href="#problema-5.11.-correlaci%C3%B3n-y-causalidad-segunda-vuelta."><i class="fas fa-link"></i></a>
+</h3>
+<p>Un estudio del sector R-Stars publica el siguiente titular:</p>
+<blockquote>
+<p><em>“El tamaño de la flota está fuertemente correlacionado con la rentabilidad de las compañías (<span class="math inline">\(R = +0{,}72\)</span>). Las compañías que aumenten su flota serán más rentables.”</em></p>
+</blockquote>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>La segunda frase del titular, ¿es una conclusión legítima a partir de la primera? Justifica.</li>
+<li>Propón al menos <strong>dos</strong> hipótesis alternativas —causales o no— que puedan explicar la asociación observada entre tamaño de flota y rentabilidad.</li>
+<li>Cita una <strong>tercera variable</strong> que pueda estar detrás de la asociación (factor de confusión), y explica su rol.</li>
+<li>Un analista consciente del problema añade a la regresión otras variables (galaxia de operación, antigüedad, forma jurídica) y comprueba que el efecto de <em>“tamaño de flota”</em> sobre rentabilidad <strong>se reduce mucho</strong>. ¿Qué te sugiere ese hallazgo sobre la relación causal original?</li>
+</ol>
+</div>
+<div id="problema-5.12.-linealización-curva-de-aprendizaje-en-enterprise-logistics." class="section level3" number="5.7.12">
+<h3>
+<span class="header-section-number">5.7.12</span> Problema 5.12. Linealización: curva de aprendizaje en <em>Enterprise Logistics</em>.<a class="anchor" aria-label="anchor" href="#problema-5.12.-linealizaci%C3%B3n-curva-de-aprendizaje-en-enterprise-logistics."><i class="fas fa-link"></i></a>
+</h3>
+<p>Un aprendiz de piloto en la escuela de <em>Enterprise Logistics</em> cronometra el tiempo (en minutos) que tarda en completar una maniobra estándar de acoplamiento a medida que acumula operaciones. Los datos son:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Operaciones acumuladas (<span class="math inline">\(x_i\)</span>)</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">4</th>
+<th align="center">8</th>
+<th align="center">16</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">Tiempo por maniobra (<span class="math inline">\(y_i\)</span>, min)</td>
+<td align="center">60</td>
+<td align="center">42</td>
+<td align="center">30</td>
+<td align="center">21</td>
+<td align="center">15</td>
+</tr></tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 5.8</strong></p>
+</div>
+<p>Un ajuste directo por MCO da <span class="math inline">\(\hat{y} = 46{,}2 - 2{,}1\cdot x\)</span> con <span class="math inline">\(R^{2} = 0{,}70\)</span>: modesto, y con residuos que muestran patrón sistemático (curvatura no capturada).</p>
+<p>Se propone entonces una regresión potencial <span class="math inline">\(\hat{y} = a\cdot x^{b}\)</span>. Tras aplicar logaritmos naturales a ambas variables se han calculado:</p>
+<ul>
+<li>
+<span class="math inline">\(\overline{\log x} = 1{,}386\)</span>; <span class="math inline">\(\overline{\log y} = 3{,}396\)</span>.</li>
+<li>
+<span class="math inline">\(S^{2}_{\log x} = 0{,}961\)</span>; <span class="math inline">\(S_{\log x,\ \log y} = -0{,}476\)</span>.</li>
+<li>
+<span class="math inline">\(R^{2}_{\log} = 0{,}9995\)</span>.</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula la pendiente <span class="math inline">\(b_{\log}\)</span> del ajuste lineal sobre las variables transformadas (<span class="math inline">\(\log y\)</span> sobre <span class="math inline">\(\log x\)</span>).</li>
+<li>Calcula la ordenada <span class="math inline">\(\log a\)</span> del ajuste lineal transformado y, deshaciendo la transformación, el parámetro <span class="math inline">\(a\)</span> del modelo potencial (recuerda: <span class="math inline">\(a = e^{\log a}\)</span>).</li>
+<li>Escribe la ecuación del modelo potencial. Interpreta el <strong>signo</strong> y la <strong>magnitud</strong> del exponente <span class="math inline">\(b\)</span>.</li>
+<li>Un jefe de estudios afirma: <em>“Cada vez que el aprendiz duplica sus operaciones acumuladas, su tiempo por maniobra se reduce, aproximadamente, en un tercio.”</em> ¿Es coherente esa afirmación con el exponente obtenido? (Recuerda: la reducción al duplicar <span class="math inline">\(x\)</span> es <span class="math inline">\(1 - 2^{b}\)</span>.)</li>
+</ol>
+</div>
+<div id="problema-5.13.-ejercicio-integrador-la-variable-acechante-en-la-flota." class="section level3" number="5.7.13">
+<h3>
+<span class="header-section-number">5.7.13</span> Problema 5.13. Ejercicio integrador: la variable acechante en la flota.<a class="anchor" aria-label="anchor" href="#problema-5.13.-ejercicio-integrador-la-variable-acechante-en-la-flota."><i class="fas fa-link"></i></a>
+</h3>
+<p>Un analista ha ajustado dos regresiones sobre los 48 cargueros del sector R-Stars, con el <strong>tonelaje</strong> (<span class="math inline">\(Y\)</span>, miles de toneladas) como variable explicada:</p>
+<p><strong>Modelo A</strong> — regresión simple con solo la antigüedad:</p>
+<p><span class="math display">\[\hat{y} \;=\; 628 \;+\; 12{,}6\cdot \text{ANTIG}, \qquad R^{2} \;=\; 0{,}39.\]</span></p>
+<p><strong>Modelo B</strong> — regresión múltiple con antigüedad y astillero (con ARCTURUS como categoría de referencia; <span class="math inline">\(D_K = 1\)</span> si el carguero es de KORRIGAN, <span class="math inline">\(D_S = 1\)</span> si es de SELENE):</p>
+<p><span class="math display">\[\hat{y} \;=\; 722 \;+\; 1{,}44\cdot \text{ANTIG} \;+\; 107\cdot D_K \;-\; 111\cdot D_S, \qquad R^{2} \;=\; 0{,}71,\ R^{2}_{\text{aj}} \;=\; 0{,}69.\]</span></p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Interpreta el paso del <span class="math inline">\(R^{2}\)</span> del Modelo A (0,39) al <span class="math inline">\(R^{2}\)</span> del Modelo B (0,71). ¿Qué proporción <strong>adicional</strong> de la variabilidad del tonelaje ha quedado explicada al incluir el astillero?</li>
+<li>La pendiente de la antigüedad pasa de <strong>12,6</strong> (Modelo A) a <strong>1,44</strong> (Modelo B). ¿Por qué se reduce tanto? ¿Qué te dice ese cambio sobre lo que estaba “escondido” en el efecto de la antigüedad del modelo simple?</li>
+<li>Interpreta los coeficientes de las <em>dummies</em>: un carguero de <strong>KORRIGAN</strong>, ¿es en promedio más o menos pesado que uno equivalente de ARCTURUS? ¿Y uno de <strong>SELENE</strong>?</li>
+<li>¿Por qué reportamos el <strong><span class="math inline">\(R^{2}\)</span> ajustado</strong> en el modelo múltiple pero no en el simple?</li>
+<li>¿Cómo se llama, en el vocabulario del capítulo (o del anterior), el fenómeno por el que una variable oculta —aquí, el astillero— altera la interpretación de la pendiente de la variable explícita —aquí, la antigüedad— cuando no se incluye en el modelo?</li>
+</ol>
+</div>
+</div>
+<div id="soluciones-cap05" class="section level2" number="5.8">
+<h2>
+<span class="header-section-number">5.8</span> Soluciones a los problemas propuestos.<a class="anchor" aria-label="anchor" href="#soluciones-cap05"><i class="fas fa-link"></i></a>
+</h2>
+<div id="solución-al-problema-5.1." class="section level3" number="5.8.1">
+<h3>
+<span class="header-section-number">5.8.1</span> Solución al Problema 5.1.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.1."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p><span class="math inline">\(\hat{a} = 12{,}4\)</span>: valor que la recta asigna a la facturación cuando el número de rutas es cero. <strong>No tiene sentido literal</strong>: una compañía sin rutas no factura. Como suele ocurrir con el término independiente, es un parámetro de ajuste que ancla la recta, no un valor económico interpretable por sí mismo.</p>
+<p><span class="math inline">\(\hat{b} = 3{,}8\)</span>: por cada <strong>ruta adicional</strong>, la facturación esperada aumenta, en promedio, en <strong>3,8 millones de PAVOs</strong>. Es la lectura útil del modelo, y viene ya expresada en unidades del problema (millones de PAVOs por ruta).</p>
+</li>
+<li><p>El <span class="math inline">\(R^{2} = 0{,}78\)</span> significa que el <strong>78%</strong> de la variabilidad de la facturación entre las 300 compañías queda explicada por la recta ajustada sobre el número de rutas. Es un ajuste <strong>fuerte</strong>: el número de rutas es, por sí solo, un predictor muy informativo de la facturación.</p></li>
+<li><p><span class="math inline">\(\hat{y}(8) = 12{,}4 + 3{,}8\cdot 8 = 12{,}4 + 30{,}4 = \mathbf{42{,}8}\)</span> millones de PAVOs.</p></li>
+<li><p><strong>No es defendible.</strong> El rango observado va de 1 a 25 rutas; <span class="math inline">\(x = 60\)</span> está muy por encima del máximo del fichero. Fuera de ese rango, la recta pierde toda garantía: podría no cumplirse la linealidad (rendimientos decrecientes por saturación de mercado, por ejemplo), o directamente el régimen del negocio ser distinto para operadores intergalácticos de gran escala. Aplicar la fórmula a 60 no es hacer una previsión: es hacer un acto de fe.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-5.2." class="section level3" number="5.8.2">
+<h3>
+<span class="header-section-number">5.8.2</span> Solución al Problema 5.2.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.2."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\overline{x} = (2+4+6+8+10)/5 = 30/5 = \mathbf{6}\)</span>. <span class="math inline">\(\overline{y} = (40+45+55+60+70)/5 = 270/5 = \mathbf{54}\)</span>.</p></li>
+<li>
+<p>Momento respecto al origen:</p>
+<ul>
+<li>
+<span class="math inline">\(a_{20} = (4+16+36+64+100)/5 = 220/5 = 44 \Rightarrow S_x^{\,2} = 44 - 6^{2} = \mathbf{8}\)</span>.</li>
+<li>
+<span class="math inline">\(a_{11} = (2\cdot 40 + 4\cdot 45 + 6\cdot 55 + 8\cdot 60 + 10\cdot 70)/5 = (80+180+330+480+700)/5 = 1\,770/5 = 354\)</span>.</li>
+<li>
+<span class="math inline">\(S_{xy} = a_{11} - \overline{x}\cdot\overline{y} = 354 - 6\cdot 54 = 354 - 324 = \mathbf{30}\)</span>.</li>
+</ul>
+</li>
+<li>
+<p>Aplicando las fórmulas mínimo-cuadráticas:</p>
+<p><span class="math display">\[\hat{b} = \dfrac{S_{xy}}{S_x^{\,2}} = \dfrac{30}{8} = \mathbf{3{,}75}; \qquad \hat{a} = \overline{y} - \hat{b}\cdot\overline{x} = 54 - 3{,}75\cdot 6 = 54 - 22{,}5 = \mathbf{31{,}5}.\]</span></p>
+<p>Recta: <span class="math inline">\(\boxed{\;\hat{y} = 31{,}5 + 3{,}75\cdot x\;}\)</span>.</p>
+</li>
+<li>
+<p>Interpretación:</p>
+<ul>
+<li>
+<span class="math inline">\(\hat{a} = 31{,}5\)</span>: margen operativo que la recta asigna a una compañía con inversión digital nula. Puede leerse literalmente como el “margen basal” del sector, y en este caso sí tiene un sentido económico razonable (una compañía sin digitalización sigue teniendo margen).</li>
+<li>
+<span class="math inline">\(\hat{b} = 3{,}75\)</span>: por cada <strong>mil PAVOs adicionales</strong> de inversión en digitalización, el margen operativo aumenta, en promedio, <strong>3,75 puntos porcentuales</strong>.</li>
+</ul>
+<p>Predicción para <span class="math inline">\(x = 5\)</span> (mil PAVOs): <span class="math inline">\(\hat{y}(5) = 31{,}5 + 3{,}75\cdot 5 = 31{,}5 + 18{,}75 = \mathbf{50{,}25\%}\)</span>.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-5.3." class="section level3" number="5.8.3">
+<h3>
+<span class="header-section-number">5.8.3</span> Solución al Problema 5.3.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.3."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\hat{y}(8) = 628 + 11{,}6\cdot 8 = 628 + 92{,}8 = \mathbf{720{,}8}\)</span> mil toneladas. Es una <strong>predicción defendible</strong>: <span class="math inline">\(x = 8\)</span> está claramente dentro del rango observado (2-25 años).</p></li>
+<li><p><span class="math inline">\(\hat{y}(0) = 628\)</span>. Aceptable <strong>con reservas</strong>: <span class="math inline">\(x = 0\)</span> queda justo por debajo del mínimo observado (2). Está muy cerca del rango, pero literalmente fuera. Además, el “carguero recién estrenado” es un caso conceptualmente distinto (nunca ha operado), del que la recta —construida sobre naves con al menos 2 años de servicio— no tiene por qué informar bien. Interpretable como referencia, no como pronóstico firme.</p></li>
+<li><p><span class="math inline">\(\hat{y}(40) = 628 + 11{,}6\cdot 40 = 628 + 464 = \mathbf{1\,092}\)</span> mil toneladas. <strong>No defendible</strong>: <span class="math inline">\(x = 40\)</span> está muy por encima del máximo observado (25). Es exactamente el escenario que el capítulo desaconseja: cualquier cambio de régimen (naves de generación anterior, cargueros de museo, cambio de tecnología estructural) rompería la validez de la extrapolación. Además, 1 092 mil toneladas es una cifra sospechosamente alta comparada con el máximo típico del sector.</p></li>
+<li>
+<p><strong>No</strong> es un instrumento adecuado para una predicción individualizada. Dos razones:</p>
+<ul>
+<li>La recta predice <strong>promedios</strong>, no individuos. Un carguero concreto puede desviarse notablemente del pronóstico puntual.</li>
+<li>Con <span class="math inline">\(R^{2} = 0{,}38\)</span>, más del 60% de la variabilidad del tonelaje queda <strong>sin explicar</strong> por la antigüedad. El residuo típico puede ser muy grande.</li>
+</ul>
+<p>Para una predicción individual defendible, habría que acompañar la cifra puntual con un intervalo de confianza (que requiere las herramientas del bloque de Inferencia), o incluir otras variables (astillero, tipo de motor, sector de operación) que reduzcan la varianza residual. En este mismo capítulo se ve cómo la regresión múltiple con el astillero incluido eleva el <span class="math inline">\(R^{2}\)</span> del 39% al 71%.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-5.4." class="section level3" number="5.8.4">
+<h3>
+<span class="header-section-number">5.8.4</span> Solución al Problema 5.4.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.4."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Los coeficientes más afectados son la <strong>pendiente</strong> (de 8,0 a 3,5: se reduce a menos de la mitad) y el <strong>coeficiente de determinación</strong> (de 0,83 a 0,26: se hunde). La ordenada también se mueve sensiblemente (de 30 a 45). La explicación es la que el capítulo anticipa: MCO minimiza cuadrados, y un caso muy alejado del patrón general <strong>tira</strong> de la recta hacia sí. El prototipo, con tonelaje muy bajo pese a llevar 15 años en servicio, empuja la recta hacia abajo en su zona central, lo que a la vez achata la pendiente y eleva la ordenada.</p></li>
+<li>
+<p>Por dos razones que actúan al mismo tiempo:</p>
+<ul>
+<li>El prototipo dispara la <strong>varianza total</strong> <span class="math inline">\(S_y^{\,2}\)</span> (introduce un valor de <span class="math inline">\(Y\)</span> mucho más alejado de la media).</li>
+<li>La nueva recta —forzada a acomodar el prototipo— es peor pronóstico para los 30 casos habituales, lo que dispara la <strong>varianza residual</strong> <span class="math inline">\(S_e^{\,2}\)</span>.</li>
+</ul>
+<p>Como <span class="math inline">\(R^{2} = 1 - S_e^{\,2}/S_y^{\,2}\)</span>, ambos efectos empujan el cociente al alza y el <span class="math inline">\(R^{2}\)</span> a la baja.</p>
+</li>
+<li><p><strong>La recta sin prototipo.</strong> El prototipo pertenece de facto a <em>otra población</em> (naves experimentales de un fabricante distinto, con criterios técnicos propios). Como el capítulo 2 recomienda para <em>outliers</em> legítimos que pertenecen a otra población, la decisión razonable es <strong>analizarlo por separado</strong> (o excluirlo del análisis principal). Mezclar la serie regular con un prototipo experimental produce un modelo que no describe bien a ninguno de los dos grupos.</p></li>
+<li><p>Antes de dar por bueno el modelo, la primera acción es siempre <strong>mirar la nube de puntos</strong>. Un diagrama de dispersión habría revelado el prototipo como un caso claramente aislado y habría permitido decidir su tratamiento antes de calcular ningún coeficiente. Es la moraleja que atraviesa todo el capítulo, y que Anscombe hará explícita.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-5.5." class="section level3" number="5.8.5">
+<h3>
+<span class="header-section-number">5.8.5</span> Solución al Problema 5.5.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.5."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Los cinco puntos son <span class="math inline">\((2{,}5;\ 20),\ (7{,}5;\ 22),\ (12{,}5;\ 25),\ (17{,}5;\ 40),\ (25;\ 70)\)</span>. Los <strong>tres primeros</strong> crecen suavemente: apenas 5 mil PAVOs adicionales de coste medio entre los 2,5 y los 12,5 años. A partir de ahí, la curva se <strong>acelera bruscamente</strong>: 15 mil PAVOs más entre los 12,5 y los 17,5 años, y otros 30 mil entre los 17,5 y los 25. <strong>No es un patrón lineal</strong>: hay un umbral perceptible en torno a los 15 años, a partir del cual el coste se dispara.</p></li>
+<li><p>Sí es coherente. Un <span class="math inline">\(R^{2}\)</span> del 48% es <strong>modesto</strong> justamente porque la recta única no puede reproducir simultáneamente el tramo plano inicial y la aceleración final. La recta sobreestima el coste en los intervalos jóvenes (predice unos 30 mil PAVOs a los 12,5 años, cuando el dato real es 25) y lo subestima en los intervalos veteranos (predice unos 55 mil a los 25 años, cuando el dato real es 70). Los residuos tendrían un patrón sistemático en forma de <span class="math inline">\(\cup\)</span> invertido, exactamente el que sugiere una relación curva.</p></li>
+<li><p>Formas funcionales más adecuadas: una <strong>exponencial</strong> (<span class="math inline">\(\hat{y} = a\cdot b^{x}\)</span>) o una <strong>potencial</strong> (<span class="math inline">\(\hat{y} = a\cdot x^{b}\)</span> con <span class="math inline">\(b &gt; 1\)</span>). Cualquiera de las dos —linealizable con logaritmos, como veremos en la sección de linealización— captaría bien la aceleración final. La regresión de tipo I (los cinco puntos) es la mejor guía para elegir: pide una curva creciente cóncava hacia arriba, no una recta.</p></li>
+<li><p>La lectura correcta para el responsable de mantenimiento es la segunda: <strong>“hay un umbral crítico a partir del cual el coste se dispara”</strong>. Es un mensaje <strong>económicamente accionable</strong>: los cargueros que superan los 15 años empiezan a ser desproporcionadamente caros de mantener; conviene contemplar la sustitución o la desinversión en ese umbral, antes de que el coste medio de mantenimiento se acerque al de una nave nueva. La lectura <em>“crece linealmente”</em>, aunque salga de un ajuste MCO honesto, es engañosa y esconde el mensaje operativo importante.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-5.6." class="section level3" number="5.8.6">
+<h3>
+<span class="header-section-number">5.8.6</span> Solución al Problema 5.6.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.6."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>De la descomposición de la varianza <span class="math inline">\(S_y^{\,2} = S_{\hat{y}}^{\,2} + S_e^{\,2}\)</span> se despeja:</p>
+<p><span class="math display">\[S_{\hat{y}}^{\,2} \;=\; S_y^{\,2} - S_e^{\,2} \;=\; 100 - 25 \;=\; \mathbf{75}.\]</span></p>
+</li>
+<li>
+<p>Aplicando la definición canónica del coeficiente de determinación:</p>
+<p><span class="math display">\[R^{2} \;=\; \dfrac{S_{\hat{y}}^{\,2}}{S_y^{\,2}} \;=\; \dfrac{75}{100} \;=\; \mathbf{0{,}75}.\]</span></p>
+<p>O equivalentemente, <span class="math inline">\(R^{2} = 1 - S_e^{\,2}/S_y^{\,2} = 1 - 25/100 = 0{,}75\)</span>: las dos expresiones son idénticas.</p>
+</li>
+<li><p>Un <span class="math inline">\(R^{2}\)</span> del 75% es un <strong>buen ajuste</strong>: la recta reproduce tres cuartas partes de la variabilidad observada en <span class="math inline">\(Y\)</span>. Cabe reportar el modelo con confianza, aunque siempre acompañando el número del examen de residuos.</p></li>
+<li><p>Sin explicar: <span class="math inline">\(S_e^{\,2}/S_y^{\,2} = 25/100 = \mathbf{0{,}25}\)</span>, es decir, el <strong>25%</strong> de la variabilidad de <span class="math inline">\(Y\)</span> no queda capturada por la regresión. Se obtiene directamente como cociente entre varianza residual y varianza total, o equivalentemente como <span class="math inline">\(1 - R^{2}\)</span>. En términos prácticos: aunque el modelo es útil, hay una cuarta parte de lo que le pasa a <span class="math inline">\(Y\)</span> que responde a factores que la regresión no observa (otras variables, ruido puro).</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-5.7." class="section level3" number="5.8.7">
+<h3>
+<span class="header-section-number">5.8.7</span> Solución al Problema 5.7.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.7."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Según la escala orientativa del capítulo (basada en <span class="math inline">\(|R|\)</span>):</p>
+<ul>
+<li>Ingresos totales: <span class="math inline">\(|R| = 0{,}28\)</span> → <strong>débil</strong> (0,2-0,5).</li>
+<li>Índice de digitalización: <span class="math inline">\(|R| = 0{,}67\)</span> → <strong>moderada</strong>, casi fuerte (0,5-0,7).</li>
+<li>Antigüedad media de la flota: <span class="math inline">\(|R| = 0{,}35\)</span> → <strong>débil</strong> (0,2-0,5).</li>
+<li>Tamaño de la flota: <span class="math inline">\(|R| = 0{,}17\)</span> → <strong>muy débil o inexistente</strong> (0,0-0,2).</li>
+</ul>
+<p>En términos de <span class="math inline">\(R^{2}\)</span>: la digitalización captura el 45% de la variabilidad de la rentabilidad, mientras que las otras tres variables recogen entre el 3% y el 12% cada una: mucha menos información.</p>
+</li>
+<li>
+<p><strong>Signos:</strong> positivos para ingresos, digitalización y tamaño; <strong>negativo</strong> para antigüedad de la flota. Lectura sectorial:</p>
+<ul>
+<li>Digitalización positiva y con la asociación más fuerte: las compañías más digitalizadas tienden a ser más rentables.</li>
+<li>Antigüedad negativa: las compañías con flotas más antiguas tienden a ser menos rentables (probablemente por mayores costes de mantenimiento y menor eficiencia operativa).</li>
+<li>Ingresos y tamaño con asociaciones débiles: ni facturar mucho ni tener muchas naves basta por sí solo para ser rentable en este sector. La rentabilidad no es cuestión de tamaño.</li>
+</ul>
+</li>
+<li><p><strong>La digitalización</strong>, con diferencia. Es la única que aporta un <span class="math inline">\(R^{2}\)</span> apreciable (0,45); las otras tres, incluidas en solitario, dejan sin explicar más del 85% de la varianza y sirven de bien poco como predictoras.</p></li>
+<li>
+<p><strong>No.</strong> El <span class="math inline">\(R^{2}\)</span> es una medida <strong>descriptiva</strong> de la calidad del ajuste, no una prueba causal. La asociación observada podría deberse a:</p>
+<ul>
+<li>Causalidad directa (digitalizar mejora la eficiencia y con ello el margen).</li>
+<li>Causalidad inversa (las compañías más rentables tienen recursos para digitalizarse).</li>
+<li>Causa común (la calidad de gestión impulsa simultáneamente ambas: rentabilidad <strong>y</strong> digitalización).</li>
+</ul>
+<p>Sin un modelo causal explícito y sin un diseño de investigación que descarte alternativas, el “digitalizar causa rentabilidad” no está probado por más alto que sea el <span class="math inline">\(R^{2}\)</span>.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-5.8." class="section level3" number="5.8.8">
+<h3>
+<span class="header-section-number">5.8.8</span> Solución al Problema 5.8.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.8."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Solo la <strong>nube (I)</strong> es un ajuste lineal auténtico. La recta captura razonablemente el patrón, y los puntos se dispersan alrededor de ella sin estructura visible. En las tres restantes, la recta y el <span class="math inline">\(R^{2}\)</span> son técnicamente idénticos, pero <strong>no describen</strong> la relación real.</p></li>
+<li>
+<p>Acciones antes de reportar el modelo:</p>
+<ul>
+<li>
+<strong>Nube (II)</strong> (parabólica): ajustar una <strong>forma funcional cuadrática</strong> (<span class="math inline">\(\hat{y} = a + b\, x + c\, x^{2}\)</span>) o, más en general, cualquier modelo curvo que respete la nube. La recta es una respuesta equivocada a una pregunta correcta.</li>
+<li>
+<strong>Nube (III)</strong> (<em>outlier</em> vertical): investigar el punto extremo aplicando la lógica del capítulo 2 (error de codificación, caso legítimo excepcional o individuo de otra población), decidir su tratamiento (corregir, excluir, analizar aparte), y <strong>volver a ajustar</strong> la recta sobre los diez restantes, que sí tienen relación lineal casi perfecta.</li>
+<li>
+<strong>Nube (IV)</strong> (punto de alta palanca): reconocer que los diez casos con <span class="math inline">\(x\)</span> constante <strong>no aportan información sobre la pendiente</strong>; la recta ajustada está literalmente <strong>dictada por un solo punto</strong>. Ninguna conclusión razonable puede basarse en semejante geometría. Convendría explorar por qué hay tan poca variación en <span class="math inline">\(X\)</span>: quizá se está mirando el fenómeno equivocado.</li>
+</ul>
+</li>
+<li><p>La moraleja central es la que Anscombe formuló en 1973: <strong>el <span class="math inline">\(R^{2}\)</span> y los coeficientes de la recta son resúmenes, no diagnósticos</strong>. Cuatro estructuras radicalmente distintas pueden producir los mismos estadísticos. Cualquier análisis serio requiere combinar el resumen numérico con la inspección visual.</p></li>
+<li><p>El <strong>diagrama de dispersión</strong> (nube de puntos). Es la herramienta más barata y más potente para detectar problemas de forma, <em>outliers</em> y puntos de alta palanca. <strong>“Mira la nube antes de creerte el número”</strong> es la regla operativa que sintetiza todo el capítulo.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-5.9." class="section level3" number="5.8.9">
+<h3>
+<span class="header-section-number">5.8.9</span> Solución al Problema 5.9.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.9."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Recta de <strong><span class="math inline">\(Y\)</span> sobre <span class="math inline">\(X\)</span></strong>:</p>
+<p><span class="math display">\[\hat{b} \;=\; \dfrac{S_{xy}}{S_x^{\,2}} \;=\; \dfrac{3}{4} \;=\; \mathbf{0{,}75}; \qquad \hat{a} \;=\; \overline{y} - \hat{b}\cdot \overline{x} \;=\; 50 - 0{,}75\cdot 20 \;=\; \mathbf{35}.\]</span></p>
+<p>Recta: <span class="math inline">\(\hat{y} = 35 + 0{,}75\, x\)</span>.</p>
+</li>
+<li>
+<p>Recta de <strong><span class="math inline">\(X\)</span> sobre <span class="math inline">\(Y\)</span></strong>:</p>
+<p><span class="math display">\[\hat{b}' \;=\; \dfrac{S_{xy}}{S_y^{\,2}} \;=\; \dfrac{3}{9} \;\approx\; \mathbf{0{,}333}; \qquad \hat{a}' \;=\; \overline{x} - \hat{b}'\cdot \overline{y} \;=\; 20 - 0{,}333\cdot 50 \;\approx\; \mathbf{3{,}33}.\]</span></p>
+<p>Recta: <span class="math inline">\(\hat{x} = 3{,}33 + 0{,}333\, y\)</span>.</p>
+</li>
+<li>
+<p>Coeficiente de determinación por dos vías:</p>
+<ul>
+<li>Fórmula directa: <span class="math inline">\(R^{2} = S_{xy}^{\,2}/(S_x^{\,2}\cdot S_y^{\,2}) = 3^{2}/(4\cdot 9) = 9/36 = \mathbf{0{,}25}\)</span>.</li>
+<li>Producto de pendientes: <span class="math inline">\(\hat{b}\cdot \hat{b}' = 0{,}75 \cdot 0{,}333 = \mathbf{0{,}25}\)</span> ✓.</li>
+</ul>
+<p>Ambas coinciden: es la identidad canónica <span class="math inline">\(\hat{b}\cdot \hat{b}' = R^{2}\)</span>.</p>
+</li>
+<li><p><span class="math inline">\(R = +\sqrt{0{,}25} = +\mathbf{0{,}5}\)</span> (con signo positivo porque <span class="math inline">\(S_{xy} &gt; 0\)</span>). Según la escala orientativa del capítulo, es una <strong>relación moderada</strong> (0,5-0,7). Geométricamente, las dos rectas se cruzan en el centro de gravedad <span class="math inline">\((20,\ 50)\)</span> formando una “tijera” <strong>moderadamente abierta</strong>: ni tan estrecha como en el caso <span class="math inline">\(R^{2}\)</span> próximo a 1 (donde casi coincidirían), ni tan abierta como en el caso <span class="math inline">\(R^{2}\)</span> próximo a 0 (donde serían perpendiculares). La apertura del abanico es una lectura visual directa de la intensidad de la relación.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-5.10." class="section level3" number="5.8.10">
+<h3>
+<span class="header-section-number">5.8.10</span> Solución al Problema 5.10.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.10."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Clasificación:</p>
+<ul>
+<li>Ingresos × Costos operativos: <span class="math inline">\(R = +0{,}96\)</span> → <strong>muy fuerte, positiva</strong>, casi determinista.</li>
+<li>Rentabilidad × Digitalización: <span class="math inline">\(R = +0{,}67\)</span> → <strong>moderada</strong>, casi fuerte, positiva.</li>
+<li>Antigüedad × Digitalización: <span class="math inline">\(R = -0{,}45\)</span> → <strong>débil</strong>, negativa.</li>
+<li>Rutas × Tripulantes: <span class="math inline">\(R = +0{,}88\)</span> → <strong>fuerte</strong>, positiva.</li>
+<li>Cantina × Distancia Klendathu: <span class="math inline">\(R = -0{,}03\)</span> → <strong>prácticamente nula</strong>.</li>
+</ul>
+</li>
+<li><p>La relación <strong>casi determinista</strong> es Ingresos × Costos operativos (<span class="math inline">\(R = 0{,}96\)</span>). Explicación económica: ambos indicadores crecen simultáneamente con el <strong>tamaño de la actividad</strong>; una compañía que factura más también incurre en mayores costos operativos, porque opera más rutas, tripula más naves y consume más combustible. Es una relación estructural del funcionamiento del negocio, no una relación causal específica de “los ingresos causan los costes” ni al revés.</p></li>
+<li><p><strong>No debería sorprender.</strong> Es coherente con al menos dos mecanismos: (i) las compañías más nuevas se establecen con procesos digitales desde el arranque, mientras que las flotas antiguas suelen operar con sistemas heredados; (ii) los cargueros más veteranos incorporan sensores y arquitecturas de menor generación tecnológica. La antigüedad de la flota tiende a ir con menor digitalización, y <span class="math inline">\(R = -0{,}45\)</span> es la firma cuantitativa de ese vínculo.</p></li>
+<li>
+<p><strong>Dos errores</strong> en la afirmación del directivo:</p>
+<ul>
+<li>
+<strong>Correlación no es causalidad.</strong> Que rentabilidad y digitalización coincidan en su comportamiento no prueba que la digitalización <em>cause</em> la rentabilidad (puede haber causalidad inversa, o una tercera variable como la calidad de gestión que impulse ambas).</li>
+<li>
+<strong>Confunde <span class="math inline">\(R\)</span> con <span class="math inline">\(\hat{b}\)</span>.</strong> El 0,67 es un coeficiente de correlación (adimensional, entre <span class="math inline">\(-1\)</span> y <span class="math inline">\(+1\)</span>), <strong>no</strong> una tasa de cambio. La “pendiente” que traduciría un punto adicional de índice de digitalización en puntos porcentuales de rentabilidad es <span class="math inline">\(\hat{b}\)</span>, no <span class="math inline">\(R\)</span>; y ese <span class="math inline">\(\hat{b}\)</span> solo puede leerse de la regresión, no del coeficiente de correlación aislado.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-5.11." class="section level3" number="5.8.11">
+<h3>
+<span class="header-section-number">5.8.11</span> Solución al Problema 5.11.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.11."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>No.</strong> La primera frase enuncia una <strong>asociación estadística</strong>; la segunda infiere un <strong>efecto causal individual</strong> sobre cualquier compañía que aumente su flota. Es exactamente el salto que el capítulo advierte una y otra vez. Correlación —por alta que sea— no autoriza a hacer prescripciones de gestión.</p></li>
+<li>
+<p>Hipótesis alternativas:</p>
+<ul>
+<li>
+<strong>Causalidad inversa.</strong> Son las compañías <strong>ya rentables</strong> las que pueden permitirse crecer (comprar más naves), no al revés. El tamaño sería consecuencia de la rentabilidad, no su causa.</li>
+<li>
+<strong>Causa común.</strong> La <strong>calidad de gestión</strong> (o el conocimiento del mercado, o la posición competitiva heredada) impulsa simultáneamente el crecimiento y la rentabilidad; el crecimiento no genera por sí solo mayor rentabilidad.</li>
+<li>
+<strong>Efecto escala pero decreciente.</strong> Puede haber un componente causal, pero con rendimientos decrecientes: los primeros cargueros aumentan mucho la rentabilidad; a partir de cierto tamaño, aparecen deseconomías (complejidad organizativa, costes de coordinación). La relación observada podría estar dominada por las compañías pequeñas del sector.</li>
+</ul>
+</li>
+<li><p>Un factor de confusión clásico es la <strong>calidad de gestión / eficiencia operativa / posición competitiva</strong>. Difícil de medir directamente, se traduce simultáneamente en flotas más grandes (la compañía puede comprarlas) y en rentabilidad más alta (la compañía las utiliza bien). Ninguna de las dos causa la otra: ambas son consecuencia del factor oculto. Otros candidatos: <strong>galaxia de operación</strong> (algunas galaxias tienen mercados más lucrativos), <strong>antigüedad de la compañía</strong> (las más veteranas tienen más flota y también más experiencia acumulada), <strong>régimen fiscal</strong>, etc.</p></li>
+<li><p>El hallazgo es la firma cuantitativa clásica de que la asociación cruda del “tamaño de flota” contenía en buena parte los efectos de <strong>otras variables</strong>. Al incluir explícitamente galaxia, antigüedad y forma jurídica en el modelo, la variable “tamaño de flota” pierde protagonismo porque su efecto aparente se redistribuye entre las nuevas explicativas. Es el mismo fenómeno de las <strong>variables acechantes</strong> que aparece en la sección de regresión múltiple (y su primo cualitativo, la paradoja de Simpson del capítulo anterior). Refuerza la hipótesis de que la asociación original <strong>no era causal</strong>: el titular necesita reescribirse con humildad.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-5.12." class="section level3" number="5.8.12">
+<h3>
+<span class="header-section-number">5.8.12</span> Solución al Problema 5.12.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.12."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Pendiente del ajuste lineal sobre variables transformadas:</p>
+<p><span class="math display">\[b_{\log} \;=\; \dfrac{S_{\log x,\ \log y}}{S^{2}_{\log x}} \;=\; \dfrac{-0{,}476}{0{,}961} \;\approx\; \mathbf{-0{,}495}.\]</span></p>
+</li>
+<li>
+<p>Ordenada del ajuste lineal transformado:</p>
+<p><span class="math display">\[\log a \;=\; \overline{\log y} - b_{\log}\cdot \overline{\log x} \;=\; 3{,}396 - (-0{,}495)\cdot 1{,}386 \;=\; 3{,}396 + 0{,}686 \;\approx\; 4{,}082.\]</span></p>
+<p>Deshaciendo la transformación: <span class="math inline">\(a = e^{4{,}082} \approx \mathbf{59{,}3}\)</span>.</p>
+</li>
+<li>
+<p>Modelo potencial:</p>
+<p><span class="math display">\[\boxed{\;\hat{y} \;=\; 59{,}3\cdot x^{\,-0{,}495}\;}\]</span></p>
+<p>Con <span class="math inline">\(R^{2}_{\log} = 0{,}9995\)</span>: la relación en escala log-log es <strong>casi determinista</strong>. Interpretación del exponente:</p>
+<ul>
+<li>
+<strong>Signo negativo</strong>: el tiempo por maniobra <strong>decrece</strong> al aumentar las operaciones acumuladas. Es la firma característica de una curva de aprendizaje.</li>
+<li>
+<strong>Magnitud próxima a <span class="math inline">\(-0{,}5\)</span></strong>: cada vez que <span class="math inline">\(x\)</span> se multiplica por 10, <span class="math inline">\(y\)</span> se multiplica por <span class="math inline">\(10^{-0{,}495} \approx 0{,}32\)</span>; es decir, el tiempo por maniobra se reduce a un tercio aproximadamente cada vez que las operaciones acumuladas se multiplican por diez. Es una curva de aprendizaje rápida.</li>
+</ul>
+</li>
+<li>
+<p>Reducción al <strong>duplicar</strong> las operaciones (<span class="math inline">\(x \to 2x\)</span>):</p>
+<p><span class="math display">\[1 - 2^{b_{\log}} \;=\; 1 - 2^{-0{,}495} \;\approx\; 1 - 0{,}710 \;\approx\; 0{,}290 \;=\; \mathbf{29\%}.\]</span></p>
+<p>El jefe de estudios está <strong>aproximadamente</strong> en lo cierto: el tiempo se reduce alrededor del 29% cada vez que las operaciones acumuladas se duplican, cifra cercana al “tercio” (33%) que menciona. Sería más preciso decir <em>“casi un 30%”</em>, pero el orden de magnitud es correcto y su afirmación es defendible en un informe divulgativo.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-5.13." class="section level3" number="5.8.13">
+<h3>
+<span class="header-section-number">5.8.13</span> Solución al Problema 5.13.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-5.13."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>El <span class="math inline">\(R^{2}\)</span> pasa de 0,39 a 0,71. La proporción <strong>adicional</strong> de variabilidad del tonelaje capturada por el Modelo B respecto del Modelo A es:</p>
+<p><span class="math display">\[R^{2}_B - R^{2}_A \;=\; 0{,}71 - 0{,}39 \;=\; \mathbf{0{,}32} \;=\; 32\%.\]</span></p>
+<p>Incluir el astillero como segunda variable explicativa <strong>añade</strong> un 32% de la variabilidad total del tonelaje al modelo. Es una mejora sustancial: casi se duplica el <span class="math inline">\(R^{2}\)</span> del modelo simple.</p>
+</li>
+<li>
+<p>La pendiente de antigüedad se derrumba: pasa de 12,6 a apenas 1,44 (menos de una octava parte). La explicación es clave:</p>
+<ul>
+<li>En el <strong>Modelo A</strong>, la pendiente 12,6 no era el “efecto puro” de la antigüedad; era el <strong>efecto de la antigüedad + el efecto disfrazado del astillero</strong>. Como los astilleros más productivos y con carteras más pesadas suelen tener flotas más veteranas, la antigüedad estaba <strong>capturando</strong> también la parte del tonelaje que se debía al astillero.</li>
+<li>En el <strong>Modelo B</strong>, al <strong>controlar</strong> por el astillero (variable ahora incluida en el modelo), la pendiente de antigüedad recupera su interpretación limpia: cada año adicional se asocia a solo 1,44 mil toneladas más, manteniendo constante la identidad del astillero. Casi todo el “efecto antigüedad” del modelo simple era en realidad <strong>efecto astillero mal atribuido</strong>.</li>
+</ul>
+<p>La lección es económica y estadística a la vez: la antigüedad, por sí sola, dice muy poco sobre el tonelaje una vez que sabemos qué astillero ha construido el carguero.</p>
+</li>
+<li>
+<p>Interpretación de las <em>dummies</em> (con ARCTURUS como categoría de referencia):</p>
+<ul>
+<li>Coeficiente de <span class="math inline">\(D_K = +107\)</span>: un carguero de <strong>KORRIGAN</strong> pesa, en promedio, unos <strong>107 mil toneladas más</strong> que uno equivalente de ARCTURUS de la misma antigüedad.</li>
+<li>Coeficiente de <span class="math inline">\(D_S = -111\)</span>: un carguero de <strong>SELENE</strong> pesa, en promedio, unos <strong>111 mil toneladas menos</strong> que uno equivalente de ARCTURUS de la misma antigüedad.</li>
+</ul>
+<p>Es decir, hay una jerarquía clara por astillero: <strong>KORRIGAN &gt; ARCTURUS &gt; SELENE</strong> en términos de tonelaje típico. La antigüedad, dentro de cada astillero, matiza esa jerarquía pero apenas la mueve.</p>
+</li>
+<li>
+<p>Porque cuando se comparan modelos con <strong>distinto número de parámetros</strong>, el <span class="math inline">\(R^{2}\)</span> ordinario <strong>siempre crece</strong> —o al menos no baja— al añadir variables, aunque estas sean ruido puro. Comparar el Modelo B con el A por <span class="math inline">\(R^{2}\)</span> ordinario es informativo, pero técnicamente sesgado a favor del modelo con más variables. El <span class="math inline">\(R^{2}\)</span> <strong>ajustado</strong> penaliza la introducción de parámetros y solo crece cuando la nueva variable <strong>aporta más de lo que cuesta</strong>. En este caso, <span class="math inline">\(R^{2}_{\text{aj}} = 0{,}69\)</span> apenas se aparta del <span class="math inline">\(R^{2} = 0{,}71\)</span>, señal de que la mejora es <strong>real</strong> y no un artefacto de haber añadido parámetros. Si al añadir el astillero el <span class="math inline">\(R^{2}\)</span> hubiera crecido de 0,39 a 0,42 pero el <span class="math inline">\(R^{2}_{\text{aj}}\)</span> se hubiera quedado en 0,38, la conclusión sería la opuesta: ganancia marginal insuficiente.</p>
+<p>En el Modelo A no reportamos <span class="math inline">\(R^{2}\)</span> ajustado porque, con una sola variable, el ajuste importa poco y <span class="math inline">\(R^{2}\)</span> y <span class="math inline">\(R^{2}_{\text{aj}}\)</span> son casi iguales.</p>
+</li>
+<li>
+<p>Se llama fenómeno de <strong>variable acechante</strong> (<em>lurking variable</em>): una variable no incluida en el modelo que, sin embargo, está correlacionada tanto con la explicativa como con la explicada, y arrastra parte del efecto aparente de la primera sobre la segunda. Es el equivalente <strong>cuantitativo</strong> de la <strong>paradoja de Simpson</strong> que vimos en el capítulo anterior sobre tablas de contingencia: allí, la relación entre dos atributos se invertía al desagregar por un tercero; aquí, la pendiente de una regresión simple se altera radicalmente al añadir la variable correcta. En ambos casos el remedio es el mismo: <strong>incluir la variable acechante en el análisis</strong> —aquí, como variable explicativa adicional; allí, como criterio de estratificación— para que los coeficientes recuperen su lectura limpia.</p>
+<p>Es, quizá, el mensaje más valioso que el estudiante de ADE debe llevarse de este bloque: casi ninguna relación empresarial es entre dos variables aisladas; casi siempre hay una tercera —a menudo la calidad de gestión, el tamaño, el sector— acechando detrás de los coeficientes.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
   <div class="chapter-nav">
@@ -1129,6 +1877,40 @@ R^{2}_{\text{aj}} \;=\; 1 \;-\; (1 - R^{2})\cdot \dfrac{N-1}{N-p-1},
 </ul>
 </li>
 <li><a class="nav-link" href="#recapitulacion-cap05"><span class="header-section-number">5.6</span> Recapitulación.</a></li>
+<li>
+<a class="nav-link" href="#problemas-cap05"><span class="header-section-number">5.7</span> Problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#problema-5.1.-leer-una-recta-ya-ajustada."><span class="header-section-number">5.7.1</span> Problema 5.1. Leer una recta ya ajustada.</a></li>
+<li><a class="nav-link" href="#problema-5.2.-calcular-la-recta-desde-cero."><span class="header-section-number">5.7.2</span> Problema 5.2. Calcular la recta desde cero.</a></li>
+<li><a class="nav-link" href="#problema-5.3.-predicci%C3%B3n-y-extrapolaci%C3%B3n-en-la-flota."><span class="header-section-number">5.7.3</span> Problema 5.3. Predicción y extrapolación en la flota.</a></li>
+<li><a class="nav-link" href="#problema-5.4.-el-efecto-de-un-outlier-sobre-la-recta."><span class="header-section-number">5.7.4</span> Problema 5.4. El efecto de un outlier sobre la recta.</a></li>
+<li><a class="nav-link" href="#problema-5.5.-regresi%C3%B3n-de-tipo-i-y-tipo-ii-sobre-la-misma-tabla."><span class="header-section-number">5.7.5</span> Problema 5.5. Regresión de tipo I y tipo II sobre la misma tabla.</a></li>
+<li><a class="nav-link" href="#problema-5.6.-descomposici%C3%B3n-de-la-varianza."><span class="header-section-number">5.7.6</span> Problema 5.6. Descomposición de la varianza.</a></li>
+<li><a class="nav-link" href="#problema-5.7.-comparar-cuatro-regresiones-por-su-r2."><span class="header-section-number">5.7.7</span> Problema 5.7. Comparar cuatro regresiones por su \(R^{2}\).</a></li>
+<li><a class="nav-link" href="#problema-5.8.-cuarteto-de-anscombe-en-clave-r-stars."><span class="header-section-number">5.7.8</span> Problema 5.8. Cuarteto de Anscombe en clave R-Stars.</a></li>
+<li><a class="nav-link" href="#problema-5.9.-las-dos-rectas-y-r2."><span class="header-section-number">5.7.9</span> Problema 5.9. Las dos rectas y \(R^{2}\).</a></li>
+<li><a class="nav-link" href="#problema-5.10.-interpretar-coeficientes-de-correlaci%C3%B3n."><span class="header-section-number">5.7.10</span> Problema 5.10. Interpretar coeficientes de correlación.</a></li>
+<li><a class="nav-link" href="#problema-5.11.-correlaci%C3%B3n-y-causalidad-segunda-vuelta."><span class="header-section-number">5.7.11</span> Problema 5.11. Correlación y causalidad (segunda vuelta).</a></li>
+<li><a class="nav-link" href="#problema-5.12.-linealizaci%C3%B3n-curva-de-aprendizaje-en-enterprise-logistics."><span class="header-section-number">5.7.12</span> Problema 5.12. Linealización: curva de aprendizaje en Enterprise Logistics.</a></li>
+<li><a class="nav-link" href="#problema-5.13.-ejercicio-integrador-la-variable-acechante-en-la-flota."><span class="header-section-number">5.7.13</span> Problema 5.13. Ejercicio integrador: la variable acechante en la flota.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#soluciones-cap05"><span class="header-section-number">5.8</span> Soluciones a los problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.1."><span class="header-section-number">5.8.1</span> Solución al Problema 5.1.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.2."><span class="header-section-number">5.8.2</span> Solución al Problema 5.2.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.3."><span class="header-section-number">5.8.3</span> Solución al Problema 5.3.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.4."><span class="header-section-number">5.8.4</span> Solución al Problema 5.4.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.5."><span class="header-section-number">5.8.5</span> Solución al Problema 5.5.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.6."><span class="header-section-number">5.8.6</span> Solución al Problema 5.6.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.7."><span class="header-section-number">5.8.7</span> Solución al Problema 5.7.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.8."><span class="header-section-number">5.8.8</span> Solución al Problema 5.8.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.9."><span class="header-section-number">5.8.9</span> Solución al Problema 5.9.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.10."><span class="header-section-number">5.8.10</span> Solución al Problema 5.10.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.11."><span class="header-section-number">5.8.11</span> Solución al Problema 5.11.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.12."><span class="header-section-number">5.8.12</span> Solución al Problema 5.12.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-5.13."><span class="header-section-number">5.8.13</span> Solución al Problema 5.13.</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">

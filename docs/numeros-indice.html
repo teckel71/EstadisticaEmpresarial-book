@@ -1062,7 +1062,962 @@ X_{t}^{\text{real}} \;=\; \frac{X_{t}^{\text{nominal}}}{\mathrm{Deflactor}_{t}}\
 <li>Finalmente, la <strong>deflactación</strong> es la aplicación más importante de todo lo anterior: consiste en dividir una serie económica nominal por un índice de precios adecuado (el deflactor) para obtener la serie en términos reales, expresada en unidades monetarias de un año de referencia. Sin este paso previo, muchas comparaciones intertemporales pierden todo su sentido económico.</li>
 </ul>
 <p>Con este capítulo cerramos el bloque de <strong>estadística descriptiva</strong> del curso. En los próximos temas cambiaremos de terreno: en lugar de describir lo que hay, empezaremos a hablar de lo que <strong>podría haber</strong>, apoyándonos en el cálculo de probabilidades y en la teoría de la inferencia. <em>Hyperdrive Express</em>, <em>Shuttlepod Movers</em>, los astilleros galácticos y la muestra completa de <span class="math inline">\(300\)</span> compañías R-Stars nos acompañarán también allí; solo que, esta vez, con la incertidumbre puesta sobre la mesa.</p>
-
+</div>
+<div id="problemas-cap06" class="section level2" number="6.11">
+<h2>
+<span class="header-section-number">6.11</span> Problemas propuestos.<a class="anchor" aria-label="anchor" href="#problemas-cap06"><i class="fas fa-link"></i></a>
+</h2>
+<p>Este capítulo es, como su propio texto reconoce, el más <em>operativo</em> del libro: casi todo se reduce a <strong>cocientes</strong>, y buena parte del oficio consiste en calcularlos bien y leerlos con cabeza. Los ejercicios que siguen siguen esa misma lógica: hay más cálculo que en capítulos anteriores —era inevitable con Laspeyres, Paasche, Fisher y deflactaciones de por medio—, pero cada apartado numérico termina con una lectura interpretativa que es donde vive la enseñanza real. Todas las soluciones detalladas se recogen al final del capítulo.</p>
+<div id="problema-6.1.-números-índice-simples-base-fija." class="section level3" number="6.11.1">
+<h3>
+<span class="header-section-number">6.11.1</span> Problema 6.1. Números índice simples: base fija.<a class="anchor" aria-label="anchor" href="#problema-6.1.-n%C3%BAmeros-%C3%ADndice-simples-base-fija."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Corellian Freightworks</em> recoge en su memoria corporativa los datos de la ruta Corellia–Qo’noS entre 2210 y 2213:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="6%">
+<col width="29%">
+<col width="36%">
+<col width="27%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Año</th>
+<th align="center">Precio (PAVOs/tonelada)</th>
+<th align="center">Cantidad (miles de toneladas)</th>
+<th align="center">Valor (miles de PAVOs)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">2210</td>
+<td align="center">20</td>
+<td align="center">800</td>
+<td align="center">16.000</td>
+</tr>
+<tr class="even">
+<td align="center">2211</td>
+<td align="center">25</td>
+<td align="center">900</td>
+<td align="center">22.500</td>
+</tr>
+<tr class="odd">
+<td align="center">2212</td>
+<td align="center">30</td>
+<td align="center">1.000</td>
+<td align="center">30.000</td>
+</tr>
+<tr class="even">
+<td align="center">2213</td>
+<td align="center">40</td>
+<td align="center">1.100</td>
+<td align="center">44.000</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 6.13</strong></p>
+</div>
+<p>Se pide, tomando <strong>2210 como período base</strong>:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula los índices simples de <strong>precios</strong> <span class="math inline">\(p_{0}^{t}\)</span> para los cuatro años. Expresa el resultado en escala porcentual (base 2210 = 100).</li>
+<li>Calcula los índices simples de <strong>cantidades</strong> <span class="math inline">\(q_{0}^{t}\)</span> y de <strong>valor</strong> <span class="math inline">\(V_{0}^{t}\)</span>, en la misma escala.</li>
+<li>Verifica en cada año la relación <span class="math inline">\(V_{0}^{t} = p_{0}^{t}\cdot q_{0}^{t}\)</span>.</li>
+<li>Interpreta la evolución entre 2210 y 2213: en qué proporción ha crecido el precio, la cantidad y el valor, y qué parte del crecimiento del valor se debe al efecto precio y qué parte al efecto cantidad.</li>
+</ol>
+</div>
+<div id="problema-6.2.-encadenados-frente-a-base-fija." class="section level3" number="6.11.2">
+<h3>
+<span class="header-section-number">6.11.2</span> Problema 6.2. Encadenados frente a base fija.<a class="anchor" aria-label="anchor" href="#problema-6.2.-encadenados-frente-a-base-fija."><i class="fas fa-link"></i></a>
+</h3>
+<p>Con los mismos datos de <em>Corellian Freightworks</em> del problema anterior:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula los <strong>índices simples encadenados</strong> de precios, cantidades y valor (<span class="math inline">\(p_{t-1}^{t}\)</span>, <span class="math inline">\(q_{t-1}^{t}\)</span>, <span class="math inline">\(V_{t-1}^{t}\)</span>) para 2211, 2212 y 2213.</li>
+<li>Interpreta el índice encadenado de precios en 2213 (<span class="math inline">\(p_{2212}^{2213}\)</span>). ¿Qué información aporta que no aporta el índice de base fija <span class="math inline">\(p_{2210}^{2213}\)</span>?</li>
+<li>El precio se ha <strong>doblado</strong> entre 2210 y 2213 (base fija de 200). Sin embargo, la subida encadenada del último año es menor que la de años anteriores. ¿Es coherente esa observación? ¿Qué te dice sobre el ritmo de subida?</li>
+<li>Comprueba que el producto de los tres encadenados anuales de precios reproduce el índice de base fija 2213: <span class="math inline">\(p_{2210}^{2211}\cdot p_{2211}^{2212}\cdot p_{2212}^{2213} = p_{2210}^{2213}\)</span>.</li>
+</ol>
+</div>
+<div id="problema-6.3.-verdadero-o-falso-sobre-las-propiedades." class="section level3" number="6.11.3">
+<h3>
+<span class="header-section-number">6.11.3</span> Problema 6.3. Verdadero o falso sobre las propiedades.<a class="anchor" aria-label="anchor" href="#problema-6.3.-verdadero-o-falso-sobre-las-propiedades."><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada una de las siguientes afirmaciones sobre las propiedades de los números índice, indica si es <strong>verdadera</strong> o <strong>falsa</strong> y justifica brevemente por qué:</p>
+<ol style="list-style-type: lower-alpha">
+<li>El índice de precios de un período respecto a ese mismo período siempre vale 100 (en escala porcentual).</li>
+<li>Si el índice de precios de 2213 en base 2210 vale 150, entonces el índice de precios de 2210 en base 2213 vale 50.</li>
+<li>Si los precios no han cambiado entre 2210 y 2213, el índice de precios <span class="math inline">\(p_{2210}^{2213}\)</span> vale 100 (en escala porcentual).</li>
+<li>Un índice de precios de 200 (con base 100) significa que los precios han subido un 200%.</li>
+<li>Para cualquier tipo de índice complejo, el índice de valor es siempre exactamente el producto del índice de precios por el índice de cantidades (<span class="math inline">\(V_{0}^{t} = I_{p}\cdot I_{q}\)</span>).</li>
+</ol>
+</div>
+<div id="problema-6.4.-laspeyres-paasche-y-fisher-para-precios." class="section level3" number="6.11.4">
+<h3>
+<span class="header-section-number">6.11.4</span> Problema 6.4. Laspeyres, Paasche y Fisher para precios.<a class="anchor" aria-label="anchor" href="#problema-6.4.-laspeyres-paasche-y-fisher-para-precios."><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Xelia Bluebird</strong> analiza para el próximo <em>Informe Bluebird</em> la evolución de los precios de dos servicios que la AITM regula:</p>
+<ul>
+<li>Servicio A (rutas cortas intragalácticas): <span class="math inline">\(p_{A,0} = 10\)</span> PAVOs, <span class="math inline">\(q_{A,0} = 1\,000\)</span> operaciones; <span class="math inline">\(p_{A,t} = 15\)</span>, <span class="math inline">\(q_{A,t} = 1\,200\)</span>.</li>
+<li>Servicio B (rutas largas intergalácticas): <span class="math inline">\(p_{B,0} = 50\)</span>, <span class="math inline">\(q_{B,0} = 200\)</span>; <span class="math inline">\(p_{B,t} = 60\)</span>, <span class="math inline">\(q_{B,t} = 300\)</span>.</li>
+</ul>
+<p>Con base en el período <span class="math inline">\(0\)</span>, se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula el índice de <strong>Laspeyres</strong> de precios <span class="math inline">\(L_{p}\)</span>.</li>
+<li>Calcula el índice de <strong>Paasche</strong> de precios <span class="math inline">\(P_{p}\)</span>.</li>
+<li>Calcula el índice de <strong>Fisher</strong> de precios <span class="math inline">\(F_{p}\)</span>.</li>
+<li>Compara los tres valores. ¿Se observa el “sesgo de sustitución” habitual (Laspeyres <span class="math inline">\(&gt;\)</span> Paasche)? Interprétalo en términos de la evolución de las cantidades.</li>
+</ol>
+</div>
+<div id="problema-6.5.-índices-de-cantidades-y-verificación-de-fisher." class="section level3" number="6.11.5">
+<h3>
+<span class="header-section-number">6.11.5</span> Problema 6.5. Índices de cantidades y verificación de Fisher.<a class="anchor" aria-label="anchor" href="#problema-6.5.-%C3%ADndices-de-cantidades-y-verificaci%C3%B3n-de-fisher."><i class="fas fa-link"></i></a>
+</h3>
+<p>Con los mismos datos del problema anterior:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula los índices de <strong>Laspeyres</strong>, <strong>Paasche</strong> y <strong>Fisher</strong> de <strong>cantidades</strong> (<span class="math inline">\(L_{q}\)</span>, <span class="math inline">\(P_{q}\)</span>, <span class="math inline">\(F_{q}\)</span>).</li>
+<li>Calcula el índice de <strong>valor</strong> <span class="math inline">\(V_{0}^{t}\)</span> como cociente del valor total facturado en el período <span class="math inline">\(t\)</span> respecto al del período <span class="math inline">\(0\)</span>.</li>
+<li>Comprueba la identidad <span class="math inline">\(F_{p}\cdot F_{q} = V_{0}^{t}\)</span>.</li>
+<li>Comprueba que las combinaciones <span class="math inline">\(L_{p}\cdot L_{q}\)</span> y <span class="math inline">\(P_{p}\cdot P_{q}\)</span> <strong>no</strong> reproducen exactamente el índice de valor. Verifica, en cambio, que sí lo hacen las combinaciones <em>cruzadas</em> <span class="math inline">\(L_{p}\cdot P_{q}\)</span> y <span class="math inline">\(P_{p}\cdot L_{q}\)</span>.</li>
+</ol>
+</div>
+<div id="problema-6.6.-sesgo-de-sustitución-e-implicaciones-contractuales." class="section level3" number="6.11.6">
+<h3>
+<span class="header-section-number">6.11.6</span> Problema 6.6. Sesgo de sustitución e implicaciones contractuales.<a class="anchor" aria-label="anchor" href="#problema-6.6.-sesgo-de-sustituci%C3%B3n-e-implicaciones-contractuales."><i class="fas fa-link"></i></a>
+</h3>
+<p>Un instituto estadístico ha calculado, para el período 2210-2215, los siguientes índices complejos de precios de la cesta general del <em>Sistema Astolat</em>:</p>
+<p><span class="math display">\[L_{p} \;=\; 108{,}0, \qquad P_{p} \;=\; 104{,}0, \qquad F_{p} \;=\; ?\]</span></p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula el índice de <strong>Fisher</strong> correspondiente.</li>
+<li>¿Cuál de los tres índices tiende a <strong>sobrestimar</strong> la inflación y cuál a <strong>subestimarla</strong>? Justifica en términos del sesgo de sustitución.</li>
+<li>Un contrato de alquiler indexado a Laspeyres se revaloriza un 8% en el período. Si el mismo contrato se hubiera indexado a Paasche, ¿cuánto se habría revalorizado? ¿Y con Fisher? ¿A quién beneficia cada elección: al arrendador o al arrendatario?</li>
+<li>Si el <em>Consejo Estelar de Estadística Galáctica</em> está preparando la nueva versión de su índice y quiere reducir el sesgo de sustitución sin disparar los costes de recogida de cantidades cada año, ¿qué estrategia recomendarías?</li>
+</ol>
+</div>
+<div id="problema-6.7.-elegir-el-índice-según-el-coste-informacional." class="section level3" number="6.11.7">
+<h3>
+<span class="header-section-number">6.11.7</span> Problema 6.7. Elegir el índice según el coste informacional.<a class="anchor" aria-label="anchor" href="#problema-6.7.-elegir-el-%C3%ADndice-seg%C3%BAn-el-coste-informacional."><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada uno de los siguientes escenarios, indica qué índice complejo (Laspeyres puro, Paasche, Fisher, Laspeyres encadenado) sería el más adecuado y <strong>justifica</strong> la elección en términos del <em>trade-off</em> coste-fidelidad revisado en el capítulo:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Una autoridad reguladora en un planeta emergente quiere lanzar su primer IPC. Su presupuesto solo permite una gran <strong>encuesta de presupuestos familiares cada cinco años</strong>. La recogida mensual de precios sí es viable.</li>
+<li>El propietario de una pequeña cadena de restaurantes en Coruscant dispone del <strong>detalle completo</strong> de precios y cantidades vendidas de sus 20 platos cada mes (datos internos), y quiere calcular la evolución de sus precios teniendo en cuenta que la composición de la carta cambia con las estaciones.</li>
+<li>El <em>Consejo Estelar de Estadística Galáctica</em>, con presupuesto suficiente y datos actualizados anualmente por <em>scanner data</em> y Encuesta de Presupuestos Familiares, quiere publicar el IPC oficial de la Federación Galáctica con la mejor combinación posible de fidelidad y coste operativo asumible.</li>
+</ol>
+</div>
+<div id="problema-6.8.-enlace-y-cambio-de-base." class="section level3" number="6.11.8">
+<h3>
+<span class="header-section-number">6.11.8</span> Problema 6.8. Enlace y cambio de base.<a class="anchor" aria-label="anchor" href="#problema-6.8.-enlace-y-cambio-de-base."><i class="fas fa-link"></i></a>
+</h3>
+<p>Se dispone del siguiente índice de precios de un conjunto de bienes del <em>Sistema Astolat</em>, con dos bases distintas para diferentes tramos temporales:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Año</th>
+<th align="center">Base 2205</th>
+<th align="center">Base 2215</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">2205</td>
+<td align="center">100</td>
+<td align="center">—</td>
+</tr>
+<tr class="even">
+<td align="center">2210</td>
+<td align="center">140</td>
+<td align="center">—</td>
+</tr>
+<tr class="odd">
+<td align="center">2215</td>
+<td align="center">180</td>
+<td align="center">100</td>
+</tr>
+<tr class="even">
+<td align="center">2220</td>
+<td align="center">—</td>
+<td align="center">130</td>
+</tr>
+<tr class="odd">
+<td align="center">2225</td>
+<td align="center">—</td>
+<td align="center">170</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 6.14</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Enlaza toda la serie tomando <strong>2215</strong> como nueva base común (2215 = 100). Calcula los valores para los cinco años.</li>
+<li>Verifica que la tasa de variación <strong>2210-2215</strong> es la misma en la serie original (base 2205) y en la serie enlazada (base 2215).</li>
+<li>Un contrato firmado en 2210 estipula: <em>“revisión anual según el índice, con enlace técnico si cambia la base”</em>. En 2225, el arrendatario recibe una carta reclamando una revalorización basada en el índice original de base 2205, que ya no se publica. ¿Qué respondes tú, como asesor?</li>
+<li>¿Por qué el enlace <strong>preserva</strong> las tasas de variación aunque la escala cambie?</li>
+</ol>
+</div>
+<div id="problema-6.9.-deflactación-básica-de-una-serie-sectorial." class="section level3" number="6.11.9">
+<h3>
+<span class="header-section-number">6.11.9</span> Problema 6.9. Deflactación básica de una serie sectorial.<a class="anchor" aria-label="anchor" href="#problema-6.9.-deflactaci%C3%B3n-b%C3%A1sica-de-una-serie-sectorial."><i class="fas fa-link"></i></a>
+</h3>
+<p>La AITM publica la serie del <strong>gasto anual del sector transporte</strong> del <em>Sistema Astolat</em> en millones de PAVOs (<strong>valores nominales</strong>) y el índice de precios del sector (base 2210 = 100):</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Año</th>
+<th align="center">Gasto nominal (M PAVOs)</th>
+<th align="center">Índice de precios (base 2210)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">2210</td>
+<td align="center">3,000</td>
+<td align="center">100,0</td>
+</tr>
+<tr class="even">
+<td align="center">2211</td>
+<td align="center">3,250</td>
+<td align="center">105,0</td>
+</tr>
+<tr class="odd">
+<td align="center">2212</td>
+<td align="center">3,500</td>
+<td align="center">112,0</td>
+</tr>
+<tr class="even">
+<td align="center">2213</td>
+<td align="center">3,900</td>
+<td align="center">120,0</td>
+</tr>
+<tr class="odd">
+<td align="center">2214</td>
+<td align="center">4,200</td>
+<td align="center">128,0</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 6.15</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Deflacta la serie nominal y calcula el <strong>gasto real</strong> de cada año, expresado en millones de PAVOs de 2210.</li>
+<li>Calcula la tasa de crecimiento <strong>nominal</strong> del gasto entre 2210 y 2214.</li>
+<li>Calcula la tasa de crecimiento <strong>real</strong> del gasto en ese mismo período.</li>
+<li>Compara ambas tasas e interpreta la diferencia. ¿Qué parte del crecimiento nominal se debe al aumento real de la actividad y qué parte al efecto de la subida de precios?</li>
+</ol>
+</div>
+<div id="problema-6.10.-deflactación-con-cambio-de-base-en-el-deflactor." class="section level3" number="6.11.10">
+<h3>
+<span class="header-section-number">6.11.10</span> Problema 6.10. Deflactación con cambio de base en el deflactor.<a class="anchor" aria-label="anchor" href="#problema-6.10.-deflactaci%C3%B3n-con-cambio-de-base-en-el-deflactor."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Arrakis Freight</em> dispone de datos de facturación en tres años distintos, pero el deflactor sectorial ha cambiado de base a mitad del período:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="7%">
+<col width="37%">
+<col width="27%">
+<col width="27%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Año</th>
+<th align="center">Facturación nominal (M PAVOs)</th>
+<th align="center">Deflactor (base 2205)</th>
+<th align="center">Deflactor (base 2210)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">2205</td>
+<td align="center">1,000</td>
+<td align="center">100</td>
+<td align="center">—</td>
+</tr>
+<tr class="even">
+<td align="center">2210</td>
+<td align="center">1,500</td>
+<td align="center">130</td>
+<td align="center">100</td>
+</tr>
+<tr class="odd">
+<td align="center">2215</td>
+<td align="center">2,500</td>
+<td align="center">—</td>
+<td align="center">140</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 6.16</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Enlaza el deflactor a <strong>base 2210</strong> para toda la serie (calcula el valor de 2205 en base 2210).</li>
+<li>Con el deflactor ya en base 2210, calcula la facturación <strong>real</strong> de cada año, en millones de PAVOs de 2210.</li>
+<li>Calcula la tasa de crecimiento <strong>real</strong> de la facturación entre 2205 y 2215, y compárala con la tasa de crecimiento <strong>nominal</strong>.</li>
+<li>Un directivo, viendo solo los datos nominales (de 1.000 a 2.500), afirma: <em>“la compañía ha multiplicado su tamaño por 2,5 en diez años”</em>. ¿Qué respuesta le das como analista?</li>
+</ol>
+</div>
+<div id="problema-6.11.-interpretación-de-un-titular-económico." class="section level3" number="6.11.11">
+<h3>
+<span class="header-section-number">6.11.11</span> Problema 6.11. Interpretación de un titular económico.<a class="anchor" aria-label="anchor" href="#problema-6.11.-interpretaci%C3%B3n-de-un-titular-econ%C3%B3mico."><i class="fas fa-link"></i></a>
+</h3>
+<p>En el <em>Interstellar Weekly</em> aparece el siguiente titular: <em>“Los salarios del sector R-Stars subieron un 20% entre 2210 y 2215, mientras que el IPC galáctico subió un 30% en el mismo período.”</em></p>
+<p>Un empleado del sector, al leer la noticia, se felicita: <em>“Al fin y al cabo, un 20% más en la nómina es un 20% más que llevo a casa.”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula el <strong>salario real</strong> en 2215 (a precios de 2210) partiendo de un salario nominal de referencia de 15,000 PAVOs en 2210 y 18,000 PAVOs en 2215.</li>
+<li>Calcula la variación del <strong>poder adquisitivo</strong> del empleado entre 2210 y 2215.</li>
+<li>¿Está el empleado en lo cierto, o hay algo en el titular que no ha leído bien? Explica.</li>
+<li>Redacta un titular alternativo, más honesto, para el mismo hecho económico.</li>
+</ol>
+</div>
+<div id="problema-6.12.-laspeyres-puro-frente-a-laspeyres-encadenado." class="section level3" number="6.11.12">
+<h3>
+<span class="header-section-number">6.11.12</span> Problema 6.12. Laspeyres puro frente a Laspeyres encadenado.<a class="anchor" aria-label="anchor" href="#problema-6.12.-laspeyres-puro-frente-a-laspeyres-encadenado."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sobre dos bienes de la cesta de un pequeño planeta se dispone de los siguientes datos para tres años:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Año</th>
+<th align="center"><span class="math inline">\(p_1\)</span></th>
+<th align="center"><span class="math inline">\(q_1\)</span></th>
+<th align="center"><span class="math inline">\(p_2\)</span></th>
+<th align="center"><span class="math inline">\(q_2\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">2210</td>
+<td align="center">10</td>
+<td align="center">100</td>
+<td align="center">20</td>
+<td align="center">50</td>
+</tr>
+<tr class="even">
+<td align="center">2211</td>
+<td align="center">15</td>
+<td align="center">80</td>
+<td align="center">22</td>
+<td align="center">60</td>
+</tr>
+<tr class="odd">
+<td align="center">2212</td>
+<td align="center">20</td>
+<td align="center">60</td>
+<td align="center">25</td>
+<td align="center">80</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 6.17</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula el índice de <strong>Laspeyres puro</strong> de precios entre 2210 y 2212 con base 2210.</li>
+<li>Calcula el índice de <strong>Laspeyres encadenado</strong> entre 2210 y 2212, es decir, el producto de los índices encadenados <span class="math inline">\(L_{p, 2210\to 2211}\cdot L_{p, 2211\to 2212}\)</span>.</li>
+<li>Compara los dos resultados. ¿Cuál da un valor mayor? Interpreta la diferencia a la luz de la reasignación de cantidades entre ambos bienes.</li>
+<li>¿Qué te dice esta diferencia sobre por qué las oficinas estadísticas modernas —incluido el INE terráqueo desde 2001— prefieren el Laspeyres encadenado al Laspeyres puro?</li>
+</ol>
+</div>
+<div id="problema-6.13.-auditoría-integradora-del-interstellar-weekly." class="section level3" number="6.11.13">
+<h3>
+<span class="header-section-number">6.11.13</span> Problema 6.13. Auditoría integradora del <em>Interstellar Weekly</em>.<a class="anchor" aria-label="anchor" href="#problema-6.13.-auditor%C3%ADa-integradora-del-interstellar-weekly."><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Mara Qyà</strong> revisa un informe periodístico del <em>Interstellar Weekly</em> que compara la “evolución del negocio” de tres compañías del sector R-Stars entre 2210 y 2215:</p>
+<ul>
+<li>
+<em>Corellian Freightworks</em>: facturación pasó de <strong>800</strong> a <strong>1,200</strong> M PAVOs (+50%). Datos en <strong>términos corrientes</strong>.</li>
+<li>
+<em>Hyperdrive Express</em>: facturación pasó de <strong>1,000</strong> a <strong>1,450</strong> M PAVOs (+45%). Datos en <strong>términos corrientes</strong>.</li>
+<li>
+<em>Arrakis Freight</em>: facturación pasó de <strong>1,200</strong> a <strong>1,600</strong> M PAVOs (+33,3%). Datos en <strong>términos constantes de 2210</strong>.</li>
+</ul>
+<p>En ese mismo período, el IPC del sector transporte R-Stars pasó de 100 a <strong>125</strong>.</p>
+<p>El informe concluye: <em>“Corellian Freightworks es, con diferencia, la compañía que más ha crecido en el quinquenio. Arrakis Freight, la que menos.”</em></p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Son directamente <strong>comparables</strong> las tres tasas de crecimiento tal y como aparecen en el informe? Justifica.</li>
+<li>
+<strong>Deflacta</strong> las series de Corellian y Hyperdrive (a precios de 2210) para poder comparar en igualdad de condiciones con Arrakis Freight.</li>
+<li>Elabora el <strong>ranking real</strong> de las tres compañías por crecimiento entre 2210 y 2215.</li>
+<li>¿Se sostiene la conclusión del informe después del análisis?</li>
+<li>Como responsable de estilo de la ARTI, ¿qué <strong>tres recomendaciones metodológicas</strong> darías al equipo del <em>Interstellar Weekly</em> para que un error como este no vuelva a colarse en la portada?</li>
+</ol>
+</div>
+</div>
+<div id="soluciones-cap06" class="section level2" number="6.12">
+<h2>
+<span class="header-section-number">6.12</span> Soluciones a los problemas propuestos.<a class="anchor" aria-label="anchor" href="#soluciones-cap06"><i class="fas fa-link"></i></a>
+</h2>
+<div id="solución-al-problema-6.1." class="section level3" number="6.12.1">
+<h3>
+<span class="header-section-number">6.12.1</span> Solución al Problema 6.1.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.1."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Índices simples de precios (base 2210):</p>
+<table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Año</th>
+<th align="center"><span class="math inline">\(p_t / p_{2210}\)</span></th>
+<th align="center"><span class="math inline">\(p_{2210}^t\cdot 100\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">2210</td>
+<td align="center">20/20 = 1,00</td>
+<td align="center"><strong>100,00</strong></td>
+</tr>
+<tr class="even">
+<td align="center">2211</td>
+<td align="center">25/20 = 1,25</td>
+<td align="center"><strong>125,00</strong></td>
+</tr>
+<tr class="odd">
+<td align="center">2212</td>
+<td align="center">30/20 = 1,50</td>
+<td align="center"><strong>150,00</strong></td>
+</tr>
+<tr class="even">
+<td align="center">2213</td>
+<td align="center">40/20 = 2,00</td>
+<td align="center"><strong>200,00</strong></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Índices simples de cantidades y valor (base 2210):</p>
+<table class="table table-sm">
+<colgroup>
+<col width="9%">
+<col width="40%">
+<col width="49%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Año</th>
+<th align="center"><span class="math inline">\(q_{2210}^t\cdot 100\)</span></th>
+<th align="center"><span class="math inline">\(V_{2210}^t\cdot 100\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">2210</td>
+<td align="center"><span class="math inline">\(800/800 \cdot 100 = 100{,}00\)</span></td>
+<td align="center"><span class="math inline">\(16\,000/16\,000 \cdot 100 = 100{,}00\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">2211</td>
+<td align="center"><span class="math inline">\(900/800 \cdot 100 = 112{,}50\)</span></td>
+<td align="center"><span class="math inline">\(22\,500/16\,000 \cdot 100 = 140{,}63\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2212</td>
+<td align="center"><span class="math inline">\(1\,000/800 \cdot 100 = 125{,}00\)</span></td>
+<td align="center"><span class="math inline">\(30\,000/16\,000 \cdot 100 = 187{,}50\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">2213</td>
+<td align="center"><span class="math inline">\(1\,100/800 \cdot 100 = 137{,}50\)</span></td>
+<td align="center"><span class="math inline">\(44\,000/16\,000 \cdot 100 = 275{,}00\)</span></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Verificación de <span class="math inline">\(V_{0}^{t} = p_{0}^{t}\cdot q_{0}^{t}\)</span> en cada año:</p>
+<ul>
+<li>2211: <span class="math inline">\(1{,}25 \cdot 1{,}125 = 1{,}4063 = V_{2210}^{2211}\)</span> ✓</li>
+<li>2212: <span class="math inline">\(1{,}50 \cdot 1{,}25 = 1{,}875 = V_{2210}^{2212}\)</span> ✓</li>
+<li>2213: <span class="math inline">\(2{,}00 \cdot 1{,}375 = 2{,}75 = V_{2210}^{2213}\)</span> ✓</li>
+</ul>
+<p>Las tres identidades se cumplen exactamente.</p>
+</li>
+<li><p>Entre 2210 y 2213, el <strong>precio</strong> se ha <strong>doblado</strong> (<span class="math inline">\(+100\%\)</span>), la <strong>cantidad</strong> ha crecido un <span class="math inline">\(37{,}5\%\)</span> y el <strong>valor</strong> facturado se ha <strong>multiplicado por 2,75</strong> (<span class="math inline">\(+175\%\)</span>). El fuerte crecimiento del valor se explica por el efecto conjunto de dos empujes en la misma dirección: precio y cantidad crecen simultáneamente, y su producto —el valor— refleja la suma multiplicativa de ambos efectos. En cifras aproximadas: aproximadamente el <strong>57%</strong> del crecimiento acumulado del valor (medido en logaritmos naturales) se explica por el efecto precio (<span class="math inline">\(\ln 2/\ln 2{,}75\)</span>), y el 43% restante por el efecto cantidad.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-6.2." class="section level3" number="6.12.2">
+<h3>
+<span class="header-section-number">6.12.2</span> Solución al Problema 6.2.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.2."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Índices simples encadenados:</p>
+<table class="table table-sm">
+<colgroup>
+<col width="6%">
+<col width="28%">
+<col width="34%">
+<col width="30%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Año</th>
+<th align="center"><span class="math inline">\(p_{t-1}^t\)</span></th>
+<th align="center"><span class="math inline">\(q_{t-1}^t\)</span></th>
+<th align="center">
+<span class="math inline">\(V_{t-1}^t\)</span> (= <span class="math inline">\(p\cdot q\)</span>)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">2210</td>
+<td align="center">—</td>
+<td align="center">—</td>
+<td align="center">—</td>
+</tr>
+<tr class="even">
+<td align="center">2211</td>
+<td align="center"><span class="math inline">\(25/20 = 1{,}2500\)</span></td>
+<td align="center"><span class="math inline">\(900/800 = 1{,}1250\)</span></td>
+<td align="center"><span class="math inline">\(1{,}2500 \cdot 1{,}1250 = 1{,}4063\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2212</td>
+<td align="center"><span class="math inline">\(30/25 = 1{,}2000\)</span></td>
+<td align="center"><span class="math inline">\(1\,000/900 = 1{,}1111\)</span></td>
+<td align="center"><span class="math inline">\(1{,}2000 \cdot 1{,}1111 = 1{,}3333\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">2213</td>
+<td align="center"><span class="math inline">\(40/30 = 1{,}3333\)</span></td>
+<td align="center"><span class="math inline">\(1\,100/1\,000 = 1{,}1000\)</span></td>
+<td align="center"><span class="math inline">\(1{,}3333 \cdot 1{,}1000 = 1{,}4667\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Multiplicando por 100 para presentarlos como % del año anterior: 125,00; 120,00; 133,33 para el precio; 112,50; 111,11; 110,00 para la cantidad.</p>
+</li>
+<li><p>El encadenado <span class="math inline">\(p_{2212}^{2213} = 1{,}3333\)</span> dice que <strong>el precio subió un 33,33% respecto al año anterior</strong> (2212). El de base fija <span class="math inline">\(p_{2210}^{2213} = 2{,}00\)</span> dice que el precio se ha <strong>doblado desde el año base</strong> (2210), lo cual es información acumulada. Son dos lecturas complementarias: la primera describe el <strong>ritmo</strong> de cambio interanual; la segunda, el <strong>estado acumulado</strong> respecto a la referencia inicial. Un directivo suele necesitar ambas: la primera para valorar el momento actual del mercado, la segunda para dimensionar la trayectoria total.</p></li>
+<li><p>Sí es coherente. La subida encadenada anual ha sido: +25% (2210→2211), +20% (2211→2212), +33,33% (2212→2213). La subida total no es la suma de esas tres, sino su <strong>producto multiplicativo</strong>: <span class="math inline">\(1{,}25 \cdot 1{,}20 \cdot 1{,}3333 = 2{,}00\)</span>. El ritmo no ha sido constante: se moderó entre 2211 y 2212, y volvió a acelerarse en 2213. La subida acumulada del 100% oculta esa irregularidad interna, que solo revelan los encadenados.</p></li>
+<li>
+<p><span class="math inline">\(p_{2210}^{2211}\cdot p_{2211}^{2212}\cdot p_{2212}^{2213} = 1{,}25\cdot 1{,}20\cdot 1{,}3333 = 2{,}00 = p_{2210}^{2213}\)</span> ✓</p>
+<p>La identidad se cumple exactamente. Es la propiedad canónica que da nombre al procedimiento de “encadenar”: multiplicar índices sucesivos con base móvil equivale, siempre, al índice de base fija.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-6.3." class="section level3" number="6.12.3">
+<h3>
+<span class="header-section-number">6.12.3</span> Solución al Problema 6.3.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.3."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>Verdadera</strong>. Es la propiedad de <strong>identidad</strong>: <span class="math inline">\(p_t^t = p_t/p_t = 1\)</span>, o 100 en escala porcentual.</p></li>
+<li><p><strong>Falsa</strong>. La propiedad de <strong>reversión cronológica</strong> dice que <span class="math inline">\(p_{2213}^{2210} = 1/p_{2210}^{2213}\)</span>. Si <span class="math inline">\(p_{2210}^{2213} = 150\)</span> (escala porcentual, es decir, 1,50), entonces <span class="math inline">\(p_{2213}^{2210} = 1/1{,}50 \approx 0{,}667\)</span>, o <strong>66,67</strong> en escala porcentual. <strong>No</strong> vale 50. Confundir “el inverso” con “la mitad” es un error frecuente y perverso en cualquier revisión contractual mal hecha.</p></li>
+<li><p><strong>Verdadera</strong>. Si el precio no ha cambiado, <span class="math inline">\(p_{2213} = p_{2210}\)</span>, y por tanto <span class="math inline">\(p_{2210}^{2213} = p_{2213}/p_{2210} = 1\)</span> (o 100 en escala porcentual). Es de nuevo una consecuencia inmediata de la propiedad de identidad, aunque aplicada a un intervalo temporal distinto de cero.</p></li>
+<li><p><strong>Falsa</strong>. Un índice de 200 (con base 100) significa que los precios se han <strong>duplicado</strong>, es decir, han subido un <strong>100%</strong>, no un 200%. La lectura correcta es “el nivel actual es el doble del inicial”; la subida es la diferencia, no el nivel. Este es probablemente el error más frecuente al leer noticias sobre índices.</p></li>
+<li><p><strong>Falsa</strong> en general. La identidad <span class="math inline">\(V_{0}^{t} = I_{p}\cdot I_{q}\)</span> se cumple <strong>siempre</strong> para los <strong>índices simples</strong>, y para los <strong>complejos solo cuando se calculan con Fisher</strong>. Con Laspeyres o Paasche no se cumple de forma exacta: hay que combinarlos cruzados (<span class="math inline">\(L_p\cdot P_q\)</span> o <span class="math inline">\(P_p\cdot L_q\)</span>) para recuperar el valor.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-6.4." class="section level3" number="6.12.4">
+<h3>
+<span class="header-section-number">6.12.4</span> Solución al Problema 6.4.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.4."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p><strong>Laspeyres</strong> (numerador con precios actuales y cantidades base; denominador con ambas magnitudes base):</p>
+<p><span class="math display">\[L_p \;=\; \dfrac{p_{A,t}\cdot q_{A,0} + p_{B,t}\cdot q_{B,0}}{p_{A,0}\cdot q_{A,0} + p_{B,0}\cdot q_{B,0}} \;=\; \dfrac{15\cdot 1\,000 + 60\cdot 200}{10\cdot 1\,000 + 50\cdot 200} \;=\; \dfrac{15\,000 + 12\,000}{10\,000 + 10\,000} \;=\; \dfrac{27\,000}{20\,000} \;=\; \mathbf{1{,}350}\]</span></p>
+<p>En escala porcentual: <strong>135,00</strong>. Los precios de la cesta han subido un 35,0% según Laspeyres.</p>
+</li>
+<li>
+<p><strong>Paasche</strong> (numerador con ambas magnitudes actuales; denominador con precios base y cantidades actuales):</p>
+<p><span class="math display">\[P_p \;=\; \dfrac{p_{A,t}\cdot q_{A,t} + p_{B,t}\cdot q_{B,t}}{p_{A,0}\cdot q_{A,t} + p_{B,0}\cdot q_{B,t}} \;=\; \dfrac{15\cdot 1\,200 + 60\cdot 300}{10\cdot 1\,200 + 50\cdot 300} \;=\; \dfrac{18\,000 + 18\,000}{12\,000 + 15\,000} \;=\; \dfrac{36\,000}{27\,000} \;=\; \mathbf{1{,}3333}\]</span></p>
+<p>En escala porcentual: <strong>133,33</strong>. Los precios han subido un 33,33% según Paasche.</p>
+</li>
+<li>
+<p><strong>Fisher</strong> (media geométrica):</p>
+<p><span class="math display">\[F_p \;=\; \sqrt{L_p\cdot P_p} \;=\; \sqrt{1{,}350\cdot 1{,}3333} \;=\; \sqrt{1{,}80} \;\approx\; \mathbf{1{,}3416}\]</span></p>
+<p>En escala porcentual: <strong>134,16</strong>.</p>
+</li>
+<li><p>Se cumple <span class="math inline">\(L_p = 1{,}350 &gt; F_p = 1{,}3416 &gt; P_p = 1{,}3333\)</span>: exactamente el patrón del <strong>sesgo de sustitución</strong>. En este caso concreto, las cantidades relativas se han reajustado: el peso del bien A en el valor total ha caído del 50% (2210) al 40% (año <span class="math inline">\(t\)</span>: <span class="math inline">\(12\,000/30\,000\)</span>), mientras que el peso de B ha subido del 50% al 60%. Laspeyres, que aplica los pesos del período base, “sobredimensiona” el peso del bien A —el que más ha subido de precio en términos porcentuales (10 → 15, +50%)—, y refleja con más intensidad esa subida. Paasche, con pesos del período actual, da menos peso a A. Fisher se sitúa en el medio.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-6.5." class="section level3" number="6.12.5">
+<h3>
+<span class="header-section-number">6.12.5</span> Solución al Problema 6.5.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.5."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Índices de cantidades:</p>
+<p><span class="math display">\[L_q \;=\; \dfrac{q_{A,t}\cdot p_{A,0} + q_{B,t}\cdot p_{B,0}}{q_{A,0}\cdot p_{A,0} + q_{B,0}\cdot p_{B,0}} \;=\; \dfrac{1\,200\cdot 10 + 300\cdot 50}{1\,000\cdot 10 + 200\cdot 50} \;=\; \dfrac{12\,000 + 15\,000}{10\,000 + 10\,000} \;=\; \mathbf{1{,}350}\]</span></p>
+<p><span class="math display">\[P_q \;=\; \dfrac{q_{A,t}\cdot p_{A,t} + q_{B,t}\cdot p_{B,t}}{q_{A,0}\cdot p_{A,t} + q_{B,0}\cdot p_{B,t}} \;=\; \dfrac{1\,200\cdot 15 + 300\cdot 60}{1\,000\cdot 15 + 200\cdot 60} \;=\; \dfrac{18\,000 + 18\,000}{15\,000 + 12\,000} \;=\; \mathbf{1{,}3333}\]</span></p>
+<p><span class="math display">\[F_q \;=\; \sqrt{L_q\cdot P_q} \;=\; \sqrt{1{,}80} \;\approx\; \mathbf{1{,}3416}\]</span></p>
+<p>Curiosidad: en este ejemplo concreto los índices de cantidades <strong>coinciden numéricamente</strong> con los de precios (<span class="math inline">\(L_p = L_q\)</span>, <span class="math inline">\(P_p = P_q\)</span>, <span class="math inline">\(F_p = F_q\)</span>). Es una <strong>casualidad</strong> del diseño específico de los datos (los datos son simétricos entre precio y cantidad en la matriz <span class="math inline">\(2\times 2\)</span>); en general no ocurre.</p>
+</li>
+<li>
+<p>Índice de valor:</p>
+<p><span class="math display">\[V_{0}^{t} \;=\; \dfrac{p_{A,t}\, q_{A,t} + p_{B,t}\, q_{B,t}}{p_{A,0}\, q_{A,0} + p_{B,0}\, q_{B,0}} \;=\; \dfrac{15\cdot 1\,200 + 60\cdot 300}{10\cdot 1\,000 + 50\cdot 200} \;=\; \dfrac{36\,000}{20\,000} \;=\; \mathbf{1{,}80}\]</span></p>
+</li>
+<li>
+<p>Verificación Fisher:</p>
+<p><span class="math display">\[F_p\cdot F_q \;=\; 1{,}3416 \cdot 1{,}3416 \;=\; \mathbf{1{,}80} \;=\; V_{0}^{t} \quad ✓\]</span></p>
+</li>
+<li>
+<p>Verificación cruzadas y directas:</p>
+<ul>
+<li>Directas (no coinciden con <span class="math inline">\(V\)</span>): <span class="math inline">\(L_p\cdot L_q = 1{,}350 \cdot 1{,}350 = 1{,}8225 \neq 1{,}80\)</span>; <span class="math inline">\(P_p\cdot P_q = 1{,}3333 \cdot 1{,}3333 = 1{,}7778 \neq 1{,}80\)</span>.</li>
+<li>Cruzadas (sí coinciden con <span class="math inline">\(V\)</span>): <span class="math inline">\(L_p\cdot P_q = 1{,}350 \cdot 1{,}3333 = \mathbf{1{,}80}\)</span> ✓; <span class="math inline">\(P_p\cdot L_q = 1{,}3333 \cdot 1{,}350 = \mathbf{1{,}80}\)</span> ✓.</li>
+</ul>
+<p>Es exactamente lo que anuncia el capítulo: la descomposición valor = precio × cantidad solo se cumple <strong>exactamente</strong> para Fisher, y para las combinaciones cruzadas de Laspeyres y Paasche. Las combinaciones directas (<span class="math inline">\(L\cdot L\)</span> o <span class="math inline">\(P\cdot P\)</span>) no reproducen el valor.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-6.6." class="section level3" number="6.12.6">
+<h3>
+<span class="header-section-number">6.12.6</span> Solución al Problema 6.6.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.6."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(F_p = \sqrt{L_p\cdot P_p} = \sqrt{108 \cdot 104} = \sqrt{11\,232} \approx \mathbf{105{,}98}\)</span>.</p></li>
+<li><p><strong>Laspeyres</strong> (<span class="math inline">\(L_p = 108\)</span>) tiende a <strong>sobrestimar</strong> la inflación, y <strong>Paasche</strong> (<span class="math inline">\(P_p = 104\)</span>) tiende a <strong>subestimarla</strong>. La razón es el sesgo de sustitución: cuando un bien se encarece, los consumidores tienden a reducir su consumo (o a sustituirlo por otros más baratos). Laspeyres, al usar las cantidades del período base, ignora esa reasignación y sigue “cargando” el peso completo sobre los bienes encarecidos, exagerando el nivel de precios efectivamente pagado. Paasche, con las cantidades actuales, hace lo contrario: al haber caído el consumo de los bienes caros, les asigna menos peso y minimiza su subida.</p></li>
+<li>
+<p>Revalorizaciones alternativas del contrato:</p>
+<ul>
+<li>Indexado a Laspeyres: revalorización del <strong>8,00%</strong>.</li>
+<li>Indexado a Paasche: revalorización del <strong>4,00%</strong>.</li>
+<li>Indexado a Fisher: revalorización aproximada del <strong>5,98%</strong>.</li>
+</ul>
+<p>A quién beneficia cada elección:</p>
+<ul>
+<li>
+<strong>Laspeyres beneficia al arrendador</strong> (el que cobra la renta): el precio del alquiler sube más rápido que el nivel real de vida.</li>
+<li>
+<strong>Paasche beneficia al arrendatario</strong> (el que paga): el alquiler sube menos que la inflación realmente sufrida.</li>
+<li>
+<strong>Fisher</strong> es la elección neutra desde el punto de vista de la teoría económica.</li>
+</ul>
+<p>Este es exactamente el motivo por el que la elección del índice de referencia en un contrato <strong>no es una cuestión técnica menor</strong>: puede desplazar millones de PAVOs de una parte a otra a lo largo de la vida del contrato.</p>
+</li>
+<li><p>La respuesta canónica es el <strong>Laspeyres encadenado</strong>: sigue usando la fórmula de Laspeyres —barata, solo necesita cantidades del período base de cada tramo— pero <strong>actualiza cada año</strong> tanto la muestra como las ponderaciones y <strong>empalma</strong> los índices sucesivos multiplicando el nuevo por el anterior. Se consigue así el “compromiso metodológico” que hoy es estándar internacional: bajo coste operativo dentro de cada tramo anual, actualidad de las ponderaciones año a año, sin necesidad de recogida masiva de cantidades como exigiría Paasche.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-6.7." class="section level3" number="6.12.7">
+<h3>
+<span class="header-section-number">6.12.7</span> Solución al Problema 6.7.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.7."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>Laspeyres puro</strong> (o Laspeyres con cambio de base periódico cada 5 años). Justificación: es el único que casa con la restricción informativa. La cesta se define una vez con la Encuesta de Presupuestos cada 5 años, y en el intervalo solo hace falta recoger precios (viable con visita mensual a comercios). Paasche y Fisher exigirían actualizar cantidades cada período, lo cual es incompatible con el presupuesto. Laspeyres puro es “barato y sesgado hacia arriba”, pero es la elección realista.</p></li>
+<li><p><strong>Fisher</strong> (o Fisher encadenado). Justificación: el pequeño empresario tiene el detalle completo de precios y cantidades de sus 20 platos —cualquier índice está a su alcance—. Con esa información completa, no hay motivo para renunciar a la elegancia teórica de Fisher, que además preserva la descomposición valor = precio × cantidad. Si además la carta cambia con las estaciones (reasignaciones bruscas de peso entre platos), el <strong>encadenamiento</strong> anual permite captar esa dinámica sin sesgo.</p></li>
+<li><p><strong>Laspeyres encadenado</strong>. Justificación: es la respuesta canónica moderna. Combina lo mejor de dos mundos: ligereza y bajo coste de Laspeyres dentro de cada tramo anual, con actualidad de las ponderaciones al empalmar tramos anuales. Es exactamente lo que hace el INE terráqueo desde 2001 y lo que emplea prácticamente cualquier oficina estadística avanzada. Fisher encadenado sería aún más satisfactorio teóricamente, pero el sobrecoste operativo respecto al Laspeyres encadenado no compensa la mejora incremental para un IPC oficial.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-6.8." class="section level3" number="6.12.8">
+<h3>
+<span class="header-section-number">6.12.8</span> Solución al Problema 6.8.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.8."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Aplicando la propiedad de proporcionalidad, <span class="math inline">\(p_{h}^{t} = p_{0}^{t}/p_{0}^{h}\)</span> con <span class="math inline">\(h = 2215\)</span>:</p>
+<ul>
+<li>
+<span class="math inline">\(p_{2215}^{2205} = (100/180)\cdot 100 = \mathbf{55{,}56}\)</span>.</li>
+<li>
+<span class="math inline">\(p_{2215}^{2210} = (140/180)\cdot 100 = \mathbf{77{,}78}\)</span>.</li>
+<li>
+<span class="math inline">\(p_{2215}^{2215} = \mathbf{100{,}00}\)</span> (por identidad).</li>
+<li>
+<span class="math inline">\(p_{2215}^{2220} = \mathbf{130{,}00}\)</span> (ya en base 2215).</li>
+<li>
+<span class="math inline">\(p_{2215}^{2225} = \mathbf{170{,}00}\)</span> (ya en base 2215).</li>
+</ul>
+<p>Serie enlazada completa:</p>
+<table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Año</th>
+<th align="center">Base 2215</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">2205</td>
+<td align="center">55,56</td>
+</tr>
+<tr class="even">
+<td align="center">2210</td>
+<td align="center">77,78</td>
+</tr>
+<tr class="odd">
+<td align="center">2215</td>
+<td align="center">100,00</td>
+</tr>
+<tr class="even">
+<td align="center">2220</td>
+<td align="center">130,00</td>
+</tr>
+<tr class="odd">
+<td align="center">2225</td>
+<td align="center">170,00</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Tasa de variación 2210-2215:</p>
+<ul>
+<li>Serie original (base 2205): <span class="math inline">\((180 - 140)/140 = 40/140 \approx 0{,}2857 = 28{,}57\%\)</span>.</li>
+<li>Serie enlazada (base 2215): <span class="math inline">\((100 - 77{,}78)/77{,}78 \approx 22{,}22/77{,}78 \approx 0{,}2857 = 28{,}57\%\)</span>.</li>
+</ul>
+<p>Las dos tasas coinciden <strong>exactamente</strong>. El enlace preserva la información sobre variaciones.</p>
+</li>
+<li><p>Como asesor le diría al arrendatario que la reclamación es <strong>legítima y calculable</strong>, incluso aunque el índice original ya no se publique. Basta con <strong>enlazar</strong> técnicamente ambas series a una base común (por ejemplo, 2215 como acabamos de hacer) y aplicar la fórmula de revisión sobre la serie enlazada. Las tasas de variación se preservan íntegramente: el arrendatario no gana ni pierde nada por el cambio de base; solo cambia la escala nominal de la serie. Un contrato bien redactado debería incluso incluir una cláusula específica sobre “enlace técnico” en previsión de estos cambios.</p></li>
+<li>
+<p>Porque la propiedad de proporcionalidad constante independiente de la base garantiza que el cociente entre dos años cualesquiera de la serie <strong>no depende de la base elegida</strong>:</p>
+<p><span class="math display">\[\dfrac{p_h^{t_2}}{p_h^{t_1}} \;=\; \dfrac{p_0^{t_2}/p_0^{h}}{p_0^{t_1}/p_0^{h}} \;=\; \dfrac{p_0^{t_2}}{p_0^{t_1}}.\]</span></p>
+<p>El denominador <span class="math inline">\(p_0^h\)</span> se cancela: la ratio entre los años <span class="math inline">\(t_1\)</span> y <span class="math inline">\(t_2\)</span> es la misma en la serie original y en la enlazada. Lo único que cambia al reexpresar la serie en una nueva base es la <strong>escala</strong> de referencia, no la información sobre variaciones relativas.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-6.9." class="section level3" number="6.12.9">
+<h3>
+<span class="header-section-number">6.12.9</span> Solución al Problema 6.9.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.9."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Gasto <strong>real</strong> en cada año, aplicando <span class="math inline">\(X_t^{\text{real}} = (X_t^{\text{nominal}}/\text{Deflactor}_t)\cdot 100\)</span>:</p>
+<table class="table table-sm">
+<colgroup>
+<col width="12%">
+<col width="18%">
+<col width="22%">
+<col width="48%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Año</th>
+<th align="center">Nominal</th>
+<th align="center">Deflactor</th>
+<th align="center">Real (M PAVOs de 2210)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">2210</td>
+<td align="center">3,000</td>
+<td align="center">100</td>
+<td align="center"><span class="math inline">\(3\,000/100\cdot 100 = 3\,000{,}00\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">2211</td>
+<td align="center">3,250</td>
+<td align="center">105</td>
+<td align="center"><span class="math inline">\(3\,250/105\cdot 100 \approx 3\,095{,}24\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2212</td>
+<td align="center">3,500</td>
+<td align="center">112</td>
+<td align="center"><span class="math inline">\(3\,500/112\cdot 100 = 3\,125{,}00\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">2213</td>
+<td align="center">3,900</td>
+<td align="center">120</td>
+<td align="center"><span class="math inline">\(3\,900/120\cdot 100 = 3\,250{,}00\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2214</td>
+<td align="center">4,200</td>
+<td align="center">128</td>
+<td align="center"><span class="math inline">\(4\,200/128\cdot 100 \approx 3\,281{,}25\)</span></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Tasa de crecimiento <strong>nominal</strong> 2210-2214:</p>
+<p><span class="math display">\[\dfrac{4\,200 - 3\,000}{3\,000} \;=\; \dfrac{1\,200}{3\,000} \;=\; 0{,}400 \;=\; \mathbf{40{,}00\%}.\]</span></p>
+</li>
+<li>
+<p>Tasa de crecimiento <strong>real</strong> 2210-2214:</p>
+<p><span class="math display">\[\dfrac{3\,281{,}25 - 3\,000}{3\,000} \;\approx\; \dfrac{281{,}25}{3\,000} \;\approx\; 0{,}0938 \;=\; \mathbf{9{,}38\%}.\]</span></p>
+</li>
+<li><p>El gasto ha crecido <strong>40% en términos nominales</strong> pero solo <strong>9,38% en términos reales</strong>. La diferencia —unos <strong>30,6 puntos porcentuales</strong>— se explica íntegramente por la inflación del sector, que en el mismo período ha llevado el deflactor de 100 a 128 (+28,0%). En otras palabras: casi tres cuartas partes del “crecimiento” nominal del gasto son ilusorias; el gasto real —la actividad efectiva del sector, medida a precios constantes— apenas ha crecido a un ritmo cercano al 2% anual acumulado. Cualquier análisis que se hubiera limitado a las cifras nominales estaría transmitiendo una imagen completamente falsa del dinamismo real del sector.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-6.10." class="section level3" number="6.12.10">
+<h3>
+<span class="header-section-number">6.12.10</span> Solución al Problema 6.10.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.10."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>El deflactor de 2205 en base 2210 se obtiene aplicando la propiedad de proporcionalidad:</p>
+<p><span class="math display">\[p_{2210}^{2205} \;=\; \dfrac{p_{2205}^{2205}}{p_{2205}^{2210}}\cdot 100 \;=\; \dfrac{100}{130}\cdot 100 \;\approx\; \mathbf{76{,}92}.\]</span></p>
+<p>Deflactor enlazado a base 2210:</p>
+<table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Año</th>
+<th align="center">Deflactor (base 2210)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">2205</td>
+<td align="center">76,92</td>
+</tr>
+<tr class="even">
+<td align="center">2210</td>
+<td align="center">100,00</td>
+</tr>
+<tr class="odd">
+<td align="center">2215</td>
+<td align="center">140,00</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Facturación <strong>real</strong> (M PAVOs de 2210):</p>
+<table class="table table-sm">
+<colgroup>
+<col width="8%">
+<col width="13%">
+<col width="26%">
+<col width="52%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Año</th>
+<th align="center">Nominal</th>
+<th align="center">Deflactor (2210)</th>
+<th align="center">Real (M PAVOs de 2210)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">2205</td>
+<td align="center">1,000</td>
+<td align="center">76,92</td>
+<td align="center"><span class="math inline">\(1\,000/76{,}92\cdot 100 \approx 1\,300{,}05\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">2210</td>
+<td align="center">1,500</td>
+<td align="center">100,00</td>
+<td align="center"><span class="math inline">\(1\,500/100\cdot 100 = 1\,500{,}00\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2215</td>
+<td align="center">2,500</td>
+<td align="center">140,00</td>
+<td align="center"><span class="math inline">\(2\,500/140\cdot 100 \approx 1\,785{,}71\)</span></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Tasas de crecimiento 2205-2215:</p>
+<ul>
+<li>
+<strong>Nominal</strong>: <span class="math inline">\((2\,500 - 1\,000)/1\,000 = 1{,}500 = \mathbf{150\%}\)</span>.</li>
+<li>
+<strong>Real</strong>: <span class="math inline">\((1\,785{,}71 - 1\,300{,}05)/1\,300{,}05 \approx 0{,}374 = \mathbf{37{,}36\%}\)</span>.</li>
+</ul>
+<p>La compañía ha crecido, en términos reales, un 37,4%: nada desdeñable (algo más del 3% anual acumulado), pero muy lejos del vertiginoso 150% nominal.</p>
+</li>
+<li>
+<p>Al directivo le diría, con respeto pero con firmeza: <em>“no, la compañía no ha multiplicado su tamaño por 2,5 en diez años. Ha multiplicado su facturación en PAVOs por 2,5, pero en el mismo período el nivel de precios del sector se ha multiplicado por 1,82 aproximadamente (<span class="math inline">\(140/76{,}92\)</span>). El verdadero tamaño de la compañía —medido en actividad real, a precios comparables— ha aumentado un 37% en diez años, no un 150%. Antes de tomar cualquier decisión estratégica basada en el crecimiento, conviene deflactar.”</em></p>
+<p>Es exactamente la lección más importante del capítulo: <strong>cualquier comparación intertemporal en unidades monetarias sin deflactar puede transmitir una imagen radicalmente engañosa</strong> de la realidad económica subyacente.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-6.11." class="section level3" number="6.12.11">
+<h3>
+<span class="header-section-number">6.12.11</span> Solución al Problema 6.11.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.11."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Salario real en 2215 (a precios de 2210):</p>
+<p><span class="math display">\[\text{Salario}_{2215}^{\text{real}} \;=\; \dfrac{18\,000}{130}\cdot 100 \;\approx\; \mathbf{13\,846{,}15}\ \text{PAVOs de 2210}.\]</span></p>
+</li>
+<li>
+<p>Variación del <strong>poder adquisitivo</strong>:</p>
+<p><span class="math display">\[\dfrac{13\,846{,}15 - 15\,000}{15\,000} \;\approx\; \dfrac{-1\,153{,}85}{15\,000} \;\approx\; -0{,}0769 \;=\; \mathbf{-7{,}69\%}.\]</span></p>
+<p>El empleado ha <strong>perdido</strong> casi un 8% de poder adquisitivo entre 2210 y 2215.</p>
+</li>
+<li>
+<p>El empleado <strong>está equivocado</strong>. Es cierto que en 2215 lleva a casa un 20% más de PAVOs que en 2210, pero como los precios de los bienes y servicios que compra han subido un 30% en el mismo período, esos PAVOs adicionales no alcanzan para comprar la misma cesta. En términos reales —lo único que importa para el bienestar económico— ha perdido casi un 8%. Es el clásico caso de <strong>ilusión monetaria</strong>: confundir el aumento nominal de la renta con el aumento real de la capacidad de compra.</p>
+<p>La regla práctica que todo empleado debería recordar es simple: <strong>si tu salario sube menos que el IPC, estás perdiendo poder adquisitivo</strong>, por mucho que la nómina crezca en cifra.</p>
+</li>
+<li><p>Titular alternativo, más honesto: <em>“Los salarios del sector R-Stars pierden un 7,7% de poder adquisitivo entre 2210 y 2215: crecen un 20% nominal frente a una inflación del 30%.”</em>. O aún más sintético: <em>“El poder adquisitivo del sector R-Stars retrocede casi ocho puntos en el quinquenio.”</em>. Ambos titulares comunican correctamente lo que le ha ocurrido a la nómina en términos reales, sin ilusión monetaria.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-6.12." class="section level3" number="6.12.12">
+<h3>
+<span class="header-section-number">6.12.12</span> Solución al Problema 6.12.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.12."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p><strong>Laspeyres puro</strong> 2210 → 2212, con cantidades base de 2210:</p>
+<p><span class="math display">\[L_{p,\text{puro}} \;=\; \dfrac{p_{1,2212}\cdot q_{1,2210} + p_{2,2212}\cdot q_{2,2210}}{p_{1,2210}\cdot q_{1,2210} + p_{2,2210}\cdot q_{2,2210}} \;=\; \dfrac{20\cdot 100 + 25\cdot 50}{10\cdot 100 + 20\cdot 50} \;=\; \dfrac{3\,250}{2\,000} \;=\; \mathbf{1{,}6250}.\]</span></p>
+<p>En escala porcentual: <strong>162,50</strong>. El nivel de precios habría subido un 62,5% según Laspeyres puro.</p>
+</li>
+<li>
+<p><strong>Laspeyres encadenado</strong> en dos tramos:</p>
+<ul>
+<li>Tramo 2210 → 2211 (con cantidades base de 2210):</li>
+</ul>
+<p><span class="math display">\[L_{p, 2210\to 2211} \;=\; \dfrac{15\cdot 100 + 22\cdot 50}{10\cdot 100 + 20\cdot 50} \;=\; \dfrac{2\,600}{2\,000} \;=\; 1{,}3000.\]</span></p>
+<ul>
+<li>Tramo 2211 → 2212 (con cantidades base de <strong>2211</strong>, reponderando):</li>
+</ul>
+<p><span class="math display">\[L_{p, 2211\to 2212} \;=\; \dfrac{20\cdot 80 + 25\cdot 60}{15\cdot 80 + 22\cdot 60} \;=\; \dfrac{3\,100}{2\,520} \;\approx\; 1{,}2302.\]</span></p>
+<ul>
+<li>Producto encadenado:</li>
+</ul>
+<p><span class="math display">\[L_{p, 2210\to 2212}^{\text{encadenado}} \;=\; 1{,}3000\cdot 1{,}2302 \;\approx\; \mathbf{1{,}5992}.\]</span></p>
+<p>En escala porcentual: <strong>159,92</strong>.</p>
+</li>
+<li><p>Comparación: el <strong>Laspeyres puro</strong> (1,6250) da un valor <strong>mayor</strong> que el <strong>Laspeyres encadenado</strong> (1,5992). La diferencia es de <span class="math inline">\(1{,}6250 - 1{,}5992 = 0{,}0258\)</span> puntos, aproximadamente un <strong>1,6% relativo</strong>. Interpretación: entre 2210 y 2211 ha habido una <strong>reasignación</strong> de cantidades entre los dos bienes (el bien 1, que ha subido más de precio en términos porcentuales —de 10 a 20, un 100%— ha visto reducirse su cantidad demandada de 100 a 60; el bien 2 ha aumentado la suya de 50 a 80). El <strong>Laspeyres encadenado incorpora</strong> esa reasignación al usar las cantidades de 2211 como pesos del segundo tramo; el <strong>Laspeyres puro la ignora</strong> y sigue aplicando las cantidades originales de 2210, sobrevalorando el peso del bien 1 (el que más ha subido de precio) y elevando el índice.</p></li>
+<li>
+<p>El pequeño margen de diferencia que hemos visto aquí (1,6% en dos años) es acumulativo: en un IPC calculado en base fija durante 10 o 15 años, el error puede llegar a varios puntos porcentuales enteros. Como el IPC oficial se aplica sobre alquileres, pensiones, salarios, primas de seguros y contratos administrativos —millones de contratos vigentes—, un sesgo sistemático de dos o tres puntos acumulados desplaza literalmente cientos de millones de PAVOs (o de euros) al año. El paso al <strong>Laspeyres encadenado</strong> —lo que hizo el INE terráqueo en 2001 y la mayoría de institutos estadísticos avanzados por las mismas fechas— es la respuesta operativa a este problema: se conserva la baratura fórmula de Laspeyres, pero se le corrige el envejecimiento de la cesta actualizándola año a año y empalmando los tramos.</p>
+<p>Es el <strong>compromiso metodológico moderno</strong> entre coste y fidelidad, y este ejercicio permite intuir cuantitativamente por qué la diferencia importa.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-6.13." class="section level3" number="6.12.13">
+<h3>
+<span class="header-section-number">6.12.13</span> Solución al Problema 6.13.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-6.13."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>No, no son comparables.</strong> El informe mezcla peras con manzanas: Corellian y Hyperdrive están en <strong>términos corrientes</strong> (nominales, sin descontar la subida de precios del sector), mientras que Arrakis está en <strong>términos constantes</strong> (reales, con precios de 2210). La tasa de crecimiento nominal siempre será, en un período con inflación positiva, mayor que la tasa real; comparar directamente un +50% nominal con un +33,3% real es sistemáticamente injusto para la compañía que se ha molestado en deflactar sus cifras.</p></li>
+<li>
+<p>Deflactación de Corellian y Hyperdrive a precios de 2210 (deflactor = 125):</p>
+<ul>
+<li>
+<strong>Corellian 2215 real</strong> = <span class="math inline">\(1\,200/125\cdot 100 = \mathbf{960}\)</span> M PAVOs de 2210. Crecimiento real: <span class="math inline">\((960 - 800)/800 = \mathbf{20{,}00\%}\)</span>.</li>
+<li>
+<strong>Hyperdrive 2215 real</strong> = <span class="math inline">\(1\,450/125\cdot 100 = \mathbf{1\,160}\)</span> M PAVOs de 2210. Crecimiento real: <span class="math inline">\((1\,160 - 1\,000)/1\,000 = \mathbf{16{,}00\%}\)</span>.</li>
+<li>
+<strong>Arrakis</strong> ya venía en real: <span class="math inline">\(1\,600\)</span> M PAVOs. Crecimiento real: <span class="math inline">\((1\,600 - 1\,200)/1\,200 \approx \mathbf{33{,}33\%}\)</span>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Ranking real</strong> de crecimiento 2210-2215:</p>
+<table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Puesto</th>
+<th align="left">Compañía</th>
+<th align="center">Crecimiento real</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">1º</td>
+<td align="left">Arrakis Freight</td>
+<td align="center">+33,33%</td>
+</tr>
+<tr class="even">
+<td align="center">2º</td>
+<td align="left">Corellian Freightworks</td>
+<td align="center">+20,00%</td>
+</tr>
+<tr class="odd">
+<td align="center">3º</td>
+<td align="left">Hyperdrive Express</td>
+<td align="center">+16,00%</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p><strong>La conclusión del informe es exactamente al revés de lo que ocurre en realidad.</strong> Arrakis Freight es, con diferencia, la compañía que <strong>más</strong> ha crecido en términos reales; Hyperdrive Express, la que <strong>menos</strong>. Corellian, que el informe presentaba como la ganadora clara, es en realidad la segunda con un margen amplio sobre Hyperdrive. El error se debe íntegramente a comparar cifras heterogéneas sin deflactar; cualquier decisión estratégica, de inversión o regulatoria basada en el ranking incorrecto sería un desastre operativo.</p></li>
+<li>
+<p>Tres recomendaciones metodológicas para el equipo del <em>Interstellar Weekly</em>:</p>
+<ul>
+<li>
+<strong>(i) Homogeneizar la unidad de medida antes de comparar.</strong> Todas las series intertemporales deben expresarse en la misma unidad —o todas nominales, o todas reales— antes de compararse entre sí. Nunca mezclar.</li>
+<li>
+<strong>(ii) Especificar siempre la base de deflactación.</strong> Si se publica una cifra real, debe indicarse expresamente en qué unidades monetarias está expresada (<em>“millones de PAVOs de 2210”</em>, por ejemplo). Sin esa referencia, el dato es interpretable de varias maneras y ninguna es defensa contra la ambigüedad.</li>
+<li>
+<strong>(iii) Reportar tanto nominal como real cuando sea relevante.</strong> La cifra nominal es útil para entender la magnitud del negocio en el año de referencia; la real, para comparar dinámicas en el tiempo. Presentar ambas por separado en la misma tabla, con etiquetas claras, evita cualquier confusión y respeta la inteligencia del lector.</li>
+</ul>
+<p>Y una recomendación adicional —de las que Mara Qyà no se resiste a añadir siempre— para el estilo periodístico: <strong>antes de publicar un ranking, sospechar del ranking</strong>. Cuanto más contundente parezca la conclusión de un cuadro comparativo, más obligación tiene el analista de comprobar que las cifras están medidas en el mismo terreno de juego. Este ejercicio es un ejemplo de manual: una comparación aparentemente sencilla que, mal hecha, inverte por completo la ordenación real.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
   <div class="chapter-nav">
@@ -1107,6 +2062,40 @@ X_{t}^{\text{real}} \;=\; \frac{X_{t}^{\text{nominal}}}{\mathrm{Deflactor}_{t}}\
 </li>
 <li><a class="nav-link" href="#familia-indices"><span class="header-section-number">6.9</span> La familia de números índice en el mundo real.</a></li>
 <li><a class="nav-link" href="#recapitulacion-cap06"><span class="header-section-number">6.10</span> Recapitulación.</a></li>
+<li>
+<a class="nav-link" href="#problemas-cap06"><span class="header-section-number">6.11</span> Problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#problema-6.1.-n%C3%BAmeros-%C3%ADndice-simples-base-fija."><span class="header-section-number">6.11.1</span> Problema 6.1. Números índice simples: base fija.</a></li>
+<li><a class="nav-link" href="#problema-6.2.-encadenados-frente-a-base-fija."><span class="header-section-number">6.11.2</span> Problema 6.2. Encadenados frente a base fija.</a></li>
+<li><a class="nav-link" href="#problema-6.3.-verdadero-o-falso-sobre-las-propiedades."><span class="header-section-number">6.11.3</span> Problema 6.3. Verdadero o falso sobre las propiedades.</a></li>
+<li><a class="nav-link" href="#problema-6.4.-laspeyres-paasche-y-fisher-para-precios."><span class="header-section-number">6.11.4</span> Problema 6.4. Laspeyres, Paasche y Fisher para precios.</a></li>
+<li><a class="nav-link" href="#problema-6.5.-%C3%ADndices-de-cantidades-y-verificaci%C3%B3n-de-fisher."><span class="header-section-number">6.11.5</span> Problema 6.5. Índices de cantidades y verificación de Fisher.</a></li>
+<li><a class="nav-link" href="#problema-6.6.-sesgo-de-sustituci%C3%B3n-e-implicaciones-contractuales."><span class="header-section-number">6.11.6</span> Problema 6.6. Sesgo de sustitución e implicaciones contractuales.</a></li>
+<li><a class="nav-link" href="#problema-6.7.-elegir-el-%C3%ADndice-seg%C3%BAn-el-coste-informacional."><span class="header-section-number">6.11.7</span> Problema 6.7. Elegir el índice según el coste informacional.</a></li>
+<li><a class="nav-link" href="#problema-6.8.-enlace-y-cambio-de-base."><span class="header-section-number">6.11.8</span> Problema 6.8. Enlace y cambio de base.</a></li>
+<li><a class="nav-link" href="#problema-6.9.-deflactaci%C3%B3n-b%C3%A1sica-de-una-serie-sectorial."><span class="header-section-number">6.11.9</span> Problema 6.9. Deflactación básica de una serie sectorial.</a></li>
+<li><a class="nav-link" href="#problema-6.10.-deflactaci%C3%B3n-con-cambio-de-base-en-el-deflactor."><span class="header-section-number">6.11.10</span> Problema 6.10. Deflactación con cambio de base en el deflactor.</a></li>
+<li><a class="nav-link" href="#problema-6.11.-interpretaci%C3%B3n-de-un-titular-econ%C3%B3mico."><span class="header-section-number">6.11.11</span> Problema 6.11. Interpretación de un titular económico.</a></li>
+<li><a class="nav-link" href="#problema-6.12.-laspeyres-puro-frente-a-laspeyres-encadenado."><span class="header-section-number">6.11.12</span> Problema 6.12. Laspeyres puro frente a Laspeyres encadenado.</a></li>
+<li><a class="nav-link" href="#problema-6.13.-auditor%C3%ADa-integradora-del-interstellar-weekly."><span class="header-section-number">6.11.13</span> Problema 6.13. Auditoría integradora del Interstellar Weekly.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#soluciones-cap06"><span class="header-section-number">6.12</span> Soluciones a los problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.1."><span class="header-section-number">6.12.1</span> Solución al Problema 6.1.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.2."><span class="header-section-number">6.12.2</span> Solución al Problema 6.2.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.3."><span class="header-section-number">6.12.3</span> Solución al Problema 6.3.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.4."><span class="header-section-number">6.12.4</span> Solución al Problema 6.4.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.5."><span class="header-section-number">6.12.5</span> Solución al Problema 6.5.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.6."><span class="header-section-number">6.12.6</span> Solución al Problema 6.6.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.7."><span class="header-section-number">6.12.7</span> Solución al Problema 6.7.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.8."><span class="header-section-number">6.12.8</span> Solución al Problema 6.8.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.9."><span class="header-section-number">6.12.9</span> Solución al Problema 6.9.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.10."><span class="header-section-number">6.12.10</span> Solución al Problema 6.10.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.11."><span class="header-section-number">6.12.11</span> Solución al Problema 6.11.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.12."><span class="header-section-number">6.12.12</span> Solución al Problema 6.12.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-6.13."><span class="header-section-number">6.12.13</span> Solución al Problema 6.13.</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">

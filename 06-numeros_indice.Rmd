@@ -656,3 +656,503 @@ Este capítulo ha sido el más "operativo" del libro hasta ahora. En él hemos a
 - Finalmente, la **deflactación** es la aplicación más importante de todo lo anterior: consiste en dividir una serie económica nominal por un índice de precios adecuado (el deflactor) para obtener la serie en términos reales, expresada en unidades monetarias de un año de referencia. Sin este paso previo, muchas comparaciones intertemporales pierden todo su sentido económico.
 
 Con este capítulo cerramos el bloque de **estadística descriptiva** del curso. En los próximos temas cambiaremos de terreno: en lugar de describir lo que hay, empezaremos a hablar de lo que **podría haber**, apoyándonos en el cálculo de probabilidades y en la teoría de la inferencia. *Hyperdrive Express*, *Shuttlepod Movers*, los astilleros galácticos y la muestra completa de $300$ compañías R-Stars nos acompañarán también allí; solo que, esta vez, con la incertidumbre puesta sobre la mesa.
+
+## Problemas propuestos. {#problemas-cap06}
+
+Este capítulo es, como su propio texto reconoce, el más *operativo* del libro: casi todo se reduce a **cocientes**, y buena parte del oficio consiste en calcularlos bien y leerlos con cabeza. Los ejercicios que siguen siguen esa misma lógica: hay más cálculo que en capítulos anteriores —era inevitable con Laspeyres, Paasche, Fisher y deflactaciones de por medio—, pero cada apartado numérico termina con una lectura interpretativa que es donde vive la enseñanza real. Todas las soluciones detalladas se recogen al final del capítulo.
+
+### Problema 6.1. Números índice simples: base fija.
+
+*Corellian Freightworks* recoge en su memoria corporativa los datos de la ruta Corellia–Qo'noS entre 2210 y 2213:
+
+| Año  | Precio (PAVOs/tonelada) | Cantidad (miles de toneladas) | Valor (miles de PAVOs) |
+|:----:|:-----------------------:|:-----------------------------:|:----------------------:|
+| 2210 |          20             |             800               |        16.000          |
+| 2211 |          25             |             900               |        22.500          |
+| 2212 |          30             |           1.000               |        30.000          |
+| 2213 |          40             |           1.100               |        44.000          |
+
+Se pide, tomando **2210 como período base**:
+
+a)  Calcula los índices simples de **precios** $p_{0}^{t}$ para los cuatro años. Expresa el resultado en escala porcentual (base 2210 = 100).
+b)  Calcula los índices simples de **cantidades** $q_{0}^{t}$ y de **valor** $V_{0}^{t}$, en la misma escala.
+c)  Verifica en cada año la relación $V_{0}^{t} = p_{0}^{t}\cdot q_{0}^{t}$.
+d)  Interpreta la evolución entre 2210 y 2213: en qué proporción ha crecido el precio, la cantidad y el valor, y qué parte del crecimiento del valor se debe al efecto precio y qué parte al efecto cantidad.
+
+### Problema 6.2. Encadenados frente a base fija.
+
+Con los mismos datos de *Corellian Freightworks* del problema anterior:
+
+a)  Calcula los **índices simples encadenados** de precios, cantidades y valor ($p_{t-1}^{t}$, $q_{t-1}^{t}$, $V_{t-1}^{t}$) para 2211, 2212 y 2213.
+b)  Interpreta el índice encadenado de precios en 2213 ($p_{2212}^{2213}$). ¿Qué información aporta que no aporta el índice de base fija $p_{2210}^{2213}$?
+c)  El precio se ha **doblado** entre 2210 y 2213 (base fija de 200). Sin embargo, la subida encadenada del último año es menor que la de años anteriores. ¿Es coherente esa observación? ¿Qué te dice sobre el ritmo de subida?
+d)  Comprueba que el producto de los tres encadenados anuales de precios reproduce el índice de base fija 2213: $p_{2210}^{2211}\cdot p_{2211}^{2212}\cdot p_{2212}^{2213} = p_{2210}^{2213}$.
+
+### Problema 6.3. Verdadero o falso sobre las propiedades.
+
+Para cada una de las siguientes afirmaciones sobre las propiedades de los números índice, indica si es **verdadera** o **falsa** y justifica brevemente por qué:
+
+a)  El índice de precios de un período respecto a ese mismo período siempre vale 100 (en escala porcentual).
+b)  Si el índice de precios de 2213 en base 2210 vale 150, entonces el índice de precios de 2210 en base 2213 vale 50.
+c)  Si los precios no han cambiado entre 2210 y 2213, el índice de precios $p_{2210}^{2213}$ vale 100 (en escala porcentual).
+d)  Un índice de precios de 200 (con base 100) significa que los precios han subido un 200%.
+e)  Para cualquier tipo de índice complejo, el índice de valor es siempre exactamente el producto del índice de precios por el índice de cantidades ($V_{0}^{t} = I_{p}\cdot I_{q}$).
+
+### Problema 6.4. Laspeyres, Paasche y Fisher para precios.
+
+**Xelia Bluebird** analiza para el próximo *Informe Bluebird* la evolución de los precios de dos servicios que la AITM regula:
+
+-   Servicio A (rutas cortas intragalácticas): $p_{A,0} = 10$ PAVOs, $q_{A,0} = 1\,000$ operaciones; $p_{A,t} = 15$, $q_{A,t} = 1\,200$.
+-   Servicio B (rutas largas intergalácticas): $p_{B,0} = 50$, $q_{B,0} = 200$; $p_{B,t} = 60$, $q_{B,t} = 300$.
+
+Con base en el período $0$, se pide:
+
+a)  Calcula el índice de **Laspeyres** de precios $L_{p}$.
+b)  Calcula el índice de **Paasche** de precios $P_{p}$.
+c)  Calcula el índice de **Fisher** de precios $F_{p}$.
+d)  Compara los tres valores. ¿Se observa el "sesgo de sustitución" habitual (Laspeyres $>$ Paasche)? Interprétalo en términos de la evolución de las cantidades.
+
+### Problema 6.5. Índices de cantidades y verificación de Fisher.
+
+Con los mismos datos del problema anterior:
+
+a)  Calcula los índices de **Laspeyres**, **Paasche** y **Fisher** de **cantidades** ($L_{q}$, $P_{q}$, $F_{q}$).
+b)  Calcula el índice de **valor** $V_{0}^{t}$ como cociente del valor total facturado en el período $t$ respecto al del período $0$.
+c)  Comprueba la identidad $F_{p}\cdot F_{q} = V_{0}^{t}$.
+d)  Comprueba que las combinaciones $L_{p}\cdot L_{q}$ y $P_{p}\cdot P_{q}$ **no** reproducen exactamente el índice de valor. Verifica, en cambio, que sí lo hacen las combinaciones *cruzadas* $L_{p}\cdot P_{q}$ y $P_{p}\cdot L_{q}$.
+
+### Problema 6.6. Sesgo de sustitución e implicaciones contractuales.
+
+Un instituto estadístico ha calculado, para el período 2210-2215, los siguientes índices complejos de precios de la cesta general del *Sistema Astolat*:
+
+$$L_{p} \;=\; 108{,}0, \qquad P_{p} \;=\; 104{,}0, \qquad F_{p} \;=\; ?$$
+
+Se pide:
+
+a)  Calcula el índice de **Fisher** correspondiente.
+b)  ¿Cuál de los tres índices tiende a **sobrestimar** la inflación y cuál a **subestimarla**? Justifica en términos del sesgo de sustitución.
+c)  Un contrato de alquiler indexado a Laspeyres se revaloriza un 8% en el período. Si el mismo contrato se hubiera indexado a Paasche, ¿cuánto se habría revalorizado? ¿Y con Fisher? ¿A quién beneficia cada elección: al arrendador o al arrendatario?
+d)  Si el *Consejo Estelar de Estadística Galáctica* está preparando la nueva versión de su índice y quiere reducir el sesgo de sustitución sin disparar los costes de recogida de cantidades cada año, ¿qué estrategia recomendarías?
+
+### Problema 6.7. Elegir el índice según el coste informacional.
+
+Para cada uno de los siguientes escenarios, indica qué índice complejo (Laspeyres puro, Paasche, Fisher, Laspeyres encadenado) sería el más adecuado y **justifica** la elección en términos del *trade-off* coste-fidelidad revisado en el capítulo:
+
+a)  Una autoridad reguladora en un planeta emergente quiere lanzar su primer IPC. Su presupuesto solo permite una gran **encuesta de presupuestos familiares cada cinco años**. La recogida mensual de precios sí es viable.
+b)  El propietario de una pequeña cadena de restaurantes en Coruscant dispone del **detalle completo** de precios y cantidades vendidas de sus 20 platos cada mes (datos internos), y quiere calcular la evolución de sus precios teniendo en cuenta que la composición de la carta cambia con las estaciones.
+c)  El *Consejo Estelar de Estadística Galáctica*, con presupuesto suficiente y datos actualizados anualmente por *scanner data* y Encuesta de Presupuestos Familiares, quiere publicar el IPC oficial de la Federación Galáctica con la mejor combinación posible de fidelidad y coste operativo asumible.
+
+### Problema 6.8. Enlace y cambio de base.
+
+Se dispone del siguiente índice de precios de un conjunto de bienes del *Sistema Astolat*, con dos bases distintas para diferentes tramos temporales:
+
+| Año  | Base 2205 | Base 2215 |
+|:----:|:---------:|:---------:|
+| 2205 |   100     |    —      |
+| 2210 |   140     |    —      |
+| 2215 |   180     |   100     |
+| 2220 |    —      |   130     |
+| 2225 |    —      |   170     |
+
+Se pide:
+
+a)  Enlaza toda la serie tomando **2215** como nueva base común (2215 = 100). Calcula los valores para los cinco años.
+b)  Verifica que la tasa de variación **2210-2215** es la misma en la serie original (base 2205) y en la serie enlazada (base 2215).
+c)  Un contrato firmado en 2210 estipula: *"revisión anual según el índice, con enlace técnico si cambia la base"*. En 2225, el arrendatario recibe una carta reclamando una revalorización basada en el índice original de base 2205, que ya no se publica. ¿Qué respondes tú, como asesor?
+d)  ¿Por qué el enlace **preserva** las tasas de variación aunque la escala cambie?
+
+### Problema 6.9. Deflactación básica de una serie sectorial.
+
+La AITM publica la serie del **gasto anual del sector transporte** del *Sistema Astolat* en millones de PAVOs (**valores nominales**) y el índice de precios del sector (base 2210 = 100):
+
+| Año  | Gasto nominal (M PAVOs) | Índice de precios (base 2210) |
+|:----:|:-----------------------:|:-----------------------------:|
+| 2210 |         3\,000          |           100,0               |
+| 2211 |         3\,250          |           105,0               |
+| 2212 |         3\,500          |           112,0               |
+| 2213 |         3\,900          |           120,0               |
+| 2214 |         4\,200          |           128,0               |
+
+Se pide:
+
+a)  Deflacta la serie nominal y calcula el **gasto real** de cada año, expresado en millones de PAVOs de 2210.
+b)  Calcula la tasa de crecimiento **nominal** del gasto entre 2210 y 2214.
+c)  Calcula la tasa de crecimiento **real** del gasto en ese mismo período.
+d)  Compara ambas tasas e interpreta la diferencia. ¿Qué parte del crecimiento nominal se debe al aumento real de la actividad y qué parte al efecto de la subida de precios?
+
+### Problema 6.10. Deflactación con cambio de base en el deflactor.
+
+*Arrakis Freight* dispone de datos de facturación en tres años distintos, pero el deflactor sectorial ha cambiado de base a mitad del período:
+
+| Año  | Facturación nominal (M PAVOs) | Deflactor (base 2205) | Deflactor (base 2210) |
+|:----:|:-----------------------------:|:---------------------:|:---------------------:|
+| 2205 |          1\,000               |         100           |          —            |
+| 2210 |          1\,500               |         130           |         100           |
+| 2215 |          2\,500               |          —            |         140           |
+
+Se pide:
+
+a)  Enlaza el deflactor a **base 2210** para toda la serie (calcula el valor de 2205 en base 2210).
+b)  Con el deflactor ya en base 2210, calcula la facturación **real** de cada año, en millones de PAVOs de 2210.
+c)  Calcula la tasa de crecimiento **real** de la facturación entre 2205 y 2215, y compárala con la tasa de crecimiento **nominal**.
+d)  Un directivo, viendo solo los datos nominales (de 1.000 a 2.500), afirma: *"la compañía ha multiplicado su tamaño por 2,5 en diez años"*. ¿Qué respuesta le das como analista?
+
+### Problema 6.11. Interpretación de un titular económico.
+
+En el *Interstellar Weekly* aparece el siguiente titular: *"Los salarios del sector R-Stars subieron un 20% entre 2210 y 2215, mientras que el IPC galáctico subió un 30% en el mismo período."*
+
+Un empleado del sector, al leer la noticia, se felicita: *"Al fin y al cabo, un 20% más en la nómina es un 20% más que llevo a casa."*.
+
+Se pide:
+
+a)  Calcula el **salario real** en 2215 (a precios de 2210) partiendo de un salario nominal de referencia de 15\,000 PAVOs en 2210 y 18\,000 PAVOs en 2215.
+b)  Calcula la variación del **poder adquisitivo** del empleado entre 2210 y 2215.
+c)  ¿Está el empleado en lo cierto, o hay algo en el titular que no ha leído bien? Explica.
+d)  Redacta un titular alternativo, más honesto, para el mismo hecho económico.
+
+### Problema 6.12. Laspeyres puro frente a Laspeyres encadenado.
+
+Sobre dos bienes de la cesta de un pequeño planeta se dispone de los siguientes datos para tres años:
+
+| Año  | $p_1$ | $q_1$ | $p_2$ | $q_2$ |
+|:----:|:-----:|:-----:|:-----:|:-----:|
+| 2210 |  10   |  100  |  20   |  50   |
+| 2211 |  15   |   80  |  22   |  60   |
+| 2212 |  20   |   60  |  25   |  80   |
+
+Se pide:
+
+a)  Calcula el índice de **Laspeyres puro** de precios entre 2210 y 2212 con base 2210.
+b)  Calcula el índice de **Laspeyres encadenado** entre 2210 y 2212, es decir, el producto de los índices encadenados $L_{p, 2210\to 2211}\cdot L_{p, 2211\to 2212}$.
+c)  Compara los dos resultados. ¿Cuál da un valor mayor? Interpreta la diferencia a la luz de la reasignación de cantidades entre ambos bienes.
+d)  ¿Qué te dice esta diferencia sobre por qué las oficinas estadísticas modernas —incluido el INE terráqueo desde 2001— prefieren el Laspeyres encadenado al Laspeyres puro?
+
+### Problema 6.13. Auditoría integradora del *Interstellar Weekly*.
+
+**Mara Qyà** revisa un informe periodístico del *Interstellar Weekly* que compara la "evolución del negocio" de tres compañías del sector R-Stars entre 2210 y 2215:
+
+-   *Corellian Freightworks*: facturación pasó de **800** a **1\,200** M PAVOs (+50%). Datos en **términos corrientes**.
+-   *Hyperdrive Express*: facturación pasó de **1\,000** a **1\,450** M PAVOs (+45%). Datos en **términos corrientes**.
+-   *Arrakis Freight*: facturación pasó de **1\,200** a **1\,600** M PAVOs (+33,3%). Datos en **términos constantes de 2210**.
+
+En ese mismo período, el IPC del sector transporte R-Stars pasó de 100 a **125**.
+
+El informe concluye: *"Corellian Freightworks es, con diferencia, la compañía que más ha crecido en el quinquenio. Arrakis Freight, la que menos."*
+
+Se pide:
+
+a)  ¿Son directamente **comparables** las tres tasas de crecimiento tal y como aparecen en el informe? Justifica.
+b)  **Deflacta** las series de Corellian y Hyperdrive (a precios de 2210) para poder comparar en igualdad de condiciones con Arrakis Freight.
+c)  Elabora el **ranking real** de las tres compañías por crecimiento entre 2210 y 2215.
+d)  ¿Se sostiene la conclusión del informe después del análisis?
+e)  Como responsable de estilo de la ARTI, ¿qué **tres recomendaciones metodológicas** darías al equipo del *Interstellar Weekly* para que un error como este no vuelva a colarse en la portada?
+
+## Soluciones a los problemas propuestos. {#soluciones-cap06}
+
+### Solución al Problema 6.1.
+
+a)  Índices simples de precios (base 2210):
+
+    | Año  | $p_t / p_{2210}$ | $p_{2210}^t\cdot 100$ |
+    |:----:|:----------------:|:---------------------:|
+    | 2210 |    20/20 = 1,00  |       **100,00**       |
+    | 2211 |    25/20 = 1,25  |       **125,00**       |
+    | 2212 |    30/20 = 1,50  |       **150,00**       |
+    | 2213 |    40/20 = 2,00  |       **200,00**       |
+
+b)  Índices simples de cantidades y valor (base 2210):
+
+    | Año  | $q_{2210}^t\cdot 100$   | $V_{2210}^t\cdot 100$        |
+    |:----:|:-----------------------:|:----------------------------:|
+    | 2210 | $800/800 \cdot 100 = 100{,}00$ | $16\,000/16\,000 \cdot 100 = 100{,}00$ |
+    | 2211 | $900/800 \cdot 100 = 112{,}50$ | $22\,500/16\,000 \cdot 100 = 140{,}63$ |
+    | 2212 | $1\,000/800 \cdot 100 = 125{,}00$ | $30\,000/16\,000 \cdot 100 = 187{,}50$ |
+    | 2213 | $1\,100/800 \cdot 100 = 137{,}50$ | $44\,000/16\,000 \cdot 100 = 275{,}00$ |
+
+c)  Verificación de $V_{0}^{t} = p_{0}^{t}\cdot q_{0}^{t}$ en cada año:
+
+    -   2211: $1{,}25 \cdot 1{,}125 = 1{,}4063 = V_{2210}^{2211}$ ✓
+    -   2212: $1{,}50 \cdot 1{,}25 = 1{,}875 = V_{2210}^{2212}$ ✓
+    -   2213: $2{,}00 \cdot 1{,}375 = 2{,}75 = V_{2210}^{2213}$ ✓
+
+    Las tres identidades se cumplen exactamente.
+
+d)  Entre 2210 y 2213, el **precio** se ha **doblado** ($+100\%$), la **cantidad** ha crecido un $37{,}5\%$ y el **valor** facturado se ha **multiplicado por 2,75** ($+175\%$). El fuerte crecimiento del valor se explica por el efecto conjunto de dos empujes en la misma dirección: precio y cantidad crecen simultáneamente, y su producto —el valor— refleja la suma multiplicativa de ambos efectos. En cifras aproximadas: aproximadamente el **57%** del crecimiento acumulado del valor (medido en logaritmos naturales) se explica por el efecto precio ($\ln 2/\ln 2{,}75$), y el 43% restante por el efecto cantidad.
+
+### Solución al Problema 6.2.
+
+a)  Índices simples encadenados:
+
+    | Año  | $p_{t-1}^t$              | $q_{t-1}^t$                    | $V_{t-1}^t$ (= $p\cdot q$) |
+    |:----:|:------------------------:|:------------------------------:|:--------------------------:|
+    | 2210 |            —             |               —                |             —              |
+    | 2211 | $25/20 = 1{,}2500$       | $900/800 = 1{,}1250$           | $1{,}2500 \cdot 1{,}1250 = 1{,}4063$ |
+    | 2212 | $30/25 = 1{,}2000$       | $1\,000/900 = 1{,}1111$        | $1{,}2000 \cdot 1{,}1111 = 1{,}3333$ |
+    | 2213 | $40/30 = 1{,}3333$       | $1\,100/1\,000 = 1{,}1000$     | $1{,}3333 \cdot 1{,}1000 = 1{,}4667$ |
+
+    Multiplicando por 100 para presentarlos como % del año anterior: 125,00; 120,00; 133,33 para el precio; 112,50; 111,11; 110,00 para la cantidad.
+
+b)  El encadenado $p_{2212}^{2213} = 1{,}3333$ dice que **el precio subió un 33,33% respecto al año anterior** (2212). El de base fija $p_{2210}^{2213} = 2{,}00$ dice que el precio se ha **doblado desde el año base** (2210), lo cual es información acumulada. Son dos lecturas complementarias: la primera describe el **ritmo** de cambio interanual; la segunda, el **estado acumulado** respecto a la referencia inicial. Un directivo suele necesitar ambas: la primera para valorar el momento actual del mercado, la segunda para dimensionar la trayectoria total.
+
+c)  Sí es coherente. La subida encadenada anual ha sido: +25% (2210→2211), +20% (2211→2212), +33,33% (2212→2213). La subida total no es la suma de esas tres, sino su **producto multiplicativo**: $1{,}25 \cdot 1{,}20 \cdot 1{,}3333 = 2{,}00$. El ritmo no ha sido constante: se moderó entre 2211 y 2212, y volvió a acelerarse en 2213. La subida acumulada del 100% oculta esa irregularidad interna, que solo revelan los encadenados.
+
+d)  $p_{2210}^{2211}\cdot p_{2211}^{2212}\cdot p_{2212}^{2213} = 1{,}25\cdot 1{,}20\cdot 1{,}3333 = 2{,}00 = p_{2210}^{2213}$ ✓
+
+    La identidad se cumple exactamente. Es la propiedad canónica que da nombre al procedimiento de "encadenar": multiplicar índices sucesivos con base móvil equivale, siempre, al índice de base fija.
+
+### Solución al Problema 6.3.
+
+a)  **Verdadera**. Es la propiedad de **identidad**: $p_t^t = p_t/p_t = 1$, o 100 en escala porcentual.
+
+b)  **Falsa**. La propiedad de **reversión cronológica** dice que $p_{2213}^{2210} = 1/p_{2210}^{2213}$. Si $p_{2210}^{2213} = 150$ (escala porcentual, es decir, 1,50), entonces $p_{2213}^{2210} = 1/1{,}50 \approx 0{,}667$, o **66,67** en escala porcentual. **No** vale 50. Confundir "el inverso" con "la mitad" es un error frecuente y perverso en cualquier revisión contractual mal hecha.
+
+c)  **Verdadera**. Si el precio no ha cambiado, $p_{2213} = p_{2210}$, y por tanto $p_{2210}^{2213} = p_{2213}/p_{2210} = 1$ (o 100 en escala porcentual). Es de nuevo una consecuencia inmediata de la propiedad de identidad, aunque aplicada a un intervalo temporal distinto de cero.
+
+d)  **Falsa**. Un índice de 200 (con base 100) significa que los precios se han **duplicado**, es decir, han subido un **100%**, no un 200%. La lectura correcta es "el nivel actual es el doble del inicial"; la subida es la diferencia, no el nivel. Este es probablemente el error más frecuente al leer noticias sobre índices.
+
+e)  **Falsa** en general. La identidad $V_{0}^{t} = I_{p}\cdot I_{q}$ se cumple **siempre** para los **índices simples**, y para los **complejos solo cuando se calculan con Fisher**. Con Laspeyres o Paasche no se cumple de forma exacta: hay que combinarlos cruzados ($L_p\cdot P_q$ o $P_p\cdot L_q$) para recuperar el valor.
+
+### Solución al Problema 6.4.
+
+a)  **Laspeyres** (numerador con precios actuales y cantidades base; denominador con ambas magnitudes base):
+
+    $$L_p \;=\; \dfrac{p_{A,t}\cdot q_{A,0} + p_{B,t}\cdot q_{B,0}}{p_{A,0}\cdot q_{A,0} + p_{B,0}\cdot q_{B,0}} \;=\; \dfrac{15\cdot 1\,000 + 60\cdot 200}{10\cdot 1\,000 + 50\cdot 200} \;=\; \dfrac{15\,000 + 12\,000}{10\,000 + 10\,000} \;=\; \dfrac{27\,000}{20\,000} \;=\; \mathbf{1{,}350}$$
+
+    En escala porcentual: **135,00**. Los precios de la cesta han subido un 35,0% según Laspeyres.
+
+b)  **Paasche** (numerador con ambas magnitudes actuales; denominador con precios base y cantidades actuales):
+
+    $$P_p \;=\; \dfrac{p_{A,t}\cdot q_{A,t} + p_{B,t}\cdot q_{B,t}}{p_{A,0}\cdot q_{A,t} + p_{B,0}\cdot q_{B,t}} \;=\; \dfrac{15\cdot 1\,200 + 60\cdot 300}{10\cdot 1\,200 + 50\cdot 300} \;=\; \dfrac{18\,000 + 18\,000}{12\,000 + 15\,000} \;=\; \dfrac{36\,000}{27\,000} \;=\; \mathbf{1{,}3333}$$
+
+    En escala porcentual: **133,33**. Los precios han subido un 33,33% según Paasche.
+
+c)  **Fisher** (media geométrica):
+
+    $$F_p \;=\; \sqrt{L_p\cdot P_p} \;=\; \sqrt{1{,}350\cdot 1{,}3333} \;=\; \sqrt{1{,}80} \;\approx\; \mathbf{1{,}3416}$$
+
+    En escala porcentual: **134,16**.
+
+d)  Se cumple $L_p = 1{,}350 > F_p = 1{,}3416 > P_p = 1{,}3333$: exactamente el patrón del **sesgo de sustitución**. En este caso concreto, las cantidades relativas se han reajustado: el peso del bien A en el valor total ha caído del 50% (2210) al 40% (año $t$: $12\,000/30\,000$), mientras que el peso de B ha subido del 50% al 60%. Laspeyres, que aplica los pesos del período base, "sobredimensiona" el peso del bien A —el que más ha subido de precio en términos porcentuales (10 → 15, +50%)—, y refleja con más intensidad esa subida. Paasche, con pesos del período actual, da menos peso a A. Fisher se sitúa en el medio.
+
+### Solución al Problema 6.5.
+
+a)  Índices de cantidades:
+
+    $$L_q \;=\; \dfrac{q_{A,t}\cdot p_{A,0} + q_{B,t}\cdot p_{B,0}}{q_{A,0}\cdot p_{A,0} + q_{B,0}\cdot p_{B,0}} \;=\; \dfrac{1\,200\cdot 10 + 300\cdot 50}{1\,000\cdot 10 + 200\cdot 50} \;=\; \dfrac{12\,000 + 15\,000}{10\,000 + 10\,000} \;=\; \mathbf{1{,}350}$$
+
+    $$P_q \;=\; \dfrac{q_{A,t}\cdot p_{A,t} + q_{B,t}\cdot p_{B,t}}{q_{A,0}\cdot p_{A,t} + q_{B,0}\cdot p_{B,t}} \;=\; \dfrac{1\,200\cdot 15 + 300\cdot 60}{1\,000\cdot 15 + 200\cdot 60} \;=\; \dfrac{18\,000 + 18\,000}{15\,000 + 12\,000} \;=\; \mathbf{1{,}3333}$$
+
+    $$F_q \;=\; \sqrt{L_q\cdot P_q} \;=\; \sqrt{1{,}80} \;\approx\; \mathbf{1{,}3416}$$
+
+    Curiosidad: en este ejemplo concreto los índices de cantidades **coinciden numéricamente** con los de precios ($L_p = L_q$, $P_p = P_q$, $F_p = F_q$). Es una **casualidad** del diseño específico de los datos (los datos son simétricos entre precio y cantidad en la matriz $2\times 2$); en general no ocurre.
+
+b)  Índice de valor:
+
+    $$V_{0}^{t} \;=\; \dfrac{p_{A,t}\, q_{A,t} + p_{B,t}\, q_{B,t}}{p_{A,0}\, q_{A,0} + p_{B,0}\, q_{B,0}} \;=\; \dfrac{15\cdot 1\,200 + 60\cdot 300}{10\cdot 1\,000 + 50\cdot 200} \;=\; \dfrac{36\,000}{20\,000} \;=\; \mathbf{1{,}80}$$
+
+c)  Verificación Fisher:
+
+    $$F_p\cdot F_q \;=\; 1{,}3416 \cdot 1{,}3416 \;=\; \mathbf{1{,}80} \;=\; V_{0}^{t} \quad ✓$$
+
+d)  Verificación cruzadas y directas:
+
+    -   Directas (no coinciden con $V$): $L_p\cdot L_q = 1{,}350 \cdot 1{,}350 = 1{,}8225 \neq 1{,}80$; $P_p\cdot P_q = 1{,}3333 \cdot 1{,}3333 = 1{,}7778 \neq 1{,}80$.
+    -   Cruzadas (sí coinciden con $V$): $L_p\cdot P_q = 1{,}350 \cdot 1{,}3333 = \mathbf{1{,}80}$ ✓; $P_p\cdot L_q = 1{,}3333 \cdot 1{,}350 = \mathbf{1{,}80}$ ✓.
+
+    Es exactamente lo que anuncia el capítulo: la descomposición valor = precio × cantidad solo se cumple **exactamente** para Fisher, y para las combinaciones cruzadas de Laspeyres y Paasche. Las combinaciones directas ($L\cdot L$ o $P\cdot P$) no reproducen el valor.
+
+### Solución al Problema 6.6.
+
+a)  $F_p = \sqrt{L_p\cdot P_p} = \sqrt{108 \cdot 104} = \sqrt{11\,232} \approx \mathbf{105{,}98}$.
+
+b)  **Laspeyres** ($L_p = 108$) tiende a **sobrestimar** la inflación, y **Paasche** ($P_p = 104$) tiende a **subestimarla**. La razón es el sesgo de sustitución: cuando un bien se encarece, los consumidores tienden a reducir su consumo (o a sustituirlo por otros más baratos). Laspeyres, al usar las cantidades del período base, ignora esa reasignación y sigue "cargando" el peso completo sobre los bienes encarecidos, exagerando el nivel de precios efectivamente pagado. Paasche, con las cantidades actuales, hace lo contrario: al haber caído el consumo de los bienes caros, les asigna menos peso y minimiza su subida.
+
+c)  Revalorizaciones alternativas del contrato:
+
+    -   Indexado a Laspeyres: revalorización del **8,00%**.
+    -   Indexado a Paasche: revalorización del **4,00%**.
+    -   Indexado a Fisher: revalorización aproximada del **5,98%**.
+
+    A quién beneficia cada elección:
+
+    -   **Laspeyres beneficia al arrendador** (el que cobra la renta): el precio del alquiler sube más rápido que el nivel real de vida.
+    -   **Paasche beneficia al arrendatario** (el que paga): el alquiler sube menos que la inflación realmente sufrida.
+    -   **Fisher** es la elección neutra desde el punto de vista de la teoría económica.
+
+    Este es exactamente el motivo por el que la elección del índice de referencia en un contrato **no es una cuestión técnica menor**: puede desplazar millones de PAVOs de una parte a otra a lo largo de la vida del contrato.
+
+d)  La respuesta canónica es el **Laspeyres encadenado**: sigue usando la fórmula de Laspeyres —barata, solo necesita cantidades del período base de cada tramo— pero **actualiza cada año** tanto la muestra como las ponderaciones y **empalma** los índices sucesivos multiplicando el nuevo por el anterior. Se consigue así el "compromiso metodológico" que hoy es estándar internacional: bajo coste operativo dentro de cada tramo anual, actualidad de las ponderaciones año a año, sin necesidad de recogida masiva de cantidades como exigiría Paasche.
+
+### Solución al Problema 6.7.
+
+a)  **Laspeyres puro** (o Laspeyres con cambio de base periódico cada 5 años). Justificación: es el único que casa con la restricción informativa. La cesta se define una vez con la Encuesta de Presupuestos cada 5 años, y en el intervalo solo hace falta recoger precios (viable con visita mensual a comercios). Paasche y Fisher exigirían actualizar cantidades cada período, lo cual es incompatible con el presupuesto. Laspeyres puro es "barato y sesgado hacia arriba", pero es la elección realista.
+
+b)  **Fisher** (o Fisher encadenado). Justificación: el pequeño empresario tiene el detalle completo de precios y cantidades de sus 20 platos —cualquier índice está a su alcance—. Con esa información completa, no hay motivo para renunciar a la elegancia teórica de Fisher, que además preserva la descomposición valor = precio × cantidad. Si además la carta cambia con las estaciones (reasignaciones bruscas de peso entre platos), el **encadenamiento** anual permite captar esa dinámica sin sesgo.
+
+c)  **Laspeyres encadenado**. Justificación: es la respuesta canónica moderna. Combina lo mejor de dos mundos: ligereza y bajo coste de Laspeyres dentro de cada tramo anual, con actualidad de las ponderaciones al empalmar tramos anuales. Es exactamente lo que hace el INE terráqueo desde 2001 y lo que emplea prácticamente cualquier oficina estadística avanzada. Fisher encadenado sería aún más satisfactorio teóricamente, pero el sobrecoste operativo respecto al Laspeyres encadenado no compensa la mejora incremental para un IPC oficial.
+
+### Solución al Problema 6.8.
+
+a)  Aplicando la propiedad de proporcionalidad, $p_{h}^{t} = p_{0}^{t}/p_{0}^{h}$ con $h = 2215$:
+
+    -   $p_{2215}^{2205} = (100/180)\cdot 100 = \mathbf{55{,}56}$.
+    -   $p_{2215}^{2210} = (140/180)\cdot 100 = \mathbf{77{,}78}$.
+    -   $p_{2215}^{2215} = \mathbf{100{,}00}$ (por identidad).
+    -   $p_{2215}^{2220} = \mathbf{130{,}00}$ (ya en base 2215).
+    -   $p_{2215}^{2225} = \mathbf{170{,}00}$ (ya en base 2215).
+
+    Serie enlazada completa:
+
+    | Año  | Base 2215 |
+    |:----:|:---------:|
+    | 2205 |   55,56   |
+    | 2210 |   77,78   |
+    | 2215 |  100,00   |
+    | 2220 |  130,00   |
+    | 2225 |  170,00   |
+
+b)  Tasa de variación 2210-2215:
+
+    -   Serie original (base 2205): $(180 - 140)/140 = 40/140 \approx 0{,}2857 = 28{,}57\%$.
+    -   Serie enlazada (base 2215): $(100 - 77{,}78)/77{,}78 \approx 22{,}22/77{,}78 \approx 0{,}2857 = 28{,}57\%$.
+
+    Las dos tasas coinciden **exactamente**. El enlace preserva la información sobre variaciones.
+
+c)  Como asesor le diría al arrendatario que la reclamación es **legítima y calculable**, incluso aunque el índice original ya no se publique. Basta con **enlazar** técnicamente ambas series a una base común (por ejemplo, 2215 como acabamos de hacer) y aplicar la fórmula de revisión sobre la serie enlazada. Las tasas de variación se preservan íntegramente: el arrendatario no gana ni pierde nada por el cambio de base; solo cambia la escala nominal de la serie. Un contrato bien redactado debería incluso incluir una cláusula específica sobre "enlace técnico" en previsión de estos cambios.
+
+d)  Porque la propiedad de proporcionalidad constante independiente de la base garantiza que el cociente entre dos años cualesquiera de la serie **no depende de la base elegida**:
+
+    $$\dfrac{p_h^{t_2}}{p_h^{t_1}} \;=\; \dfrac{p_0^{t_2}/p_0^{h}}{p_0^{t_1}/p_0^{h}} \;=\; \dfrac{p_0^{t_2}}{p_0^{t_1}}.$$
+
+    El denominador $p_0^h$ se cancela: la ratio entre los años $t_1$ y $t_2$ es la misma en la serie original y en la enlazada. Lo único que cambia al reexpresar la serie en una nueva base es la **escala** de referencia, no la información sobre variaciones relativas.
+
+### Solución al Problema 6.9.
+
+a)  Gasto **real** en cada año, aplicando $X_t^{\text{real}} = (X_t^{\text{nominal}}/\text{Deflactor}_t)\cdot 100$:
+
+    | Año  | Nominal | Deflactor | Real (M PAVOs de 2210) |
+    |:----:|:-------:|:---------:|:----------------------:|
+    | 2210 |  3\,000 |   100     |  $3\,000/100\cdot 100 = 3\,000{,}00$ |
+    | 2211 |  3\,250 |   105     |  $3\,250/105\cdot 100 \approx 3\,095{,}24$ |
+    | 2212 |  3\,500 |   112     |  $3\,500/112\cdot 100 = 3\,125{,}00$ |
+    | 2213 |  3\,900 |   120     |  $3\,900/120\cdot 100 = 3\,250{,}00$ |
+    | 2214 |  4\,200 |   128     |  $4\,200/128\cdot 100 \approx 3\,281{,}25$ |
+
+b)  Tasa de crecimiento **nominal** 2210-2214:
+
+    $$\dfrac{4\,200 - 3\,000}{3\,000} \;=\; \dfrac{1\,200}{3\,000} \;=\; 0{,}400 \;=\; \mathbf{40{,}00\%}.$$
+
+c)  Tasa de crecimiento **real** 2210-2214:
+
+    $$\dfrac{3\,281{,}25 - 3\,000}{3\,000} \;\approx\; \dfrac{281{,}25}{3\,000} \;\approx\; 0{,}0938 \;=\; \mathbf{9{,}38\%}.$$
+
+d)  El gasto ha crecido **40% en términos nominales** pero solo **9,38% en términos reales**. La diferencia —unos **30,6 puntos porcentuales**— se explica íntegramente por la inflación del sector, que en el mismo período ha llevado el deflactor de 100 a 128 (+28,0%). En otras palabras: casi tres cuartas partes del "crecimiento" nominal del gasto son ilusorias; el gasto real —la actividad efectiva del sector, medida a precios constantes— apenas ha crecido a un ritmo cercano al 2% anual acumulado. Cualquier análisis que se hubiera limitado a las cifras nominales estaría transmitiendo una imagen completamente falsa del dinamismo real del sector.
+
+### Solución al Problema 6.10.
+
+a)  El deflactor de 2205 en base 2210 se obtiene aplicando la propiedad de proporcionalidad:
+
+    $$p_{2210}^{2205} \;=\; \dfrac{p_{2205}^{2205}}{p_{2205}^{2210}}\cdot 100 \;=\; \dfrac{100}{130}\cdot 100 \;\approx\; \mathbf{76{,}92}.$$
+
+    Deflactor enlazado a base 2210:
+
+    | Año  | Deflactor (base 2210) |
+    |:----:|:---------------------:|
+    | 2205 |       76,92           |
+    | 2210 |      100,00           |
+    | 2215 |      140,00           |
+
+b)  Facturación **real** (M PAVOs de 2210):
+
+    | Año  | Nominal | Deflactor (2210) | Real (M PAVOs de 2210)             |
+    |:----:|:-------:|:----------------:|:----------------------------------:|
+    | 2205 | 1\,000  |     76,92        | $1\,000/76{,}92\cdot 100 \approx 1\,300{,}05$ |
+    | 2210 | 1\,500  |    100,00        | $1\,500/100\cdot 100 = 1\,500{,}00$           |
+    | 2215 | 2\,500  |    140,00        | $2\,500/140\cdot 100 \approx 1\,785{,}71$     |
+
+c)  Tasas de crecimiento 2205-2215:
+
+    -   **Nominal**: $(2\,500 - 1\,000)/1\,000 = 1{,}500 = \mathbf{150\%}$.
+    -   **Real**: $(1\,785{,}71 - 1\,300{,}05)/1\,300{,}05 \approx 0{,}374 = \mathbf{37{,}36\%}$.
+
+    La compañía ha crecido, en términos reales, un 37,4%: nada desdeñable (algo más del 3% anual acumulado), pero muy lejos del vertiginoso 150% nominal.
+
+d)  Al directivo le diría, con respeto pero con firmeza: *"no, la compañía no ha multiplicado su tamaño por 2,5 en diez años. Ha multiplicado su facturación en PAVOs por 2,5, pero en el mismo período el nivel de precios del sector se ha multiplicado por 1,82 aproximadamente ($140/76{,}92$). El verdadero tamaño de la compañía —medido en actividad real, a precios comparables— ha aumentado un 37% en diez años, no un 150%. Antes de tomar cualquier decisión estratégica basada en el crecimiento, conviene deflactar."*
+
+    Es exactamente la lección más importante del capítulo: **cualquier comparación intertemporal en unidades monetarias sin deflactar puede transmitir una imagen radicalmente engañosa** de la realidad económica subyacente.
+
+### Solución al Problema 6.11.
+
+a)  Salario real en 2215 (a precios de 2210):
+
+    $$\text{Salario}_{2215}^{\text{real}} \;=\; \dfrac{18\,000}{130}\cdot 100 \;\approx\; \mathbf{13\,846{,}15}\ \text{PAVOs de 2210}.$$
+
+b)  Variación del **poder adquisitivo**:
+
+    $$\dfrac{13\,846{,}15 - 15\,000}{15\,000} \;\approx\; \dfrac{-1\,153{,}85}{15\,000} \;\approx\; -0{,}0769 \;=\; \mathbf{-7{,}69\%}.$$
+
+    El empleado ha **perdido** casi un 8% de poder adquisitivo entre 2210 y 2215.
+
+c)  El empleado **está equivocado**. Es cierto que en 2215 lleva a casa un 20% más de PAVOs que en 2210, pero como los precios de los bienes y servicios que compra han subido un 30% en el mismo período, esos PAVOs adicionales no alcanzan para comprar la misma cesta. En términos reales —lo único que importa para el bienestar económico— ha perdido casi un 8%. Es el clásico caso de **ilusión monetaria**: confundir el aumento nominal de la renta con el aumento real de la capacidad de compra.
+
+    La regla práctica que todo empleado debería recordar es simple: **si tu salario sube menos que el IPC, estás perdiendo poder adquisitivo**, por mucho que la nómina crezca en cifra.
+
+d)  Titular alternativo, más honesto: *"Los salarios del sector R-Stars pierden un 7,7% de poder adquisitivo entre 2210 y 2215: crecen un 20% nominal frente a una inflación del 30%."*. O aún más sintético: *"El poder adquisitivo del sector R-Stars retrocede casi ocho puntos en el quinquenio."*. Ambos titulares comunican correctamente lo que le ha ocurrido a la nómina en términos reales, sin ilusión monetaria.
+
+### Solución al Problema 6.12.
+
+a)  **Laspeyres puro** 2210 → 2212, con cantidades base de 2210:
+
+    $$L_{p,\text{puro}} \;=\; \dfrac{p_{1,2212}\cdot q_{1,2210} + p_{2,2212}\cdot q_{2,2210}}{p_{1,2210}\cdot q_{1,2210} + p_{2,2210}\cdot q_{2,2210}} \;=\; \dfrac{20\cdot 100 + 25\cdot 50}{10\cdot 100 + 20\cdot 50} \;=\; \dfrac{3\,250}{2\,000} \;=\; \mathbf{1{,}6250}.$$
+
+    En escala porcentual: **162,50**. El nivel de precios habría subido un 62,5% según Laspeyres puro.
+
+b)  **Laspeyres encadenado** en dos tramos:
+
+    -   Tramo 2210 → 2211 (con cantidades base de 2210):
+
+    $$L_{p, 2210\to 2211} \;=\; \dfrac{15\cdot 100 + 22\cdot 50}{10\cdot 100 + 20\cdot 50} \;=\; \dfrac{2\,600}{2\,000} \;=\; 1{,}3000.$$
+
+    -   Tramo 2211 → 2212 (con cantidades base de **2211**, reponderando):
+
+    $$L_{p, 2211\to 2212} \;=\; \dfrac{20\cdot 80 + 25\cdot 60}{15\cdot 80 + 22\cdot 60} \;=\; \dfrac{3\,100}{2\,520} \;\approx\; 1{,}2302.$$
+
+    -   Producto encadenado:
+
+    $$L_{p, 2210\to 2212}^{\text{encadenado}} \;=\; 1{,}3000\cdot 1{,}2302 \;\approx\; \mathbf{1{,}5992}.$$
+
+    En escala porcentual: **159,92**.
+
+c)  Comparación: el **Laspeyres puro** (1,6250) da un valor **mayor** que el **Laspeyres encadenado** (1,5992). La diferencia es de $1{,}6250 - 1{,}5992 = 0{,}0258$ puntos, aproximadamente un **1,6% relativo**. Interpretación: entre 2210 y 2211 ha habido una **reasignación** de cantidades entre los dos bienes (el bien 1, que ha subido más de precio en términos porcentuales —de 10 a 20, un 100%— ha visto reducirse su cantidad demandada de 100 a 60; el bien 2 ha aumentado la suya de 50 a 80). El **Laspeyres encadenado incorpora** esa reasignación al usar las cantidades de 2211 como pesos del segundo tramo; el **Laspeyres puro la ignora** y sigue aplicando las cantidades originales de 2210, sobrevalorando el peso del bien 1 (el que más ha subido de precio) y elevando el índice.
+
+d)  El pequeño margen de diferencia que hemos visto aquí (1,6% en dos años) es acumulativo: en un IPC calculado en base fija durante 10 o 15 años, el error puede llegar a varios puntos porcentuales enteros. Como el IPC oficial se aplica sobre alquileres, pensiones, salarios, primas de seguros y contratos administrativos —millones de contratos vigentes—, un sesgo sistemático de dos o tres puntos acumulados desplaza literalmente cientos de millones de PAVOs (o de euros) al año. El paso al **Laspeyres encadenado** —lo que hizo el INE terráqueo en 2001 y la mayoría de institutos estadísticos avanzados por las mismas fechas— es la respuesta operativa a este problema: se conserva la baratura fórmula de Laspeyres, pero se le corrige el envejecimiento de la cesta actualizándola año a año y empalmando los tramos.
+
+    Es el **compromiso metodológico moderno** entre coste y fidelidad, y este ejercicio permite intuir cuantitativamente por qué la diferencia importa.
+
+### Solución al Problema 6.13.
+
+a)  **No, no son comparables.** El informe mezcla peras con manzanas: Corellian y Hyperdrive están en **términos corrientes** (nominales, sin descontar la subida de precios del sector), mientras que Arrakis está en **términos constantes** (reales, con precios de 2210). La tasa de crecimiento nominal siempre será, en un período con inflación positiva, mayor que la tasa real; comparar directamente un +50% nominal con un +33,3% real es sistemáticamente injusto para la compañía que se ha molestado en deflactar sus cifras.
+
+b)  Deflactación de Corellian y Hyperdrive a precios de 2210 (deflactor = 125):
+
+    -   **Corellian 2215 real** = $1\,200/125\cdot 100 = \mathbf{960}$ M PAVOs de 2210. Crecimiento real: $(960 - 800)/800 = \mathbf{20{,}00\%}$.
+    -   **Hyperdrive 2215 real** = $1\,450/125\cdot 100 = \mathbf{1\,160}$ M PAVOs de 2210. Crecimiento real: $(1\,160 - 1\,000)/1\,000 = \mathbf{16{,}00\%}$.
+    -   **Arrakis** ya venía en real: $1\,600$ M PAVOs. Crecimiento real: $(1\,600 - 1\,200)/1\,200 \approx \mathbf{33{,}33\%}$.
+
+c)  **Ranking real** de crecimiento 2210-2215:
+
+    | Puesto | Compañía                | Crecimiento real |
+    |:------:|:------------------------|:----------------:|
+    |   1º   | Arrakis Freight         |     +33,33%      |
+    |   2º   | Corellian Freightworks  |     +20,00%      |
+    |   3º   | Hyperdrive Express      |     +16,00%      |
+
+d)  **La conclusión del informe es exactamente al revés de lo que ocurre en realidad.** Arrakis Freight es, con diferencia, la compañía que **más** ha crecido en términos reales; Hyperdrive Express, la que **menos**. Corellian, que el informe presentaba como la ganadora clara, es en realidad la segunda con un margen amplio sobre Hyperdrive. El error se debe íntegramente a comparar cifras heterogéneas sin deflactar; cualquier decisión estratégica, de inversión o regulatoria basada en el ranking incorrecto sería un desastre operativo.
+
+e)  Tres recomendaciones metodológicas para el equipo del *Interstellar Weekly*:
+
+    -   **(i) Homogeneizar la unidad de medida antes de comparar.** Todas las series intertemporales deben expresarse en la misma unidad —o todas nominales, o todas reales— antes de compararse entre sí. Nunca mezclar.
+    -   **(ii) Especificar siempre la base de deflactación.** Si se publica una cifra real, debe indicarse expresamente en qué unidades monetarias está expresada (*"millones de PAVOs de 2210"*, por ejemplo). Sin esa referencia, el dato es interpretable de varias maneras y ninguna es defensa contra la ambigüedad.
+    -   **(iii) Reportar tanto nominal como real cuando sea relevante.** La cifra nominal es útil para entender la magnitud del negocio en el año de referencia; la real, para comparar dinámicas en el tiempo. Presentar ambas por separado en la misma tabla, con etiquetas claras, evita cualquier confusión y respeta la inteligencia del lector.
+
+    Y una recomendación adicional —de las que Mara Qyà no se resiste a añadir siempre— para el estilo periodístico: **antes de publicar un ranking, sospechar del ranking**. Cuanto más contundente parezca la conclusión de un cuadro comparativo, más obligación tiene el analista de comprobar que las cifras están medidas en el mismo terreno de juego. Este ejercicio es un ejemplo de manual: una comparación aparentemente sencilla que, mal hecha, inverte por completo la ordenación real.

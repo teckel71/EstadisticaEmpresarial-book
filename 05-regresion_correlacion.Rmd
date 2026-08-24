@@ -993,3 +993,485 @@ Este capítulo ha cerrado el bloque bidimensional. Hemos pasado de comprobar *si
 -   La **regresión múltiple** generaliza el planteamiento cuando hay varias variables explicativas. Su ejemplo en la flota (añadir la identidad del astillero elevó el $R^{2}$ del $39\,\%$ al $71\,\%$) muestra que el diagnóstico de residuos suele apuntar directamente a la variable que falta. El **$R^{2}$ ajustado** corrige el sesgo del $R^{2}$ ordinario a favor de los modelos con más variables.
 
 Con esto damos por cerrado el bloque de estadística descriptiva bidimensional. El siguiente bloque del curso da un giro conceptual: dejamos por un tiempo el análisis de datos observados y entramos en el terreno de la **probabilidad**, la herramienta que permitirá, más adelante, transformar todas estas descripciones en instrumentos de **inferencia** sobre poblaciones. Cuando volvamos a los datos, ya no serán solo los que tenemos delante: serán una ventana estadísticamente honesta a lo que ocurre en el universo del que provienen.
+
+## Problemas propuestos. {#problemas-cap05}
+
+Los ejercicios que siguen combinan **cálculo controlado** —fórmulas MCO sobre datos pequeños, verificación de la identidad $\hat{b}\cdot\hat{b}' = R^2$, linealización log-log— con un peso importante de **interpretación**: qué significa la pendiente en unidades del problema, cuándo una predicción cae fuera del rango razonable, qué revela un $R^2$ modesto, y cómo detectar una variable acechante detrás de una regresión simple aparentemente convincente. Todas las soluciones detalladas se recogen al final del capítulo.
+
+### Problema 5.1. Leer una recta ya ajustada.
+
+**Sagan Olbers** ha ajustado, sobre las 300 compañías R-Stars, la recta de regresión de la **facturación anual** ($Y$, en millones de PAVOs) sobre el **número de rutas activas** ($X$):
+
+$$\hat{y} \;=\; 12{,}4 \;+\; 3{,}8\cdot x, \qquad R^{2} \;=\; 0{,}78.$$
+
+El número de rutas de las compañías del fichero oscila entre **1 y 25**.
+
+Se pide:
+
+a)  Interpreta económicamente los coeficientes $\hat{a} = 12{,}4$ y $\hat{b} = 3{,}8$. ¿Tiene sentido literal el término independiente en este contexto?
+b)  Interpreta el coeficiente de determinación $R^{2} = 0{,}78$.
+c)  La CEO de una compañía con **8 rutas activas** quiere saber cuál sería la facturación esperada según el modelo. Aplícalo.
+d)  Un consultor sugiere aplicar la recta para estimar la facturación esperada de una compañía con **60 rutas activas**. ¿Es una predicción defendible? Justifica.
+
+### Problema 5.2. Calcular la recta desde cero.
+
+**Xelia Bluebird** dispone de datos sobre 5 compañías del sector, con la **inversión anual en digitalización** ($X$, en miles de PAVOs) y el **margen operativo** ($Y$, en %):
+
+| Compañía | $x_i$ | $y_i$ |
+|:--------:|:-----:|:-----:|
+|   C-01   |   2   |  40   |
+|   C-02   |   4   |  45   |
+|   C-03   |   6   |  55   |
+|   C-04   |   8   |  60   |
+|   C-05   |  10   |  70   |
+
+Se pide:
+
+a)  Calcula las medias $\overline{x}$ y $\overline{y}$.
+b)  Calcula la varianza de $X$ y la covarianza $S_{xy}$.
+c)  Aplica las fórmulas mínimo-cuadráticas y escribe la ecuación de la recta $\hat{y} = \hat{a} + \hat{b}\, x$.
+d)  Interpreta económicamente los coeficientes obtenidos. ¿Qué margen operativo predice el modelo para una compañía con **5 mil PAVOs** de inversión digital?
+
+### Problema 5.3. Predicción y extrapolación en la flota.
+
+Un analista de la ARTI ha ajustado, sobre datos de cargueros cuya antigüedad oscila entre **2 y 25 años**, la recta que predice el **tonelaje** de una nave a partir de su antigüedad:
+
+$$\hat{y} \;=\; 628 \;+\; 11{,}6\cdot x, \qquad R^{2} \;=\; 0{,}38.$$
+
+(tonelaje en miles de toneladas, antigüedad en años.)
+
+Se pide, para cada uno de los siguientes usos del modelo:
+
+a)  Predecir el tonelaje de un carguero con **8 años** de antigüedad. ¿Es una predicción defendible?
+b)  Predecir el tonelaje de un carguero **recién estrenado** ($x = 0$). ¿Es defendible en este caso?
+c)  Predecir el tonelaje de un **carguero experimental de 40 años** ($x = 40$). ¿Es defendible?
+d)  La ARTI encarga una predicción **individualizada** del tonelaje de un carguero concreto de 8 años matriculado en Mustafar. ¿Es la recta un instrumento adecuado para responder? Justifica.
+
+### Problema 5.4. El efecto de un *outlier* sobre la recta.
+
+Un analista ha ajustado una recta sobre 30 cargueros de una serie regular de *Selene Dynamics*. Después incorpora al análisis un **prototipo experimental** de *Wraith Industries*, extremadamente ligero pese a llevar 15 años en servicio. Los coeficientes obtenidos antes y después de añadir el prototipo son:
+
+|                        | Sin prototipo | Con prototipo |
+|:-----------------------|:-------------:|:-------------:|
+| Ordenada $\hat{a}$     |     30,0      |     45,0      |
+| Pendiente $\hat{b}$    |      8,0      |      3,5      |
+| $R^{2}$                |     0,83      |     0,26      |
+| Correlación $R$        |     0,91      |     0,51      |
+
+Se pide:
+
+a)  ¿Qué coeficientes se han visto más afectados por la incorporación del prototipo? ¿Cómo interpretas ese cambio?
+b)  ¿Por qué el $R^{2}$ se hunde de manera tan drástica al añadir una sola observación entre treinta?
+c)  La recta con prototipo asigna a un carguero de 15 años una previsión de tonelaje muy distinta a la que le asignaría la recta sin él. ¿Cuál de las dos rectas es la más defendible como *"recta representativa del comportamiento habitual de la flota"*?
+d)  A la vista del efecto observado, ¿cuál debería ser la primera decisión analítica antes de dar por bueno el modelo?
+
+### Problema 5.5. Regresión de tipo I y tipo II sobre la misma tabla.
+
+Sobre 60 cargueros de un cierto sector se ha construido una tabla de correlación entre **años en servicio** ($X$) y **coste medio de mantenimiento anual** ($Y$, en miles de PAVOs). Las medias condicionadas del coste dentro de cada intervalo de antigüedad son:
+
+| Intervalo antigüedad | Marca $x_i$ | $n_{i\bullet}$ | $\overline{y}_{\,\mid\, x_i}$ |
+|:--------------------:|:-----------:|:--------------:|:-----------------------------:|
+| (0, 5]               |    2,5      |      12        |            20                 |
+| (5, 10]              |    7,5      |      15        |            22                 |
+| (10, 15]             |   12,5      |      18        |            25                 |
+| (15, 20]             |   17,5      |      10        |            40                 |
+| (20, 30]             |   25        |       5        |            70                 |
+
+Sobre los mismos datos se ha ajustado, por MCO, la recta $\hat{y} = 5 + 2{,}0\cdot x$ con $R^{2} = 0{,}48$.
+
+Se pide:
+
+a)  Dibuja mentalmente (o esquemáticamente) los cinco puntos $(x_i,\, \overline{y}_{\,\mid\, x_i})$ que constituyen la **regresión de tipo I**. ¿Sugieren un comportamiento lineal, o hay algún salto?
+b)  ¿Es coherente el $R^{2} = 0{,}48$ con la comparación visual entre las medias condicionadas y la recta MCO?
+c)  ¿Qué forma funcional del capítulo podría capturar mejor este patrón que una recta simple?
+d)  ¿Qué conclusión de gestión extrae el responsable de mantenimiento al ver estas medias condicionadas: *"el mantenimiento crece linealmente con la antigüedad"* o *"hay un umbral crítico a partir del cual el coste se dispara"*?
+
+### Problema 5.6. Descomposición de la varianza.
+
+De un ajuste lineal sobre 200 compañías se conocen los siguientes valores:
+
+-   Varianza total de $Y$: $S_y^{\,2} = 100$.
+-   Varianza residual: $S_e^{\,2} = 25$.
+
+Se pide:
+
+a)  Calcula la varianza explicada $S_{\hat{y}}^{\,2}$.
+b)  Calcula el coeficiente de determinación $R^{2}$.
+c)  Interpreta el resultado en clave de bondad del ajuste.
+d)  Si un directivo pregunta *"¿qué proporción de la variabilidad de $Y$ queda sin explicar por la regresión?"*, ¿qué respuesta le das y cómo la derivas de los datos anteriores?
+
+### Problema 5.7. Comparar cuatro regresiones por su $R^{2}$.
+
+**Sagan Olbers** ha ajustado, sobre las 300 compañías R-Stars, cuatro regresiones lineales simples con distintas variables explicativas para predecir la **rentabilidad anual** ($Y$, en %):
+
+| Explicativa ($X$)                       | $R^{2}$ | $R$    |
+|:----------------------------------------|:-------:|:------:|
+| Ingresos totales                        |  0,08   | +0,28  |
+| Índice de digitalización                |  0,45   | +0,67  |
+| Antigüedad media de la flota            |  0,12   | -0,35  |
+| Tamaño de la flota (nº de cargueros)    |  0,03   | +0,17  |
+
+Se pide:
+
+a)  Clasifica las cuatro asociaciones por intensidad, según la escala orientativa del capítulo.
+b)  ¿Qué signos tienen las relaciones y qué te dicen sobre el sector?
+c)  Si tuvieras que **elegir una única variable** explicativa para incluir en un modelo simple de rentabilidad, ¿cuál elegirías? Justifica.
+d)  ¿Puede afirmarse, a la vista de estos $R^{2}$, que *la digitalización causa mayor rentabilidad*? Justifica.
+
+### Problema 5.8. Cuarteto de Anscombe en clave R-Stars.
+
+Cuatro conjuntos de datos —cada uno con 11 cargueros— presentan estos descriptivos **idénticos**:
+
+-   $\overline{x} = 9$; $\overline{y} = 7{,}5$.
+-   Recta ajustada: $\hat{y} = 3 + 0{,}5\cdot x$.
+-   $R^{2} = 0{,}67$; $R = 0{,}82$.
+
+Sin embargo, al examinar los diagramas de dispersión, un analista describe cuatro estructuras muy distintas:
+
+-   **Nube (I).** Puntos dispersos alrededor de la recta, sin patrón sistemático.
+-   **Nube (II).** Patrón claramente **curvo** (parabólico), en forma de arco.
+-   **Nube (III).** 10 puntos alineados casi perfectamente sobre una recta y **un solo punto muy separado** del patrón (*outlier* vertical).
+-   **Nube (IV).** Todos los cargueros tienen la misma antigüedad excepto uno, cuya antigüedad muy distinta arrastra por sí sola toda la pendiente (**punto de alta palanca**).
+
+Se pide:
+
+a)  ¿En cuál de las cuatro nubes la recta $\hat{y} = 3 + 0{,}5\, x$ es un resumen **honesto** de la relación?
+b)  Para cada una de las otras tres nubes, ¿qué acción emprenderías **antes** de reportar el modelo?
+c)  ¿Qué moraleja del capítulo ilustra este cuarteto sobre el uso del $R^{2}$ y de los coeficientes de la recta?
+d)  Si el $R^{2}$ y los coeficientes son idénticos en las cuatro nubes, ¿qué herramienta —barata y rápida— permite distinguirlas?
+
+### Problema 5.9. Las dos rectas y $R^{2}$.
+
+Sobre un cruce de dos variables cuantitativas en 100 compañías del sector se conocen los siguientes momentos:
+
+-   $\overline{x} = 20$; $\overline{y} = 50$.
+-   $S_x^{\,2} = 4$; $S_y^{\,2} = 9$; $S_{xy} = 3$.
+
+Se pide:
+
+a)  Calcula la pendiente y la ordenada de la recta de regresión de $Y$ sobre $X$.
+b)  Calcula la pendiente y la ordenada de la recta de regresión de $X$ sobre $Y$.
+c)  Calcula el coeficiente de determinación por **dos vías**: mediante $R^{2} = S_{xy}^{\,2}/(S_x^{\,2}\cdot S_y^{\,2})$ y mediante $\hat{b}\cdot \hat{b}'$. Comprueba que coinciden.
+d)  Calcula el coeficiente de correlación $R$ e interprétalo. Describe cualitativamente cómo se abren las dos rectas en torno al punto $(\overline{x}, \overline{y})$.
+
+### Problema 5.10. Interpretar coeficientes de correlación.
+
+La AITM ha calculado los siguientes coeficientes de correlación lineal $R$ entre pares de variables sobre las 300 compañías R-Stars:
+
+| Cruce                                                | $R$    |
+|:-----------------------------------------------------|:------:|
+| Ingresos × Costos operativos                         | +0,96  |
+| Rentabilidad × Índice de digitalización              | +0,67  |
+| Antigüedad flota × Índice de digitalización          | -0,45  |
+| Nº de rutas × Nº de tripulantes                      | +0,88  |
+| Gasto en cantina × Distancia al sistema Klendathu    | -0,03  |
+
+Se pide:
+
+a)  Clasifica cada relación por **intensidad** y **signo**, según la escala del capítulo.
+b)  ¿Cuál es la relación más *"casi determinista"* del sector, y qué explicación económica sugieres?
+c)  La relación **negativa** entre antigüedad de la flota e índice de digitalización, ¿te sorprende? Explica.
+d)  Un directivo lee las cifras y concluye: *"digitalizar la compañía causa un aumento de la rentabilidad en 0,67 puntos por cada punto de índice."* ¿Qué **dos errores** contiene esa afirmación?
+
+### Problema 5.11. Correlación y causalidad (segunda vuelta).
+
+Un estudio del sector R-Stars publica el siguiente titular:
+
+> *"El tamaño de la flota está fuertemente correlacionado con la rentabilidad de las compañías ($R = +0{,}72$). Las compañías que aumenten su flota serán más rentables."*
+
+Se pide:
+
+a)  La segunda frase del titular, ¿es una conclusión legítima a partir de la primera? Justifica.
+b)  Propón al menos **dos** hipótesis alternativas —causales o no— que puedan explicar la asociación observada entre tamaño de flota y rentabilidad.
+c)  Cita una **tercera variable** que pueda estar detrás de la asociación (factor de confusión), y explica su rol.
+d)  Un analista consciente del problema añade a la regresión otras variables (galaxia de operación, antigüedad, forma jurídica) y comprueba que el efecto de *"tamaño de flota"* sobre rentabilidad **se reduce mucho**. ¿Qué te sugiere ese hallazgo sobre la relación causal original?
+
+### Problema 5.12. Linealización: curva de aprendizaje en *Enterprise Logistics*.
+
+Un aprendiz de piloto en la escuela de *Enterprise Logistics* cronometra el tiempo (en minutos) que tarda en completar una maniobra estándar de acoplamiento a medida que acumula operaciones. Los datos son:
+
+| Operaciones acumuladas ($x_i$) |  1  |  2  |  4  |  8  | 16  |
+|:------------------------------:|:---:|:---:|:---:|:---:|:---:|
+| Tiempo por maniobra ($y_i$, min) |  60 |  42 |  30 |  21 |  15 |
+
+Un ajuste directo por MCO da $\hat{y} = 46{,}2 - 2{,}1\cdot x$ con $R^{2} = 0{,}70$: modesto, y con residuos que muestran patrón sistemático (curvatura no capturada).
+
+Se propone entonces una regresión potencial $\hat{y} = a\cdot x^{b}$. Tras aplicar logaritmos naturales a ambas variables se han calculado:
+
+-   $\overline{\log x} = 1{,}386$; $\overline{\log y} = 3{,}396$.
+-   $S^{2}_{\log x} = 0{,}961$; $S_{\log x,\ \log y} = -0{,}476$.
+-   $R^{2}_{\log} = 0{,}9995$.
+
+Se pide:
+
+a)  Calcula la pendiente $b_{\log}$ del ajuste lineal sobre las variables transformadas ($\log y$ sobre $\log x$).
+b)  Calcula la ordenada $\log a$ del ajuste lineal transformado y, deshaciendo la transformación, el parámetro $a$ del modelo potencial (recuerda: $a = e^{\log a}$).
+c)  Escribe la ecuación del modelo potencial. Interpreta el **signo** y la **magnitud** del exponente $b$.
+d)  Un jefe de estudios afirma: *"Cada vez que el aprendiz duplica sus operaciones acumuladas, su tiempo por maniobra se reduce, aproximadamente, en un tercio."* ¿Es coherente esa afirmación con el exponente obtenido? (Recuerda: la reducción al duplicar $x$ es $1 - 2^{b}$.)
+
+### Problema 5.13. Ejercicio integrador: la variable acechante en la flota.
+
+Un analista ha ajustado dos regresiones sobre los 48 cargueros del sector R-Stars, con el **tonelaje** ($Y$, miles de toneladas) como variable explicada:
+
+**Modelo A** — regresión simple con solo la antigüedad:
+
+$$\hat{y} \;=\; 628 \;+\; 12{,}6\cdot \text{ANTIG}, \qquad R^{2} \;=\; 0{,}39.$$
+
+**Modelo B** — regresión múltiple con antigüedad y astillero (con ARCTURUS como categoría de referencia; $D_K = 1$ si el carguero es de KORRIGAN, $D_S = 1$ si es de SELENE):
+
+$$\hat{y} \;=\; 722 \;+\; 1{,}44\cdot \text{ANTIG} \;+\; 107\cdot D_K \;-\; 111\cdot D_S, \qquad R^{2} \;=\; 0{,}71,\ R^{2}_{\text{aj}} \;=\; 0{,}69.$$
+
+Se pide:
+
+a)  Interpreta el paso del $R^{2}$ del Modelo A (0,39) al $R^{2}$ del Modelo B (0,71). ¿Qué proporción **adicional** de la variabilidad del tonelaje ha quedado explicada al incluir el astillero?
+b)  La pendiente de la antigüedad pasa de **12,6** (Modelo A) a **1,44** (Modelo B). ¿Por qué se reduce tanto? ¿Qué te dice ese cambio sobre lo que estaba "escondido" en el efecto de la antigüedad del modelo simple?
+c)  Interpreta los coeficientes de las *dummies*: un carguero de **KORRIGAN**, ¿es en promedio más o menos pesado que uno equivalente de ARCTURUS? ¿Y uno de **SELENE**?
+d)  ¿Por qué reportamos el **$R^{2}$ ajustado** en el modelo múltiple pero no en el simple?
+e)  ¿Cómo se llama, en el vocabulario del capítulo (o del anterior), el fenómeno por el que una variable oculta —aquí, el astillero— altera la interpretación de la pendiente de la variable explícita —aquí, la antigüedad— cuando no se incluye en el modelo?
+
+## Soluciones a los problemas propuestos. {#soluciones-cap05}
+
+### Solución al Problema 5.1.
+
+a)  $\hat{a} = 12{,}4$: valor que la recta asigna a la facturación cuando el número de rutas es cero. **No tiene sentido literal**: una compañía sin rutas no factura. Como suele ocurrir con el término independiente, es un parámetro de ajuste que ancla la recta, no un valor económico interpretable por sí mismo.
+
+    $\hat{b} = 3{,}8$: por cada **ruta adicional**, la facturación esperada aumenta, en promedio, en **3,8 millones de PAVOs**. Es la lectura útil del modelo, y viene ya expresada en unidades del problema (millones de PAVOs por ruta).
+
+b)  El $R^{2} = 0{,}78$ significa que el **78%** de la variabilidad de la facturación entre las 300 compañías queda explicada por la recta ajustada sobre el número de rutas. Es un ajuste **fuerte**: el número de rutas es, por sí solo, un predictor muy informativo de la facturación.
+
+c)  $\hat{y}(8) = 12{,}4 + 3{,}8\cdot 8 = 12{,}4 + 30{,}4 = \mathbf{42{,}8}$ millones de PAVOs.
+
+d)  **No es defendible.** El rango observado va de 1 a 25 rutas; $x = 60$ está muy por encima del máximo del fichero. Fuera de ese rango, la recta pierde toda garantía: podría no cumplirse la linealidad (rendimientos decrecientes por saturación de mercado, por ejemplo), o directamente el régimen del negocio ser distinto para operadores intergalácticos de gran escala. Aplicar la fórmula a 60 no es hacer una previsión: es hacer un acto de fe.
+
+### Solución al Problema 5.2.
+
+a)  $\overline{x} = (2+4+6+8+10)/5 = 30/5 = \mathbf{6}$. $\overline{y} = (40+45+55+60+70)/5 = 270/5 = \mathbf{54}$.
+
+b)  Momento respecto al origen:
+
+    -   $a_{20} = (4+16+36+64+100)/5 = 220/5 = 44 \Rightarrow S_x^{\,2} = 44 - 6^{2} = \mathbf{8}$.
+    -   $a_{11} = (2\cdot 40 + 4\cdot 45 + 6\cdot 55 + 8\cdot 60 + 10\cdot 70)/5 = (80+180+330+480+700)/5 = 1\,770/5 = 354$.
+    -   $S_{xy} = a_{11} - \overline{x}\cdot\overline{y} = 354 - 6\cdot 54 = 354 - 324 = \mathbf{30}$.
+
+c)  Aplicando las fórmulas mínimo-cuadráticas:
+
+    $$\hat{b} = \dfrac{S_{xy}}{S_x^{\,2}} = \dfrac{30}{8} = \mathbf{3{,}75}; \qquad \hat{a} = \overline{y} - \hat{b}\cdot\overline{x} = 54 - 3{,}75\cdot 6 = 54 - 22{,}5 = \mathbf{31{,}5}.$$
+
+    Recta: $\boxed{\;\hat{y} = 31{,}5 + 3{,}75\cdot x\;}$.
+
+d)  Interpretación:
+
+    -   $\hat{a} = 31{,}5$: margen operativo que la recta asigna a una compañía con inversión digital nula. Puede leerse literalmente como el "margen basal" del sector, y en este caso sí tiene un sentido económico razonable (una compañía sin digitalización sigue teniendo margen).
+    -   $\hat{b} = 3{,}75$: por cada **mil PAVOs adicionales** de inversión en digitalización, el margen operativo aumenta, en promedio, **3,75 puntos porcentuales**.
+
+    Predicción para $x = 5$ (mil PAVOs): $\hat{y}(5) = 31{,}5 + 3{,}75\cdot 5 = 31{,}5 + 18{,}75 = \mathbf{50{,}25\%}$.
+
+### Solución al Problema 5.3.
+
+a)  $\hat{y}(8) = 628 + 11{,}6\cdot 8 = 628 + 92{,}8 = \mathbf{720{,}8}$ mil toneladas. Es una **predicción defendible**: $x = 8$ está claramente dentro del rango observado (2-25 años).
+
+b)  $\hat{y}(0) = 628$. Aceptable **con reservas**: $x = 0$ queda justo por debajo del mínimo observado (2). Está muy cerca del rango, pero literalmente fuera. Además, el "carguero recién estrenado" es un caso conceptualmente distinto (nunca ha operado), del que la recta —construida sobre naves con al menos 2 años de servicio— no tiene por qué informar bien. Interpretable como referencia, no como pronóstico firme.
+
+c)  $\hat{y}(40) = 628 + 11{,}6\cdot 40 = 628 + 464 = \mathbf{1\,092}$ mil toneladas. **No defendible**: $x = 40$ está muy por encima del máximo observado (25). Es exactamente el escenario que el capítulo desaconseja: cualquier cambio de régimen (naves de generación anterior, cargueros de museo, cambio de tecnología estructural) rompería la validez de la extrapolación. Además, 1 092 mil toneladas es una cifra sospechosamente alta comparada con el máximo típico del sector.
+
+d)  **No** es un instrumento adecuado para una predicción individualizada. Dos razones:
+
+    -   La recta predice **promedios**, no individuos. Un carguero concreto puede desviarse notablemente del pronóstico puntual.
+    -   Con $R^{2} = 0{,}38$, más del 60% de la variabilidad del tonelaje queda **sin explicar** por la antigüedad. El residuo típico puede ser muy grande.
+
+    Para una predicción individual defendible, habría que acompañar la cifra puntual con un intervalo de confianza (que requiere las herramientas del bloque de Inferencia), o incluir otras variables (astillero, tipo de motor, sector de operación) que reduzcan la varianza residual. En este mismo capítulo se ve cómo la regresión múltiple con el astillero incluido eleva el $R^{2}$ del 39% al 71%.
+
+### Solución al Problema 5.4.
+
+a)  Los coeficientes más afectados son la **pendiente** (de 8,0 a 3,5: se reduce a menos de la mitad) y el **coeficiente de determinación** (de 0,83 a 0,26: se hunde). La ordenada también se mueve sensiblemente (de 30 a 45). La explicación es la que el capítulo anticipa: MCO minimiza cuadrados, y un caso muy alejado del patrón general **tira** de la recta hacia sí. El prototipo, con tonelaje muy bajo pese a llevar 15 años en servicio, empuja la recta hacia abajo en su zona central, lo que a la vez achata la pendiente y eleva la ordenada.
+
+b)  Por dos razones que actúan al mismo tiempo:
+
+    -   El prototipo dispara la **varianza total** $S_y^{\,2}$ (introduce un valor de $Y$ mucho más alejado de la media).
+    -   La nueva recta —forzada a acomodar el prototipo— es peor pronóstico para los 30 casos habituales, lo que dispara la **varianza residual** $S_e^{\,2}$.
+
+    Como $R^{2} = 1 - S_e^{\,2}/S_y^{\,2}$, ambos efectos empujan el cociente al alza y el $R^{2}$ a la baja.
+
+c)  **La recta sin prototipo.** El prototipo pertenece de facto a *otra población* (naves experimentales de un fabricante distinto, con criterios técnicos propios). Como el capítulo 2 recomienda para *outliers* legítimos que pertenecen a otra población, la decisión razonable es **analizarlo por separado** (o excluirlo del análisis principal). Mezclar la serie regular con un prototipo experimental produce un modelo que no describe bien a ninguno de los dos grupos.
+
+d)  Antes de dar por bueno el modelo, la primera acción es siempre **mirar la nube de puntos**. Un diagrama de dispersión habría revelado el prototipo como un caso claramente aislado y habría permitido decidir su tratamiento antes de calcular ningún coeficiente. Es la moraleja que atraviesa todo el capítulo, y que Anscombe hará explícita.
+
+### Solución al Problema 5.5.
+
+a)  Los cinco puntos son $(2{,}5;\ 20),\ (7{,}5;\ 22),\ (12{,}5;\ 25),\ (17{,}5;\ 40),\ (25;\ 70)$. Los **tres primeros** crecen suavemente: apenas 5 mil PAVOs adicionales de coste medio entre los 2,5 y los 12,5 años. A partir de ahí, la curva se **acelera bruscamente**: 15 mil PAVOs más entre los 12,5 y los 17,5 años, y otros 30 mil entre los 17,5 y los 25. **No es un patrón lineal**: hay un umbral perceptible en torno a los 15 años, a partir del cual el coste se dispara.
+
+b)  Sí es coherente. Un $R^{2}$ del 48% es **modesto** justamente porque la recta única no puede reproducir simultáneamente el tramo plano inicial y la aceleración final. La recta sobreestima el coste en los intervalos jóvenes (predice unos 30 mil PAVOs a los 12,5 años, cuando el dato real es 25) y lo subestima en los intervalos veteranos (predice unos 55 mil a los 25 años, cuando el dato real es 70). Los residuos tendrían un patrón sistemático en forma de $\cup$ invertido, exactamente el que sugiere una relación curva.
+
+c)  Formas funcionales más adecuadas: una **exponencial** ($\hat{y} = a\cdot b^{x}$) o una **potencial** ($\hat{y} = a\cdot x^{b}$ con $b > 1$). Cualquiera de las dos —linealizable con logaritmos, como veremos en la sección de linealización— captaría bien la aceleración final. La regresión de tipo I (los cinco puntos) es la mejor guía para elegir: pide una curva creciente cóncava hacia arriba, no una recta.
+
+d)  La lectura correcta para el responsable de mantenimiento es la segunda: **"hay un umbral crítico a partir del cual el coste se dispara"**. Es un mensaje **económicamente accionable**: los cargueros que superan los 15 años empiezan a ser desproporcionadamente caros de mantener; conviene contemplar la sustitución o la desinversión en ese umbral, antes de que el coste medio de mantenimiento se acerque al de una nave nueva. La lectura *"crece linealmente"*, aunque salga de un ajuste MCO honesto, es engañosa y esconde el mensaje operativo importante.
+
+### Solución al Problema 5.6.
+
+a)  De la descomposición de la varianza $S_y^{\,2} = S_{\hat{y}}^{\,2} + S_e^{\,2}$ se despeja:
+
+    $$S_{\hat{y}}^{\,2} \;=\; S_y^{\,2} - S_e^{\,2} \;=\; 100 - 25 \;=\; \mathbf{75}.$$
+
+b)  Aplicando la definición canónica del coeficiente de determinación:
+
+    $$R^{2} \;=\; \dfrac{S_{\hat{y}}^{\,2}}{S_y^{\,2}} \;=\; \dfrac{75}{100} \;=\; \mathbf{0{,}75}.$$
+
+    O equivalentemente, $R^{2} = 1 - S_e^{\,2}/S_y^{\,2} = 1 - 25/100 = 0{,}75$: las dos expresiones son idénticas.
+
+c)  Un $R^{2}$ del 75% es un **buen ajuste**: la recta reproduce tres cuartas partes de la variabilidad observada en $Y$. Cabe reportar el modelo con confianza, aunque siempre acompañando el número del examen de residuos.
+
+d)  Sin explicar: $S_e^{\,2}/S_y^{\,2} = 25/100 = \mathbf{0{,}25}$, es decir, el **25%** de la variabilidad de $Y$ no queda capturada por la regresión. Se obtiene directamente como cociente entre varianza residual y varianza total, o equivalentemente como $1 - R^{2}$. En términos prácticos: aunque el modelo es útil, hay una cuarta parte de lo que le pasa a $Y$ que responde a factores que la regresión no observa (otras variables, ruido puro).
+
+### Solución al Problema 5.7.
+
+a)  Según la escala orientativa del capítulo (basada en $|R|$):
+
+    -   Ingresos totales: $|R| = 0{,}28$ → **débil** (0,2-0,5).
+    -   Índice de digitalización: $|R| = 0{,}67$ → **moderada**, casi fuerte (0,5-0,7).
+    -   Antigüedad media de la flota: $|R| = 0{,}35$ → **débil** (0,2-0,5).
+    -   Tamaño de la flota: $|R| = 0{,}17$ → **muy débil o inexistente** (0,0-0,2).
+
+    En términos de $R^{2}$: la digitalización captura el 45% de la variabilidad de la rentabilidad, mientras que las otras tres variables recogen entre el 3% y el 12% cada una: mucha menos información.
+
+b)  **Signos:** positivos para ingresos, digitalización y tamaño; **negativo** para antigüedad de la flota. Lectura sectorial:
+
+    -   Digitalización positiva y con la asociación más fuerte: las compañías más digitalizadas tienden a ser más rentables.
+    -   Antigüedad negativa: las compañías con flotas más antiguas tienden a ser menos rentables (probablemente por mayores costes de mantenimiento y menor eficiencia operativa).
+    -   Ingresos y tamaño con asociaciones débiles: ni facturar mucho ni tener muchas naves basta por sí solo para ser rentable en este sector. La rentabilidad no es cuestión de tamaño.
+
+c)  **La digitalización**, con diferencia. Es la única que aporta un $R^{2}$ apreciable (0,45); las otras tres, incluidas en solitario, dejan sin explicar más del 85% de la varianza y sirven de bien poco como predictoras.
+
+d)  **No.** El $R^{2}$ es una medida **descriptiva** de la calidad del ajuste, no una prueba causal. La asociación observada podría deberse a:
+
+    -   Causalidad directa (digitalizar mejora la eficiencia y con ello el margen).
+    -   Causalidad inversa (las compañías más rentables tienen recursos para digitalizarse).
+    -   Causa común (la calidad de gestión impulsa simultáneamente ambas: rentabilidad **y** digitalización).
+
+    Sin un modelo causal explícito y sin un diseño de investigación que descarte alternativas, el "digitalizar causa rentabilidad" no está probado por más alto que sea el $R^{2}$.
+
+### Solución al Problema 5.8.
+
+a)  Solo la **nube (I)** es un ajuste lineal auténtico. La recta captura razonablemente el patrón, y los puntos se dispersan alrededor de ella sin estructura visible. En las tres restantes, la recta y el $R^{2}$ son técnicamente idénticos, pero **no describen** la relación real.
+
+b)  Acciones antes de reportar el modelo:
+
+    -   **Nube (II)** (parabólica): ajustar una **forma funcional cuadrática** ($\hat{y} = a + b\, x + c\, x^{2}$) o, más en general, cualquier modelo curvo que respete la nube. La recta es una respuesta equivocada a una pregunta correcta.
+    -   **Nube (III)** (*outlier* vertical): investigar el punto extremo aplicando la lógica del capítulo 2 (error de codificación, caso legítimo excepcional o individuo de otra población), decidir su tratamiento (corregir, excluir, analizar aparte), y **volver a ajustar** la recta sobre los diez restantes, que sí tienen relación lineal casi perfecta.
+    -   **Nube (IV)** (punto de alta palanca): reconocer que los diez casos con $x$ constante **no aportan información sobre la pendiente**; la recta ajustada está literalmente **dictada por un solo punto**. Ninguna conclusión razonable puede basarse en semejante geometría. Convendría explorar por qué hay tan poca variación en $X$: quizá se está mirando el fenómeno equivocado.
+
+c)  La moraleja central es la que Anscombe formuló en 1973: **el $R^{2}$ y los coeficientes de la recta son resúmenes, no diagnósticos**. Cuatro estructuras radicalmente distintas pueden producir los mismos estadísticos. Cualquier análisis serio requiere combinar el resumen numérico con la inspección visual.
+
+d)  El **diagrama de dispersión** (nube de puntos). Es la herramienta más barata y más potente para detectar problemas de forma, *outliers* y puntos de alta palanca. **"Mira la nube antes de creerte el número"** es la regla operativa que sintetiza todo el capítulo.
+
+### Solución al Problema 5.9.
+
+a)  Recta de **$Y$ sobre $X$**:
+
+    $$\hat{b} \;=\; \dfrac{S_{xy}}{S_x^{\,2}} \;=\; \dfrac{3}{4} \;=\; \mathbf{0{,}75}; \qquad \hat{a} \;=\; \overline{y} - \hat{b}\cdot \overline{x} \;=\; 50 - 0{,}75\cdot 20 \;=\; \mathbf{35}.$$
+
+    Recta: $\hat{y} = 35 + 0{,}75\, x$.
+
+b)  Recta de **$X$ sobre $Y$**:
+
+    $$\hat{b}' \;=\; \dfrac{S_{xy}}{S_y^{\,2}} \;=\; \dfrac{3}{9} \;\approx\; \mathbf{0{,}333}; \qquad \hat{a}' \;=\; \overline{x} - \hat{b}'\cdot \overline{y} \;=\; 20 - 0{,}333\cdot 50 \;\approx\; \mathbf{3{,}33}.$$
+
+    Recta: $\hat{x} = 3{,}33 + 0{,}333\, y$.
+
+c)  Coeficiente de determinación por dos vías:
+
+    -   Fórmula directa: $R^{2} = S_{xy}^{\,2}/(S_x^{\,2}\cdot S_y^{\,2}) = 3^{2}/(4\cdot 9) = 9/36 = \mathbf{0{,}25}$.
+    -   Producto de pendientes: $\hat{b}\cdot \hat{b}' = 0{,}75 \cdot 0{,}333 = \mathbf{0{,}25}$ ✓.
+
+    Ambas coinciden: es la identidad canónica $\hat{b}\cdot \hat{b}' = R^{2}$.
+
+d)  $R = +\sqrt{0{,}25} = +\mathbf{0{,}5}$ (con signo positivo porque $S_{xy} > 0$). Según la escala orientativa del capítulo, es una **relación moderada** (0,5-0,7). Geométricamente, las dos rectas se cruzan en el centro de gravedad $(20,\ 50)$ formando una "tijera" **moderadamente abierta**: ni tan estrecha como en el caso $R^{2}$ próximo a 1 (donde casi coincidirían), ni tan abierta como en el caso $R^{2}$ próximo a 0 (donde serían perpendiculares). La apertura del abanico es una lectura visual directa de la intensidad de la relación.
+
+### Solución al Problema 5.10.
+
+a)  Clasificación:
+
+    -   Ingresos × Costos operativos: $R = +0{,}96$ → **muy fuerte, positiva**, casi determinista.
+    -   Rentabilidad × Digitalización: $R = +0{,}67$ → **moderada**, casi fuerte, positiva.
+    -   Antigüedad × Digitalización: $R = -0{,}45$ → **débil**, negativa.
+    -   Rutas × Tripulantes: $R = +0{,}88$ → **fuerte**, positiva.
+    -   Cantina × Distancia Klendathu: $R = -0{,}03$ → **prácticamente nula**.
+
+b)  La relación **casi determinista** es Ingresos × Costos operativos ($R = 0{,}96$). Explicación económica: ambos indicadores crecen simultáneamente con el **tamaño de la actividad**; una compañía que factura más también incurre en mayores costos operativos, porque opera más rutas, tripula más naves y consume más combustible. Es una relación estructural del funcionamiento del negocio, no una relación causal específica de "los ingresos causan los costes" ni al revés.
+
+c)  **No debería sorprender.** Es coherente con al menos dos mecanismos: (i) las compañías más nuevas se establecen con procesos digitales desde el arranque, mientras que las flotas antiguas suelen operar con sistemas heredados; (ii) los cargueros más veteranos incorporan sensores y arquitecturas de menor generación tecnológica. La antigüedad de la flota tiende a ir con menor digitalización, y $R = -0{,}45$ es la firma cuantitativa de ese vínculo.
+
+d)  **Dos errores** en la afirmación del directivo:
+
+    -   **Correlación no es causalidad.** Que rentabilidad y digitalización coincidan en su comportamiento no prueba que la digitalización *cause* la rentabilidad (puede haber causalidad inversa, o una tercera variable como la calidad de gestión que impulse ambas).
+    -   **Confunde $R$ con $\hat{b}$.** El 0,67 es un coeficiente de correlación (adimensional, entre $-1$ y $+1$), **no** una tasa de cambio. La "pendiente" que traduciría un punto adicional de índice de digitalización en puntos porcentuales de rentabilidad es $\hat{b}$, no $R$; y ese $\hat{b}$ solo puede leerse de la regresión, no del coeficiente de correlación aislado.
+
+### Solución al Problema 5.11.
+
+a)  **No.** La primera frase enuncia una **asociación estadística**; la segunda infiere un **efecto causal individual** sobre cualquier compañía que aumente su flota. Es exactamente el salto que el capítulo advierte una y otra vez. Correlación —por alta que sea— no autoriza a hacer prescripciones de gestión.
+
+b)  Hipótesis alternativas:
+
+    -   **Causalidad inversa.** Son las compañías **ya rentables** las que pueden permitirse crecer (comprar más naves), no al revés. El tamaño sería consecuencia de la rentabilidad, no su causa.
+    -   **Causa común.** La **calidad de gestión** (o el conocimiento del mercado, o la posición competitiva heredada) impulsa simultáneamente el crecimiento y la rentabilidad; el crecimiento no genera por sí solo mayor rentabilidad.
+    -   **Efecto escala pero decreciente.** Puede haber un componente causal, pero con rendimientos decrecientes: los primeros cargueros aumentan mucho la rentabilidad; a partir de cierto tamaño, aparecen deseconomías (complejidad organizativa, costes de coordinación). La relación observada podría estar dominada por las compañías pequeñas del sector.
+
+c)  Un factor de confusión clásico es la **calidad de gestión / eficiencia operativa / posición competitiva**. Difícil de medir directamente, se traduce simultáneamente en flotas más grandes (la compañía puede comprarlas) y en rentabilidad más alta (la compañía las utiliza bien). Ninguna de las dos causa la otra: ambas son consecuencia del factor oculto. Otros candidatos: **galaxia de operación** (algunas galaxias tienen mercados más lucrativos), **antigüedad de la compañía** (las más veteranas tienen más flota y también más experiencia acumulada), **régimen fiscal**, etc.
+
+d)  El hallazgo es la firma cuantitativa clásica de que la asociación cruda del "tamaño de flota" contenía en buena parte los efectos de **otras variables**. Al incluir explícitamente galaxia, antigüedad y forma jurídica en el modelo, la variable "tamaño de flota" pierde protagonismo porque su efecto aparente se redistribuye entre las nuevas explicativas. Es el mismo fenómeno de las **variables acechantes** que aparece en la sección de regresión múltiple (y su primo cualitativo, la paradoja de Simpson del capítulo anterior). Refuerza la hipótesis de que la asociación original **no era causal**: el titular necesita reescribirse con humildad.
+
+### Solución al Problema 5.12.
+
+a)  Pendiente del ajuste lineal sobre variables transformadas:
+
+    $$b_{\log} \;=\; \dfrac{S_{\log x,\ \log y}}{S^{2}_{\log x}} \;=\; \dfrac{-0{,}476}{0{,}961} \;\approx\; \mathbf{-0{,}495}.$$
+
+b)  Ordenada del ajuste lineal transformado:
+
+    $$\log a \;=\; \overline{\log y} - b_{\log}\cdot \overline{\log x} \;=\; 3{,}396 - (-0{,}495)\cdot 1{,}386 \;=\; 3{,}396 + 0{,}686 \;\approx\; 4{,}082.$$
+
+    Deshaciendo la transformación: $a = e^{4{,}082} \approx \mathbf{59{,}3}$.
+
+c)  Modelo potencial:
+
+    $$\boxed{\;\hat{y} \;=\; 59{,}3\cdot x^{\,-0{,}495}\;}$$
+
+    Con $R^{2}_{\log} = 0{,}9995$: la relación en escala log-log es **casi determinista**. Interpretación del exponente:
+
+    -   **Signo negativo**: el tiempo por maniobra **decrece** al aumentar las operaciones acumuladas. Es la firma característica de una curva de aprendizaje.
+    -   **Magnitud próxima a $-0{,}5$**: cada vez que $x$ se multiplica por 10, $y$ se multiplica por $10^{-0{,}495} \approx 0{,}32$; es decir, el tiempo por maniobra se reduce a un tercio aproximadamente cada vez que las operaciones acumuladas se multiplican por diez. Es una curva de aprendizaje rápida.
+
+d)  Reducción al **duplicar** las operaciones ($x \to 2x$):
+
+    $$1 - 2^{b_{\log}} \;=\; 1 - 2^{-0{,}495} \;\approx\; 1 - 0{,}710 \;\approx\; 0{,}290 \;=\; \mathbf{29\%}.$$
+
+    El jefe de estudios está **aproximadamente** en lo cierto: el tiempo se reduce alrededor del 29% cada vez que las operaciones acumuladas se duplican, cifra cercana al "tercio" (33%) que menciona. Sería más preciso decir *"casi un 30%"*, pero el orden de magnitud es correcto y su afirmación es defendible en un informe divulgativo.
+
+### Solución al Problema 5.13.
+
+a)  El $R^{2}$ pasa de 0,39 a 0,71. La proporción **adicional** de variabilidad del tonelaje capturada por el Modelo B respecto del Modelo A es:
+
+    $$R^{2}_B - R^{2}_A \;=\; 0{,}71 - 0{,}39 \;=\; \mathbf{0{,}32} \;=\; 32\%.$$
+
+    Incluir el astillero como segunda variable explicativa **añade** un 32% de la variabilidad total del tonelaje al modelo. Es una mejora sustancial: casi se duplica el $R^{2}$ del modelo simple.
+
+b)  La pendiente de antigüedad se derrumba: pasa de 12,6 a apenas 1,44 (menos de una octava parte). La explicación es clave:
+
+    -   En el **Modelo A**, la pendiente 12,6 no era el "efecto puro" de la antigüedad; era el **efecto de la antigüedad + el efecto disfrazado del astillero**. Como los astilleros más productivos y con carteras más pesadas suelen tener flotas más veteranas, la antigüedad estaba **capturando** también la parte del tonelaje que se debía al astillero.
+    -   En el **Modelo B**, al **controlar** por el astillero (variable ahora incluida en el modelo), la pendiente de antigüedad recupera su interpretación limpia: cada año adicional se asocia a solo 1,44 mil toneladas más, manteniendo constante la identidad del astillero. Casi todo el "efecto antigüedad" del modelo simple era en realidad **efecto astillero mal atribuido**.
+
+    La lección es económica y estadística a la vez: la antigüedad, por sí sola, dice muy poco sobre el tonelaje una vez que sabemos qué astillero ha construido el carguero.
+
+c)  Interpretación de las *dummies* (con ARCTURUS como categoría de referencia):
+
+    -   Coeficiente de $D_K = +107$: un carguero de **KORRIGAN** pesa, en promedio, unos **107 mil toneladas más** que uno equivalente de ARCTURUS de la misma antigüedad.
+    -   Coeficiente de $D_S = -111$: un carguero de **SELENE** pesa, en promedio, unos **111 mil toneladas menos** que uno equivalente de ARCTURUS de la misma antigüedad.
+
+    Es decir, hay una jerarquía clara por astillero: **KORRIGAN > ARCTURUS > SELENE** en términos de tonelaje típico. La antigüedad, dentro de cada astillero, matiza esa jerarquía pero apenas la mueve.
+
+d)  Porque cuando se comparan modelos con **distinto número de parámetros**, el $R^{2}$ ordinario **siempre crece** —o al menos no baja— al añadir variables, aunque estas sean ruido puro. Comparar el Modelo B con el A por $R^{2}$ ordinario es informativo, pero técnicamente sesgado a favor del modelo con más variables. El $R^{2}$ **ajustado** penaliza la introducción de parámetros y solo crece cuando la nueva variable **aporta más de lo que cuesta**. En este caso, $R^{2}_{\text{aj}} = 0{,}69$ apenas se aparta del $R^{2} = 0{,}71$, señal de que la mejora es **real** y no un artefacto de haber añadido parámetros. Si al añadir el astillero el $R^{2}$ hubiera crecido de 0,39 a 0,42 pero el $R^{2}_{\text{aj}}$ se hubiera quedado en 0,38, la conclusión sería la opuesta: ganancia marginal insuficiente.
+
+    En el Modelo A no reportamos $R^{2}$ ajustado porque, con una sola variable, el ajuste importa poco y $R^{2}$ y $R^{2}_{\text{aj}}$ son casi iguales.
+
+e)  Se llama fenómeno de **variable acechante** (*lurking variable*): una variable no incluida en el modelo que, sin embargo, está correlacionada tanto con la explicativa como con la explicada, y arrastra parte del efecto aparente de la primera sobre la segunda. Es el equivalente **cuantitativo** de la **paradoja de Simpson** que vimos en el capítulo anterior sobre tablas de contingencia: allí, la relación entre dos atributos se invertía al desagregar por un tercero; aquí, la pendiente de una regresión simple se altera radicalmente al añadir la variable correcta. En ambos casos el remedio es el mismo: **incluir la variable acechante en el análisis** —aquí, como variable explicativa adicional; allí, como criterio de estratificación— para que los coeficientes recuperen su lectura limpia.
+
+    Es, quizá, el mensaje más valioso que el estudiante de ADE debe llevarse de este bloque: casi ninguna relación empresarial es entre dos variables aisladas; casi siempre hay una tercera —a menudo la calidad de gestión, el tamaño, el sector— acechando detrás de los coeficientes.
