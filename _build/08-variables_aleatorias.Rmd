@@ -818,3 +818,581 @@ Recapitulemos el viaje del capítulo:
 En los capítulos siguientes daremos nombre y ficha técnica a las **distribuciones de probabilidad más importantes**: la binomial, la Poisson, la normal... Cada una es una variable aleatoria con una función de cuantía o de densidad concreta, y todas ellas serán, a partir de ahora, herramientas de trabajo estándar en el maletín del analista empresarial.
 
 Que la esperanza (matemática) sea siempre positiva contigo.
+
+## Problemas propuestos. {#problemas-cap08}
+
+Los ejercicios que siguen combinan **cálculo controlado** —sumas de cuantías, integrales de densidades, esperanzas y varianzas, tipificación, cotas de Chebyshev, momentos bidimensionales— con un peso importante de **interpretación económica**: qué significa una asimetría alta en un fichero de siniestros, por qué la elección entre dos rutas no depende sólo del beneficio esperado, y por qué la Ley de los Grandes Números convierte la esperanza en una guía fiable para el gestor. Todas las soluciones detalladas se recogen al final del capítulo.
+
+### Problema 8.1. Función de cuantía y de distribución.
+
+*Kaiju Haulage Co.* modela el número de incidencias graves en un trimestre como una variable aleatoria discreta $\xi$ con la siguiente función de cuantía parcial:
+
+| $x_i$ | 0 | 1 | 2 | 3 | 4 |
+|:-----:|:---:|:---:|:---:|:---:|:---:|
+| $p_i$ | 0,10 | 0,20 | 0,40 | $k$ | 0,05 |
+
+::: {style="text-align: center;"}
+**Tabla 8.4**
+:::
+
+
+Se pide:
+
+a)  Calcula el valor de $k$ para que $\xi$ sea una variable aleatoria válida.
+b)  Escribe la función de distribución $F(x_i)$ en forma tabular para $x_i \in \{0, 1, 2, 3, 4\}$.
+c)  Calcula $P(1 \le \xi \le 3)$ y $P(\xi \ge 2)$ empleando la función de distribución.
+d)  Interpreta económicamente el resultado: ¿es una compañía con incidencias raras o frecuentes? ¿Cuántas incidencias, "en un trimestre típico", cabe esperar?
+
+### Problema 8.2. Función de cuantía a partir del enunciado.
+
+*Arrakis Freight* despacha cada noche **cuatro** cargueros por rutas independientes. La probabilidad de que un carguero llegue con éxito (E) es $0{,}5$ (ruta con condiciones estables). Sea $\xi = $ *"número de cargueros que llegan con éxito esta noche"*.
+
+Se pide:
+
+a)  Escribe la función de cuantía de $\xi$ para $x_i \in \{0, 1, 2, 3, 4\}$.
+b)  Calcula la esperanza $E(\xi)$ y la varianza $\mathrm{Var}(\xi)$.
+c)  Calcula $P(\xi \ge 3)$: probabilidad de que al menos tres cargueros lleguen con éxito.
+d)  Un directivo, viendo la esperanza, comenta: *"esperamos dos éxitos por noche"*. Otro directivo replica: *"pero eso nunca ocurrirá con seguridad; el resultado real oscilará"*. ¿Quién tiene razón? Explica con base en la esperanza y la varianza calculadas.
+
+### Problema 8.3. Variable aleatoria continua: hallar $k$ y calcular probabilidades.
+
+La duración (en horas) de un contenedor en la nueva grúa del astillero SELENE se modela como una variable aleatoria continua $\xi$ con función de densidad:
+
+$$
+f(x) =
+\begin{cases}
+k \cdot x & \text{si } 0 < x < 4, \\
+0 & \text{en el resto.}
+\end{cases}
+$$
+
+Se pide:
+
+a)  Determina el valor de $k$ para que $f(x)$ sea una función de densidad válida.
+b)  Deduce la función de distribución $F(x)$ para todos los valores de $x \in \mathbb{R}$.
+c)  Calcula $P(1 \le \xi \le 2)$ mediante $F(x)$.
+d)  Calcula $P(\xi = 2)$. Justifica el resultado.
+e)  ¿En qué se diferencia esta variable de la del problema 8.1 desde el punto de vista de la asignación de probabilidad a un valor concreto?
+
+### Problema 8.4. Identificar funciones de distribución.
+
+Para cada una de las siguientes funciones definidas sobre $\mathbb{R}$, indica si puede o no ser una **función de distribución** de una variable aleatoria, justificando con base en las cuatro propiedades del capítulo:
+
+a)  $F_1(x) = \begin{cases} 0 & \text{si } x < 0, \\ x/2 & \text{si } 0 \le x \le 2, \\ 1 & \text{si } x > 2. \end{cases}$
+b)  $F_2(x) = \dfrac{1}{1 + x^2}$ para todo $x \in \mathbb{R}$.
+c)  $F_3(x) = \begin{cases} 0 & \text{si } x < 0, \\ 1 - e^{-x} & \text{si } x \ge 0. \end{cases}$
+d)  $F_4(x) = 1 - e^{-x^2}$ para todo $x \in \mathbb{R}$.
+e)  $F_5(x) = \begin{cases} 0 & \text{si } x < 1, \\ 0{,}3 & \text{si } 1 \le x < 2, \\ 0{,}7 & \text{si } 2 \le x < 3, \\ 1 & \text{si } x \ge 3. \end{cases}$
+
+### Problema 8.5. Esperanza y varianza de un juego.
+
+Los casinos del **Sistema Coruscant** ofrecen el siguiente juego: el jugador paga 5 PAVOs por participar y extrae una carta de una baraja galáctica de 52 cartas. Los premios son:
+
+-   Si sale un **as** (4 cartas): recibe 30 PAVOs (gana 25 netos).
+-   Si sale una **figura** —J, Q, K— (12 cartas): recibe 10 PAVOs (gana 5 netos).
+-   Si sale **cualquier otra carta** (36 cartas): no recibe nada (pierde 5).
+
+Sea $G = $ *"ganancia neta por apuesta"* en PAVOs.
+
+Se pide:
+
+a)  Escribe la función de cuantía de $G$.
+b)  Calcula la esperanza $E(G)$ e interpreta el signo del resultado.
+c)  Calcula la varianza $\mathrm{Var}(G)$ y la desviación típica $\sigma_G$.
+d)  Un cliente afirma: *"llevo 10 partidas ganando en total, así que el juego es rentable"*. ¿Qué le respondes desde el punto de vista de la esperanza matemática y la Ley de los Grandes Números?
+
+### Problema 8.6. Esperanza y varianza en el caso continuo.
+
+El tiempo de mantenimiento programado (en horas) de un reactor de curvatura del astillero KORRIGAN sigue una distribución con densidad:
+
+$$
+f(x) =
+\begin{cases}
+\dfrac{3}{64}\, x^2 & \text{si } 0 \le x \le 4, \\
+0 & \text{en el resto.}
+\end{cases}
+$$
+
+Se pide:
+
+a)  Verifica que $f(x)$ es efectivamente una función de densidad válida.
+b)  Calcula la esperanza $E(\xi)$.
+c)  Calcula $E(\xi^2)$ y, a partir de él, la varianza $\mathrm{Var}(\xi)$ y la desviación típica $\sigma$.
+d)  El jefe de planificación quiere fijar un tiempo "de reserva" para cada mantenimiento de modo que sea suficiente en al menos el 75% de los casos. Aplica la desigualdad de Chebyshev para dar una cota razonable.
+
+### Problema 8.7. Linealidad: los impuestos de *Hyperdrive Express*.
+
+Los beneficios netos $\xi$ de una filial de *Hyperdrive Express* (en miles de PAVOs) siguen una distribución con $E(\xi) = 200$ y $\mathrm{Var}(\xi) = 400$. La casa matriz aplica sobre esos beneficios:
+
+-   Un **impuesto de sociedades** del 25%.
+-   Una **tasa fija adicional** de 10 miles de PAVOs (con independencia del beneficio).
+
+Sea $Y = 10 + 0{,}25\, \xi$ el pago fiscal total.
+
+Se pide:
+
+a)  Calcula $E(Y)$ y $\mathrm{Var}(Y)$ aplicando las propiedades de la esperanza y la varianza.
+b)  La tesorería de la matriz quiere provisionar el pago con un margen de seguridad. ¿En qué banda cabe esperar razonablemente que caiga el pago fiscal, si tomamos como referencia $E(Y) \pm 2\sigma_Y$?
+c)  Un analista prevé que el próximo año los beneficios crecerán un 20% en media ($E(\xi) = 240$) pero la varianza se duplicará ($\mathrm{Var}(\xi) = 800$). Recalcula $E(Y)$ y $\mathrm{Var}(Y)$.
+d)  ¿Podrías haber calculado $E(Y)$ y $\mathrm{Var}(Y)$ sin conocer la distribución exacta de $\xi$? ¿Por qué?
+
+### Problema 8.8. Variable tipificada y comparación entre empresas.
+
+Se conocen los siguientes datos sobre la rentabilidad anual (%) de dos compañías del sector RStars:
+
+|                   | *Arrakis Freight* | *Shuttlepod Movers* |
+|:------------------|:-----------------:|:-------------------:|
+| Rentabilidad esperada | 15%              | 8%                  |
+| Desviación típica     | 4%               | 1,5%                |
+
+::: {style="text-align: center;"}
+**Tabla 8.5**
+:::
+
+
+En el último trimestre, *Arrakis Freight* obtuvo un **22% de rentabilidad** y *Shuttlepod Movers* obtuvo un **11%**. Se pide:
+
+a)  Calcula el valor tipificado ($z$-score) de la rentabilidad observada en cada compañía.
+b)  ¿Cuál de las dos compañías obtuvo un resultado más **excepcional** respecto a su comportamiento típico? ¿Cuál obtuvo más rentabilidad en términos absolutos?
+c)  Justifica por qué comparar directamente el 22% con el 11% carecería de sentido para juzgar el desempeño relativo de las dos compañías.
+d)  ¿Qué respuesta darías al director de comunicación de *Shuttlepod Movers* si te pide un titular breve para su próxima memoria anual sobre el desempeño del trimestre?
+
+### Problema 8.9. Interpretar asimetría y curtosis.
+
+La AITM ha calculado los coeficientes de **asimetría** ($\gamma_1$) y de **exceso de curtosis** ($\gamma_2$) para cinco variables económicas del sector RStars:
+
+| Variable                                                    | $\gamma_1$ | $\gamma_2$ |
+|:------------------------------------------------------------|:----------:|:----------:|
+| a) Retornos diarios del índice KESSEL 20                    |    -0,3    |     5,0    |
+| b) Salarios mensuales de la plantilla de *Shuttlepod Movers*|    +2,1    |     8,0    |
+| c) Precio diario de la especia arrakiana                    |    +0,05   |     0,1    |
+| d) Tiempo de descarga en la grúa KORRIGAN                   |    -0,8    |    -0,5    |
+| e) Nº de averías graves acumuladas (IIG) en los cargueros   |    +3,5    |    12,0    |
+
+::: {style="text-align: center;"}
+**Tabla 8.6**
+:::
+
+
+Para cada variable, se pide:
+
+a)  Describir cualitativamente la **forma** de la distribución: hacia dónde se inclina y qué tipo de colas tiene (leptocúrtica, platicúrtica o mesocúrtica).
+b)  Sugerir una **interpretación económica** coherente con la forma detectada.
+c)  Identificar cuáles de las cinco variables presentan un **riesgo de eventos extremos** apreciable, y justificar por qué.
+d)  ¿En cuál de las cinco variables la lectura resumen "media $\pm$ desviación típica" sería más **engañosa** para el analista?
+
+### Problema 8.10. Desigualdad de Chebyshev en la práctica.
+
+La disponibilidad mensual (uptime, en %) de los servidores centrales del *Consorcio Financiero de Coruscant* se comporta como una variable aleatoria con esperanza $\mu = 98\%$ y desviación típica $\sigma = 1{,}5\%$. La distribución exacta se desconoce. Se pide:
+
+a)  Aplica la desigualdad de Chebyshev para acotar la probabilidad de que la disponibilidad se aparte de su media en más de $3$ puntos porcentuales (es decir, $|\xi - 98| \ge 3$).
+b)  Repite el cálculo para desviaciones de $4{,}5$ puntos porcentuales, y luego de $6$.
+c)  El SLA (Service Level Agreement) del Consorcio con sus clientes exige que la disponibilidad **no baje del 94%**. Acota la probabilidad de incumplir el SLA usando Chebyshev.
+d)  Si supiéramos que la variable sigue una distribución **normal**, ¿la cota de Chebyshev del apartado (a) sería ajustada o holgada? Comenta el papel de Chebyshev como "cota universal".
+
+### Problema 8.11. Decisión bajo incertidumbre: elegir ruta.
+
+*Kaiju Haulage Co.* estudia tres rutas alternativas para el próximo trimestre, cuyos beneficios (en miles de PAVOs) se han modelado como variables aleatorias con las siguientes características:
+
+| Ruta                              | $E(\xi)$ | $\sigma$ | $\mathrm{Var}(\xi)$ |
+|:----------------------------------|:--------:|:--------:|:-------------------:|
+| **A** — Vía Láctea interior       |   100    |    15    |        225          |
+| **B** — Andrómeda regular         |   140    |    40    |      1\,600         |
+| **C** — Klendathu (alto riesgo)   |   180    |    80    |      6\,400         |
+
+::: {style="text-align: center;"}
+**Tabla 8.7**
+:::
+
+
+Se pide:
+
+a)  ¿Qué ruta elegiría un decisor **neutral al riesgo** (que sólo mira la esperanza)? Justifica.
+b)  Aplica el criterio **media-varianza** $U(\xi) = E(\xi) - \lambda\cdot \mathrm{Var}(\xi)$ con $\lambda = 0{,}01$ y determina qué ruta elegiría.
+c)  Repite el cálculo con $\lambda = 0{,}05$. ¿Cambia la ruta ganadora?
+d)  ¿Para qué **rango de valores** de $\lambda$ la ruta B sería la más elegida? Interpreta.
+e)  ¿Qué recomendarías al CEO de *Kaiju Haulage Co.* si te dice que la compañía atraviesa un momento delicado y no puede permitirse un mal trimestre?
+
+### Problema 8.12. Variable aleatoria bidimensional: marginales y covarianza.
+
+Sobre las 300 compañías RStars se han estimado las siguientes probabilidades conjuntas para la variable $(X, Y) = $ *(nº de rutas, nº de galaxias en las que opera)*:
+
+| $X \setminus Y$ |  1   |  2   |  3   |
+|:---------------:|:----:|:----:|:----:|
+|      **1**      | 0,05 | 0,10 | 0,15 |
+|      **2**      | 0,10 | 0,15 | 0,05 |
+|      **3**      | 0,20 | 0,10 | 0,10 |
+
+::: {style="text-align: center;"}
+**Tabla 8.8**
+:::
+
+
+Se pide:
+
+a)  Calcula las distribuciones **marginales** de $X$ y de $Y$.
+b)  Comprueba si $X$ e $Y$ son **independientes** en al menos una casilla y concluye sobre la independencia global.
+c)  Calcula $E(X)$, $E(Y)$, $\mathrm{Var}(X)$ y $\mathrm{Var}(Y)$.
+d)  Calcula $E(XY)$ y, a partir de él, la **covarianza** $\mathrm{Cov}(X, Y)$.
+e)  Calcula el **coeficiente de correlación** $\rho_{XY}$ e interpreta el signo y la intensidad de la relación.
+
+### Problema 8.13. Auditoría integradora: coste esperado en KORRIGAN.
+
+**Mara Qyà** audita el nuevo servicio de logística del astillero KORRIGAN. Los ingenieros modelan el número de averías por unidad instalada como una variable aleatoria $\xi$ con función de cuantía:
+
+| $x_i$ | 0 | 1 | 2 | 3 |
+|:-----:|:---:|:---:|:---:|:---:|
+| $p_i$ | 0,60 | 0,25 | 0,10 | 0,05 |
+
+::: {style="text-align: center;"}
+**Tabla 8.9**
+:::
+
+
+Cada unidad instalada genera un coste de reparación proporcional al **cuadrado** del número de averías (porque las reparaciones se acumulan de forma no lineal por complejidad técnica): $C = 500 \cdot \xi^2$ PAVOs.
+
+KORRIGAN planea instalar **100 unidades** el próximo año, y las averías de cada unidad son independientes entre sí.
+
+Se pide:
+
+a)  Calcula $E(\xi)$ y $\mathrm{Var}(\xi)$.
+b)  Calcula el coste esperado por unidad $E(C)$ aplicando la regla del estadístico inconsciente (LOTUS).
+c)  Calcula el coste total esperado para las 100 unidades, $E(T)$, y su varianza $\mathrm{Var}(T)$. (Sugerencia: calcula primero $\mathrm{Var}(C)$.)
+d)  Aplica la desigualdad de Chebyshev para acotar la probabilidad de que el coste total supere en más de un **50%** al esperado, es decir, $P(T > 1{,}5\cdot E(T))$.
+e)  KORRIGAN plantea repartir el coste esperado entre los 100 clientes cobrando a cada uno una **prima fija**. ¿Cuál sería esa prima? Explica, en términos de la Ley de los Grandes Números, por qué esta estrategia funciona mejor para KORRIGAN que para un cliente individual.
+
+## Soluciones a los problemas propuestos. {#soluciones-cap08}
+
+### Solución al Problema 8.1.
+
+a)  Para que $\xi$ sea una variable aleatoria válida, la suma de las cuantías debe valer 1:
+
+    $$0{,}10 + 0{,}20 + 0{,}40 + k + 0{,}05 = 1 \implies k = \mathbf{0{,}25}.$$
+
+b)  Función de distribución (acumulada):
+
+    | $x_i$ | 0 | 1 | 2 | 3 | 4 |
+    |:-----:|:---:|:---:|:---:|:---:|:---:|
+    | $F(x_i)$ | 0,10 | 0,30 | 0,70 | 0,95 | 1,00 |
+
+c)  Usando $F(x)$:
+
+    -   $P(1 \le \xi \le 3) = F(3) - F(0) = 0{,}95 - 0{,}10 = \mathbf{0{,}85}$.
+    -   $P(\xi \ge 2) = 1 - P(\xi \le 1) = 1 - F(1) = 1 - 0{,}30 = \mathbf{0{,}70}$.
+
+d)  La compañía tiene una tasa moderada de incidencias: en **el 30% de los trimestres** hay una incidencia o menos, pero en **el 70% de los trimestres** hay al menos dos. La esperanza matemática (ver problema 8.2 para el cálculo análogo) sería $E(\xi) = 0\cdot 0{,}10 + 1\cdot 0{,}20 + 2\cdot 0{,}40 + 3\cdot 0{,}25 + 4\cdot 0{,}05 = 1{,}95$: alrededor de dos incidencias por trimestre. Es una compañía con siniestralidad no despreciable; conviene tener el equipo de mantenimiento provisionado para responder con celeridad.
+
+### Solución al Problema 8.2.
+
+a)  Con 4 despachos independientes y $p = 0{,}5$, la distribución sigue el patrón binomial $B(4;\,0{,}5)$. Los coeficientes son los del binomio de Newton $\binom{4}{k}$:
+
+    | $x_i$ | 0 | 1 | 2 | 3 | 4 |
+    |:-----:|:---:|:---:|:---:|:---:|:---:|
+    | $p_i$ | $1/16$ | $4/16$ | $6/16$ | $4/16$ | $1/16$ |
+
+b)  Esperanza:
+
+    $$E(\xi) = \dfrac{0\cdot 1 + 1\cdot 4 + 2\cdot 6 + 3\cdot 4 + 4\cdot 1}{16} = \dfrac{0 + 4 + 12 + 12 + 4}{16} = \dfrac{32}{16} = \mathbf{2}.$$
+
+    Momento de orden 2:
+
+    $$E(\xi^2) = \dfrac{0 + 4 + 24 + 36 + 16}{16} = \dfrac{80}{16} = 5.$$
+
+    Varianza:
+
+    $$\mathrm{Var}(\xi) = E(\xi^2) - [E(\xi)]^2 = 5 - 4 = \mathbf{1}.$$
+
+    Desviación típica: $\sigma = \mathbf{1}$.
+
+c)  $P(\xi \ge 3) = p_3 + p_4 = 4/16 + 1/16 = 5/16 \approx \mathbf{0{,}3125}$. En el 31,25% de las noches llegarán tres o cuatro cargueros con éxito.
+
+d)  Los dos directivos tienen **cada uno una parte** de razón:
+
+    -   El primero acierta al hablar del promedio: **a largo plazo**, la media de éxitos por noche tenderá a 2 (Ley de los Grandes Números).
+    -   El segundo acierta al recordar que $E(\xi) = 2$ **no garantiza** que cada noche se cumpla ese valor. La varianza es 1 y la desviación típica también, así que oscilaciones de $\pm 1$ éxito por noche son perfectamente esperables. De hecho, si miramos la cuantía, la noche con exactamente dos éxitos ocurre solo el 37,5% de las veces (6/16). En el 62,5% restante, el resultado real será distinto de 2.
+
+    La lectura combinada: la esperanza es una **guía para la planificación**, no una promesa para cada noche.
+
+### Solución al Problema 8.3.
+
+a)  La condición $\int_{-\infty}^{+\infty} f(x)\, dx = 1$ exige:
+
+    $$\int_0^4 k\, x\, dx = k \cdot \left[\dfrac{x^2}{2}\right]_0^4 = k \cdot 8 = 1 \implies k = \mathbf{\dfrac{1}{8}}.$$
+
+b)  Función de distribución. Para $x < 0$, $F(x) = 0$; para $x > 4$, $F(x) = 1$. Para $x \in [0, 4]$:
+
+    $$F(x) = \int_0^x \dfrac{t}{8}\, dt = \dfrac{1}{8}\cdot \dfrac{x^2}{2} = \dfrac{x^2}{16}.$$
+
+    En resumen:
+
+    $$F(x) = \begin{cases} 0 & \text{si } x < 0, \\ x^2/16 & \text{si } 0 \le x \le 4, \\ 1 & \text{si } x > 4. \end{cases}$$
+
+c)  $P(1 \le \xi \le 2) = F(2) - F(1) = 4/16 - 1/16 = \mathbf{3/16} \approx 0{,}1875$.
+
+d)  $P(\xi = 2) = F(2) - F(2^{-}) = 4/16 - 4/16 = \mathbf{0}$. La función $F$ es continua en $x = 2$ (no hay salto), luego la probabilidad puntual es exactamente cero.
+
+e)  En una variable **continua**, la probabilidad se distribuye sobre un continuo no numerable de valores; a cada punto concreto le toca "nada". Por eso solo tiene sentido hablar de probabilidades de **intervalos**. En una variable **discreta** (como la del problema 8.1), en cambio, cada valor puntual tiene una probabilidad positiva: la cuantía $p_i$. Confundir ambos casos es un error clásico.
+
+### Solución al Problema 8.4.
+
+a)  $F_1$ **es válida**. Cumple: es continua y no decreciente, $\lim_{x\to -\infty} F_1(x) = 0$ y $\lim_{x\to +\infty} F_1(x) = 1$, y $0 \le F_1(x) \le 1$. Corresponde a una variable uniforme en $[0, 2]$.
+
+b)  $F_2$ **no es válida**. Falla en varios frentes:
+
+    -   $\lim_{x\to +\infty} F_2(x) = 0$ (no vale 1).
+    -   Es **decreciente** para $x > 0$ (por ejemplo, $F_2(0) = 1$ y $F_2(1) = 1/2$).
+
+    Es una función perfectamente respetable, pero no puede ser función de distribución.
+
+c)  $F_3$ **es válida**. Es la distribución exponencial de parámetro 1. Continua, no decreciente en toda $\mathbb{R}$, $\lim_{x\to -\infty} F_3(x) = 0$, $\lim_{x\to +\infty} F_3(x) = 1$.
+
+d)  $F_4$ **no es válida**. El problema está en $x < 0$: para $x = -1$, $F_4(-1) = 1 - e^{-1} \approx 0{,}632 > 0$; y $\lim_{x\to -\infty} F_4(x) = 1 - \lim e^{-x^2} = 1 - 0 = 1$. Es decir, $F_4$ tiende a 1 tanto en $-\infty$ como en $+\infty$, y por tanto **no es no decreciente**. Corresponde, si acaso, a la densidad de una variable simétrica alrededor de 0, pero no puede leerse como función de distribución.
+
+e)  $F_5$ **es válida**. Es la función de distribución de una variable discreta con tres puntos de masa: $x_1 = 1$ con $p_1 = 0{,}3$, $x_2 = 2$ con $p_2 = 0{,}4$, $x_3 = 3$ con $p_3 = 0{,}3$. Cumple todas las propiedades: no decreciente, límites correctos, y continua por la derecha en los puntos de salto.
+
+### Solución al Problema 8.5.
+
+a)  Con 52 cartas: $P(\text{as}) = 4/52 = 1/13$, $P(\text{figura}) = 12/52 = 3/13$, $P(\text{otra}) = 36/52 = 9/13$. Función de cuantía de $G$:
+
+    | Suceso   | Ganancia $g_i$ | $p_i$ |
+    |:---------|:--------------:|:-----:|
+    | As       |     +25        | 1/13  |
+    | Figura   |     +5         | 3/13  |
+    | Otra     |     -5         | 9/13  |
+
+b)  Esperanza:
+
+    $$E(G) = 25\cdot \dfrac{1}{13} + 5\cdot \dfrac{3}{13} + (-5)\cdot \dfrac{9}{13} = \dfrac{25 + 15 - 45}{13} = -\dfrac{5}{13} \approx \mathbf{-0{,}385}\ \text{PAVOs}.$$
+
+    La ganancia esperada por apuesta es **negativa**: el jugador pierde, en promedio, unos 38 céntimos de PAVO por apuesta. El juego es **desfavorable** para el jugador (favorable, por tanto, para el casino).
+
+c)  Momento de orden 2:
+
+    $$E(G^2) = 625\cdot \dfrac{1}{13} + 25\cdot \dfrac{3}{13} + 25\cdot \dfrac{9}{13} = \dfrac{625 + 75 + 225}{13} = \dfrac{925}{13} \approx 71{,}15.$$
+
+    Varianza:
+
+    $$\mathrm{Var}(G) = 71{,}15 - (-0{,}385)^2 \approx 71{,}15 - 0{,}148 \approx \mathbf{71{,}00}.$$
+
+    Desviación típica: $\sigma_G \approx \mathbf{8{,}43}$ PAVOs.
+
+d)  Al cliente hay que decirle, con toda claridad, dos cosas:
+
+    -   **La esperanza es negativa**: el juego pierde dinero en promedio. Cada vez que juega, "espera" perder unos 0,38 PAVOs.
+    -   La **Ley de los Grandes Números** garantiza que, a medida que aumenta el número de apuestas, la ganancia media por apuesta tenderá al valor esperado $-0{,}385$. Diez partidas ganadoras no son una muestra suficiente para desmentirlo: la desviación típica ($\sigma \approx 8{,}43$) es enorme comparada con la esperanza, así que rachas de suerte —buena o mala— son perfectamente compatibles con un juego a la larga desfavorable.
+
+    Es exactamente el error mental que sostiene la industria del casino: confundir una racha corta con una estimación fiable de la esperanza.
+
+### Solución al Problema 8.6.
+
+a)  Verificación:
+
+    $$\int_0^4 \dfrac{3}{64}\, x^2\, dx = \dfrac{3}{64}\cdot \left[\dfrac{x^3}{3}\right]_0^4 = \dfrac{3}{64}\cdot \dfrac{64}{3} = 1. \quad ✓$$
+
+    Y como $f(x) \ge 0$ en $[0, 4]$, es efectivamente una función de densidad válida.
+
+b)  Esperanza:
+
+    $$E(\xi) = \int_0^4 x\cdot \dfrac{3}{64}\, x^2\, dx = \dfrac{3}{64}\int_0^4 x^3\, dx = \dfrac{3}{64}\cdot \dfrac{4^4}{4} = \dfrac{3}{64}\cdot 64 = \mathbf{3}\ \text{horas}.$$
+
+c)  Momento de orden 2:
+
+    $$E(\xi^2) = \int_0^4 x^2\cdot \dfrac{3}{64}\, x^2\, dx = \dfrac{3}{64}\int_0^4 x^4\, dx = \dfrac{3}{64}\cdot \dfrac{4^5}{5} = \dfrac{3}{64}\cdot \dfrac{1024}{5} = \dfrac{3072}{320} = \mathbf{9{,}6}.$$
+
+    Varianza: $\mathrm{Var}(\xi) = 9{,}6 - 3^2 = 9{,}6 - 9 = \mathbf{0{,}6}$. Desviación típica: $\sigma = \sqrt{0{,}6} \approx \mathbf{0{,}775}$ horas.
+
+    En promedio, cada mantenimiento dura 3 horas, con oscilaciones típicas de unos 47 minutos.
+
+d)  Aplicando Chebyshev, $P(|\xi - 3| \ge k\cdot 0{,}775) \le 1/k^2$. Para cubrir al menos el 75% de los casos con seguridad, buscamos que $1/k^2 \le 0{,}25$, es decir $k \ge 2$. El tiempo de reserva sería $\mu + 2\sigma = 3 + 2\cdot 0{,}775 \approx \mathbf{4{,}55}$ horas.
+
+    Chebyshev garantiza que la desviación de más de $2\sigma$ tiene probabilidad de a lo sumo el 25%, así que reservar hasta el umbral $\mu + 2\sigma$ **cubre al menos el 75%** de los casos, cualquiera que sea la distribución exacta (aunque en la práctica, con esta distribución concreta, la cobertura real es mayor).
+
+### Solución al Problema 8.7.
+
+a)  Aplicando las propiedades de la esperanza y de la varianza para transformaciones lineales:
+
+    $$E(Y) = 10 + 0{,}25 \cdot E(\xi) = 10 + 0{,}25\cdot 200 = \mathbf{60}\ \text{miles de PAVOs}.$$
+
+    $$\mathrm{Var}(Y) = (0{,}25)^2 \cdot \mathrm{Var}(\xi) = 0{,}0625\cdot 400 = \mathbf{25}.$$
+
+    Nota importante: la constante 10 **no afecta a la varianza** (sumar una cantidad fija no altera la dispersión).
+
+    Desviación típica: $\sigma_Y = 5$ miles de PAVOs.
+
+b)  Banda $E(Y) \pm 2\sigma_Y = 60 \pm 10 = [50,\ 70]$ miles de PAVOs. La tesorería puede provisionar razonablemente entre 50 y 70 miles de PAVOs; en la mayoría de escenarios el pago fiscal caerá en esa horquilla.
+
+c)  Con las nuevas cifras: $E(Y) = 10 + 0{,}25\cdot 240 = \mathbf{70}$ miles de PAVOs. $\mathrm{Var}(Y) = (0{,}25)^2 \cdot 800 = \mathbf{50}$. Desviación típica: $\sigma_Y \approx 7{,}07$. La banda pasa a $[55{,}9,\ 84{,}1]$ miles de PAVOs: mayor pago esperado, pero también mayor incertidumbre.
+
+d)  **Sí**, se puede. Las propiedades de la esperanza y la varianza para transformaciones lineales solo dependen de $E(\xi)$ y $\mathrm{Var}(\xi)$, no de la forma completa de la distribución. Es una de las razones por las que los "dos primeros momentos" son tan valorados en gestión: permiten planificar sin comprometerse con hipótesis fuertes sobre la forma de la distribución.
+
+### Solución al Problema 8.8.
+
+a)  Z-scores:
+
+    -   *Arrakis Freight*: $z_A = (22 - 15)/4 = 7/4 = \mathbf{1{,}75}$.
+    -   *Shuttlepod Movers*: $z_S = (11 - 8)/1{,}5 = 3/1{,}5 = \mathbf{2{,}00}$.
+
+b)  En términos **absolutos**, *Arrakis Freight* obtiene más rentabilidad (22% > 11%). En términos **relativos** (respecto a su propia distribución), *Shuttlepod Movers* obtiene un resultado **más excepcional**: se sitúa a 2 desviaciones típicas por encima de su media, mientras que Arrakis Freight se queda en 1,75. Shuttlepod Movers ha tenido un trimestre estadísticamente más notable que Arrakis Freight, aunque las cifras brutas parezcan sugerir lo contrario.
+
+c)  Comparar directamente el 22% con el 11% ignora la **escala natural** de cada distribución. Las dos compañías operan en contextos muy distintos: Arrakis Freight tiene rentabilidades más altas y más volátiles; Shuttlepod Movers, más bajas y estables. Un resultado excepcional en Shuttlepod (superar en 3 puntos su rentabilidad media, cuando su $\sigma$ es solo 1,5) merece más mérito que superar en 7 puntos una media de 15 con $\sigma = 4$. El z-score corrige esa asimetría de contexto y permite comparar "peras con peras".
+
+d)  Titular sugerido: *"Shuttlepod Movers cierra el trimestre con una rentabilidad del 11%, dos desviaciones típicas por encima de su media histórica: uno de los mejores trimestres desde que se lleva registro"*. Es honesto y matiza el aparente "solo 11%" del resultado bruto.
+
+### Solución al Problema 8.9.
+
+a)  Lectura por variable:
+
+    -   **(a) KESSEL 20:** $\gamma_1 = -0{,}3$ (asimetría negativa leve; cola izquierda algo más larga: las caídas grandes son algo más frecuentes que las subidas grandes). $\gamma_2 = +5{,}0$ (**leptocúrtica pronunciada**: colas gruesas, típico de retornos financieros).
+    -   **(b) Salarios Shuttlepod:** $\gamma_1 = +2{,}1$ (asimetría positiva fuerte; la típica cola larga a la derecha de los salarios altos). $\gamma_2 = +8{,}0$ (leptocúrtica: pocos empleados en salarios extremos, pero cuando aparecen son muy altos).
+    -   **(c) Precio especia:** $\gamma_1 \approx 0$ y $\gamma_2 \approx 0$. Distribución prácticamente **simétrica y mesocúrtica**: comportamiento cercano a la normal.
+    -   **(d) Tiempo de descarga KORRIGAN:** $\gamma_1 = -0{,}8$ (asimetría negativa moderada: hay una cola a la izquierda de descargas rápidas). $\gamma_2 = -0{,}5$ (**platicúrtica**: colas más finas que la normal, distribución "achatada" en el centro).
+    -   **(e) IIG cargueros:** $\gamma_1 = +3{,}5$ y $\gamma_2 = +12{,}0$: **fuertemente asimétrica a la derecha** y **muy leptocúrtica**. Distribución de riesgo típico: la mayoría con pocas averías, pero unas pocas con siniestralidad extrema.
+
+b)  Interpretaciones económicas:
+
+    -   El **KESSEL 20** se comporta como cualquier índice bursátil maduro: los crashes son algo más frecuentes que los rallies simétricos, y los movimientos extremos son bastante más habituales de lo que sugeriría una normal (fenómeno de las "colas gordas" de las series financieras).
+    -   Los **salarios de Shuttlepod** siguen el patrón clásico de las distribuciones salariales: base ancha en salarios modestos y "cola larga" de directivos.
+    -   La **especia arrakiana** es un mercado maduro y muy líquido: precios estables y sin sorpresas extremas.
+    -   El **tiempo de descarga** se comporta como una variable operativa acotada: dado que la grúa tiene un límite físico de eficiencia máxima (rara vez baja de cierto umbral) y otro de tiempo máximo aceptable, las colas se aplastan.
+    -   El **IIG** es el ejemplo canónico de "cola pesada" en gestión de riesgos: unas pocas naves con muchas averías dominan el coste total del sector.
+
+c)  Presentan **riesgo apreciable de eventos extremos** aquellas con curtosis alta: (a) KESSEL 20 ($\gamma_2 = 5$), (b) salarios Shuttlepod ($\gamma_2 = 8$) y (e) IIG cargueros ($\gamma_2 = 12$). La curtosis alta significa colas gruesas: los eventos que en una normal serían "prácticamente imposibles" pueden ocurrir con probabilidad no despreciable.
+
+d)  El resumen "media $\pm$ desviación típica" sería más engañoso en la variable **(e) IIG**. Con $\gamma_1 = 3{,}5$ y $\gamma_2 = 12$, la variable dista muchísimo de comportarse como una normal; la banda $\mu \pm \sigma$ no contiene aproximadamente el 68% de los datos como cabría esperar, y la media aritmética queda muy lejos de la mediana. Reportar solo (media, $\sigma$) enmascararía por completo las naves con siniestralidad extrema, que son las que interesan al gestor de mantenimiento.
+
+### Solución al Problema 8.10.
+
+a)  Con $k = 3/1{,}5 = 2$: $P(|\xi - 98| \ge 3) \le 1/2^2 = \mathbf{0{,}25}$. Al menos con probabilidad 0,75, la disponibilidad se mantendrá dentro de $\pm 3$ puntos de la media (es decir, entre 95% y 101%; el 101% no tiene sentido físico, pero Chebyshev no lo sabe).
+
+b)  Para desviaciones de 4,5 puntos ($k = 3$): $P \le 1/9 \approx \mathbf{0{,}111}$. Para desviaciones de 6 puntos ($k = 4$): $P \le 1/16 \approx \mathbf{0{,}0625}$.
+
+c)  "Bajar del 94%" corresponde a $\xi - 98 \le -4$, es decir $|\xi - 98| \ge 4$ (por debajo). Con $k = 4/1{,}5 \approx 2{,}67$: Chebyshev acota
+
+    $$P(|\xi - 98| \ge 4) \le \dfrac{1}{(2{,}67)^2} \approx 0{,}140.$$
+
+    Como el evento "bajar del 94%" es solo la mitad izquierda de $|\xi - 98| \ge 4$, la cota es aún más generosa (típicamente P $\le 0{,}140$; para acotar solo la cola inferior habría que usar cotas más finas, pero como Chebyshev es bilateral y simétrica, se acepta esta cota conservadora).
+
+    Interpretación: **como mucho el 14% de los meses** se incumpliría el SLA. Chebyshev nos protege ante lo desconocido.
+
+d)  Si supiéramos que $\xi \sim N(98,\ 1{,}5^2)$, la probabilidad exacta de $|\xi - 98| \ge 3$ sería aproximadamente $P(|Z| \ge 2) \approx 0{,}046$ (una normal $N(0,1)$ deja fuera de la banda $\pm 2$ solo el 4,6% de los casos). La cota de Chebyshev (0,25) es mucho más **holgada** que la cifra real. Y así debe ser: Chebyshev es la cota universal válida para **cualquier** distribución, y por tanto necesariamente peor que las cotas ajustadas a distribuciones concretas. Su utilidad es precisamente esa: proteger cuando no sabemos qué distribución tenemos delante.
+
+### Solución al Problema 8.11.
+
+a)  Decisor **neutral al riesgo**: elige por la esperanza. $E(\xi_C) = 180 > E(\xi_B) = 140 > E(\xi_A) = 100$. Elige la ruta **C**.
+
+b)  Con $\lambda = 0{,}01$:
+
+    -   $U_A = 100 - 0{,}01\cdot 225 = 100 - 2{,}25 = \mathbf{97{,}75}$.
+    -   $U_B = 140 - 0{,}01\cdot 1\,600 = 140 - 16 = \mathbf{124{,}00}$.
+    -   $U_C = 180 - 0{,}01\cdot 6\,400 = 180 - 64 = \mathbf{116{,}00}$.
+
+    Ganadora: **B** (moderadamente averso al riesgo).
+
+c)  Con $\lambda = 0{,}05$:
+
+    -   $U_A = 100 - 0{,}05\cdot 225 = 100 - 11{,}25 = \mathbf{88{,}75}$.
+    -   $U_B = 140 - 0{,}05\cdot 1\,600 = 140 - 80 = \mathbf{60{,}00}$.
+    -   $U_C = 180 - 0{,}05\cdot 6\,400 = 180 - 320 = \mathbf{-140{,}00}$.
+
+    Ganadora: **A** (fuerte aversión al riesgo). La ruta C, con su enorme varianza, pasa a ser inaceptable.
+
+d)  La ruta B gana a la A cuando $U_B > U_A$, es decir, $140 - 1\,600\lambda > 100 - 225\lambda$, o sea $40 > 1\,375\lambda$, o sea $\lambda < 40/1\,375 \approx 0{,}0291$. Y gana a la C cuando $U_B > U_C$, es decir, $140 - 1\,600\lambda > 180 - 6\,400\lambda$, o sea $4\,800\lambda > 40$, o sea $\lambda > 40/4\,800 \approx 0{,}0083$.
+
+    B es la ruta óptima para $\lambda \in (0{,}0083,\ 0{,}0291)$: un decisor con **aversión al riesgo moderada** —ni neutral ni extremadamente conservador—.
+
+e)  Al CEO le diría: *"Si la compañía no puede permitirse un mal trimestre, elija la ruta A. Su beneficio esperado es el más bajo, pero también es la única que garantiza razonablemente un rango acotado de resultados. La ruta C, aunque triplica el beneficio esperado, podría dejarle en pérdidas si el trimestre va mal (con $\sigma = 80$, escenarios en torno a $\mu - 2\sigma = 180 - 160 = 20$ son perfectamente posibles). En un momento delicado, priorizar previsibilidad sobre rentabilidad es la decisión racional."*
+
+### Solución al Problema 8.12.
+
+a)  Marginales:
+
+    -   Marginal de $X$: $p_{1\bullet} = 0{,}05 + 0{,}10 + 0{,}15 = 0{,}30$; $p_{2\bullet} = 0{,}10 + 0{,}15 + 0{,}05 = 0{,}30$; $p_{3\bullet} = 0{,}20 + 0{,}10 + 0{,}10 = 0{,}40$.
+    -   Marginal de $Y$: $p_{\bullet 1} = 0{,}05 + 0{,}10 + 0{,}20 = 0{,}35$; $p_{\bullet 2} = 0{,}10 + 0{,}15 + 0{,}10 = 0{,}35$; $p_{\bullet 3} = 0{,}15 + 0{,}05 + 0{,}10 = 0{,}30$.
+
+    Verificación: $0{,}30 + 0{,}30 + 0{,}40 = 1$ ✓; $0{,}35 + 0{,}35 + 0{,}30 = 1$ ✓.
+
+b)  Probamos en la casilla $(X = 1,\ Y = 1)$: conjunta $= 0{,}05$; producto de marginales $= 0{,}30 \cdot 0{,}35 = 0{,}105$. Como $0{,}05 \neq 0{,}105$, **las variables no son independientes**. Basta con una única casilla que falle para descartar la independencia global.
+
+c)  Esperanzas y varianzas:
+
+    $$E(X) = 1\cdot 0{,}30 + 2\cdot 0{,}30 + 3\cdot 0{,}40 = 0{,}30 + 0{,}60 + 1{,}20 = \mathbf{2{,}10}.$$
+
+    $$E(X^2) = 1\cdot 0{,}30 + 4\cdot 0{,}30 + 9\cdot 0{,}40 = 0{,}30 + 1{,}20 + 3{,}60 = 5{,}10.$$
+
+    $$\mathrm{Var}(X) = 5{,}10 - (2{,}10)^2 = 5{,}10 - 4{,}41 = \mathbf{0{,}69}. \qquad \sigma_X \approx 0{,}831.$$
+
+    $$E(Y) = 1\cdot 0{,}35 + 2\cdot 0{,}35 + 3\cdot 0{,}30 = 0{,}35 + 0{,}70 + 0{,}90 = \mathbf{1{,}95}.$$
+
+    $$E(Y^2) = 1\cdot 0{,}35 + 4\cdot 0{,}35 + 9\cdot 0{,}30 = 0{,}35 + 1{,}40 + 2{,}70 = 4{,}45.$$
+
+    $$\mathrm{Var}(Y) = 4{,}45 - (1{,}95)^2 = 4{,}45 - 3{,}8025 = \mathbf{0{,}6475}. \qquad \sigma_Y \approx 0{,}805.$$
+
+d)  Cálculo de $E(XY)$:
+
+    $$
+    \begin{aligned}
+    E(XY) &= (1)(1)(0{,}05) + (1)(2)(0{,}10) + (1)(3)(0{,}15) \\
+          &\phantom{{}={}} + (2)(1)(0{,}10) + (2)(2)(0{,}15) + (2)(3)(0{,}05) \\
+          &\phantom{{}={}} + (3)(1)(0{,}20) + (3)(2)(0{,}10) + (3)(3)(0{,}10) \\
+          &= 0{,}05 + 0{,}20 + 0{,}45 + 0{,}20 + 0{,}60 + 0{,}30 + 0{,}60 + 0{,}60 + 0{,}90 \\
+          &= \mathbf{3{,}90}.
+    \end{aligned}
+    $$
+
+    Covarianza:
+
+    $$\mathrm{Cov}(X, Y) = E(XY) - E(X)\cdot E(Y) = 3{,}90 - (2{,}10)(1{,}95) = 3{,}90 - 4{,}095 = \mathbf{-0{,}195}.$$
+
+e)  Coeficiente de correlación:
+
+    $$\rho_{XY} = \dfrac{\mathrm{Cov}(X, Y)}{\sigma_X\cdot \sigma_Y} = \dfrac{-0{,}195}{0{,}831\cdot 0{,}805} = \dfrac{-0{,}195}{0{,}669} \approx \mathbf{-0{,}291}.$$
+
+    **Interpretación:** relación **negativa débil**. Las compañías que operan más rutas tienden, ligeramente, a operar en **menos** galaxias (probablemente porque las compañías con muchas rutas especializadas se concentran en un mercado geográfico concreto, mientras que las multigalácticas mantienen una red más selectiva). La correlación es débil ($|\rho| < 0{,}30$): existe la tendencia, pero con mucho ruido.
+
+### Solución al Problema 8.13.
+
+a)  Esperanza y varianza de $\xi$:
+
+    $$E(\xi) = 0\cdot 0{,}60 + 1\cdot 0{,}25 + 2\cdot 0{,}10 + 3\cdot 0{,}05 = 0 + 0{,}25 + 0{,}20 + 0{,}15 = \mathbf{0{,}60}.$$
+
+    $$E(\xi^2) = 0 + 1\cdot 0{,}25 + 4\cdot 0{,}10 + 9\cdot 0{,}05 = 0{,}25 + 0{,}40 + 0{,}45 = \mathbf{1{,}10}.$$
+
+    $$\mathrm{Var}(\xi) = 1{,}10 - (0{,}60)^2 = 1{,}10 - 0{,}36 = \mathbf{0{,}74}.$$
+
+b)  Aplicando LOTUS con $g(\xi) = 500\cdot \xi^2$:
+
+    $$E(C) = E[500\cdot \xi^2] = 500\cdot E(\xi^2) = 500\cdot 1{,}10 = \mathbf{550}\ \text{PAVOs por unidad}.$$
+
+c)  Coste total esperado para 100 unidades (por linealidad):
+
+    $$E(T) = 100\cdot E(C) = 100\cdot 550 = \mathbf{55\,000}\ \text{PAVOs}.$$
+
+    Para la varianza, necesitamos $\mathrm{Var}(C)$. Aplicando de nuevo LOTUS:
+
+    $$E(\xi^4) = 0 + 1\cdot 0{,}25 + 16\cdot 0{,}10 + 81\cdot 0{,}05 = 0{,}25 + 1{,}60 + 4{,}05 = 5{,}90.$$
+
+    $$\mathrm{Var}(\xi^2) = E(\xi^4) - [E(\xi^2)]^2 = 5{,}90 - (1{,}10)^2 = 5{,}90 - 1{,}21 = 4{,}69.$$
+
+    $$\mathrm{Var}(C) = 500^2\cdot \mathrm{Var}(\xi^2) = 250\,000\cdot 4{,}69 = 1\,172\,500.$$
+
+    Y por independencia de las 100 unidades:
+
+    $$\mathrm{Var}(T) = 100\cdot \mathrm{Var}(C) = 100\cdot 1\,172\,500 = \mathbf{117\,250\,000}.$$
+
+    $$\sigma_T = \sqrt{117\,250\,000} \approx \mathbf{10\,827}\ \text{PAVOs}.$$
+
+d)  El evento *"superar en más de un 50% al esperado"* equivale a $T > 1{,}5\cdot 55\,000 = 82\,500$, es decir $T - 55\,000 > 27\,500$. Con $k = 27\,500/10\,827 \approx 2{,}54$, Chebyshev acota:
+
+    $$P(|T - E(T)| \ge 27\,500) \le \dfrac{1}{(2{,}54)^2} \approx 0{,}155.$$
+
+    Y como el evento "sólo hacia arriba" es una parte del bilateral, $P(T > 82\,500) \le 0{,}155$: **menos del 16% de probabilidad** de que el coste total supere el 50% de lo esperado. Es una cota conservadora pero informativa para la planificación financiera.
+
+e)  Prima por cliente: $E(T)/100 = 55\,000/100 = \mathbf{550}$ PAVOs. Coincide con $E(C)$, el coste esperado por unidad. La justificación estadística es la Ley de los Grandes Números: al **repartir el riesgo** entre 100 unidades, el coste medio por unidad tiende a estabilizarse en torno a su esperanza:
+
+    $$\mathrm{Var}(\overline{C}) = \dfrac{\mathrm{Var}(T)}{100^2} = \dfrac{117\,250\,000}{10\,000} = 11\,725,$$
+
+    de modo que $\sigma_{\overline{C}} = \sqrt{11\,725} \approx \mathbf{108{,}3}$ PAVOs, muy inferior al $\sigma_C = \sqrt{1\,172\,500} \approx \mathbf{1\,082{,}8}$ PAVOs de un cliente individual. Es decir, el riesgo del **coste medio** es 10 veces menor que el del **coste individual** (justamente $\sqrt{100} = 10$: el factor de reducción que la Ley de los Grandes Números garantiza al promediar $n$ variables independientes).
+
+    **Interpretación empresarial:** para un cliente individual, no hay garantía de coste (podría tener 0 averías o 3, muy volátil); para KORRIGAN, con 100 clientes, el coste total se concentra alrededor de su esperanza (con desviación relativa del 20% aproximadamente). Es exactamente la lógica que subyace a la industria del **seguro**: transformar riesgos individuales impredecibles en un coste agregado predecible mediante la mutualización. La compañía puede cobrar la prima justa (550 PAVOs) sabiendo que su balance agregado casi no sufrirá sorpresas.
+
+    Esta es, en definitiva, una de las aplicaciones económicas más importantes de todo el capítulo: **la esperanza matemática es la guía racional para la fijación de primas de riesgo, siempre que el número de asegurados sea grande y las siniestralidades sean razonablemente independientes**.
