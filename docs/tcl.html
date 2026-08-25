@@ -33,6 +33,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+          margin-bottom: 0em;
         }
     .hanging div.csl-entry {
       margin-left:2em;
@@ -879,7 +880,779 @@ Figure 11.3: Simulación en vivo del TCL. La distribución individual (panel izq
 <li><p><strong>La LGN es la base del negocio de vender previsibilidad; el TCL es la base de la inferencia.</strong> Los seguros, los casinos, los <em>market makers</em> y las encuestas funcionan porque la LGN convierte incertidumbre individual en previsibilidad colectiva. Los intervalos de confianza, los tests de hipótesis y los tests A/B funcionan porque el TCL nos garantiza que la distribución de nuestros estimadores es aproximadamente normal. Sin estos dos teoremas, ni la industria del riesgo ni la estadística inferencial tendrían base matemática. Con ellos, se sostiene todo el bloque de aplicaciones que sigue.</p></li>
 </ol>
 <p>En el próximo capítulo, con el TCL como llave maestra, entraremos por fin en <strong>inferencia estadística</strong>: distribuciones muestrales, estimadores, intervalos de confianza. La normal, que ha ido asomando desde el capítulo 7, acabará de instalarse como protagonista absoluta —no de los datos, sino de las conclusiones que sobre los datos se pueden extraer. Aparecerán como aliadas la ya insinuada <strong>t de Student</strong>, y también la <strong>ji-cuadrado</strong> y la <strong>F de Snedecor</strong>, todas ellas derivadas de la normal y todas ellas nacidas del TCL aplicado a estadísticos de segundo orden. La estadística inferencial, que da miedo por su nombre pero se sostiene sobre las distribuciones que ya conocemos, está por fin a un capítulo de distancia.</p>
-
+</div>
+<div id="problemas-cap11" class="section level2" number="11.11">
+<h2>
+<span class="header-section-number">11.11</span> Problemas propuestos.<a class="anchor" aria-label="anchor" href="#problemas-cap11"><i class="fas fa-link"></i></a>
+</h2>
+<p>Este capítulo, más conceptual que los anteriores, tiene un doble objetivo pedagógico: consolidar la <strong>intuición</strong> de los dos teoremas —LGN y TCL— y aplicarla al <strong>cálculo</strong> de probabilidades sobre sumas, medias y proporciones, así como a las tres aproximaciones (binomial → Poisson → normal). Los 20 ejercicios que siguen se organizan en dos grandes bloques: los primeros —muy variados y a menudo puramente interpretativos— trabajan la identificación del teorema o la aproximación adecuada y los malentendidos clásicos; los siguientes se ocupan del cálculo dentro de cada caso (media muestral, proporción muestral, diferencia de medias, aproximaciones B→N y Po→N, diversificación). Todas las soluciones detalladas se recogen al final del capítulo.</p>
+<div id="problema-11.1.-test-de-identificación-interpretativo." class="section level3" number="11.11.1">
+<h3>
+<span class="header-section-number">11.11.1</span> Problema 11.1. Test de identificación (interpretativo).<a class="anchor" aria-label="anchor" href="#problema-11.1.-test-de-identificaci%C3%B3n-interpretativo."><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada uno de los ocho escenarios siguientes, indica qué <strong>teorema</strong> o qué <strong>aproximación</strong> de este capítulo (LGN, TCL, aproximación B→Po, B→N, Po→N o ninguna de ellas) es el más apropiado, y <strong>justifica</strong> en una línea:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Una aseguradora quiere estimar el coste <strong>medio agregado</strong> por asegurado de una cartera de 50 000 pólizas independientes. Cada póliza tiene E(coste)=200 PAVOs y σ=800 PAVOs.</li>
+<li>Un economista quiere calcular la probabilidad de que la <strong>media</strong> de una muestra de 100 rentas mensuales caiga entre 2 800 y 3 200 PAVOs, sabiendo que las rentas individuales son log-normales muy asimétricas.</li>
+<li>Se lanza 500 veces una moneda cargada con <span class="math inline">\(p = 0{,}45\)</span> de sacar cara. Se busca calcular P(número de caras ≥ 235).</li>
+<li>Un servidor recibe peticiones con tasa <span class="math inline">\(\lambda = 200\)</span> por minuto. Se busca calcular P(número de peticiones en 1 minuto &lt; 180).</li>
+<li>Un algoritmo de reserva galáctica reserva plazas para 800 pasajeros; cada pasajero, con probabilidad 0,02 e independientemente, no acude. Se busca calcular P(al menos 20 pasajeros no acudan).</li>
+<li>Con 10 000 apuestas independientes, cada una con esperanza de ganancia -0,05 PAVOs, se afirma que “el casino ganará <strong>muy cerca</strong> de 500 PAVOs esa jornada”.</li>
+<li>Una encuesta pregunta a 1 200 votantes por su intención de voto al partido A, cuya intención real de voto es del 45%. Se busca la distribución de la proporción muestral <span class="math inline">\(\hat p\)</span>.</li>
+<li>Se comparan las ventas medias en dos sucursales (100 clientes muestreados en cada una) para decidir si una es realmente mejor que la otra.</li>
+</ol>
+</div>
+<div id="problema-11.2.-lgn-y-tcl-verdadero-o-falso." class="section level3" number="11.11.2">
+<h3>
+<span class="header-section-number">11.11.2</span> Problema 11.2. LGN y TCL: verdadero o falso.<a class="anchor" aria-label="anchor" href="#problema-11.2.-lgn-y-tcl-verdadero-o-falso."><i class="fas fa-link"></i></a>
+</h3>
+<p>Indica si cada una de las siguientes afirmaciones es <strong>verdadera</strong> o <strong>falsa</strong> y justifica brevemente en cada caso:</p>
+<ol style="list-style-type: lower-alpha">
+<li>“El TCL garantiza que, con muestra suficientemente grande, la variable <strong>original</strong> se distribuye aproximadamente como una normal.”</li>
+<li>“La LGN garantiza que la media muestral se acerca a la media poblacional cuando <span class="math inline">\(n\)</span> crece.”</li>
+<li>“El TCL solo funciona si la variable de partida es simétrica.”</li>
+<li>“La desviación típica de la media muestral es siempre la misma que la desviación típica de la variable original.”</li>
+<li>“Con <span class="math inline">\(n = 30\)</span> observaciones el TCL siempre funciona bien, sea cual sea la distribución de partida.”</li>
+<li>“En una ruleta, si han salido 10 rojos seguidos, la probabilidad de que salga negro en la siguiente es mayor por la LGN.”</li>
+</ol>
+</div>
+<div id="problema-11.3.-lgn-aplicada-al-negocio-del-casino." class="section level3" number="11.11.3">
+<h3>
+<span class="header-section-number">11.11.3</span> Problema 11.3. LGN aplicada al negocio del casino.<a class="anchor" aria-label="anchor" href="#problema-11.3.-lgn-aplicada-al-negocio-del-casino."><i class="fas fa-link"></i></a>
+</h3>
+<p>Un casino galáctico ofrece un juego con las siguientes características por apuesta de 100 PAVOs:</p>
+<ul>
+<li>Ganancia neta esperada del jugador: <span class="math inline">\(E(G) = -5\)</span> PAVOs por apuesta (la casa espera ganar 5 PAVOs).</li>
+<li>Desviación típica de la ganancia: <span class="math inline">\(\sigma_G = 200\)</span> PAVOs.</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Un jugador aficionado hace <strong>10 apuestas</strong> en una tarde. Calcula la ganancia esperada y la desviación típica de su ganancia total. Aplicando la aproximación normal (que como veremos requiere <span class="math inline">\(n\)</span> mayor, pero la aceptamos aquí como aproximación grosera), calcula P(el jugador salga ganando).</li>
+<li>El casino recibe <strong>10 000 apuestas</strong> el mismo día (todas independientes entre sí). Aplicando el TCL, identifica la distribución de la ganancia total agregada del casino y calcula la P(el casino cierre el día con ganancia superior a 40 000 PAVOs).</li>
+<li>Compara la <strong>variabilidad relativa</strong> (coeficiente de variación) de la ganancia total del jugador (n=10) frente a la del casino (n=10 000).</li>
+<li>Explica en dos frases por qué el negocio del casino es viable económicamente aunque cada partida individual tenga un resultado incierto.</li>
+</ol>
+</div>
+<div id="problema-11.4.-lgn-aplicada-al-negocio-del-seguro." class="section level3" number="11.11.4">
+<h3>
+<span class="header-section-number">11.11.4</span> Problema 11.4. LGN aplicada al negocio del seguro.<a class="anchor" aria-label="anchor" href="#problema-11.4.-lgn-aplicada-al-negocio-del-seguro."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Galactic Casualty &amp; Loss</em> asegura una cartera de <span class="math inline">\(n = 10\,000\)</span> pólizas independientes. Cada póliza tiene un coste anual esperado <span class="math inline">\(E(C) = 200\)</span> PAVOs y una desviación típica <span class="math inline">\(\sigma_C = 800\)</span> PAVOs (la dispersión es enorme porque la mayoría de asegurados no reclama, pero unos pocos reclaman mucho).</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica la distribución aproximada del <strong>coste total agregado</strong> de la cartera aplicando el TCL. Da media y desviación típica.</li>
+<li>Calcula el <strong>coeficiente de variación</strong> (σ/μ) de una póliza individual y compáralo con el de la cartera agregada. ¿Cuánto ha caído la variabilidad relativa gracias al agregado?</li>
+<li>Calcula P(coste total &gt; 2 100 000 PAVOs): probabilidad de que el coste total supere en 5% al esperado.</li>
+<li>La compañía cobra a cada asegurado una <strong>prima</strong> de 220 PAVOs (una carga técnica del 10% sobre el coste esperado). ¿Con qué probabilidad los ingresos totales por primas (2 200 000 PAVOs) cubren los costes totales?</li>
+<li>Explica en clave económica por qué el modelo de negocio del seguro <strong>funciona</strong> con 10 000 asegurados y <strong>no funcionaría</strong> con 10.</li>
+</ol>
+</div>
+<div id="problema-11.5.-error-estándar-y-el-factor-sqrt-n." class="section level3" number="11.11.5">
+<h3>
+<span class="header-section-number">11.11.5</span> Problema 11.5. Error estándar y el factor <span class="math inline">\(\sqrt n\)</span>.<a class="anchor" aria-label="anchor" href="#problema-11.5.-error-est%C3%A1ndar-y-el-factor-sqrt-n."><i class="fas fa-link"></i></a>
+</h3>
+<p>Una variable aleatoria <span class="math inline">\(\xi\)</span> tiene media <span class="math inline">\(\mu = 100\)</span> y desviación típica <span class="math inline">\(\sigma = 20\)</span> (distribución de partida desconocida, pero con varianza finita). Se toman muestras aleatorias simples de tamaño <span class="math inline">\(n\)</span> y se calcula la media muestral <span class="math inline">\(\bar\xi_n\)</span>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula el error estándar <span class="math inline">\(\mathrm{SE} = \sigma/\sqrt{n}\)</span> para <span class="math inline">\(n = 25\)</span>, <span class="math inline">\(n = 100\)</span> y <span class="math inline">\(n = 400\)</span>.</li>
+<li>Comprueba numéricamente que <strong>cuadruplicar <span class="math inline">\(n\)</span> divide el error estándar entre 2</strong>. ¿Cuánto habría que multiplicar <span class="math inline">\(n\)</span> para dividir el error estándar por 10?</li>
+<li>Calcula <span class="math inline">\(P(\bar\xi_n &gt; 105)\)</span> para los tres tamaños del apartado (a). Comenta cómo la misma pregunta se vuelve cada vez más improbable al aumentar <span class="math inline">\(n\)</span>.</li>
+<li>Un ingeniero de calidad quiere estimar la media poblacional con un error estándar inferior a 0,5. ¿Qué tamaño mínimo de muestra necesita?</li>
+</ol>
+</div>
+<div id="problema-11.6.-tcl-para-la-suma-de-normales-tonelaje-agregado." class="section level3" number="11.11.6">
+<h3>
+<span class="header-section-number">11.11.6</span> Problema 11.6. TCL para la suma de normales (tonelaje agregado).<a class="anchor" aria-label="anchor" href="#problema-11.6.-tcl-para-la-suma-de-normales-tonelaje-agregado."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Arrakis Freight</em> despacha una flotilla de <strong>20 cargueros</strong> hacia Klendathu. El tonelaje individual de cada carguero se distribuye como <span class="math inline">\(\xi_j \to N(700;\ 100)\)</span> miles de toneladas, con los <span class="math inline">\(\xi_j\)</span> independientes entre sí. Sea <span class="math inline">\(\eta = \xi_1 + \xi_2 + \cdots + \xi_{20}\)</span> el tonelaje total de la flotilla.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica la distribución exacta de <span class="math inline">\(\eta\)</span> (esto no requiere TCL, sino directamente la propiedad reproductiva de la normal).</li>
+<li>Calcula P(tonelaje total &gt; 15 000 miles de toneladas).</li>
+<li>Calcula el coeficiente de variación de una nave individual (<span class="math inline">\(\sigma/\mu\)</span>) y compáralo con el de la flotilla agregada. ¿Qué implicación tiene esto para el análisis de riesgos operativos?</li>
+<li>¿Se necesitaría realmente el TCL aquí? Explica: ¿en qué se distingue este caso de aquel en el que las <span class="math inline">\(\xi_j\)</span> <strong>no</strong> fueran normales?</li>
+</ol>
+</div>
+<div id="problema-11.7.-tcl-para-promedios-padmé-ardea-revisitada." class="section level3" number="11.11.7">
+<h3>
+<span class="header-section-number">11.11.7</span> Problema 11.7. TCL para promedios (Padmé Ardea revisitada).<a class="anchor" aria-label="anchor" href="#problema-11.7.-tcl-para-promedios-padm%C3%A9-ardea-revisitada."><i class="fas fa-link"></i></a>
+</h3>
+<p>En un astropuerto secundario, el <strong>tiempo de descarga</strong> de un contenedor sigue una distribución exponencial con media <span class="math inline">\(\mu = 15\)</span> minutos (y por tanto <span class="math inline">\(\sigma = 15\)</span>). La jefa de operaciones <strong>Padmé Ardea</strong> prepara un informe basado en el tiempo medio de descarga de los primeros <span class="math inline">\(n = 80\)</span> contenedores del turno. Sea <span class="math inline">\(\bar\xi_{80}\)</span> esa media muestral.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Es exponencial la variable <span class="math inline">\(\bar\xi_{80}\)</span>? Justifica.</li>
+<li>Aplicando el TCL, identifica la distribución <strong>aproximada</strong> de <span class="math inline">\(\bar\xi_{80}\)</span>. Calcula media y error estándar.</li>
+<li>Calcula <span class="math inline">\(P(\bar\xi_{80} &lt; 13)\)</span>: probabilidad de un turno “rápido”.</li>
+<li>Calcula <span class="math inline">\(P(13 \le \bar\xi_{80} \le 17)\)</span>: probabilidad de un turno “estándar”.</li>
+<li>Calcula <span class="math inline">\(P(\bar\xi_{80} &gt; 17)\)</span>: probabilidad de un turno “lento” (umbral de alerta).</li>
+</ol>
+</div>
+<div id="problema-11.8.-la-magia-del-tcl-individual-vs-promedio." class="section level3" number="11.11.8">
+<h3>
+<span class="header-section-number">11.11.8</span> Problema 11.8. La magia del TCL: individual vs promedio.<a class="anchor" aria-label="anchor" href="#problema-11.8.-la-magia-del-tcl-individual-vs-promedio."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sigue el escenario del problema anterior (contenedores con tiempo exponencial, <span class="math inline">\(\mu = 15\)</span>, <span class="math inline">\(\sigma = 15\)</span>). Se pide comparar dos cálculos:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Un contenedor individual: calcula <span class="math inline">\(P(\xi &gt; 20)\)</span> usando <strong>directamente</strong> la exponencial. (Recuerda: <span class="math inline">\(P(\xi &gt; x) = e^{-x/\mu}\)</span>.)</li>
+<li>El promedio del turno de 80 contenedores: calcula <span class="math inline">\(P(\bar\xi_{80} &gt; 20)\)</span> usando la aproximación normal del TCL.</li>
+<li>Compara ambas cifras. Ordena de mayor a menor y comenta la enorme diferencia.</li>
+<li>Un directivo lee las dos cifras y dice: <em>“si tantos contenedores individuales tardan más de 20 minutos, ¿cómo puede el promedio no superar los 20 casi nunca?”</em>. Explícale la aparente paradoja recurriendo al TCL y a la idea de “concentración”.</li>
+</ol>
+</div>
+<div id="problema-11.9.-aproximación-binomial-normal." class="section level3" number="11.11.9">
+<h3>
+<span class="header-section-number">11.11.9</span> Problema 11.9. Aproximación binomial → normal.<a class="anchor" aria-label="anchor" href="#problema-11.9.-aproximaci%C3%B3n-binomial-normal."><i class="fas fa-link"></i></a>
+</h3>
+<p>En una campaña logística, <em>Corellian Freightworks</em> opera <span class="math inline">\(n = 150\)</span> rutas simultáneas. La probabilidad de que una ruta individual finalice con éxito es <span class="math inline">\(p = 0{,}40\)</span> (parámetro estimado sobre datos históricos en un corredor problemático). Sea $= $ <em>“número de rutas exitosas”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica la distribución exacta de <span class="math inline">\(\eta\)</span> y verifica las condiciones para aproximar por normal (<span class="math inline">\(np \ge 5\)</span>, <span class="math inline">\(nq \ge 5\)</span>).</li>
+<li>Determina la distribución aproximada <span class="math inline">\(N(\mu;\ \sigma)\)</span>.</li>
+<li>Calcula <span class="math inline">\(P(\eta \ge 70)\)</span> <strong>sin corrección</strong> de continuidad.</li>
+<li>Calcula <span class="math inline">\(P(\eta \ge 70)\)</span> <strong>con corrección</strong> de continuidad (<span class="math inline">\(P(Y \ge 69{,}5)\)</span>).</li>
+<li>El valor exacto binomial es <span class="math inline">\(P(\eta \ge 70) \approx 0{,}0592\)</span>. Comenta cuál de las dos aproximaciones queda más cerca del exacto.</li>
+</ol>
+</div>
+<div id="problema-11.10.-proporción-muestral-encuesta-electoral." class="section level3" number="11.11.10">
+<h3>
+<span class="header-section-number">11.11.10</span> Problema 11.10. Proporción muestral: encuesta electoral.<a class="anchor" aria-label="anchor" href="#problema-11.10.-proporci%C3%B3n-muestral-encuesta-electoral."><i class="fas fa-link"></i></a>
+</h3>
+<p>Una encuesta electoral en la Federación Galáctica pregunta a <span class="math inline">\(n = 1\,500\)</span> votantes por su intención de voto al partido <em>Alianza por el Núcleo</em>. La proporción <strong>verdadera</strong> de intención de voto en toda la población es <span class="math inline">\(p = 0{,}52\)</span> (mayoría absoluta técnica). Sea <span class="math inline">\(\hat p = X/n\)</span> la proporción muestral.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Aplicando el TCL en su forma de proporción, identifica la distribución aproximada de <span class="math inline">\(\hat p\)</span>.</li>
+<li>Calcula el error estándar <span class="math inline">\(\mathrm{SE}(\hat p)\)</span>.</li>
+<li>Calcula <span class="math inline">\(P(\hat p &lt; 0{,}50)\)</span>: probabilidad de que la encuesta <strong>prediga que no hay mayoría</strong> aunque la verdadera intención sea del 52%.</li>
+<li>Calcula el <strong>margen de error del 95%</strong>: la cantidad <span class="math inline">\(E\)</span> tal que <span class="math inline">\(P(|\hat p - p| &lt; E) \approx 0{,}95\)</span>. (Sugerencia: <span class="math inline">\(E = 1{,}96 \cdot \mathrm{SE}\)</span>.)</li>
+<li>Interpreta el resultado para un periódico galáctico: <em>“la Alianza por el Núcleo obtiene un 52% con un margen de error de ±X puntos”</em>.</li>
+</ol>
+</div>
+<div id="problema-11.11.-poisson-normal-servidor-de-la-red." class="section level3" number="11.11.11">
+<h3>
+<span class="header-section-number">11.11.11</span> Problema 11.11. Poisson → normal: servidor de la red.<a class="anchor" aria-label="anchor" href="#problema-11.11.-poisson-normal-servidor-de-la-red."><i class="fas fa-link"></i></a>
+</h3>
+<p>Un servidor de la red galáctica de <em>Enterprise Logistics</em> recibe peticiones a razón de <span class="math inline">\(\lambda = 100\)</span> peticiones por minuto (proceso de Poisson). Sea $= $ <em>“número de peticiones en un minuto concreto”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Verifica que se cumple el criterio para aproximar Poisson por normal (<span class="math inline">\(\lambda \ge 10\)</span>).</li>
+<li>Determina la distribución aproximada <span class="math inline">\(N(\lambda;\ \sqrt\lambda)\)</span>.</li>
+<li>Calcula <span class="math inline">\(P(\xi &lt; 85)\)</span> con corrección de continuidad (<span class="math inline">\(P(Y \le 84{,}5)\)</span>).</li>
+<li>Calcula <span class="math inline">\(P(\xi &gt; 120)\)</span> con corrección de continuidad (<span class="math inline">\(P(Y \ge 120{,}5)\)</span>).</li>
+<li>¿A cuántas peticiones por minuto debe estar dimensionado el servidor para cubrir el <strong>percentil 99</strong> de la carga?</li>
+<li>Interpreta la última cifra en términos operativos.</li>
+</ol>
+</div>
+<div id="problema-11.12.-motores-selene-los-cuatro-caminos." class="section level3" number="11.11.12">
+<h3>
+<span class="header-section-number">11.11.12</span> Problema 11.12. Motores SELENE: los cuatro caminos.<a class="anchor" aria-label="anchor" href="#problema-11.12.-motores-selene-los-cuatro-caminos."><i class="fas fa-link"></i></a>
+</h3>
+<p>El astillero SELENE somete a pruebas <span class="math inline">\(n = 500\)</span> motores prototípicos, cada uno con probabilidad <span class="math inline">\(p = 0{,}04\)</span> de fallar (independientes). Sea $= $ <em>“número de motores que fallan”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica la distribución <strong>exacta</strong> de <span class="math inline">\(\eta\)</span>.</li>
+<li>Verifica qué aproximaciones son aplicables: (i) B → Po, (ii) Po → N, (iii) B → N directamente.</li>
+<li>Calcula <span class="math inline">\(P(\eta \ge 25)\)</span> por los cuatro caminos posibles: binomial exacta, Poisson exacta (con <span class="math inline">\(\lambda = np\)</span>), normal desde binomial (con corrección de continuidad), normal desde Poisson (con corrección de continuidad).</li>
+<li>Ordena las cuatro cifras y comenta la calidad de las aproximaciones.</li>
+<li>¿Por qué las dos rutas hacia la normal (desde binomial y desde Poisson) casi coinciden en este caso?</li>
+</ol>
+</div>
+<div id="problema-11.13.-encuesta-electoral-extendida-tamaño-de-muestra." class="section level3" number="11.11.13">
+<h3>
+<span class="header-section-number">11.11.13</span> Problema 11.13. Encuesta electoral extendida: tamaño de muestra.<a class="anchor" aria-label="anchor" href="#problema-11.13.-encuesta-electoral-extendida-tama%C3%B1o-de-muestra."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sigue el escenario del problema 11.10 (partido <em>Alianza por el Núcleo</em> con intención real de voto <span class="math inline">\(p = 0{,}52\)</span>).</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Si la encuesta hubiera preguntado a solo <span class="math inline">\(n = 400\)</span> votantes, ¿cuál habría sido el error estándar de <span class="math inline">\(\hat p\)</span>?</li>
+<li>¿Cuál habría sido el margen de error del 95%?</li>
+<li>Si el instituto demoscópico quiere un margen de error del 95% inferior a <strong>1 punto porcentual</strong> (<span class="math inline">\(E &lt; 0{,}01\)</span>), ¿cuál es el tamaño mínimo de muestra necesario? (Usa como aproximación conservadora <span class="math inline">\(p = 0{,}5\)</span>, que maximiza <span class="math inline">\(pq\)</span>.)</li>
+<li>Con el tamaño calculado en (c), ¿cuánto se ha multiplicado el tamaño respecto a <span class="math inline">\(n = 1\,500\)</span>? ¿Y cuánto se ha reducido el margen de error?</li>
+<li>Explica por qué reducir el margen de error a la mitad <strong>cuadruplica</strong> el tamaño de muestra requerido.</li>
+</ol>
+</div>
+<div id="problema-11.14.-test-ab-diferencia-de-medias." class="section level3" number="11.11.14">
+<h3>
+<span class="header-section-number">11.11.14</span> Problema 11.14. Test A/B: diferencia de medias.<a class="anchor" aria-label="anchor" href="#problema-11.14.-test-ab-diferencia-de-medias."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Kaiju Haulage Co.</em> prueba dos versiones distintas de su web comercial para ver cuál genera más ventas por visitante. Recoge datos de:</p>
+<ul>
+<li>
+<strong>Web A:</strong> <span class="math inline">\(n_A = 200\)</span> visitantes, con gasto medio <span class="math inline">\(\bar x_A = 50\)</span> PAVOs y desviación típica <span class="math inline">\(s_A = 20\)</span> PAVOs.</li>
+<li>
+<strong>Web B:</strong> <span class="math inline">\(n_B = 200\)</span> visitantes, con gasto medio <span class="math inline">\(\bar x_B = 53\)</span> PAVOs y desviación típica <span class="math inline">\(s_B = 22\)</span> PAVOs.</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica la distribución aproximada de la <strong>diferencia de medias muestrales</strong> <span class="math inline">\(D = \bar\xi_A - \bar\xi_B\)</span> bajo la hipótesis de que las dos versiones tienen la <strong>misma media poblacional</strong> (es decir, <span class="math inline">\(\mu_A = \mu_B\)</span>). Da media y error estándar.</li>
+<li>Calcula la probabilidad de observar una diferencia de al menos 3 PAVOs en valor absoluto (tanto a favor de A como de B), suponiendo que en realidad las dos webs son igualmente eficaces.</li>
+<li>A la luz del resultado del apartado (b), ¿debería la compañía concluir que la web B es realmente mejor?</li>
+<li>¿Qué tamaño de muestra necesitaría cada web (asumiendo tamaños iguales <span class="math inline">\(n_A = n_B = n\)</span>) para que la diferencia observada de 3 PAVOs fuera estadísticamente significativa al 5% (unilateral)? (Sugerencia: buscar <span class="math inline">\(n\)</span> tal que <span class="math inline">\(z = 3 / \sqrt{s_A^2/n + s_B^2/n} &gt; 1{,}645\)</span>.)</li>
+<li>¿Qué lección práctica se extrae para las empresas que hacen tests A/B con muestras pequeñas?</li>
+</ol>
+</div>
+<div id="problema-11.15.-diversificación-cartera-de-ripley-strix." class="section level3" number="11.11.15">
+<h3>
+<span class="header-section-number">11.11.15</span> Problema 11.15. Diversificación: cartera de Ripley Strix.<a class="anchor" aria-label="anchor" href="#problema-11.15.-diversificaci%C3%B3n-cartera-de-ripley-strix."><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Ripley Strix</strong>, analista de <em>Kaiju Haulage Co.</em>, diseña una cartera de <span class="math inline">\(n\)</span> contratos comerciales independientes. Cada contrato tiene rentabilidad esperada <span class="math inline">\(\mu = 8\%\)</span> y desviación típica <span class="math inline">\(\sigma = 15\%\)</span>. La cartera reparte el capital por igual, con lo que su rentabilidad es <span class="math inline">\(\bar\xi_n\)</span>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula el <strong>riesgo</strong> (desviación típica) de la cartera para <span class="math inline">\(n = 1, 4, 10, 25, 100, 400\)</span> contratos.</li>
+<li>Expresa cada riesgo como <strong>porcentaje del riesgo del contrato individual</strong> (<span class="math inline">\(\sigma_{\bar\xi_n}/\sigma\)</span>).</li>
+<li>Calcula la reducción marginal del riesgo al pasar de <span class="math inline">\(n = 100\)</span> a <span class="math inline">\(n = 200\)</span>. Compárala con la reducción al pasar de <span class="math inline">\(n = 1\)</span> a <span class="math inline">\(n = 2\)</span>. Comenta la <strong>ley de rendimientos decrecientes</strong> de la diversificación.</li>
+<li>Asumiendo (por TCL) que la rentabilidad de la cartera es normal, calcula <span class="math inline">\(P(\bar\xi_{100} &lt; 5\%)\)</span>: probabilidad de que la cartera diversificada de 100 contratos rinda por debajo del 5%.</li>
+<li>Compara la cifra anterior con <span class="math inline">\(P(\xi &lt; 5\%)\)</span> para un contrato individual (asumiendo también normal). ¿Cuánto más segura es la cartera diversificada?</li>
+</ol>
+</div>
+<div id="problema-11.16.-malentendidos-sobre-el-tcl-interpretativo." class="section level3" number="11.11.16">
+<h3>
+<span class="header-section-number">11.11.16</span> Problema 11.16. Malentendidos sobre el TCL (interpretativo).<a class="anchor" aria-label="anchor" href="#problema-11.16.-malentendidos-sobre-el-tcl-interpretativo."><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada uno de los cinco escenarios siguientes, identifica el <strong>error conceptual</strong> en el razonamiento propuesto y explica en dos líneas cuál sería la lectura correcta:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Un consultor recibe una muestra de 50 salarios anuales, calcula que la distribución muestral tiene forma fuertemente asimétrica y concluye: <em>“como la distribución de partida no es normal, no puedo aplicar el TCL para hacer inferencia sobre la media”</em>.</li>
+<li>Un analista tiene una muestra de <span class="math inline">\(n = 100\)</span> observaciones y afirma: <em>“el TCL me garantiza que la media poblacional está entre <span class="math inline">\(\bar x - 2\mathrm{SE}\)</span> y <span class="math inline">\(\bar x + 2\mathrm{SE}\)</span> con probabilidad 0,95”</em>.</li>
+<li>Una periodista económica lee: <em>“la encuesta tiene un margen de error de ±3 puntos”</em> y titula: <em>“todos los sondeos tienen un margen de error de tres puntos, sea cual sea su tamaño”</em>.</li>
+<li>Un jugador argumenta: <em>“llevo perdiendo toda la tarde, así que por la LGN mi siguiente apuesta tiene más probabilidades de ganar”</em>.</li>
+<li>Un analista financiero afirma: <em>“cuantos más activos tenga la cartera, más diversifico, y con 10 000 activos el riesgo será prácticamente cero”</em>.</li>
+</ol>
+</div>
+<div id="problema-11.17.-aplicación-integrada-control-de-calidad-con-tcl." class="section level3" number="11.11.17">
+<h3>
+<span class="header-section-number">11.11.17</span> Problema 11.17. Aplicación integrada: control de calidad con TCL.<a class="anchor" aria-label="anchor" href="#problema-11.17.-aplicaci%C3%B3n-integrada-control-de-calidad-con-tcl."><i class="fas fa-link"></i></a>
+</h3>
+<p>Una fábrica del astillero KORRIGAN produce paneles de fuselaje. El peso individual de cada panel se distribuye con media <span class="math inline">\(\mu = 500\)</span> gramos y desviación típica <span class="math inline">\(\sigma = 15\)</span> gramos (distribución no necesariamente normal). El control de calidad selecciona lotes de <span class="math inline">\(n = 36\)</span> paneles y calcula su peso medio <span class="math inline">\(\bar\xi_{36}\)</span>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Aplicando el TCL, identifica la distribución aproximada de <span class="math inline">\(\bar\xi_{36}\)</span>.</li>
+<li>Calcula <span class="math inline">\(P(\bar\xi_{36} &lt; 497)\)</span>: probabilidad de que el peso medio del lote esté por debajo de 497 gramos.</li>
+<li>Calcula <span class="math inline">\(P(\bar\xi_{36} &gt; 505)\)</span>: probabilidad de que supere los 505 gramos.</li>
+<li>El protocolo de calidad exige detener la línea si <span class="math inline">\(\bar\xi_{36}\)</span> sale del intervalo <span class="math inline">\([498, 502]\)</span>. ¿Con qué probabilidad se detiene la línea en un lote elegido al azar?</li>
+<li>Un ingeniero propone reducir <span class="math inline">\(n\)</span> a <span class="math inline">\(18\)</span> para agilizar el muestreo. ¿Qué implicación tiene sobre la probabilidad de detener la línea (falsa alarma) del apartado (d)?</li>
+</ol>
+</div>
+<div id="problema-11.18.-var-de-una-cartera-diversificada." class="section level3" number="11.11.18">
+<h3>
+<span class="header-section-number">11.11.18</span> Problema 11.18. VaR de una cartera diversificada.<a class="anchor" aria-label="anchor" href="#problema-11.18.-var-de-una-cartera-diversificada."><i class="fas fa-link"></i></a>
+</h3>
+<p>El fondo <em>“Vía Láctea Diversificado”</em> de <em>Hyperdrive Express</em> invierte en <span class="math inline">\(n = 100\)</span> activos independientes. Cada activo tiene rentabilidad diaria esperada del <span class="math inline">\(0{,}05\%\)</span> y desviación típica del <span class="math inline">\(1{,}5\%\)</span>. El capital total es de <span class="math inline">\(C = 20\)</span> millones de PAVOs.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica (por TCL) la distribución aproximada de la <strong>rentabilidad diaria de la cartera</strong> <span class="math inline">\(\bar\xi_{100}\)</span>.</li>
+<li>Calcula la <strong>pérdida diaria</strong> <span class="math inline">\(L = -C \cdot \bar\xi_{100}\)</span> e identifica su distribución.</li>
+<li>Calcula el <span class="math inline">\(\mathrm{VaR}_{95\%}\)</span> diario de la cartera. Compáralo con el <span class="math inline">\(\mathrm{VaR}_{95\%}\)</span> que tendría <strong>un solo activo</strong> con el mismo capital invertido.</li>
+<li>Calcula la reducción del VaR gracias a la diversificación: ¿en qué porcentaje se reduce respecto al activo único?</li>
+<li>Explica por qué el TCL es, en última instancia, el fundamento matemático de la gestión moderna de riesgos financieros.</li>
+</ol>
+</div>
+<div id="problema-11.19.-escenarios-mixtos-identifica-y-calcula." class="section level3" number="11.11.19">
+<h3>
+<span class="header-section-number">11.11.19</span> Problema 11.19. Escenarios mixtos: identifica y calcula.<a class="anchor" aria-label="anchor" href="#problema-11.19.-escenarios-mixtos-identifica-y-calcula."><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada uno de los siguientes escenarios: (i) identifica el teorema o aproximación adecuada; (ii) escribe la distribución aproximante; (iii) calcula la probabilidad o el valor indicado.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Una encuesta de intención de compra pregunta a <span class="math inline">\(n = 800\)</span> consumidores. La proporción verdadera de intención de compra es <span class="math inline">\(p = 0{,}30\)</span>. Calcula <span class="math inline">\(P(\hat p &gt; 0{,}33)\)</span>.</li>
+<li>Una compañía de seguros tiene 5 000 pólizas independientes con coste medio 150 PAVOs y desviación típica 500 PAVOs. Calcula la probabilidad de que el coste total supere los 780 000 PAVOs.</li>
+<li>Un servidor recibe peticiones con tasa Poisson <span class="math inline">\(\lambda = 400\)</span> por minuto. Calcula la probabilidad de recibir entre 380 y 420 peticiones en un minuto (con corrección de continuidad).</li>
+<li>Una fábrica tiene un <span class="math inline">\(p = 0{,}02\)</span> de defectos por unidad. En un lote de 200 unidades, calcula la probabilidad de tener al menos 8 defectos, usando <strong>la mejor aproximación disponible</strong>.</li>
+</ol>
+</div>
+<div id="problema-11.20.-auditoría-integradora-cierre-del-libro." class="section level3" number="11.11.20">
+<h3>
+<span class="header-section-number">11.11.20</span> Problema 11.20. Auditoría integradora: cierre del libro.<a class="anchor" aria-label="anchor" href="#problema-11.20.-auditor%C3%ADa-integradora-cierre-del-libro."><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Mara Qyà</strong> cierra su último informe del ejercicio como responsable de la ARTI con una <strong>auditoría transversal</strong> al sector RStars. Ha reunido datos de cuatro fenómenos distintos, cada uno modelable con una herramienta diferente del capítulo:</p>
+<p><strong>Fase 1 (LGN aplicada a seguros).</strong> La aseguradora <em>Galactic Casualty &amp; Loss</em> opera con 20 000 pólizas independientes. Coste medio por póliza: 250 PAVOs; desviación típica: 900 PAVOs.</p>
+<p><strong>Fase 2 (TCL: promedio operativo).</strong> El astropuerto central de Coruscant procesa cada día 250 contenedores. Cada tiempo de descarga es exponencial con media <span class="math inline">\(\mu = 10\)</span> minutos.</p>
+<p><strong>Fase 3 (aproximación B → N: encuesta).</strong> Una encuesta a 2 000 usuarios pregunta si están satisfechos con el servicio RStars. La proporción verdadera de satisfacción es <span class="math inline">\(p = 0{,}75\)</span>.</p>
+<p><strong>Fase 4 (aproximación Po → N: servidor).</strong> El servidor central de la ARTI recibe consultas con tasa Poisson <span class="math inline">\(\lambda = 45\)</span> por minuto.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>
+<strong>Fase 1 (LGN).</strong> Calcula la esperanza y la desviación típica del coste total agregado. ¿Con qué probabilidad la aseguradora paga más de 5,15 millones (2,5% por encima del esperado)?</li>
+<li>
+<strong>Fase 2 (TCL).</strong> Sea <span class="math inline">\(\bar\xi_{250}\)</span> el tiempo medio de descarga del día. Identifica su distribución y calcula la probabilidad de que el tiempo medio del día supere los 10,5 minutos.</li>
+<li>
+<strong>Fase 3 (B → N).</strong> Sea <span class="math inline">\(\hat p\)</span> la proporción muestral de satisfechos. Identifica su distribución y calcula el margen de error del 95% para la estimación.</li>
+<li>
+<strong>Fase 4 (Po → N).</strong> Calcula la probabilidad de que el servidor reciba <strong>más de 60 consultas</strong> en un minuto (con corrección de continuidad).</li>
+<li>Mara redacta la última página del informe con una <strong>reflexión de cierre</strong>: ¿por qué una sola herramienta matemática —el TCL— basta para dar respuesta operativa a <strong>cuatro problemas económicos aparentemente inconexos</strong>? Redacta esa reflexión de cierre, con la que también se despide el manual.</li>
+</ol>
+</div>
+</div>
+<div id="soluciones-cap11" class="section level2" number="11.12">
+<h2>
+<span class="header-section-number">11.12</span> Soluciones a los problemas propuestos.<a class="anchor" aria-label="anchor" href="#soluciones-cap11"><i class="fas fa-link"></i></a>
+</h2>
+<div id="solución-al-problema-11.1." class="section level3" number="11.12.1">
+<h3>
+<span class="header-section-number">11.12.1</span> Solución al Problema 11.1.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.1."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<strong>LGN</strong>. El interés es en el <strong>coste medio agregado</strong> de una cartera muy grande: la ley de los grandes números garantiza convergencia al coste esperado teórico (200 PAVOs por póliza).</li>
+<li>
+<strong>TCL</strong> (Lindeberg-Lévy). Aunque las rentas individuales son log-normales muy asimétricas, la media de <span class="math inline">\(n = 100\)</span> es aproximadamente normal por el TCL.</li>
+<li>
+<strong>B → N</strong> (De Moivre-Laplace). <span class="math inline">\(n = 500\)</span> grande, <span class="math inline">\(np = 225 \ge 5\)</span> y <span class="math inline">\(nq = 275 \ge 5\)</span>: se aproxima <span class="math inline">\(B(500;\ 0{,}45)\)</span> por normal.</li>
+<li>
+<strong>Po → N</strong>. <span class="math inline">\(\lambda = 200 \ge 10\)</span>: se aproxima <span class="math inline">\(\mathrm{Po}(200)\)</span> por <span class="math inline">\(N(200;\ \sqrt{200})\)</span>.</li>
+<li>
+<strong>B → Po</strong> (mejor que B → N). <span class="math inline">\(n = 800 \ge 100\)</span> y <span class="math inline">\(p = 0{,}02 \le 0{,}05\)</span>: se aproxima <span class="math inline">\(B(800;\ 0{,}02)\)</span> por <span class="math inline">\(\mathrm{Po}(16)\)</span>. Como además <span class="math inline">\(\lambda = 16 \ge 10\)</span>, cabría también aproximar por <span class="math inline">\(N(16;\ 4)\)</span>, pero para valores del orden de 20 la Poisson exacta es más precisa que la normal.</li>
+<li>
+<strong>LGN</strong>. “Muy cerca de 500” es exactamente el enunciado de la LGN: el promedio empírico se acerca a la esperanza cuando <span class="math inline">\(n\)</span> es grande. (Además, el TCL permite cuantificar cuán cerca: la desviación típica de la ganancia agregada sería <span class="math inline">\(\sqrt{n}\cdot \sigma_g\)</span>.)</li>
+<li>
+<strong>TCL para proporciones</strong> (De Moivre-Laplace en forma de proporción muestral). <span class="math inline">\(\hat p \approx N(p;\ \sqrt{pq/n})\)</span>.</li>
+<li>
+<strong>TCL para diferencia de medias</strong>. Aplicando el TCL a cada muestra y la propiedad reproductiva de la normal a la diferencia.</li>
+</ol>
+<p>La lección: el TCL y sus casos particulares están detrás de casi cualquier análisis inferencial serio.</p>
+</div>
+<div id="solución-al-problema-11.2." class="section level3" number="11.12.2">
+<h3>
+<span class="header-section-number">11.12.2</span> Solución al Problema 11.2.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.2."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>Falsa</strong>. El TCL habla de la distribución de <strong>sumas o medias</strong> de muchas variables, <strong>no</strong> de la distribución de la variable original. Los datos originales pueden seguir siendo asimétricos o discretos; solo su promedio (o su suma) se aproxima a la normal.</p></li>
+<li><p><strong>Verdadera</strong>. Es exactamente el enunciado de la LGN débil: <span class="math inline">\(\bar\xi_n \xrightarrow{P} \mu\)</span>. La media muestral converge en probabilidad a la media poblacional cuando <span class="math inline">\(n \to \infty\)</span>.</p></li>
+<li><p><strong>Falsa</strong>. La versión Lindeberg-Lévy del TCL solo pide <strong>i.i.d.</strong> y <strong>varianza finita</strong>. No pide simetría. Con <span class="math inline">\(n\)</span> suficientemente grande, hasta la exponencial (fuertemente asimétrica) produce medias muestrales aproximadamente normales; el ejemplo del capítulo con <code>COSTOP</code> lo demuestra empíricamente.</p></li>
+<li><p><strong>Falsa</strong>. La desviación típica de la media muestral es <span class="math inline">\(\sigma / \sqrt{n}\)</span>, <strong>no</strong> <span class="math inline">\(\sigma\)</span>. Confundir estas dos cantidades es uno de los errores más frecuentes en inferencia. La primera describe la variabilidad de la población; la segunda, la variabilidad del estimador.</p></li>
+<li><p><strong>Falsa</strong>. <span class="math inline">\(n \ge 30\)</span> es una regla heurística que funciona bien para distribuciones aproximadamente simétricas y sin colas pesadas. Para distribuciones muy asimétricas (log-normales, exponenciales) suele hacer falta <span class="math inline">\(n \ge 100\)</span> o más. Para binomiales con <span class="math inline">\(p\)</span> extremo, el criterio operativo es distinto (<span class="math inline">\(np \ge 5\)</span> y <span class="math inline">\(nq \ge 5\)</span>).</p></li>
+<li><p><strong>Falsa</strong>. Es la <strong>falacia del jugador</strong>. La ruleta no tiene memoria: cada tirada es independiente. La LGN dice que el promedio empírico se acercará al esperado teórico <strong>a la larga</strong>, pero no compensa desviaciones puntuales. Si en una tirada la probabilidad de negro es 18/37, seguirá siendo 18/37 hayan salido 10 rojos o 100. La LGN es un enunciado asintótico, no un mecanismo de compensación.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.3." class="section level3" number="11.12.3">
+<h3>
+<span class="header-section-number">11.12.3</span> Solución al Problema 11.3.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.3."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p><strong>10 apuestas del jugador.</strong> Por propiedad reproductiva (o TCL grosero):</p>
+<p><span class="math display">\[G_{\text{jugador}} \approx N(10\cdot (-5);\ 200\sqrt{10}) = N(-50;\ 632{,}46)\ \text{PAVOs}.\]</span></p>
+<p><span class="math inline">\(z = (0 - (-50))/632{,}46 \approx 0{,}079\)</span>. <span class="math inline">\(P(G &gt; 0) \approx 1 - \Phi(0{,}079) \approx \mathbf{0{,}4685}\)</span>. Casi el 47% de las tardes el jugador se va ganando (aunque la esperanza sea negativa): la varianza individual es enorme comparada con la esperanza.</p>
+</li>
+<li>
+<p><strong>10 000 apuestas del casino.</strong> Ganancia del casino = 5 PAVOs por apuesta:</p>
+<p><span class="math display">\[G_{\text{casino}} \approx N(10\,000\cdot 5;\ 200\sqrt{10\,000}) = N(50\,000;\ 20\,000)\ \text{PAVOs}.\]</span></p>
+<p><span class="math inline">\(z = (40\,000 - 50\,000)/20\,000 = -0{,}500\)</span>. <span class="math inline">\(P(G_{\text{casino}} &gt; 40\,000) = 1 - \Phi(-0{,}500) \approx \mathbf{0{,}6915}\)</span>. En casi el 70% de las jornadas el casino gana más de 40 000 PAVOs.</p>
+</li>
+<li>
+<p>Coeficiente de variación:</p>
+<ul>
+<li>Jugador (n = 10): <span class="math inline">\(\sigma/|\mu| = 632{,}46/50 \approx \mathbf{12{,}65}\)</span> (o sea, ¡1265%!). Enorme variabilidad relativa: la ganancia real puede estar muy lejos de la esperada.</li>
+<li>Casino (n = 10 000): <span class="math inline">\(\sigma/\mu = 20\,000/50\,000 = \mathbf{0{,}40}\)</span> (40%). Variabilidad manejable: la ganancia real está razonablemente cerca de la esperada.</li>
+</ul>
+</li>
+<li><p>El casino puede operar con margen esperado modesto por apuesta (5 PAVOs) porque, por la LGN, la ganancia real agregada al final del día está próxima a la esperanza total (<span class="math inline">\(n \cdot 5\)</span>), con una desviación relativa cada vez menor a medida que <span class="math inline">\(n\)</span> crece. El jugador individual, en cambio, opera con muy pocas apuestas y su suerte real puede estar muy lejos de su esperanza matemática (que es negativa). La asimetría estructural entre casa y jugador es una asimetría en <span class="math inline">\(n\)</span>: la casa tiene <span class="math inline">\(n\)</span> enorme; cada jugador, <span class="math inline">\(n\)</span> minúsculo.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.4." class="section level3" number="11.12.4">
+<h3>
+<span class="header-section-number">11.12.4</span> Solución al Problema 11.4.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.4."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Por TCL (10 000 pólizas i.i.d. con media y varianza finitas):</p>
+<p><span class="math display">\[\text{Coste total} \approx N(10\,000\cdot 200;\ 800\sqrt{10\,000}) = \mathbf{N(2\,000\,000;\ 80\,000)}\ \text{PAVOs}.\]</span></p>
+</li>
+<li>
+<p>Coeficiente de variación:</p>
+<ul>
+<li>Individual: <span class="math inline">\(800/200 = \mathbf{4{,}00} = \mathbf{400\%}\)</span>. Enorme variabilidad relativa: la incertidumbre supera cuatro veces al valor esperado.</li>
+<li>Agregado: <span class="math inline">\(80\,000/2\,000\,000 = \mathbf{0{,}04} = \mathbf{4{,}0\%}\)</span>. Variabilidad relativa <strong>100 veces menor</strong> (justamente <span class="math inline">\(\sqrt{n} = \sqrt{10\,000} = 100\)</span>).</li>
+</ul>
+<p>Esta es la esencia del negocio del seguro: convertir incertidumbre individual muy alta en previsibilidad colectiva muy alta.</p>
+</li>
+<li><p><span class="math inline">\(z = (2\,100\,000 - 2\,000\,000)/80\,000 = 1{,}25\)</span>. <span class="math inline">\(P(\text{coste} &gt; 2{,}1\text{M}) = 1 - \Phi(1{,}25) \approx \mathbf{0{,}1056}\)</span>. En torno al 10% de los años el coste supera el 5% al esperado.</p></li>
+<li><p>Ingresos = 10 000 · 220 = 2 200 000 PAVOs. <span class="math inline">\(z = (2\,200\,000 - 2\,000\,000)/80\,000 = 2{,}50\)</span>. <span class="math inline">\(P(\text{coste} &lt; 2{,}2\text{M}) = \Phi(2{,}50) \approx \mathbf{0{,}9938}\)</span>. En más del 99% de los años los ingresos cubren los costes.</p></li>
+<li><p>Con <strong>10 000 asegurados</strong>, la variabilidad agregada relativa es solo del 4%: el balance del año es casi predecible, y una carga técnica del 10% garantiza cobertura con probabilidad superior al 99%. Con <strong>solo 10 asegurados</strong> el coeficiente de variación agregado sería <span class="math inline">\(4{,}00/\sqrt{10} \approx 1{,}26\)</span>: la incertidumbre supera al coste esperado, y la aseguradora podría verse en pérdidas catastróficas por un solo siniestro grave. La LGN es literalmente la matemática que hace viable el modelo de negocio.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.5." class="section level3" number="11.12.5">
+<h3>
+<span class="header-section-number">11.12.5</span> Solución al Problema 11.5.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.5."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Errores estándar:</p>
+<ul>
+<li>
+<span class="math inline">\(n = 25\)</span>: <span class="math inline">\(\mathrm{SE} = 20/5 = \mathbf{4{,}0}\)</span>.</li>
+<li>
+<span class="math inline">\(n = 100\)</span>: <span class="math inline">\(\mathrm{SE} = 20/10 = \mathbf{2{,}0}\)</span>.</li>
+<li>
+<span class="math inline">\(n = 400\)</span>: <span class="math inline">\(\mathrm{SE} = 20/20 = \mathbf{1{,}0}\)</span>.</li>
+</ul>
+</li>
+<li><p>De <span class="math inline">\(n = 25\)</span> a <span class="math inline">\(n = 100\)</span> (cuadruplicar) el SE pasa de 4 a 2: <strong>se divide entre 2</strong> (<span class="math inline">\(\sqrt 4 = 2\)</span>). Para dividir el SE por 10 hay que multiplicar <span class="math inline">\(n\)</span> por <span class="math inline">\(10^2 = \mathbf{100}\)</span>.</p></li>
+<li>
+<p>Cálculos:</p>
+<ul>
+<li>
+<span class="math inline">\(n = 25\)</span>: <span class="math inline">\(z = 5/4 = 1{,}25\)</span>; <span class="math inline">\(P(\bar\xi &gt; 105) = 1 - \Phi(1{,}25) \approx \mathbf{0{,}1056}\)</span>.</li>
+<li>
+<span class="math inline">\(n = 100\)</span>: <span class="math inline">\(z = 5/2 = 2{,}50\)</span>; <span class="math inline">\(P \approx \mathbf{0{,}0062}\)</span>.</li>
+<li>
+<span class="math inline">\(n = 400\)</span>: <span class="math inline">\(z = 5/1 = 5{,}00\)</span>; <span class="math inline">\(P \approx \mathbf{0{,}0000\ldots}\)</span> (prácticamente cero).</li>
+</ul>
+<p>Con <span class="math inline">\(n = 25\)</span> la desviación de 5 puntos sobre la media ocurre en el 10,6% de los casos; con <span class="math inline">\(n = 400\)</span> es virtualmente imposible. La agregación <strong>concentra</strong>.</p>
+</li>
+<li><p>Para <span class="math inline">\(\mathrm{SE} &lt; 0{,}5\)</span>: <span class="math inline">\(20/\sqrt{n} &lt; 0{,}5 \Rightarrow \sqrt{n} &gt; 40 \Rightarrow n &gt; \mathbf{1\,600}\)</span>. Un tamaño de muestra mínimo de 1 600 observaciones.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.6." class="section level3" number="11.12.6">
+<h3>
+<span class="header-section-number">11.12.6</span> Solución al Problema 11.6.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.6."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Por propiedad reproductiva de la normal (no hace falta TCL: las <span class="math inline">\(\xi_j\)</span> ya son normales):</p>
+<p><span class="math display">\[\eta \to N(20\cdot 700;\ 100\sqrt{20}) = \mathbf{N(14\,000;\ 447{,}21)}\ \text{miles de toneladas}.\]</span></p>
+</li>
+<li><p><span class="math inline">\(z = (15\,000 - 14\,000)/447{,}21 \approx 2{,}24\)</span>. <span class="math inline">\(P(\eta &gt; 15\,000) = 1 - \Phi(2{,}24) \approx \mathbf{0{,}0127}\)</span>. Solo el 1,27% de las expediciones superan las 15 000 kt.</p></li>
+<li>
+<p>Coeficiente de variación:</p>
+<ul>
+<li>Individual: <span class="math inline">\(100/700 \approx \mathbf{0{,}143}\)</span> (14,3%).</li>
+<li>Agregado: <span class="math inline">\(447{,}21/14\,000 \approx \mathbf{0{,}032}\)</span> (3,2%).</li>
+</ul>
+<p>La agregación reduce la variabilidad relativa por un factor <span class="math inline">\(\sqrt{20} \approx 4{,}47\)</span>. Implicación operativa: la planificación logística de flotas medianas o grandes es mucho más predecible que la de operaciones aisladas.</p>
+</li>
+<li><p>En este caso, <strong>no</strong> haría falta el TCL: como las <span class="math inline">\(\xi_j\)</span> son normales, la suma es exactamente normal por la propiedad reproductiva del capítulo 10. El TCL sería <strong>necesario</strong> si las <span class="math inline">\(\xi_j\)</span> <strong>no</strong> fueran normales (por ejemplo, exponenciales o log-normales): entonces la propiedad reproductiva no aplicaría directamente, pero el TCL garantizaría que la suma es <strong>aproximadamente</strong> normal para <span class="math inline">\(n\)</span> grande, con los mismos parámetros derivados por linealidad.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.7." class="section level3" number="11.12.7">
+<h3>
+<span class="header-section-number">11.12.7</span> Solución al Problema 11.7.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.7."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>No</strong>, <span class="math inline">\(\bar\xi_{80}\)</span> <strong>no es</strong> exponencial. Es la media aritmética de 80 exponenciales i.i.d., y por el TCL sigue una distribución aproximadamente normal (no exponencial). La forma “campana” y la forma “cola decreciente exponencial” son incompatibles.</p></li>
+<li>
+<p>Por TCL:</p>
+<p><span class="math display">\[\bar\xi_{80} \approx N(\mu;\ \sigma/\sqrt{n}) = N(15;\ 15/\sqrt{80}) = \mathbf{N(15;\ 1{,}677)}\ \text{minutos}.\]</span></p>
+</li>
+<li><p><span class="math inline">\(z = (13 - 15)/1{,}677 \approx -1{,}19\)</span>. <span class="math inline">\(P(\bar\xi_{80} &lt; 13) = \Phi(-1{,}19) \approx \mathbf{0{,}1165}\)</span>. Aproximadamente el 12% de los turnos son “rápidos”.</p></li>
+<li><p><span class="math inline">\(z_a = -1{,}19\)</span>, <span class="math inline">\(z_b = 1{,}19\)</span>. <span class="math inline">\(P(13 \le \bar\xi_{80} \le 17) = \Phi(1{,}19) - \Phi(-1{,}19) \approx \mathbf{0{,}7670}\)</span>. Casi el 77% de los turnos son “estándar”.</p></li>
+<li><p><span class="math inline">\(P(\bar\xi_{80} &gt; 17) = 1 - \Phi(1{,}19) \approx \mathbf{0{,}1165}\)</span>. En torno al 12% de los turnos disparan la alerta.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.8." class="section level3" number="11.12.8">
+<h3>
+<span class="header-section-number">11.12.8</span> Solución al Problema 11.8.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.8."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Para un <strong>contenedor individual</strong> exponencial con <span class="math inline">\(\mu = 15\)</span>:</p>
+<p><span class="math display">\[P(\xi &gt; 20) = e^{-20/15} = e^{-1{,}333} \approx \mathbf{0{,}2636}.\]</span></p>
+<p>Es decir, <strong>más del 26%</strong> de los contenedores individualmente tarda más de 20 minutos.</p>
+</li>
+<li>
+<p>Para el <strong>promedio del turno</strong> de 80 contenedores, por TCL:</p>
+<p><span class="math display">\[z = \dfrac{20 - 15}{15/\sqrt{80}} = \dfrac{5}{1{,}677} \approx 2{,}98.\]</span></p>
+<p><span class="math display">\[P(\bar\xi_{80} &gt; 20) = 1 - \Phi(2{,}98) \approx \mathbf{0{,}00144}.\]</span></p>
+<p>Es decir, <strong>menos del 0,15%</strong>: prácticamente nunca.</p>
+</li>
+<li><p>Ordenación: individual 0,2636 (26,4%) ≫ promedio 0,0014 (0,14%). Un factor <strong>cerca de 180 veces menor</strong> para el promedio, aunque las cifras absolutas sean las mismas (20 minutos en ambos casos).</p></li>
+<li><p>La respuesta al directivo: <strong>el promedio y el valor individual miden cosas distintas</strong>. Que muchos contenedores individualmente tarden más de 20 minutos no significa que el <strong>promedio de 80</strong> tarde más de 20; para que el promedio supere ese umbral, harían falta muchos, muchos contenedores lentos que compensaran los rápidos, y eso es estadísticamente rarísimo. La agregación <strong>concentra</strong> los valores alrededor de la media poblacional (15 min) y hace exponencialmente improbable que el promedio se aleje mucho de ella. Es la esencia del TCL: <strong>la variabilidad se diluye al promediar</strong>.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.9." class="section level3" number="11.12.9">
+<h3>
+<span class="header-section-number">11.12.9</span> Solución al Problema 11.9.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.9."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\eta \to B(150;\ 0{,}40)\)</span> exactamente. Verificación: <span class="math inline">\(np = 60 \ge 5\)</span> ✓, <span class="math inline">\(nq = 90 \ge 5\)</span> ✓.</p></li>
+<li>
+<p>Aproximación:</p>
+<p><span class="math display">\[\eta \approx N(np;\ \sqrt{npq}) = N(60;\ \sqrt{36}) = \mathbf{N(60;\ 6{,}00)}.\]</span></p>
+</li>
+<li><p>Sin corrección: <span class="math inline">\(z = (70 - 60)/6 = 1{,}667\)</span>. <span class="math inline">\(P(\eta \ge 70) \approx 1 - \Phi(1{,}667) \approx \mathbf{0{,}0478}\)</span>.</p></li>
+<li><p>Con corrección: <span class="math inline">\(P(\eta \ge 70) \approx P(Y \ge 69{,}5)\)</span>. <span class="math inline">\(z = (69{,}5 - 60)/6 = 1{,}583\)</span>. <span class="math inline">\(P \approx 1 - \Phi(1{,}583) \approx \mathbf{0{,}0567}\)</span>.</p></li>
+<li><p>Valor exacto: 0,0575 (empírico <span class="math inline">\(\approx\)</span> 0,0592 según enunciado). La aproximación <strong>con corrección</strong> (0,0567) queda mucho más cerca del exacto que la aproximación sin corrección (0,0478). La corrección de continuidad, aunque pequeña, mejora sensiblemente la calidad de la aproximación en las colas.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.10." class="section level3" number="11.12.10">
+<h3>
+<span class="header-section-number">11.12.10</span> Solución al Problema 11.10.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.10."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Por TCL aplicado a proporciones (De Moivre-Laplace):</p>
+<p><span class="math display">\[\hat p \approx N\!\left(p;\ \sqrt{\dfrac{pq}{n}}\right) = N\!\left(0{,}52;\ \sqrt{\dfrac{0{,}52\cdot 0{,}48}{1\,500}}\right) = \mathbf{N(0{,}52;\ 0{,}0129)}.\]</span></p>
+</li>
+<li><p><span class="math inline">\(\mathrm{SE}(\hat p) = \sqrt{0{,}52\cdot 0{,}48/1\,500} \approx \mathbf{0{,}0129}\)</span> (1,29 puntos porcentuales).</p></li>
+<li><p><span class="math inline">\(z = (0{,}50 - 0{,}52)/0{,}0129 \approx -1{,}55\)</span>. <span class="math inline">\(P(\hat p &lt; 0{,}50) = \Phi(-1{,}55) \approx \mathbf{0{,}0605}\)</span>. En un 6% de las encuestas de este tamaño, el resultado predeciría erróneamente que la Alianza por el Núcleo no alcanza la mayoría absoluta, cuando en realidad sí la tiene.</p></li>
+<li><p>Margen de error del 95%: <span class="math inline">\(E = 1{,}96\cdot \mathrm{SE}(\hat p) = 1{,}96\cdot 0{,}0129 \approx 0{,}0253 = \mathbf{\pm 2{,}53\%}\)</span>.</p></li>
+<li><p>Titular sugerido: <em>“La Alianza por el Núcleo obtiene un <strong>52% de intención de voto (±2,53 puntos)</strong> al 95% de confianza”</em>. Es decir, el intervalo compatible con los datos es aproximadamente <span class="math inline">\([49{,}5\%,\ 54{,}5\%]\)</span>: la mayoría absoluta técnica es probable pero no está garantizada.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.11." class="section level3" number="11.12.11">
+<h3>
+<span class="header-section-number">11.12.11</span> Solución al Problema 11.11.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.11."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\xi \to \mathrm{Po}(100)\)</span>; <span class="math inline">\(\lambda = 100 \ge 10\)</span> ✓ (muy holgadamente).</p></li>
+<li><p><span class="math inline">\(\xi \approx N(\lambda;\ \sqrt\lambda) = \mathbf{N(100;\ 10)}\)</span>.</p></li>
+<li><p>Con corrección: <span class="math inline">\(P(\xi &lt; 85) \approx P(Y \le 84{,}5)\)</span>. <span class="math inline">\(z = (84{,}5 - 100)/10 = -1{,}55\)</span>. <span class="math inline">\(P \approx \Phi(-1{,}55) \approx \mathbf{0{,}0606}\)</span>.</p></li>
+<li><p>Con corrección: <span class="math inline">\(P(\xi &gt; 120) \approx P(Y \ge 120{,}5)\)</span>. <span class="math inline">\(z = (120{,}5 - 100)/10 = 2{,}05\)</span>. <span class="math inline">\(P \approx 1 - \Phi(2{,}05) \approx \mathbf{0{,}0202}\)</span>. Solo el 2% de los minutos supera las 120 peticiones.</p></li>
+<li><p>Percentil 99: <span class="math inline">\(z_{0{,}99} = 2{,}326\)</span>. <span class="math inline">\(k = 100 + 2{,}326\cdot 10 = 123{,}26\)</span>. Redondeando al entero superior: <strong>124 peticiones/min</strong>.</p></li>
+<li><p>Operativamente: el servidor debe dimensionarse para procesar hasta 124 peticiones por minuto para cubrir el 99% de los minutos operativos; solo un 1% de los minutos superará ese umbral (unos 14 minutos al día). Ese 1% será el margen de sobrecarga que gestionar mediante colas o <em>load balancing</em>.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.12." class="section level3" number="11.12.12">
+<h3>
+<span class="header-section-number">11.12.12</span> Solución al Problema 11.12.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.12."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\eta \to B(500;\ 0{,}04)\)</span> exactamente.</p></li>
+<li>
+<p>Verificaciones:</p>
+<ul>
+<li>B → Po: <span class="math inline">\(n = 500 \ge 100\)</span> ✓, <span class="math inline">\(p = 0{,}04 \le 0{,}05\)</span> ✓. Aplicable.</li>
+<li>Po → N: <span class="math inline">\(\lambda = np = 20 \ge 10\)</span> ✓. Aplicable.</li>
+<li>B → N: <span class="math inline">\(np = 20 \ge 5\)</span> ✓, <span class="math inline">\(nq = 480 \ge 5\)</span> ✓. Aplicable.</li>
+</ul>
+<p><strong>Las tres aproximaciones son válidas</strong>: caso ideal para comparar los cuatro caminos.</p>
+</li>
+<li>
+<p>Los cuatro cálculos de <span class="math inline">\(P(\eta \ge 25)\)</span>:</p>
+<table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Método</th>
+<th align="center">Valor</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Binomial exacta <span class="math inline">\(B(500;\ 0{,}04)\)</span>
+</td>
+<td align="center"><strong>0,1522</strong></td>
+</tr>
+<tr class="even">
+<td align="left">Poisson exacta <span class="math inline">\(\mathrm{Po}(20)\)</span>
+</td>
+<td align="center"><strong>0,1568</strong></td>
+</tr>
+<tr class="odd">
+<td align="left">Normal desde binomial (con corr. cont.)</td>
+<td align="center"><strong>0,1522</strong></td>
+</tr>
+<tr class="even">
+<td align="left">Normal desde Poisson (con corr. cont.)</td>
+<td align="center"><strong>0,1572</strong></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>Las cuatro cifras coinciden <strong>hasta la segunda cifra decimal</strong>. La aproximación normal desde binomial es prácticamente indistinguible de la exacta binomial (<span class="math inline">\(0{,}1522\)</span> en ambos casos con corrección). La aproximación Poisson (exacta o normal) queda ligeramente por encima, unos 5 diezmilésimos.</p></li>
+<li>
+<p>Las dos rutas hacia la normal casi coinciden porque las desviaciones típicas son casi iguales:</p>
+<ul>
+<li>Desde binomial: <span class="math inline">\(\sigma_B = \sqrt{npq} = \sqrt{500\cdot 0{,}04\cdot 0{,}96} = \sqrt{19{,}2} \approx 4{,}382\)</span>.</li>
+<li>Desde Poisson: <span class="math inline">\(\sigma_P = \sqrt{\lambda} = \sqrt{20} \approx 4{,}472\)</span>.</li>
+</ul>
+<p>Difieren solo en el factor <span class="math inline">\(\sqrt q = \sqrt{0{,}96} \approx 0{,}980\)</span>, que es prácticamente 1 cuando <span class="math inline">\(p\)</span> es pequeño. Como consecuencia, las dos normales aproximantes son casi idénticas.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-11.13." class="section level3" number="11.12.13">
+<h3>
+<span class="header-section-number">11.12.13</span> Solución al Problema 11.13.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.13."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Con <span class="math inline">\(n = 400\)</span> y <span class="math inline">\(p = 0{,}52\)</span>: <span class="math inline">\(\mathrm{SE}(\hat p) = \sqrt{0{,}52\cdot 0{,}48/400} \approx \mathbf{0{,}0250}\)</span> (2,50 puntos porcentuales).</p></li>
+<li><p>Margen 95%: <span class="math inline">\(E = 1{,}96\cdot 0{,}0250 \approx 0{,}0490 = \mathbf{\pm 4{,}90\%}\)</span>. Casi el doble que con <span class="math inline">\(n = 1\,500\)</span>.</p></li>
+<li>
+<p>Para <span class="math inline">\(E &lt; 0{,}01\)</span> con <span class="math inline">\(p = 0{,}5\)</span> (máximo pesimista de <span class="math inline">\(pq\)</span>):</p>
+<p><span class="math display">\[E = 1{,}96\sqrt{\dfrac{0{,}25}{n}} &lt; 0{,}01 \implies n &gt; \dfrac{1{,}96^2\cdot 0{,}25}{0{,}01^2} = \mathbf{9\,604}.\]</span></p>
+<p>Se necesitan <strong>aproximadamente 9 604 encuestados</strong> para garantizar un margen del 95% inferior al 1%.</p>
+</li>
+<li><p>Multiplicador respecto a <span class="math inline">\(n = 1\,500\)</span>: <span class="math inline">\(9\,604/1\,500 \approx \mathbf{6{,}4\times}\)</span>. Reducción del margen: de <span class="math inline">\(\pm 2{,}53\%\)</span> a <span class="math inline">\(\pm 1{,}00\%\)</span>, aproximadamente <span class="math inline">\(\times 2{,}53\)</span> veces menor.</p></li>
+<li><p>Porque el margen de error es proporcional a <span class="math inline">\(1/\sqrt n\)</span>. Para dividir el margen por 2, hay que dividir <span class="math inline">\(1/\sqrt n\)</span> por 2, es decir, <strong>multiplicar <span class="math inline">\(n\)</span> por 4</strong>. Esta es la razón por la que las encuestas de alta precisión son tan caras: cada punto porcentual adicional de precisión cuesta multiplicar el tamaño de muestra (y por tanto el coste operativo) en varios factores.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.14." class="section level3" number="11.12.14">
+<h3>
+<span class="header-section-number">11.12.14</span> Solución al Problema 11.14.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.14."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Bajo la hipótesis nula <span class="math inline">\(\mu_A = \mu_B\)</span>: la diferencia de medias muestrales tiene <span class="math inline">\(E(D) = 0\)</span>. Y por independencia de las dos muestras y TCL aplicado a cada una:</p>
+<p><span class="math display">\[\mathrm{SE}(D) = \sqrt{\dfrac{s_A^2}{n_A} + \dfrac{s_B^2}{n_B}} = \sqrt{\dfrac{400}{200} + \dfrac{484}{200}} = \sqrt{4{,}42} \approx \mathbf{2{,}102}.\]</span></p>
+<p>Distribución: <span class="math inline">\(D \approx N(0;\ 2{,}102)\)</span>.</p>
+</li>
+<li><p>Diferencia observada: <span class="math inline">\(|\bar x_A - \bar x_B| = 3\)</span>. <span class="math inline">\(z = 3/2{,}102 \approx 1{,}427\)</span>. <span class="math inline">\(P(|D| \ge 3) = 2\cdot P(z &gt; 1{,}427) \approx 2\cdot 0{,}0768 = \mathbf{0{,}1536}\)</span>. Aproximadamente el 15% de las veces se observaría una diferencia de al menos 3 PAVOs en cualquier dirección aunque las dos webs fueran iguales.</p></li>
+<li><p><strong>No</strong> hay evidencia suficiente para concluir que la web B es mejor. La diferencia observada podría explicarse perfectamente por el azar (con probabilidad superior al 15%). Un <span class="math inline">\(p\)</span>-valor por encima del 5% no es estadísticamente significativo con los estándares habituales.</p></li>
+<li>
+<p>Para que la diferencia sea significativa unilateralmente al 5%, buscamos <span class="math inline">\(n\)</span> tal que <span class="math inline">\(z = 3/\sqrt{884/n} &gt; 1{,}645\)</span>:</p>
+<p><span class="math display">\[\sqrt{884/n} &lt; 3/1{,}645 = 1{,}823 \implies n &gt; 884/1{,}823^2 \approx \mathbf{266}\ \text{visitantes por web}.\]</span></p>
+<p>Necesitaríamos al menos 266 visitantes por web (533 en total) para poder concluir con significación estadística que la diferencia de 3 PAVOs no es un artefacto del azar.</p>
+</li>
+<li><p>Lección práctica: <strong>las diferencias observadas no son significativas por sí solas; dependen del tamaño de muestra</strong>. Con muestras pequeñas, incluso diferencias grandes pueden ser azar; con muestras muy grandes, incluso diferencias minúsculas pueden ser significativas. La significación estadística no equivale a relevancia práctica. Antes de decidir cambiar la web, hay que preguntarse dos cosas: (i) ¿la diferencia es estadísticamente significativa? y (ii) ¿es económicamente relevante?</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.15." class="section level3" number="11.12.15">
+<h3>
+<span class="header-section-number">11.12.15</span> Solución al Problema 11.15.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.15."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Riesgos por diversificación:</p>
+<table class="table table-sm">
+<thead><tr class="header">
+<th align="center"><span class="math inline">\(n\)</span></th>
+<th align="center">Riesgo <span class="math inline">\(\sigma/\sqrt{n}\)</span>
+</th>
+<th align="center">% del individual</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">15,00%</td>
+<td align="center">100%</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">7,50%</td>
+<td align="center">50%</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">4,74%</td>
+<td align="center">31,62%</td>
+</tr>
+<tr class="even">
+<td align="center">25</td>
+<td align="center">3,00%</td>
+<td align="center">20%</td>
+</tr>
+<tr class="odd">
+<td align="center">100</td>
+<td align="center">1,50%</td>
+<td align="center">10%</td>
+</tr>
+<tr class="even">
+<td align="center">400</td>
+<td align="center">0,75%</td>
+<td align="center">5%</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>Lo anterior en columna “% del individual”. Con 100 activos ya se ha reducido el riesgo en un <strong>90%</strong>; con 400 activos, en un 95%. Las cifras muestran una caída rapidísima al principio y cada vez más lenta.</p></li>
+<li>
+<p>Reducción marginal:</p>
+<ul>
+<li>De <span class="math inline">\(n = 1\)</span> a <span class="math inline">\(n = 2\)</span>: de 15 a <span class="math inline">\(15/\sqrt 2 \approx 10{,}61\)</span>. Reducción <strong>≈ 4,39 puntos porcentuales</strong>.</li>
+<li>De <span class="math inline">\(n = 100\)</span> a <span class="math inline">\(n = 200\)</span>: de 1,50 a <span class="math inline">\(15/\sqrt{200} \approx 1{,}061\)</span>. Reducción <strong>≈ 0,44 puntos porcentuales</strong>: <strong>diez veces menor</strong>.</li>
+</ul>
+<p>La <strong>ley de rendimientos decrecientes</strong> de la diversificación: los primeros activos añaden mucho valor; los últimos, muy poco. Añadir el activo 101 a una cartera de 100 mejora poquísimo.</p>
+</li>
+<li><p>Para la cartera de <span class="math inline">\(n = 100\)</span>: <span class="math inline">\(\mathrm{SE} = 15/10 = 1{,}5\)</span>. <span class="math inline">\(z = (5 - 8)/1{,}5 = -2{,}00\)</span>. <span class="math inline">\(P(\bar\xi_{100} &lt; 5\%) = \Phi(-2{,}00) \approx \mathbf{0{,}0228}\)</span>.</p></li>
+<li>
+<p>Para un contrato individual: <span class="math inline">\(z = (5 - 8)/15 = -0{,}20\)</span>. <span class="math inline">\(P(\xi &lt; 5\%) = \Phi(-0{,}20) \approx \mathbf{0{,}4207}\)</span>.</p>
+<p>La cartera diversificada es <strong>casi 20 veces más segura</strong> frente al riesgo de rentar por debajo del 5%: probabilidad del 2,3% frente al 42% del contrato individual. Es la magnitud práctica del beneficio de diversificar.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-11.16." class="section level3" number="11.12.16">
+<h3>
+<span class="header-section-number">11.12.16</span> Solución al Problema 11.16.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.16."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>Error</strong>: el consultor confunde la distribución <strong>de los datos</strong> con la distribución <strong>del estimador</strong>. El TCL dice que la <strong>media muestral</strong> es aproximadamente normal, no que los datos individuales lo sean. Con <span class="math inline">\(n = 50\)</span> ya es razonable aplicar el TCL para inferir sobre <span class="math inline">\(\mu\)</span>, aunque la muestra individual sea asimétrica.</p></li>
+<li><p><strong>Error</strong>: el TCL dice que <span class="math inline">\(\bar X_n \approx N(\mu;\ \mathrm{SE})\)</span>, no que <span class="math inline">\(\mu\)</span> esté en un intervalo con probabilidad 0,95. La lectura correcta es que <strong>el intervalo <span class="math inline">\([\bar x - 2\mathrm{SE},\ \bar x + 2\mathrm{SE}]\)</span> contiene al valor verdadero <span class="math inline">\(\mu\)</span> con probabilidad 0,95 sobre la aleatoriedad del muestreo</strong>. Es decir: si repitiéramos el muestreo muchas veces, el 95% de los intervalos así construidos contendría a <span class="math inline">\(\mu\)</span>. Es una probabilidad sobre el procedimiento, no sobre el parámetro (que no es aleatorio).</p></li>
+<li><p><strong>Error</strong>: el margen de error de una encuesta <strong>depende del tamaño de muestra</strong>. <span class="math inline">\(E = 1{,}96\sqrt{pq/n}\)</span>: para <span class="math inline">\(p = 0{,}5\)</span> y <span class="math inline">\(n = 1\,067\)</span>, sí es <span class="math inline">\(\pm 3\%\)</span>; pero con <span class="math inline">\(n = 400\)</span> sube a <span class="math inline">\(\pm 4{,}9\%\)</span> y con <span class="math inline">\(n = 4\,000\)</span> baja a <span class="math inline">\(\pm 1{,}55\%\)</span>. Confundir esto es propagar desinformación.</p></li>
+<li><p><strong>Error</strong>: es la <strong>falacia del jugador</strong>. La LGN dice que el promedio se acerca a la esperanza a la larga, pero <strong>no</strong> compensa desviaciones puntuales. Si cada apuesta tiene la misma probabilidad de ganar, la siguiente sigue teniendo la misma probabilidad de ganar, sea cual sea el historial reciente. La LGN es asintótica: no es un mecanismo de compensación.</p></li>
+<li><p><strong>Error</strong>: aunque diversificar reduce el riesgo, el resultado del capítulo asume <strong>independencia</strong> entre activos. En la práctica, los activos financieros están <strong>correlacionados</strong>, y hay una parte del riesgo (el llamado <em>riesgo sistemático</em> o <em>de mercado</em>) que <strong>no puede eliminarse por diversificación</strong>. Con 10 000 activos correlacionados, el riesgo tiende a un mínimo positivo, no a cero. Esta observación es la base del CAPM y de toda la teoría moderna de carteras.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.17." class="section level3" number="11.12.17">
+<h3>
+<span class="header-section-number">11.12.17</span> Solución al Problema 11.17.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.17."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Por TCL:</p>
+<p><span class="math display">\[\bar\xi_{36} \approx N(500;\ 15/\sqrt{36}) = \mathbf{N(500;\ 2{,}5)}\ \text{gramos}.\]</span></p>
+</li>
+<li><p><span class="math inline">\(z = (497 - 500)/2{,}5 = -1{,}20\)</span>. <span class="math inline">\(P(\bar\xi_{36} &lt; 497) = \Phi(-1{,}20) \approx \mathbf{0{,}1151}\)</span>.</p></li>
+<li><p><span class="math inline">\(z = (505 - 500)/2{,}5 = 2{,}00\)</span>. <span class="math inline">\(P(\bar\xi_{36} &gt; 505) = 1 - \Phi(2{,}00) \approx \mathbf{0{,}0228}\)</span>.</p></li>
+<li>
+<p>Dentro de <span class="math inline">\([498, 502]\)</span>: <span class="math inline">\(z_a = -0{,}80\)</span>, <span class="math inline">\(z_b = 0{,}80\)</span>. <span class="math inline">\(P(\text{dentro}) = \Phi(0{,}80) - \Phi(-0{,}80) \approx \mathbf{0{,}5763}\)</span>. Por tanto:</p>
+<p><span class="math display">\[P(\text{detener línea}) = 1 - 0{,}5763 \approx \mathbf{0{,}4237}.\]</span></p>
+<p>Es decir, <strong>más del 42% de los lotes</strong> dispararían la parada. <strong>La regla es demasiado estricta</strong>: la línea se pararía innecesariamente casi la mitad del tiempo.</p>
+</li>
+<li><p>Con <span class="math inline">\(n = 18\)</span>: <span class="math inline">\(\mathrm{SE} = 15/\sqrt{18} \approx 3{,}54\)</span>. <span class="math inline">\(z_a = -0{,}566\)</span>, <span class="math inline">\(z_b = 0{,}566\)</span>. <span class="math inline">\(P(\text{dentro}) \approx 0{,}428\)</span>. <span class="math inline">\(P(\text{detener}) \approx \mathbf{0{,}5716}\)</span>: aún <strong>peor</strong>. Reducir <span class="math inline">\(n\)</span> empeora la calidad del control porque el SE aumenta y aumenta la probabilidad de falsa alarma. El ingeniero se equivoca: para reducir falsas alarmas hay que <strong>aumentar</strong> <span class="math inline">\(n\)</span>, no reducirlo. (O bien, ampliar la tolerancia a <span class="math inline">\([496, 504]\)</span>, que es lo que el análisis operativo debería recomendar.)</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.18." class="section level3" number="11.12.18">
+<h3>
+<span class="header-section-number">11.12.18</span> Solución al Problema 11.18.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.18."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Por TCL, la rentabilidad diaria de la cartera de 100 activos:</p>
+<p><span class="math display">\[\bar\xi_{100} \approx N(0{,}05\%;\ 1{,}5\%/\sqrt{100}) = \mathbf{N(0{,}05\%;\ 0{,}15\%)}.\]</span></p>
+<p>El error estándar de la rentabilidad de la cartera es diez veces menor que el del activo individual.</p>
+</li>
+<li>
+<p>Pérdida diaria: <span class="math inline">\(L = -C\cdot \bar\xi_{100} = -20\cdot \bar\xi_{100}\)</span> (en millones de PAVOs). Como <span class="math inline">\(\bar\xi_{100}\)</span> es normal:</p>
+<p><span class="math display">\[L \approx N(-20\cdot 0{,}0005;\ 20\cdot 0{,}0015) = \mathbf{N(-0{,}01;\ 0{,}03)}\ \text{millones de PAVOs}.\]</span></p>
+</li>
+<li>
+<p><span class="math inline">\(\mathrm{VaR}_{95\%}^{\text{cartera}} = -0{,}01 + 1{,}645\cdot 0{,}03 = -0{,}01 + 0{,}04935 \approx \mathbf{0{,}03935}\)</span> millones <span class="math inline">\(= \mathbf{39\,350}\)</span> PAVOs.</p>
+<p>Para un solo activo con capital <span class="math inline">\(C = 20\)</span>: <span class="math inline">\(L_1 \approx N(-0{,}01;\ 20\cdot 0{,}015) = N(-0{,}01;\ 0{,}30)\)</span>. <span class="math inline">\(\mathrm{VaR}_{95\%}^{\text{único}} = -0{,}01 + 1{,}645\cdot 0{,}30 \approx \mathbf{0{,}4835}\)</span> millones = <strong>483 500 PAVOs</strong>.</p>
+</li>
+<li><p>Reducción: <span class="math inline">\(1 - 39\,350/483\,500 = \mathbf{91{,}86\%}\)</span>. Diversificar en 100 activos reduce el VaR <strong>en más del 90%</strong>. Es la manifestación cuantitativa más contundente del beneficio de diversificar.</p></li>
+<li><p>El TCL fundamenta la gestión moderna de riesgos porque (i) legitima la aproximación normal para las pérdidas de carteras diversificadas —lo que permite calcular VaR y ES con fórmulas cerradas—, (ii) garantiza que la desviación típica del promedio cae como <span class="math inline">\(1/\sqrt n\)</span>, cuantificando el beneficio matemático de la diversificación, y (iii) proporciona la base teórica para técnicas más sofisticadas (bootstrap, simulación de Monte Carlo) que se apoyan en la lógica del TCL aunque no lo invoquen explícitamente. Sin TCL, no habría gestión cuantitativa del riesgo tal como la conocemos.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.19." class="section level3" number="11.12.19">
+<h3>
+<span class="header-section-number">11.12.19</span> Solución al Problema 11.19.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.19."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>B → N para proporción muestral</strong>. <span class="math inline">\(\hat p \approx N(0{,}30;\ \sqrt{0{,}30\cdot 0{,}70/800}) = N(0{,}30;\ 0{,}0162)\)</span>. <span class="math inline">\(z = (0{,}33 - 0{,}30)/0{,}0162 \approx 1{,}85\)</span>. <span class="math inline">\(P(\hat p &gt; 0{,}33) \approx \mathbf{0{,}0320}\)</span>.</p></li>
+<li><p><strong>TCL (LGN + aproximación normal para suma)</strong>. <span class="math inline">\(\text{Coste total} \approx N(5\,000\cdot 150;\ 500\sqrt{5\,000}) = N(750\,000;\ 35\,355)\)</span>. <span class="math inline">\(z = (780\,000 - 750\,000)/35\,355 \approx 0{,}85\)</span>. <span class="math inline">\(P &gt; 780\,000 \approx \mathbf{0{,}1981}\)</span>.</p></li>
+<li><p><strong>Po → N</strong> con <span class="math inline">\(\lambda = 400 \ge 10\)</span>. <span class="math inline">\(\xi \approx N(400;\ 20)\)</span>. Con corrección: <span class="math inline">\(P(380 \le \xi \le 420) \approx P(379{,}5 \le Y \le 420{,}5)\)</span>. <span class="math inline">\(z_a = -1{,}025\)</span>, <span class="math inline">\(z_b = 1{,}025\)</span>. <span class="math inline">\(P \approx \mathbf{0{,}6946}\)</span>.</p></li>
+<li><p><strong>B → Po</strong> (<span class="math inline">\(n = 200 \ge 100\)</span>, <span class="math inline">\(p = 0{,}02 \le 0{,}05\)</span>): mejor que B → N porque <span class="math inline">\(\lambda = np = 4 &lt; 5\)</span>, por lo que la aproximación normal no es aceptable en este caso. Con <span class="math inline">\(\mathrm{Po}(4)\)</span>: <span class="math inline">\(P(\xi \ge 8) \approx \mathbf{0{,}0511}\)</span>. (Exacta binomial: 0,0493; la aproximación Poisson queda muy próxima.)</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-11.20." class="section level3" number="11.12.20">
+<h3>
+<span class="header-section-number">11.12.20</span> Solución al Problema 11.20.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-11.20."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p><strong>Fase 1 (LGN).</strong> Con <span class="math inline">\(n = 20\,000\)</span>, <span class="math inline">\(\mu = 250\)</span>, <span class="math inline">\(\sigma = 900\)</span>:</p>
+<p><span class="math display">\[E(\text{total}) = 20\,000\cdot 250 = \mathbf{5\,000\,000}\ \text{PAVOs}.\]</span>
+<span class="math display">\[\sigma(\text{total}) = 900\sqrt{20\,000} \approx \mathbf{127\,279}\ \text{PAVOs}.\]</span></p>
+<p><span class="math inline">\(z = (5\,150\,000 - 5\,000\,000)/127\,279 \approx 1{,}18\)</span>. <span class="math inline">\(P(\text{total} &gt; 5{,}15\text{M}) \approx \mathbf{0{,}1193}\)</span>.</p>
+<p>Aproximadamente el 12% de los años el coste total supera en 2,5% al esperado: escenario adverso, pero no catastrófico.</p>
+</li>
+<li>
+<p><strong>Fase 2 (TCL).</strong> Por TCL:</p>
+<p><span class="math display">\[\bar\xi_{250} \approx N(10;\ 10/\sqrt{250}) = \mathbf{N(10;\ 0{,}6325)}\ \text{minutos}.\]</span></p>
+<p><span class="math inline">\(z = (10{,}5 - 10)/0{,}6325 \approx 0{,}79\)</span>. <span class="math inline">\(P(\bar\xi_{250} &gt; 10{,}5) \approx \mathbf{0{,}2146}\)</span>. En algo más del 21% de las jornadas el tiempo medio supera los 10,5 minutos.</p>
+</li>
+<li>
+<p><strong>Fase 3 (B → N).</strong> <span class="math inline">\(\hat p \approx N(0{,}75;\ \sqrt{0{,}75\cdot 0{,}25/2\,000}) = N(0{,}75;\ 0{,}00968)\)</span>.</p>
+<p>Margen 95%: <span class="math inline">\(E = 1{,}96\cdot 0{,}00968 \approx 0{,}0190 = \mathbf{\pm 1{,}90\%}\)</span>.</p>
+<p>La satisfacción se estima como <span class="math inline">\(75\% \pm 1{,}90\%\)</span>: intervalo <span class="math inline">\([73{,}1\%,\ 76{,}9\%]\)</span> al 95% de confianza.</p>
+</li>
+<li>
+<p><strong>Fase 4 (Po → N).</strong> <span class="math inline">\(\xi \approx N(45;\ \sqrt{45}) = N(45;\ 6{,}708)\)</span>. Con corrección: <span class="math inline">\(z = (60{,}5 - 45)/6{,}708 \approx 2{,}31\)</span>. <span class="math inline">\(P(\xi &gt; 60) \approx \mathbf{0{,}0104}\)</span>.</p>
+<p>Solo el 1% de los minutos el servidor recibe más de 60 consultas: dimensionamiento adecuado para picos ordinarios.</p>
+</li>
+<li>
+<p><strong>Reflexión de cierre de Mara Qyà</strong> (y del manual):</p>
+<blockquote>
+<p><em>“Cuatro problemas de naturaleza aparentemente distinta —una aseguradora con veinte mil pólizas, un astropuerto con doscientos cincuenta contenedores al día, una encuesta a dos mil usuarios y un servidor con cuarenta y cinco consultas por minuto— se han resuelto con la misma herramienta matemática. En todos ellos, la agregación de muchas pequeñas fuentes de aleatoriedad —pólizas, contenedores, encuestados, consultas— produce una variable agregada cuya distribución es aproximadamente normal, y cuyo error estándar cae como <span class="math inline">\(\sigma/\sqrt{n}\)</span> conforme el tamaño de la agregación crece. El teorema central del límite no es una curiosidad matemática: es el mecanismo silencioso por el que la incertidumbre individual se convierte en previsibilidad colectiva. Es lo que hace viable el negocio del seguro, el dimensionamiento de infraestructuras, la encuesta demoscópica, el control de calidad industrial, la gestión moderna de riesgos financieros y, sí, también los casinos y los mercados de valores. Sin el TCL, ninguna de estas actividades tendría base cuantitativa; con él, todas ellas se sostienen sobre una fórmula que cabe en una línea. Cuando el próximo curso empiece con distribuciones muestrales, intervalos de confianza y contrastes de hipótesis, no hará falta introducir ninguna herramienta nueva: bastará con desplegar las consecuencias, una por una, del teorema central del límite. Este manual ha ido preparando exactamente ese momento a lo largo de once capítulos. Con esto, cerramos el bloque descriptivo y probabilístico, y dejamos abierta la puerta a la estadística inferencial. La normal —esa campana que asomaba con timidez en el capítulo 7, se hizo protagonista en el 10 y ha revelado su verdadera identidad en este último— será, a partir de ahora, la lengua franca del análisis.”</em></p>
+</blockquote>
+<p>Y con esto, el manual se despide. Suerte al lector que continúe.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 
@@ -928,6 +1701,54 @@ Figure 11.3: Simulación en vivo del TCL. La distribución individual (panel izq
 <li><a class="nav-link" href="#sim-tcl"><span class="header-section-number">11.8</span> Simulación del TCL con R</a></li>
 <li><a class="nav-link" href="#consecuencias"><span class="header-section-number">11.9</span> Consecuencias del TCL: puente hacia la inferencia</a></li>
 <li><a class="nav-link" href="#recap-cap11"><span class="header-section-number">11.10</span> Recapitulación</a></li>
+<li>
+<a class="nav-link" href="#problemas-cap11"><span class="header-section-number">11.11</span> Problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#problema-11.1.-test-de-identificaci%C3%B3n-interpretativo."><span class="header-section-number">11.11.1</span> Problema 11.1. Test de identificación (interpretativo).</a></li>
+<li><a class="nav-link" href="#problema-11.2.-lgn-y-tcl-verdadero-o-falso."><span class="header-section-number">11.11.2</span> Problema 11.2. LGN y TCL: verdadero o falso.</a></li>
+<li><a class="nav-link" href="#problema-11.3.-lgn-aplicada-al-negocio-del-casino."><span class="header-section-number">11.11.3</span> Problema 11.3. LGN aplicada al negocio del casino.</a></li>
+<li><a class="nav-link" href="#problema-11.4.-lgn-aplicada-al-negocio-del-seguro."><span class="header-section-number">11.11.4</span> Problema 11.4. LGN aplicada al negocio del seguro.</a></li>
+<li><a class="nav-link" href="#problema-11.5.-error-est%C3%A1ndar-y-el-factor-sqrt-n."><span class="header-section-number">11.11.5</span> Problema 11.5. Error estándar y el factor \(\sqrt n\).</a></li>
+<li><a class="nav-link" href="#problema-11.6.-tcl-para-la-suma-de-normales-tonelaje-agregado."><span class="header-section-number">11.11.6</span> Problema 11.6. TCL para la suma de normales (tonelaje agregado).</a></li>
+<li><a class="nav-link" href="#problema-11.7.-tcl-para-promedios-padm%C3%A9-ardea-revisitada."><span class="header-section-number">11.11.7</span> Problema 11.7. TCL para promedios (Padmé Ardea revisitada).</a></li>
+<li><a class="nav-link" href="#problema-11.8.-la-magia-del-tcl-individual-vs-promedio."><span class="header-section-number">11.11.8</span> Problema 11.8. La magia del TCL: individual vs promedio.</a></li>
+<li><a class="nav-link" href="#problema-11.9.-aproximaci%C3%B3n-binomial-normal."><span class="header-section-number">11.11.9</span> Problema 11.9. Aproximación binomial → normal.</a></li>
+<li><a class="nav-link" href="#problema-11.10.-proporci%C3%B3n-muestral-encuesta-electoral."><span class="header-section-number">11.11.10</span> Problema 11.10. Proporción muestral: encuesta electoral.</a></li>
+<li><a class="nav-link" href="#problema-11.11.-poisson-normal-servidor-de-la-red."><span class="header-section-number">11.11.11</span> Problema 11.11. Poisson → normal: servidor de la red.</a></li>
+<li><a class="nav-link" href="#problema-11.12.-motores-selene-los-cuatro-caminos."><span class="header-section-number">11.11.12</span> Problema 11.12. Motores SELENE: los cuatro caminos.</a></li>
+<li><a class="nav-link" href="#problema-11.13.-encuesta-electoral-extendida-tama%C3%B1o-de-muestra."><span class="header-section-number">11.11.13</span> Problema 11.13. Encuesta electoral extendida: tamaño de muestra.</a></li>
+<li><a class="nav-link" href="#problema-11.14.-test-ab-diferencia-de-medias."><span class="header-section-number">11.11.14</span> Problema 11.14. Test A/B: diferencia de medias.</a></li>
+<li><a class="nav-link" href="#problema-11.15.-diversificaci%C3%B3n-cartera-de-ripley-strix."><span class="header-section-number">11.11.15</span> Problema 11.15. Diversificación: cartera de Ripley Strix.</a></li>
+<li><a class="nav-link" href="#problema-11.16.-malentendidos-sobre-el-tcl-interpretativo."><span class="header-section-number">11.11.16</span> Problema 11.16. Malentendidos sobre el TCL (interpretativo).</a></li>
+<li><a class="nav-link" href="#problema-11.17.-aplicaci%C3%B3n-integrada-control-de-calidad-con-tcl."><span class="header-section-number">11.11.17</span> Problema 11.17. Aplicación integrada: control de calidad con TCL.</a></li>
+<li><a class="nav-link" href="#problema-11.18.-var-de-una-cartera-diversificada."><span class="header-section-number">11.11.18</span> Problema 11.18. VaR de una cartera diversificada.</a></li>
+<li><a class="nav-link" href="#problema-11.19.-escenarios-mixtos-identifica-y-calcula."><span class="header-section-number">11.11.19</span> Problema 11.19. Escenarios mixtos: identifica y calcula.</a></li>
+<li><a class="nav-link" href="#problema-11.20.-auditor%C3%ADa-integradora-cierre-del-libro."><span class="header-section-number">11.11.20</span> Problema 11.20. Auditoría integradora: cierre del libro.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#soluciones-cap11"><span class="header-section-number">11.12</span> Soluciones a los problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.1."><span class="header-section-number">11.12.1</span> Solución al Problema 11.1.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.2."><span class="header-section-number">11.12.2</span> Solución al Problema 11.2.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.3."><span class="header-section-number">11.12.3</span> Solución al Problema 11.3.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.4."><span class="header-section-number">11.12.4</span> Solución al Problema 11.4.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.5."><span class="header-section-number">11.12.5</span> Solución al Problema 11.5.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.6."><span class="header-section-number">11.12.6</span> Solución al Problema 11.6.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.7."><span class="header-section-number">11.12.7</span> Solución al Problema 11.7.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.8."><span class="header-section-number">11.12.8</span> Solución al Problema 11.8.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.9."><span class="header-section-number">11.12.9</span> Solución al Problema 11.9.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.10."><span class="header-section-number">11.12.10</span> Solución al Problema 11.10.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.11."><span class="header-section-number">11.12.11</span> Solución al Problema 11.11.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.12."><span class="header-section-number">11.12.12</span> Solución al Problema 11.12.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.13."><span class="header-section-number">11.12.13</span> Solución al Problema 11.13.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.14."><span class="header-section-number">11.12.14</span> Solución al Problema 11.14.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.15."><span class="header-section-number">11.12.15</span> Solución al Problema 11.15.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.16."><span class="header-section-number">11.12.16</span> Solución al Problema 11.16.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.17."><span class="header-section-number">11.12.17</span> Solución al Problema 11.17.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.18."><span class="header-section-number">11.12.18</span> Solución al Problema 11.18.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.19."><span class="header-section-number">11.12.19</span> Solución al Problema 11.19.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-11.20."><span class="header-section-number">11.12.20</span> Solución al Problema 11.20.</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">

@@ -1,54 +1,385 @@
-@book{MartinPliego2010,
-  title     = {Fundamentos de probabilidad},
-  author    = {Martín-Pliego, Francisco Javier},
-  publisher = {Thomson},
-  year      = {2010},
-  isbn      = {978-84-9732-500-4}
+% =====================================================================
+% Referencias bibliográficas del manual "Estadística Empresarial (RStars)"
+%
+% El fichero se organiza en cuatro grandes bloques:
+%
+%   1. Manuales de referencia utilizados en el grado.
+%   2. Obras históricas fundacionales de la probabilidad y la estadística
+%      citadas en el texto (Bayes, Laplace, Kolmogorov, De Moivre,
+%      Lindeberg--Lévy, Von Mises, Bernoulli, Chebyshev...).
+%   3. Contribuciones económicas y financieras específicas mencionadas
+%      en el manual (Laspeyres, Paasche, Fisher, Markowitz, Black--Scholes,
+%      Gibrat, Pareto, Efron...).
+%   4. Software estadístico y documentación técnica y regulatoria.
+%
+% Todas las claves están escritas en CamelCase, sin diacríticos ni tildes.
+% =====================================================================
+
+
+% ---------------------------------------------------------------------
+% 1. Manuales de referencia utilizados en el grado
+% ---------------------------------------------------------------------
+
+@book{MartinPliego2004,
+  title     = {Introducción a la Estadística Económica y Empresarial},
+  author    = {Mart{\'i}n-Pliego, Francisco Javier},
+  publisher = {Thomson/Paraninfo},
+  year      = {2004},
+  address   = {Madrid}
 }
 
 @book{MartinPliego2009,
   title     = {Problemas de probabilidad},
-  author    = {Martín-Pliego, Francisco Javier},
+  author    = {Mart{\'i}n-Pliego, Francisco Javier},
   publisher = {Paraninfo},
   year      = {2009},
+  address   = {Madrid},
   isbn      = {84-9732-501-X}
+}
+
+@book{MartinPliego2010,
+  title     = {Fundamentos de probabilidad},
+  author    = {Mart{\'i}n-Pliego, Francisco Javier},
+  publisher = {Thomson},
+  year      = {2010},
+  address   = {Madrid},
+  isbn      = {978-84-9732-500-4}
 }
 
 @book{MonteroLorenzo2007a,
   title     = {Estadística descriptiva},
-  author    = {Montero-Lorenzo, José María},
+  author    = {Montero-Lorenzo, Jos{\'e} Mar{\'i}a},
   publisher = {Thomson},
   year      = {2007},
+  address   = {Madrid},
   isbn      = {978-84-9732-514-1}
 }
 
 @book{MonteroLorenzo2007b,
-  title     = {Problemas resueltos de estadística descriptiva para ciencias},
-  author    = {Montero-Lorenzo, José María},
+  title     = {Problemas resueltos de estadística descriptiva para ciencias sociales},
+  author    = {Montero-Lorenzo, Jos{\'e} Mar{\'i}a},
   publisher = {Thomson},
   year      = {2007},
+  address   = {Madrid},
   isbn      = {978-84-9732-659-9}
 }
 
 @book{Newbold2007,
   title     = {Estadística para administración y economía},
-  author    = {Newbold, Paul},
+  author    = {Newbold, Paul and Carlson, William L. and Thorne, Betty M.},
   publisher = {Pearson Prentice Hall},
   year      = {2007},
+  edition   = {6},
+  address   = {Madrid},
   isbn      = {978-84-8322-403-8}
 }
 
 @book{Pena2003,
-  title     = {Introducción a la Estadística para las Ciencias Sociales},
-  author    = {Peña, Daniel},
-  publisher = {McGraw-Hill/Interamericana de España},
+  title     = {Introducción a la estadística para las ciencias sociales},
+  author    = {Pe{\~n}a, Daniel},
+  publisher = {McGraw-Hill/Interamericana de Espa{\~n}a},
   year      = {2003},
+  address   = {Madrid},
   isbn      = {84-481-1617-8}
 }
 
-@book{MartinPliego2004,
-  title     = {Introducción a la Estadística Económica y Empresarial},
-  author    = {Martín-Pliego, F.J.},
-  publisher = {Thomson/Paraninfo},
-  year      = {2004}
+
+% ---------------------------------------------------------------------
+% 2. Obras históricas fundacionales
+% ---------------------------------------------------------------------
+
+@article{Bayes1763,
+  title   = {An Essay towards Solving a Problem in the Doctrine of Chances},
+  author  = {Bayes, Thomas},
+  journal = {Philosophical Transactions of the Royal Society of London},
+  volume  = {53},
+  pages   = {370--418},
+  year    = {1763},
+  note    = {Publicado póstumamente por Richard Price. Origen del Teorema de Bayes.}
+}
+
+@book{Bernoulli1713,
+  title     = {Ars Conjectandi},
+  author    = {Bernoulli, Jacob},
+  publisher = {Impensis Thurnisiorum, Fratrum},
+  address   = {Basilea},
+  year      = {1713},
+  note      = {Publicado póstumamente por su sobrino Nicolaus Bernoulli. Contiene la primera formulación de la Ley de los Grandes Números y del experimento de Bernoulli.}
+}
+
+@book{DeMoivre1733,
+  title     = {Approximatio ad Summam Terminorum Binomii $(a+b)^n$ in Seriem Expansi},
+  author    = {de Moivre, Abraham},
+  publisher = {Impreso privado},
+  address   = {Londres},
+  year      = {1733},
+  note      = {Primera aproximación de la distribución binomial por la normal, precursora del teorema central del límite.}
+}
+
+@book{Laplace1812,
+  title     = {Théorie analytique des probabilités},
+  author    = {Laplace, Pierre-Simon},
+  publisher = {Courcier},
+  address   = {París},
+  year      = {1812},
+  note      = {Definición clásica de probabilidad (regla de Laplace) y generalización del teorema de De Moivre.}
+}
+
+@article{Chebyshev1867,
+  title   = {Des valeurs moyennes},
+  author  = {Chebyshev, Pafnuty L.},
+  journal = {Journal de Mathématiques Pures et Appliquées},
+  volume  = {12},
+  pages   = {177--184},
+  year    = {1867},
+  note    = {Formulación general de la desigualdad de Chebyshev.}
+}
+
+@article{Poisson1837,
+  title     = {Recherches sur la probabilité des jugements en matière criminelle et en matière civile},
+  author    = {Poisson, Siméon-Denis},
+  publisher = {Bachelier},
+  address   = {París},
+  year      = {1837},
+  note      = {Contiene la primera formulación de la distribución de Poisson como límite de la binomial.}
+}
+
+@article{VonMises1919,
+  title   = {Grundlagen der Wahrscheinlichkeitsrechnung},
+  author  = {von Mises, Richard},
+  journal = {Mathematische Zeitschrift},
+  volume  = {5},
+  pages   = {52--99},
+  year    = {1919},
+  note    = {Formulación frecuentista de la probabilidad basada en la estabilidad de las frecuencias relativas.}
+}
+
+@article{Lindeberg1922,
+  title   = {Eine neue Herleitung des Exponentialgesetzes in der Wahrscheinlichkeitsrechnung},
+  author  = {Lindeberg, Jarl W.},
+  journal = {Mathematische Zeitschrift},
+  volume  = {15},
+  pages   = {211--225},
+  year    = {1922},
+  note    = {Prueba general del teorema central del límite con condiciones necesarias y suficientes.}
+}
+
+@book{Levy1925,
+  title     = {Calcul des probabilités},
+  author    = {L{\'e}vy, Paul},
+  publisher = {Gauthier-Villars},
+  address   = {París},
+  year      = {1925},
+  note      = {Versión definitiva del teorema central del límite (Lindeberg--Lévy) mediante funciones características.}
+}
+
+@book{Kolmogorov1933,
+  title     = {Grundbegriffe der Wahrscheinlichkeitsrechnung},
+  author    = {Kolmogorov, Andrei N.},
+  publisher = {Springer},
+  address   = {Berlín},
+  year      = {1933},
+  note      = {Axiomatización moderna del cálculo de probabilidades. Traducción inglesa: Foundations of the Theory of Probability, Chelsea, 1956.}
+}
+
+@book{Ramsey1931,
+  title     = {The Foundations of Mathematics and other Logical Essays},
+  author    = {Ramsey, Frank P.},
+  editor    = {Braithwaite, R. B.},
+  publisher = {Kegan Paul, Trench, Trubner \& Co.},
+  address   = {Londres},
+  year      = {1931},
+  note      = {Contiene ``Truth and Probability'' (1926), primera formulación operativa de la probabilidad subjetiva mediante apuestas coherentes.}
+}
+
+@book{DeFinetti1937,
+  title     = {La prévision: ses lois logiques, ses sources subjectives},
+  author    = {de Finetti, Bruno},
+  publisher = {Annales de l'Institut Henri Poincar{\'e}, vol. 7, pp. 1--68},
+  address   = {París},
+  year      = {1937},
+  note      = {Fundamentación subjetivista de la probabilidad y teorema de representación (De Finetti).}
+}
+
+@book{Savage1954,
+  title     = {The Foundations of Statistics},
+  author    = {Savage, Leonard J.},
+  publisher = {John Wiley \& Sons},
+  address   = {Nueva York},
+  year      = {1954},
+  note      = {Base axiomática de la teoría de la decisión bajo incertidumbre bajo el enfoque bayesiano.}
+}
+
+
+% ---------------------------------------------------------------------
+% 3. Contribuciones económicas y financieras específicas
+% ---------------------------------------------------------------------
+
+@article{Laspeyres1871,
+  title   = {Die Berechnung einer mittleren Warenpreissteigerung},
+  author  = {Laspeyres, Étienne},
+  journal = {Jahrbücher für Nationalökonomie und Statistik},
+  volume  = {16},
+  pages   = {296--314},
+  year    = {1871},
+  note    = {Primera formulación del índice de precios de Laspeyres (con ponderaciones del período base).}
+}
+
+@article{Paasche1874,
+  title   = {Über die Preisentwicklung der letzten Jahre nach den Hamburger Börsennotirungen},
+  author  = {Paasche, Hermann},
+  journal = {Jahrbücher für Nationalökonomie und Statistik},
+  volume  = {23},
+  pages   = {168--178},
+  year    = {1874},
+  note    = {Formulación del índice de precios de Paasche (con ponderaciones del período actual).}
+}
+
+@book{Fisher1922,
+  title     = {The Making of Index Numbers},
+  author    = {Fisher, Irving},
+  publisher = {Houghton Mifflin},
+  address   = {Boston},
+  year      = {1922},
+  note      = {Tratado clásico sobre números índice. Introducción del índice ``ideal'' de Fisher como media geométrica de Laspeyres y Paasche.}
+}
+
+@book{FisherRA1925,
+  title     = {Statistical Methods for Research Workers},
+  author    = {Fisher, Ronald A.},
+  publisher = {Oliver \& Boyd},
+  address   = {Edimburgo},
+  year      = {1925},
+  note      = {Obra clave de la estadística aplicada moderna. Introduce los coeficientes de asimetría y curtosis normalizados.}
+}
+
+@book{Pareto1896,
+  title     = {Cours d'économie politique},
+  author    = {Pareto, Vilfredo},
+  publisher = {F. Rouge},
+  address   = {Lausana},
+  year      = {1896},
+  note      = {Formulación de la ley de distribución de la renta (distribución de Pareto) y del principio de concentración.}
+}
+
+@book{Gibrat1931,
+  title     = {Les inégalités économiques},
+  author    = {Gibrat, Robert},
+  publisher = {Recueil Sirey},
+  address   = {París},
+  year      = {1931},
+  note      = {Ley del efecto proporcional. Justificación teórica de la log-normalidad en variables económicas resultantes de procesos multiplicativos.}
+}
+
+@article{Markowitz1952,
+  title   = {Portfolio Selection},
+  author  = {Markowitz, Harry},
+  journal = {The Journal of Finance},
+  volume  = {7},
+  number  = {1},
+  pages   = {77--91},
+  year    = {1952},
+  doi     = {10.1111/j.1540-6261.1952.tb01525.x},
+  note    = {Fundamento del análisis media--varianza de carteras. Premio Nobel de Economía en 1990.}
+}
+
+@article{BlackScholes1973,
+  title   = {The Pricing of Options and Corporate Liabilities},
+  author  = {Black, Fischer and Scholes, Myron},
+  journal = {The Journal of Political Economy},
+  volume  = {81},
+  number  = {3},
+  pages   = {637--654},
+  year    = {1973},
+  doi     = {10.1086/260062},
+  note    = {Modelo de valoración de opciones bajo hipótesis de log-normalidad en el precio del activo subyacente. Base del premio Nobel de Economía 1997 a Merton y Scholes.}
+}
+
+@article{Merton1973,
+  title   = {Theory of Rational Option Pricing},
+  author  = {Merton, Robert C.},
+  journal = {Bell Journal of Economics and Management Science},
+  volume  = {4},
+  number  = {1},
+  pages   = {141--183},
+  year    = {1973},
+  doi     = {10.2307/3003143},
+  note    = {Formulación general del modelo de valoración de derivados en tiempo continuo. Premio Nobel de Economía 1997 (compartido con Myron Scholes).}
+}
+
+@article{Efron1979,
+  title   = {Bootstrap Methods: Another Look at the Jackknife},
+  author  = {Efron, Bradley},
+  journal = {The Annals of Statistics},
+  volume  = {7},
+  number  = {1},
+  pages   = {1--26},
+  year    = {1979},
+  doi     = {10.1214/aos/1176344552},
+  note    = {Introducción del método bootstrap, fundamental en la estadística computacional moderna.}
+}
+
+
+% ---------------------------------------------------------------------
+% 4. Software estadístico, documentación técnica y regulatoria
+% ---------------------------------------------------------------------
+
+@manual{RCoreTeam,
+  title        = {R: A Language and Environment for Statistical Computing},
+  author       = {{R Core Team}},
+  organization = {R Foundation for Statistical Computing},
+  address      = {Viena, Austria},
+  year         = {2024},
+  url          = {https://www.R-project.org/}
+}
+
+@article{Wickham2019,
+  title   = {Welcome to the tidyverse},
+  author  = {Wickham, Hadley and Averick, Mara and Bryan, Jennifer and Chang, Winston and McGowan, Lucy D'Agostino and François, Romain and Grolemund, Garrett and Hayes, Alex and Henry, Lionel and Hester, Jim and Kuhn, Max and Pedersen, Thomas Lin and Miller, Evan and Bache, Stephan Milton and Müller, Kirill and Ooms, Jeroen and Robinson, David and Seidel, Dana Paige and Spinu, Vitalie and Takahashi, Kohske and Vaughan, Davis and Wilke, Claus and Woo, Kara and Yutani, Hiroaki},
+  journal = {Journal of Open Source Software},
+  volume  = {4},
+  number  = {43},
+  pages   = {1686},
+  year    = {2019},
+  doi     = {10.21105/joss.01686}
+}
+
+@book{Xie2016,
+  title     = {bookdown: Authoring Books and Technical Documents with R Markdown},
+  author    = {Xie, Yihui},
+  publisher = {Chapman and Hall/CRC},
+  address   = {Boca Raton, Florida},
+  year      = {2016},
+  isbn      = {978-1138700109},
+  url       = {https://bookdown.org/yihui/bookdown/}
+}
+
+@manual{INE_IPC,
+  title        = {Índice de Precios de Consumo. Metodología},
+  author       = {{Instituto Nacional de Estadística}},
+  organization = {INE},
+  address      = {Madrid},
+  year         = {2022},
+  url          = {https://www.ine.es/daco/daco43/ipc/metodologia_ipc.pdf},
+  note         = {Documento metodológico oficial del IPC español. Referencia del cálculo con Laspeyres encadenado desde 2001.}
+}
+
+@manual{BasileaIII,
+  title        = {Basel III: Finalising post-crisis reforms},
+  author       = {{Basel Committee on Banking Supervision}},
+  organization = {Bank for International Settlements},
+  address      = {Basilea},
+  year         = {2017},
+  url          = {https://www.bis.org/bcbs/publ/d424.htm},
+  note         = {Marco regulatorio internacional que exige el uso del Valor en Riesgo (VaR) y el Expected Shortfall en la gestión bancaria del riesgo de mercado.}
+}
+
+@manual{SolvenciaII,
+  title        = {Directiva 2009/138/CE del Parlamento Europeo y del Consejo, sobre el seguro de vida, el acceso a la actividad de seguro y de reaseguro y su ejercicio (Solvencia II)},
+  author       = {{Parlamento Europeo y Consejo de la Unión Europea}},
+  organization = {Diario Oficial de la Unión Europea, L 335/1},
+  address      = {Bruselas},
+  year         = {2009},
+  url          = {https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32009L0138},
+  note         = {Marco regulatorio del sector asegurador europeo. Impone el uso del VaR al 99,5\% para el cálculo del capital de solvencia requerido.}
 }

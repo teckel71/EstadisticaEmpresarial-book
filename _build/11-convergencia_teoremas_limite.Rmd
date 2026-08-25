@@ -862,3 +862,622 @@ Cuatro ideas conviene retener de este capítulo por encima del resto:
 4. **La LGN es la base del negocio de vender previsibilidad; el TCL es la base de la inferencia.** Los seguros, los casinos, los *market makers* y las encuestas funcionan porque la LGN convierte incertidumbre individual en previsibilidad colectiva. Los intervalos de confianza, los tests de hipótesis y los tests A/B funcionan porque el TCL nos garantiza que la distribución de nuestros estimadores es aproximadamente normal. Sin estos dos teoremas, ni la industria del riesgo ni la estadística inferencial tendrían base matemática. Con ellos, se sostiene todo el bloque de aplicaciones que sigue.
 
 En el próximo capítulo, con el TCL como llave maestra, entraremos por fin en **inferencia estadística**: distribuciones muestrales, estimadores, intervalos de confianza. La normal, que ha ido asomando desde el capítulo 7, acabará de instalarse como protagonista absoluta —no de los datos, sino de las conclusiones que sobre los datos se pueden extraer. Aparecerán como aliadas la ya insinuada **t de Student**, y también la **ji-cuadrado** y la **F de Snedecor**, todas ellas derivadas de la normal y todas ellas nacidas del TCL aplicado a estadísticos de segundo orden. La estadística inferencial, que da miedo por su nombre pero se sostiene sobre las distribuciones que ya conocemos, está por fin a un capítulo de distancia.
+
+## Problemas propuestos. {#problemas-cap11}
+
+Este capítulo, más conceptual que los anteriores, tiene un doble objetivo pedagógico: consolidar la **intuición** de los dos teoremas —LGN y TCL— y aplicarla al **cálculo** de probabilidades sobre sumas, medias y proporciones, así como a las tres aproximaciones (binomial → Poisson → normal). Los 20 ejercicios que siguen se organizan en dos grandes bloques: los primeros —muy variados y a menudo puramente interpretativos— trabajan la identificación del teorema o la aproximación adecuada y los malentendidos clásicos; los siguientes se ocupan del cálculo dentro de cada caso (media muestral, proporción muestral, diferencia de medias, aproximaciones B→N y Po→N, diversificación). Todas las soluciones detalladas se recogen al final del capítulo.
+
+### Problema 11.1. Test de identificación (interpretativo).
+
+Para cada uno de los ocho escenarios siguientes, indica qué **teorema** o qué **aproximación** de este capítulo (LGN, TCL, aproximación B→Po, B→N, Po→N o ninguna de ellas) es el más apropiado, y **justifica** en una línea:
+
+a)  Una aseguradora quiere estimar el coste **medio agregado** por asegurado de una cartera de 50 000 pólizas independientes. Cada póliza tiene E(coste)=200 PAVOs y σ=800 PAVOs.
+b)  Un economista quiere calcular la probabilidad de que la **media** de una muestra de 100 rentas mensuales caiga entre 2 800 y 3 200 PAVOs, sabiendo que las rentas individuales son log-normales muy asimétricas.
+c)  Se lanza 500 veces una moneda cargada con $p = 0{,}45$ de sacar cara. Se busca calcular P(número de caras ≥ 235).
+d)  Un servidor recibe peticiones con tasa $\lambda = 200$ por minuto. Se busca calcular P(número de peticiones en 1 minuto < 180).
+e)  Un algoritmo de reserva galáctica reserva plazas para 800 pasajeros; cada pasajero, con probabilidad 0,02 e independientemente, no acude. Se busca calcular P(al menos 20 pasajeros no acudan).
+f)  Con 10 000 apuestas independientes, cada una con esperanza de ganancia -0,05 PAVOs, se afirma que "el casino ganará **muy cerca** de 500 PAVOs esa jornada".
+g)  Una encuesta pregunta a 1 200 votantes por su intención de voto al partido A, cuya intención real de voto es del 45%. Se busca la distribución de la proporción muestral $\hat p$.
+h)  Se comparan las ventas medias en dos sucursales (100 clientes muestreados en cada una) para decidir si una es realmente mejor que la otra.
+
+### Problema 11.2. LGN y TCL: verdadero o falso.
+
+Indica si cada una de las siguientes afirmaciones es **verdadera** o **falsa** y justifica brevemente en cada caso:
+
+a)  "El TCL garantiza que, con muestra suficientemente grande, la variable **original** se distribuye aproximadamente como una normal."
+b)  "La LGN garantiza que la media muestral se acerca a la media poblacional cuando $n$ crece."
+c)  "El TCL solo funciona si la variable de partida es simétrica."
+d)  "La desviación típica de la media muestral es siempre la misma que la desviación típica de la variable original."
+e)  "Con $n = 30$ observaciones el TCL siempre funciona bien, sea cual sea la distribución de partida."
+f)  "En una ruleta, si han salido 10 rojos seguidos, la probabilidad de que salga negro en la siguiente es mayor por la LGN."
+
+### Problema 11.3. LGN aplicada al negocio del casino.
+
+Un casino galáctico ofrece un juego con las siguientes características por apuesta de 100 PAVOs:
+
+-   Ganancia neta esperada del jugador: $E(G) = -5$ PAVOs por apuesta (la casa espera ganar 5 PAVOs).
+-   Desviación típica de la ganancia: $\sigma_G = 200$ PAVOs.
+
+Se pide:
+
+a)  Un jugador aficionado hace **10 apuestas** en una tarde. Calcula la ganancia esperada y la desviación típica de su ganancia total. Aplicando la aproximación normal (que como veremos requiere $n$ mayor, pero la aceptamos aquí como aproximación grosera), calcula P(el jugador salga ganando).
+b)  El casino recibe **10 000 apuestas** el mismo día (todas independientes entre sí). Aplicando el TCL, identifica la distribución de la ganancia total agregada del casino y calcula la P(el casino cierre el día con ganancia superior a 40 000 PAVOs).
+c)  Compara la **variabilidad relativa** (coeficiente de variación) de la ganancia total del jugador (n=10) frente a la del casino (n=10 000).
+d)  Explica en dos frases por qué el negocio del casino es viable económicamente aunque cada partida individual tenga un resultado incierto.
+
+### Problema 11.4. LGN aplicada al negocio del seguro.
+
+*Galactic Casualty & Loss* asegura una cartera de $n = 10\,000$ pólizas independientes. Cada póliza tiene un coste anual esperado $E(C) = 200$ PAVOs y una desviación típica $\sigma_C = 800$ PAVOs (la dispersión es enorme porque la mayoría de asegurados no reclama, pero unos pocos reclaman mucho).
+
+Se pide:
+
+a)  Identifica la distribución aproximada del **coste total agregado** de la cartera aplicando el TCL. Da media y desviación típica.
+b)  Calcula el **coeficiente de variación** (σ/μ) de una póliza individual y compáralo con el de la cartera agregada. ¿Cuánto ha caído la variabilidad relativa gracias al agregado?
+c)  Calcula P(coste total > 2 100 000 PAVOs): probabilidad de que el coste total supere en 5% al esperado.
+d)  La compañía cobra a cada asegurado una **prima** de 220 PAVOs (una carga técnica del 10% sobre el coste esperado). ¿Con qué probabilidad los ingresos totales por primas (2 200 000 PAVOs) cubren los costes totales?
+e)  Explica en clave económica por qué el modelo de negocio del seguro **funciona** con 10 000 asegurados y **no funcionaría** con 10.
+
+### Problema 11.5. Error estándar y el factor $\sqrt n$.
+
+Una variable aleatoria $\xi$ tiene media $\mu = 100$ y desviación típica $\sigma = 20$ (distribución de partida desconocida, pero con varianza finita). Se toman muestras aleatorias simples de tamaño $n$ y se calcula la media muestral $\bar\xi_n$.
+
+Se pide:
+
+a)  Calcula el error estándar $\mathrm{SE} = \sigma/\sqrt{n}$ para $n = 25$, $n = 100$ y $n = 400$.
+b)  Comprueba numéricamente que **cuadruplicar $n$ divide el error estándar entre 2**. ¿Cuánto habría que multiplicar $n$ para dividir el error estándar por 10?
+c)  Calcula $P(\bar\xi_n > 105)$ para los tres tamaños del apartado (a). Comenta cómo la misma pregunta se vuelve cada vez más improbable al aumentar $n$.
+d)  Un ingeniero de calidad quiere estimar la media poblacional con un error estándar inferior a 0,5. ¿Qué tamaño mínimo de muestra necesita?
+
+### Problema 11.6. TCL para la suma de normales (tonelaje agregado).
+
+*Arrakis Freight* despacha una flotilla de **20 cargueros** hacia Klendathu. El tonelaje individual de cada carguero se distribuye como $\xi_j \to N(700;\ 100)$ miles de toneladas, con los $\xi_j$ independientes entre sí. Sea $\eta = \xi_1 + \xi_2 + \cdots + \xi_{20}$ el tonelaje total de la flotilla.
+
+Se pide:
+
+a)  Identifica la distribución exacta de $\eta$ (esto no requiere TCL, sino directamente la propiedad reproductiva de la normal).
+b)  Calcula P(tonelaje total > 15 000 miles de toneladas).
+c)  Calcula el coeficiente de variación de una nave individual ($\sigma/\mu$) y compáralo con el de la flotilla agregada. ¿Qué implicación tiene esto para el análisis de riesgos operativos?
+d)  ¿Se necesitaría realmente el TCL aquí? Explica: ¿en qué se distingue este caso de aquel en el que las $\xi_j$ **no** fueran normales?
+
+### Problema 11.7. TCL para promedios (Padmé Ardea revisitada).
+
+En un astropuerto secundario, el **tiempo de descarga** de un contenedor sigue una distribución exponencial con media $\mu = 15$ minutos (y por tanto $\sigma = 15$). La jefa de operaciones **Padmé Ardea** prepara un informe basado en el tiempo medio de descarga de los primeros $n = 80$ contenedores del turno. Sea $\bar\xi_{80}$ esa media muestral.
+
+Se pide:
+
+a)  ¿Es exponencial la variable $\bar\xi_{80}$? Justifica.
+b)  Aplicando el TCL, identifica la distribución **aproximada** de $\bar\xi_{80}$. Calcula media y error estándar.
+c)  Calcula $P(\bar\xi_{80} < 13)$: probabilidad de un turno "rápido".
+d)  Calcula $P(13 \le \bar\xi_{80} \le 17)$: probabilidad de un turno "estándar".
+e)  Calcula $P(\bar\xi_{80} > 17)$: probabilidad de un turno "lento" (umbral de alerta).
+
+### Problema 11.8. La magia del TCL: individual vs promedio.
+
+Sigue el escenario del problema anterior (contenedores con tiempo exponencial, $\mu = 15$, $\sigma = 15$). Se pide comparar dos cálculos:
+
+a)  Un contenedor individual: calcula $P(\xi > 20)$ usando **directamente** la exponencial. (Recuerda: $P(\xi > x) = e^{-x/\mu}$.)
+b)  El promedio del turno de 80 contenedores: calcula $P(\bar\xi_{80} > 20)$ usando la aproximación normal del TCL.
+c)  Compara ambas cifras. Ordena de mayor a menor y comenta la enorme diferencia.
+d)  Un directivo lee las dos cifras y dice: *"si tantos contenedores individuales tardan más de 20 minutos, ¿cómo puede el promedio no superar los 20 casi nunca?"*. Explícale la aparente paradoja recurriendo al TCL y a la idea de "concentración".
+
+### Problema 11.9. Aproximación binomial → normal.
+
+En una campaña logística, *Corellian Freightworks* opera $n = 150$ rutas simultáneas. La probabilidad de que una ruta individual finalice con éxito es $p = 0{,}40$ (parámetro estimado sobre datos históricos en un corredor problemático). Sea $\eta = $ *"número de rutas exitosas"*.
+
+Se pide:
+
+a)  Identifica la distribución exacta de $\eta$ y verifica las condiciones para aproximar por normal ($np \ge 5$, $nq \ge 5$).
+b)  Determina la distribución aproximada $N(\mu;\ \sigma)$.
+c)  Calcula $P(\eta \ge 70)$ **sin corrección** de continuidad.
+d)  Calcula $P(\eta \ge 70)$ **con corrección** de continuidad ($P(Y \ge 69{,}5)$).
+e)  El valor exacto binomial es $P(\eta \ge 70) \approx 0{,}0592$. Comenta cuál de las dos aproximaciones queda más cerca del exacto.
+
+### Problema 11.10. Proporción muestral: encuesta electoral.
+
+Una encuesta electoral en la Federación Galáctica pregunta a $n = 1\,500$ votantes por su intención de voto al partido *Alianza por el Núcleo*. La proporción **verdadera** de intención de voto en toda la población es $p = 0{,}52$ (mayoría absoluta técnica). Sea $\hat p = X/n$ la proporción muestral.
+
+Se pide:
+
+a)  Aplicando el TCL en su forma de proporción, identifica la distribución aproximada de $\hat p$.
+b)  Calcula el error estándar $\mathrm{SE}(\hat p)$.
+c)  Calcula $P(\hat p < 0{,}50)$: probabilidad de que la encuesta **prediga que no hay mayoría** aunque la verdadera intención sea del 52%.
+d)  Calcula el **margen de error del 95%**: la cantidad $E$ tal que $P(|\hat p - p| < E) \approx 0{,}95$. (Sugerencia: $E = 1{,}96 \cdot \mathrm{SE}$.)
+e)  Interpreta el resultado para un periódico galáctico: *"la Alianza por el Núcleo obtiene un 52% con un margen de error de ±X puntos"*.
+
+### Problema 11.11. Poisson → normal: servidor de la red.
+
+Un servidor de la red galáctica de *Enterprise Logistics* recibe peticiones a razón de $\lambda = 100$ peticiones por minuto (proceso de Poisson). Sea $\xi = $ *"número de peticiones en un minuto concreto"*.
+
+Se pide:
+
+a)  Verifica que se cumple el criterio para aproximar Poisson por normal ($\lambda \ge 10$).
+b)  Determina la distribución aproximada $N(\lambda;\ \sqrt\lambda)$.
+c)  Calcula $P(\xi < 85)$ con corrección de continuidad ($P(Y \le 84{,}5)$).
+d)  Calcula $P(\xi > 120)$ con corrección de continuidad ($P(Y \ge 120{,}5)$).
+e)  ¿A cuántas peticiones por minuto debe estar dimensionado el servidor para cubrir el **percentil 99** de la carga?
+f)  Interpreta la última cifra en términos operativos.
+
+### Problema 11.12. Motores SELENE: los cuatro caminos.
+
+El astillero SELENE somete a pruebas $n = 500$ motores prototípicos, cada uno con probabilidad $p = 0{,}04$ de fallar (independientes). Sea $\eta = $ *"número de motores que fallan"*.
+
+Se pide:
+
+a)  Identifica la distribución **exacta** de $\eta$.
+b)  Verifica qué aproximaciones son aplicables: (i) B → Po, (ii) Po → N, (iii) B → N directamente.
+c)  Calcula $P(\eta \ge 25)$ por los cuatro caminos posibles: binomial exacta, Poisson exacta (con $\lambda = np$), normal desde binomial (con corrección de continuidad), normal desde Poisson (con corrección de continuidad).
+d)  Ordena las cuatro cifras y comenta la calidad de las aproximaciones.
+e)  ¿Por qué las dos rutas hacia la normal (desde binomial y desde Poisson) casi coinciden en este caso?
+
+### Problema 11.13. Encuesta electoral extendida: tamaño de muestra.
+
+Sigue el escenario del problema 11.10 (partido *Alianza por el Núcleo* con intención real de voto $p = 0{,}52$).
+
+Se pide:
+
+a)  Si la encuesta hubiera preguntado a solo $n = 400$ votantes, ¿cuál habría sido el error estándar de $\hat p$?
+b)  ¿Cuál habría sido el margen de error del 95%?
+c)  Si el instituto demoscópico quiere un margen de error del 95% inferior a **1 punto porcentual** ($E < 0{,}01$), ¿cuál es el tamaño mínimo de muestra necesario? (Usa como aproximación conservadora $p = 0{,}5$, que maximiza $pq$.)
+d)  Con el tamaño calculado en (c), ¿cuánto se ha multiplicado el tamaño respecto a $n = 1\,500$? ¿Y cuánto se ha reducido el margen de error?
+e)  Explica por qué reducir el margen de error a la mitad **cuadruplica** el tamaño de muestra requerido.
+
+### Problema 11.14. Test A/B: diferencia de medias.
+
+*Kaiju Haulage Co.* prueba dos versiones distintas de su web comercial para ver cuál genera más ventas por visitante. Recoge datos de:
+
+-   **Web A:** $n_A = 200$ visitantes, con gasto medio $\bar x_A = 50$ PAVOs y desviación típica $s_A = 20$ PAVOs.
+-   **Web B:** $n_B = 200$ visitantes, con gasto medio $\bar x_B = 53$ PAVOs y desviación típica $s_B = 22$ PAVOs.
+
+Se pide:
+
+a)  Identifica la distribución aproximada de la **diferencia de medias muestrales** $D = \bar\xi_A - \bar\xi_B$ bajo la hipótesis de que las dos versiones tienen la **misma media poblacional** (es decir, $\mu_A = \mu_B$). Da media y error estándar.
+b)  Calcula la probabilidad de observar una diferencia de al menos 3 PAVOs en valor absoluto (tanto a favor de A como de B), suponiendo que en realidad las dos webs son igualmente eficaces.
+c)  A la luz del resultado del apartado (b), ¿debería la compañía concluir que la web B es realmente mejor?
+d)  ¿Qué tamaño de muestra necesitaría cada web (asumiendo tamaños iguales $n_A = n_B = n$) para que la diferencia observada de 3 PAVOs fuera estadísticamente significativa al 5% (unilateral)? (Sugerencia: buscar $n$ tal que $z = 3 / \sqrt{s_A^2/n + s_B^2/n} > 1{,}645$.)
+e)  ¿Qué lección práctica se extrae para las empresas que hacen tests A/B con muestras pequeñas?
+
+### Problema 11.15. Diversificación: cartera de Ripley Strix.
+
+**Ripley Strix**, analista de *Kaiju Haulage Co.*, diseña una cartera de $n$ contratos comerciales independientes. Cada contrato tiene rentabilidad esperada $\mu = 8\%$ y desviación típica $\sigma = 15\%$. La cartera reparte el capital por igual, con lo que su rentabilidad es $\bar\xi_n$.
+
+Se pide:
+
+a)  Calcula el **riesgo** (desviación típica) de la cartera para $n = 1, 4, 10, 25, 100, 400$ contratos.
+b)  Expresa cada riesgo como **porcentaje del riesgo del contrato individual** ($\sigma_{\bar\xi_n}/\sigma$).
+c)  Calcula la reducción marginal del riesgo al pasar de $n = 100$ a $n = 200$. Compárala con la reducción al pasar de $n = 1$ a $n = 2$. Comenta la **ley de rendimientos decrecientes** de la diversificación.
+d)  Asumiendo (por TCL) que la rentabilidad de la cartera es normal, calcula $P(\bar\xi_{100} < 5\%)$: probabilidad de que la cartera diversificada de 100 contratos rinda por debajo del 5%.
+e)  Compara la cifra anterior con $P(\xi < 5\%)$ para un contrato individual (asumiendo también normal). ¿Cuánto más segura es la cartera diversificada?
+
+### Problema 11.16. Malentendidos sobre el TCL (interpretativo).
+
+Para cada uno de los cinco escenarios siguientes, identifica el **error conceptual** en el razonamiento propuesto y explica en dos líneas cuál sería la lectura correcta:
+
+a)  Un consultor recibe una muestra de 50 salarios anuales, calcula que la distribución muestral tiene forma fuertemente asimétrica y concluye: *"como la distribución de partida no es normal, no puedo aplicar el TCL para hacer inferencia sobre la media"*.
+b)  Un analista tiene una muestra de $n = 100$ observaciones y afirma: *"el TCL me garantiza que la media poblacional está entre $\bar x - 2\mathrm{SE}$ y $\bar x + 2\mathrm{SE}$ con probabilidad 0,95"*.
+c)  Una periodista económica lee: *"la encuesta tiene un margen de error de ±3 puntos"* y titula: *"todos los sondeos tienen un margen de error de tres puntos, sea cual sea su tamaño"*.
+d)  Un jugador argumenta: *"llevo perdiendo toda la tarde, así que por la LGN mi siguiente apuesta tiene más probabilidades de ganar"*.
+e)  Un analista financiero afirma: *"cuantos más activos tenga la cartera, más diversifico, y con 10 000 activos el riesgo será prácticamente cero"*.
+
+### Problema 11.17. Aplicación integrada: control de calidad con TCL.
+
+Una fábrica del astillero KORRIGAN produce paneles de fuselaje. El peso individual de cada panel se distribuye con media $\mu = 500$ gramos y desviación típica $\sigma = 15$ gramos (distribución no necesariamente normal). El control de calidad selecciona lotes de $n = 36$ paneles y calcula su peso medio $\bar\xi_{36}$.
+
+Se pide:
+
+a)  Aplicando el TCL, identifica la distribución aproximada de $\bar\xi_{36}$.
+b)  Calcula $P(\bar\xi_{36} < 497)$: probabilidad de que el peso medio del lote esté por debajo de 497 gramos.
+c)  Calcula $P(\bar\xi_{36} > 505)$: probabilidad de que supere los 505 gramos.
+d)  El protocolo de calidad exige detener la línea si $\bar\xi_{36}$ sale del intervalo $[498, 502]$. ¿Con qué probabilidad se detiene la línea en un lote elegido al azar?
+e)  Un ingeniero propone reducir $n$ a $18$ para agilizar el muestreo. ¿Qué implicación tiene sobre la probabilidad de detener la línea (falsa alarma) del apartado (d)?
+
+### Problema 11.18. VaR de una cartera diversificada.
+
+El fondo *"Vía Láctea Diversificado"* de *Hyperdrive Express* invierte en $n = 100$ activos independientes. Cada activo tiene rentabilidad diaria esperada del $0{,}05\%$ y desviación típica del $1{,}5\%$. El capital total es de $C = 20$ millones de PAVOs.
+
+Se pide:
+
+a)  Identifica (por TCL) la distribución aproximada de la **rentabilidad diaria de la cartera** $\bar\xi_{100}$.
+b)  Calcula la **pérdida diaria** $L = -C \cdot \bar\xi_{100}$ e identifica su distribución.
+c)  Calcula el $\mathrm{VaR}_{95\%}$ diario de la cartera. Compáralo con el $\mathrm{VaR}_{95\%}$ que tendría **un solo activo** con el mismo capital invertido.
+d)  Calcula la reducción del VaR gracias a la diversificación: ¿en qué porcentaje se reduce respecto al activo único?
+e)  Explica por qué el TCL es, en última instancia, el fundamento matemático de la gestión moderna de riesgos financieros.
+
+### Problema 11.19. Escenarios mixtos: identifica y calcula.
+
+Para cada uno de los siguientes escenarios: (i) identifica el teorema o aproximación adecuada; (ii) escribe la distribución aproximante; (iii) calcula la probabilidad o el valor indicado.
+
+a)  Una encuesta de intención de compra pregunta a $n = 800$ consumidores. La proporción verdadera de intención de compra es $p = 0{,}30$. Calcula $P(\hat p > 0{,}33)$.
+b)  Una compañía de seguros tiene 5 000 pólizas independientes con coste medio 150 PAVOs y desviación típica 500 PAVOs. Calcula la probabilidad de que el coste total supere los 780 000 PAVOs.
+c)  Un servidor recibe peticiones con tasa Poisson $\lambda = 400$ por minuto. Calcula la probabilidad de recibir entre 380 y 420 peticiones en un minuto (con corrección de continuidad).
+d)  Una fábrica tiene un $p = 0{,}02$ de defectos por unidad. En un lote de 200 unidades, calcula la probabilidad de tener al menos 8 defectos, usando **la mejor aproximación disponible**.
+
+### Problema 11.20. Auditoría integradora: cierre del libro.
+
+**Mara Qyà** cierra su último informe del ejercicio como responsable de la ARTI con una **auditoría transversal** al sector RStars. Ha reunido datos de cuatro fenómenos distintos, cada uno modelable con una herramienta diferente del capítulo:
+
+**Fase 1 (LGN aplicada a seguros).** La aseguradora *Galactic Casualty & Loss* opera con 20 000 pólizas independientes. Coste medio por póliza: 250 PAVOs; desviación típica: 900 PAVOs.
+
+**Fase 2 (TCL: promedio operativo).** El astropuerto central de Coruscant procesa cada día 250 contenedores. Cada tiempo de descarga es exponencial con media $\mu = 10$ minutos.
+
+**Fase 3 (aproximación B → N: encuesta).** Una encuesta a 2 000 usuarios pregunta si están satisfechos con el servicio RStars. La proporción verdadera de satisfacción es $p = 0{,}75$.
+
+**Fase 4 (aproximación Po → N: servidor).** El servidor central de la ARTI recibe consultas con tasa Poisson $\lambda = 45$ por minuto.
+
+Se pide:
+
+a)  **Fase 1 (LGN).** Calcula la esperanza y la desviación típica del coste total agregado. ¿Con qué probabilidad la aseguradora paga más de 5,15 millones (2,5% por encima del esperado)?
+b)  **Fase 2 (TCL).** Sea $\bar\xi_{250}$ el tiempo medio de descarga del día. Identifica su distribución y calcula la probabilidad de que el tiempo medio del día supere los 10,5 minutos.
+c)  **Fase 3 (B → N).** Sea $\hat p$ la proporción muestral de satisfechos. Identifica su distribución y calcula el margen de error del 95% para la estimación.
+d)  **Fase 4 (Po → N).** Calcula la probabilidad de que el servidor reciba **más de 60 consultas** en un minuto (con corrección de continuidad).
+e)  Mara redacta la última página del informe con una **reflexión de cierre**: ¿por qué una sola herramienta matemática —el TCL— basta para dar respuesta operativa a **cuatro problemas económicos aparentemente inconexos**? Redacta esa reflexión de cierre, con la que también se despide el manual.
+
+
+## Soluciones a los problemas propuestos. {#soluciones-cap11}
+
+### Solución al Problema 11.1.
+
+a)  **LGN**. El interés es en el **coste medio agregado** de una cartera muy grande: la ley de los grandes números garantiza convergencia al coste esperado teórico (200 PAVOs por póliza).
+b)  **TCL** (Lindeberg-Lévy). Aunque las rentas individuales son log-normales muy asimétricas, la media de $n = 100$ es aproximadamente normal por el TCL.
+c)  **B → N** (De Moivre-Laplace). $n = 500$ grande, $np = 225 \ge 5$ y $nq = 275 \ge 5$: se aproxima $B(500;\ 0{,}45)$ por normal.
+d)  **Po → N**. $\lambda = 200 \ge 10$: se aproxima $\mathrm{Po}(200)$ por $N(200;\ \sqrt{200})$.
+e)  **B → Po** (mejor que B → N). $n = 800 \ge 100$ y $p = 0{,}02 \le 0{,}05$: se aproxima $B(800;\ 0{,}02)$ por $\mathrm{Po}(16)$. Como además $\lambda = 16 \ge 10$, cabría también aproximar por $N(16;\ 4)$, pero para valores del orden de 20 la Poisson exacta es más precisa que la normal.
+f)  **LGN**. "Muy cerca de 500" es exactamente el enunciado de la LGN: el promedio empírico se acerca a la esperanza cuando $n$ es grande. (Además, el TCL permite cuantificar cuán cerca: la desviación típica de la ganancia agregada sería $\sqrt{n}\cdot \sigma_g$.)
+g)  **TCL para proporciones** (De Moivre-Laplace en forma de proporción muestral). $\hat p \approx N(p;\ \sqrt{pq/n})$.
+h)  **TCL para diferencia de medias**. Aplicando el TCL a cada muestra y la propiedad reproductiva de la normal a la diferencia.
+
+La lección: el TCL y sus casos particulares están detrás de casi cualquier análisis inferencial serio.
+
+### Solución al Problema 11.2.
+
+a)  **Falsa**. El TCL habla de la distribución de **sumas o medias** de muchas variables, **no** de la distribución de la variable original. Los datos originales pueden seguir siendo asimétricos o discretos; solo su promedio (o su suma) se aproxima a la normal.
+
+b)  **Verdadera**. Es exactamente el enunciado de la LGN débil: $\bar\xi_n \xrightarrow{P} \mu$. La media muestral converge en probabilidad a la media poblacional cuando $n \to \infty$.
+
+c)  **Falsa**. La versión Lindeberg-Lévy del TCL solo pide **i.i.d.** y **varianza finita**. No pide simetría. Con $n$ suficientemente grande, hasta la exponencial (fuertemente asimétrica) produce medias muestrales aproximadamente normales; el ejemplo del capítulo con `COSTOP` lo demuestra empíricamente.
+
+d)  **Falsa**. La desviación típica de la media muestral es $\sigma / \sqrt{n}$, **no** $\sigma$. Confundir estas dos cantidades es uno de los errores más frecuentes en inferencia. La primera describe la variabilidad de la población; la segunda, la variabilidad del estimador.
+
+e)  **Falsa**. $n \ge 30$ es una regla heurística que funciona bien para distribuciones aproximadamente simétricas y sin colas pesadas. Para distribuciones muy asimétricas (log-normales, exponenciales) suele hacer falta $n \ge 100$ o más. Para binomiales con $p$ extremo, el criterio operativo es distinto ($np \ge 5$ y $nq \ge 5$).
+
+f)  **Falsa**. Es la **falacia del jugador**. La ruleta no tiene memoria: cada tirada es independiente. La LGN dice que el promedio empírico se acercará al esperado teórico **a la larga**, pero no compensa desviaciones puntuales. Si en una tirada la probabilidad de negro es 18/37, seguirá siendo 18/37 hayan salido 10 rojos o 100. La LGN es un enunciado asintótico, no un mecanismo de compensación.
+
+### Solución al Problema 11.3.
+
+a)  **10 apuestas del jugador.** Por propiedad reproductiva (o TCL grosero):
+
+    $$G_{\text{jugador}} \approx N(10\cdot (-5);\ 200\sqrt{10}) = N(-50;\ 632{,}46)\ \text{PAVOs}.$$
+
+    $z = (0 - (-50))/632{,}46 \approx 0{,}079$. $P(G > 0) \approx 1 - \Phi(0{,}079) \approx \mathbf{0{,}4685}$. Casi el 47% de las tardes el jugador se va ganando (aunque la esperanza sea negativa): la varianza individual es enorme comparada con la esperanza.
+
+b)  **10 000 apuestas del casino.** Ganancia del casino = 5 PAVOs por apuesta:
+
+    $$G_{\text{casino}} \approx N(10\,000\cdot 5;\ 200\sqrt{10\,000}) = N(50\,000;\ 20\,000)\ \text{PAVOs}.$$
+
+    $z = (40\,000 - 50\,000)/20\,000 = -0{,}500$. $P(G_{\text{casino}} > 40\,000) = 1 - \Phi(-0{,}500) \approx \mathbf{0{,}6915}$. En casi el 70% de las jornadas el casino gana más de 40 000 PAVOs.
+
+c)  Coeficiente de variación:
+
+    -   Jugador (n = 10): $\sigma/|\mu| = 632{,}46/50 \approx \mathbf{12{,}65}$ (o sea, ¡1265%!). Enorme variabilidad relativa: la ganancia real puede estar muy lejos de la esperada.
+    -   Casino (n = 10 000): $\sigma/\mu = 20\,000/50\,000 = \mathbf{0{,}40}$ (40%). Variabilidad manejable: la ganancia real está razonablemente cerca de la esperada.
+
+d)  El casino puede operar con margen esperado modesto por apuesta (5 PAVOs) porque, por la LGN, la ganancia real agregada al final del día está próxima a la esperanza total ($n \cdot 5$), con una desviación relativa cada vez menor a medida que $n$ crece. El jugador individual, en cambio, opera con muy pocas apuestas y su suerte real puede estar muy lejos de su esperanza matemática (que es negativa). La asimetría estructural entre casa y jugador es una asimetría en $n$: la casa tiene $n$ enorme; cada jugador, $n$ minúsculo.
+
+### Solución al Problema 11.4.
+
+a)  Por TCL (10 000 pólizas i.i.d. con media y varianza finitas):
+
+    $$\text{Coste total} \approx N(10\,000\cdot 200;\ 800\sqrt{10\,000}) = \mathbf{N(2\,000\,000;\ 80\,000)}\ \text{PAVOs}.$$
+
+b)  Coeficiente de variación:
+
+    -   Individual: $800/200 = \mathbf{4{,}00} = \mathbf{400\%}$. Enorme variabilidad relativa: la incertidumbre supera cuatro veces al valor esperado.
+    -   Agregado: $80\,000/2\,000\,000 = \mathbf{0{,}04} = \mathbf{4{,}0\%}$. Variabilidad relativa **100 veces menor** (justamente $\sqrt{n} = \sqrt{10\,000} = 100$).
+
+    Esta es la esencia del negocio del seguro: convertir incertidumbre individual muy alta en previsibilidad colectiva muy alta.
+
+c)  $z = (2\,100\,000 - 2\,000\,000)/80\,000 = 1{,}25$. $P(\text{coste} > 2{,}1\text{M}) = 1 - \Phi(1{,}25) \approx \mathbf{0{,}1056}$. En torno al 10% de los años el coste supera el 5% al esperado.
+
+d)  Ingresos = 10 000 · 220 = 2 200 000 PAVOs. $z = (2\,200\,000 - 2\,000\,000)/80\,000 = 2{,}50$. $P(\text{coste} < 2{,}2\text{M}) = \Phi(2{,}50) \approx \mathbf{0{,}9938}$. En más del 99% de los años los ingresos cubren los costes.
+
+e)  Con **10 000 asegurados**, la variabilidad agregada relativa es solo del 4%: el balance del año es casi predecible, y una carga técnica del 10% garantiza cobertura con probabilidad superior al 99%. Con **solo 10 asegurados** el coeficiente de variación agregado sería $4{,}00/\sqrt{10} \approx 1{,}26$: la incertidumbre supera al coste esperado, y la aseguradora podría verse en pérdidas catastróficas por un solo siniestro grave. La LGN es literalmente la matemática que hace viable el modelo de negocio.
+
+### Solución al Problema 11.5.
+
+a)  Errores estándar:
+
+    -   $n = 25$: $\mathrm{SE} = 20/5 = \mathbf{4{,}0}$.
+    -   $n = 100$: $\mathrm{SE} = 20/10 = \mathbf{2{,}0}$.
+    -   $n = 400$: $\mathrm{SE} = 20/20 = \mathbf{1{,}0}$.
+
+b)  De $n = 25$ a $n = 100$ (cuadruplicar) el SE pasa de 4 a 2: **se divide entre 2** ($\sqrt 4 = 2$). Para dividir el SE por 10 hay que multiplicar $n$ por $10^2 = \mathbf{100}$.
+
+c)  Cálculos:
+
+    -   $n = 25$: $z = 5/4 = 1{,}25$; $P(\bar\xi > 105) = 1 - \Phi(1{,}25) \approx \mathbf{0{,}1056}$.
+    -   $n = 100$: $z = 5/2 = 2{,}50$; $P \approx \mathbf{0{,}0062}$.
+    -   $n = 400$: $z = 5/1 = 5{,}00$; $P \approx \mathbf{0{,}0000\ldots}$ (prácticamente cero).
+
+    Con $n = 25$ la desviación de 5 puntos sobre la media ocurre en el 10,6% de los casos; con $n = 400$ es virtualmente imposible. La agregación **concentra**.
+
+d)  Para $\mathrm{SE} < 0{,}5$: $20/\sqrt{n} < 0{,}5 \Rightarrow \sqrt{n} > 40 \Rightarrow n > \mathbf{1\,600}$. Un tamaño de muestra mínimo de 1 600 observaciones.
+
+### Solución al Problema 11.6.
+
+a)  Por propiedad reproductiva de la normal (no hace falta TCL: las $\xi_j$ ya son normales):
+
+    $$\eta \to N(20\cdot 700;\ 100\sqrt{20}) = \mathbf{N(14\,000;\ 447{,}21)}\ \text{miles de toneladas}.$$
+
+b)  $z = (15\,000 - 14\,000)/447{,}21 \approx 2{,}24$. $P(\eta > 15\,000) = 1 - \Phi(2{,}24) \approx \mathbf{0{,}0127}$. Solo el 1,27% de las expediciones superan las 15 000 kt.
+
+c)  Coeficiente de variación:
+
+    -   Individual: $100/700 \approx \mathbf{0{,}143}$ (14,3%).
+    -   Agregado: $447{,}21/14\,000 \approx \mathbf{0{,}032}$ (3,2%).
+
+    La agregación reduce la variabilidad relativa por un factor $\sqrt{20} \approx 4{,}47$. Implicación operativa: la planificación logística de flotas medianas o grandes es mucho más predecible que la de operaciones aisladas.
+
+d)  En este caso, **no** haría falta el TCL: como las $\xi_j$ son normales, la suma es exactamente normal por la propiedad reproductiva del capítulo 10. El TCL sería **necesario** si las $\xi_j$ **no** fueran normales (por ejemplo, exponenciales o log-normales): entonces la propiedad reproductiva no aplicaría directamente, pero el TCL garantizaría que la suma es **aproximadamente** normal para $n$ grande, con los mismos parámetros derivados por linealidad.
+
+### Solución al Problema 11.7.
+
+a)  **No**, $\bar\xi_{80}$ **no es** exponencial. Es la media aritmética de 80 exponenciales i.i.d., y por el TCL sigue una distribución aproximadamente normal (no exponencial). La forma "campana" y la forma "cola decreciente exponencial" son incompatibles.
+
+b)  Por TCL:
+
+    $$\bar\xi_{80} \approx N(\mu;\ \sigma/\sqrt{n}) = N(15;\ 15/\sqrt{80}) = \mathbf{N(15;\ 1{,}677)}\ \text{minutos}.$$
+
+c)  $z = (13 - 15)/1{,}677 \approx -1{,}19$. $P(\bar\xi_{80} < 13) = \Phi(-1{,}19) \approx \mathbf{0{,}1165}$. Aproximadamente el 12% de los turnos son "rápidos".
+
+d)  $z_a = -1{,}19$, $z_b = 1{,}19$. $P(13 \le \bar\xi_{80} \le 17) = \Phi(1{,}19) - \Phi(-1{,}19) \approx \mathbf{0{,}7670}$. Casi el 77% de los turnos son "estándar".
+
+e)  $P(\bar\xi_{80} > 17) = 1 - \Phi(1{,}19) \approx \mathbf{0{,}1165}$. En torno al 12% de los turnos disparan la alerta.
+
+### Solución al Problema 11.8.
+
+a)  Para un **contenedor individual** exponencial con $\mu = 15$:
+
+    $$P(\xi > 20) = e^{-20/15} = e^{-1{,}333} \approx \mathbf{0{,}2636}.$$
+
+    Es decir, **más del 26%** de los contenedores individualmente tarda más de 20 minutos.
+
+b)  Para el **promedio del turno** de 80 contenedores, por TCL:
+
+    $$z = \dfrac{20 - 15}{15/\sqrt{80}} = \dfrac{5}{1{,}677} \approx 2{,}98.$$
+
+    $$P(\bar\xi_{80} > 20) = 1 - \Phi(2{,}98) \approx \mathbf{0{,}00144}.$$
+
+    Es decir, **menos del 0,15%**: prácticamente nunca.
+
+c)  Ordenación: individual 0,2636 (26,4%) ≫ promedio 0,0014 (0,14%). Un factor **cerca de 180 veces menor** para el promedio, aunque las cifras absolutas sean las mismas (20 minutos en ambos casos).
+
+d)  La respuesta al directivo: **el promedio y el valor individual miden cosas distintas**. Que muchos contenedores individualmente tarden más de 20 minutos no significa que el **promedio de 80** tarde más de 20; para que el promedio supere ese umbral, harían falta muchos, muchos contenedores lentos que compensaran los rápidos, y eso es estadísticamente rarísimo. La agregación **concentra** los valores alrededor de la media poblacional (15 min) y hace exponencialmente improbable que el promedio se aleje mucho de ella. Es la esencia del TCL: **la variabilidad se diluye al promediar**.
+
+### Solución al Problema 11.9.
+
+a)  $\eta \to B(150;\ 0{,}40)$ exactamente. Verificación: $np = 60 \ge 5$ ✓, $nq = 90 \ge 5$ ✓.
+
+b)  Aproximación:
+
+    $$\eta \approx N(np;\ \sqrt{npq}) = N(60;\ \sqrt{36}) = \mathbf{N(60;\ 6{,}00)}.$$
+
+c)  Sin corrección: $z = (70 - 60)/6 = 1{,}667$. $P(\eta \ge 70) \approx 1 - \Phi(1{,}667) \approx \mathbf{0{,}0478}$.
+
+d)  Con corrección: $P(\eta \ge 70) \approx P(Y \ge 69{,}5)$. $z = (69{,}5 - 60)/6 = 1{,}583$. $P \approx 1 - \Phi(1{,}583) \approx \mathbf{0{,}0567}$.
+
+e)  Valor exacto: 0,0575 (empírico $\approx$ 0,0592 según enunciado). La aproximación **con corrección** (0,0567) queda mucho más cerca del exacto que la aproximación sin corrección (0,0478). La corrección de continuidad, aunque pequeña, mejora sensiblemente la calidad de la aproximación en las colas.
+
+### Solución al Problema 11.10.
+
+a)  Por TCL aplicado a proporciones (De Moivre-Laplace):
+
+    $$\hat p \approx N\!\left(p;\ \sqrt{\dfrac{pq}{n}}\right) = N\!\left(0{,}52;\ \sqrt{\dfrac{0{,}52\cdot 0{,}48}{1\,500}}\right) = \mathbf{N(0{,}52;\ 0{,}0129)}.$$
+
+b)  $\mathrm{SE}(\hat p) = \sqrt{0{,}52\cdot 0{,}48/1\,500} \approx \mathbf{0{,}0129}$ (1,29 puntos porcentuales).
+
+c)  $z = (0{,}50 - 0{,}52)/0{,}0129 \approx -1{,}55$. $P(\hat p < 0{,}50) = \Phi(-1{,}55) \approx \mathbf{0{,}0605}$. En un 6% de las encuestas de este tamaño, el resultado predeciría erróneamente que la Alianza por el Núcleo no alcanza la mayoría absoluta, cuando en realidad sí la tiene.
+
+d)  Margen de error del 95%: $E = 1{,}96\cdot \mathrm{SE}(\hat p) = 1{,}96\cdot 0{,}0129 \approx 0{,}0253 = \mathbf{\pm 2{,}53\%}$.
+
+e)  Titular sugerido: *"La Alianza por el Núcleo obtiene un **52% de intención de voto (±2,53 puntos)** al 95% de confianza"*. Es decir, el intervalo compatible con los datos es aproximadamente $[49{,}5\%,\ 54{,}5\%]$: la mayoría absoluta técnica es probable pero no está garantizada.
+
+### Solución al Problema 11.11.
+
+a)  $\xi \to \mathrm{Po}(100)$; $\lambda = 100 \ge 10$ ✓ (muy holgadamente).
+
+b)  $\xi \approx N(\lambda;\ \sqrt\lambda) = \mathbf{N(100;\ 10)}$.
+
+c)  Con corrección: $P(\xi < 85) \approx P(Y \le 84{,}5)$. $z = (84{,}5 - 100)/10 = -1{,}55$. $P \approx \Phi(-1{,}55) \approx \mathbf{0{,}0606}$.
+
+d)  Con corrección: $P(\xi > 120) \approx P(Y \ge 120{,}5)$. $z = (120{,}5 - 100)/10 = 2{,}05$. $P \approx 1 - \Phi(2{,}05) \approx \mathbf{0{,}0202}$. Solo el 2% de los minutos supera las 120 peticiones.
+
+e)  Percentil 99: $z_{0{,}99} = 2{,}326$. $k = 100 + 2{,}326\cdot 10 = 123{,}26$. Redondeando al entero superior: **124 peticiones/min**.
+
+f)  Operativamente: el servidor debe dimensionarse para procesar hasta 124 peticiones por minuto para cubrir el 99% de los minutos operativos; solo un 1% de los minutos superará ese umbral (unos 14 minutos al día). Ese 1% será el margen de sobrecarga que gestionar mediante colas o *load balancing*.
+
+### Solución al Problema 11.12.
+
+a)  $\eta \to B(500;\ 0{,}04)$ exactamente.
+
+b)  Verificaciones:
+
+    -   B → Po: $n = 500 \ge 100$ ✓, $p = 0{,}04 \le 0{,}05$ ✓. Aplicable.
+    -   Po → N: $\lambda = np = 20 \ge 10$ ✓. Aplicable.
+    -   B → N: $np = 20 \ge 5$ ✓, $nq = 480 \ge 5$ ✓. Aplicable.
+
+    **Las tres aproximaciones son válidas**: caso ideal para comparar los cuatro caminos.
+
+c)  Los cuatro cálculos de $P(\eta \ge 25)$:
+
+    | Método                                     | Valor    |
+    |:-------------------------------------------|:--------:|
+    | Binomial exacta $B(500;\ 0{,}04)$          | **0,1522** |
+    | Poisson exacta $\mathrm{Po}(20)$           | **0,1568** |
+    | Normal desde binomial (con corr. cont.)    | **0,1522** |
+    | Normal desde Poisson (con corr. cont.)     | **0,1572** |
+
+d)  Las cuatro cifras coinciden **hasta la segunda cifra decimal**. La aproximación normal desde binomial es prácticamente indistinguible de la exacta binomial ($0{,}1522$ en ambos casos con corrección). La aproximación Poisson (exacta o normal) queda ligeramente por encima, unos 5 diezmilésimos.
+
+e)  Las dos rutas hacia la normal casi coinciden porque las desviaciones típicas son casi iguales:
+
+    -   Desde binomial: $\sigma_B = \sqrt{npq} = \sqrt{500\cdot 0{,}04\cdot 0{,}96} = \sqrt{19{,}2} \approx 4{,}382$.
+    -   Desde Poisson: $\sigma_P = \sqrt{\lambda} = \sqrt{20} \approx 4{,}472$.
+
+    Difieren solo en el factor $\sqrt q = \sqrt{0{,}96} \approx 0{,}980$, que es prácticamente 1 cuando $p$ es pequeño. Como consecuencia, las dos normales aproximantes son casi idénticas.
+
+### Solución al Problema 11.13.
+
+a)  Con $n = 400$ y $p = 0{,}52$: $\mathrm{SE}(\hat p) = \sqrt{0{,}52\cdot 0{,}48/400} \approx \mathbf{0{,}0250}$ (2,50 puntos porcentuales).
+
+b)  Margen 95%: $E = 1{,}96\cdot 0{,}0250 \approx 0{,}0490 = \mathbf{\pm 4{,}90\%}$. Casi el doble que con $n = 1\,500$.
+
+c)  Para $E < 0{,}01$ con $p = 0{,}5$ (máximo pesimista de $pq$):
+
+    $$E = 1{,}96\sqrt{\dfrac{0{,}25}{n}} < 0{,}01 \implies n > \dfrac{1{,}96^2\cdot 0{,}25}{0{,}01^2} = \mathbf{9\,604}.$$
+
+    Se necesitan **aproximadamente 9 604 encuestados** para garantizar un margen del 95% inferior al 1%.
+
+d)  Multiplicador respecto a $n = 1\,500$: $9\,604/1\,500 \approx \mathbf{6{,}4\times}$. Reducción del margen: de $\pm 2{,}53\%$ a $\pm 1{,}00\%$, aproximadamente $\times 2{,}53$ veces menor.
+
+e)  Porque el margen de error es proporcional a $1/\sqrt n$. Para dividir el margen por 2, hay que dividir $1/\sqrt n$ por 2, es decir, **multiplicar $n$ por 4**. Esta es la razón por la que las encuestas de alta precisión son tan caras: cada punto porcentual adicional de precisión cuesta multiplicar el tamaño de muestra (y por tanto el coste operativo) en varios factores.
+
+### Solución al Problema 11.14.
+
+a)  Bajo la hipótesis nula $\mu_A = \mu_B$: la diferencia de medias muestrales tiene $E(D) = 0$. Y por independencia de las dos muestras y TCL aplicado a cada una:
+
+    $$\mathrm{SE}(D) = \sqrt{\dfrac{s_A^2}{n_A} + \dfrac{s_B^2}{n_B}} = \sqrt{\dfrac{400}{200} + \dfrac{484}{200}} = \sqrt{4{,}42} \approx \mathbf{2{,}102}.$$
+
+    Distribución: $D \approx N(0;\ 2{,}102)$.
+
+b)  Diferencia observada: $|\bar x_A - \bar x_B| = 3$. $z = 3/2{,}102 \approx 1{,}427$. $P(|D| \ge 3) = 2\cdot P(z > 1{,}427) \approx 2\cdot 0{,}0768 = \mathbf{0{,}1536}$. Aproximadamente el 15% de las veces se observaría una diferencia de al menos 3 PAVOs en cualquier dirección aunque las dos webs fueran iguales.
+
+c)  **No** hay evidencia suficiente para concluir que la web B es mejor. La diferencia observada podría explicarse perfectamente por el azar (con probabilidad superior al 15%). Un $p$-valor por encima del 5% no es estadísticamente significativo con los estándares habituales.
+
+d)  Para que la diferencia sea significativa unilateralmente al 5%, buscamos $n$ tal que $z = 3/\sqrt{884/n} > 1{,}645$:
+
+    $$\sqrt{884/n} < 3/1{,}645 = 1{,}823 \implies n > 884/1{,}823^2 \approx \mathbf{266}\ \text{visitantes por web}.$$
+
+    Necesitaríamos al menos 266 visitantes por web (533 en total) para poder concluir con significación estadística que la diferencia de 3 PAVOs no es un artefacto del azar.
+
+e)  Lección práctica: **las diferencias observadas no son significativas por sí solas; dependen del tamaño de muestra**. Con muestras pequeñas, incluso diferencias grandes pueden ser azar; con muestras muy grandes, incluso diferencias minúsculas pueden ser significativas. La significación estadística no equivale a relevancia práctica. Antes de decidir cambiar la web, hay que preguntarse dos cosas: (i) ¿la diferencia es estadísticamente significativa? y (ii) ¿es económicamente relevante?
+
+### Solución al Problema 11.15.
+
+a)  Riesgos por diversificación:
+
+    | $n$   | Riesgo $\sigma/\sqrt{n}$ | % del individual |
+    |:-----:|:------------------------:|:----------------:|
+    | 1     | 15,00%                   | 100%             |
+    | 4     | 7,50%                    | 50%              |
+    | 10    | 4,74%                    | 31,62%           |
+    | 25    | 3,00%                    | 20%              |
+    | 100   | 1,50%                    | 10%              |
+    | 400   | 0,75%                    | 5%               |
+
+b)  Lo anterior en columna "% del individual". Con 100 activos ya se ha reducido el riesgo en un **90%**; con 400 activos, en un 95%. Las cifras muestran una caída rapidísima al principio y cada vez más lenta.
+
+c)  Reducción marginal:
+
+    -   De $n = 1$ a $n = 2$: de 15 a $15/\sqrt 2 \approx 10{,}61$. Reducción **≈ 4,39 puntos porcentuales**.
+    -   De $n = 100$ a $n = 200$: de 1,50 a $15/\sqrt{200} \approx 1{,}061$. Reducción **≈ 0,44 puntos porcentuales**: **diez veces menor**.
+
+    La **ley de rendimientos decrecientes** de la diversificación: los primeros activos añaden mucho valor; los últimos, muy poco. Añadir el activo 101 a una cartera de 100 mejora poquísimo.
+
+d)  Para la cartera de $n = 100$: $\mathrm{SE} = 15/10 = 1{,}5$. $z = (5 - 8)/1{,}5 = -2{,}00$. $P(\bar\xi_{100} < 5\%) = \Phi(-2{,}00) \approx \mathbf{0{,}0228}$.
+
+e)  Para un contrato individual: $z = (5 - 8)/15 = -0{,}20$. $P(\xi < 5\%) = \Phi(-0{,}20) \approx \mathbf{0{,}4207}$.
+
+    La cartera diversificada es **casi 20 veces más segura** frente al riesgo de rentar por debajo del 5%: probabilidad del 2,3% frente al 42% del contrato individual. Es la magnitud práctica del beneficio de diversificar.
+
+### Solución al Problema 11.16.
+
+a)  **Error**: el consultor confunde la distribución **de los datos** con la distribución **del estimador**. El TCL dice que la **media muestral** es aproximadamente normal, no que los datos individuales lo sean. Con $n = 50$ ya es razonable aplicar el TCL para inferir sobre $\mu$, aunque la muestra individual sea asimétrica.
+
+b)  **Error**: el TCL dice que $\bar X_n \approx N(\mu;\ \mathrm{SE})$, no que $\mu$ esté en un intervalo con probabilidad 0,95. La lectura correcta es que **el intervalo $[\bar x - 2\mathrm{SE},\ \bar x + 2\mathrm{SE}]$ contiene al valor verdadero $\mu$ con probabilidad 0,95 sobre la aleatoriedad del muestreo**. Es decir: si repitiéramos el muestreo muchas veces, el 95% de los intervalos así construidos contendría a $\mu$. Es una probabilidad sobre el procedimiento, no sobre el parámetro (que no es aleatorio).
+
+c)  **Error**: el margen de error de una encuesta **depende del tamaño de muestra**. $E = 1{,}96\sqrt{pq/n}$: para $p = 0{,}5$ y $n = 1\,067$, sí es $\pm 3\%$; pero con $n = 400$ sube a $\pm 4{,}9\%$ y con $n = 4\,000$ baja a $\pm 1{,}55\%$. Confundir esto es propagar desinformación.
+
+d)  **Error**: es la **falacia del jugador**. La LGN dice que el promedio se acerca a la esperanza a la larga, pero **no** compensa desviaciones puntuales. Si cada apuesta tiene la misma probabilidad de ganar, la siguiente sigue teniendo la misma probabilidad de ganar, sea cual sea el historial reciente. La LGN es asintótica: no es un mecanismo de compensación.
+
+e)  **Error**: aunque diversificar reduce el riesgo, el resultado del capítulo asume **independencia** entre activos. En la práctica, los activos financieros están **correlacionados**, y hay una parte del riesgo (el llamado *riesgo sistemático* o *de mercado*) que **no puede eliminarse por diversificación**. Con 10 000 activos correlacionados, el riesgo tiende a un mínimo positivo, no a cero. Esta observación es la base del CAPM y de toda la teoría moderna de carteras.
+
+### Solución al Problema 11.17.
+
+a)  Por TCL:
+
+    $$\bar\xi_{36} \approx N(500;\ 15/\sqrt{36}) = \mathbf{N(500;\ 2{,}5)}\ \text{gramos}.$$
+
+b)  $z = (497 - 500)/2{,}5 = -1{,}20$. $P(\bar\xi_{36} < 497) = \Phi(-1{,}20) \approx \mathbf{0{,}1151}$.
+
+c)  $z = (505 - 500)/2{,}5 = 2{,}00$. $P(\bar\xi_{36} > 505) = 1 - \Phi(2{,}00) \approx \mathbf{0{,}0228}$.
+
+d)  Dentro de $[498, 502]$: $z_a = -0{,}80$, $z_b = 0{,}80$. $P(\text{dentro}) = \Phi(0{,}80) - \Phi(-0{,}80) \approx \mathbf{0{,}5763}$. Por tanto:
+
+    $$P(\text{detener línea}) = 1 - 0{,}5763 \approx \mathbf{0{,}4237}.$$
+
+    Es decir, **más del 42% de los lotes** dispararían la parada. **La regla es demasiado estricta**: la línea se pararía innecesariamente casi la mitad del tiempo.
+
+e)  Con $n = 18$: $\mathrm{SE} = 15/\sqrt{18} \approx 3{,}54$. $z_a = -0{,}566$, $z_b = 0{,}566$. $P(\text{dentro}) \approx 0{,}428$. $P(\text{detener}) \approx \mathbf{0{,}5716}$: aún **peor**. Reducir $n$ empeora la calidad del control porque el SE aumenta y aumenta la probabilidad de falsa alarma. El ingeniero se equivoca: para reducir falsas alarmas hay que **aumentar** $n$, no reducirlo. (O bien, ampliar la tolerancia a $[496, 504]$, que es lo que el análisis operativo debería recomendar.)
+
+### Solución al Problema 11.18.
+
+a)  Por TCL, la rentabilidad diaria de la cartera de 100 activos:
+
+    $$\bar\xi_{100} \approx N(0{,}05\%;\ 1{,}5\%/\sqrt{100}) = \mathbf{N(0{,}05\%;\ 0{,}15\%)}.$$
+
+    El error estándar de la rentabilidad de la cartera es diez veces menor que el del activo individual.
+
+b)  Pérdida diaria: $L = -C\cdot \bar\xi_{100} = -20\cdot \bar\xi_{100}$ (en millones de PAVOs). Como $\bar\xi_{100}$ es normal:
+
+    $$L \approx N(-20\cdot 0{,}0005;\ 20\cdot 0{,}0015) = \mathbf{N(-0{,}01;\ 0{,}03)}\ \text{millones de PAVOs}.$$
+
+c)  $\mathrm{VaR}_{95\%}^{\text{cartera}} = -0{,}01 + 1{,}645\cdot 0{,}03 = -0{,}01 + 0{,}04935 \approx \mathbf{0{,}03935}$ millones $= \mathbf{39\,350}$ PAVOs.
+
+    Para un solo activo con capital $C = 20$: $L_1 \approx N(-0{,}01;\ 20\cdot 0{,}015) = N(-0{,}01;\ 0{,}30)$. $\mathrm{VaR}_{95\%}^{\text{único}} = -0{,}01 + 1{,}645\cdot 0{,}30 \approx \mathbf{0{,}4835}$ millones = **483 500 PAVOs**.
+
+d)  Reducción: $1 - 39\,350/483\,500 = \mathbf{91{,}86\%}$. Diversificar en 100 activos reduce el VaR **en más del 90%**. Es la manifestación cuantitativa más contundente del beneficio de diversificar.
+
+e)  El TCL fundamenta la gestión moderna de riesgos porque (i) legitima la aproximación normal para las pérdidas de carteras diversificadas —lo que permite calcular VaR y ES con fórmulas cerradas—, (ii) garantiza que la desviación típica del promedio cae como $1/\sqrt n$, cuantificando el beneficio matemático de la diversificación, y (iii) proporciona la base teórica para técnicas más sofisticadas (bootstrap, simulación de Monte Carlo) que se apoyan en la lógica del TCL aunque no lo invoquen explícitamente. Sin TCL, no habría gestión cuantitativa del riesgo tal como la conocemos.
+
+### Solución al Problema 11.19.
+
+a)  **B → N para proporción muestral**. $\hat p \approx N(0{,}30;\ \sqrt{0{,}30\cdot 0{,}70/800}) = N(0{,}30;\ 0{,}0162)$. $z = (0{,}33 - 0{,}30)/0{,}0162 \approx 1{,}85$. $P(\hat p > 0{,}33) \approx \mathbf{0{,}0320}$.
+
+b)  **TCL (LGN + aproximación normal para suma)**. $\text{Coste total} \approx N(5\,000\cdot 150;\ 500\sqrt{5\,000}) = N(750\,000;\ 35\,355)$. $z = (780\,000 - 750\,000)/35\,355 \approx 0{,}85$. $P > 780\,000 \approx \mathbf{0{,}1981}$.
+
+c)  **Po → N** con $\lambda = 400 \ge 10$. $\xi \approx N(400;\ 20)$. Con corrección: $P(380 \le \xi \le 420) \approx P(379{,}5 \le Y \le 420{,}5)$. $z_a = -1{,}025$, $z_b = 1{,}025$. $P \approx \mathbf{0{,}6946}$.
+
+d)  **B → Po** ($n = 200 \ge 100$, $p = 0{,}02 \le 0{,}05$): mejor que B → N porque $\lambda = np = 4 < 5$, por lo que la aproximación normal no es aceptable en este caso. Con $\mathrm{Po}(4)$: $P(\xi \ge 8) \approx \mathbf{0{,}0511}$. (Exacta binomial: 0,0493; la aproximación Poisson queda muy próxima.)
+
+### Solución al Problema 11.20.
+
+a)  **Fase 1 (LGN).** Con $n = 20\,000$, $\mu = 250$, $\sigma = 900$:
+
+    $$E(\text{total}) = 20\,000\cdot 250 = \mathbf{5\,000\,000}\ \text{PAVOs}.$$
+    $$\sigma(\text{total}) = 900\sqrt{20\,000} \approx \mathbf{127\,279}\ \text{PAVOs}.$$
+
+    $z = (5\,150\,000 - 5\,000\,000)/127\,279 \approx 1{,}18$. $P(\text{total} > 5{,}15\text{M}) \approx \mathbf{0{,}1193}$.
+
+    Aproximadamente el 12% de los años el coste total supera en 2,5% al esperado: escenario adverso, pero no catastrófico.
+
+b)  **Fase 2 (TCL).** Por TCL:
+
+    $$\bar\xi_{250} \approx N(10;\ 10/\sqrt{250}) = \mathbf{N(10;\ 0{,}6325)}\ \text{minutos}.$$
+
+    $z = (10{,}5 - 10)/0{,}6325 \approx 0{,}79$. $P(\bar\xi_{250} > 10{,}5) \approx \mathbf{0{,}2146}$. En algo más del 21% de las jornadas el tiempo medio supera los 10,5 minutos.
+
+c)  **Fase 3 (B → N).** $\hat p \approx N(0{,}75;\ \sqrt{0{,}75\cdot 0{,}25/2\,000}) = N(0{,}75;\ 0{,}00968)$.
+
+    Margen 95%: $E = 1{,}96\cdot 0{,}00968 \approx 0{,}0190 = \mathbf{\pm 1{,}90\%}$.
+
+    La satisfacción se estima como $75\% \pm 1{,}90\%$: intervalo $[73{,}1\%,\ 76{,}9\%]$ al 95% de confianza.
+
+d)  **Fase 4 (Po → N).** $\xi \approx N(45;\ \sqrt{45}) = N(45;\ 6{,}708)$. Con corrección: $z = (60{,}5 - 45)/6{,}708 \approx 2{,}31$. $P(\xi > 60) \approx \mathbf{0{,}0104}$.
+
+    Solo el 1% de los minutos el servidor recibe más de 60 consultas: dimensionamiento adecuado para picos ordinarios.
+
+e)  **Reflexión de cierre de Mara Qyà** (y del manual):
+
+    > *"Cuatro problemas de naturaleza aparentemente distinta —una aseguradora con veinte mil pólizas, un astropuerto con doscientos cincuenta contenedores al día, una encuesta a dos mil usuarios y un servidor con cuarenta y cinco consultas por minuto— se han resuelto con la misma herramienta matemática. En todos ellos, la agregación de muchas pequeñas fuentes de aleatoriedad —pólizas, contenedores, encuestados, consultas— produce una variable agregada cuya distribución es aproximadamente normal, y cuyo error estándar cae como $\sigma/\sqrt{n}$ conforme el tamaño de la agregación crece. El teorema central del límite no es una curiosidad matemática: es el mecanismo silencioso por el que la incertidumbre individual se convierte en previsibilidad colectiva. Es lo que hace viable el negocio del seguro, el dimensionamiento de infraestructuras, la encuesta demoscópica, el control de calidad industrial, la gestión moderna de riesgos financieros y, sí, también los casinos y los mercados de valores. Sin el TCL, ninguna de estas actividades tendría base cuantitativa; con él, todas ellas se sostienen sobre una fórmula que cabe en una línea. Cuando el próximo curso empiece con distribuciones muestrales, intervalos de confianza y contrastes de hipótesis, no hará falta introducir ninguna herramienta nueva: bastará con desplegar las consecuencias, una por una, del teorema central del límite. Este manual ha ido preparando exactamente ese momento a lo largo de once capítulos. Con esto, cerramos el bloque descriptivo y probabilístico, y dejamos abierta la puerta a la estadística inferencial. La normal —esa campana que asomaba con timidez en el capítulo 7, se hizo protagonista en el 10 y ha revelado su verdadera identidad en este último— será, a partir de ahora, la lengua franca del análisis."*
+
+    Y con esto, el manual se despide. Suerte al lector que continúe.
+

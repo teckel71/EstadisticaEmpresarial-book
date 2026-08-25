@@ -1,9 +1,18 @@
+---
+nocite: |
+  @*
+---
+
 `r if (knitr::is_html_output()) '
 # Bibliografía {-}
+
+A lo largo del manual se han utilizado, citado o mencionado las siguientes fuentes, agrupadas en cuatro grandes bloques: manuales generales de referencia empleados en el grado, obras históricas fundacionales de la probabilidad y la estadística, contribuciones específicas del ámbito económico y financiero, y documentación técnica del software y de los marcos regulatorios. Todas ellas aparecen listadas a continuación, ordenadas alfabéticamente por autor.
 
 <div id="refs"></div>
 '`
 
 `r if (knitr::is_latex_output()) '
 # Bibliografía {-}
+
+A lo largo del manual se han utilizado, citado o mencionado las siguientes fuentes, agrupadas en cuatro grandes bloques: manuales generales de referencia empleados en el grado, obras históricas fundacionales de la probabilidad y la estadística, contribuciones específicas del ámbito económico y financiero, y documentación técnica del software y de los marcos regulatorios. Todas ellas aparecen listadas a continuación, ordenadas alfabéticamente por autor.
 '`
