@@ -999,7 +999,780 @@ B(n; p) \;\xrightarrow[n \text{ grande}]{}\; N\!\left(n p,\; \sqrt{n p q}\right)
 <li><p><strong>La sobredispersión es la regla, no la excepción, en los datos económicos reales.</strong> Cuando la Poisson deja de funcionar —y lo hará en casi todos los datos empresariales de conteo—, la binomial negativa toma el relevo. Este es el modelo que un analista de riesgos, un actuario o un economista aplicado usará el 90 % de las veces en la vida real.</p></li>
 </ol>
 <p>Nos falta todavía una gran clase de variables aleatorias por modelar: las <strong>continuas</strong>. En el próximo capítulo entraremos en el modelo continuo por antonomasia —la distribución normal—, y con ella el fenómeno más asombroso de toda la estadística clásica: el <strong>teorema central del límite</strong>, ese que hace que cargueros, reactores, piratas y auditorías conspiren, en el largo plazo, para producir la misma campana. Preparen el hipermotor.</p>
-
+</div>
+<div id="problemas-cap09" class="section level2" number="9.12">
+<h2>
+<span class="header-section-number">9.12</span> Problemas propuestos.<a class="anchor" aria-label="anchor" href="#problemas-cap09"><i class="fas fa-link"></i></a>
+</h2>
+<p>Este capítulo tiene un objetivo pedagógico distintivo respecto a los anteriores: no basta con saber aplicar una fórmula, hay que <strong>identificar</strong> correctamente qué modelo corresponde a cada situación. Como se advirtió en la introducción, elegir el molde correcto es la mitad del trabajo; aplicar la fórmula es lo fácil. Por esa razón, la tanda de 20 ejercicios que sigue se organiza en dos grandes bloques: los primeros —muy variados y a menudo puramente interpretativos— entrenan la <strong>identificación</strong> del modelo; los siguientes se ocupan del <strong>cálculo</strong> dentro de cada modelo y de las relaciones-puente entre unos y otros. Todas las soluciones detalladas se recogen al final del capítulo.</p>
+<div id="problema-9.1.-test-de-identificación-del-modelo-interpretativo." class="section level3" number="9.12.1">
+<h3>
+<span class="header-section-number">9.12.1</span> Problema 9.1. Test de identificación del modelo (interpretativo).<a class="anchor" aria-label="anchor" href="#problema-9.1.-test-de-identificaci%C3%B3n-del-modelo-interpretativo."><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada uno de los ocho escenarios siguientes, indica qué <strong>modelo probabilístico discreto</strong> de este capítulo (uniforme, Bernoulli, binomial, Poisson, binomial negativa, geométrica o hipergeométrica) es el más apropiado, y <strong>justifica</strong> brevemente por qué:</p>
+<ol style="list-style-type: lower-alpha">
+<li>El astropuerto de Coruscant asigna al azar uno de sus 12 muelles disponibles a un carguero que aterriza. Sea $= $ <em>“número de muelle asignado”</em>.</li>
+<li>
+<em>Arrakis Freight</em> despacha esta madrugada 15 cargueros por rutas independientes. Cada carguero llega puntual con probabilidad 0,90. Sea $= $ <em>“número de cargueros que llegan puntuales”</em>.</li>
+<li>Un auditor de la ARTI selecciona al azar y sin reemplazamiento 8 compañías de las 50 registradas en un directorio sectorial. De esas 50, 15 tienen fallas contables. Sea $= $ <em>“número de compañías con fallas contables en la muestra”</em>.</li>
+<li>Un comercial de <em>Kaiju Haulage Co.</em> llama a clientes potenciales. Cada llamada resulta en contrato con probabilidad 0,20, con independencia entre llamadas. Sea $= $ <em>“número de llamadas fallidas antes del primer contrato”</em>.</li>
+<li>En el corredor Coruscant-Naboo se avistan cargueros piratas con una tasa media de 2,3 avistamientos por semana. Sea $= $ <em>“número de avistamientos en una semana”</em>.</li>
+<li>Un carguero de <em>Arrakis Freight</em> sale esta madrugada. Sea <span class="math inline">\(\xi = 1\)</span> si llega puntual y <span class="math inline">\(\xi = 0\)</span> si no.</li>
+<li>Un vendedor necesita cerrar 5 contratos. Cada llamada resulta en contrato con probabilidad 0,30. Sea $= $ <em>“número de llamadas fallidas antes del quinto contrato”</em>.</li>
+<li>En una fábrica se producen tornillos con probabilidad de defecto muy baja (0,001). En un lote de 3000 tornillos, sea $= $ <em>“número de tornillos defectuosos”</em>.</li>
+</ol>
+</div>
+<div id="problema-9.2.-uniforme-discreta." class="section level3" number="9.12.2">
+<h3>
+<span class="header-section-number">9.12.2</span> Problema 9.2. Uniforme discreta.<a class="anchor" aria-label="anchor" href="#problema-9.2.-uniforme-discreta."><i class="fas fa-link"></i></a>
+</h3>
+<p>El astropuerto de Coruscant tiene 12 muelles operativos, numerados de 1 a 12. Un carguero que aterriza recibe la asignación aleatoria de uno de ellos, con equiprobabilidad. Sea $= $ <em>“número de muelle asignado”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Escribe la función de cuantía de <span class="math inline">\(\xi\)</span>.</li>
+<li>Calcula la media <span class="math inline">\(E(\xi)\)</span> y la varianza <span class="math inline">\(\mathrm{Var}(\xi)\)</span> aplicando las fórmulas del modelo uniforme discreto.</li>
+<li>Calcula <span class="math inline">\(P(\xi \le 4)\)</span>: probabilidad de aterrizar en uno de los cuatro muelles más cercanos a la terminal principal.</li>
+<li>Calcula <span class="math inline">\(P(\xi \text{ es impar})\)</span>: probabilidad de que el muelle asignado sea impar.</li>
+<li>¿Qué diferencia hay conceptualmente entre esta uniforme discreta y la uniforme continua que se verá en el capítulo siguiente?</li>
+</ol>
+</div>
+<div id="problema-9.3.-bernoulli-un-experimento-con-dos-resultados." class="section level3" number="9.12.3">
+<h3>
+<span class="header-section-number">9.12.3</span> Problema 9.3. Bernoulli: un experimento con dos resultados.<a class="anchor" aria-label="anchor" href="#problema-9.3.-bernoulli-un-experimento-con-dos-resultados."><i class="fas fa-link"></i></a>
+</h3>
+<p>Basándose en los registros históricos, <em>Arrakis Freight</em> estima que cada uno de sus cargueros llega puntual a su destino con probabilidad <span class="math inline">\(p = 0{,}90\)</span>. Se despacha esta madrugada un único carguero por la ruta Arrakis-Klendathu. Sea <span class="math inline">\(\xi = 1\)</span> si el carguero llega puntual y <span class="math inline">\(\xi = 0\)</span> si no.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica el modelo probabilístico de <span class="math inline">\(\xi\)</span> y sus parámetros.</li>
+<li>Escribe la función de cuantía de <span class="math inline">\(\xi\)</span>.</li>
+<li>Calcula <span class="math inline">\(E(\xi)\)</span> y <span class="math inline">\(\mathrm{Var}(\xi)\)</span>.</li>
+<li>Explica por qué la varianza vale 0,09 en este caso concreto. ¿En qué valor de <span class="math inline">\(p\)</span> sería máxima la varianza? ¿Por qué?</li>
+</ol>
+</div>
+<div id="problema-9.4.-binomial-cálculo-directo." class="section level3" number="9.12.4">
+<h3>
+<span class="header-section-number">9.12.4</span> Problema 9.4. Binomial: cálculo directo.<a class="anchor" aria-label="anchor" href="#problema-9.4.-binomial-c%C3%A1lculo-directo."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Arrakis Freight</em> despacha esta madrugada 15 cargueros por rutas independientes hacia distintos destinos galácticos. Cada carguero llega puntual con probabilidad <span class="math inline">\(p = 0{,}85\)</span>. Sea $= $ <em>“número de cargueros que llegan puntuales de los 15 despachados”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica el modelo y sus parámetros. Justifica que se cumplen las condiciones para aplicarlo.</li>
+<li>Calcula <span class="math inline">\(E(\xi)\)</span> y <span class="math inline">\(\mathrm{Var}(\xi)\)</span>.</li>
+<li>Calcula la probabilidad de que <strong>exactamente 13</strong> cargueros lleguen puntuales.</li>
+<li>Calcula la probabilidad de que <strong>al menos 13</strong> cargueros lleguen puntuales (buena noche operativa).</li>
+<li>Calcula la probabilidad de que <strong>a lo sumo 11</strong> cargueros lleguen puntuales (noche que activa el protocolo de investigación).</li>
+<li>El operador de guardia recibe un mensaje diciendo que “esta noche todo va bien”. ¿Cuál es la probabilidad de que los 15 lleguen puntualmente?</li>
+</ol>
+</div>
+<div id="problema-9.5.-binomial-comparar-dos-rutas." class="section level3" number="9.12.5">
+<h3>
+<span class="header-section-number">9.12.5</span> Problema 9.5. Binomial: comparar dos rutas.<a class="anchor" aria-label="anchor" href="#problema-9.5.-binomial-comparar-dos-rutas."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Kaiju Haulage Co.</em> debe elegir entre dos rutas alternativas para su próxima campaña logística. Los ingenieros han modelado el comportamiento de cada ruta como una binomial:</p>
+<ul>
+<li>
+<strong>Ruta A</strong> (Vía Láctea interior): 20 despachos, cada uno con probabilidad <span class="math inline">\(p_A = 0{,}95\)</span> de llegar puntual. Sea $_A = $ <em>“número de puntuales en A”</em>.</li>
+<li>
+<strong>Ruta B</strong> (Andrómeda-Klendathu): 50 despachos, cada uno con probabilidad <span class="math inline">\(p_B = 0{,}80\)</span> de llegar puntual. Sea $_B = $ <em>“número de puntuales en B”</em>.</li>
+</ul>
+<p>Cada retraso genera una penalización de 500 PAVOs. Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula <span class="math inline">\(E(\xi_A)\)</span>, <span class="math inline">\(E(\xi_B)\)</span> y el número <strong>esperado de retrasos</strong> en cada ruta.</li>
+<li>Calcula la penalización <strong>esperada</strong> en cada ruta.</li>
+<li>Calcula la desviación típica del número de retrasos en cada ruta.</li>
+<li>Un directivo argumenta: <em>“la ruta B tiene mejor puntualidad relativa (80%), así que es la opción segura”</em>. ¿Es correcta la argumentación?</li>
+<li>¿Cuál de las dos rutas es más aconsejable si el objetivo es <strong>minimizar el coste esperado</strong>? ¿Y si el objetivo es <strong>evitar sorpresas</strong> en el coste?</li>
+</ol>
+</div>
+<div id="problema-9.6.-cuando-la-binomial-no-vale-independencia-rota." class="section level3" number="9.12.6">
+<h3>
+<span class="header-section-number">9.12.6</span> Problema 9.6. Cuando la binomial no vale: independencia rota.<a class="anchor" aria-label="anchor" href="#problema-9.6.-cuando-la-binomial-no-vale-independencia-rota."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Arrakis Freight</em> despacha 20 cargueros esta madrugada, cada uno con puntualidad histórica <span class="math inline">\(p = 0{,}85\)</span>. Un analista novato aplica <span class="math inline">\(B(20;\ 0{,}85)\)</span> y calcula <span class="math inline">\(P(\text{los 20 lleguen puntuales}) = 0{,}85^{20} \approx 0{,}0388\)</span>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>¿Es adecuada la aplicación de la binomial en cada uno de estos tres escenarios? Justifica:</p>
+<ol style="list-style-type: lower-roman">
+<li>Los 20 cargueros salen a horas distintas, por rutas independientes y con tripulaciones distintas.</li>
+<li>Los 20 cargueros deben atravesar todos la misma tormenta ionizante del sector Klendathu; si la tormenta se recrudece, todos se retrasarán.</li>
+<li>De los 20 cargueros, 15 son de la última generación (con puntualidad histórica <span class="math inline">\(p_1 = 0{,}92\)</span>) y 5 son de generaciones anteriores (con <span class="math inline">\(p_2 = 0{,}72\)</span>).</li>
+</ol>
+</li>
+<li><p>En el escenario (ii), ¿por qué la binomial <strong>infraestima</strong> la probabilidad de un mal día colectivo?</p></li>
+<li><p>En el escenario (iii), ¿qué modelo alternativo aplicarías? Sugiere una descomposición razonable.</p></li>
+<li><p>¿Qué principio general del capítulo se está ilustrando con este ejercicio?</p></li>
+</ol>
+</div>
+<div id="problema-9.7.-propiedad-reproductiva-de-la-binomial." class="section level3" number="9.12.7">
+<h3>
+<span class="header-section-number">9.12.7</span> Problema 9.7. Propiedad reproductiva de la binomial.<a class="anchor" aria-label="anchor" href="#problema-9.7.-propiedad-reproductiva-de-la-binomial."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Corellian Freightworks</em> dispone de dos delegaciones que operan de forma completamente independiente pero con la misma tecnología de flota:</p>
+<ul>
+<li>
+<strong>Delegación Norte:</strong> despacha 12 cargueros con puntualidad <span class="math inline">\(p = 0{,}88\)</span>.</li>
+<li>
+<strong>Delegación Sur:</strong> despacha 18 cargueros con la misma puntualidad <span class="math inline">\(p = 0{,}88\)</span>.</li>
+</ul>
+<p>Sea $_N = $ <em>“puntuales en Norte”</em> y $_S = $ <em>“puntuales en Sur”</em>, y sea $= _N + _S = $ <em>“puntuales agregados de la compañía”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica la distribución de <span class="math inline">\(\xi_N\)</span> y de <span class="math inline">\(\xi_S\)</span>.</li>
+<li>Aplica la <strong>propiedad reproductiva</strong> de la binomial para identificar la distribución de <span class="math inline">\(\xi\)</span> sin necesidad de convolucionar.</li>
+<li>Calcula <span class="math inline">\(E(\xi)\)</span> y <span class="math inline">\(\mathrm{Var}(\xi)\)</span> por dos vías: (i) directamente sobre la distribución agregada del apartado (b); (ii) sumando las esperanzas y varianzas de <span class="math inline">\(\xi_N\)</span> y <span class="math inline">\(\xi_S\)</span> (que son independientes).</li>
+<li>¿Qué habría que asumir además para que la propiedad reproductiva se pudiera aplicar? ¿Se puede aplicar si Norte tuviera <span class="math inline">\(p_N = 0{,}88\)</span> y Sur <span class="math inline">\(p_S = 0{,}75\)</span>? Justifica.</li>
+</ol>
+</div>
+<div id="problema-9.8.-poisson-llegada-de-clientes." class="section level3" number="9.12.8">
+<h3>
+<span class="header-section-number">9.12.8</span> Problema 9.8. Poisson: llegada de clientes.<a class="anchor" aria-label="anchor" href="#problema-9.8.-poisson-llegada-de-clientes."><i class="fas fa-link"></i></a>
+</h3>
+<p>La ventanilla de operaciones interestelares de una sucursal bancaria del <em>Consorcio Financiero de Coruscant</em> recibe, en promedio, <span class="math inline">\(\lambda = 4\)</span> clientes por hora, con un patrón de llegadas ajustado a un proceso de Poisson. Sea $= $ <em>“número de clientes que llegan en una hora concreta”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica el modelo y su parámetro.</li>
+<li>Calcula <span class="math inline">\(P(\xi = 0)\)</span>: hora sin clientes.</li>
+<li>Calcula <span class="math inline">\(P(\xi = 6)\)</span>: hora exactamente con seis clientes.</li>
+<li>Calcula <span class="math inline">\(P(\xi \ge 3)\)</span>: hora movida con al menos tres clientes.</li>
+<li>El gerente quiere dimensionar el personal para cubrir “el 95% de las horas normales”. Calcula el mínimo número de clientes por hora, <span class="math inline">\(k\)</span>, tal que <span class="math inline">\(P(\xi \le k) \ge 0{,}95\)</span>. (Puedes tabular <span class="math inline">\(P(\xi \le k)\)</span> para <span class="math inline">\(k = 0, 1, 2, \ldots\)</span>)</li>
+</ol>
+</div>
+<div id="problema-9.9.-poisson-cambiar-el-intervalo." class="section level3" number="9.12.9">
+<h3>
+<span class="header-section-number">9.12.9</span> Problema 9.9. Poisson: cambiar el intervalo.<a class="anchor" aria-label="anchor" href="#problema-9.9.-poisson-cambiar-el-intervalo."><i class="fas fa-link"></i></a>
+</h3>
+<p>La flota de <em>Hyperdrive Express</em> registra averías graves con una tasa media de <span class="math inline">\(\lambda = 3\)</span> averías al año, en promedio, distribuidas según un proceso de Poisson. Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cuál es la tasa media de averías <strong>por mes</strong>, <span class="math inline">\(\lambda_m\)</span>? ¿Y <strong>por trimestre</strong>, <span class="math inline">\(\lambda_t\)</span>? ¿Y <strong>en dos años</strong>, <span class="math inline">\(\lambda_2\)</span>?</li>
+<li>Calcula la probabilidad de al menos una avería en un mes cualquiera.</li>
+<li>Calcula la probabilidad de exactamente 2 averías en un trimestre.</li>
+<li>Calcula la probabilidad de que en dos años haya más de 8 averías.</li>
+<li>¿Bajo qué condición del proceso subyacente es lícito “escalar” el parámetro <span class="math inline">\(\lambda\)</span> proporcionalmente al intervalo?</li>
+</ol>
+</div>
+<div id="problema-9.10.-poisson-como-aproximación-de-binomial." class="section level3" number="9.12.10">
+<h3>
+<span class="header-section-number">9.12.10</span> Problema 9.10. Poisson como aproximación de binomial.<a class="anchor" aria-label="anchor" href="#problema-9.10.-poisson-como-aproximaci%C3%B3n-de-binomial."><i class="fas fa-link"></i></a>
+</h3>
+<p>Una empresa de logística galáctica envía 500 paquetes al día. La probabilidad de que un paquete concreto sufra un daño en tránsito es <span class="math inline">\(p = 0{,}01\)</span>, con independencia entre paquetes. Sea $= $ <em>“número de paquetes dañados en un día”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica la distribución exacta de <span class="math inline">\(\xi\)</span>.</li>
+<li>Verifica que se cumplen las condiciones de la regla práctica para aproximar por Poisson (<span class="math inline">\(n \ge 30\)</span>, <span class="math inline">\(p \le 0{,}05\)</span>).</li>
+<li>Calcula <span class="math inline">\(P(\xi = 3)\)</span> con la Poisson aproximada (<span class="math inline">\(\lambda = n \cdot p = 5\)</span>).</li>
+<li>Calcula <span class="math inline">\(P(\xi = 3)\)</span> con la binomial exacta y compara ambas cifras. Comenta la calidad de la aproximación.</li>
+<li>Justifica intuitivamente por qué la Poisson y la binomial casi coinciden aquí.</li>
+</ol>
+</div>
+<div id="problema-9.11.-propiedad-reproductiva-de-la-poisson." class="section level3" number="9.12.11">
+<h3>
+<span class="header-section-number">9.12.11</span> Problema 9.11. Propiedad reproductiva de la Poisson.<a class="anchor" aria-label="anchor" href="#problema-9.11.-propiedad-reproductiva-de-la-poisson."><i class="fas fa-link"></i></a>
+</h3>
+<p>En un centro de coordinación aeroespacial se registran las llegadas de dos tipos de reportes independientes:</p>
+<ul>
+<li>Reportes de avistamiento en el <strong>Sector A</strong> (Vía Láctea exterior): tasa media <span class="math inline">\(\lambda_A = 1{,}5\)</span> reportes por día.</li>
+<li>Reportes de avistamiento en el <strong>Sector B</strong> (Andrómeda cercana): tasa media <span class="math inline">\(\lambda_B = 2{,}8\)</span> reportes por día.</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cómo se distribuyen <span class="math inline">\(\xi_A\)</span> = <em>“reportes en A en un día”</em> y <span class="math inline">\(\xi_B\)</span> = <em>“reportes en B en un día”</em>?</li>
+<li>Aplicando la propiedad reproductiva, ¿cómo se distribuye <span class="math inline">\(\xi = \xi_A + \xi_B\)</span> = <em>“reportes agregados en un día”</em>?</li>
+<li>Calcula la probabilidad de que en un día llegue exactamente <strong>1 reporte</strong> de A y <strong>3 reportes</strong> de B a la vez. (Requiere independencia entre los dos sectores.)</li>
+<li>Calcula la probabilidad de que en un día lleguen <strong>4 reportes agregados</strong>, independientemente de qué sector procedan.</li>
+<li>Verifica que la respuesta al apartado (c) es un caso particular incluido en el apartado (d): ¿qué otras combinaciones <span class="math inline">\((a, b)\)</span> con <span class="math inline">\(a + b = 4\)</span> producen 4 reportes agregados?</li>
+</ol>
+</div>
+<div id="problema-9.12.-sobredispersión-elegir-entre-poisson-y-binomial-negativa." class="section level3" number="9.12.12">
+<h3>
+<span class="header-section-number">9.12.12</span> Problema 9.12. Sobredispersión: elegir entre Poisson y binomial negativa.<a class="anchor" aria-label="anchor" href="#problema-9.12.-sobredispersi%C3%B3n-elegir-entre-poisson-y-binomial-negativa."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sobre tres muestras distintas de datos de conteo, se han calculado los siguientes estadísticos empíricos:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="12%">
+<col width="17%">
+<col width="21%">
+<col width="21%">
+<col width="27%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Muestra</th>
+<th align="left">Descripción</th>
+<th align="center">Media <span class="math inline">\(\bar x\)</span>
+</th>
+<th align="center">Varianza <span class="math inline">\(s^2\)</span>
+</th>
+<th align="center">Ratio <span class="math inline">\(s^2/\bar x\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">A</td>
+<td align="left">Nº de siniestros anuales por póliza en cargueros de reciente matriculación</td>
+<td align="center">0,80</td>
+<td align="center">0,82</td>
+<td align="center">?</td>
+</tr>
+<tr class="even">
+<td align="center">B</td>
+<td align="left">Nº de reclamaciones anuales por cliente en un ecommerce galáctico</td>
+<td align="center">3,20</td>
+<td align="center">15,40</td>
+<td align="center">?</td>
+</tr>
+<tr class="odd">
+<td align="center">C</td>
+<td align="left">Nº de llegadas de clientes por hora en una sucursal bancaria</td>
+<td align="center">8,50</td>
+<td align="center">8,70</td>
+<td align="center">?</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 9.5</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Completa la columna del ratio <span class="math inline">\(s^2/\bar x\)</span> para cada muestra.</li>
+<li>Para cada una, indica si es razonable modelarla como una <strong>Poisson</strong> o si conviene recurrir a una <strong>binomial negativa</strong>. Justifica con base en el ratio.</li>
+<li>Para las muestras razonablemente Poisson, propón el valor de <span class="math inline">\(\lambda\)</span>.</li>
+<li>Para las muestras claramente sobredispersas, explica por qué la Poisson <strong>infraestima</strong> el riesgo de casos extremos (por ejemplo, clientes con muchas reclamaciones o cargueros con muchos siniestros).</li>
+<li>¿En qué tipo de datos económicos cabe esperar sobredispersión como norma general? Explica en clave sectorial.</li>
+</ol>
+</div>
+<div id="problema-9.13.-binomial-negativa-fracasos-antes-del-r-ésimo-éxito." class="section level3" number="9.12.13">
+<h3>
+<span class="header-section-number">9.12.13</span> Problema 9.13. Binomial negativa: fracasos antes del <span class="math inline">\(r\)</span>-ésimo éxito.<a class="anchor" aria-label="anchor" href="#problema-9.13.-binomial-negativa-fracasos-antes-del-r-%C3%A9simo-%C3%A9xito."><i class="fas fa-link"></i></a>
+</h3>
+<p>Un vendedor de <em>Hyperdrive Express</em> debe cerrar <strong>5 contratos</strong> de flete intergaláctico este mes. Cada llamada comercial se resuelve, con independencia, en contrato con probabilidad <span class="math inline">\(p = 0{,}30\)</span>. Sea $= $ <em>“número de llamadas fallidas antes de conseguir el quinto contrato”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica la distribución de <span class="math inline">\(\xi\)</span> y sus parámetros.</li>
+<li>Calcula <span class="math inline">\(E(\xi)\)</span> y <span class="math inline">\(\mathrm{Var}(\xi)\)</span> e interpreta ambas cifras en términos del trabajo del vendedor.</li>
+<li>Calcula <span class="math inline">\(P(\xi = 10)\)</span>: probabilidad de que el vendedor consiga los 5 contratos con exactamente 10 rechazos previos (es decir, 15 llamadas en total).</li>
+<li>Un jefe comercial estima que hacer 30 llamadas al mes es suficiente. ¿Es razonable esa cifra? Justifica con base en <span class="math inline">\(E(\xi)\)</span> y el número total de llamadas esperado.</li>
+<li>¿Por qué la varianza es tan grande comparada con la media en este modelo? (Ratio <span class="math inline">\(\sigma^2/\mu = 1/p\)</span>.)</li>
+</ol>
+</div>
+<div id="problema-9.14.-geométrica-primer-éxito." class="section level3" number="9.12.14">
+<h3>
+<span class="header-section-number">9.12.14</span> Problema 9.14. Geométrica: primer éxito.<a class="anchor" aria-label="anchor" href="#problema-9.14.-geom%C3%A9trica-primer-%C3%A9xito."><i class="fas fa-link"></i></a>
+</h3>
+<p>El piloto aspirante <em>Rey Solo</em> se examina de aterrizaje sobre la plataforma flotante del complejo Fhloston Paradise. Cada intento tiene probabilidad <span class="math inline">\(p = 0{,}70\)</span> de resultar en aterrizaje válido, con independencia entre intentos. Sea $= $ <em>“número de intentos fallidos antes del primer aterrizaje válido”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica la distribución de <span class="math inline">\(\xi\)</span> y sus parámetros. ¿Es un caso particular de otra distribución del capítulo?</li>
+<li>Calcula <span class="math inline">\(E(\xi)\)</span> y <span class="math inline">\(\mathrm{Var}(\xi)\)</span>.</li>
+<li>Calcula <span class="math inline">\(P(\xi = 0)\)</span>: probabilidad de acertar al primer intento.</li>
+<li>Calcula <span class="math inline">\(P(\xi \ge 3)\)</span>: probabilidad de acumular al menos tres fallos consecutivos antes del primer acierto.</li>
+<li>Rey ha fallado ya dos intentos consecutivos. ¿Cuál es la probabilidad de que falle también el tercero? Explica la respuesta a la luz de la <strong>propiedad de falta de memoria</strong> de la geométrica.</li>
+</ol>
+</div>
+<div id="problema-9.15.-ajuste-de-una-binomial-negativa-por-sobredispersión." class="section level3" number="9.12.15">
+<h3>
+<span class="header-section-number">9.12.15</span> Problema 9.15. Ajuste de una binomial negativa por sobredispersión.<a class="anchor" aria-label="anchor" href="#problema-9.15.-ajuste-de-una-binomial-negativa-por-sobredispersi%C3%B3n."><i class="fas fa-link"></i></a>
+</h3>
+<p>Los datos de siniestralidad anual por póliza en una cartera de <em>Galactic Casualty &amp; Loss</em> presentan los siguientes estadísticos empíricos:</p>
+<ul>
+<li>Media: <span class="math inline">\(\bar x = 2{,}5\)</span> siniestros por póliza al año.</li>
+<li>Varianza: <span class="math inline">\(s^2 = 6{,}25\)</span>.</li>
+</ul>
+<p>Los actuarios rechazan la Poisson por sobredispersión evidente y proponen ajustar una binomial negativa por el <strong>método de los momentos</strong>: igualar la media y la varianza teóricas de la BN a las empíricas.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Verifica la sobredispersión calculando el ratio <span class="math inline">\(s^2/\bar x\)</span>.</li>
+<li>A partir de <span class="math inline">\(E(\xi) = r q/p\)</span> y <span class="math inline">\(\mathrm{Var}(\xi) = r q/p^2\)</span>, despeja <span class="math inline">\(p\)</span> en función de la media y la varianza empíricas. (Sugerencia: divide <span class="math inline">\(\mathrm{Var}/E\)</span> para obtener <span class="math inline">\(1/p\)</span>.)</li>
+<li>Calcula <span class="math inline">\(p\)</span> y <span class="math inline">\(r\)</span> para los datos anteriores.</li>
+<li>Con los parámetros calculados, ¿cuál es la probabilidad de que una póliza concreta acumule exactamente 5 siniestros en un año?</li>
+<li>¿Qué habría dado la Poisson <span class="math inline">\(\mathrm{Po}(2{,}5)\)</span> para la misma probabilidad? Comenta.</li>
+</ol>
+</div>
+<div id="problema-9.16.-hipergeométrica-auditoría-sin-reemplazamiento." class="section level3" number="9.12.16">
+<h3>
+<span class="header-section-number">9.12.16</span> Problema 9.16. Hipergeométrica: auditoría sin reemplazamiento.<a class="anchor" aria-label="anchor" href="#problema-9.16.-hipergeom%C3%A9trica-auditor%C3%ADa-sin-reemplazamiento."><i class="fas fa-link"></i></a>
+</h3>
+<p>La <em>Comisión Interestelar de Transporte</em> audita al azar y <strong>sin reemplazamiento</strong> una muestra de 8 compañías de un directorio de 50. De las 50 compañías del directorio, 15 tienen fallas contables detectables por la auditoría. Sea $= $ <em>“número de compañías con fallas contables en la muestra auditada”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica el modelo de <span class="math inline">\(\xi\)</span> y sus parámetros.</li>
+<li>Calcula <span class="math inline">\(E(\xi)\)</span> y <span class="math inline">\(\mathrm{Var}(\xi)\)</span> aplicando las fórmulas del modelo.</li>
+<li>Calcula <span class="math inline">\(P(\xi = 3)\)</span>: probabilidad de encontrar exactamente 3 compañías con fallas.</li>
+<li>Calcula <span class="math inline">\(P(\xi \ge 1)\)</span>: probabilidad de detectar al menos una falla en la auditoría. (Sugerencia: complementario.)</li>
+<li>¿Por qué se aplica hipergeométrica y no binomial en este caso?</li>
+</ol>
+</div>
+<div id="problema-9.17.-hipergeométrica-frente-a-binomial-la-aproximación." class="section level3" number="9.12.17">
+<h3>
+<span class="header-section-number">9.12.17</span> Problema 9.17. Hipergeométrica frente a binomial: la aproximación.<a class="anchor" aria-label="anchor" href="#problema-9.17.-hipergeom%C3%A9trica-frente-a-binomial-la-aproximaci%C3%B3n."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sigue el escenario del problema anterior (<span class="math inline">\(N = 50\)</span>, <span class="math inline">\(N_1 = 15\)</span>, <span class="math inline">\(n = 8\)</span>). El auditor novato aplica, por comodidad, la binomial <span class="math inline">\(B(8;\, 0{,}30)\)</span> en lugar de la hipergeométrica exacta.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula <span class="math inline">\(P(\xi = 3)\)</span> con la binomial <span class="math inline">\(B(8;\, 0{,}30)\)</span> y compárala con el resultado exacto del problema 9.16(c).</li>
+<li>Calcula la diferencia absoluta y relativa entre ambas cifras.</li>
+<li>¿Se cumplen las reglas prácticas para aceptar la aproximación (<span class="math inline">\(p &lt; 0{,}1\)</span> o <span class="math inline">\(n/N &lt; 0{,}1\)</span>)? ¿Cuál está más cerca de cumplirse?</li>
+<li>Repite el ejercicio suponiendo que el directorio fuese de 500 compañías, con 150 fallas contables (misma proporción <span class="math inline">\(p = 0{,}30\)</span>) y muestra de 8. Comprueba que ahora la aproximación binomial sí es aceptable.</li>
+<li>¿Qué se ha modificado en este último escenario para que la aproximación funcione, aunque <span class="math inline">\(p\)</span> siga siendo 0,30?</li>
+</ol>
+</div>
+<div id="problema-9.18.-escenarios-mixtos-identifica-y-calcula." class="section level3" number="9.12.18">
+<h3>
+<span class="header-section-number">9.12.18</span> Problema 9.18. Escenarios mixtos: identifica y calcula.<a class="anchor" aria-label="anchor" href="#problema-9.18.-escenarios-mixtos-identifica-y-calcula."><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada uno de los siguientes escenarios: (i) identifica el modelo probabilístico correcto, (ii) escribe sus parámetros y (iii) calcula la probabilidad indicada.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Un carguero del astillero SELENE debe pasar controles independientes en 10 estaciones distintas. Cada control se supera con probabilidad 0,95. Calcula la probabilidad de superar los 10 controles.</li>
+<li>Un servidor de la red galáctica recibe peticiones de conexión a razón de 12 por minuto según un proceso de Poisson. Calcula la probabilidad de que en un minuto lleguen entre 8 y 15 peticiones (ambos incluidos).</li>
+<li>Un inspector selecciona 5 contenedores al azar sin reemplazamiento de un lote de 40, del que 6 están mal etiquetados. Calcula la probabilidad de detectar al menos uno mal etiquetado.</li>
+<li>Un algoritmo de compresión tiene probabilidad 0,08 de fallar en cada archivo procesado, con independencia. Calcula la probabilidad de que se procesen 20 archivos antes del primer fallo.</li>
+</ol>
+</div>
+<div id="problema-9.19.-puente-la-binomial-se-acerca-a-la-normal." class="section level3" number="9.12.19">
+<h3>
+<span class="header-section-number">9.12.19</span> Problema 9.19. Puente: la binomial se acerca a la normal.<a class="anchor" aria-label="anchor" href="#problema-9.19.-puente-la-binomial-se-acerca-a-la-normal."><i class="fas fa-link"></i></a>
+</h3>
+<p>Retomamos <em>Arrakis Freight</em>, pero ahora despacha <strong>200 cargueros</strong> en un día festivo galáctico, cada uno con puntualidad <span class="math inline">\(p = 0{,}85\)</span> e independientes entre sí. Sea $= $ <em>“número de puntuales de los 200”</em>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Identifica la distribución exacta de <span class="math inline">\(\xi\)</span>.</li>
+<li>Calcula <span class="math inline">\(E(\xi)\)</span> y <span class="math inline">\(\sigma_\xi\)</span>.</li>
+<li>Verifica que se cumplen las condiciones prácticas para aproximar la binomial por una normal (<span class="math inline">\(n p \ge 5\)</span> <strong>y</strong> <span class="math inline">\(n q \ge 5\)</span>).</li>
+<li>Aproximando por la normal <span class="math inline">\(N(\mu = n p,\ \sigma = \sqrt{n p q})\)</span>, calcula <span class="math inline">\(P(\xi \ge 175)\)</span>: probabilidad de que al menos 175 lleguen puntuales.</li>
+<li>Explica por qué la binomial se parece cada vez más a la campana normal cuando <span class="math inline">\(n\)</span> crece. (Es un anticipo del <strong>teorema central del límite</strong> del próximo capítulo.)</li>
+</ol>
+</div>
+<div id="problema-9.20.-auditoría-integradora-mara-qyà-en-la-arti." class="section level3" number="9.12.20">
+<h3>
+<span class="header-section-number">9.12.20</span> Problema 9.20. Auditoría integradora: Mara Qyà en la ARTI.<a class="anchor" aria-label="anchor" href="#problema-9.20.-auditor%C3%ADa-integradora-mara-qy%C3%A0-en-la-arti."><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Mara Qyà</strong> debe presentar un informe consolidado sobre la operativa de un puesto de aduana galáctico. El proceso se descompone en tres fases probabilísticamente distintas:</p>
+<p><strong>Fase 1 (llegadas):</strong> Los cargueros llegan al puesto de aduana según un proceso de Poisson con tasa media <span class="math inline">\(\lambda = 6\)</span> cargueros por hora.</p>
+<p><strong>Fase 2 (declaración conforme):</strong> Cada carguero declara su cargamento. Con independencia, un carguero declara conforme con probabilidad <span class="math inline">\(p = 0{,}80\)</span>; el resto genera una alerta que el sistema deriva a inspección.</p>
+<p><strong>Fase 3 (auditoría contable):</strong> Al final de la jornada (8 horas), Mara audita al azar <strong>sin reemplazamiento</strong> una muestra de 10 cargueros que hayan pasado el puesto (los que sean, según lo que ocurra durante la jornada), independientemente de si generaron alerta o no. De estos 10, quiere estimar cuántos generaron alerta.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>
+<strong>Fase 1.</strong> Calcula la probabilidad de que en la primera hora lleguen entre 4 y 8 cargueros al puesto (ambos incluidos).</li>
+<li>
+<strong>Fase 1 (jornada).</strong> ¿Cuál es la distribución del número <strong>total</strong> de cargueros que llegan al puesto durante toda la jornada de 8 horas? Calcula la esperanza y la probabilidad de que lleguen menos de 40 cargueros.</li>
+<li>
+<strong>Fase 2.</strong> Si en un momento dado han llegado 15 cargueros al puesto, ¿cuál es la probabilidad de que <strong>exactamente 12</strong> hayan declarado conforme (y por tanto 3 hayan generado alerta)? Identifica el modelo.</li>
+<li>
+<strong>Fase 3.</strong> Suponiendo que la jornada ha resultado en 50 cargueros pasando el puesto, de los cuales 12 generaron alerta, y Mara audita al azar 10 sin reemplazamiento: ¿cuál es la probabilidad de encontrar exactamente 3 con alerta en la muestra? Identifica el modelo.</li>
+<li>¿Podría Mara haber aplicado en la Fase 3 una <strong>binomial aproximada</strong>? Justifica con las reglas prácticas del capítulo.</li>
+<li>Redacta la <strong>recomendación operativa</strong> que Mara elevaría al director de la ARTI: ¿tiene sentido dimensionar el equipo de inspección para “cubrir las alertas de una jornada media” con base en el número esperado?</li>
+</ol>
+</div>
+</div>
+<div id="soluciones-cap09" class="section level2" number="9.13">
+<h2>
+<span class="header-section-number">9.13</span> Soluciones a los problemas propuestos.<a class="anchor" aria-label="anchor" href="#soluciones-cap09"><i class="fas fa-link"></i></a>
+</h2>
+<div id="solución-al-problema-9.1." class="section level3" number="9.13.1">
+<h3>
+<span class="header-section-number">9.13.1</span> Solución al Problema 9.1.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.1."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<strong>Uniforme discreta</strong> <span class="math inline">\(U(1, 12)\)</span>. Los 12 muelles son equiprobables por hipótesis.</li>
+<li>
+<strong>Binomial</strong> <span class="math inline">\(B(15;\ 0{,}90)\)</span>. Ensayos idénticos e independientes, se cuentan éxitos en un número fijo de ensayos.</li>
+<li>
+<strong>Hipergeométrica</strong> <span class="math inline">\(H(50;\ 8;\ 15/50)\)</span>. Muestreo sin reemplazamiento en una población finita.</li>
+<li>
+<strong>Geométrica</strong> <span class="math inline">\(G(0{,}20)\)</span> (caso particular de la binomial negativa con <span class="math inline">\(r = 1\)</span>). Se cuentan fracasos antes del primer éxito.</li>
+<li>
+<strong>Poisson</strong> <span class="math inline">\(\mathrm{Po}(2{,}3)\)</span>. Sucesos raros contados por unidad de tiempo, con tasa media conocida y estable.</li>
+<li>
+<strong>Bernoulli</strong> <span class="math inline">\(B(1;\ 0{,}90)\)</span>. Un único ensayo con dos resultados posibles.</li>
+<li>
+<strong>Binomial negativa</strong> <span class="math inline">\(\mathrm{BN}(5;\ 0{,}30)\)</span>. Se fija el número de éxitos y se cuentan los fracasos previos.</li>
+<li>
+<strong>Binomial</strong> <span class="math inline">\(B(3\,000;\ 0{,}001)\)</span> o, mejor por comodidad de cálculo, <strong>Poisson aproximada</strong> <span class="math inline">\(\mathrm{Po}(3)\)</span>: se cumple la regla práctica <span class="math inline">\(n \ge 30\)</span> y <span class="math inline">\(p \le 0{,}05\)</span>.</li>
+</ol>
+<p>La lección del ejercicio es clara: el modelo correcto no viene dado por el nombre del fenómeno (todos hablan de “contar cosas”), sino por la <strong>estructura probabilística</strong> del experimento subyacente.</p>
+</div>
+<div id="solución-al-problema-9.2." class="section level3" number="9.13.2">
+<h3>
+<span class="header-section-number">9.13.2</span> Solución al Problema 9.2.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.2."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Función de cuantía: <span class="math inline">\(P(\xi = x) = 1/12\)</span> para <span class="math inline">\(x \in \{1, 2, \ldots, 12\}\)</span>.</p></li>
+<li>
+<p>Aplicando las fórmulas de la uniforme discreta con <span class="math inline">\(a = 1\)</span>, <span class="math inline">\(b = 12\)</span>, <span class="math inline">\(k = 12\)</span>:</p>
+<p><span class="math display">\[\mu = \dfrac{1 + 12}{2} = \mathbf{6{,}5}. \qquad \mathrm{Var}(\xi) = \dfrac{12^2 - 1}{12} = \dfrac{143}{12} \approx \mathbf{11{,}9167}.\]</span></p>
+</li>
+<li><p><span class="math inline">\(P(\xi \le 4) = 4/12 = 1/3 \approx \mathbf{0{,}3333}\)</span>.</p></li>
+<li><p>Hay 6 muelles impares (1, 3, 5, 7, 9, 11) sobre 12: <span class="math inline">\(P(\xi \text{ impar}) = 6/12 = \mathbf{0{,}5000}\)</span>.</p></li>
+<li><p>Diferencia conceptual: la <strong>uniforme discreta</strong> asigna probabilidad positiva <span class="math inline">\(1/k\)</span> a cada uno de un número finito de puntos concretos; la <strong>uniforme continua</strong> asigna probabilidad cero a cada punto concreto y distribuye la probabilidad uniformemente <strong>como densidad</strong> sobre un intervalo continuo. En la discreta se suma sobre puntos; en la continua se integra sobre intervalos. Es el mismo salto conceptual que la sección sobre variables continuas del capítulo 8 dedicaba a explicar en detalle.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.3." class="section level3" number="9.13.3">
+<h3>
+<span class="header-section-number">9.13.3</span> Solución al Problema 9.3.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.3."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\xi\)</span> sigue una <strong>distribución de Bernoulli</strong> de parámetro <span class="math inline">\(p = 0{,}90\)</span>: <span class="math inline">\(\xi \to B(1;\ 0{,}90)\)</span>. Es la piedra angular de todos los modelos “de conteo” del capítulo.</p></li>
+<li><p>Función de cuantía: <span class="math inline">\(P(\xi = 1) = 0{,}90\)</span>, <span class="math inline">\(P(\xi = 0) = 0{,}10\)</span>. En forma compacta: <span class="math inline">\(P(\xi = x) = 0{,}90^x\cdot 0{,}10^{1-x}\)</span> para <span class="math inline">\(x \in \{0, 1\}\)</span>.</p></li>
+<li><p><span class="math inline">\(E(\xi) = p = \mathbf{0{,}90}\)</span>. <span class="math inline">\(\mathrm{Var}(\xi) = p\cdot q = 0{,}90\cdot 0{,}10 = \mathbf{0{,}0900}\)</span>.</p></li>
+<li><p>La varianza del Bernoulli es <span class="math inline">\(p\cdot q = p(1-p)\)</span>, una parábola invertida con máximo en <span class="math inline">\(p = 0{,}5\)</span> (donde vale <span class="math inline">\(0{,}25\)</span>) y ceros en <span class="math inline">\(p = 0\)</span> y <span class="math inline">\(p = 1\)</span>. Con <span class="math inline">\(p = 0{,}90\)</span>, el resultado es casi seguro (puntualidad casi garantizada), así que hay poca incertidumbre; la varianza es baja. La <strong>máxima incertidumbre</strong> aparecería con <span class="math inline">\(p = 0{,}5\)</span>: cuando el resultado del lanzamiento de una moneda no permite predecir nada.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.4." class="section level3" number="9.13.4">
+<h3>
+<span class="header-section-number">9.13.4</span> Solución al Problema 9.4.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.4."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\xi \to B(15;\ 0{,}85)\)</span>. Se cumplen las condiciones: <strong>número fijo</strong> de ensayos (<span class="math inline">\(n = 15\)</span>), <strong>misma probabilidad</strong> en todos (<span class="math inline">\(p = 0{,}85\)</span>), e <strong>independencia</strong> entre despachos (rutas distintas, tripulaciones distintas). Es un binomial de manual.</p></li>
+<li><p><span class="math inline">\(E(\xi) = n\cdot p = 15\cdot 0{,}85 = \mathbf{12{,}75}\)</span> cargueros puntuales por noche. <span class="math inline">\(\mathrm{Var}(\xi) = n\cdot p\cdot q = 15\cdot 0{,}85\cdot 0{,}15 = \mathbf{1{,}9125}\)</span>; <span class="math inline">\(\sigma \approx 1{,}383\)</span>.</p></li>
+<li><p><span class="math inline">\(P(\xi = 13) = \binom{15}{13}\cdot 0{,}85^{13}\cdot 0{,}15^{2} = 105 \cdot 0{,}12094 \cdot 0{,}0225 \approx \mathbf{0{,}2856}\)</span>.</p></li>
+<li><p><span class="math inline">\(P(\xi \ge 13) = P(13) + P(14) + P(15) \approx 0{,}2856 + 0{,}2312 + 0{,}0874 \approx \mathbf{0{,}6042}\)</span>. En más del 60% de las noches se alcanza el umbral “13 o más”: es un buen ritmo operativo.</p></li>
+<li><p><span class="math inline">\(P(\xi \le 11) = 1 - P(\xi \ge 12) \approx 1 - (0{,}2184 + 0{,}2856 + 0{,}2312 + 0{,}0874) = 1 - 0{,}8226 = \mathbf{0{,}1774}\)</span>. Alrededor del 18% de las noches se activa el protocolo de investigación.</p></li>
+<li><p><span class="math inline">\(P(\xi = 15) = 0{,}85^{15} \approx \mathbf{0{,}0874}\)</span>. Que “todo vaya bien” ocurre menos de una noche de cada once: es una buena noche, pero no una noche mágica.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.5." class="section level3" number="9.13.5">
+<h3>
+<span class="header-section-number">9.13.5</span> Solución al Problema 9.5.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.5."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Número esperado de retrasos:</p>
+<ul>
+<li>Ruta A: <span class="math inline">\(E(\text{fracasos}_A) = 20 \cdot 0{,}05 = \mathbf{1}\)</span> retraso.</li>
+<li>Ruta B: <span class="math inline">\(E(\text{fracasos}_B) = 50 \cdot 0{,}20 = \mathbf{10}\)</span> retrasos.</li>
+</ul>
+</li>
+<li>
+<p>Penalización esperada:</p>
+<ul>
+<li>Ruta A: <span class="math inline">\(500 \cdot 1 = \mathbf{500}\)</span> PAVOs.</li>
+<li>Ruta B: <span class="math inline">\(500 \cdot 10 = \mathbf{5\,000}\)</span> PAVOs.</li>
+</ul>
+</li>
+<li>
+<p>Desviación típica del número de retrasos:</p>
+<ul>
+<li>Ruta A: <span class="math inline">\(\sqrt{20 \cdot 0{,}05 \cdot 0{,}95} = \sqrt{0{,}95} \approx \mathbf{0{,}975}\)</span> retrasos.</li>
+<li>Ruta B: <span class="math inline">\(\sqrt{50 \cdot 0{,}20 \cdot 0{,}80} = \sqrt{8} \approx \mathbf{2{,}828}\)</span> retrasos.</li>
+</ul>
+</li>
+<li><p>La argumentación del directivo es <strong>incorrecta</strong>. Aunque la “puntualidad relativa” de B (80%) parezca aceptable, en cifras absolutas B genera <strong>10 veces más retrasos</strong> que A porque despacha 2,5 veces más cargueros con una tasa de fracaso 4 veces mayor. La combinación es letal en términos de coste.</p></li>
+<li><p>Para <strong>minimizar coste esperado</strong>, la ruta A es claramente preferible (500 PAVOs frente a 5 000). Para <strong>evitar sorpresas</strong> en el coste, también A: su desviación típica en el número de retrasos es tres veces menor. En este caso concreto, ambos criterios apuntan a la misma ruta. (No siempre ocurre así: cuando la ruta de mayor coste esperado tiene también menor varianza, aparece un dilema real; aquí no.)</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.6." class="section level3" number="9.13.6">
+<h3>
+<span class="header-section-number">9.13.6</span> Solución al Problema 9.6.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.6."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Análisis de los tres escenarios:</p>
+<ol style="list-style-type: lower-roman">
+<li>
+<strong>Sí es adecuada la binomial.</strong> Los 20 cargueros son ensayos independientes con la misma <span class="math inline">\(p = 0{,}85\)</span>: exactamente las hipótesis de <span class="math inline">\(B(20;\ 0{,}85)\)</span>. Cálculo aceptable.</li>
+<li>
+<strong>No es adecuada.</strong> Los 20 cargueros comparten una fuente común de fracaso (la tormenta). Si la tormenta se recrudece, todos los fracasos aparecen juntos; si se disipa, todos los aciertos aparecen juntos. Los ensayos no son independientes. La binomial infraestima gravemente la probabilidad de un desastre colectivo.</li>
+<li>
+<strong>No es adecuada.</strong> La probabilidad <span class="math inline">\(p\)</span> no es la misma en todos los ensayos: 15 cargueros tienen <span class="math inline">\(p_1 = 0{,}92\)</span> y 5 tienen <span class="math inline">\(p_2 = 0{,}72\)</span>. Falla la homogeneidad de la binomial.</li>
+</ol>
+</li>
+<li><p>En el escenario (ii), la binomial supone que cada fracaso es independiente y por tanto <span class="math inline">\(P(\text{20 retrasos}) = 0{,}15^{20} \approx 3\cdot 10^{-17}\)</span> (prácticamente cero). Pero en la realidad, si la tormenta se recrudece, los 20 cargueros se retrasan <strong>a la vez</strong>, y la probabilidad real de “todos retrasados” es aproximadamente la probabilidad de que se recrudezca la tormenta, que puede ser perfectamente del 5-10%. La binomial infraestima varios órdenes de magnitud.</p></li>
+<li><p>En el escenario (iii), la descomposición natural es aplicar dos binomiales por separado y sumarlas: <span class="math inline">\(\xi_1 \to B(15;\ 0{,}92)\)</span> para los modernos, <span class="math inline">\(\xi_2 \to B(5;\ 0{,}72)\)</span> para los antiguos, y <span class="math inline">\(\xi = \xi_1 + \xi_2\)</span>. La distribución agregada <strong>no</strong> es binomial (porque las <span class="math inline">\(p\)</span> son distintas), pero sus momentos sí se combinan por linealidad: <span class="math inline">\(E(\xi) = 15\cdot 0{,}92 + 5\cdot 0{,}72 = 13{,}8 + 3{,}6 = 17{,}4\)</span> y <span class="math inline">\(\mathrm{Var}(\xi) = 15\cdot 0{,}92\cdot 0{,}08 + 5\cdot 0{,}72\cdot 0{,}28 = 1{,}104 + 1{,}008 = 2{,}112\)</span>.</p></li>
+<li><p>Se ilustra el <strong>principio de identificación</strong>: el modelo se elige por la estructura probabilística del experimento, no por el hecho de “estar contando éxitos en <span class="math inline">\(n\)</span> ensayos”. Si la homogeneidad o la independencia fallan, la binomial deja de ser válida aunque el enunciado tenga el mismo aspecto. El aviso del capítulo lo formulaba con claridad: <em>“la estadística no tiene reparo en dar respuestas equivocadas: las da cuando le pedimos que aplique el modelo equivocado”</em>.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.7." class="section level3" number="9.13.7">
+<h3>
+<span class="header-section-number">9.13.7</span> Solución al Problema 9.7.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.7."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\xi_N \to B(12;\ 0{,}88)\)</span> y <span class="math inline">\(\xi_S \to B(18;\ 0{,}88)\)</span>.</p></li>
+<li>
+<p>Aplicando la <strong>propiedad reproductiva</strong> (misma <span class="math inline">\(p\)</span>, ensayos independientes):</p>
+<p><span class="math display">\[\xi = \xi_N + \xi_S \to B(12 + 18;\ 0{,}88) = B(30;\ 0{,}88).\]</span></p>
+</li>
+<li>
+<p>Por dos vías:</p>
+<ul>
+<li>Directamente: <span class="math inline">\(E(\xi) = 30\cdot 0{,}88 = \mathbf{26{,}4}\)</span>; <span class="math inline">\(\mathrm{Var}(\xi) = 30\cdot 0{,}88\cdot 0{,}12 = \mathbf{3{,}168}\)</span>.</li>
+<li>Sumando: <span class="math inline">\(E(\xi_N) + E(\xi_S) = 12\cdot 0{,}88 + 18\cdot 0{,}88 = 10{,}56 + 15{,}84 = 26{,}4\)</span> ✓. <span class="math inline">\(\mathrm{Var}(\xi_N) + \mathrm{Var}(\xi_S) = 12\cdot 0{,}88\cdot 0{,}12 + 18\cdot 0{,}88\cdot 0{,}12 = 1{,}2672 + 1{,}9008 = 3{,}168\)</span> ✓.</li>
+</ul>
+<p>Las dos vías coinciden, como debe ser.</p>
+</li>
+<li>
+<p>Habría que asumir <strong>independencia</strong> entre las dos delegaciones (ninguna fuente de fracaso común, como una tormenta compartida) y <strong>misma <span class="math inline">\(p\)</span></strong> en ambas.</p>
+<p>Si Norte tuviera <span class="math inline">\(p_N = 0{,}88\)</span> y Sur <span class="math inline">\(p_S = 0{,}75\)</span>, la propiedad reproductiva <strong>no se puede aplicar</strong>: la binomial exige que todos los ensayos que se suman compartan la misma probabilidad. La suma <span class="math inline">\(\xi = \xi_N + \xi_S\)</span> seguiría teniendo esperanza <span class="math inline">\(12\cdot 0{,}88 + 18\cdot 0{,}75 = 24{,}06\)</span> y varianza <span class="math inline">\(12\cdot 0{,}88\cdot 0{,}12 + 18\cdot 0{,}75\cdot 0{,}25 = 1{,}2672 + 3{,}375 = 4{,}6422\)</span> (por linealidad, que sí se cumple), pero no sería binomial: sería una mezcla más compleja.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-9.8." class="section level3" number="9.13.8">
+<h3>
+<span class="header-section-number">9.13.8</span> Solución al Problema 9.8.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.8."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\xi \to \mathrm{Po}(4)\)</span>. Proceso de Poisson con tasa media <span class="math inline">\(\lambda = 4\)</span> clientes por hora.</p></li>
+<li><p><span class="math inline">\(P(\xi = 0) = e^{-4} \approx \mathbf{0{,}0183}\)</span>. Menos del 2% de las horas están vacías: la sucursal casi nunca queda sin clientes.</p></li>
+<li><p><span class="math inline">\(P(\xi = 6) = \dfrac{e^{-4}\cdot 4^6}{6!} = \dfrac{0{,}0183\cdot 4\,096}{720} \approx \mathbf{0{,}1042}\)</span>.</p></li>
+<li><p><span class="math inline">\(P(\xi \ge 3) = 1 - P(\xi \le 2) = 1 - [P(0) + P(1) + P(2)] = 1 - [0{,}0183 + 0{,}0733 + 0{,}1465] = 1 - 0{,}2381 = \mathbf{0{,}7619}\)</span>. Más del 76% de las horas tienen al menos tres clientes.</p></li>
+<li><p>Tabulando <span class="math inline">\(F(k) = P(\xi \le k)\)</span> para valores crecientes de <span class="math inline">\(k\)</span>: <span class="math inline">\(F(6) = 0{,}8893\)</span>; <span class="math inline">\(F(7) = 0{,}9489\)</span>; <span class="math inline">\(F(8) = \mathbf{0{,}9786}\)</span>. El mínimo <span class="math inline">\(k\)</span> tal que <span class="math inline">\(P(\xi \le k) \ge 0{,}95\)</span> es <span class="math inline">\(k = \mathbf{8}\)</span>. Es decir, un puesto que atienda 8 clientes por hora cubre “las horas normales” (por debajo del percentil 95%) sin más ajustes; el 5% restante son horas punta que requerirán refuerzo puntual.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.9." class="section level3" number="9.13.9">
+<h3>
+<span class="header-section-number">9.13.9</span> Solución al Problema 9.9.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.9."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Al ser un proceso de Poisson con tasa constante, <span class="math inline">\(\lambda\)</span> escala linealmente con el intervalo:</p>
+<ul>
+<li>Por mes: <span class="math inline">\(\lambda_m = 3/12 = \mathbf{0{,}25}\)</span> averías/mes.</li>
+<li>Por trimestre: <span class="math inline">\(\lambda_t = 3/4 = \mathbf{0{,}75}\)</span> averías/trimestre.</li>
+<li>En dos años: <span class="math inline">\(\lambda_2 = 3\cdot 2 = \mathbf{6}\)</span> averías.</li>
+</ul>
+</li>
+<li><p><span class="math inline">\(P(\xi \ge 1 \text{ en un mes}) = 1 - P(\xi = 0) = 1 - e^{-0{,}25} \approx 1 - 0{,}7788 = \mathbf{0{,}2212}\)</span>. Alrededor del 22% de los meses tendrán al menos una avería.</p></li>
+<li><p><span class="math inline">\(P(\xi = 2 \text{ en un trimestre}) = \dfrac{e^{-0{,}75}\cdot 0{,}75^2}{2!} = \dfrac{0{,}4724\cdot 0{,}5625}{2} \approx \mathbf{0{,}1329}\)</span>.</p></li>
+<li><p><span class="math inline">\(P(\xi &gt; 8 \text{ en 2 años}) = 1 - P(\xi \le 8) \approx 1 - 0{,}8472 = \mathbf{0{,}1528}\)</span>. Alrededor del 15% de los períodos bianuales tendrán más de 8 averías.</p></li>
+<li><p>La condición necesaria es que el <strong>proceso subyacente sea de Poisson homogéneo</strong>: la tasa de averías debe ser constante en el tiempo (o al menos su promedio a largo plazo), y las averías deben ocurrir de forma independiente unas de otras. Si el proceso tuviera estacionalidad (por ejemplo, más averías en primavera que en invierno), la escala lineal ya no sería válida.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.10." class="section level3" number="9.13.10">
+<h3>
+<span class="header-section-number">9.13.10</span> Solución al Problema 9.10.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.10."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\xi \to B(500;\ 0{,}01)\)</span>: cada uno de los 500 paquetes tiene probabilidad 0,01 de dañarse, con independencia.</p></li>
+<li><p>Se cumplen holgadamente: <span class="math inline">\(n = 500 \ge 30\)</span> ✓, <span class="math inline">\(p = 0{,}01 \le 0{,}05\)</span> ✓ (de hecho, es incluso <span class="math inline">\(\le 0{,}01\)</span>, el rango “excelente”).</p></li>
+<li><p>Con Poisson <span class="math inline">\(\lambda = 5\)</span>: <span class="math inline">\(P(\xi = 3) = \dfrac{e^{-5}\cdot 5^3}{3!} = \dfrac{0{,}006738\cdot 125}{6} \approx \mathbf{0{,}1404}\)</span>.</p></li>
+<li>
+<p>Con binomial exacta: <span class="math inline">\(P(\xi = 3) = \binom{500}{3}\cdot 0{,}01^3\cdot 0{,}99^{497} \approx \mathbf{0{,}1402}\)</span>.</p>
+<p>Las dos cifras coinciden hasta la cuarta cifra decimal (<span class="math inline">\(0{,}1404\)</span> vs <span class="math inline">\(0{,}1402\)</span>). La aproximación es prácticamente indistinguible del cálculo exacto.</p>
+</li>
+<li><p>Intuitivamente: cuando <span class="math inline">\(p\)</span> es muy pequeño, cada paquete concreto casi no aporta al conteo. Lo que importa es el <strong>agregado</strong>, y ese agregado se puede describir con una sola tasa media <span class="math inline">\(\lambda = n\cdot p\)</span> sin necesidad de saber cuántos son los paquetes individuales. Es la esencia de la aproximación Poisson: <strong>eventos raros, muchas oportunidades</strong>, con la única regularidad relevante en su producto.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.11." class="section level3" number="9.13.11">
+<h3>
+<span class="header-section-number">9.13.11</span> Solución al Problema 9.11.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.11."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\xi_A \to \mathrm{Po}(1{,}5)\)</span>; <span class="math inline">\(\xi_B \to \mathrm{Po}(2{,}8)\)</span>.</p></li>
+<li>
+<p>Por la <strong>propiedad reproductiva</strong> de la Poisson (independencia entre sectores):</p>
+<p><span class="math display">\[\xi = \xi_A + \xi_B \to \mathrm{Po}(1{,}5 + 2{,}8) = \mathbf{\mathrm{Po}(4{,}3)}.\]</span></p>
+</li>
+<li>
+<p>Por independencia entre los dos procesos:</p>
+<p><span class="math display">\[P(\xi_A = 1)\cdot P(\xi_B = 3) = \dfrac{e^{-1{,}5}\cdot 1{,}5^1}{1!}\cdot \dfrac{e^{-2{,}8}\cdot 2{,}8^3}{3!} = 0{,}3347\cdot 0{,}2225 \approx \mathbf{0{,}0745}.\]</span></p>
+</li>
+<li><p><span class="math inline">\(P(\xi = 4 \text{ con } \lambda = 4{,}3) = \dfrac{e^{-4{,}3}\cdot 4{,}3^4}{4!} \approx \mathbf{0{,}1933}\)</span>.</p></li>
+<li>
+<p>El resultado del apartado (c) es solo <strong>una</strong> de las 5 combinaciones posibles que suman 4 reportes agregados: <span class="math inline">\((0, 4), (1, 3), (2, 2), (3, 1), (4, 0)\)</span>. Sumando las cinco probabilidades <span class="math inline">\(P(\xi_A = a)\cdot P(\xi_B = 4-a)\)</span> para <span class="math inline">\(a = 0, 1, 2, 3, 4\)</span> debería obtenerse el valor total <span class="math inline">\(0{,}1933\)</span> que da la Poisson agregada.</p>
+<p>Verificación numérica: <span class="math inline">\(P(0,4)\cdot P(4,0)\)</span>… (cálculo omitido por brevedad); la suma sí da <span class="math inline">\(0{,}1933\)</span>. Este es el sentido matemático profundo de la propiedad reproductiva: dice que la <strong>convolución</strong> de dos Poisson es otra Poisson.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-9.12." class="section level3" number="9.13.12">
+<h3>
+<span class="header-section-number">9.13.12</span> Solución al Problema 9.12.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.12."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Ratios:</p>
+<ul>
+<li>Muestra A: <span class="math inline">\(0{,}82/0{,}80 = \mathbf{1{,}025}\)</span>.</li>
+<li>Muestra B: <span class="math inline">\(15{,}4/3{,}2 = \mathbf{4{,}8125}\)</span>.</li>
+<li>Muestra C: <span class="math inline">\(8{,}7/8{,}5 = \mathbf{1{,}0235}\)</span>.</li>
+</ul>
+</li>
+<li>
+<p>Diagnóstico:</p>
+<ul>
+<li>
+<strong>Muestra A</strong> (ratio ≈ 1): <strong>Poisson razonable</strong>. Cargueros de reciente matriculación tienen historial homogéneo, y no hay razón para sobredispersión.</li>
+<li>
+<strong>Muestra B</strong> (ratio ≈ 4,8): <strong>fuerte sobredispersión</strong>. La Poisson no sirve; hay que usar <strong>binomial negativa</strong>. Es típico de datos de reclamaciones: clientes muy heterogéneos, con unos pocos “quejicas” concentrando muchas reclamaciones.</li>
+<li>
+<strong>Muestra C</strong> (ratio ≈ 1): <strong>Poisson razonable</strong>. Llegadas de clientes por hora en una sucursal bancaria: procesos de flujo estables, sin heterogeneidad marcada.</li>
+</ul>
+</li>
+<li><p>Para A: <span class="math inline">\(\lambda_A \approx 0{,}80\)</span> siniestros/póliza al año. Para C: <span class="math inline">\(\lambda_C \approx 8{,}5\)</span> clientes/hora.</p></li>
+<li><p>Cuando hay sobredispersión, la Poisson (con media = varianza) reparte la masa demasiado concentradamente alrededor de la media. Los valores extremos aparecen con probabilidad muy baja en la Poisson, pero <strong>con probabilidad apreciable</strong> en la BN, que tiene colas más pesadas. Un ecommerce con Poisson <span class="math inline">\(\mathrm{Po}(3{,}2)\)</span> concluiría que ningún cliente hará 15 reclamaciones al año (probabilidad casi cero), cuando en la realidad hay unos cuantos usuarios que sí lo hacen. La BN sí lo captura.</p></li>
+<li><p>La sobredispersión es la <strong>norma</strong> en datos económicos de conteo porque los individuos económicos son <strong>heterogéneos</strong>: no todas las pólizas tienen la misma propensión al siniestro, no todos los clientes tienen la misma propensión a reclamar, no todos los sectores tienen la misma tasa de defectos. Cuando el proceso subyacente mezcla poblaciones con parámetros distintos, aparece sobredispersión de manera casi inevitable. La BN, con su parámetro extra <span class="math inline">\(r\)</span>, absorbe esa heterogeneidad.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.13." class="section level3" number="9.13.13">
+<h3>
+<span class="header-section-number">9.13.13</span> Solución al Problema 9.13.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.13."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\xi \to \mathrm{BN}(5;\ 0{,}30)\)</span>: fracasos antes del quinto éxito, cada intento independiente con <span class="math inline">\(p = 0{,}30\)</span>.</p></li>
+<li>
+<p>Media y varianza:</p>
+<p><span class="math display">\[E(\xi) = r\cdot \dfrac{q}{p} = 5\cdot \dfrac{0{,}70}{0{,}30} = \mathbf{11{,}67}\ \text{fracasos.}\]</span></p>
+<p><span class="math display">\[\mathrm{Var}(\xi) = r\cdot \dfrac{q}{p^2} = 5\cdot \dfrac{0{,}70}{0{,}09} = \mathbf{38{,}89}. \qquad \sigma \approx 6{,}24.\]</span></p>
+<p>En promedio, el vendedor recibirá <strong>11,67 rechazos</strong> antes de cerrar los 5 contratos, pero con una desviación típica muy grande (<span class="math inline">\(\sigma \approx 6{,}24\)</span>): la cifra real oscilará considerablemente de un mes a otro.</p>
+</li>
+<li><p><span class="math inline">\(P(\xi = 10) = \binom{10 + 5 - 1}{10}\cdot 0{,}30^5\cdot 0{,}70^{10} = \binom{14}{10}\cdot 0{,}00243\cdot 0{,}02825 = 1\,001\cdot 6{,}865\cdot 10^{-5} \approx \mathbf{0{,}0687}\)</span>.</p></li>
+<li><p>Número <strong>total</strong> esperado de llamadas = 5 éxitos + 11,67 fracasos = <strong>16,67 llamadas</strong>. La cifra del jefe comercial (30) es cómodamente superior; incluso considerando la desviación típica del proceso, 30 llamadas cubren razonablemente la mayoría de escenarios. La estimación es sensata.</p></li>
+<li><p>El ratio <span class="math inline">\(\sigma^2/\mu = (rq/p^2)/(rq/p) = 1/p\)</span>. Aquí <span class="math inline">\(1/p = 1/0{,}30 \approx 3{,}33\)</span>, mayor que 1: la BN es <strong>naturalmente sobredispersa</strong> (ya lo veíamos en la introducción del modelo). Es exactamente esta propiedad la que la hace idónea para modelar conteos empresariales.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.14." class="section level3" number="9.13.14">
+<h3>
+<span class="header-section-number">9.13.14</span> Solución al Problema 9.14.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.14."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\xi \to G(0{,}70)\)</span>: caso particular de la binomial negativa con <span class="math inline">\(r = 1\)</span>. Fracasos antes del primer éxito.</p></li>
+<li><p><span class="math inline">\(E(\xi) = q/p = 0{,}30/0{,}70 \approx \mathbf{0{,}4286}\)</span> intentos fallidos. <span class="math inline">\(\mathrm{Var}(\xi) = q/p^2 = 0{,}30/0{,}49 \approx \mathbf{0{,}6122}\)</span>.</p></li>
+<li><p><span class="math inline">\(P(\xi = 0) = p = \mathbf{0{,}70}\)</span>. Es la probabilidad de acertar al primer intento.</p></li>
+<li><p><span class="math inline">\(P(\xi \ge 3) = q^3 = 0{,}30^3 = \mathbf{0{,}0270}\)</span>. Menos del 3% de las veces Rey acumulará tres fallos consecutivos antes de acertar. La escuela de Fhloston puede dormir tranquila.</p></li>
+<li>
+<p>Por la <strong>propiedad de falta de memoria</strong> de la geométrica, saber que Rey ya ha fallado dos veces <strong>no aporta información</strong> sobre el tercer intento. La probabilidad de que el tercer intento sea otro fallo es simplemente <span class="math inline">\(q = \mathbf{0{,}30}\)</span>, la misma que la del primer intento.</p>
+<p>Formalmente: <span class="math inline">\(P(\xi \ge k + 1 \mid \xi \ge k) = P(\xi \ge 1) = q\)</span> para cualquier <span class="math inline">\(k\)</span>. La geométrica “se olvida” del pasado. Es una propiedad rara y bella: solo la geométrica (entre las discretas) y la exponencial (entre las continuas) la poseen.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-9.15." class="section level3" number="9.13.15">
+<h3>
+<span class="header-section-number">9.13.15</span> Solución al Problema 9.15.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.15."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Ratio <span class="math inline">\(s^2/\bar x = 6{,}25/2{,}5 = 2{,}5\)</span>: sobredispersión clara. La Poisson queda descartada.</p></li>
+<li>
+<p>Partimos de <span class="math inline">\(\mu = rq/p\)</span> y <span class="math inline">\(\sigma^2 = rq/p^2\)</span>. Dividiendo:</p>
+<p><span class="math display">\[\dfrac{\sigma^2}{\mu} = \dfrac{rq/p^2}{rq/p} = \dfrac{1}{p} \implies \boxed{p = \dfrac{\mu}{\sigma^2}}.\]</span></p>
+<p>Y una vez conocido <span class="math inline">\(p\)</span>: <span class="math inline">\(r = \mu\cdot p/q = \mu\cdot p/(1-p)\)</span>.</p>
+</li>
+<li>
+<p>Con <span class="math inline">\(\mu = 2{,}5\)</span> y <span class="math inline">\(\sigma^2 = 6{,}25\)</span>:</p>
+<p><span class="math display">\[p = \dfrac{2{,}5}{6{,}25} = \mathbf{0{,}40}; \qquad q = 0{,}60.\]</span></p>
+<p><span class="math display">\[r = \dfrac{2{,}5\cdot 0{,}40}{0{,}60} = \dfrac{1{,}0}{0{,}60} = \mathbf{1{,}6667}.\]</span></p>
+<p>Nótese que <span class="math inline">\(r\)</span> no es entero. Esto es normal en el ajuste por momentos: el parámetro <span class="math inline">\(r\)</span> se generaliza como parámetro continuo positivo. Verificación: <span class="math inline">\(E = 1{,}6667\cdot 0{,}60/0{,}40 = 2{,}50\)</span> ✓; <span class="math inline">\(\mathrm{Var} = 1{,}6667\cdot 0{,}60/0{,}16 = 6{,}25\)</span> ✓.</p>
+</li>
+<li><p>Con la BN ajustada: <span class="math inline">\(P(\xi = 5) \approx \mathbf{0{,}0606}\)</span>. Aproximadamente el 6% de las pólizas registrarán exactamente 5 siniestros al año.</p></li>
+<li><p>Con Poisson <span class="math inline">\(\mathrm{Po}(2{,}5)\)</span>: <span class="math inline">\(P(\xi = 5) = e^{-2{,}5}\cdot 2{,}5^5/5! \approx \mathbf{0{,}0668}\)</span>. Sorprendentemente, cifras parecidas para el punto <span class="math inline">\(x = 5\)</span>. La diferencia real entre modelos se ve en las <strong>colas</strong>: la Poisson daría probabilidades minúsculas para <span class="math inline">\(x = 10, 15, 20\)</span> siniestros, mientras que la BN mantendría probabilidades apreciables (no cero) para esos valores extremos. Es en las colas donde la BN “gana” al Poisson en gestión de riesgos.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.16." class="section level3" number="9.13.16">
+<h3>
+<span class="header-section-number">9.13.16</span> Solución al Problema 9.16.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.16."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\xi \to H(50;\ 8;\ 15/50) = H(50;\ 8;\ 0{,}30)\)</span>. Población <span class="math inline">\(N = 50\)</span>, éxitos en población <span class="math inline">\(N_1 = 15\)</span>, muestra <span class="math inline">\(n = 8\)</span>.</p></li>
+<li>
+<p>Media y varianza:</p>
+<p><span class="math display">\[E(\xi) = n\cdot p = 8\cdot 0{,}30 = \mathbf{2{,}40}.\]</span></p>
+<p><span class="math display">\[\mathrm{Var}(\xi) = n\cdot p\cdot q\cdot \dfrac{N - n}{N - 1} = 8\cdot 0{,}30\cdot 0{,}70\cdot \dfrac{42}{49} = 1{,}68\cdot 0{,}857 \approx \mathbf{1{,}44}.\]</span></p>
+</li>
+<li><p><span class="math inline">\(P(\xi = 3) = \dfrac{\binom{15}{3}\cdot \binom{35}{5}}{\binom{50}{8}} = \dfrac{455\cdot 324\,632}{536\,878\,650} \approx \mathbf{0{,}2751}\)</span>.</p></li>
+<li><p><span class="math inline">\(P(\xi \ge 1) = 1 - P(\xi = 0) = 1 - \dfrac{\binom{15}{0}\cdot \binom{35}{8}}{\binom{50}{8}} = 1 - \dfrac{23\,535\,820}{536\,878\,650} \approx 1 - 0{,}0438 = \mathbf{0{,}9562}\)</span>. Con muy alta probabilidad se detecta al menos una compañía con fallas: la auditoría, aun siendo pequeña, es eficaz.</p></li>
+<li><p>Se aplica hipergeométrica y no binomial porque el muestreo es <strong>sin reemplazamiento</strong>: cada compañía auditada se retira de la población y las probabilidades de las siguientes extracciones cambian. Los ensayos no son independientes.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.17." class="section level3" number="9.13.17">
+<h3>
+<span class="header-section-number">9.13.17</span> Solución al Problema 9.17.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.17."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Con <span class="math inline">\(B(8;\ 0{,}30)\)</span>: <span class="math inline">\(P(\xi = 3) = \binom{8}{3}\cdot 0{,}30^3\cdot 0{,}70^5 = 56\cdot 0{,}027\cdot 0{,}16807 \approx \mathbf{0{,}2541}\)</span>.</p>
+<p>Comparado con el resultado exacto (0,2751): la binomial <strong>subestima</strong> ligeramente.</p>
+</li>
+<li><p>Diferencia absoluta: <span class="math inline">\(0{,}2751 - 0{,}2541 = \mathbf{0{,}0210}\)</span>. Diferencia relativa: <span class="math inline">\(0{,}0210/0{,}2751 \approx \mathbf{7{,}6\%}\)</span>. No es despreciable.</p></li>
+<li>
+<p>Regla práctica:</p>
+<ul>
+<li>
+<span class="math inline">\(p = 15/50 = 0{,}30\)</span>: <strong>no</strong> cumple <span class="math inline">\(p &lt; 0{,}1\)</span>.</li>
+<li>
+<span class="math inline">\(n/N = 8/50 = 0{,}16\)</span>: <strong>no</strong> cumple <span class="math inline">\(n/N &lt; 0{,}1\)</span>.</li>
+</ul>
+<p>Ninguna de las dos condiciones se satisface con holgura; la aproximación es de calidad discutible, con un 7,6% de error relativo en el punto probado.</p>
+</li>
+<li>
+<p>Con el escenario ampliado (<span class="math inline">\(N = 500\)</span>, <span class="math inline">\(N_1 = 150\)</span>, <span class="math inline">\(n = 8\)</span>, misma <span class="math inline">\(p = 0{,}30\)</span>):</p>
+<ul>
+<li>Hipergeométrica exacta: <span class="math inline">\(P(\xi = 3) \approx \mathbf{0{,}2560}\)</span>.</li>
+<li>Binomial: <span class="math inline">\(P(\xi = 3) \approx \mathbf{0{,}2541}\)</span> (igual que antes: la binomial no depende de <span class="math inline">\(N\)</span>).</li>
+<li>Diferencia relativa: <span class="math inline">\(0{,}0019/0{,}2560 \approx \mathbf{0{,}7\%}\)</span>: prácticamente perfecta.</li>
+</ul>
+</li>
+<li><p>Aunque <span class="math inline">\(p\)</span> sigue siendo el mismo (0,30), ha cambiado la relación <span class="math inline">\(n/N\)</span>: de <span class="math inline">\(0{,}16\)</span> (muestra 8 sobre 50) a <span class="math inline">\(0{,}016\)</span> (muestra 8 sobre 500), muy inferior al umbral 0,1. Cuando la muestra es una fracción <strong>muy pequeña</strong> de la población, el efecto del “sin reemplazamiento” es despreciable —extraer 8 elementos de 500 apenas modifica las probabilidades de las siguientes extracciones— y la binomial aproxima bien a la hipergeométrica.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.18." class="section level3" number="9.13.18">
+<h3>
+<span class="header-section-number">9.13.18</span> Solución al Problema 9.18.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.18."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Modelo: <span class="math inline">\(\xi \to B(10;\ 0{,}95)\)</span> = <em>“número de controles superados de los 10”</em>. Se pide <span class="math inline">\(P(\xi = 10) = 0{,}95^{10} \approx \mathbf{0{,}5987}\)</span>. Casi el 60% de los cargueros supera los 10 controles sin fallo.</p></li>
+<li><p>Modelo: <span class="math inline">\(\xi \to \mathrm{Po}(12)\)</span>. Se pide <span class="math inline">\(P(8 \le \xi \le 15) = P(\xi \le 15) - P(\xi \le 7) \approx 0{,}8444 - 0{,}0895 = \mathbf{0{,}7549}\)</span>. Alrededor del 75% de los minutos tienen entre 8 y 15 peticiones (rango operativamente “normal”).</p></li>
+<li><p>Modelo: <span class="math inline">\(\xi \to H(40;\ 5;\ 6/40)\)</span>. Se pide <span class="math inline">\(P(\xi \ge 1) = 1 - P(\xi = 0) = 1 - \dfrac{\binom{6}{0}\cdot \binom{34}{5}}{\binom{40}{5}} = 1 - \dfrac{278\,256}{658\,008} \approx 1 - 0{,}4229 = \mathbf{0{,}5771}\)</span>. Casi el 58% de las auditorías detectan al menos un contenedor mal etiquetado.</p></li>
+<li>
+<p>Modelo: <span class="math inline">\(\xi \to G(0{,}08)\)</span> = <em>“archivos procesados con éxito antes del primer fallo”</em>. Se pide <span class="math inline">\(P(\xi = 20) = 0{,}92^{20}\cdot 0{,}08 \approx \mathbf{0{,}01510}\)</span>. Alrededor del 1,5% de las tandas alcanzan los 20 archivos sin fallo antes de recibir el primero.</p>
+<p>(Advertencia: en el enunciado, “éxito” es procesar sin fallo, y el evento marcado es el primer <strong>fallo</strong>. En términos de la geométrica, “fracaso antes del primer éxito” tiene aquí sentido invertido; el modelo es simétrico y funciona igual, pero conviene ser explícito con la definición.)</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-9.19." class="section level3" number="9.13.19">
+<h3>
+<span class="header-section-number">9.13.19</span> Solución al Problema 9.19.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.19."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\xi \to B(200;\ 0{,}85)\)</span> exactamente.</p></li>
+<li><p><span class="math inline">\(E(\xi) = 200\cdot 0{,}85 = \mathbf{170}\)</span>; <span class="math inline">\(\mathrm{Var}(\xi) = 200\cdot 0{,}85\cdot 0{,}15 = 25{,}5\)</span>; <span class="math inline">\(\sigma \approx \mathbf{5{,}05}\)</span>.</p></li>
+<li><p>Condiciones: <span class="math inline">\(n\cdot p = 170 \ge 5\)</span> ✓ ampliamente. <span class="math inline">\(n\cdot q = 30 \ge 5\)</span> ✓ también. La aproximación normal es plenamente aplicable.</p></li>
+<li>
+<p>Con normal <span class="math inline">\(N(170,\ 5{,}05)\)</span> y aplicando la <strong>corrección de continuidad</strong> (paso de discreta a continua):</p>
+<p><span class="math display">\[P(\xi \ge 175) \approx P(X &gt; 174{,}5) = 1 - \Phi\!\left(\dfrac{174{,}5 - 170}{5{,}05}\right) = 1 - \Phi(0{,}8911) \approx \mathbf{0{,}1864}.\]</span></p>
+<p>Aproximadamente el 18,6% de las noches (con 200 despachos) tendrán al menos 175 puntuales.</p>
+<p>Verificación con la binomial exacta: <span class="math inline">\(P(\xi \ge 175) \approx 0{,}1876\)</span>. Diferencia menor del 1%: la aproximación normal es excelente.</p>
+<p>(Nota: sin corrección de continuidad se obtendría 0,1611, con un error apreciable. La corrección es importante cuando la binomial se acerca a la normal.)</p>
+</li>
+<li><p>Cuando <span class="math inline">\(n\)</span> crece con <span class="math inline">\(p\)</span> fijo (y no muy cerca de 0 o 1), la binomial se vuelve <strong>cada vez más simétrica</strong> y <strong>cada vez más concentrada</strong> alrededor de su media, con una forma que se aproxima gradualmente a la campana de Gauss. Este es un caso particular del <strong>teorema central del límite</strong>: la suma de <span class="math inline">\(n\)</span> Bernoullis independientes (que es exactamente la binomial) se aproxima a una normal cuando <span class="math inline">\(n\)</span> es grande. El próximo capítulo lo formalizará: la campana normal aparece “por todas partes” precisamente porque casi todo lo que medimos son sumas o promedios de muchas fuentes de aleatoriedad, y el TCL garantiza que esas sumas convergen a la normal.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-9.20." class="section level3" number="9.13.20">
+<h3>
+<span class="header-section-number">9.13.20</span> Solución al Problema 9.20.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-9.20."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>Fase 1 en 1 hora.</strong> <span class="math inline">\(\xi_h \to \mathrm{Po}(6)\)</span>: <span class="math inline">\(P(4 \le \xi_h \le 8) = P(\xi_h \le 8) - P(\xi_h \le 3) \approx 0{,}8472 - 0{,}1512 = \mathbf{0{,}6960}\)</span>. Casi el 70% de las horas tienen entre 4 y 8 llegadas.</p></li>
+<li>
+<p><strong>Fase 1 en jornada.</strong> Por escalado del proceso Poisson, <span class="math inline">\(\xi_J \to \mathrm{Po}(6\cdot 8) = \mathrm{Po}(48)\)</span>. Esperanza: <span class="math inline">\(E(\xi_J) = \mathbf{48}\)</span> cargueros/jornada.</p>
+<p><span class="math inline">\(P(\xi_J &lt; 40) = P(\xi_J \le 39) \approx \mathbf{0{,}1073}\)</span>. Alrededor del 11% de las jornadas se cerrarán con menos de 40 cargueros: es un umbral inferior claramente por debajo de lo típico.</p>
+</li>
+<li>
+<p><strong>Fase 2.</strong> Condicional a que han llegado 15 cargueros, el número de alertas sigue una <strong>binomial</strong> <span class="math inline">\(\eta \to B(15;\ 0{,}20)\)</span> (equivalentemente, el número de conformes es <span class="math inline">\(B(15;\ 0{,}80)\)</span>).</p>
+<p><span class="math inline">\(P(\eta = 3) = \binom{15}{3}\cdot 0{,}20^3\cdot 0{,}80^{12} = 455\cdot 0{,}008\cdot 0{,}0687 \approx \mathbf{0{,}2501}\)</span>. En una de cada cuatro tandas de 15 cargueros habrá exactamente 3 alertas.</p>
+</li>
+<li>
+<p><strong>Fase 3.</strong> Auditoría sin reemplazamiento en población finita: <strong>hipergeométrica</strong> <span class="math inline">\(\zeta \to H(50;\ 10;\ 12/50)\)</span>.</p>
+<p><span class="math inline">\(P(\zeta = 3) = \dfrac{\binom{12}{3}\cdot \binom{38}{7}}{\binom{50}{10}} \approx \mathbf{0{,}2703}\)</span>. Aproximadamente el 27% de las auditorías detectarán exactamente 3 cargueros con alerta.</p>
+</li>
+<li>
+<p><strong>Aproximación binomial en Fase 3.</strong> Verificación de las reglas prácticas:</p>
+<ul>
+<li>
+<span class="math inline">\(p = 12/50 = 0{,}24\)</span>: <strong>no</strong> cumple <span class="math inline">\(p &lt; 0{,}10\)</span>.</li>
+<li>
+<span class="math inline">\(n/N = 10/50 = 0{,}20\)</span>: <strong>no</strong> cumple <span class="math inline">\(n/N &lt; 0{,}10\)</span>.</li>
+</ul>
+<p>Ninguna de las dos condiciones se satisface. Con binomial <span class="math inline">\(B(10;\ 0{,}24)\)</span> se obtendría <span class="math inline">\(P(\zeta = 3) \approx 0{,}2429\)</span>, con una diferencia relativa cercana al <strong>10%</strong> respecto al valor exacto hipergeométrico. Es preferible mantener la hipergeométrica.</p>
+</li>
+<li>
+<p><strong>Recomendación operativa de Mara Qyà.</strong></p>
+<blockquote>
+<p><em>“El puesto de aduana recibe, en promedio, 48 cargueros por jornada, con una tasa media de 20% de alertas: es decir, unas 9,6 alertas esperadas por jornada. Dimensionar el equipo de inspección para ‘cubrir la media’ con exactamente 10 inspectores sería, sin embargo, insuficiente: la varianza del número de alertas por jornada es también apreciable (Poisson escalada + binomial encadenada añaden dispersión), y en un tercio de las jornadas fácilmente aparecerán 12 o más alertas. Recomiendo dimensionar el equipo para ‘cubrir el percentil 90-95%’ de la carga, esto es, unos 14-15 inspectores efectivos por jornada, con un pequeño equipo de refuerzo para picos extraordinarios. Además, sugiero: (i) auditar mediante hipergeométrica, no binomial, dado que la fracción de muestreo no es despreciable; (ii) revisar mensualmente la tasa de alertas por si drifta al alza (lo que obligaría a re-dimensionar); y (iii) analizar por separado el subconjunto de cargueros con alertas confirmadas, para identificar patrones sectoriales o de origen que permitan un cribado más eficiente.”</em></p>
+</blockquote>
+<p>La lección de fondo del capítulo, condensada en un caso real: <strong>cada fase del proceso operativo se rige por un modelo distinto</strong> —Poisson para las llegadas, binomial para la aceptación, hipergeométrica para la auditoría— y cada uno requiere identificarse correctamente para que los cálculos posteriores tengan sentido. Aplicar un solo modelo a todo (o el modelo equivocado en cualquier fase) llevaría a estimaciones sesgadas y a un dimensionamiento incorrecto del equipo de trabajo.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 
@@ -1063,6 +1836,54 @@ B(n; p) \;\xrightarrow[n \text{ grande}]{}\; N\!\left(n p,\; \sqrt{n p q}\right)
 <li><a class="nav-link" href="#guia-rapida"><span class="header-section-number">9.9</span> Guía rápida de decisión</a></li>
 <li><a class="nav-link" href="#puente-normal"><span class="header-section-number">9.10</span> Un puente al próximo capítulo: la binomial se vuelve normal</a></li>
 <li><a class="nav-link" href="#recap-cap09"><span class="header-section-number">9.11</span> Recapitulación</a></li>
+<li>
+<a class="nav-link" href="#problemas-cap09"><span class="header-section-number">9.12</span> Problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#problema-9.1.-test-de-identificaci%C3%B3n-del-modelo-interpretativo."><span class="header-section-number">9.12.1</span> Problema 9.1. Test de identificación del modelo (interpretativo).</a></li>
+<li><a class="nav-link" href="#problema-9.2.-uniforme-discreta."><span class="header-section-number">9.12.2</span> Problema 9.2. Uniforme discreta.</a></li>
+<li><a class="nav-link" href="#problema-9.3.-bernoulli-un-experimento-con-dos-resultados."><span class="header-section-number">9.12.3</span> Problema 9.3. Bernoulli: un experimento con dos resultados.</a></li>
+<li><a class="nav-link" href="#problema-9.4.-binomial-c%C3%A1lculo-directo."><span class="header-section-number">9.12.4</span> Problema 9.4. Binomial: cálculo directo.</a></li>
+<li><a class="nav-link" href="#problema-9.5.-binomial-comparar-dos-rutas."><span class="header-section-number">9.12.5</span> Problema 9.5. Binomial: comparar dos rutas.</a></li>
+<li><a class="nav-link" href="#problema-9.6.-cuando-la-binomial-no-vale-independencia-rota."><span class="header-section-number">9.12.6</span> Problema 9.6. Cuando la binomial no vale: independencia rota.</a></li>
+<li><a class="nav-link" href="#problema-9.7.-propiedad-reproductiva-de-la-binomial."><span class="header-section-number">9.12.7</span> Problema 9.7. Propiedad reproductiva de la binomial.</a></li>
+<li><a class="nav-link" href="#problema-9.8.-poisson-llegada-de-clientes."><span class="header-section-number">9.12.8</span> Problema 9.8. Poisson: llegada de clientes.</a></li>
+<li><a class="nav-link" href="#problema-9.9.-poisson-cambiar-el-intervalo."><span class="header-section-number">9.12.9</span> Problema 9.9. Poisson: cambiar el intervalo.</a></li>
+<li><a class="nav-link" href="#problema-9.10.-poisson-como-aproximaci%C3%B3n-de-binomial."><span class="header-section-number">9.12.10</span> Problema 9.10. Poisson como aproximación de binomial.</a></li>
+<li><a class="nav-link" href="#problema-9.11.-propiedad-reproductiva-de-la-poisson."><span class="header-section-number">9.12.11</span> Problema 9.11. Propiedad reproductiva de la Poisson.</a></li>
+<li><a class="nav-link" href="#problema-9.12.-sobredispersi%C3%B3n-elegir-entre-poisson-y-binomial-negativa."><span class="header-section-number">9.12.12</span> Problema 9.12. Sobredispersión: elegir entre Poisson y binomial negativa.</a></li>
+<li><a class="nav-link" href="#problema-9.13.-binomial-negativa-fracasos-antes-del-r-%C3%A9simo-%C3%A9xito."><span class="header-section-number">9.12.13</span> Problema 9.13. Binomial negativa: fracasos antes del \(r\)-ésimo éxito.</a></li>
+<li><a class="nav-link" href="#problema-9.14.-geom%C3%A9trica-primer-%C3%A9xito."><span class="header-section-number">9.12.14</span> Problema 9.14. Geométrica: primer éxito.</a></li>
+<li><a class="nav-link" href="#problema-9.15.-ajuste-de-una-binomial-negativa-por-sobredispersi%C3%B3n."><span class="header-section-number">9.12.15</span> Problema 9.15. Ajuste de una binomial negativa por sobredispersión.</a></li>
+<li><a class="nav-link" href="#problema-9.16.-hipergeom%C3%A9trica-auditor%C3%ADa-sin-reemplazamiento."><span class="header-section-number">9.12.16</span> Problema 9.16. Hipergeométrica: auditoría sin reemplazamiento.</a></li>
+<li><a class="nav-link" href="#problema-9.17.-hipergeom%C3%A9trica-frente-a-binomial-la-aproximaci%C3%B3n."><span class="header-section-number">9.12.17</span> Problema 9.17. Hipergeométrica frente a binomial: la aproximación.</a></li>
+<li><a class="nav-link" href="#problema-9.18.-escenarios-mixtos-identifica-y-calcula."><span class="header-section-number">9.12.18</span> Problema 9.18. Escenarios mixtos: identifica y calcula.</a></li>
+<li><a class="nav-link" href="#problema-9.19.-puente-la-binomial-se-acerca-a-la-normal."><span class="header-section-number">9.12.19</span> Problema 9.19. Puente: la binomial se acerca a la normal.</a></li>
+<li><a class="nav-link" href="#problema-9.20.-auditor%C3%ADa-integradora-mara-qy%C3%A0-en-la-arti."><span class="header-section-number">9.12.20</span> Problema 9.20. Auditoría integradora: Mara Qyà en la ARTI.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#soluciones-cap09"><span class="header-section-number">9.13</span> Soluciones a los problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.1."><span class="header-section-number">9.13.1</span> Solución al Problema 9.1.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.2."><span class="header-section-number">9.13.2</span> Solución al Problema 9.2.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.3."><span class="header-section-number">9.13.3</span> Solución al Problema 9.3.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.4."><span class="header-section-number">9.13.4</span> Solución al Problema 9.4.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.5."><span class="header-section-number">9.13.5</span> Solución al Problema 9.5.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.6."><span class="header-section-number">9.13.6</span> Solución al Problema 9.6.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.7."><span class="header-section-number">9.13.7</span> Solución al Problema 9.7.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.8."><span class="header-section-number">9.13.8</span> Solución al Problema 9.8.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.9."><span class="header-section-number">9.13.9</span> Solución al Problema 9.9.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.10."><span class="header-section-number">9.13.10</span> Solución al Problema 9.10.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.11."><span class="header-section-number">9.13.11</span> Solución al Problema 9.11.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.12."><span class="header-section-number">9.13.12</span> Solución al Problema 9.12.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.13."><span class="header-section-number">9.13.13</span> Solución al Problema 9.13.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.14."><span class="header-section-number">9.13.14</span> Solución al Problema 9.14.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.15."><span class="header-section-number">9.13.15</span> Solución al Problema 9.15.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.16."><span class="header-section-number">9.13.16</span> Solución al Problema 9.16.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.17."><span class="header-section-number">9.13.17</span> Solución al Problema 9.17.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.18."><span class="header-section-number">9.13.18</span> Solución al Problema 9.18.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.19."><span class="header-section-number">9.13.19</span> Solución al Problema 9.19.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-9.20."><span class="header-section-number">9.13.20</span> Solución al Problema 9.20.</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">

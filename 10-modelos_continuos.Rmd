@@ -800,3 +800,599 @@ Este capítulo ha catalogado cuatro modelos continuos y las relaciones que los e
 4. **Los cuantiles son la puerta a las aplicaciones económicas.** El VaR de la gestión de riesgos financieros, las primas actuariales, los límites de garantía industrial, los intervalos de confianza que veremos en el próximo bloque… todos son cuantiles de alguna distribución. Aprender a leer la tabla en los dos sentidos —dada la probabilidad, buscar el valor, y viceversa— duplica de golpe la capacidad operativa del estudiante.
 
 En el próximo capítulo daremos el salto conceptual más importante del curso: pasaremos de describir distribuciones a **inferir** sus parámetros a partir de muestras. Ahí aparecerá con todo su esplendor el teorema central del límite, que hemos ido invocando desde las sombras, y quedará claro por qué la normal —aún sin aparecer explícitamente en los datos originales— acaba gobernando el comportamiento de las medias muestrales. Aparecerán también, y ya no como añadido sino como protagonistas de pleno derecho, algunas distribuciones nuevas: la **t de Student**, la **ji-cuadrado** y la **F de Snedecor**, todas ellas derivadas de la normal y todas ellas indispensables para inferir con muestras finitas. La estadística inferencial, esa cosa que da miedo por su nombre pero se sostiene sobre las distribuciones que ya conocemos, está a un capítulo de distancia.
+
+## Problemas propuestos. {#problemas-cap10}
+
+Este capítulo, como el anterior, tiene un doble objetivo pedagógico: **identificar** el modelo continuo correcto para cada situación y **aplicar** con soltura las fórmulas de cada modelo. Los 20 ejercicios que siguen se organizan en dos grandes bloques: los primeros —muy variados y a menudo puramente interpretativos— entrenan la **identificación**; los siguientes se ocupan del **cálculo** dentro de cada modelo, las tipificaciones, los cuantiles inversos, las aproximaciones y las aplicaciones económicas —incluido el VaR—. Todas las soluciones detalladas se recogen al final del capítulo.
+
+### Problema 10.1. Test de identificación del modelo continuo (interpretativo).
+
+Para cada uno de los ocho escenarios siguientes, indica qué **modelo probabilístico continuo** de este capítulo (uniforme, exponencial, normal o log-normal) es el más apropiado, y **justifica** brevemente por qué:
+
+a)  La ARTI asigna al azar una ventana de aterrizaje de 30 minutos a cada carguero. Sea $\xi = $ *"minuto exacto de aterrizaje dentro de la ventana"*.
+b)  El tiempo entre dos averías graves consecutivas en una nave KORRIGAN, sabiendo que las averías ocurren según un proceso de Poisson con tasa 1,2 al año. Sea $\xi = $ *"años hasta la próxima avería"*.
+c)  El Índice de Rendimiento Energético (IRE) de una nave del astillero SELENE. Es el resultado de sumar muchos factores técnicos independientes.
+d)  Los ingresos anuales de las 300 compañías RStars. La distribución empírica muestra muchas empresas medianas, pocas muy grandes y una cola larga a la derecha.
+e)  Los rendimientos diarios de un ETF muy diversificado del mercado interestelar.
+f)  El instante concreto en el que se produce un corte de suministro eléctrico dentro de una hora fija de máximo consumo.
+g)  El tiempo hasta que llega el próximo cliente a una ventanilla del *Consorcio Financiero de Coruscant*, sabiendo que llegan a razón media de 6 clientes por hora.
+h)  El precio de cotización de una acción del *Grupo Vader-Palpatine* dentro de un año, sabiendo que evoluciona multiplicando por un factor aleatorio cada día.
+
+### Problema 10.2. Uniforme continua: ventana de aterrizaje.
+
+La torre de control del astropuerto de Klendathu asigna a cada carguero una ventana de aterrizaje de **30 minutos**. El instante exacto de tocar la plataforma, medido en minutos desde el comienzo de la ventana, se puede modelar como una variable aleatoria $\xi \to U(0;\ 30)$.
+
+Se pide:
+
+a)  Escribe la función de densidad $f(x)$ de $\xi$.
+b)  Calcula $E(\xi)$ y $\mathrm{Var}(\xi)$ aplicando las fórmulas del modelo uniforme continuo.
+c)  Calcula $P(\xi < 10)$: probabilidad de aterrizar en el primer tercio de la ventana.
+d)  Calcula $P(20 \le \xi \le 25)$: probabilidad de aterrizar entre los minutos 20 y 25.
+e)  Calcula $P(\xi > 27)$: probabilidad de apurar la ventana hasta los últimos tres minutos.
+f)  Un jefe de operaciones te pide un titular breve para el informe de la semana. Interpreta los resultados.
+
+### Problema 10.3. Uniforme continua: cuándo aplicarla y cuándo no.
+
+Para cada uno de los siguientes escenarios, indica si el modelo **uniforme continuo** es una **hipótesis razonable** o si sería una simplificación indebida. Justifica:
+
+a)  El instante en que un rayo cae dentro de una hora concreta durante una tormenta ionizante en el corredor Klendathu.
+b)  El precio de cierre diario de una acción muy volátil en el mercado galáctico.
+c)  El error de redondeo introducido por un instrumento de medida al octavo decimal.
+d)  El tiempo que tarda un cliente concreto en salir de una tienda tras entrar, del que se sabe que la mayoría permanece unos pocos minutos y solo unos pocos se quedan más de media hora.
+e)  El identificador de una empresa elegida al azar (por sorteo puro) entre las 300 del fichero interestelar.
+
+### Problema 10.4. Exponencial: cálculo directo.
+
+En una nave KORRIGAN concreta, las averías graves se producen conforme a un proceso de Poisson con tasa $q = 1{,}2$ averías por año. Sea $\xi = $ *"tiempo, en años, hasta la próxima avería grave"*.
+
+Se pide:
+
+a)  Identifica la distribución de $\xi$ y sus parámetros.
+b)  Calcula $E(\xi)$ y $\mathrm{Var}(\xi)$. Expresa la media también en meses.
+c)  Calcula la **mediana** de $\xi$ y compárala con la media.
+d)  Calcula $P(\xi < 0{,}5)$: probabilidad de que la próxima avería llegue en menos de seis meses.
+e)  Calcula $P(\xi > 1)$: probabilidad de aguantar más de un año sin averías.
+f)  Calcula $P(0{,}5 \le \xi \le 1)$: probabilidad de que la próxima avería caiga entre el sexto y el duodécimo mes.
+
+### Problema 10.5. Exponencial: la propiedad de pérdida de memoria.
+
+Sigue el escenario del problema anterior (nave KORRIGAN, $q = 1{,}2$ averías/año). Han transcurrido ya **8 meses** desde la última avería y la nave sigue operativa sin incidencias.
+
+Se pide:
+
+a)  Calcula la probabilidad de que la nave aguante **6 meses más** sin averías, condicional a que ya lleva 8 sin ellas: $P(\xi > 8+6\ \text{meses} \mid \xi > 8\ \text{meses})$.
+b)  Compara este valor con la probabilidad *incondicional* $P(\xi > 6\ \text{meses}) = P(\xi > 0{,}5\ \text{años})$. ¿Coinciden? Justifica.
+c)  Un ingeniero afirma: *"si la nave lleva ya 8 meses sin averiarse, es porque está funcionando bien, así que ahora fallará con menor probabilidad"*. ¿Es válida esta lectura bajo el modelo exponencial? Explica el error conceptual.
+d)  Otro ingeniero afirma: *"si lleva 8 meses sin averiarse, seguro que la avería está a la vuelta de la esquina, porque ya toca"*. ¿Es válida esta otra lectura? Explica el otro error clásico.
+e)  ¿Bajo qué condiciones físicas es razonable que el tiempo hasta el próximo fallo sea exponencial? ¿Y cuándo no lo es?
+
+### Problema 10.6. El puente Poisson-Exponencial.
+
+Consideremos el mismo proceso de averías graves de la nave KORRIGAN, con tasa $q = 1{,}2$ averías por año. Podemos mirarlo de dos formas alternativas: como un **conteo** de averías en un intervalo fijo (Poisson) o como un **tiempo de espera** entre averías consecutivas (exponencial).
+
+Se pide:
+
+a)  Sea $N = $ *"número de averías graves en el próximo año"*. Identifica la distribución de $N$.
+b)  Calcula $P(N = 0)$ usando la Poisson.
+c)  Sea $\xi = $ *"tiempo hasta la próxima avería"*. Identifica la distribución de $\xi$ (ya lo hiciste en el problema 10.4).
+d)  Calcula $P(\xi > 1\ \text{año})$ usando la exponencial.
+e)  ¿Qué relación observas entre los apartados (b) y (d)? Explica por qué **necesariamente** deben coincidir, en términos del proceso subyacente.
+f)  Con la misma tasa $q = 1{,}2$, calcula la probabilidad de tener exactamente 2 averías en el próximo año (Poisson) y contrasta con: *"el tiempo hasta la segunda avería"*. ¿Qué distribución sigue este último? (No hace falta calcularla, solo identificarla como un caso general).
+
+### Problema 10.7. Cuando la exponencial NO vale.
+
+Para cada uno de los siguientes escenarios, indica si el modelo **exponencial** es una hipótesis razonable para modelar el "tiempo hasta el próximo fallo" o si sería un error usarla. Justifica en cada caso:
+
+a)  El tiempo hasta el próximo avistamiento de piratas en el corredor Coruscant-Naboo, sabiendo que los avistamientos son sucesos puramente aleatorios con una tasa media estable.
+b)  El tiempo hasta que se rompa el rodamiento principal de una nave que lleva 15 años en servicio, sabiendo que estos rodamientos sufren desgaste progresivo con el uso.
+c)  El tiempo hasta la siguiente llegada de un cliente a la ventanilla del banco, en horario normal.
+d)  El tiempo hasta que un componente electrónico recién estrenado falle, sabiendo que la mayoría de fallos ocurren durante los primeros días (defectos de fabricación) o después de muchos años (envejecimiento), y muy raramente en la vida media del componente.
+e)  ¿Qué patrón común hace inadecuada la exponencial en los apartados (b) y (d)?
+
+### Problema 10.8. Normal: cálculo directo con tipificación.
+
+El Índice de Rendimiento Energético (IRE) de las naves del astillero SELENE se puede modelar como una variable $\xi \to N(72;\ 9)$ (unidades: toneladas por unidad de especia en la ruta de referencia). Se pide:
+
+a)  Calcula $P(\xi < 65)$: probabilidad de que una nave elegida al azar tenga IRE inferior a 65.
+b)  Calcula $P(\xi > 85)$: probabilidad de que su IRE supere 85 (naves de alto rendimiento).
+c)  Calcula $P(65 \le \xi \le 80)$: probabilidad de estar en la franja "estándar".
+d)  Si la ARTI define como "eficientes" las naves con IRE por encima del **percentil 75** del sector, ¿cuál es el umbral de IRE necesario para ser eficiente? (Cuantil inverso.)
+
+### Problema 10.9. Normal: regla del 68-95-99,7.
+
+La cadena de montaje del astillero KORRIGAN produce paneles de fuselaje con un peso $\xi \to N(500;\ 15)$ gramos. La especificación técnica exige que el peso esté entre **490 y 510** gramos para considerarse "dentro de tolerancia".
+
+Se pide:
+
+a)  Aplicando la regla empírica 68-95-99,7 (o cálculo directo), calcula qué porcentaje de paneles cae aproximadamente en cada uno de los siguientes rangos: (i) $[485, 515]$, (ii) $[470, 530]$, (iii) $[455, 545]$.
+b)  Calcula la proporción de paneles **fuera de tolerancia** (por encima de 510 o por debajo de 490).
+c)  Si la cadena produce **10 000 paneles al día**, ¿cuántos paneles fuera de tolerancia se esperan por jornada?
+d)  Un directivo argumenta: *"con dos desviaciones típicas alrededor de la media cubrimos el 95%, así que la tolerancia $[470, 530]$ sería suficiente"*. Comenta la propuesta desde el punto de vista comercial y técnico.
+
+### Problema 10.10. Normal: cuantiles inversos.
+
+El sueldo mensual de los oficiales de la flota *Hyperdrive Express* se distribuye como $\xi \to N(3\,500;\ 800)$ PAVOs. Se pide:
+
+a)  ¿Por debajo de qué sueldo está el **10% peor pagado** de los oficiales? (Percentil 10.)
+b)  ¿Por encima de qué sueldo está el **10% mejor pagado**? (Percentil 90.)
+c)  Calcula los **cuartiles** $Q_1$ y $Q_3$ (percentiles 25 y 75). ¿Cuál es el rango intercuartílico?
+d)  El comité de recursos humanos quiere fijar un **umbral de "sueldo alto"** de forma que solo el 5% más rico lo supere. ¿Cuál debe ser ese umbral?
+e)  ¿Qué probabilidad hay de que un oficial elegido al azar tenga un sueldo entre 3 000 y 4 500 PAVOs?
+
+### Problema 10.11. Normal: propiedad reproductiva (suma).
+
+Dos delegaciones de *Corellian Freightworks* generan ingresos anuales independientes que se pueden modelar como:
+
+-   Delegación Norte: $\xi_N \to N(500;\ 80)$ miles de PAVOs.
+-   Delegación Sur: $\xi_S \to N(700;\ 120)$ miles de PAVOs.
+
+Sea $\eta = \xi_N + \xi_S$ los ingresos totales anuales de las dos delegaciones. Se pide:
+
+a)  Aplicando la propiedad reproductiva, identifica la distribución de $\eta$ y sus parámetros.
+b)  Calcula $P(\eta > 1\,300)$: probabilidad de que los ingresos totales superen 1,3 millones de PAVOs.
+c)  Calcula $P(\eta < 1\,000)$: probabilidad de un año agregado por debajo del millón.
+d)  Compara $\sigma(\eta)$ con $\sigma(\xi_N) + \sigma(\xi_S)$. ¿Cuál es mayor y por qué? ¿Qué implicación tiene para la diversificación de ingresos?
+e)  Si en lugar de sumar los ingresos calculásemos su **media**, $\bar\xi = (\xi_N + \xi_S)/2$, ¿cuál sería su distribución?
+
+### Problema 10.12. Normal: combinación lineal (diferencia y linealidad).
+
+Los ingresos anuales de una compañía del sector RStars se modelan como $\xi \to N(1\,000;\ 100)$ miles de PAVOs, y sus costes anuales como $\eta \to N(700;\ 150)$ miles de PAVOs, ambos independientes entre sí. Sea $B = \xi - \eta$ el beneficio neto anual.
+
+Se pide:
+
+a)  Identifica la distribución de $B$ y sus parámetros. (Aplica la propiedad reproductiva con coeficientes $+1$ y $-1$.)
+b)  Calcula $E(B)$ y $\sigma(B)$. Comprueba que la varianza es **suma** de varianzas, no diferencia (esto es una consecuencia clave que confunde a muchos estudiantes).
+c)  Calcula $P(B < 0)$: probabilidad de cerrar el año con **pérdidas**.
+d)  La casa matriz aplica un impuesto sobre el beneficio del 25% y una tasa fija de 20 miles PAVOs. El pago fiscal es $Y = 20 + 0{,}25 B$. Identifica la distribución de $Y$ y calcula $E(Y)$ y $\sigma(Y)$.
+e)  Si la matriz recibe pagos fiscales del **año anterior también** ($Y'$) e independientes con misma distribución que $Y$, ¿cómo se distribuye el total agregado $Y + Y'$?
+
+### Problema 10.13. Normal: comparar dos empresas mediante tipificación.
+
+Dos empresas del sector RStars publican sus rentabilidades anuales, cada una con distribución normal históricamente estimada:
+
+-   **Empresa A** (*Arrakis Freight*): $\xi_A \to N(12{,}0\%;\ 3{,}0\%)$.
+-   **Empresa B** (*Shuttlepod Movers*): $\xi_B \to N(8{,}0\%;\ 1{,}5\%)$.
+
+Este año, la rentabilidad realizada ha sido: **A obtuvo 18%** y **B obtuvo 12%**.
+
+Se pide:
+
+a)  Calcula el **valor tipificado** ($z$-score) de la rentabilidad de cada empresa.
+b)  ¿En qué **percentil** de su propia distribución se sitúa cada resultado?
+c)  ¿Cuál de las dos empresas ha tenido un año **más excepcional** respecto a su comportamiento típico? ¿Cuál ha tenido más rentabilidad en términos absolutos?
+d)  Un analista argumenta: *"A obtuvo 18% y B solo 12%: A ha rendido mejor"*. Comenta la validez de esta comparación directa. ¿En qué caso sí sería válida?
+
+### Problema 10.14. Normal: cálculo del Valor en Riesgo (VaR).
+
+El fondo *"Vía Láctea Diversificado"* de *Hyperdrive Express* gestiona un capital de $C = 20$ millones de PAVOs, con rentabilidad diaria modelada como $\xi \to N(0{,}05\%;\ 1{,}20\%)$ (media y desviación típica en porcentaje diario).
+
+Se pide:
+
+a)  Identifica la distribución de la **pérdida diaria** $L = -C \cdot \xi$ (en millones de PAVOs).
+b)  Calcula el $\mathrm{VaR}_{95\%}$ diario, es decir, el cuantil 0,95 de la distribución de pérdidas.
+c)  Calcula el $\mathrm{VaR}_{99\%}$ diario.
+d)  Interpreta ambas cifras en términos operativos: ¿qué significan para el gestor del fondo?
+e)  El gestor recibe una alerta que sugiere que las rentabilidades reales tienen **colas más gruesas** que la normal. ¿Cómo afectaría eso al VaR calculado bajo el modelo normal? ¿En qué dirección erraría la estimación?
+f)  ¿Qué es el *Expected Shortfall* (o *CVaR*) y por qué los reguladores lo prefieren en muchos contextos al VaR? (Puedes responder brevemente en 2-3 líneas.)
+
+### Problema 10.15. Log-normal: cálculo básico con logaritmos.
+
+Los salarios anuales (en PAVOs) de los tripulantes cualificados del sector RStars se pueden modelar como una variable log-normal $\xi \to \mathrm{LN}(\mu = 10{,}5;\ \sigma = 0{,}6)$, donde $\mu$ y $\sigma$ son la media y la desviación típica **del logaritmo** del salario.
+
+Se pide:
+
+a)  Calcula la **mediana** de los salarios: $\mathrm{Me} = e^{\mu}$.
+b)  Calcula la **media** de los salarios: $E(\xi) = e^{\mu + \sigma^2/2}$.
+c)  Explica por qué la media es sensiblemente mayor que la mediana. ¿Cuál es más representativa del "salario típico"?
+d)  Calcula $P(\xi < 20\,000)$: probabilidad de un salario por debajo de 20 000 PAVOs. (Sugerencia: aplica logaritmos y tipifica.)
+e)  Calcula $P(\xi > 60\,000)$: probabilidad de un salario superior a 60 000 PAVOs.
+f)  ¿Qué probabilidad hay de que un tripulante gane entre 30 000 y 50 000 PAVOs?
+
+### Problema 10.16. Log-normal: media vs. mediana en análisis empresarial.
+
+Los costes operativos anuales de las compañías del sector RStars se modelan como $\xi \to \mathrm{LN}(\mu = 3{,}4;\ \sigma = 1{,}2)$ (en miles de PAVOs). Se pide:
+
+a)  Calcula la mediana y la media teóricas de los costes.
+b)  Calcula la moda: $\mathrm{Mo} = e^{\mu - \sigma^2}$.
+c)  Ordena las tres medidas (moda, mediana, media) y confirma la relación característica en distribuciones asimétricas a la derecha.
+d)  Un consultor propone reportar en su informe *"el coste típico del sector es de $e^{3,4} \approx 30$ miles PAVOs"*. Otro consultor propone reportar $e^{3,4 + 0,72} \approx 61{,}56$ miles PAVOs. ¿Quién tiene razón? Explica cuándo conviene cada una.
+e)  Un tercer consultor sostiene: *"como los costes son log-normales, en realidad la mayoría de las empresas están cerca de la media"*. ¿Es esta lectura correcta?
+
+### Problema 10.17. Aproximación binomial → normal (De Moivre-Laplace).
+
+*Arrakis Freight* despacha $n = 100$ cargueros al día en el pico operativo, cada uno con puntualidad $p = 0{,}40$ en la ruta más congestionada (donde $p$ es sensiblemente menor por sobrecarga del corredor). Sea $\xi = $ *"número de cargueros puntuales de los 100"*.
+
+Se pide:
+
+a)  Identifica la distribución exacta de $\xi$.
+b)  Verifica que se cumplen las condiciones prácticas para aproximar por normal: $np \ge 5$ **y** $nq \ge 5$.
+c)  Determina la distribución aproximada $N(\mu;\ \sigma)$.
+d)  Calcula $P(\xi \le 35)$ **con corrección de continuidad**.
+e)  Compáralo con la binomial exacta $P(\xi \le 35) \approx 0{,}1795$. Comenta la calidad de la aproximación.
+f)  Explica **por qué** se aplica la corrección de continuidad al aproximar una discreta por una continua, y en qué dirección corrige.
+
+### Problema 10.18. Aproximación Poisson → normal.
+
+Un servidor central de la red galáctica de *Enterprise Logistics* recibe peticiones de conexión a razón de $\lambda = 25$ por minuto (proceso de Poisson). Sea $\xi = $ *"número de peticiones en el próximo minuto"*.
+
+Se pide:
+
+a)  Identifica la distribución exacta de $\xi$ y verifica que se cumple $\lambda \ge 10$ (condición para aproximar por normal).
+b)  Determina la distribución aproximada normal $N(\mu;\ \sigma)$.
+c)  Calcula $P(\xi \le 20)$ **con corrección de continuidad**.
+d)  Calcula $P(\xi \ge 30)$: probabilidad de un minuto de "carga alta".
+e)  Calcula $P(20 \le \xi \le 30)$: probabilidad de estar en el rango "normal de operación".
+f)  Un ingeniero de red dimensiona el servidor para que pueda atender el **percentil 95** de la carga por minuto. ¿A cuántas peticiones por minuto debe estar dimensionado?
+
+### Problema 10.19. Escenarios mixtos: identifica y calcula.
+
+Para cada uno de los siguientes escenarios: (i) identifica el modelo probabilístico correcto, (ii) escribe sus parámetros y (iii) calcula la probabilidad o el valor indicado.
+
+a)  El tiempo de descarga de un contenedor por la grúa del astillero SELENE se sabe distribuido uniformemente entre 8 y 20 minutos. Calcula la probabilidad de que la descarga tarde entre 10 y 15 minutos.
+b)  Los pedidos llegan a un almacén de *Kaiju Haulage Co.* según un proceso de Poisson con tasa de 6 pedidos por hora. Calcula la probabilidad de que el próximo pedido llegue en **menos de 5 minutos**.
+c)  El peso de un paquete estándar de *Enterprise Logistics* sigue $N(500;\ 20)$ gramos. Calcula la probabilidad de que un paquete elegido al azar pese entre 485 y 510 gramos.
+d)  Las ventas mensuales de un producto de nicho siguen una log-normal con parámetros $\mu = 4$ y $\sigma = 0{,}5$ (referidos al logaritmo, ventas en miles de PAVOs). Calcula la **mediana** de las ventas mensuales.
+
+### Problema 10.20. Auditoría integradora: Mara Qyà y el nuevo puesto de aduana.
+
+**Mara Qyà** debe evaluar el nuevo puesto de aduana galáctico *"Meridiano Beta"*. El proceso operativo se descompone en cuatro fases probabilísticamente distintas, cada una modelada por un modelo continuo distinto:
+
+**Fase 1 (llegadas).** Los cargueros llegan al puesto según un proceso de Poisson con tasa $\lambda = 12$ cargueros/hora. Sea $T = $ *"tiempo, en minutos, hasta la llegada del próximo carguero"*.
+
+**Fase 2 (tiempo de inspección).** El tiempo que dedica cada inspector a examinar un carguero se puede modelar como $I \to U(3;\ 12)$ minutos (distribución uniforme).
+
+**Fase 3 (peso del cargamento).** El peso del cargamento (en toneladas) de un carguero elegido al azar sigue una $P \to N(150;\ 25)$ toneladas.
+
+**Fase 4 (valor declarado).** El valor declarado del cargamento (en miles de PAVOs) sigue una log-normal $V \to \mathrm{LN}(\mu = 5;\ \sigma = 0{,}8)$ (parámetros referidos al logaritmo).
+
+Se pide:
+
+a)  **Fase 1.** Identifica la distribución de $T$ y calcula la probabilidad de que el próximo carguero llegue en **menos de 10 minutos**. (Sugerencia: $\lambda = 12$ por hora equivale a $q = 0{,}2$ por minuto.)
+b)  **Fase 2.** Calcula $P(I > 10)$: probabilidad de que una inspección dure más de 10 minutos.
+c)  **Fase 3.** Calcula $P(P > 200)$: probabilidad de que un cargamento supere las 200 toneladas.
+d)  **Fase 4.** Calcula la **mediana** del valor declarado y $P(V > 500)$: probabilidad de un cargamento con valor declarado superior a 500 miles de PAVOs.
+e)  Si la aduana cobra una tarifa proporcional al peso ($5$ PAVOs por tonelada), la recaudación por carguero es $R = 5 \cdot P$. Identifica la distribución de $R$ y calcula $P(R > 800)$.
+f)  Redacta la **recomendación operativa** que Mara elevaría al director de la ARTI: ¿cómo se dimensiona un puesto de aduana cuando cada fase se rige por un modelo continuo distinto?
+
+
+## Soluciones a los problemas propuestos. {#soluciones-cap10}
+
+### Solución al Problema 10.1.
+
+a)  **Uniforme continua** $U(0;\ 30)$: dentro de la ventana asignada, no hay razón para preferir un instante a otro (regulación uniforme del tráfico).
+b)  **Exponencial** $\mathrm{Exp}(1{,}2)$: tiempo hasta el próximo suceso raro en un proceso de Poisson estable.
+c)  **Normal** $N(\mu;\ \sigma)$: resultado de sumar muchos efectos técnicos independientes.
+d)  **Log-normal** $\mathrm{LN}(\mu;\ \sigma)$: variable estrictamente positiva, fuertemente asimétrica a la derecha, generada por procesos multiplicativos (Gibrat).
+e)  **Normal** $N(\mu;\ \sigma)$: rendimientos diarios de un ETF diversificado. Por el TCL, la suma de muchas contribuciones independientes tiende a la normal (aunque en la práctica las colas suelen ser más gruesas).
+f)  **Uniforme continua**: si el suceso puede ocurrir en cualquier instante de la hora con la misma "propensión", $U(0;\ 60)$ minutos.
+g)  **Exponencial** $\mathrm{Exp}(6\ \text{por hora})$: tiempo hasta la próxima llegada en un proceso de Poisson con $\lambda = 6$ clientes/hora.
+h)  **Log-normal**: precio dentro de un año generado por incrementos porcentuales aleatorios (modelo de Black-Scholes en su versión más simple).
+
+Como en el capítulo anterior, la lección clave: el modelo se elige por la **estructura probabilística** subyacente, no por la naturaleza superficial del fenómeno.
+
+### Solución al Problema 10.2.
+
+a)  $f(x) = 1/30$ para $x \in [0, 30]$, y $0$ en el resto.
+
+b)  Aplicando las fórmulas con $a = 0$, $b = 30$:
+
+    $$E(\xi) = \dfrac{0 + 30}{2} = \mathbf{15}\ \text{minutos}, \qquad \mathrm{Var}(\xi) = \dfrac{(30 - 0)^2}{12} = \mathbf{75}, \qquad \sigma \approx \mathbf{8{,}66}\ \text{minutos}.$$
+
+c)  $P(\xi < 10) = 10/30 = 1/3 \approx \mathbf{0{,}3333}$.
+
+d)  $P(20 \le \xi \le 25) = 5/30 = 1/6 \approx \mathbf{0{,}1667}$.
+
+e)  $P(\xi > 27) = 3/30 = \mathbf{0{,}1000}$.
+
+f)  Titular sugerido: *"Los aterrizajes se reparten uniformemente en la ventana de 30 minutos: uno de cada tres cargueros toca la plataforma en los diez primeros minutos, y un 10% apura hasta los tres últimos"*. Cualquier apilamiento fuera de esta proporción indicaría que la hipótesis de uniformidad se ha roto.
+
+### Solución al Problema 10.3.
+
+a)  **No razonable**. Los rayos, aunque impredecibles, no tienen por qué distribuirse uniformemente dentro de una hora: durante una tormenta ionizante suelen concentrarse en tramos concretos (rachas). El modelo natural sería un proceso de Poisson (con la posibilidad de que la tasa varíe en el tiempo), no un uniforme puro.
+
+b)  **No razonable**. El precio de una acción volátil sigue una distribución con moda cercana al precio anterior y colas simétricas (aproximadamente log-normal a lo largo del tiempo). Una uniforme entre dos extremos no captura ni la asimetría ni la concentración central.
+
+c)  **Razonable**. Los errores de redondeo en el $k$-ésimo decimal se modelan bien como $U(-5\cdot 10^{-k-1};\ 5\cdot 10^{-k-1})$: dentro del intervalo, el "resto" del valor exacto no tiene por qué preferir ningún valor específico.
+
+d)  **No razonable**. La descripción del fenómeno —"la mayoría permanece pocos minutos, unos pocos se quedan mucho tiempo"— es exactamente el patrón asimétrico de una exponencial o una log-normal, no de una uniforme.
+
+e)  **Razonable**. El sorteo puro es el ejemplo canónico de uniforme, aunque en este caso es **uniforme discreta** (sobre 300 valores concretos), no continua. La uniformidad se cumple por diseño del procedimiento aleatorio.
+
+La lección del ejercicio: la uniforme es una hipótesis fuerte, no una comodidad; conviene reservarla para procesos genuinamente equiprobables.
+
+### Solución al Problema 10.4.
+
+a)  $\xi \to \mathrm{Exp}(1{,}2)$. Un solo parámetro: la tasa $q = 1{,}2$ averías por año.
+
+b)  $E(\xi) = 1/q = 1/1{,}2 \approx \mathbf{0{,}8333}$ años $\approx \mathbf{10{,}0}$ meses. $\mathrm{Var}(\xi) = 1/q^2 = 1/1{,}44 \approx \mathbf{0{,}6944}$; $\sigma \approx 0{,}833$ años. Coeficiente de variación = 1 (media y desviación típica coinciden).
+
+c)  Mediana $= \ln 2 / q = 0{,}693/1{,}2 \approx \mathbf{0{,}5776}$ años $\approx \mathbf{6{,}93}$ meses.
+
+    La mediana es sensiblemente menor que la media (6,93 meses vs. 10,0 meses). Es el signo típico de una distribución asimétrica a la derecha: la cola larga tira de la media hacia arriba mientras la mediana se mantiene en el "centro de masa" izquierdo.
+
+d)  $P(\xi < 0{,}5) = 1 - e^{-1{,}2 \cdot 0{,}5} = 1 - e^{-0{,}6} \approx 1 - 0{,}5488 = \mathbf{0{,}4512}$. Aproximadamente el 45% de las veces la próxima avería llegará en menos de seis meses.
+
+e)  $P(\xi > 1) = e^{-1{,}2 \cdot 1} = e^{-1{,}2} \approx \mathbf{0{,}3012}$. Un 30% de probabilidad de aguantar más de un año.
+
+f)  $P(0{,}5 \le \xi \le 1) = e^{-0{,}6} - e^{-1{,}2} \approx 0{,}5488 - 0{,}3012 = \mathbf{0{,}2476}$. En torno al 25% de las veces la avería caerá entre el sexto y el duodécimo mes.
+
+### Solución al Problema 10.5.
+
+a)  Por la propiedad de pérdida de memoria (con $a = 0{,}5$ años, $b = 0{,}6667$ años):
+
+    $$P(\xi > 0{,}5 + 0{,}6667 \mid \xi > 0{,}6667) = P(\xi > 0{,}5) = e^{-1{,}2 \cdot 0{,}5} = e^{-0{,}6} \approx \mathbf{0{,}5488}.$$
+
+    La probabilidad de aguantar seis meses más, sabiendo que ya han pasado ocho meses sin averías, es aproximadamente **54,88%**.
+
+b)  Coincide exactamente con la probabilidad incondicional $P(\xi > 0{,}5) \approx 0{,}5488$. Es la esencia matemática de la propiedad de pérdida de memoria: **la información de que la nave ya ha aguantado 8 meses no cambia el pronóstico de los próximos 6**. La exponencial "no recuerda" el pasado.
+
+c)  El primer ingeniero comete el error de **suponer que la nave se ha "consolidado" con el tiempo** (falacia del "sistema bien rodado"). Bajo el modelo exponencial esto es incorrecto: la probabilidad de fallo en los próximos meses es la misma que al principio. Su intuición podría ser válida bajo un modelo con tasa **decreciente** (tipo Weibull con $\beta < 1$), pero no bajo exponencial.
+
+d)  El segundo ingeniero comete el error opuesto: **suponer que la nave "acumula" propensión a fallar** (falacia del jugador aplicada a fiabilidad). También incorrecto bajo exponencial: la avería no está "a la vuelta de la esquina" solo porque hayan pasado 8 meses; el reloj empieza de nuevo cada instante. Su intuición sería válida bajo un modelo con tasa **creciente** (Weibull con $\beta > 1$), típico de componentes que envejecen.
+
+e)  La exponencial es razonable cuando el proceso subyacente **no acumula desgaste ni recuperación**: sucesos externos aleatorios (piratería, meteorología, fallos electrónicos rápidos). No es razonable cuando el mecanismo de fallo depende del uso acumulado (rodamientos, tuberías, motores sometidos a fatiga): en esos casos, Weibull u otros modelos son más apropiados.
+
+### Solución al Problema 10.6.
+
+a)  $N \to \mathrm{Po}(\lambda = 1{,}2)$: proceso de Poisson con tasa 1,2 sucesos por año, contamos sucesos en un intervalo de un año.
+
+b)  $P(N = 0) = e^{-1{,}2}\cdot 1{,}2^0/0! = e^{-1{,}2} \approx \mathbf{0{,}3012}$.
+
+c)  $\xi \to \mathrm{Exp}(q = 1{,}2)$ (ver problema 10.4).
+
+d)  $P(\xi > 1) = e^{-1{,}2\cdot 1} = e^{-1{,}2} \approx \mathbf{0{,}3012}$.
+
+e)  Las dos probabilidades **coinciden exactamente**. Y no es casualidad: describen el **mismo evento** desde dos ángulos distintos:
+
+    -   "El tiempo hasta la próxima avería supera 1 año" $\iff$
+    -   "No ha habido ninguna avería en el intervalo $[0, 1]$".
+
+    Es la manifestación operativa de que Poisson (conteo en intervalo fijo) y Exponencial (tiempo entre sucesos consecutivos) son **las dos caras** del mismo proceso subyacente. Si una es Poisson$(\lambda)$, la otra es Exp$(\lambda)$ automáticamente.
+
+f)  $P(N = 2 \text{ en 1 año, } \lambda = 1{,}2) = e^{-1{,}2}\cdot 1{,}2^2/2 = 0{,}3012\cdot 0{,}72 \approx \mathbf{0{,}2169}$.
+
+    El "tiempo hasta la segunda avería" sigue una distribución **Gamma** (más específicamente, una **Erlang**) con parámetros $k = 2$ y $q = 1{,}2$. Es la generalización natural: si el tiempo hasta la primera avería es Exp, el tiempo hasta la $k$-ésima es Erlang$(k, q)$. Cae fuera del alcance de este capítulo, pero es un modelo importante en teoría de colas y fiabilidad.
+
+### Solución al Problema 10.7.
+
+a)  **Razonable**. Los avistamientos de piratas son sucesos externos, no acumulativos: la nave no "se cansa" de ver piratas. Exponencial es correcta.
+
+b)  **No razonable**. Los rodamientos con 15 años en servicio **acumulan desgaste**: la probabilidad de fallo por unidad de tiempo crece con la edad (Weibull creciente). Bajo exponencial la tasa sería constante, lo que subestimaría gravemente el riesgo próximo.
+
+c)  **Razonable**. En horario normal, las llegadas de clientes son un proceso de Poisson estable, y por tanto los tiempos entre llegadas son exponenciales.
+
+d)  **No razonable**. El escenario describe una **curva de bañera** ("bathtub curve"): tasa alta al principio (mortalidad infantil), baja en la vida media (fase útil) y creciente al final (envejecimiento). La exponencial supone tasa constante y no captura ninguna de las dos fases problemáticas.
+
+e)  El patrón común es que **la tasa de fallo depende del tiempo transcurrido** (envejecimiento o "juventud"). La exponencial exige que la tasa sea constante, y por tanto solo es adecuada cuando no hay dinámica de desgaste. Cuando la tasa varía, el modelo adecuado es la **Weibull** (u otras distribuciones de vida útil).
+
+### Solución al Problema 10.8.
+
+a)  $z = (65 - 72)/9 \approx -0{,}78$. $P(\xi < 65) = P(\xi^{*} < -0{,}78) = P(\xi^{*} > 0{,}78) \approx \mathbf{0{,}2184}$. Alrededor del 22% de las naves tiene IRE inferior a 65.
+
+b)  $z = (85 - 72)/9 \approx 1{,}44$. $P(\xi > 85) = P(\xi^{*} > 1{,}44) \approx \mathbf{0{,}0749}$. Aproximadamente el 7,5% son de alto rendimiento.
+
+c)  $P(65 \le \xi \le 80)$: tipificando ambos extremos, $z_a = -0{,}78$ y $z_b = 0{,}89$. $P = \Phi(0{,}89) - \Phi(-0{,}78) \approx 0{,}8133 - 0{,}2184 = \mathbf{0{,}5946}$. Casi el 60% de las naves está en la franja estándar.
+
+d)  Percentil 75: $z_{0{,}75} = 0{,}6745$. Umbral $= 72 + 0{,}6745\cdot 9 = 72 + 6{,}07 \approx \mathbf{78{,}07}$. Las naves con IRE por encima de 78,07 se clasifican como "eficientes".
+
+### Solución al Problema 10.9.
+
+a)  Aplicando la regla 68-95-99,7 con $\mu = 500$ y $\sigma = 15$:
+
+    -   $[485, 515] = [\mu - \sigma, \mu + \sigma]$: **~68%** de los paneles.
+    -   $[470, 530] = [\mu - 2\sigma, \mu + 2\sigma]$: **~95%**.
+    -   $[455, 545] = [\mu - 3\sigma, \mu + 3\sigma]$: **~99,7%**.
+
+b)  Rango de tolerancia $[490, 510]$: $z = \pm (10/15) = \pm 0{,}6667$. $P(\text{dentro}) = \Phi(0{,}67) - \Phi(-0{,}67) \approx \mathbf{0{,}4950}$. Fuera de tolerancia: $P \approx \mathbf{0{,}5050}$: la mitad de los paneles.
+
+c)  De 10 000 paneles diarios: $10\,000\cdot 0{,}5050 \approx \mathbf{5\,050}$ paneles fuera de tolerancia. **Casi cinco mil al día**. Es un problema industrial serio: o hay que ajustar la máquina (reducir $\sigma$) o hay que revisar la tolerancia.
+
+d)  La propuesta del directivo es **peligrosa**. Aunque estadísticamente $[470, 530]$ cubre el 95% de la producción, técnica y comercialmente **la tolerancia la fija el cliente o la especificación técnica**, no la variabilidad del proceso. Si el cliente exige paneles entre 490 y 510 gramos, ampliar la tolerancia a 470-530 significa entregar producto defectuoso disfrazado. La respuesta correcta es reducir la variabilidad del proceso (mejor control), no relajar la exigencia.
+
+### Solución al Problema 10.10.
+
+Cuantiles de $\xi \to N(3\,500;\ 800)$: en cada caso, $x = \mu + z_p \cdot \sigma$.
+
+a)  Percentil 10: $z_{0{,}10} = -1{,}282$. $x = 3\,500 + (-1{,}282)\cdot 800 = 3\,500 - 1\,025{,}3 = \mathbf{2\,474{,}76}$ PAVOs.
+
+b)  Percentil 90: $z_{0{,}90} = 1{,}282$. $x = 3\,500 + 1\,282\cdot 800\cdot 10^{-3} = 3\,500 + 1\,025{,}3 = \mathbf{4\,525{,}24}$ PAVOs. (Simétrico al percentil 10 respecto a la media, como debe ser en una normal.)
+
+c)  Cuartiles: $z_{0{,}25} = -0{,}6745$, $z_{0{,}75} = 0{,}6745$. $Q_1 = 3\,500 - 0{,}6745\cdot 800 = \mathbf{2\,960{,}41}$; $Q_3 = 3\,500 + 0{,}6745\cdot 800 = \mathbf{4\,039{,}59}$. Rango intercuartílico $= Q_3 - Q_1 \approx \mathbf{1\,079{,}18}$ PAVOs.
+
+d)  Percentil 95: $z_{0{,}95} = 1{,}645$. Umbral $= 3\,500 + 1{,}645\cdot 800 \approx \mathbf{4\,815{,}88}$ PAVOs. Los oficiales con sueldo superior a 4 816 PAVOs entran en la categoría "sueldo alto".
+
+e)  $P(3\,000 \le \xi \le 4\,500)$: $z_a = -0{,}625$, $z_b = 1{,}25$. $P = \Phi(1{,}25) - \Phi(-0{,}625) \approx 0{,}8944 - 0{,}2660 = \mathbf{0{,}6284}$. Alrededor del 63% de los oficiales cae en este rango.
+
+### Solución al Problema 10.11.
+
+a)  Por la propiedad reproductiva (dos normales independientes con coeficientes $+1$):
+
+    $$\eta \to N\!\left(500 + 700;\ \sqrt{80^2 + 120^2}\right) = N\!\left(1\,200;\ \sqrt{6\,400 + 14\,400}\right) = \mathbf{N(1\,200;\ 144{,}22)}\ \text{miles de PAVOs}.$$
+
+b)  $z = (1\,300 - 1\,200)/144{,}22 \approx 0{,}69$. $P(\eta > 1\,300) = 1 - \Phi(0{,}69) \approx \mathbf{0{,}2440}$.
+
+c)  $z = (1\,000 - 1\,200)/144{,}22 \approx -1{,}39$. $P(\eta < 1\,000) = \Phi(-1{,}39) \approx \mathbf{0{,}0828}$. Solo el 8% de los años agregados quedará por debajo del millón.
+
+d)  Comparación:
+
+    -   $\sigma(\xi_N) + \sigma(\xi_S) = 80 + 120 = 200$.
+    -   $\sigma(\eta) = \sqrt{6\,400 + 14\,400} = \sqrt{20\,800} \approx 144{,}22$.
+
+    Es siempre **menor** la desviación típica de la suma. Esta es la **base matemática de la diversificación**: sumar dos fuentes independientes de ingresos reduce la variabilidad **relativa** del total. En términos de coeficiente de variación: $\sigma/\mu$ pasa de 16% (Norte) y 17,1% (Sur) individuales a solo 12,0% en la suma.
+
+e)  $\bar\xi = (\xi_N + \xi_S)/2$. Por la propiedad reproductiva con coeficientes $b_1 = b_2 = 1/2$:
+
+    $$\bar\xi \to N\!\left(\dfrac{500 + 700}{2};\ \sqrt{(1/2)^2\cdot 80^2 + (1/2)^2\cdot 120^2}\right) = N\!\left(600;\ \dfrac{144{,}22}{2}\right) = \mathbf{N(600;\ 72{,}11)}.$$
+
+    La media aritmética tiene la mitad de desviación típica que la suma: es un adelanto del comportamiento de las **medias muestrales** que veremos en inferencia.
+
+### Solución al Problema 10.12.
+
+a)  $B = \xi + (-1)\cdot \eta$. Por la propiedad reproductiva con coeficientes $b_1 = 1$, $b_2 = -1$:
+
+    $$B \to N\!\left(1\,000 - 700;\ \sqrt{1^2\cdot 100^2 + (-1)^2\cdot 150^2}\right) = N\!\left(300;\ \sqrt{10\,000 + 22\,500}\right) = \mathbf{N(300;\ 180{,}28)}.$$
+
+b)  $E(B) = \mathbf{300}$ miles PAVOs, $\sigma(B) \approx \mathbf{180{,}28}$. **La varianza es suma, no diferencia**, aunque la operación entre variables sea una resta. Esto es consecuencia de que $b_2^2 = (-1)^2 = 1$: al elevar al cuadrado, el signo desaparece. Confundir esto es uno de los errores más habituales en el uso de la propiedad reproductiva.
+
+c)  $z = (0 - 300)/180{,}28 \approx -1{,}66$. $P(B < 0) = \Phi(-1{,}66) \approx \mathbf{0{,}0480}$. Aproximadamente un 5% de probabilidad de cerrar el año con pérdidas: no despreciable.
+
+d)  $Y = 20 + 0{,}25 B$. Por linealidad de la normal:
+
+    $$Y \to N(20 + 0{,}25\cdot 300;\ 0{,}25\cdot 180{,}28) = \mathbf{N(95;\ 45{,}07)}\ \text{miles PAVOs}.$$
+
+    $E(Y) = \mathbf{95}$, $\sigma(Y) \approx \mathbf{45{,}07}$.
+
+e)  Y + Y' con Y, Y' independientes con misma distribución. Por reproductividad:
+
+    $$Y + Y' \to N(2\cdot 95;\ \sqrt{2}\cdot 45{,}07) = \mathbf{N(190;\ 63{,}74)}\ \text{miles PAVOs}.$$
+
+    Nótese: la media se duplica; la desviación típica solo se multiplica por $\sqrt 2 \approx 1{,}41$, no por 2. Es de nuevo el efecto de "diversificación temporal".
+
+### Solución al Problema 10.13.
+
+a)  Tipificaciones:
+
+    -   $z_A = (18 - 12)/3 = \mathbf{2{,}00}$.
+    -   $z_B = (12 - 8)/1{,}5 = \mathbf{2{,}67}$.
+
+b)  Percentiles:
+
+    -   A: $P(\xi_A \le 18) = \Phi(2{,}00) \approx \mathbf{0{,}9772}$: percentil 97,72.
+    -   B: $P(\xi_B \le 12) = \Phi(2{,}67) \approx \mathbf{0{,}9962}$: percentil 99,62.
+
+c)  En términos **absolutos**, A tiene más rentabilidad (18% > 12%). Pero en términos **relativos** (respecto a su propia distribución histórica), **B** ha tenido el año más excepcional: se sitúa por encima del 99,62% de sus resultados históricos, frente al 97,72% de A. B ha tenido el mejor año de su historia, mientras que A ha tenido un buen año pero no tan sorprendente.
+
+d)  La comparación directa "18% vs 12%" es **engañosa** porque las dos empresas operan en contextos con volatilidades muy distintas ($\sigma_A = 3\%$ vs $\sigma_B = 1{,}5\%$). Solo tendría sentido comparar directamente si ambas tuvieran distribuciones parecidas (misma media y varianza), lo cual no es el caso. La comparación **rigurosa** requiere tipificar. Sí sería válida la comparación directa si la pregunta fuese *"¿qué empresa dio más beneficios en euros absolutos?"*, pero no si es *"¿qué empresa tuvo mejor desempeño relativo?"*.
+
+### Solución al Problema 10.14.
+
+a)  $L = -C \cdot \xi = -20\cdot \xi$. Como $\xi \to N(0{,}0005;\ 0{,}012)$:
+
+    $$L \to N(-20\cdot 0{,}0005;\ 20\cdot 0{,}012) = \mathbf{N(-0{,}01;\ 0{,}24)}\ \text{millones PAVOs}.$$
+
+    La pérdida esperada es negativa (es decir, se espera ganar en promedio), pero la variabilidad diaria es apreciable.
+
+b)  $\mathrm{VaR}_{95\%} = \mu_L + z_{0{,}95}\cdot \sigma_L = -0{,}01 + 1{,}645\cdot 0{,}24 = -0{,}01 + 0{,}3948 \approx \mathbf{0{,}385}$ millones $= \mathbf{384\,800}$ PAVOs (aproximadamente).
+
+c)  $\mathrm{VaR}_{99\%} = -0{,}01 + 2{,}326\cdot 0{,}24 = -0{,}01 + 0{,}5582 \approx \mathbf{0{,}548}$ millones $= \mathbf{548\,300}$ PAVOs.
+
+d)  Interpretación operativa:
+
+    -   **VaR 95% ≈ 385 mil PAVOs**: en el 95% de los días de trading, las pérdidas de la cartera no superarán esta cifra. O equivalentemente, en el 5% de los días peores (aproximadamente 13 días al año) esperamos pérdidas superiores.
+    -   **VaR 99% ≈ 548 mil PAVOs**: en el 99% de los días, las pérdidas quedarán por debajo. Solo en el 1% de los días peores (2-3 días al año) se esperan pérdidas mayores.
+
+    Ambas cifras marcan las reservas prudenciales que el gestor debe tener disponibles.
+
+e)  Si las rentabilidades reales tienen **colas más gruesas** que la normal, el VaR calculado bajo el modelo normal **subestima** el riesgo real: los eventos extremos ocurren con mayor frecuencia de lo que la normal predice, y las pérdidas efectivas en los "días peores" son más severas. El error va en la dirección peligrosa: reservas insuficientes ante caídas graves.
+
+f)  El **Expected Shortfall (CVaR)** es la pérdida **media condicionada** a que se supere el VaR: $ES_{95\%} = E[L \mid L > \mathrm{VaR}_{95\%}]$. Los reguladores lo prefieren en muchos contextos porque **es sensible a la magnitud** de las pérdidas extremas (no solo a la frecuencia), lo que el VaR ignora por completo. Además, el ES es **subaditivo** (siempre respeta la lógica de la diversificación), propiedad que el VaR no siempre cumple. Es el estándar del acuerdo Basilea III y del reglamento europeo de mercados financieros.
+
+### Solución al Problema 10.15.
+
+a)  Mediana $= e^{\mu} = e^{10{,}5} \approx \mathbf{36\,315{,}50}$ PAVOs.
+
+b)  Media $= e^{\mu + \sigma^2/2} = e^{10{,}5 + 0{,}18} = e^{10{,}68} \approx \mathbf{43\,477{,}55}$ PAVOs.
+
+c)  La media es unas $7\,162$ PAVOs mayor que la mediana. Es la característica de las distribuciones asimétricas a la derecha: los pocos tripulantes con salarios muy altos tiran de la media hacia arriba, mientras que la mediana representa mejor el "salario típico" (el que separa la mitad inferior de la superior). En análisis salariales, la **mediana** suele ser más representativa; la media puede transmitir una imagen distorsionada del salario "corriente".
+
+d)  $\ln(20\,000) = 9{,}9035$. Tipificando: $z = (9{,}9035 - 10{,}5)/0{,}6 \approx -0{,}99$. $P(\xi < 20\,000) = P(Z < -0{,}99) \approx \mathbf{0{,}1601}$: alrededor del 16% de los tripulantes ganan menos de 20 000 PAVOs.
+
+e)  $\ln(60\,000) = 11{,}0021$. $z = (11{,}0021 - 10{,}5)/0{,}6 \approx 0{,}84$. $P(\xi > 60\,000) = P(Z > 0{,}84) \approx \mathbf{0{,}2013}$: aproximadamente el 20% gana más de 60 000 PAVOs.
+
+f)  $\ln(30\,000) = 10{,}3090$, $\ln(50\,000) = 10{,}8198$. $z_a \approx -0{,}32$, $z_b \approx 0{,}53$. $P(30\,000 < \xi < 50\,000) = \Phi(0{,}53) - \Phi(-0{,}32) \approx 0{,}7019 - 0{,}3745 = \mathbf{0{,}3279}$: alrededor de un tercio de los tripulantes cae en este rango.
+
+### Solución al Problema 10.16.
+
+a)  Con $\mu = 3{,}4$ y $\sigma = 1{,}2$:
+
+    -   Mediana $= e^{3{,}4} \approx \mathbf{29{,}96}$ miles PAVOs.
+    -   Media $= e^{3{,}4 + 0{,}72} = e^{4{,}12} \approx \mathbf{61{,}56}$ miles PAVOs.
+
+b)  Moda $= e^{\mu - \sigma^2} = e^{3{,}4 - 1{,}44} = e^{1{,}96} \approx \mathbf{7{,}10}$ miles PAVOs.
+
+c)  Ordenación: $\mathrm{Mo} \approx 7{,}10 < \mathrm{Me} \approx 29{,}96 < \bar\xi \approx 61{,}56$.
+
+    Es la relación característica de una distribución asimétrica a la derecha: la moda (valor más frecuente) queda a la izquierda, la mediana (que divide la probabilidad al 50%) en medio, y la media (arrastrada por la cola larga) a la derecha. La distancia entre las tres es muy grande en esta distribución (parámetros con $\sigma = 1{,}2$, sobredispersa).
+
+d)  **Los dos tienen razón, pero cada uno para un uso distinto**:
+
+    -   *"Coste típico ≈ 30 miles PAVOs"* (mediana) es la lectura correcta si se quiere describir *"la empresa mediana del sector"*, la que separa el 50% más pequeño del 50% más grande. Es la mejor medida para caracterizar al operador "medio-típico".
+    -   *"Coste medio ≈ 61,56 miles PAVOs"* (media) es la lectura correcta si se quiere calcular el **coste agregado del sector**: multiplicar por el número de empresas da la carga total, cifra útil en planificación macroeconómica o fiscal.
+
+    Confundir una con otra es un error clásico: reportar la media como "coste típico" sobreestima; reportar la mediana como "coste medio" del sector agregado subestima.
+
+e)  **No es correcto**. En una log-normal con $\sigma = 1{,}2$ (que es apreciable), la moda ronda 7,10, la mediana 30 y la media 62. Las empresas **no** se concentran cerca de la media: se concentran cerca de la moda, muy a la izquierda. La media queda arrastrada por unas pocas empresas con costes muy grandes. Es exactamente lo contrario de lo que sostiene el tercer consultor.
+
+### Solución al Problema 10.17.
+
+a)  $\xi \to B(100;\ 0{,}40)$ exactamente.
+
+b)  $np = 100\cdot 0{,}40 = 40 \ge 5$ ✓ ampliamente; $nq = 100\cdot 0{,}60 = 60 \ge 5$ ✓ también. Aplicable la aproximación normal.
+
+c)  Distribución aproximada: $\mu = np = 40$, $\sigma = \sqrt{npq} = \sqrt{100\cdot 0{,}40\cdot 0{,}60} = \sqrt{24} \approx \mathbf{4{,}899}$. Es decir, $\xi \approx N(40;\ 4{,}899)$.
+
+d)  Con **corrección de continuidad**, $P(\xi \le 35)$ pasa a $P(Y \le 35{,}5)$:
+
+    $$z = \dfrac{35{,}5 - 40}{4{,}899} \approx -0{,}92 \implies P(Y \le 35{,}5) = \Phi(-0{,}92) \approx \mathbf{0{,}1792}.$$
+
+e)  La binomial exacta da $P(\xi \le 35) \approx \mathbf{0{,}1795}$. La aproximación con corrección de continuidad (0,1792) coincide hasta la tercera cifra decimal con el valor exacto. Excelente precisión.
+
+f)  La corrección de continuidad **compensa el hecho** de que estamos aproximando una variable **discreta** (con probabilidades concentradas en enteros) por una **continua** (con densidad extendida). El valor entero $k$ "ocupa" un rectángulo unitario centrado en $k$ (de $k - 0{,}5$ a $k + 0{,}5$), y al calcular la probabilidad continua debemos capturar ese rectángulo entero. Para $P(\xi \le k)$ se usa $P(Y \le k + 0{,}5)$; para $P(\xi \ge k)$ se usa $P(Y \ge k - 0{,}5)$; para $P(\xi = k)$ se usa $P(k - 0{,}5 \le Y \le k + 0{,}5)$. Sin corrección, la aproximación sistemáticamente subestima algunas probabilidades y sobreestima otras.
+
+### Solución al Problema 10.18.
+
+a)  $\xi \to \mathrm{Po}(25)$. Como $\lambda = 25 \ge 10$, la aproximación normal es aplicable.
+
+b)  $\xi \approx N(\lambda;\ \sqrt{\lambda}) = \mathbf{N(25;\ 5)}$.
+
+c)  Con corrección: $P(\xi \le 20) \approx P(Y \le 20{,}5)$. $z = (20{,}5 - 25)/5 = \mathbf{-0{,}90}$. $P \approx \Phi(-0{,}90) \approx \mathbf{0{,}1841}$.
+
+    (Exacta Poisson: 0,1855. Diferencia inferior al 1%.)
+
+d)  Con corrección: $P(\xi \ge 30) \approx P(Y \ge 29{,}5)$. $z = (29{,}5 - 25)/5 = 0{,}90$. $P = 1 - \Phi(0{,}90) \approx \mathbf{0{,}1841}$.
+
+    (Exacta Poisson: 0,1821.)
+
+e)  Con corrección: $P(20 \le \xi \le 30) \approx P(19{,}5 \le Y \le 30{,}5)$. $z_a = -1{,}10$, $z_b = 1{,}10$. $P = \Phi(1{,}10) - \Phi(-1{,}10) \approx 0{,}8643 - 0{,}1357 = \mathbf{0{,}7287}$.
+
+f)  Percentil 95: $z_{0{,}95} = 1{,}645$. $k = 25 + 1{,}645\cdot 5 = 33{,}22$. Redondeando al entero superior (para cubrir el 95%): el servidor debe dimensionarse para atender al menos **34 peticiones por minuto**.
+
+### Solución al Problema 10.19.
+
+a)  Modelo: $\xi \to U(8;\ 20)$. $P(10 \le \xi \le 15) = (15 - 10)/(20 - 8) = 5/12 \approx \mathbf{0{,}4167}$.
+
+b)  Modelo: $T \to \mathrm{Exp}(q = 6\ \text{por hora}) = \mathrm{Exp}(0{,}1\ \text{por minuto})$. "5 minutos" equivale a $x = 5$ minutos con $q = 0{,}1$. $P(T < 5) = 1 - e^{-0{,}1 \cdot 5} = 1 - e^{-0{,}5} \approx \mathbf{0{,}3935}$.
+
+c)  Modelo: $\xi \to N(500;\ 20)$. $z_a = (485 - 500)/20 = -0{,}75$, $z_b = (510 - 500)/20 = 0{,}50$. $P = \Phi(0{,}50) - \Phi(-0{,}75) \approx 0{,}6915 - 0{,}2266 = \mathbf{0{,}4648}$.
+
+d)  Modelo: $\xi \to \mathrm{LN}(4;\ 0{,}5)$. Mediana $= e^{4} \approx \mathbf{54{,}60}$ miles de PAVOs.
+
+### Solución al Problema 10.20.
+
+a)  **Fase 1.** $T \to \mathrm{Exp}(q)$, con $q = \lambda/60 = 12/60 = 0{,}2$ por minuto (ó equivalentemente $q = 12$ por hora si medimos $T$ en horas). $P(T < 10 \text{ min}) = 1 - e^{-0{,}2\cdot 10} = 1 - e^{-2} \approx \mathbf{0{,}8647}$. Casi el 86% de las veces el próximo carguero llega en menos de 10 minutos: es un puesto de aduana con tráfico intenso.
+
+b)  **Fase 2.** $I \to U(3;\ 12)$. $P(I > 10) = (12 - 10)/(12 - 3) = 2/9 \approx \mathbf{0{,}2222}$. Aproximadamente el 22% de las inspecciones dura más de 10 minutos.
+
+c)  **Fase 3.** $P \to N(150;\ 25)$. $z = (200 - 150)/25 = 2{,}00$. $P(P > 200) = 1 - \Phi(2{,}00) \approx \mathbf{0{,}0228}$. Solo el 2% de los cargamentos supera las 200 toneladas: cargamentos pesados poco frecuentes.
+
+d)  **Fase 4.** $V \to \mathrm{LN}(5;\ 0{,}8)$.
+
+    -   Mediana $= e^{5} \approx \mathbf{148{,}41}$ miles de PAVOs.
+    -   $P(V > 500)$: $\ln(500) \approx 6{,}215$. $z = (6{,}215 - 5)/0{,}8 \approx 1{,}52$. $P = 1 - \Phi(1{,}52) \approx \mathbf{0{,}0645}$. Alrededor del 6,5% de los cargamentos supera los 500 miles PAVOs de valor declarado (cargamentos de alto valor).
+
+e)  $R = 5\cdot P$, con $P \to N(150;\ 25)$. Por linealidad de la normal:
+
+    $$R \to N(5\cdot 150;\ 5\cdot 25) = \mathbf{N(750;\ 125)}\ \text{PAVOs por carguero.}$$
+
+    $z = (800 - 750)/125 = 0{,}40$. $P(R > 800) = 1 - \Phi(0{,}40) \approx \mathbf{0{,}3446}$. Aproximadamente el 34% de los cargueros generará una recaudación superior a 800 PAVOs.
+
+f)  **Recomendación operativa de Mara Qyà.**
+
+    > *"El puesto 'Meridiano Beta' presenta cuatro fenómenos aleatorios genuinamente distintos y cada uno exige su propio modelo probabilístico. Ignorar esta heterogeneidad es la principal fuente de errores en el dimensionamiento de aduanas: aplicar por comodidad la misma distribución a las cuatro fases da lugar a estimaciones sesgadas y a decisiones operativas equivocadas.*
+    >
+    > *(i) Los **tiempos entre llegadas** siguen una exponencial derivada del proceso de Poisson subyacente. El puesto recibe cargueros con alta frecuencia (uno cada 5 minutos en promedio); dimensionar el número de inspectores por debajo de la tasa de llegada produce colas rápidamente saturadas. (ii) Los **tiempos de inspección** siguen una uniforme entre 3 y 12 minutos, con media 7,5 minutos. Con la tasa de llegada actual, se requieren aproximadamente 1,5 inspectores en paralelo por hora de operación para mantener el flujo. (iii) Los **pesos** son casi normales (por TCL), y el 5% más pesado supera las 175-200 toneladas: hay que reservar capacidad de báscula para estos casos. (iv) Los **valores declarados** son log-normales, con enorme dispersión: mediana en torno a 148 mil PAVOs, pero cargamentos de más de 500 mil apareciendo el 6,5% de las veces. La recaudación agregada del puesto es una media de miles de cargueros, y por TCL se comportará casi normalmente aunque cada valor individual sea log-normal.*
+    >
+    > *Recomendaciones concretas: dimensionar por la tasa de llegada, no por el promedio de inspecciones; monitorizar mensualmente los cuantiles de peso y valor declarado por si se produce deriva; e implementar un procedimiento diferenciado para cargamentos por encima del percentil 95 (peso o valor)."*
+
+    La lección de fondo del capítulo cerrada en un caso realista: **cada fase del proceso operativo se rige por un modelo continuo distinto** —exponencial para tiempos entre llegadas, uniforme para tiempos de servicio, normal para magnitudes agregadas y log-normal para variables económicas multiplicativas—. Solo identificando bien cada modelo puede construirse un dimensionamiento operativo con base estadística sólida.
+

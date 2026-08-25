@@ -814,3 +814,618 @@ Este capítulo ha catalogado seis distribuciones discretas y las relaciones que 
 3. **La sobredispersión es la regla, no la excepción, en los datos económicos reales.** Cuando la Poisson deja de funcionar —y lo hará en casi todos los datos empresariales de conteo—, la binomial negativa toma el relevo. Este es el modelo que un analista de riesgos, un actuario o un economista aplicado usará el 90 % de las veces en la vida real.
 
 Nos falta todavía una gran clase de variables aleatorias por modelar: las **continuas**. En el próximo capítulo entraremos en el modelo continuo por antonomasia —la distribución normal—, y con ella el fenómeno más asombroso de toda la estadística clásica: el **teorema central del límite**, ese que hace que cargueros, reactores, piratas y auditorías conspiren, en el largo plazo, para producir la misma campana. Preparen el hipermotor.
+
+## Problemas propuestos. {#problemas-cap09}
+
+Este capítulo tiene un objetivo pedagógico distintivo respecto a los anteriores: no basta con saber aplicar una fórmula, hay que **identificar** correctamente qué modelo corresponde a cada situación. Como se advirtió en la introducción, elegir el molde correcto es la mitad del trabajo; aplicar la fórmula es lo fácil. Por esa razón, la tanda de 20 ejercicios que sigue se organiza en dos grandes bloques: los primeros —muy variados y a menudo puramente interpretativos— entrenan la **identificación** del modelo; los siguientes se ocupan del **cálculo** dentro de cada modelo y de las relaciones-puente entre unos y otros. Todas las soluciones detalladas se recogen al final del capítulo.
+
+### Problema 9.1. Test de identificación del modelo (interpretativo).
+
+Para cada uno de los ocho escenarios siguientes, indica qué **modelo probabilístico discreto** de este capítulo (uniforme, Bernoulli, binomial, Poisson, binomial negativa, geométrica o hipergeométrica) es el más apropiado, y **justifica** brevemente por qué:
+
+a)  El astropuerto de Coruscant asigna al azar uno de sus 12 muelles disponibles a un carguero que aterriza. Sea $\xi = $ *"número de muelle asignado"*.
+b)  *Arrakis Freight* despacha esta madrugada 15 cargueros por rutas independientes. Cada carguero llega puntual con probabilidad 0,90. Sea $\xi = $ *"número de cargueros que llegan puntuales"*.
+c)  Un auditor de la ARTI selecciona al azar y sin reemplazamiento 8 compañías de las 50 registradas en un directorio sectorial. De esas 50, 15 tienen fallas contables. Sea $\xi = $ *"número de compañías con fallas contables en la muestra"*.
+d)  Un comercial de *Kaiju Haulage Co.* llama a clientes potenciales. Cada llamada resulta en contrato con probabilidad 0,20, con independencia entre llamadas. Sea $\xi = $ *"número de llamadas fallidas antes del primer contrato"*.
+e)  En el corredor Coruscant-Naboo se avistan cargueros piratas con una tasa media de 2,3 avistamientos por semana. Sea $\xi = $ *"número de avistamientos en una semana"*.
+f)  Un carguero de *Arrakis Freight* sale esta madrugada. Sea $\xi = 1$ si llega puntual y $\xi = 0$ si no.
+g)  Un vendedor necesita cerrar 5 contratos. Cada llamada resulta en contrato con probabilidad 0,30. Sea $\xi = $ *"número de llamadas fallidas antes del quinto contrato"*.
+h)  En una fábrica se producen tornillos con probabilidad de defecto muy baja (0,001). En un lote de 3000 tornillos, sea $\xi = $ *"número de tornillos defectuosos"*.
+
+### Problema 9.2. Uniforme discreta.
+
+El astropuerto de Coruscant tiene 12 muelles operativos, numerados de 1 a 12. Un carguero que aterriza recibe la asignación aleatoria de uno de ellos, con equiprobabilidad. Sea $\xi = $ *"número de muelle asignado"*.
+
+Se pide:
+
+a)  Escribe la función de cuantía de $\xi$.
+b)  Calcula la media $E(\xi)$ y la varianza $\mathrm{Var}(\xi)$ aplicando las fórmulas del modelo uniforme discreto.
+c)  Calcula $P(\xi \le 4)$: probabilidad de aterrizar en uno de los cuatro muelles más cercanos a la terminal principal.
+d)  Calcula $P(\xi \text{ es impar})$: probabilidad de que el muelle asignado sea impar.
+e)  ¿Qué diferencia hay conceptualmente entre esta uniforme discreta y la uniforme continua que se verá en el capítulo siguiente?
+
+### Problema 9.3. Bernoulli: un experimento con dos resultados.
+
+Basándose en los registros históricos, *Arrakis Freight* estima que cada uno de sus cargueros llega puntual a su destino con probabilidad $p = 0{,}90$. Se despacha esta madrugada un único carguero por la ruta Arrakis-Klendathu. Sea $\xi = 1$ si el carguero llega puntual y $\xi = 0$ si no.
+
+Se pide:
+
+a)  Identifica el modelo probabilístico de $\xi$ y sus parámetros.
+b)  Escribe la función de cuantía de $\xi$.
+c)  Calcula $E(\xi)$ y $\mathrm{Var}(\xi)$.
+d)  Explica por qué la varianza vale 0,09 en este caso concreto. ¿En qué valor de $p$ sería máxima la varianza? ¿Por qué?
+
+### Problema 9.4. Binomial: cálculo directo.
+
+*Arrakis Freight* despacha esta madrugada 15 cargueros por rutas independientes hacia distintos destinos galácticos. Cada carguero llega puntual con probabilidad $p = 0{,}85$. Sea $\xi = $ *"número de cargueros que llegan puntuales de los 15 despachados"*.
+
+Se pide:
+
+a)  Identifica el modelo y sus parámetros. Justifica que se cumplen las condiciones para aplicarlo.
+b)  Calcula $E(\xi)$ y $\mathrm{Var}(\xi)$.
+c)  Calcula la probabilidad de que **exactamente 13** cargueros lleguen puntuales.
+d)  Calcula la probabilidad de que **al menos 13** cargueros lleguen puntuales (buena noche operativa).
+e)  Calcula la probabilidad de que **a lo sumo 11** cargueros lleguen puntuales (noche que activa el protocolo de investigación).
+f)  El operador de guardia recibe un mensaje diciendo que "esta noche todo va bien". ¿Cuál es la probabilidad de que los 15 lleguen puntualmente?
+
+### Problema 9.5. Binomial: comparar dos rutas.
+
+*Kaiju Haulage Co.* debe elegir entre dos rutas alternativas para su próxima campaña logística. Los ingenieros han modelado el comportamiento de cada ruta como una binomial:
+
+-   **Ruta A** (Vía Láctea interior): 20 despachos, cada uno con probabilidad $p_A = 0{,}95$ de llegar puntual. Sea $\xi_A = $ *"número de puntuales en A"*.
+-   **Ruta B** (Andrómeda-Klendathu): 50 despachos, cada uno con probabilidad $p_B = 0{,}80$ de llegar puntual. Sea $\xi_B = $ *"número de puntuales en B"*.
+
+Cada retraso genera una penalización de 500 PAVOs. Se pide:
+
+a)  Calcula $E(\xi_A)$, $E(\xi_B)$ y el número **esperado de retrasos** en cada ruta.
+b)  Calcula la penalización **esperada** en cada ruta.
+c)  Calcula la desviación típica del número de retrasos en cada ruta.
+d)  Un directivo argumenta: *"la ruta B tiene mejor puntualidad relativa (80%), así que es la opción segura"*. ¿Es correcta la argumentación?
+e)  ¿Cuál de las dos rutas es más aconsejable si el objetivo es **minimizar el coste esperado**? ¿Y si el objetivo es **evitar sorpresas** en el coste?
+
+### Problema 9.6. Cuando la binomial no vale: independencia rota.
+
+*Arrakis Freight* despacha 20 cargueros esta madrugada, cada uno con puntualidad histórica $p = 0{,}85$. Un analista novato aplica $B(20;\ 0{,}85)$ y calcula $P(\text{los 20 lleguen puntuales}) = 0{,}85^{20} \approx 0{,}0388$.
+
+Se pide:
+
+a)  ¿Es adecuada la aplicación de la binomial en cada uno de estos tres escenarios? Justifica:
+
+    (i)  Los 20 cargueros salen a horas distintas, por rutas independientes y con tripulaciones distintas.
+    (ii) Los 20 cargueros deben atravesar todos la misma tormenta ionizante del sector Klendathu; si la tormenta se recrudece, todos se retrasarán.
+    (iii) De los 20 cargueros, 15 son de la última generación (con puntualidad histórica $p_1 = 0{,}92$) y 5 son de generaciones anteriores (con $p_2 = 0{,}72$).
+
+b)  En el escenario (ii), ¿por qué la binomial **infraestima** la probabilidad de un mal día colectivo?
+c)  En el escenario (iii), ¿qué modelo alternativo aplicarías? Sugiere una descomposición razonable.
+d)  ¿Qué principio general del capítulo se está ilustrando con este ejercicio?
+
+### Problema 9.7. Propiedad reproductiva de la binomial.
+
+*Corellian Freightworks* dispone de dos delegaciones que operan de forma completamente independiente pero con la misma tecnología de flota:
+
+-   **Delegación Norte:** despacha 12 cargueros con puntualidad $p = 0{,}88$.
+-   **Delegación Sur:** despacha 18 cargueros con la misma puntualidad $p = 0{,}88$.
+
+Sea $\xi_N = $ *"puntuales en Norte"* y $\xi_S = $ *"puntuales en Sur"*, y sea $\xi = \xi_N + \xi_S = $ *"puntuales agregados de la compañía"*.
+
+Se pide:
+
+a)  Identifica la distribución de $\xi_N$ y de $\xi_S$.
+b)  Aplica la **propiedad reproductiva** de la binomial para identificar la distribución de $\xi$ sin necesidad de convolucionar.
+c)  Calcula $E(\xi)$ y $\mathrm{Var}(\xi)$ por dos vías: (i) directamente sobre la distribución agregada del apartado (b); (ii) sumando las esperanzas y varianzas de $\xi_N$ y $\xi_S$ (que son independientes).
+d)  ¿Qué habría que asumir además para que la propiedad reproductiva se pudiera aplicar? ¿Se puede aplicar si Norte tuviera $p_N = 0{,}88$ y Sur $p_S = 0{,}75$? Justifica.
+
+### Problema 9.8. Poisson: llegada de clientes.
+
+La ventanilla de operaciones interestelares de una sucursal bancaria del *Consorcio Financiero de Coruscant* recibe, en promedio, $\lambda = 4$ clientes por hora, con un patrón de llegadas ajustado a un proceso de Poisson. Sea $\xi = $ *"número de clientes que llegan en una hora concreta"*.
+
+Se pide:
+
+a)  Identifica el modelo y su parámetro.
+b)  Calcula $P(\xi = 0)$: hora sin clientes.
+c)  Calcula $P(\xi = 6)$: hora exactamente con seis clientes.
+d)  Calcula $P(\xi \ge 3)$: hora movida con al menos tres clientes.
+e)  El gerente quiere dimensionar el personal para cubrir "el 95% de las horas normales". Calcula el mínimo número de clientes por hora, $k$, tal que $P(\xi \le k) \ge 0{,}95$. (Puedes tabular $P(\xi \le k)$ para $k = 0, 1, 2, \ldots$)
+
+### Problema 9.9. Poisson: cambiar el intervalo.
+
+La flota de *Hyperdrive Express* registra averías graves con una tasa media de $\lambda = 3$ averías al año, en promedio, distribuidas según un proceso de Poisson. Se pide:
+
+a)  ¿Cuál es la tasa media de averías **por mes**, $\lambda_m$? ¿Y **por trimestre**, $\lambda_t$? ¿Y **en dos años**, $\lambda_2$?
+b)  Calcula la probabilidad de al menos una avería en un mes cualquiera.
+c)  Calcula la probabilidad de exactamente 2 averías en un trimestre.
+d)  Calcula la probabilidad de que en dos años haya más de 8 averías.
+e)  ¿Bajo qué condición del proceso subyacente es lícito "escalar" el parámetro $\lambda$ proporcionalmente al intervalo?
+
+### Problema 9.10. Poisson como aproximación de binomial.
+
+Una empresa de logística galáctica envía 500 paquetes al día. La probabilidad de que un paquete concreto sufra un daño en tránsito es $p = 0{,}01$, con independencia entre paquetes. Sea $\xi = $ *"número de paquetes dañados en un día"*.
+
+Se pide:
+
+a)  Identifica la distribución exacta de $\xi$.
+b)  Verifica que se cumplen las condiciones de la regla práctica para aproximar por Poisson ($n \ge 30$, $p \le 0{,}05$).
+c)  Calcula $P(\xi = 3)$ con la Poisson aproximada ($\lambda = n \cdot p = 5$).
+d)  Calcula $P(\xi = 3)$ con la binomial exacta y compara ambas cifras. Comenta la calidad de la aproximación.
+e)  Justifica intuitivamente por qué la Poisson y la binomial casi coinciden aquí.
+
+### Problema 9.11. Propiedad reproductiva de la Poisson.
+
+En un centro de coordinación aeroespacial se registran las llegadas de dos tipos de reportes independientes:
+
+-   Reportes de avistamiento en el **Sector A** (Vía Láctea exterior): tasa media $\lambda_A = 1{,}5$ reportes por día.
+-   Reportes de avistamiento en el **Sector B** (Andrómeda cercana): tasa media $\lambda_B = 2{,}8$ reportes por día.
+
+Se pide:
+
+a)  ¿Cómo se distribuyen $\xi_A$ = *"reportes en A en un día"* y $\xi_B$ = *"reportes en B en un día"*?
+b)  Aplicando la propiedad reproductiva, ¿cómo se distribuye $\xi = \xi_A + \xi_B$ = *"reportes agregados en un día"*?
+c)  Calcula la probabilidad de que en un día llegue exactamente **1 reporte** de A y **3 reportes** de B a la vez. (Requiere independencia entre los dos sectores.)
+d)  Calcula la probabilidad de que en un día lleguen **4 reportes agregados**, independientemente de qué sector procedan.
+e)  Verifica que la respuesta al apartado (c) es un caso particular incluido en el apartado (d): ¿qué otras combinaciones $(a, b)$ con $a + b = 4$ producen 4 reportes agregados?
+
+### Problema 9.12. Sobredispersión: elegir entre Poisson y binomial negativa.
+
+Sobre tres muestras distintas de datos de conteo, se han calculado los siguientes estadísticos empíricos:
+
+| Muestra | Descripción | Media $\bar x$ | Varianza $s^2$ | Ratio $s^2/\bar x$ |
+|:-------:|:------------|:--------------:|:--------------:|:------------------:|
+|   A     | Nº de siniestros anuales por póliza en cargueros de reciente matriculación | 0,80  | 0,82  |     ?     |
+|   B     | Nº de reclamaciones anuales por cliente en un ecommerce galáctico          | 3,20  | 15,40 |     ?     |
+|   C     | Nº de llegadas de clientes por hora en una sucursal bancaria               | 8,50  | 8,70  |     ?     |
+
+Se pide:
+
+a)  Completa la columna del ratio $s^2/\bar x$ para cada muestra.
+b)  Para cada una, indica si es razonable modelarla como una **Poisson** o si conviene recurrir a una **binomial negativa**. Justifica con base en el ratio.
+c)  Para las muestras razonablemente Poisson, propón el valor de $\lambda$.
+d)  Para las muestras claramente sobredispersas, explica por qué la Poisson **infraestima** el riesgo de casos extremos (por ejemplo, clientes con muchas reclamaciones o cargueros con muchos siniestros).
+e)  ¿En qué tipo de datos económicos cabe esperar sobredispersión como norma general? Explica en clave sectorial.
+
+### Problema 9.13. Binomial negativa: fracasos antes del $r$-ésimo éxito.
+
+Un vendedor de *Hyperdrive Express* debe cerrar **5 contratos** de flete intergaláctico este mes. Cada llamada comercial se resuelve, con independencia, en contrato con probabilidad $p = 0{,}30$. Sea $\xi = $ *"número de llamadas fallidas antes de conseguir el quinto contrato"*.
+
+Se pide:
+
+a)  Identifica la distribución de $\xi$ y sus parámetros.
+b)  Calcula $E(\xi)$ y $\mathrm{Var}(\xi)$ e interpreta ambas cifras en términos del trabajo del vendedor.
+c)  Calcula $P(\xi = 10)$: probabilidad de que el vendedor consiga los 5 contratos con exactamente 10 rechazos previos (es decir, 15 llamadas en total).
+d)  Un jefe comercial estima que hacer 30 llamadas al mes es suficiente. ¿Es razonable esa cifra? Justifica con base en $E(\xi)$ y el número total de llamadas esperado.
+e)  ¿Por qué la varianza es tan grande comparada con la media en este modelo? (Ratio $\sigma^2/\mu = 1/p$.)
+
+### Problema 9.14. Geométrica: primer éxito.
+
+El piloto aspirante *Rey Solo* se examina de aterrizaje sobre la plataforma flotante del complejo Fhloston Paradise. Cada intento tiene probabilidad $p = 0{,}70$ de resultar en aterrizaje válido, con independencia entre intentos. Sea $\xi = $ *"número de intentos fallidos antes del primer aterrizaje válido"*.
+
+Se pide:
+
+a)  Identifica la distribución de $\xi$ y sus parámetros. ¿Es un caso particular de otra distribución del capítulo?
+b)  Calcula $E(\xi)$ y $\mathrm{Var}(\xi)$.
+c)  Calcula $P(\xi = 0)$: probabilidad de acertar al primer intento.
+d)  Calcula $P(\xi \ge 3)$: probabilidad de acumular al menos tres fallos consecutivos antes del primer acierto.
+e)  Rey ha fallado ya dos intentos consecutivos. ¿Cuál es la probabilidad de que falle también el tercero? Explica la respuesta a la luz de la **propiedad de falta de memoria** de la geométrica.
+
+### Problema 9.15. Ajuste de una binomial negativa por sobredispersión.
+
+Los datos de siniestralidad anual por póliza en una cartera de *Galactic Casualty & Loss* presentan los siguientes estadísticos empíricos:
+
+-   Media: $\bar x = 2{,}5$ siniestros por póliza al año.
+-   Varianza: $s^2 = 6{,}25$.
+
+Los actuarios rechazan la Poisson por sobredispersión evidente y proponen ajustar una binomial negativa por el **método de los momentos**: igualar la media y la varianza teóricas de la BN a las empíricas.
+
+Se pide:
+
+a)  Verifica la sobredispersión calculando el ratio $s^2/\bar x$.
+b)  A partir de $E(\xi) = r q/p$ y $\mathrm{Var}(\xi) = r q/p^2$, despeja $p$ en función de la media y la varianza empíricas. (Sugerencia: divide $\mathrm{Var}/E$ para obtener $1/p$.)
+c)  Calcula $p$ y $r$ para los datos anteriores.
+d)  Con los parámetros calculados, ¿cuál es la probabilidad de que una póliza concreta acumule exactamente 5 siniestros en un año?
+e)  ¿Qué habría dado la Poisson $\mathrm{Po}(2{,}5)$ para la misma probabilidad? Comenta.
+
+### Problema 9.16. Hipergeométrica: auditoría sin reemplazamiento.
+
+La *Comisión Interestelar de Transporte* audita al azar y **sin reemplazamiento** una muestra de 8 compañías de un directorio de 50. De las 50 compañías del directorio, 15 tienen fallas contables detectables por la auditoría. Sea $\xi = $ *"número de compañías con fallas contables en la muestra auditada"*.
+
+Se pide:
+
+a)  Identifica el modelo de $\xi$ y sus parámetros.
+b)  Calcula $E(\xi)$ y $\mathrm{Var}(\xi)$ aplicando las fórmulas del modelo.
+c)  Calcula $P(\xi = 3)$: probabilidad de encontrar exactamente 3 compañías con fallas.
+d)  Calcula $P(\xi \ge 1)$: probabilidad de detectar al menos una falla en la auditoría. (Sugerencia: complementario.)
+e)  ¿Por qué se aplica hipergeométrica y no binomial en este caso?
+
+### Problema 9.17. Hipergeométrica frente a binomial: la aproximación.
+
+Sigue el escenario del problema anterior ($N = 50$, $N_1 = 15$, $n = 8$). El auditor novato aplica, por comodidad, la binomial $B(8;\, 0{,}30)$ en lugar de la hipergeométrica exacta.
+
+Se pide:
+
+a)  Calcula $P(\xi = 3)$ con la binomial $B(8;\, 0{,}30)$ y compárala con el resultado exacto del problema 9.16(c).
+b)  Calcula la diferencia absoluta y relativa entre ambas cifras.
+c)  ¿Se cumplen las reglas prácticas para aceptar la aproximación ($p < 0{,}1$ o $n/N < 0{,}1$)? ¿Cuál está más cerca de cumplirse?
+d)  Repite el ejercicio suponiendo que el directorio fuese de 500 compañías, con 150 fallas contables (misma proporción $p = 0{,}30$) y muestra de 8. Comprueba que ahora la aproximación binomial sí es aceptable.
+e)  ¿Qué se ha modificado en este último escenario para que la aproximación funcione, aunque $p$ siga siendo 0,30?
+
+### Problema 9.18. Escenarios mixtos: identifica y calcula.
+
+Para cada uno de los siguientes escenarios: (i) identifica el modelo probabilístico correcto, (ii) escribe sus parámetros y (iii) calcula la probabilidad indicada.
+
+a)  Un carguero del astillero SELENE debe pasar controles independientes en 10 estaciones distintas. Cada control se supera con probabilidad 0,95. Calcula la probabilidad de superar los 10 controles.
+b)  Un servidor de la red galáctica recibe peticiones de conexión a razón de 12 por minuto según un proceso de Poisson. Calcula la probabilidad de que en un minuto lleguen entre 8 y 15 peticiones (ambos incluidos).
+c)  Un inspector selecciona 5 contenedores al azar sin reemplazamiento de un lote de 40, del que 6 están mal etiquetados. Calcula la probabilidad de detectar al menos uno mal etiquetado.
+d)  Un algoritmo de compresión tiene probabilidad 0,08 de fallar en cada archivo procesado, con independencia. Calcula la probabilidad de que se procesen 20 archivos antes del primer fallo.
+
+### Problema 9.19. Puente: la binomial se acerca a la normal.
+
+Retomamos *Arrakis Freight*, pero ahora despacha **200 cargueros** en un día festivo galáctico, cada uno con puntualidad $p = 0{,}85$ e independientes entre sí. Sea $\xi = $ *"número de puntuales de los 200"*.
+
+Se pide:
+
+a)  Identifica la distribución exacta de $\xi$.
+b)  Calcula $E(\xi)$ y $\sigma_\xi$.
+c)  Verifica que se cumplen las condiciones prácticas para aproximar la binomial por una normal ($n p \ge 5$ **y** $n q \ge 5$).
+d)  Aproximando por la normal $N(\mu = n p,\ \sigma = \sqrt{n p q})$, calcula $P(\xi \ge 175)$: probabilidad de que al menos 175 lleguen puntuales.
+e)  Explica por qué la binomial se parece cada vez más a la campana normal cuando $n$ crece. (Es un anticipo del **teorema central del límite** del próximo capítulo.)
+
+### Problema 9.20. Auditoría integradora: Mara Qyà en la ARTI.
+
+**Mara Qyà** debe presentar un informe consolidado sobre la operativa de un puesto de aduana galáctico. El proceso se descompone en tres fases probabilísticamente distintas:
+
+**Fase 1 (llegadas):** Los cargueros llegan al puesto de aduana según un proceso de Poisson con tasa media $\lambda = 6$ cargueros por hora.
+
+**Fase 2 (declaración conforme):** Cada carguero declara su cargamento. Con independencia, un carguero declara conforme con probabilidad $p = 0{,}80$; el resto genera una alerta que el sistema deriva a inspección.
+
+**Fase 3 (auditoría contable):** Al final de la jornada (8 horas), Mara audita al azar **sin reemplazamiento** una muestra de 10 cargueros que hayan pasado el puesto (los que sean, según lo que ocurra durante la jornada), independientemente de si generaron alerta o no. De estos 10, quiere estimar cuántos generaron alerta.
+
+Se pide:
+
+a)  **Fase 1.** Calcula la probabilidad de que en la primera hora lleguen entre 4 y 8 cargueros al puesto (ambos incluidos).
+b)  **Fase 1 (jornada).** ¿Cuál es la distribución del número **total** de cargueros que llegan al puesto durante toda la jornada de 8 horas? Calcula la esperanza y la probabilidad de que lleguen menos de 40 cargueros.
+c)  **Fase 2.** Si en un momento dado han llegado 15 cargueros al puesto, ¿cuál es la probabilidad de que **exactamente 12** hayan declarado conforme (y por tanto 3 hayan generado alerta)? Identifica el modelo.
+d)  **Fase 3.** Suponiendo que la jornada ha resultado en 50 cargueros pasando el puesto, de los cuales 12 generaron alerta, y Mara audita al azar 10 sin reemplazamiento: ¿cuál es la probabilidad de encontrar exactamente 3 con alerta en la muestra? Identifica el modelo.
+e)  ¿Podría Mara haber aplicado en la Fase 3 una **binomial aproximada**? Justifica con las reglas prácticas del capítulo.
+f)  Redacta la **recomendación operativa** que Mara elevaría al director de la ARTI: ¿tiene sentido dimensionar el equipo de inspección para "cubrir las alertas de una jornada media" con base en el número esperado?
+
+
+## Soluciones a los problemas propuestos. {#soluciones-cap09}
+
+### Solución al Problema 9.1.
+
+a)  **Uniforme discreta** $U(1, 12)$. Los 12 muelles son equiprobables por hipótesis.
+b)  **Binomial** $B(15;\ 0{,}90)$. Ensayos idénticos e independientes, se cuentan éxitos en un número fijo de ensayos.
+c)  **Hipergeométrica** $H(50;\ 8;\ 15/50)$. Muestreo sin reemplazamiento en una población finita.
+d)  **Geométrica** $G(0{,}20)$ (caso particular de la binomial negativa con $r = 1$). Se cuentan fracasos antes del primer éxito.
+e)  **Poisson** $\mathrm{Po}(2{,}3)$. Sucesos raros contados por unidad de tiempo, con tasa media conocida y estable.
+f)  **Bernoulli** $B(1;\ 0{,}90)$. Un único ensayo con dos resultados posibles.
+g)  **Binomial negativa** $\mathrm{BN}(5;\ 0{,}30)$. Se fija el número de éxitos y se cuentan los fracasos previos.
+h)  **Binomial** $B(3\,000;\ 0{,}001)$ o, mejor por comodidad de cálculo, **Poisson aproximada** $\mathrm{Po}(3)$: se cumple la regla práctica $n \ge 30$ y $p \le 0{,}05$.
+
+La lección del ejercicio es clara: el modelo correcto no viene dado por el nombre del fenómeno (todos hablan de "contar cosas"), sino por la **estructura probabilística** del experimento subyacente.
+
+### Solución al Problema 9.2.
+
+a)  Función de cuantía: $P(\xi = x) = 1/12$ para $x \in \{1, 2, \ldots, 12\}$.
+
+b)  Aplicando las fórmulas de la uniforme discreta con $a = 1$, $b = 12$, $k = 12$:
+
+    $$\mu = \dfrac{1 + 12}{2} = \mathbf{6{,}5}. \qquad \mathrm{Var}(\xi) = \dfrac{12^2 - 1}{12} = \dfrac{143}{12} \approx \mathbf{11{,}9167}.$$
+
+c)  $P(\xi \le 4) = 4/12 = 1/3 \approx \mathbf{0{,}3333}$.
+
+d)  Hay 6 muelles impares (1, 3, 5, 7, 9, 11) sobre 12: $P(\xi \text{ impar}) = 6/12 = \mathbf{0{,}5000}$.
+
+e)  Diferencia conceptual: la **uniforme discreta** asigna probabilidad positiva $1/k$ a cada uno de un número finito de puntos concretos; la **uniforme continua** asigna probabilidad cero a cada punto concreto y distribuye la probabilidad uniformemente **como densidad** sobre un intervalo continuo. En la discreta se suma sobre puntos; en la continua se integra sobre intervalos. Es el mismo salto conceptual que la sección sobre variables continuas del capítulo 8 dedicaba a explicar en detalle.
+
+### Solución al Problema 9.3.
+
+a)  $\xi$ sigue una **distribución de Bernoulli** de parámetro $p = 0{,}90$: $\xi \to B(1;\ 0{,}90)$. Es la piedra angular de todos los modelos "de conteo" del capítulo.
+
+b)  Función de cuantía: $P(\xi = 1) = 0{,}90$, $P(\xi = 0) = 0{,}10$. En forma compacta: $P(\xi = x) = 0{,}90^x\cdot 0{,}10^{1-x}$ para $x \in \{0, 1\}$.
+
+c)  $E(\xi) = p = \mathbf{0{,}90}$. $\mathrm{Var}(\xi) = p\cdot q = 0{,}90\cdot 0{,}10 = \mathbf{0{,}0900}$.
+
+d)  La varianza del Bernoulli es $p\cdot q = p(1-p)$, una parábola invertida con máximo en $p = 0{,}5$ (donde vale $0{,}25$) y ceros en $p = 0$ y $p = 1$. Con $p = 0{,}90$, el resultado es casi seguro (puntualidad casi garantizada), así que hay poca incertidumbre; la varianza es baja. La **máxima incertidumbre** aparecería con $p = 0{,}5$: cuando el resultado del lanzamiento de una moneda no permite predecir nada.
+
+### Solución al Problema 9.4.
+
+a)  $\xi \to B(15;\ 0{,}85)$. Se cumplen las condiciones: **número fijo** de ensayos ($n = 15$), **misma probabilidad** en todos ($p = 0{,}85$), e **independencia** entre despachos (rutas distintas, tripulaciones distintas). Es un binomial de manual.
+
+b)  $E(\xi) = n\cdot p = 15\cdot 0{,}85 = \mathbf{12{,}75}$ cargueros puntuales por noche. $\mathrm{Var}(\xi) = n\cdot p\cdot q = 15\cdot 0{,}85\cdot 0{,}15 = \mathbf{1{,}9125}$; $\sigma \approx 1{,}383$.
+
+c)  $P(\xi = 13) = \binom{15}{13}\cdot 0{,}85^{13}\cdot 0{,}15^{2} = 105 \cdot 0{,}12094 \cdot 0{,}0225 \approx \mathbf{0{,}2856}$.
+
+d)  $P(\xi \ge 13) = P(13) + P(14) + P(15) \approx 0{,}2856 + 0{,}2312 + 0{,}0874 \approx \mathbf{0{,}6042}$. En más del 60% de las noches se alcanza el umbral "13 o más": es un buen ritmo operativo.
+
+e)  $P(\xi \le 11) = 1 - P(\xi \ge 12) \approx 1 - (0{,}2184 + 0{,}2856 + 0{,}2312 + 0{,}0874) = 1 - 0{,}8226 = \mathbf{0{,}1774}$. Alrededor del 18% de las noches se activa el protocolo de investigación.
+
+f)  $P(\xi = 15) = 0{,}85^{15} \approx \mathbf{0{,}0874}$. Que "todo vaya bien" ocurre menos de una noche de cada once: es una buena noche, pero no una noche mágica.
+
+### Solución al Problema 9.5.
+
+a)  Número esperado de retrasos:
+
+    -   Ruta A: $E(\text{fracasos}_A) = 20 \cdot 0{,}05 = \mathbf{1}$ retraso.
+    -   Ruta B: $E(\text{fracasos}_B) = 50 \cdot 0{,}20 = \mathbf{10}$ retrasos.
+
+b)  Penalización esperada:
+
+    -   Ruta A: $500 \cdot 1 = \mathbf{500}$ PAVOs.
+    -   Ruta B: $500 \cdot 10 = \mathbf{5\,000}$ PAVOs.
+
+c)  Desviación típica del número de retrasos:
+
+    -   Ruta A: $\sqrt{20 \cdot 0{,}05 \cdot 0{,}95} = \sqrt{0{,}95} \approx \mathbf{0{,}975}$ retrasos.
+    -   Ruta B: $\sqrt{50 \cdot 0{,}20 \cdot 0{,}80} = \sqrt{8} \approx \mathbf{2{,}828}$ retrasos.
+
+d)  La argumentación del directivo es **incorrecta**. Aunque la "puntualidad relativa" de B (80%) parezca aceptable, en cifras absolutas B genera **10 veces más retrasos** que A porque despacha 2,5 veces más cargueros con una tasa de fracaso 4 veces mayor. La combinación es letal en términos de coste.
+
+e)  Para **minimizar coste esperado**, la ruta A es claramente preferible (500 PAVOs frente a 5 000). Para **evitar sorpresas** en el coste, también A: su desviación típica en el número de retrasos es tres veces menor. En este caso concreto, ambos criterios apuntan a la misma ruta. (No siempre ocurre así: cuando la ruta de mayor coste esperado tiene también menor varianza, aparece un dilema real; aquí no.)
+
+### Solución al Problema 9.6.
+
+a)  Análisis de los tres escenarios:
+
+    (i)  **Sí es adecuada la binomial.** Los 20 cargueros son ensayos independientes con la misma $p = 0{,}85$: exactamente las hipótesis de $B(20;\ 0{,}85)$. Cálculo aceptable.
+    (ii) **No es adecuada.** Los 20 cargueros comparten una fuente común de fracaso (la tormenta). Si la tormenta se recrudece, todos los fracasos aparecen juntos; si se disipa, todos los aciertos aparecen juntos. Los ensayos no son independientes. La binomial infraestima gravemente la probabilidad de un desastre colectivo.
+    (iii) **No es adecuada.** La probabilidad $p$ no es la misma en todos los ensayos: 15 cargueros tienen $p_1 = 0{,}92$ y 5 tienen $p_2 = 0{,}72$. Falla la homogeneidad de la binomial.
+
+b)  En el escenario (ii), la binomial supone que cada fracaso es independiente y por tanto $P(\text{20 retrasos}) = 0{,}15^{20} \approx 3\cdot 10^{-17}$ (prácticamente cero). Pero en la realidad, si la tormenta se recrudece, los 20 cargueros se retrasan **a la vez**, y la probabilidad real de "todos retrasados" es aproximadamente la probabilidad de que se recrudezca la tormenta, que puede ser perfectamente del 5-10%. La binomial infraestima varios órdenes de magnitud.
+
+c)  En el escenario (iii), la descomposición natural es aplicar dos binomiales por separado y sumarlas: $\xi_1 \to B(15;\ 0{,}92)$ para los modernos, $\xi_2 \to B(5;\ 0{,}72)$ para los antiguos, y $\xi = \xi_1 + \xi_2$. La distribución agregada **no** es binomial (porque las $p$ son distintas), pero sus momentos sí se combinan por linealidad: $E(\xi) = 15\cdot 0{,}92 + 5\cdot 0{,}72 = 13{,}8 + 3{,}6 = 17{,}4$ y $\mathrm{Var}(\xi) = 15\cdot 0{,}92\cdot 0{,}08 + 5\cdot 0{,}72\cdot 0{,}28 = 1{,}104 + 1{,}008 = 2{,}112$.
+
+d)  Se ilustra el **principio de identificación**: el modelo se elige por la estructura probabilística del experimento, no por el hecho de "estar contando éxitos en $n$ ensayos". Si la homogeneidad o la independencia fallan, la binomial deja de ser válida aunque el enunciado tenga el mismo aspecto. El aviso del capítulo lo formulaba con claridad: *"la estadística no tiene reparo en dar respuestas equivocadas: las da cuando le pedimos que aplique el modelo equivocado"*.
+
+### Solución al Problema 9.7.
+
+a)  $\xi_N \to B(12;\ 0{,}88)$ y $\xi_S \to B(18;\ 0{,}88)$.
+
+b)  Aplicando la **propiedad reproductiva** (misma $p$, ensayos independientes):
+
+    $$\xi = \xi_N + \xi_S \to B(12 + 18;\ 0{,}88) = B(30;\ 0{,}88).$$
+
+c)  Por dos vías:
+
+    -   Directamente: $E(\xi) = 30\cdot 0{,}88 = \mathbf{26{,}4}$; $\mathrm{Var}(\xi) = 30\cdot 0{,}88\cdot 0{,}12 = \mathbf{3{,}168}$.
+    -   Sumando: $E(\xi_N) + E(\xi_S) = 12\cdot 0{,}88 + 18\cdot 0{,}88 = 10{,}56 + 15{,}84 = 26{,}4$ ✓. $\mathrm{Var}(\xi_N) + \mathrm{Var}(\xi_S) = 12\cdot 0{,}88\cdot 0{,}12 + 18\cdot 0{,}88\cdot 0{,}12 = 1{,}2672 + 1{,}9008 = 3{,}168$ ✓.
+
+    Las dos vías coinciden, como debe ser.
+
+d)  Habría que asumir **independencia** entre las dos delegaciones (ninguna fuente de fracaso común, como una tormenta compartida) y **misma $p$** en ambas.
+
+    Si Norte tuviera $p_N = 0{,}88$ y Sur $p_S = 0{,}75$, la propiedad reproductiva **no se puede aplicar**: la binomial exige que todos los ensayos que se suman compartan la misma probabilidad. La suma $\xi = \xi_N + \xi_S$ seguiría teniendo esperanza $12\cdot 0{,}88 + 18\cdot 0{,}75 = 24{,}06$ y varianza $12\cdot 0{,}88\cdot 0{,}12 + 18\cdot 0{,}75\cdot 0{,}25 = 1{,}2672 + 3{,}375 = 4{,}6422$ (por linealidad, que sí se cumple), pero no sería binomial: sería una mezcla más compleja.
+
+### Solución al Problema 9.8.
+
+a)  $\xi \to \mathrm{Po}(4)$. Proceso de Poisson con tasa media $\lambda = 4$ clientes por hora.
+
+b)  $P(\xi = 0) = e^{-4} \approx \mathbf{0{,}0183}$. Menos del 2% de las horas están vacías: la sucursal casi nunca queda sin clientes.
+
+c)  $P(\xi = 6) = \dfrac{e^{-4}\cdot 4^6}{6!} = \dfrac{0{,}0183\cdot 4\,096}{720} \approx \mathbf{0{,}1042}$.
+
+d)  $P(\xi \ge 3) = 1 - P(\xi \le 2) = 1 - [P(0) + P(1) + P(2)] = 1 - [0{,}0183 + 0{,}0733 + 0{,}1465] = 1 - 0{,}2381 = \mathbf{0{,}7619}$. Más del 76% de las horas tienen al menos tres clientes.
+
+e)  Tabulando $F(k) = P(\xi \le k)$ para valores crecientes de $k$: $F(6) = 0{,}8893$; $F(7) = 0{,}9489$; $F(8) = \mathbf{0{,}9786}$. El mínimo $k$ tal que $P(\xi \le k) \ge 0{,}95$ es $k = \mathbf{8}$. Es decir, un puesto que atienda 8 clientes por hora cubre "las horas normales" (por debajo del percentil 95%) sin más ajustes; el 5% restante son horas punta que requerirán refuerzo puntual.
+
+### Solución al Problema 9.9.
+
+a)  Al ser un proceso de Poisson con tasa constante, $\lambda$ escala linealmente con el intervalo:
+
+    -   Por mes: $\lambda_m = 3/12 = \mathbf{0{,}25}$ averías/mes.
+    -   Por trimestre: $\lambda_t = 3/4 = \mathbf{0{,}75}$ averías/trimestre.
+    -   En dos años: $\lambda_2 = 3\cdot 2 = \mathbf{6}$ averías.
+
+b)  $P(\xi \ge 1 \text{ en un mes}) = 1 - P(\xi = 0) = 1 - e^{-0{,}25} \approx 1 - 0{,}7788 = \mathbf{0{,}2212}$. Alrededor del 22% de los meses tendrán al menos una avería.
+
+c)  $P(\xi = 2 \text{ en un trimestre}) = \dfrac{e^{-0{,}75}\cdot 0{,}75^2}{2!} = \dfrac{0{,}4724\cdot 0{,}5625}{2} \approx \mathbf{0{,}1329}$.
+
+d)  $P(\xi > 8 \text{ en 2 años}) = 1 - P(\xi \le 8) \approx 1 - 0{,}8472 = \mathbf{0{,}1528}$. Alrededor del 15% de los períodos bianuales tendrán más de 8 averías.
+
+e)  La condición necesaria es que el **proceso subyacente sea de Poisson homogéneo**: la tasa de averías debe ser constante en el tiempo (o al menos su promedio a largo plazo), y las averías deben ocurrir de forma independiente unas de otras. Si el proceso tuviera estacionalidad (por ejemplo, más averías en primavera que en invierno), la escala lineal ya no sería válida.
+
+### Solución al Problema 9.10.
+
+a)  $\xi \to B(500;\ 0{,}01)$: cada uno de los 500 paquetes tiene probabilidad 0,01 de dañarse, con independencia.
+
+b)  Se cumplen holgadamente: $n = 500 \ge 30$ ✓, $p = 0{,}01 \le 0{,}05$ ✓ (de hecho, es incluso $\le 0{,}01$, el rango "excelente").
+
+c)  Con Poisson $\lambda = 5$: $P(\xi = 3) = \dfrac{e^{-5}\cdot 5^3}{3!} = \dfrac{0{,}006738\cdot 125}{6} \approx \mathbf{0{,}1404}$.
+
+d)  Con binomial exacta: $P(\xi = 3) = \binom{500}{3}\cdot 0{,}01^3\cdot 0{,}99^{497} \approx \mathbf{0{,}1402}$.
+
+    Las dos cifras coinciden hasta la cuarta cifra decimal ($0{,}1404$ vs $0{,}1402$). La aproximación es prácticamente indistinguible del cálculo exacto.
+
+e)  Intuitivamente: cuando $p$ es muy pequeño, cada paquete concreto casi no aporta al conteo. Lo que importa es el **agregado**, y ese agregado se puede describir con una sola tasa media $\lambda = n\cdot p$ sin necesidad de saber cuántos son los paquetes individuales. Es la esencia de la aproximación Poisson: **eventos raros, muchas oportunidades**, con la única regularidad relevante en su producto.
+
+### Solución al Problema 9.11.
+
+a)  $\xi_A \to \mathrm{Po}(1{,}5)$; $\xi_B \to \mathrm{Po}(2{,}8)$.
+
+b)  Por la **propiedad reproductiva** de la Poisson (independencia entre sectores):
+
+    $$\xi = \xi_A + \xi_B \to \mathrm{Po}(1{,}5 + 2{,}8) = \mathbf{\mathrm{Po}(4{,}3)}.$$
+
+c)  Por independencia entre los dos procesos:
+
+    $$P(\xi_A = 1)\cdot P(\xi_B = 3) = \dfrac{e^{-1{,}5}\cdot 1{,}5^1}{1!}\cdot \dfrac{e^{-2{,}8}\cdot 2{,}8^3}{3!} = 0{,}3347\cdot 0{,}2225 \approx \mathbf{0{,}0745}.$$
+
+d)  $P(\xi = 4 \text{ con } \lambda = 4{,}3) = \dfrac{e^{-4{,}3}\cdot 4{,}3^4}{4!} \approx \mathbf{0{,}1933}$.
+
+e)  El resultado del apartado (c) es solo **una** de las 5 combinaciones posibles que suman 4 reportes agregados: $(0, 4), (1, 3), (2, 2), (3, 1), (4, 0)$. Sumando las cinco probabilidades $P(\xi_A = a)\cdot P(\xi_B = 4-a)$ para $a = 0, 1, 2, 3, 4$ debería obtenerse el valor total $0{,}1933$ que da la Poisson agregada.
+
+    Verificación numérica: $P(0,4)\cdot P(4,0)$… (cálculo omitido por brevedad); la suma sí da $0{,}1933$. Este es el sentido matemático profundo de la propiedad reproductiva: dice que la **convolución** de dos Poisson es otra Poisson.
+
+### Solución al Problema 9.12.
+
+a)  Ratios:
+
+    -   Muestra A: $0{,}82/0{,}80 = \mathbf{1{,}025}$.
+    -   Muestra B: $15{,}4/3{,}2 = \mathbf{4{,}8125}$.
+    -   Muestra C: $8{,}7/8{,}5 = \mathbf{1{,}0235}$.
+
+b)  Diagnóstico:
+
+    -   **Muestra A** (ratio ≈ 1): **Poisson razonable**. Cargueros de reciente matriculación tienen historial homogéneo, y no hay razón para sobredispersión.
+    -   **Muestra B** (ratio ≈ 4,8): **fuerte sobredispersión**. La Poisson no sirve; hay que usar **binomial negativa**. Es típico de datos de reclamaciones: clientes muy heterogéneos, con unos pocos "quejicas" concentrando muchas reclamaciones.
+    -   **Muestra C** (ratio ≈ 1): **Poisson razonable**. Llegadas de clientes por hora en una sucursal bancaria: procesos de flujo estables, sin heterogeneidad marcada.
+
+c)  Para A: $\lambda_A \approx 0{,}80$ siniestros/póliza al año. Para C: $\lambda_C \approx 8{,}5$ clientes/hora.
+
+d)  Cuando hay sobredispersión, la Poisson (con media = varianza) reparte la masa demasiado concentradamente alrededor de la media. Los valores extremos aparecen con probabilidad muy baja en la Poisson, pero **con probabilidad apreciable** en la BN, que tiene colas más pesadas. Un ecommerce con Poisson $\mathrm{Po}(3{,}2)$ concluiría que ningún cliente hará 15 reclamaciones al año (probabilidad casi cero), cuando en la realidad hay unos cuantos usuarios que sí lo hacen. La BN sí lo captura.
+
+e)  La sobredispersión es la **norma** en datos económicos de conteo porque los individuos económicos son **heterogéneos**: no todas las pólizas tienen la misma propensión al siniestro, no todos los clientes tienen la misma propensión a reclamar, no todos los sectores tienen la misma tasa de defectos. Cuando el proceso subyacente mezcla poblaciones con parámetros distintos, aparece sobredispersión de manera casi inevitable. La BN, con su parámetro extra $r$, absorbe esa heterogeneidad.
+
+### Solución al Problema 9.13.
+
+a)  $\xi \to \mathrm{BN}(5;\ 0{,}30)$: fracasos antes del quinto éxito, cada intento independiente con $p = 0{,}30$.
+
+b)  Media y varianza:
+
+    $$E(\xi) = r\cdot \dfrac{q}{p} = 5\cdot \dfrac{0{,}70}{0{,}30} = \mathbf{11{,}67}\ \text{fracasos.}$$
+
+    $$\mathrm{Var}(\xi) = r\cdot \dfrac{q}{p^2} = 5\cdot \dfrac{0{,}70}{0{,}09} = \mathbf{38{,}89}. \qquad \sigma \approx 6{,}24.$$
+
+    En promedio, el vendedor recibirá **11,67 rechazos** antes de cerrar los 5 contratos, pero con una desviación típica muy grande ($\sigma \approx 6{,}24$): la cifra real oscilará considerablemente de un mes a otro.
+
+c)  $P(\xi = 10) = \binom{10 + 5 - 1}{10}\cdot 0{,}30^5\cdot 0{,}70^{10} = \binom{14}{10}\cdot 0{,}00243\cdot 0{,}02825 = 1\,001\cdot 6{,}865\cdot 10^{-5} \approx \mathbf{0{,}0687}$.
+
+d)  Número **total** esperado de llamadas = 5 éxitos + 11,67 fracasos = **16,67 llamadas**. La cifra del jefe comercial (30) es cómodamente superior; incluso considerando la desviación típica del proceso, 30 llamadas cubren razonablemente la mayoría de escenarios. La estimación es sensata.
+
+e)  El ratio $\sigma^2/\mu = (rq/p^2)/(rq/p) = 1/p$. Aquí $1/p = 1/0{,}30 \approx 3{,}33$, mayor que 1: la BN es **naturalmente sobredispersa** (ya lo veíamos en la introducción del modelo). Es exactamente esta propiedad la que la hace idónea para modelar conteos empresariales.
+
+### Solución al Problema 9.14.
+
+a)  $\xi \to G(0{,}70)$: caso particular de la binomial negativa con $r = 1$. Fracasos antes del primer éxito.
+
+b)  $E(\xi) = q/p = 0{,}30/0{,}70 \approx \mathbf{0{,}4286}$ intentos fallidos. $\mathrm{Var}(\xi) = q/p^2 = 0{,}30/0{,}49 \approx \mathbf{0{,}6122}$.
+
+c)  $P(\xi = 0) = p = \mathbf{0{,}70}$. Es la probabilidad de acertar al primer intento.
+
+d)  $P(\xi \ge 3) = q^3 = 0{,}30^3 = \mathbf{0{,}0270}$. Menos del 3% de las veces Rey acumulará tres fallos consecutivos antes de acertar. La escuela de Fhloston puede dormir tranquila.
+
+e)  Por la **propiedad de falta de memoria** de la geométrica, saber que Rey ya ha fallado dos veces **no aporta información** sobre el tercer intento. La probabilidad de que el tercer intento sea otro fallo es simplemente $q = \mathbf{0{,}30}$, la misma que la del primer intento.
+
+    Formalmente: $P(\xi \ge k + 1 \mid \xi \ge k) = P(\xi \ge 1) = q$ para cualquier $k$. La geométrica "se olvida" del pasado. Es una propiedad rara y bella: solo la geométrica (entre las discretas) y la exponencial (entre las continuas) la poseen.
+
+### Solución al Problema 9.15.
+
+a)  Ratio $s^2/\bar x = 6{,}25/2{,}5 = 2{,}5$: sobredispersión clara. La Poisson queda descartada.
+
+b)  Partimos de $\mu = rq/p$ y $\sigma^2 = rq/p^2$. Dividiendo:
+
+    $$\dfrac{\sigma^2}{\mu} = \dfrac{rq/p^2}{rq/p} = \dfrac{1}{p} \implies \boxed{p = \dfrac{\mu}{\sigma^2}}.$$
+
+    Y una vez conocido $p$: $r = \mu\cdot p/q = \mu\cdot p/(1-p)$.
+
+c)  Con $\mu = 2{,}5$ y $\sigma^2 = 6{,}25$:
+
+    $$p = \dfrac{2{,}5}{6{,}25} = \mathbf{0{,}40}; \qquad q = 0{,}60.$$
+
+    $$r = \dfrac{2{,}5\cdot 0{,}40}{0{,}60} = \dfrac{1{,}0}{0{,}60} = \mathbf{1{,}6667}.$$
+
+    Nótese que $r$ no es entero. Esto es normal en el ajuste por momentos: el parámetro $r$ se generaliza como parámetro continuo positivo. Verificación: $E = 1{,}6667\cdot 0{,}60/0{,}40 = 2{,}50$ ✓; $\mathrm{Var} = 1{,}6667\cdot 0{,}60/0{,}16 = 6{,}25$ ✓.
+
+d)  Con la BN ajustada: $P(\xi = 5) \approx \mathbf{0{,}0606}$. Aproximadamente el 6% de las pólizas registrarán exactamente 5 siniestros al año.
+
+e)  Con Poisson $\mathrm{Po}(2{,}5)$: $P(\xi = 5) = e^{-2{,}5}\cdot 2{,}5^5/5! \approx \mathbf{0{,}0668}$. Sorprendentemente, cifras parecidas para el punto $x = 5$. La diferencia real entre modelos se ve en las **colas**: la Poisson daría probabilidades minúsculas para $x = 10, 15, 20$ siniestros, mientras que la BN mantendría probabilidades apreciables (no cero) para esos valores extremos. Es en las colas donde la BN "gana" al Poisson en gestión de riesgos.
+
+### Solución al Problema 9.16.
+
+a)  $\xi \to H(50;\ 8;\ 15/50) = H(50;\ 8;\ 0{,}30)$. Población $N = 50$, éxitos en población $N_1 = 15$, muestra $n = 8$.
+
+b)  Media y varianza:
+
+    $$E(\xi) = n\cdot p = 8\cdot 0{,}30 = \mathbf{2{,}40}.$$
+
+    $$\mathrm{Var}(\xi) = n\cdot p\cdot q\cdot \dfrac{N - n}{N - 1} = 8\cdot 0{,}30\cdot 0{,}70\cdot \dfrac{42}{49} = 1{,}68\cdot 0{,}857 \approx \mathbf{1{,}44}.$$
+
+c)  $P(\xi = 3) = \dfrac{\binom{15}{3}\cdot \binom{35}{5}}{\binom{50}{8}} = \dfrac{455\cdot 324\,632}{536\,878\,650} \approx \mathbf{0{,}2751}$.
+
+d)  $P(\xi \ge 1) = 1 - P(\xi = 0) = 1 - \dfrac{\binom{15}{0}\cdot \binom{35}{8}}{\binom{50}{8}} = 1 - \dfrac{23\,535\,820}{536\,878\,650} \approx 1 - 0{,}0438 = \mathbf{0{,}9562}$. Con muy alta probabilidad se detecta al menos una compañía con fallas: la auditoría, aun siendo pequeña, es eficaz.
+
+e)  Se aplica hipergeométrica y no binomial porque el muestreo es **sin reemplazamiento**: cada compañía auditada se retira de la población y las probabilidades de las siguientes extracciones cambian. Los ensayos no son independientes.
+
+### Solución al Problema 9.17.
+
+a)  Con $B(8;\ 0{,}30)$: $P(\xi = 3) = \binom{8}{3}\cdot 0{,}30^3\cdot 0{,}70^5 = 56\cdot 0{,}027\cdot 0{,}16807 \approx \mathbf{0{,}2541}$.
+
+    Comparado con el resultado exacto (0,2751): la binomial **subestima** ligeramente.
+
+b)  Diferencia absoluta: $0{,}2751 - 0{,}2541 = \mathbf{0{,}0210}$. Diferencia relativa: $0{,}0210/0{,}2751 \approx \mathbf{7{,}6\%}$. No es despreciable.
+
+c)  Regla práctica:
+
+    -   $p = 15/50 = 0{,}30$: **no** cumple $p < 0{,}1$.
+    -   $n/N = 8/50 = 0{,}16$: **no** cumple $n/N < 0{,}1$.
+
+    Ninguna de las dos condiciones se satisface con holgura; la aproximación es de calidad discutible, con un 7,6% de error relativo en el punto probado.
+
+d)  Con el escenario ampliado ($N = 500$, $N_1 = 150$, $n = 8$, misma $p = 0{,}30$):
+
+    -   Hipergeométrica exacta: $P(\xi = 3) \approx \mathbf{0{,}2560}$.
+    -   Binomial: $P(\xi = 3) \approx \mathbf{0{,}2541}$ (igual que antes: la binomial no depende de $N$).
+    -   Diferencia relativa: $0{,}0019/0{,}2560 \approx \mathbf{0{,}7\%}$: prácticamente perfecta.
+
+e)  Aunque $p$ sigue siendo el mismo (0,30), ha cambiado la relación $n/N$: de $0{,}16$ (muestra 8 sobre 50) a $0{,}016$ (muestra 8 sobre 500), muy inferior al umbral 0,1. Cuando la muestra es una fracción **muy pequeña** de la población, el efecto del "sin reemplazamiento" es despreciable —extraer 8 elementos de 500 apenas modifica las probabilidades de las siguientes extracciones— y la binomial aproxima bien a la hipergeométrica.
+
+### Solución al Problema 9.18.
+
+a)  Modelo: $\xi \to B(10;\ 0{,}95)$ = *"número de controles superados de los 10"*. Se pide $P(\xi = 10) = 0{,}95^{10} \approx \mathbf{0{,}5987}$. Casi el 60% de los cargueros supera los 10 controles sin fallo.
+
+b)  Modelo: $\xi \to \mathrm{Po}(12)$. Se pide $P(8 \le \xi \le 15) = P(\xi \le 15) - P(\xi \le 7) \approx 0{,}8444 - 0{,}0895 = \mathbf{0{,}7549}$. Alrededor del 75% de los minutos tienen entre 8 y 15 peticiones (rango operativamente "normal").
+
+c)  Modelo: $\xi \to H(40;\ 5;\ 6/40)$. Se pide $P(\xi \ge 1) = 1 - P(\xi = 0) = 1 - \dfrac{\binom{6}{0}\cdot \binom{34}{5}}{\binom{40}{5}} = 1 - \dfrac{278\,256}{658\,008} \approx 1 - 0{,}4229 = \mathbf{0{,}5771}$. Casi el 58% de las auditorías detectan al menos un contenedor mal etiquetado.
+
+d)  Modelo: $\xi \to G(0{,}08)$ = *"archivos procesados con éxito antes del primer fallo"*. Se pide $P(\xi = 20) = 0{,}92^{20}\cdot 0{,}08 \approx \mathbf{0{,}01510}$. Alrededor del 1,5% de las tandas alcanzan los 20 archivos sin fallo antes de recibir el primero.
+
+    (Advertencia: en el enunciado, "éxito" es procesar sin fallo, y el evento marcado es el primer **fallo**. En términos de la geométrica, "fracaso antes del primer éxito" tiene aquí sentido invertido; el modelo es simétrico y funciona igual, pero conviene ser explícito con la definición.)
+
+### Solución al Problema 9.19.
+
+a)  $\xi \to B(200;\ 0{,}85)$ exactamente.
+
+b)  $E(\xi) = 200\cdot 0{,}85 = \mathbf{170}$; $\mathrm{Var}(\xi) = 200\cdot 0{,}85\cdot 0{,}15 = 25{,}5$; $\sigma \approx \mathbf{5{,}05}$.
+
+c)  Condiciones: $n\cdot p = 170 \ge 5$ ✓ ampliamente. $n\cdot q = 30 \ge 5$ ✓ también. La aproximación normal es plenamente aplicable.
+
+d)  Con normal $N(170,\ 5{,}05)$ y aplicando la **corrección de continuidad** (paso de discreta a continua):
+
+    $$P(\xi \ge 175) \approx P(X > 174{,}5) = 1 - \Phi\!\left(\dfrac{174{,}5 - 170}{5{,}05}\right) = 1 - \Phi(0{,}8911) \approx \mathbf{0{,}1864}.$$
+
+    Aproximadamente el 18,6% de las noches (con 200 despachos) tendrán al menos 175 puntuales.
+
+    Verificación con la binomial exacta: $P(\xi \ge 175) \approx 0{,}1876$. Diferencia menor del 1%: la aproximación normal es excelente.
+
+    (Nota: sin corrección de continuidad se obtendría 0,1611, con un error apreciable. La corrección es importante cuando la binomial se acerca a la normal.)
+
+e)  Cuando $n$ crece con $p$ fijo (y no muy cerca de 0 o 1), la binomial se vuelve **cada vez más simétrica** y **cada vez más concentrada** alrededor de su media, con una forma que se aproxima gradualmente a la campana de Gauss. Este es un caso particular del **teorema central del límite**: la suma de $n$ Bernoullis independientes (que es exactamente la binomial) se aproxima a una normal cuando $n$ es grande. El próximo capítulo lo formalizará: la campana normal aparece "por todas partes" precisamente porque casi todo lo que medimos son sumas o promedios de muchas fuentes de aleatoriedad, y el TCL garantiza que esas sumas convergen a la normal.
+
+### Solución al Problema 9.20.
+
+a)  **Fase 1 en 1 hora.** $\xi_h \to \mathrm{Po}(6)$: $P(4 \le \xi_h \le 8) = P(\xi_h \le 8) - P(\xi_h \le 3) \approx 0{,}8472 - 0{,}1512 = \mathbf{0{,}6960}$. Casi el 70% de las horas tienen entre 4 y 8 llegadas.
+
+b)  **Fase 1 en jornada.** Por escalado del proceso Poisson, $\xi_J \to \mathrm{Po}(6\cdot 8) = \mathrm{Po}(48)$. Esperanza: $E(\xi_J) = \mathbf{48}$ cargueros/jornada.
+
+    $P(\xi_J < 40) = P(\xi_J \le 39) \approx \mathbf{0{,}1073}$. Alrededor del 11% de las jornadas se cerrarán con menos de 40 cargueros: es un umbral inferior claramente por debajo de lo típico.
+
+c)  **Fase 2.** Condicional a que han llegado 15 cargueros, el número de alertas sigue una **binomial** $\eta \to B(15;\ 0{,}20)$ (equivalentemente, el número de conformes es $B(15;\ 0{,}80)$).
+
+    $P(\eta = 3) = \binom{15}{3}\cdot 0{,}20^3\cdot 0{,}80^{12} = 455\cdot 0{,}008\cdot 0{,}0687 \approx \mathbf{0{,}2501}$. En una de cada cuatro tandas de 15 cargueros habrá exactamente 3 alertas.
+
+d)  **Fase 3.** Auditoría sin reemplazamiento en población finita: **hipergeométrica** $\zeta \to H(50;\ 10;\ 12/50)$.
+
+    $P(\zeta = 3) = \dfrac{\binom{12}{3}\cdot \binom{38}{7}}{\binom{50}{10}} \approx \mathbf{0{,}2703}$. Aproximadamente el 27% de las auditorías detectarán exactamente 3 cargueros con alerta.
+
+e)  **Aproximación binomial en Fase 3.** Verificación de las reglas prácticas:
+
+    -   $p = 12/50 = 0{,}24$: **no** cumple $p < 0{,}10$.
+    -   $n/N = 10/50 = 0{,}20$: **no** cumple $n/N < 0{,}10$.
+
+    Ninguna de las dos condiciones se satisface. Con binomial $B(10;\ 0{,}24)$ se obtendría $P(\zeta = 3) \approx 0{,}2429$, con una diferencia relativa cercana al **10%** respecto al valor exacto hipergeométrico. Es preferible mantener la hipergeométrica.
+
+f)  **Recomendación operativa de Mara Qyà.**
+
+    > *"El puesto de aduana recibe, en promedio, 48 cargueros por jornada, con una tasa media de 20% de alertas: es decir, unas 9,6 alertas esperadas por jornada. Dimensionar el equipo de inspección para 'cubrir la media' con exactamente 10 inspectores sería, sin embargo, insuficiente: la varianza del número de alertas por jornada es también apreciable (Poisson escalada + binomial encadenada añaden dispersión), y en un tercio de las jornadas fácilmente aparecerán 12 o más alertas. Recomiendo dimensionar el equipo para 'cubrir el percentil 90-95%' de la carga, esto es, unos 14-15 inspectores efectivos por jornada, con un pequeño equipo de refuerzo para picos extraordinarios. Además, sugiero: (i) auditar mediante hipergeométrica, no binomial, dado que la fracción de muestreo no es despreciable; (ii) revisar mensualmente la tasa de alertas por si drifta al alza (lo que obligaría a re-dimensionar); y (iii) analizar por separado el subconjunto de cargueros con alertas confirmadas, para identificar patrones sectoriales o de origen que permitan un cribado más eficiente."*
+
+    La lección de fondo del capítulo, condensada en un caso real: **cada fase del proceso operativo se rige por un modelo distinto** —Poisson para las llegadas, binomial para la aceptación, hipergeométrica para la auditoría— y cada uno requiere identificarse correctamente para que los cálculos posteriores tengan sentido. Aplicar un solo modelo a todo (o el modelo equivocado en cualquier fase) llevaría a estimaciones sesgadas y a un dimensionamiento incorrecto del equipo de trabajo.
+
