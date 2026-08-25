@@ -870,7 +870,604 @@ Total
 </ul>
 <p>En el siguiente capítulo daremos el salto natural. Hasta aquí hemos hablado de sucesos, es decir, de resultados <strong>cualitativos</strong> («la nave es de KORRIGAN», «la ruta tuvo incidencia»). Pero muchas veces el resultado de un experimento aleatorio tiene forma <strong>numérica</strong>: cuántas incidencias hay en un año, cuánto tarda una nave en llegar, cuánto factura una compañía el próximo trimestre, cuántas de las diez próximas compañías solicitantes de crédito acabarán impagando. Ese salto —del suceso a la magnitud numérica— se articula en torno al concepto de <strong>variable aleatoria</strong>, protagonista del próximo capítulo.</p>
 <p>Una variable aleatoria es, sencillamente, una regla que asigna un número a cada resultado del experimento. Piénselo así: si el experimento es «elegir una nave al azar de la flota», podemos definir la variable aleatoria <span class="math inline">\(X\)</span> = «tonelaje de la nave» o <span class="math inline">\(Y\)</span> = «<span class="math inline">\(1\)</span> si es pesada, <span class="math inline">\(0\)</span> si es ligera». Con esa traducción, todo el instrumental del cálculo diferencial e integral queda disponible para calcular medias, varianzas, cuantiles y —lo más útil de todo— <strong>valores esperados</strong> que sirven para tomar decisiones económicas bajo incertidumbre. <em>Hyperdrive Express</em>, <em>Arrakis Freight</em>, <em>Shuttlepod Movers</em> y los astilleros galácticos seguirán con nosotros; solo que, a partir de ahora, en lugar de decir «ocurrió» o «no ocurrió», empezaremos a decir «ocurrió con este número».</p>
-
+</div>
+<div id="problemas-cap07" class="section level2" number="7.6">
+<h2>
+<span class="header-section-number">7.6</span> Problemas propuestos.<a class="anchor" aria-label="anchor" href="#problemas-cap07"><i class="fas fa-link"></i></a>
+</h2>
+<p>Los ejercicios que siguen combinan <strong>cálculo controlado</strong> —aplicaciones directas de la regla de Laplace, la regla de la unión, las condicionadas, la probabilidad total, Bayes y su forma en <em>odds</em>— con un peso importante de <strong>interpretación</strong>: por qué <span class="math inline">\(P(A\mid B) \neq P(B\mid A)\)</span>, cuándo tiene sentido cada enfoque de la probabilidad, cómo se lee la paradoja de la tasa base, y cuándo es razonable asumir independencia. Todas las soluciones detalladas se recogen al final del capítulo.</p>
+<div id="problema-7.1.-sucesos-sobre-la-flota-galáctica." class="section level3" number="7.6.1">
+<h3>
+<span class="header-section-number">7.6.1</span> Problema 7.1. Sucesos sobre la flota galáctica.<a class="anchor" aria-label="anchor" href="#problema-7.1.-sucesos-sobre-la-flota-gal%C3%A1ctica."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sea la flota de los 48 cargueros del sector R-Stars. Sobre el experimento <em>“elegir al azar un carguero de la flota”</em>, definimos:</p>
+<ul>
+<li>
+<span class="math inline">\(K =\)</span> «el carguero es de KORRIGAN»,</li>
+<li>
+<span class="math inline">\(S =\)</span> «el carguero es de SELENE»,</li>
+<li>
+<span class="math inline">\(A =\)</span> «el carguero es de ARCTURUS»,</li>
+<li>
+<span class="math inline">\(P =\)</span> «el carguero es pesado» (tonelaje <span class="math inline">\(&gt; 700\)</span> mil t),</li>
+<li>
+<span class="math inline">\(V =\)</span> «el carguero es veterano» (antigüedad <span class="math inline">\(&gt; 8\)</span> años).</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Describe con palabras el suceso <span class="math inline">\(K \cup A\)</span>. ¿Cuál sería su suceso complementario?</li>
+<li>Describe qué representa el suceso <span class="math inline">\((K \cup A) \cap P\)</span>. Escríbelo en lenguaje natural.</li>
+<li>Aplica una de las leyes de De Morgan para simplificar <span class="math inline">\((P^{*} \cup V^{*})^{*}\)</span>. ¿A qué suceso equivale?</li>
+<li>¿Los sucesos <span class="math inline">\(K\)</span>, <span class="math inline">\(S\)</span> y <span class="math inline">\(A\)</span> forman una <strong>partición</strong> del espacio muestral? Justifica en términos de las dos condiciones que debe cumplir una partición.</li>
+</ol>
+</div>
+<div id="problema-7.2.-regla-de-laplace-y-partición." class="section level3" number="7.6.2">
+<h3>
+<span class="header-section-number">7.6.2</span> Problema 7.2. Regla de Laplace y partición.<a class="anchor" aria-label="anchor" href="#problema-7.2.-regla-de-laplace-y-partici%C3%B3n."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sobre la flota galáctica sabemos: <strong>48 cargueros</strong> en total, de los cuales <strong>16 de KORRIGAN</strong>, <strong>22 de SELENE</strong> y <strong>10 de ARCTURUS</strong>. De todos ellos, <strong>26 son pesados</strong> y <strong>22 son ligeros</strong>; <strong>30 son veteranos</strong> y <strong>18 son recientes</strong>. Se pide, aplicando la regla de Laplace:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula la probabilidad de que un carguero elegido al azar sea de <strong>SELENE</strong>.</li>
+<li>Calcula la probabilidad de que sea <strong>ligero</strong>.</li>
+<li>Calcula la probabilidad de que sea de <strong>KORRIGAN o de SELENE</strong>.</li>
+<li>Verifica numéricamente que <span class="math inline">\(P(K) + P(S) + P(A) = 1\)</span>. ¿Qué <strong>propiedad</strong> del capítulo estás confirmando y qué implica sobre los tres sucesos?</li>
+</ol>
+</div>
+<div id="problema-7.3.-regla-de-la-unión-e-inclusión-exclusión." class="section level3" number="7.6.3">
+<h3>
+<span class="header-section-number">7.6.3</span> Problema 7.3. Regla de la unión e inclusión-exclusión.<a class="anchor" aria-label="anchor" href="#problema-7.3.-regla-de-la-uni%C3%B3n-e-inclusi%C3%B3n-exclusi%C3%B3n."><i class="fas fa-link"></i></a>
+</h3>
+<p>La tabla de contingencia astillero × tonelaje sobre la flota es:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="center">Ligero</th>
+<th align="center">Pesado</th>
+<th align="center">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">KORRIGAN</td>
+<td align="center">0</td>
+<td align="center">16</td>
+<td align="center">16</td>
+</tr>
+<tr class="even">
+<td align="left">SELENE</td>
+<td align="center">21</td>
+<td align="center">1</td>
+<td align="center">22</td>
+</tr>
+<tr class="odd">
+<td align="left">ARCTURUS</td>
+<td align="center">1</td>
+<td align="center">9</td>
+<td align="center">10</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Total</strong></td>
+<td align="center">22</td>
+<td align="center">26</td>
+<td align="center">48</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 7.5</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula <span class="math inline">\(P(K)\)</span>, <span class="math inline">\(P(P)\)</span> y <span class="math inline">\(P(K \cap P)\)</span>.</li>
+<li>Aplica la regla de la unión (inclusión-exclusión) para obtener <span class="math inline">\(P(K \cup P)\)</span>.</li>
+<li>¿Qué peculiaridad observas al comparar <span class="math inline">\(P(K \cup P)\)</span> con <span class="math inline">\(P(P)\)</span>? Interprétala en términos de la relación de conjuntos entre <span class="math inline">\(K\)</span> y <span class="math inline">\(P\)</span>.</li>
+<li>Calcula ahora <span class="math inline">\(P(S \cup P)\)</span> mediante la misma regla y compáralo con <span class="math inline">\(P(K \cup P)\)</span>. Justifica por qué son muy distintos aunque <span class="math inline">\(K\)</span> y <span class="math inline">\(S\)</span> tengan tamaños similares.</li>
+</ol>
+</div>
+<div id="problema-7.4.-complementario-y-leyes-de-de-morgan." class="section level3" number="7.6.4">
+<h3>
+<span class="header-section-number">7.6.4</span> Problema 7.4. Complementario y leyes de De Morgan.<a class="anchor" aria-label="anchor" href="#problema-7.4.-complementario-y-leyes-de-de-morgan."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sobre 200 compañías del sector R-Stars con actividad intergaláctica, se sabe que:</p>
+<ul>
+<li>El <strong>40%</strong> tiene contrato con la Federación de Rutas de Andrómeda (suceso <span class="math inline">\(F\)</span>).</li>
+<li>El <strong>30%</strong> tiene contrato con el Consorcio de Klendathu (suceso <span class="math inline">\(C\)</span>).</li>
+<li>El <strong>15%</strong> tiene contrato con <strong>ambos</strong> organismos (<span class="math inline">\(F \cap C\)</span>).</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Qué probabilidad hay de que una compañía elegida al azar tenga <strong>al menos uno</strong> de los dos contratos?</li>
+<li>¿Qué probabilidad hay de que <strong>no tenga ninguno</strong> de los dos?</li>
+<li>Escribe la expresión “no tener ninguno” en términos de <span class="math inline">\(F\)</span> y <span class="math inline">\(C\)</span> y aplica la ley de De Morgan que corresponda. Verifica que el resultado coincide con el apartado (b).</li>
+<li>¿Qué probabilidad hay de que tenga <strong>exactamente uno</strong> de los dos contratos (uno u otro, pero no los dos a la vez)?</li>
+</ol>
+</div>
+<div id="problema-7.5.-elegir-el-enfoque-de-probabilidad." class="section level3" number="7.6.5">
+<h3>
+<span class="header-section-number">7.6.5</span> Problema 7.5. Elegir el enfoque de probabilidad.<a class="anchor" aria-label="anchor" href="#problema-7.5.-elegir-el-enfoque-de-probabilidad."><i class="fas fa-link"></i></a>
+</h3>
+<p>Para cada uno de los siguientes escenarios, indica qué <strong>enfoque</strong> de la probabilidad —clásico, frecuentista o subjetivo— sería el más adecuado para asignar la probabilidad, y justifica en una o dos líneas:</p>
+<ol style="list-style-type: lower-alpha">
+<li>En una jornada de puertas abiertas, la ARTI sortea entre los 300 asistentes un simulador de vuelo. ¿Cuál es la probabilidad de que un asistente concreto salga premiado?</li>
+<li>
+<em>Arrakis Freight</em> estudia la probabilidad de que un vuelo de la ruta Arrakis-Coruscant sufra al menos una incidencia menor. Dispone del registro de las <strong>5 000 últimas operaciones</strong> de esa ruta.</li>
+<li>Un analista financiero necesita valorar la probabilidad de que la fusión anunciada entre <em>Kaiju Haulage Co.</em> y <em>Vader &amp; Company</em> se cierre antes de que termine el trimestre. Es una operación única sin precedentes recientes.</li>
+<li>Un consultor calcula la probabilidad de acertar exactamente 4 respuestas al azar en un test tipo test con 10 preguntas y 4 opciones por pregunta.</li>
+<li>Un actuario de seguros calcula la prima anual del seguro de un carguero de 15 años apoyándose en la base histórica de siniestralidad de los últimos 20 años.</li>
+</ol>
+</div>
+<div id="problema-7.6.-probabilidad-condicionada-en-dos-direcciones." class="section level3" number="7.6.6">
+<h3>
+<span class="header-section-number">7.6.6</span> Problema 7.6. Probabilidad condicionada en dos direcciones.<a class="anchor" aria-label="anchor" href="#problema-7.6.-probabilidad-condicionada-en-dos-direcciones."><i class="fas fa-link"></i></a>
+</h3>
+<p>De un fichero de 500 compañías R-Stars, se sabe:</p>
+<ul>
+<li>150 tienen la flota <strong>renovada</strong> (<span class="math inline">\(R\)</span>).</li>
+<li>120 tienen sede en <strong>Andrómeda</strong> (<span class="math inline">\(A\)</span>).</li>
+<li>60 cumplen <strong>ambas</strong> condiciones.</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula <span class="math inline">\(P(R \mid A)\)</span>: <em>“de las compañías con sede en Andrómeda, ¿qué proporción tiene flota renovada?”</em>.</li>
+<li>Calcula <span class="math inline">\(P(A \mid R)\)</span>: <em>“de las compañías con flota renovada, ¿qué proporción tiene sede en Andrómeda?”</em>.</li>
+<li>El numerador de ambas fracciones es el mismo (60). ¿Por qué las dos probabilidades condicionadas son distintas?</li>
+<li>Un directivo lee <span class="math inline">\(P(R \mid A) = 0{,}50\)</span> y concluye: <em>“tener sede en Andrómeda causa que las compañías renueven la flota”</em>. ¿Es válida esa lectura? ¿Qué error clásico está cometiendo?</li>
+</ol>
+</div>
+<div id="problema-7.7.-regla-de-multiplicación-extracciones-sin-reemplazamiento." class="section level3" number="7.6.7">
+<h3>
+<span class="header-section-number">7.6.7</span> Problema 7.7. Regla de multiplicación: extracciones sin reemplazamiento.<a class="anchor" aria-label="anchor" href="#problema-7.7.-regla-de-multiplicaci%C3%B3n-extracciones-sin-reemplazamiento."><i class="fas fa-link"></i></a>
+</h3>
+<p>En el hangar de mantenimiento de <em>Kaiju Haulage Co.</em> hay un lote de <strong>12 cargueros</strong> pendientes de inspección: <strong>8 están aptos</strong> para el servicio inmediato y <strong>4 necesitan</strong> una parada mayor. El inspector extrae al azar, <strong>sin reemplazamiento</strong>, tres cargueros consecutivos.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Qué probabilidad hay de que los <strong>tres estén aptos</strong>?</li>
+<li>¿Qué probabilidad hay de que los <strong>tres necesiten parada</strong>?</li>
+<li>¿Qué probabilidad hay de que el <strong>primero esté apto</strong> y los <strong>dos siguientes necesiten parada</strong>?</li>
+<li>¿Cómo cambiaría el apartado (a) si las extracciones se hicieran <strong>con reemplazamiento</strong>? Compara ambas cifras y explica el porqué de la diferencia.</li>
+</ol>
+</div>
+<div id="problema-7.8.-teorema-de-la-probabilidad-total-tres-proveedores." class="section level3" number="7.6.8">
+<h3>
+<span class="header-section-number">7.6.8</span> Problema 7.8. Teorema de la probabilidad total: tres proveedores.<a class="anchor" aria-label="anchor" href="#problema-7.8.-teorema-de-la-probabilidad-total-tres-proveedores."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Hyperdrive Express</em> compra sus reactores a tres proveedores galácticos:</p>
+<ul>
+<li>Proveedor <strong>A</strong>: suministra el <strong>50%</strong> de los reactores; tasa de fallo en el primer año, <strong>2%</strong>.</li>
+<li>Proveedor <strong>B</strong>: suministra el <strong>30%</strong>; tasa de fallo, <strong>5%</strong>.</li>
+<li>Proveedor <strong>C</strong>: suministra el <strong>20%</strong>; tasa de fallo, <strong>8%</strong>.</li>
+</ul>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Dibuja (o describe) el diagrama de árbol del experimento <em>“elegir al azar un reactor y observar si falla en el primer año”</em>.</li>
+<li>Aplica el teorema de la probabilidad total para calcular <span class="math inline">\(P(F)\)</span>, la probabilidad global de que un reactor cualquiera falle en su primer año.</li>
+<li>Interpreta el resultado obtenido: ¿es coherente que la probabilidad global esté entre las tasas mínima y máxima individuales? ¿Por qué queda más cerca de las tasas bajas que de la alta?</li>
+<li>
+<em>Hyperdrive Express</em> renegocia con el proveedor <strong>C</strong> para reducir su tasa de fallo del <strong>8% al 4%</strong>, manteniendo su cuota del 20%. ¿En cuánto disminuye la probabilidad global de fallo?</li>
+</ol>
+</div>
+<div id="problema-7.9.-teorema-de-bayes-identificar-el-proveedor." class="section level3" number="7.6.9">
+<h3>
+<span class="header-section-number">7.6.9</span> Problema 7.9. Teorema de Bayes: identificar el proveedor.<a class="anchor" aria-label="anchor" href="#problema-7.9.-teorema-de-bayes-identificar-el-proveedor."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sobre el mismo escenario del problema anterior, <em>Hyperdrive Express</em> ha encontrado un reactor averiado en su primer año de servicio. Como la marca del fabricante quedó ilegible durante el rescate, hay que decidir a qué proveedor reclamar.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Aplica el teorema de Bayes para calcular <span class="math inline">\(P(A \mid F)\)</span>, <span class="math inline">\(P(B \mid F)\)</span> y <span class="math inline">\(P(C \mid F)\)</span>.</li>
+<li>¿A qué proveedor es <strong>más probable</strong> atribuir el fallo? ¿Coincide con el proveedor de mayor cuota de suministro?</li>
+<li>Verifica que las tres probabilidades a posteriori suman 1. ¿Por qué debe cumplirse necesariamente?</li>
+<li>Un directivo argumenta: <em>“el proveedor C tiene la tasa de fallo más alta, así que seguro que el reactor averiado es suyo”</em>. ¿Es correcta esa conclusión? ¿Qué le falta al razonamiento?</li>
+</ol>
+</div>
+<div id="problema-7.10.-paradoja-de-la-tasa-base-sistema-anti-fraude." class="section level3" number="7.6.10">
+<h3>
+<span class="header-section-number">7.6.10</span> Problema 7.10. Paradoja de la tasa base: sistema anti-fraude.<a class="anchor" aria-label="anchor" href="#problema-7.10.-paradoja-de-la-tasa-base-sistema-anti-fraude."><i class="fas fa-link"></i></a>
+</h3>
+<p><em>Galactic Casualty &amp; Loss</em>, aseguradora de flotas del sector R-Stars, ha implantado un sistema automático de detección de fraude en partes de siniestro. Sus especificaciones son:</p>
+<ul>
+<li>Si el parte es realmente <strong>fraudulento</strong> (<span class="math inline">\(F\)</span>), el sistema lo detecta (<span class="math inline">\(D\)</span>) con probabilidad <span class="math inline">\(P(D \mid F) = 0{,}95\)</span> (<strong>sensibilidad</strong> del 95%).</li>
+<li>Si el parte es <strong>legítimo</strong> (<span class="math inline">\(F^{*}\)</span>), el sistema lo descarta (<span class="math inline">\(D^{*}\)</span>) con probabilidad <span class="math inline">\(P(D^{*} \mid F^{*}) = 0{,}95\)</span> (<strong>especificidad</strong> del 95%; equivalentemente, 5% de falsos positivos).</li>
+<li>La tasa de fraude en el sector es <span class="math inline">\(P(F) = 0{,}02\)</span> (2%).</li>
+</ul>
+<p>Un buen día, el sistema marca un parte concreto como sospechoso.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula la probabilidad de que ese parte concreto sea realmente fraudulento, <span class="math inline">\(P(F \mid D)\)</span>.</li>
+<li>Compara el resultado con la sensibilidad del sistema (95%). ¿Cómo se explica una diferencia tan grande?</li>
+<li>Si la aseguradora rechazara automáticamente todo parte marcado, ¿qué proporción de sus rechazos serían <strong>injustos</strong> (falsos positivos)?</li>
+<li>Un ingeniero propone endurecer el sistema hasta sensibilidad y especificidad <strong>del 99%</strong>. Recalcula <span class="math inline">\(P(F \mid D)\)</span> con las nuevas cifras e interpreta la mejora.</li>
+</ol>
+</div>
+<div id="problema-7.11.-bayes-en-odds-y-actualización-secuencial." class="section level3" number="7.6.11">
+<h3>
+<span class="header-section-number">7.6.11</span> Problema 7.11. Bayes en <em>odds</em> y actualización secuencial.<a class="anchor" aria-label="anchor" href="#problema-7.11.-bayes-en-odds-y-actualizaci%C3%B3n-secuencial."><i class="fas fa-link"></i></a>
+</h3>
+<p>Retomamos el ejemplo del capítulo: el <em>Consorcio Financiero de Coruscant</em> aplica un test de morosidad con sensibilidad y especificidad del <strong>90%</strong> sobre una tasa base de morosidad del <strong>5%</strong>, obteniendo <span class="math inline">\(P(M \mid D) \approx 0{,}3214\)</span> tras un único resultado positivo.</p>
+<p>Supón ahora que, tras marcar a una compañía como sospechosa, el Consorcio le aplica un <strong>segundo test independiente</strong> con las mismas características (<span class="math inline">\(P(D_2 \mid M) = 0{,}90\)</span>; <span class="math inline">\(P(D_2^{*} \mid M^{*}) = 0{,}90\)</span>), y el resultado vuelve a ser <strong>positivo</strong>.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula las <em>odds</em> a priori <span class="math inline">\(\text{odds}(M)\)</span> y el <strong>cociente de verosimilitudes</strong> <span class="math inline">\(LR\)</span> de cada test.</li>
+<li>Actualiza las <em>odds</em> tras el primer test positivo. Convierte de nuevo a probabilidad y verifica que coincide con el <span class="math inline">\(0{,}3214\)</span> del capítulo.</li>
+<li>Actualiza otra vez las <em>odds</em> tras el segundo test positivo. Convierte a probabilidad <span class="math inline">\(P(M \mid D_1 \cap D_2)\)</span>.</li>
+<li>Comenta la mejora del segundo test sobre el primero. ¿Merece la pena, desde el punto de vista de gestión, aplicar sistemáticamente un segundo test a las compañías marcadas la primera vez?</li>
+</ol>
+</div>
+<div id="problema-7.12.-independencia-verificación-con-datos-reales." class="section level3" number="7.6.12">
+<h3>
+<span class="header-section-number">7.6.12</span> Problema 7.12. Independencia: verificación con datos reales.<a class="anchor" aria-label="anchor" href="#problema-7.12.-independencia-verificaci%C3%B3n-con-datos-reales."><i class="fas fa-link"></i></a>
+</h3>
+<p>Sobre las 300 compañías del sector R-Stars, la siguiente tabla cruza el <strong>estado de la flota</strong> con el <strong>índice de digitalización</strong> (dicotomizado por la mediana):</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="center">IDIG alto</th>
+<th align="center">IDIG bajo</th>
+<th align="center">Total</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Flota RENOVADA</td>
+<td align="center">62</td>
+<td align="center">0</td>
+<td align="center">62</td>
+</tr>
+<tr class="even">
+<td align="left">Flota MADURA</td>
+<td align="center">50</td>
+<td align="center">40</td>
+<td align="center">90</td>
+</tr>
+<tr class="odd">
+<td align="left">Flota ANTIGUA</td>
+<td align="center">38</td>
+<td align="center">110</td>
+<td align="center">148</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Total</strong></td>
+<td align="center">150</td>
+<td align="center">150</td>
+<td align="center">300</td>
+</tr>
+</tbody>
+</table></div>
+<div style="text-align: center;">
+<p><strong>Tabla 7.6</strong></p>
+</div>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula <span class="math inline">\(P(R)\)</span>, <span class="math inline">\(P(D_{\text{alto}})\)</span> y <span class="math inline">\(P(R \cap D_{\text{alto}})\)</span>, donde $R = $ <em>“flota renovada”</em> y $D_{} = $ <em>“índice de digitalización alto”</em>.</li>
+<li>Comprueba si se cumple <span class="math inline">\(P(R \cap D_{\text{alto}}) = P(R) \cdot P(D_{\text{alto}})\)</span>. ¿Son independientes ambos sucesos?</li>
+<li>Calcula <span class="math inline">\(P(R \mid D_{\text{alto}})\)</span> y compárala con <span class="math inline">\(P(R)\)</span>. Interpreta la diferencia en términos del enunciado del capítulo (<em>“la información sobre un suceso modifica la probabilidad del otro”</em>).</li>
+<li>¿Qué interpretación <strong>económica</strong> cabe dar a esta dependencia estadística en el sector R-Stars? ¿Estás legitimado a hablar de causalidad?</li>
+</ol>
+</div>
+<div id="problema-7.13.-auditoría-integradora-cribado-en-la-arti." class="section level3" number="7.6.13">
+<h3>
+<span class="header-section-number">7.6.13</span> Problema 7.13. Auditoría integradora: cribado en la ARTI.<a class="anchor" aria-label="anchor" href="#problema-7.13.-auditor%C3%ADa-integradora-cribado-en-la-arti."><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Mara Qyà</strong> dirige una auditoría regulatoria destinada a identificar <strong>compañías fantasma</strong> (con actividad simulada para eludir el pago de tasas galácticas) dentro del registro R-Stars. Su equipo dispone de un test estadístico con las siguientes especificaciones:</p>
+<ul>
+<li>Prevalencia real de compañías fantasma en el sector: <span class="math inline">\(P(F) = 0{,}03\)</span> (3%).</li>
+<li>Si una compañía es fantasma, el test la marca con probabilidad <span class="math inline">\(P(T \mid F) = 0{,}98\)</span>.</li>
+<li>Si una compañía es legítima, el test la descarta con probabilidad <span class="math inline">\(P(T^{*} \mid F^{*}) = 0{,}92\)</span> (equivalentemente, <strong>8% de falsos positivos</strong>).</li>
+</ul>
+<p>El equipo aplica el test a las 300 compañías del registro.</p>
+<p>Se pide:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Calcula <span class="math inline">\(P(T)\)</span>, la probabilidad global de que una compañía cualquiera sea marcada por el test.</li>
+<li>De las <strong>300 compañías</strong> del registro, ¿cuántas se espera que marque el test: (i) por ser realmente fantasmas y (ii) por ser <strong>falsos positivos</strong>?</li>
+<li>Aplica el teorema de Bayes para calcular <span class="math inline">\(P(F \mid T)\)</span>: la probabilidad de que una compañía marcada sea realmente fantasma.</li>
+<li>La ARTI plantea abrir una investigación exhaustiva contra <strong>todas</strong> las compañías marcadas. ¿Es razonable la decisión? ¿Qué proporción de investigaciones serían “en vano”?</li>
+<li>El equipo propone repetir el test una segunda vez de forma independiente sobre las compañías ya marcadas. Si el segundo test también da <strong>positivo</strong>, ¿cuál es la nueva <span class="math inline">\(P(F \mid T_1 \cap T_2)\)</span>? (Sugerencia: usa <em>odds</em> y <em>likelihood ratio</em>.)</li>
+<li>Redacta la <strong>recomendación operativa</strong> que Mara elevaría al director de la ARTI: ¿un solo test, dos, o hace falta otro criterio? Justifica.</li>
+</ol>
+</div>
+</div>
+<div id="soluciones-cap07" class="section level2" number="7.7">
+<h2>
+<span class="header-section-number">7.7</span> Soluciones a los problemas propuestos.<a class="anchor" aria-label="anchor" href="#soluciones-cap07"><i class="fas fa-link"></i></a>
+</h2>
+<div id="solución-al-problema-7.1." class="section level3" number="7.7.1">
+<h3>
+<span class="header-section-number">7.7.1</span> Solución al Problema 7.1.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.1."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(K \cup A\)</span> representa <em>“el carguero es de KORRIGAN o de ARCTURUS”</em>. Su complementario es <span class="math inline">\((K \cup A)^{*} = S\)</span>, es decir, <em>“el carguero es de SELENE”</em>, porque los tres astilleros forman una partición del espacio muestral.</p></li>
+<li><p><span class="math inline">\((K \cup A) \cap P\)</span> significa <em>“el carguero es de KORRIGAN o de ARCTURUS, y además es pesado”</em>. En lenguaje natural: es un carguero pesado no fabricado por SELENE.</p></li>
+<li>
+<p>Aplicando la ley de De Morgan <span class="math inline">\((A_1 \cup A_2)^{*} = A_1^{*} \cap A_2^{*}\)</span> con <span class="math inline">\(A_1 = P^{*}\)</span> y <span class="math inline">\(A_2 = V^{*}\)</span>:</p>
+<p><span class="math display">\[(P^{*} \cup V^{*})^{*} \;=\; (P^{*})^{*} \cap (V^{*})^{*} \;=\; P \cap V.\]</span></p>
+<p>Es decir, <em>“el carguero es pesado y veterano a la vez”</em>.</p>
+</li>
+<li><p>Sí. Para formar una partición se requiere: (i) que los sucesos sean <strong>disjuntos dos a dos</strong> (cada carguero pertenece a <strong>un solo</strong> astillero, así que <span class="math inline">\(K \cap S = K \cap A = S \cap A = \emptyset\)</span>); y (ii) que su unión cubra todo <span class="math inline">\(E\)</span> (<span class="math inline">\(K \cup S \cup A = E\)</span>: todo carguero de la flota está construido por alguno de los tres astilleros, no hay más). Ambas condiciones se cumplen, luego <span class="math inline">\(\{K, S, A\}\)</span> es una partición.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-7.2." class="section level3" number="7.7.2">
+<h3>
+<span class="header-section-number">7.7.2</span> Solución al Problema 7.2.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.2."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(S) = 22/48 \approx \mathbf{0{,}4583}\)</span>.</p></li>
+<li><p><span class="math inline">\(P(P^{*}) = 22/48 \approx \mathbf{0{,}4583}\)</span> (los 22 ligeros).</p></li>
+<li>
+<p>Como <span class="math inline">\(K\)</span> y <span class="math inline">\(S\)</span> son <strong>disjuntos</strong> (un carguero no puede ser simultáneamente de dos astilleros), aplicamos la propiedad del tercer axioma en su versión finita:</p>
+<p><span class="math display">\[P(K \cup S) \;=\; P(K) + P(S) \;=\; \dfrac{16}{48} + \dfrac{22}{48} \;=\; \dfrac{38}{48} \;\approx\; \mathbf{0{,}7917}.\]</span></p>
+</li>
+<li><p>Verificación: <span class="math inline">\(16/48 + 22/48 + 10/48 = 48/48 = \mathbf{1}\)</span>. Se confirma la propiedad de que la suma de las probabilidades de los sucesos de una <strong>partición</strong> vale 1. Esto implica —lo que ya sabíamos por el apartado (d) del problema anterior— que <span class="math inline">\(\{K, S, A\}\)</span> es una partición del espacio muestral: los tres sucesos son disjuntos y agotan todas las posibilidades.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-7.3." class="section level3" number="7.7.3">
+<h3>
+<span class="header-section-number">7.7.3</span> Solución al Problema 7.3.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.3."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(K) = 16/48 \approx 0{,}3333\)</span>; <span class="math inline">\(P(P) = 26/48 \approx 0{,}5417\)</span>; <span class="math inline">\(P(K \cap P) = 16/48 \approx 0{,}3333\)</span> (los 16 KORRIGAN son todos pesados).</p></li>
+<li>
+<p>Aplicando inclusión-exclusión:</p>
+<p><span class="math display">\[P(K \cup P) \;=\; P(K) + P(P) - P(K \cap P) \;=\; \dfrac{16}{48} + \dfrac{26}{48} - \dfrac{16}{48} \;=\; \dfrac{26}{48} \;\approx\; \mathbf{0{,}5417}.\]</span></p>
+</li>
+<li><p><span class="math inline">\(P(K \cup P) = P(P)\)</span>. La igualdad surge porque <strong>todos los KORRIGAN son pesados</strong>: <span class="math inline">\(K \subset P\)</span>. Cuando un conjunto está incluido en otro, la unión coincide con el mayor, y por eso “ser de KORRIGAN o ser pesado” es exactamente lo mismo que “ser pesado”. Es un caso extremo perfectamente consistente con la regla de la unión.</p></li>
+<li>
+<p><span class="math inline">\(P(S \cap P) = 1/48\)</span> (solo 1 carguero de SELENE es pesado, según la tabla). Por tanto:</p>
+<p><span class="math display">\[P(S \cup P) \;=\; P(S) + P(P) - P(S \cap P) \;=\; \dfrac{22}{48} + \dfrac{26}{48} - \dfrac{1}{48} \;=\; \dfrac{47}{48} \;\approx\; \mathbf{0{,}9792}.\]</span></p>
+<p>Aunque <span class="math inline">\(K\)</span> y <span class="math inline">\(S\)</span> tienen tamaños similares (16 y 22 cargueros), sus uniones con <span class="math inline">\(P\)</span> son radicalmente distintas. La razón es la <strong>intersección</strong>: <span class="math inline">\(K \cap P = K\)</span> (todos los KORRIGAN están dentro de <span class="math inline">\(P\)</span>) mientras que <span class="math inline">\(S \cap P\)</span> es un único carguero. Cuando la intersección es grande, la unión no crece mucho respecto de <span class="math inline">\(P\)</span>; cuando la intersección es pequeña, la unión suma casi toda la aportación del segundo suceso.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-7.4." class="section level3" number="7.7.4">
+<h3>
+<span class="header-section-number">7.7.4</span> Solución al Problema 7.4.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.4."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Aplicando inclusión-exclusión:</p>
+<p><span class="math display">\[P(F \cup C) \;=\; P(F) + P(C) - P(F \cap C) \;=\; 0{,}40 + 0{,}30 - 0{,}15 \;=\; \mathbf{0{,}55}.\]</span></p>
+<p>El 55% de las compañías tiene al menos uno de los dos contratos.</p>
+</li>
+<li>
+<p><em>“No tener ninguno de los dos”</em> es el complementario de <em>“tener al menos uno”</em>, es decir, <span class="math inline">\((F \cup C)^{*}\)</span>:</p>
+<p><span class="math display">\[P((F \cup C)^{*}) \;=\; 1 - P(F \cup C) \;=\; 1 - 0{,}55 \;=\; \mathbf{0{,}45}.\]</span></p>
+</li>
+<li><p>Aplicando la primera ley de De Morgan: <span class="math inline">\((F \cup C)^{*} = F^{*} \cap C^{*}\)</span>. Es decir, “no tener ninguno” equivale a “<strong>no tener</strong> contrato con la Federación <strong>y no tener</strong> contrato con el Consorcio”. La probabilidad es la misma que en el apartado (b) —<span class="math inline">\(P(F^{*} \cap C^{*}) = 0{,}45\)</span>—, obtenida por dos rutas equivalentes. La ley de De Morgan permite pasar de una formulación a otra sin cambiar el resultado.</p></li>
+<li>
+<p>“<strong>Exactamente uno</strong>” significa “estar en la unión pero <strong>no en la intersección</strong>”:</p>
+<p><span class="math display">\[P(\text{exactamente uno}) \;=\; P(F \cup C) - P(F \cap C) \;=\; 0{,}55 - 0{,}15 \;=\; \mathbf{0{,}40}.\]</span></p>
+<p>Alternativamente, sumando “solo F” más “solo C”: <span class="math inline">\([P(F) - P(F \cap C)] + [P(C) - P(F \cap C)] = 0{,}25 + 0{,}15 = 0{,}40\)</span> ✓.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-7.5." class="section level3" number="7.7.5">
+<h3>
+<span class="header-section-number">7.7.5</span> Solución al Problema 7.5.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.5."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p><strong>Clásico</strong> (Laplace). Los 300 asistentes son casos igualmente probables (sorteo justo), y hay un solo caso favorable. <span class="math inline">\(P = 1/300 \approx 0{,}0033\)</span>.</p></li>
+<li><p><strong>Frecuentista</strong> (Von Mises). Hay un histórico amplio y estable (5 000 vuelos) para calcular la frecuencia relativa de incidencias. La estimación resultante es una aproximación razonable de la probabilidad verdadera. La Ley de los Grandes Números respalda el procedimiento.</p></li>
+<li><p><strong>Subjetivo</strong> (bayesiano). Es un suceso <strong>único</strong>, sin frecuencia histórica ni casos equiprobables comparables. La probabilidad se asigna como grado de creencia racional del analista, revisable a la luz de nueva información (declaraciones de los CEOs, aprobación regulatoria, etc.).</p></li>
+<li><p><strong>Clásico</strong>. Se conocen los casos posibles y son equiprobables (elegir al azar entre 4 opciones en 10 preguntas). El cálculo se hace por combinatoria (véase el próximo capítulo, con la distribución binomial). Es el escenario canónico de Laplace.</p></li>
+<li><p><strong>Frecuentista</strong>. La aseguradora dispone de un histórico masivo (20 años de siniestralidad) y estable, del que puede estimar la tasa de siniestros de cargueros de esa antigüedad. Es la lógica actuarial estándar.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-7.6." class="section level3" number="7.7.6">
+<h3>
+<span class="header-section-number">7.7.6</span> Solución al Problema 7.6.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.6."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Por definición de probabilidad condicionada:</p>
+<p><span class="math display">\[P(R \mid A) \;=\; \dfrac{P(R \cap A)}{P(A)} \;=\; \dfrac{60/500}{120/500} \;=\; \dfrac{60}{120} \;=\; \mathbf{0{,}50}.\]</span></p>
+</li>
+<li>
+<p>Análogamente:</p>
+<p><span class="math display">\[P(A \mid R) \;=\; \dfrac{P(A \cap R)}{P(R)} \;=\; \dfrac{60/500}{150/500} \;=\; \dfrac{60}{150} \;=\; \mathbf{0{,}40}.\]</span></p>
+</li>
+<li><p>Aunque el numerador es común (60 compañías cumplen ambas condiciones), los <strong>denominadores son distintos</strong>: al condicionar por <span class="math inline">\(A\)</span> dividimos entre las 120 compañías con sede en Andrómeda; al condicionar por <span class="math inline">\(R\)</span>, entre las 150 con flota renovada. Como los grupos condicionantes tienen tamaños distintos, las proporciones internas también lo son. Es exactamente la asimetría que el capítulo 4 destacaba entre las dos direcciones de una condicionada.</p></li>
+<li>
+<p><strong>No</strong> es válida. El directivo comete dos errores clásicos:</p>
+<ul>
+<li>Confunde <strong>correlación</strong> (o dependencia estadística) con <strong>causalidad</strong>. Que “sede en Andrómeda” y “flota renovada” aparezcan juntas no implica que una cause la otra.</li>
+<li>Ha confundido implícitamente <span class="math inline">\(P(R \mid A)\)</span> con <span class="math inline">\(P(A \mid R)\)</span> al leer la cifra, lo que el capítulo llama <em>confusion of the inverse</em>.</li>
+</ul>
+<p>Podría haber, por ejemplo, una tercera variable (subvenciones específicas del Consejo de Andrómeda, mayor prosperidad económica en esa galaxia) que impulse simultáneamente ambas cosas. La probabilidad condicionada describe una <strong>asociación</strong>, no una explicación.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-7.7." class="section level3" number="7.7.7">
+<h3>
+<span class="header-section-number">7.7.7</span> Solución al Problema 7.7.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.7."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Aplicando la regla de multiplicación para extracciones sin reemplazamiento:</p>
+<p><span class="math display">\[P(A_1 \cap A_2 \cap A_3) \;=\; \dfrac{8}{12}\cdot \dfrac{7}{11}\cdot \dfrac{6}{10} \;=\; \dfrac{336}{1\,320} \;\approx\; \mathbf{0{,}2545}.\]</span></p>
+<p>Aproximadamente el 25,45%.</p>
+</li>
+<li>
+<p>Análogamente para los tres con parada:</p>
+<p><span class="math display">\[P(M_1 \cap M_2 \cap M_3) \;=\; \dfrac{4}{12}\cdot \dfrac{3}{11}\cdot \dfrac{2}{10} \;=\; \dfrac{24}{1\,320} \;\approx\; \mathbf{0{,}0182}.\]</span></p>
+<p>Un 1,82%: mucho más raro, coherente con que los “con parada” son minoría.</p>
+</li>
+<li>
+<p>El primero apto, el segundo y el tercero necesitan parada:</p>
+<p><span class="math display">\[P(A_1 \cap M_2 \cap M_3) \;=\; \dfrac{8}{12}\cdot \dfrac{4}{11}\cdot \dfrac{3}{10} \;=\; \dfrac{96}{1\,320} \;\approx\; \mathbf{0{,}0727}.\]</span></p>
+</li>
+<li>
+<p>Con reemplazamiento, cada extracción es <strong>independiente</strong> de las anteriores, y la probabilidad de que cada carguero sea apto es siempre 8/12:</p>
+<p><span class="math display">\[P(A_1 \cap A_2 \cap A_3)_{\text{c/rep}} \;=\; \left(\dfrac{8}{12}\right)^3 \;=\; \dfrac{512}{1\,728} \;\approx\; \mathbf{0{,}2963}.\]</span></p>
+<p>La diferencia (0,2545 sin reemplazamiento frente a 0,2963 con reemplazamiento) refleja que al sacar aptos sin devolverlos, la proporción de aptos en el lote <strong>disminuye</strong> y por tanto la probabilidad de que el siguiente también sea apto baja. Con lotes muy grandes, ambas cifras se aproximan: sacar un solo carguero apto de un lote de 10 000 apenas altera el resto.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-7.8." class="section level3" number="7.7.8">
+<h3>
+<span class="header-section-number">7.7.8</span> Solución al Problema 7.8.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.8."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Diagrama de árbol:</p>
+<pre><code>Reactor ── P(A)=0,50 ──── A ── P(F|A)=0,02 ──── F
+          └ P(B)=0,30 ──── B ── P(F|A)=0,05 ──── F
+          └ P(C)=0,20 ──── C ── P(F|C)=0,08 ──── F</code></pre>
+<p>(Con la rama complementaria <span class="math inline">\(F^{*}\)</span> desde cada proveedor, no dibujada por brevedad.)</p>
+</li>
+<li>
+<p>Aplicando el teorema de la probabilidad total:</p>
+<p><span class="math display">\[P(F) \;=\; P(F \mid A)\, P(A) + P(F \mid B)\, P(B) + P(F \mid C)\, P(C) \;=\; 0{,}02\cdot 0{,}50 + 0{,}05\cdot 0{,}30 + 0{,}08\cdot 0{,}20\]</span>
+<span class="math display">\[\;=\; 0{,}010 + 0{,}015 + 0{,}016 \;=\; \mathbf{0{,}041}.\]</span></p>
+<p>Un 4,1% de tasa global de fallo en el primer año.</p>
+</li>
+<li><p>Sí es coherente: es una <strong>media ponderada</strong> de las tres tasas individuales (2%, 5%, 8%), y por tanto está necesariamente entre la mínima (2%) y la máxima (8%). Queda más cerca de las tasas bajas porque el proveedor <span class="math inline">\(A\)</span>, con la tasa más baja, tiene también la mayor cuota (50%) y por tanto pesa más en el promedio.</p></li>
+<li>
+<p>Recalculando con la nueva tasa de C:</p>
+<p><span class="math display">\[P(F)_{\text{nueva}} \;=\; 0{,}02\cdot 0{,}50 + 0{,}05\cdot 0{,}30 + 0{,}04\cdot 0{,}20 \;=\; 0{,}010 + 0{,}015 + 0{,}008 \;=\; \mathbf{0{,}033}.\]</span></p>
+<p>La probabilidad global pasa de 0,041 a 0,033, una <strong>reducción de 0,008</strong> (aproximadamente <strong>20% menos</strong> en términos relativos). La mejora es sensible aunque C sea solo el 20% del suministro: reducir a la mitad la tasa del proveedor más deficiente tiene un impacto medible en la fiabilidad agregada.</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-7.9." class="section level3" number="7.7.9">
+<h3>
+<span class="header-section-number">7.7.9</span> Solución al Problema 7.9.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.9."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Aplicando Bayes con <span class="math inline">\(P(F) = 0{,}041\)</span> (calculada en el problema anterior):</p>
+<p><span class="math display">\[P(A \mid F) \;=\; \dfrac{P(F \mid A)\, P(A)}{P(F)} \;=\; \dfrac{0{,}02\cdot 0{,}50}{0{,}041} \;=\; \dfrac{0{,}010}{0{,}041} \;\approx\; \mathbf{0{,}2439}.\]</span></p>
+<p><span class="math display">\[P(B \mid F) \;=\; \dfrac{0{,}05\cdot 0{,}30}{0{,}041} \;=\; \dfrac{0{,}015}{0{,}041} \;\approx\; \mathbf{0{,}3659}.\]</span></p>
+<p><span class="math display">\[P(C \mid F) \;=\; \dfrac{0{,}08\cdot 0{,}20}{0{,}041} \;=\; \dfrac{0{,}016}{0{,}041} \;\approx\; \mathbf{0{,}3902}.\]</span></p>
+</li>
+<li><p>Más probable: el proveedor <strong>C</strong> (<span class="math inline">\(\approx 39{,}0\%\)</span>). Sorprendentemente, <strong>no coincide</strong> con el proveedor mayoritario en suministro (A, con el 50% de cuota). Aunque C solo suministra el 20% de los reactores, su alta tasa de fallo (8%) hace que, cuando ocurre un fallo, la probabilidad <em>a posteriori</em> de que proceda de C sea la mayor.</p></li>
+<li><p>Suma: <span class="math inline">\(0{,}2439 + 0{,}3659 + 0{,}3902 = \mathbf{1{,}0000}\)</span> ✓. Debe cumplirse porque los tres proveedores forman una <strong>partición</strong>: cualquier reactor fabricado —incluido el averiado— proviene de exactamente uno de los tres. Al condicionar por <span class="math inline">\(F\)</span>, la partición del espacio muestral original se traduce en una distribución de probabilidad condicionada que también debe sumar 1.</p></li>
+<li><p>La conclusión del directivo es correcta en dirección, pero incorrecta en el razonamiento. Es cierto que <span class="math inline">\(C\)</span> tiene la mayor <span class="math inline">\(P(C \mid F)\)</span>, pero el directivo lo justifica mal: dice <em>“tiene la tasa de fallo más alta, así que seguro es de C”</em>. Le falta multiplicar la tasa de fallo por la <strong>cuota de suministro</strong> (por la <span class="math inline">\(P(C)\)</span> <em>a priori</em>). Si <span class="math inline">\(C\)</span> tuviera un 1% de cuota en vez del 20%, con la misma tasa del 8%, la aportación al numerador (<span class="math inline">\(0{,}01 \cdot 0{,}08 = 0{,}0008\)</span>) sería mucho menor y la conclusión cambiaría radicalmente. Bayes no es solo “el que tiene tasa más alta”; es “el que combina alta tasa con presencia relevante”.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-7.10." class="section level3" number="7.7.10">
+<h3>
+<span class="header-section-number">7.7.10</span> Solución al Problema 7.10.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.10."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Probabilidad total del marcador:</p>
+<p><span class="math display">\[P(D) \;=\; P(D \mid F)\, P(F) + P(D \mid F^{*})\, P(F^{*}) \;=\; 0{,}95\cdot 0{,}02 + 0{,}05\cdot 0{,}98 \;=\; 0{,}019 + 0{,}049 \;=\; 0{,}068.\]</span></p>
+<p>Por Bayes:</p>
+<p><span class="math display">\[P(F \mid D) \;=\; \dfrac{P(D \mid F)\, P(F)}{P(D)} \;=\; \dfrac{0{,}019}{0{,}068} \;\approx\; \mathbf{0{,}2794}.\]</span></p>
+<p>Solo un <strong>27,94%</strong>: bastante lejos del 95% que uno podría suponer al leer la sensibilidad.</p>
+</li>
+<li><p>La diferencia (95% de sensibilidad vs. 27,94% de probabilidad <em>a posteriori</em>) es la manifestación clásica de la <strong>paradoja de la tasa base</strong>. La sensibilidad describe la calidad del test <strong>cuando se aplica a un fraudulento</strong>; la <span class="math inline">\(P(F \mid D)\)</span> describe la probabilidad de que <strong>un marcado sea fraudulento</strong> en una población donde el fraude es muy raro. Como los legítimos son casi 50 veces más numerosos que los fraudulentos, el 5% de falsos positivos entre 98% de legítimos (<span class="math inline">\(0{,}049\)</span>) supera con creces el 95% de verdaderos positivos entre solo 2% de fraudulentos (<span class="math inline">\(0{,}019\)</span>).</p></li>
+<li>
+<p>Falsos positivos entre los marcados:</p>
+<p><span class="math display">\[P(F^{*} \mid D) \;=\; 1 - P(F \mid D) \;=\; 1 - 0{,}2794 \;\approx\; \mathbf{0{,}7206}.\]</span></p>
+<p>El <strong>72,06%</strong> de los rechazos automáticos serían injustos. Rechazar sin más una alerta es, con estas cifras, una política enormemente injusta.</p>
+</li>
+<li>
+<p>Con sensibilidad y especificidad del 99%:</p>
+<p><span class="math display">\[P(D)_{\text{nueva}} \;=\; 0{,}99\cdot 0{,}02 + 0{,}01\cdot 0{,}98 \;=\; 0{,}0198 + 0{,}0098 \;=\; 0{,}0296,\]</span></p>
+<p><span class="math display">\[P(F \mid D)_{\text{nueva}} \;=\; \dfrac{0{,}0198}{0{,}0296} \;\approx\; \mathbf{0{,}6689}.\]</span></p>
+<p>La mejora es notable: de 27,94% a 66,89%. Aun así, un tercio de las alertas siguen siendo falsos positivos. Incluso un test <strong>casi perfecto</strong> no elimina el problema de la tasa base cuando la prevalencia es baja: la única salida realista es combinar el test con otro criterio independiente (véase el problema 7.13).</p>
+</li>
+</ol>
+</div>
+<div id="solución-al-problema-7.11." class="section level3" number="7.7.11">
+<h3>
+<span class="header-section-number">7.7.11</span> Solución al Problema 7.11.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.11."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p><em>Odds</em> a priori y cociente de verosimilitudes:</p>
+<p><span class="math display">\[\text{odds}(M) \;=\; \dfrac{P(M)}{P(M^{*})} \;=\; \dfrac{0{,}05}{0{,}95} \;\approx\; 0{,}0526 \qquad (\text{aprox. } 1:19).\]</span></p>
+<p><span class="math display">\[LR \;=\; \dfrac{P(D \mid M)}{P(D \mid M^{*})} \;=\; \dfrac{0{,}90}{0{,}10} \;=\; 9.\]</span></p>
+<p>Cada test positivo multiplica las <em>odds</em> por 9.</p>
+</li>
+<li>
+<p>Tras el primer positivo:</p>
+<p><span class="math display">\[\text{odds}(M \mid D_1) \;=\; 0{,}0526 \cdot 9 \;\approx\; 0{,}4737.\]</span></p>
+<p>Convertido a probabilidad:</p>
+<p><span class="math display">\[P(M \mid D_1) \;=\; \dfrac{0{,}4737}{1 + 0{,}4737} \;\approx\; \mathbf{0{,}3214}.\]</span></p>
+<p>Coincide, salvo redondeo, con la cifra del capítulo (<span class="math inline">\(\approx 0{,}32\)</span>) ✓.</p>
+</li>
+<li>
+<p>Tras el segundo positivo, aplicando de nuevo el <span class="math inline">\(LR\)</span>:</p>
+<p><span class="math display">\[\text{odds}(M \mid D_1 \cap D_2) \;=\; 0{,}4737 \cdot 9 \;\approx\; 4{,}2632.\]</span></p>
+<p><span class="math display">\[P(M \mid D_1 \cap D_2) \;=\; \dfrac{4{,}2632}{1 + 4{,}2632} \;\approx\; \mathbf{0{,}8100}.\]</span></p>
+</li>
+<li><p>La probabilidad pasa de 0,3214 (tras un test) a 0,8100 (tras dos tests independientes). El <strong>salto es enorme</strong>: la evidencia acumulada de dos tests concordantes eleva las creencias del 32% al 81%. Desde el punto de vista de gestión, aplicar sistemáticamente un segundo test tiene todo el sentido siempre que sea <strong>razonablemente barato</strong> y <strong>razonablemente independiente</strong> del primero. Como los tests actúan multiplicativamente sobre las <em>odds</em>, dos tests con <span class="math inline">\(LR = 9\)</span> equivalen a un solo test con <span class="math inline">\(LR = 81\)</span>. Esta es la lógica que rige el diseño de <strong>cribados en dos etapas</strong> en medicina, banca, seguridad y control de calidad.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-7.12." class="section level3" number="7.7.12">
+<h3>
+<span class="header-section-number">7.7.12</span> Solución al Problema 7.12.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.12."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>De la tabla:</p>
+<ul>
+<li>
+<span class="math inline">\(P(R) = 62/300 \approx \mathbf{0{,}2067}\)</span>.</li>
+<li>
+<span class="math inline">\(P(D_{\text{alto}}) = 150/300 = \mathbf{0{,}5000}\)</span>.</li>
+<li>
+<span class="math inline">\(P(R \cap D_{\text{alto}}) = 62/300 \approx \mathbf{0{,}2067}\)</span> (todas las compañías con flota renovada tienen digitalización alta).</li>
+</ul>
+</li>
+<li>
+<p>Producto de las marginales: <span class="math inline">\(P(R) \cdot P(D_{\text{alto}}) = 0{,}2067 \cdot 0{,}5000 \approx 0{,}1033\)</span>.</p>
+<p>Como <span class="math inline">\(P(R \cap D_{\text{alto}}) = 0{,}2067 \neq 0{,}1033\)</span>, los dos sucesos <strong>no son independientes</strong>. La probabilidad conjunta observada duplica la que produciría la independencia.</p>
+</li>
+<li>
+<p>Probabilidad condicionada:</p>
+<p><span class="math display">\[P(R \mid D_{\text{alto}}) \;=\; \dfrac{P(R \cap D_{\text{alto}})}{P(D_{\text{alto}})} \;=\; \dfrac{62/300}{150/300} \;=\; \dfrac{62}{150} \;\approx\; \mathbf{0{,}4133}.\]</span></p>
+<p>Frente a <span class="math inline">\(P(R) = 0{,}2067\)</span>, la información sobre la digitalización <strong>duplica</strong> la probabilidad de que la flota sea renovada. Es exactamente el tipo de dependencia que el capítulo señala: <em>“la información sobre un suceso modifica sensiblemente la probabilidad del otro”</em>, tanto que aquí la dependencia raya en un extremo (todas las flotas renovadas están asociadas a digitalización alta).</p>
+</li>
+<li><p>Económicamente, la asociación tiene una lectura razonable: las compañías que <strong>han modernizado su flota</strong> tienden a haber modernizado también su gestión digital. Ambas cosas son manifestaciones de un mismo esfuerzo transformador. Ahora bien, no cabe hablar de <strong>causalidad</strong>: no se sabe si digitalizar impulsa la renovación de flota, si renovar la flota exige mayor digitalización, o si ambas responden a una tercera variable (calidad de gestión, capacidad financiera, apetito por la innovación). El capítulo 4 dedicó una sección entera a este mismo aviso; la dependencia estadística es descripción, no explicación.</p></li>
+</ol>
+</div>
+<div id="solución-al-problema-7.13." class="section level3" number="7.7.13">
+<h3>
+<span class="header-section-number">7.7.13</span> Solución al Problema 7.13.<a class="anchor" aria-label="anchor" href="#soluci%C3%B3n-al-problema-7.13."><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>
+<p>Probabilidad global del marcador:</p>
+<p><span class="math display">\[P(T) \;=\; P(T \mid F)\, P(F) + P(T \mid F^{*})\, P(F^{*}) \;=\; 0{,}98\cdot 0{,}03 + 0{,}08\cdot 0{,}97 \;=\; 0{,}0294 + 0{,}0776 \;=\; \mathbf{0{,}1070}.\]</span></p>
+<p>El 10,7% de las compañías serán marcadas por el test.</p>
+</li>
+<li>
+<p>Descomposición de las marcadas sobre las 300 compañías:</p>
+<ul>
+<li>
+<strong>Fantasmas</strong> reales: <span class="math inline">\(300 \cdot 0{,}03 = 9\)</span> compañías. Marcadas correctamente: <span class="math inline">\(9 \cdot 0{,}98 \approx \mathbf{8{,}82 \approx 9}\)</span> compañías (verdaderos positivos).</li>
+<li>
+<strong>Legítimas</strong>: <span class="math inline">\(300 - 9 = 291\)</span>. Marcadas incorrectamente: <span class="math inline">\(291 \cdot 0{,}08 \approx \mathbf{23{,}28 \approx 23}\)</span> compañías (falsos positivos).</li>
+<li>
+<strong>Total marcadas</strong>: <span class="math inline">\(\approx 9 + 23 = 32\)</span> compañías (verifica <span class="math inline">\(300 \cdot 0{,}1070 = 32{,}1\)</span> ✓).</li>
+</ul>
+</li>
+<li>
+<p>Aplicando Bayes:</p>
+<p><span class="math display">\[P(F \mid T) \;=\; \dfrac{P(T \mid F)\, P(F)}{P(T)} \;=\; \dfrac{0{,}0294}{0{,}1070} \;\approx\; \mathbf{0{,}2748}.\]</span></p>
+<p>Solo un <strong>27,48%</strong> de las compañías marcadas son realmente fantasmas. Coincide, salvo redondeo, con el ratio del apartado (b): <span class="math inline">\(9/32 \approx 0{,}28\)</span>.</p>
+</li>
+<li><p><strong>No</strong> es razonable investigar exhaustivamente a las 32 compañías marcadas. El <strong>72,52%</strong> de las investigaciones (unas 23 de 32) recaerían sobre compañías <strong>legítimas</strong>: coste operativo enorme, desgaste institucional y perjuicio potencial a compañías inocentes. Es la paradoja de la tasa base aplicada al ámbito regulatorio.</p></li>
+<li>
+<p>Actualización con <em>odds</em>:</p>
+<ul>
+<li>
+<span class="math inline">\(\text{odds}(F) = 0{,}03/0{,}97 \approx 0{,}0309\)</span>.</li>
+<li>
+<span class="math inline">\(LR = 0{,}98/0{,}08 = 12{,}25\)</span>.</li>
+<li>Tras primer positivo: <span class="math inline">\(\text{odds}(F \mid T_1) = 0{,}0309 \cdot 12{,}25 \approx 0{,}3789 \Rightarrow P \approx 0{,}2748\)</span> ✓.</li>
+<li>Tras segundo positivo: <span class="math inline">\(\text{odds}(F \mid T_1 \cap T_2) = 0{,}3789 \cdot 12{,}25 \approx 4{,}6415 \Rightarrow P \approx \mathbf{0{,}8228}\)</span>.</li>
+</ul>
+<p>La probabilidad sube del 27,5% al <strong>82,3%</strong> tras dos tests independientes concordantes: mejora radical.</p>
+</li>
+<li>
+<p><strong>Recomendación operativa de Mara Qyà</strong>:</p>
+<blockquote>
+<p><em>“Un solo test es insuficiente como base para investigación exhaustiva: casi tres de cada cuatro compañías marcadas serían inocentes, lo que haría inasumible el coste operativo y el impacto reputacional. Propongo un cribado en <strong>dos etapas</strong>: aplicar el test a todo el registro (300 compañías); repetir un segundo test independiente sobre las 32 marcadas la primera vez; y abrir investigación exhaustiva únicamente sobre las que salgan positivas en ambos pases (probabilidad a posteriori del 82%). El coste marginal del segundo test es despreciable frente al ahorro en investigaciones fallidas, y la calidad estadística del filtro pasa de cuestionable a razonablemente sólida. Este esquema de cribado en cascada es análogo al que ya utilizan las agencias tributarias y las autoridades de supervisión financiera de la Federación.”</em></p>
+</blockquote>
+<p>La lección de fondo del capítulo es exactamente esta: cuando el suceso buscado es raro, un solo test <strong>nunca</strong> es suficiente por bueno que parezca, y la solución honesta pasa por acumular evidencia. La probabilidad no es un veredicto: es un instrumento para tomar decisiones proporcionadas al nivel de incertidumbre.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
   <div class="chapter-nav">
@@ -916,6 +1513,40 @@ Total
 </ul>
 </li>
 <li><a class="nav-link" href="#recap-cap07"><span class="header-section-number">7.5</span> Recapitulación y puente al próximo capítulo.</a></li>
+<li>
+<a class="nav-link" href="#problemas-cap07"><span class="header-section-number">7.6</span> Problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#problema-7.1.-sucesos-sobre-la-flota-gal%C3%A1ctica."><span class="header-section-number">7.6.1</span> Problema 7.1. Sucesos sobre la flota galáctica.</a></li>
+<li><a class="nav-link" href="#problema-7.2.-regla-de-laplace-y-partici%C3%B3n."><span class="header-section-number">7.6.2</span> Problema 7.2. Regla de Laplace y partición.</a></li>
+<li><a class="nav-link" href="#problema-7.3.-regla-de-la-uni%C3%B3n-e-inclusi%C3%B3n-exclusi%C3%B3n."><span class="header-section-number">7.6.3</span> Problema 7.3. Regla de la unión e inclusión-exclusión.</a></li>
+<li><a class="nav-link" href="#problema-7.4.-complementario-y-leyes-de-de-morgan."><span class="header-section-number">7.6.4</span> Problema 7.4. Complementario y leyes de De Morgan.</a></li>
+<li><a class="nav-link" href="#problema-7.5.-elegir-el-enfoque-de-probabilidad."><span class="header-section-number">7.6.5</span> Problema 7.5. Elegir el enfoque de probabilidad.</a></li>
+<li><a class="nav-link" href="#problema-7.6.-probabilidad-condicionada-en-dos-direcciones."><span class="header-section-number">7.6.6</span> Problema 7.6. Probabilidad condicionada en dos direcciones.</a></li>
+<li><a class="nav-link" href="#problema-7.7.-regla-de-multiplicaci%C3%B3n-extracciones-sin-reemplazamiento."><span class="header-section-number">7.6.7</span> Problema 7.7. Regla de multiplicación: extracciones sin reemplazamiento.</a></li>
+<li><a class="nav-link" href="#problema-7.8.-teorema-de-la-probabilidad-total-tres-proveedores."><span class="header-section-number">7.6.8</span> Problema 7.8. Teorema de la probabilidad total: tres proveedores.</a></li>
+<li><a class="nav-link" href="#problema-7.9.-teorema-de-bayes-identificar-el-proveedor."><span class="header-section-number">7.6.9</span> Problema 7.9. Teorema de Bayes: identificar el proveedor.</a></li>
+<li><a class="nav-link" href="#problema-7.10.-paradoja-de-la-tasa-base-sistema-anti-fraude."><span class="header-section-number">7.6.10</span> Problema 7.10. Paradoja de la tasa base: sistema anti-fraude.</a></li>
+<li><a class="nav-link" href="#problema-7.11.-bayes-en-odds-y-actualizaci%C3%B3n-secuencial."><span class="header-section-number">7.6.11</span> Problema 7.11. Bayes en odds y actualización secuencial.</a></li>
+<li><a class="nav-link" href="#problema-7.12.-independencia-verificaci%C3%B3n-con-datos-reales."><span class="header-section-number">7.6.12</span> Problema 7.12. Independencia: verificación con datos reales.</a></li>
+<li><a class="nav-link" href="#problema-7.13.-auditor%C3%ADa-integradora-cribado-en-la-arti."><span class="header-section-number">7.6.13</span> Problema 7.13. Auditoría integradora: cribado en la ARTI.</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#soluciones-cap07"><span class="header-section-number">7.7</span> Soluciones a los problemas propuestos.</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.1."><span class="header-section-number">7.7.1</span> Solución al Problema 7.1.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.2."><span class="header-section-number">7.7.2</span> Solución al Problema 7.2.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.3."><span class="header-section-number">7.7.3</span> Solución al Problema 7.3.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.4."><span class="header-section-number">7.7.4</span> Solución al Problema 7.4.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.5."><span class="header-section-number">7.7.5</span> Solución al Problema 7.5.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.6."><span class="header-section-number">7.7.6</span> Solución al Problema 7.6.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.7."><span class="header-section-number">7.7.7</span> Solución al Problema 7.7.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.8."><span class="header-section-number">7.7.8</span> Solución al Problema 7.8.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.9."><span class="header-section-number">7.7.9</span> Solución al Problema 7.9.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.10."><span class="header-section-number">7.7.10</span> Solución al Problema 7.10.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.11."><span class="header-section-number">7.7.11</span> Solución al Problema 7.11.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.12."><span class="header-section-number">7.7.12</span> Solución al Problema 7.12.</a></li>
+<li><a class="nav-link" href="#soluci%C3%B3n-al-problema-7.13."><span class="header-section-number">7.7.13</span> Solución al Problema 7.13.</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -932,7 +1563,7 @@ Total
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-24.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

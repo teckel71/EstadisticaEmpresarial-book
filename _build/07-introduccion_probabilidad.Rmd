@@ -845,3 +845,480 @@ Este capítulo ha puesto los cimientos del bloque de probabilidad. A modo de map
 En el siguiente capítulo daremos el salto natural. Hasta aquí hemos hablado de sucesos, es decir, de resultados **cualitativos** («la nave es de KORRIGAN», «la ruta tuvo incidencia»). Pero muchas veces el resultado de un experimento aleatorio tiene forma **numérica**: cuántas incidencias hay en un año, cuánto tarda una nave en llegar, cuánto factura una compañía el próximo trimestre, cuántas de las diez próximas compañías solicitantes de crédito acabarán impagando. Ese salto —del suceso a la magnitud numérica— se articula en torno al concepto de **variable aleatoria**, protagonista del próximo capítulo.
 
 Una variable aleatoria es, sencillamente, una regla que asigna un número a cada resultado del experimento. Piénselo así: si el experimento es «elegir una nave al azar de la flota», podemos definir la variable aleatoria $X$ = «tonelaje de la nave» o $Y$ = «$1$ si es pesada, $0$ si es ligera». Con esa traducción, todo el instrumental del cálculo diferencial e integral queda disponible para calcular medias, varianzas, cuantiles y —lo más útil de todo— **valores esperados** que sirven para tomar decisiones económicas bajo incertidumbre. *Hyperdrive Express*, *Arrakis Freight*, *Shuttlepod Movers* y los astilleros galácticos seguirán con nosotros; solo que, a partir de ahora, en lugar de decir «ocurrió» o «no ocurrió», empezaremos a decir «ocurrió con este número».
+
+## Problemas propuestos. {#problemas-cap07}
+
+Los ejercicios que siguen combinan **cálculo controlado** —aplicaciones directas de la regla de Laplace, la regla de la unión, las condicionadas, la probabilidad total, Bayes y su forma en *odds*— con un peso importante de **interpretación**: por qué $P(A\mid B) \neq P(B\mid A)$, cuándo tiene sentido cada enfoque de la probabilidad, cómo se lee la paradoja de la tasa base, y cuándo es razonable asumir independencia. Todas las soluciones detalladas se recogen al final del capítulo.
+
+### Problema 7.1. Sucesos sobre la flota galáctica.
+
+Sea la flota de los 48 cargueros del sector R-Stars. Sobre el experimento *"elegir al azar un carguero de la flota"*, definimos:
+
+-   $K =$ «el carguero es de KORRIGAN»,
+-   $S =$ «el carguero es de SELENE»,
+-   $A =$ «el carguero es de ARCTURUS»,
+-   $P =$ «el carguero es pesado» (tonelaje $> 700$ mil t),
+-   $V =$ «el carguero es veterano» (antigüedad $> 8$ años).
+
+Se pide:
+
+a)  Describe con palabras el suceso $K \cup A$. ¿Cuál sería su suceso complementario?
+b)  Describe qué representa el suceso $(K \cup A) \cap P$. Escríbelo en lenguaje natural.
+c)  Aplica una de las leyes de De Morgan para simplificar $(P^{*} \cup V^{*})^{*}$. ¿A qué suceso equivale?
+d)  ¿Los sucesos $K$, $S$ y $A$ forman una **partición** del espacio muestral? Justifica en términos de las dos condiciones que debe cumplir una partición.
+
+### Problema 7.2. Regla de Laplace y partición.
+
+Sobre la flota galáctica sabemos: **48 cargueros** en total, de los cuales **16 de KORRIGAN**, **22 de SELENE** y **10 de ARCTURUS**. De todos ellos, **26 son pesados** y **22 son ligeros**; **30 son veteranos** y **18 son recientes**. Se pide, aplicando la regla de Laplace:
+
+a)  Calcula la probabilidad de que un carguero elegido al azar sea de **SELENE**.
+b)  Calcula la probabilidad de que sea **ligero**.
+c)  Calcula la probabilidad de que sea de **KORRIGAN o de SELENE**.
+d)  Verifica numéricamente que $P(K) + P(S) + P(A) = 1$. ¿Qué **propiedad** del capítulo estás confirmando y qué implica sobre los tres sucesos?
+
+### Problema 7.3. Regla de la unión e inclusión-exclusión.
+
+La tabla de contingencia astillero × tonelaje sobre la flota es:
+
+|              | Ligero | Pesado | Total |
+|:-------------|:------:|:------:|:-----:|
+| KORRIGAN     |   0    |   16   |  16   |
+| SELENE       |  21    |    1   |  22   |
+| ARCTURUS     |   1    |    9   |  10   |
+| **Total**    |  22    |   26   |  48   |
+
+::: {style="text-align: center;"}
+**Tabla 7.5**
+:::
+
+
+Se pide:
+
+a)  Calcula $P(K)$, $P(P)$ y $P(K \cap P)$.
+b)  Aplica la regla de la unión (inclusión-exclusión) para obtener $P(K \cup P)$.
+c)  ¿Qué peculiaridad observas al comparar $P(K \cup P)$ con $P(P)$? Interprétala en términos de la relación de conjuntos entre $K$ y $P$.
+d)  Calcula ahora $P(S \cup P)$ mediante la misma regla y compáralo con $P(K \cup P)$. Justifica por qué son muy distintos aunque $K$ y $S$ tengan tamaños similares.
+
+### Problema 7.4. Complementario y leyes de De Morgan.
+
+Sobre 200 compañías del sector R-Stars con actividad intergaláctica, se sabe que:
+
+-   El **40%** tiene contrato con la Federación de Rutas de Andrómeda (suceso $F$).
+-   El **30%** tiene contrato con el Consorcio de Klendathu (suceso $C$).
+-   El **15%** tiene contrato con **ambos** organismos ($F \cap C$).
+
+Se pide:
+
+a)  ¿Qué probabilidad hay de que una compañía elegida al azar tenga **al menos uno** de los dos contratos?
+b)  ¿Qué probabilidad hay de que **no tenga ninguno** de los dos?
+c)  Escribe la expresión "no tener ninguno" en términos de $F$ y $C$ y aplica la ley de De Morgan que corresponda. Verifica que el resultado coincide con el apartado (b).
+d)  ¿Qué probabilidad hay de que tenga **exactamente uno** de los dos contratos (uno u otro, pero no los dos a la vez)?
+
+### Problema 7.5. Elegir el enfoque de probabilidad.
+
+Para cada uno de los siguientes escenarios, indica qué **enfoque** de la probabilidad —clásico, frecuentista o subjetivo— sería el más adecuado para asignar la probabilidad, y justifica en una o dos líneas:
+
+a)  En una jornada de puertas abiertas, la ARTI sortea entre los 300 asistentes un simulador de vuelo. ¿Cuál es la probabilidad de que un asistente concreto salga premiado?
+b)  *Arrakis Freight* estudia la probabilidad de que un vuelo de la ruta Arrakis-Coruscant sufra al menos una incidencia menor. Dispone del registro de las **5 000 últimas operaciones** de esa ruta.
+c)  Un analista financiero necesita valorar la probabilidad de que la fusión anunciada entre *Kaiju Haulage Co.* y *Vader & Company* se cierre antes de que termine el trimestre. Es una operación única sin precedentes recientes.
+d)  Un consultor calcula la probabilidad de acertar exactamente 4 respuestas al azar en un test tipo test con 10 preguntas y 4 opciones por pregunta.
+e)  Un actuario de seguros calcula la prima anual del seguro de un carguero de 15 años apoyándose en la base histórica de siniestralidad de los últimos 20 años.
+
+### Problema 7.6. Probabilidad condicionada en dos direcciones.
+
+De un fichero de 500 compañías R-Stars, se sabe:
+
+-   150 tienen la flota **renovada** ($R$).
+-   120 tienen sede en **Andrómeda** ($A$).
+-   60 cumplen **ambas** condiciones.
+
+Se pide:
+
+a)  Calcula $P(R \mid A)$: *"de las compañías con sede en Andrómeda, ¿qué proporción tiene flota renovada?"*.
+b)  Calcula $P(A \mid R)$: *"de las compañías con flota renovada, ¿qué proporción tiene sede en Andrómeda?"*.
+c)  El numerador de ambas fracciones es el mismo (60). ¿Por qué las dos probabilidades condicionadas son distintas?
+d)  Un directivo lee $P(R \mid A) = 0{,}50$ y concluye: *"tener sede en Andrómeda causa que las compañías renueven la flota"*. ¿Es válida esa lectura? ¿Qué error clásico está cometiendo?
+
+### Problema 7.7. Regla de multiplicación: extracciones sin reemplazamiento.
+
+En el hangar de mantenimiento de *Kaiju Haulage Co.* hay un lote de **12 cargueros** pendientes de inspección: **8 están aptos** para el servicio inmediato y **4 necesitan** una parada mayor. El inspector extrae al azar, **sin reemplazamiento**, tres cargueros consecutivos.
+
+Se pide:
+
+a)  ¿Qué probabilidad hay de que los **tres estén aptos**?
+b)  ¿Qué probabilidad hay de que los **tres necesiten parada**?
+c)  ¿Qué probabilidad hay de que el **primero esté apto** y los **dos siguientes necesiten parada**?
+d)  ¿Cómo cambiaría el apartado (a) si las extracciones se hicieran **con reemplazamiento**? Compara ambas cifras y explica el porqué de la diferencia.
+
+### Problema 7.8. Teorema de la probabilidad total: tres proveedores.
+
+*Hyperdrive Express* compra sus reactores a tres proveedores galácticos:
+
+-   Proveedor **A**: suministra el **50%** de los reactores; tasa de fallo en el primer año, **2%**.
+-   Proveedor **B**: suministra el **30%**; tasa de fallo, **5%**.
+-   Proveedor **C**: suministra el **20%**; tasa de fallo, **8%**.
+
+Se pide:
+
+a)  Dibuja (o describe) el diagrama de árbol del experimento *"elegir al azar un reactor y observar si falla en el primer año"*.
+b)  Aplica el teorema de la probabilidad total para calcular $P(F)$, la probabilidad global de que un reactor cualquiera falle en su primer año.
+c)  Interpreta el resultado obtenido: ¿es coherente que la probabilidad global esté entre las tasas mínima y máxima individuales? ¿Por qué queda más cerca de las tasas bajas que de la alta?
+d)  *Hyperdrive Express* renegocia con el proveedor **C** para reducir su tasa de fallo del **8% al 4%**, manteniendo su cuota del 20%. ¿En cuánto disminuye la probabilidad global de fallo?
+
+### Problema 7.9. Teorema de Bayes: identificar el proveedor.
+
+Sobre el mismo escenario del problema anterior, *Hyperdrive Express* ha encontrado un reactor averiado en su primer año de servicio. Como la marca del fabricante quedó ilegible durante el rescate, hay que decidir a qué proveedor reclamar.
+
+Se pide:
+
+a)  Aplica el teorema de Bayes para calcular $P(A \mid F)$, $P(B \mid F)$ y $P(C \mid F)$.
+b)  ¿A qué proveedor es **más probable** atribuir el fallo? ¿Coincide con el proveedor de mayor cuota de suministro?
+c)  Verifica que las tres probabilidades a posteriori suman 1. ¿Por qué debe cumplirse necesariamente?
+d)  Un directivo argumenta: *"el proveedor C tiene la tasa de fallo más alta, así que seguro que el reactor averiado es suyo"*. ¿Es correcta esa conclusión? ¿Qué le falta al razonamiento?
+
+### Problema 7.10. Paradoja de la tasa base: sistema anti-fraude.
+
+*Galactic Casualty & Loss*, aseguradora de flotas del sector R-Stars, ha implantado un sistema automático de detección de fraude en partes de siniestro. Sus especificaciones son:
+
+-   Si el parte es realmente **fraudulento** ($F$), el sistema lo detecta ($D$) con probabilidad $P(D \mid F) = 0{,}95$ (**sensibilidad** del 95%).
+-   Si el parte es **legítimo** ($F^{*}$), el sistema lo descarta ($D^{*}$) con probabilidad $P(D^{*} \mid F^{*}) = 0{,}95$ (**especificidad** del 95%; equivalentemente, 5% de falsos positivos).
+-   La tasa de fraude en el sector es $P(F) = 0{,}02$ (2%).
+
+Un buen día, el sistema marca un parte concreto como sospechoso.
+
+Se pide:
+
+a)  Calcula la probabilidad de que ese parte concreto sea realmente fraudulento, $P(F \mid D)$.
+b)  Compara el resultado con la sensibilidad del sistema (95%). ¿Cómo se explica una diferencia tan grande?
+c)  Si la aseguradora rechazara automáticamente todo parte marcado, ¿qué proporción de sus rechazos serían **injustos** (falsos positivos)?
+d)  Un ingeniero propone endurecer el sistema hasta sensibilidad y especificidad **del 99%**. Recalcula $P(F \mid D)$ con las nuevas cifras e interpreta la mejora.
+
+### Problema 7.11. Bayes en *odds* y actualización secuencial.
+
+Retomamos el ejemplo del capítulo: el *Consorcio Financiero de Coruscant* aplica un test de morosidad con sensibilidad y especificidad del **90%** sobre una tasa base de morosidad del **5%**, obteniendo $P(M \mid D) \approx 0{,}3214$ tras un único resultado positivo.
+
+Supón ahora que, tras marcar a una compañía como sospechosa, el Consorcio le aplica un **segundo test independiente** con las mismas características ($P(D_2 \mid M) = 0{,}90$; $P(D_2^{*} \mid M^{*}) = 0{,}90$), y el resultado vuelve a ser **positivo**.
+
+Se pide:
+
+a)  Calcula las *odds* a priori $\text{odds}(M)$ y el **cociente de verosimilitudes** $LR$ de cada test.
+b)  Actualiza las *odds* tras el primer test positivo. Convierte de nuevo a probabilidad y verifica que coincide con el $0{,}3214$ del capítulo.
+c)  Actualiza otra vez las *odds* tras el segundo test positivo. Convierte a probabilidad $P(M \mid D_1 \cap D_2)$.
+d)  Comenta la mejora del segundo test sobre el primero. ¿Merece la pena, desde el punto de vista de gestión, aplicar sistemáticamente un segundo test a las compañías marcadas la primera vez?
+
+### Problema 7.12. Independencia: verificación con datos reales.
+
+Sobre las 300 compañías del sector R-Stars, la siguiente tabla cruza el **estado de la flota** con el **índice de digitalización** (dicotomizado por la mediana):
+
+|                | IDIG alto | IDIG bajo | Total |
+|:---------------|:---------:|:---------:|:-----:|
+| Flota RENOVADA |    62     |     0     |  62   |
+| Flota MADURA   |    50     |    40     |  90   |
+| Flota ANTIGUA  |    38     |   110     | 148   |
+| **Total**      |   150     |   150     | 300   |
+
+::: {style="text-align: center;"}
+**Tabla 7.6**
+:::
+
+
+Se pide:
+
+a)  Calcula $P(R)$, $P(D_{\text{alto}})$ y $P(R \cap D_{\text{alto}})$, donde $R = $ *"flota renovada"* y $D_{\text{alto}} = $ *"índice de digitalización alto"*.
+b)  Comprueba si se cumple $P(R \cap D_{\text{alto}}) = P(R) \cdot P(D_{\text{alto}})$. ¿Son independientes ambos sucesos?
+c)  Calcula $P(R \mid D_{\text{alto}})$ y compárala con $P(R)$. Interpreta la diferencia en términos del enunciado del capítulo (*"la información sobre un suceso modifica la probabilidad del otro"*).
+d)  ¿Qué interpretación **económica** cabe dar a esta dependencia estadística en el sector R-Stars? ¿Estás legitimado a hablar de causalidad?
+
+### Problema 7.13. Auditoría integradora: cribado en la ARTI.
+
+**Mara Qyà** dirige una auditoría regulatoria destinada a identificar **compañías fantasma** (con actividad simulada para eludir el pago de tasas galácticas) dentro del registro R-Stars. Su equipo dispone de un test estadístico con las siguientes especificaciones:
+
+-   Prevalencia real de compañías fantasma en el sector: $P(F) = 0{,}03$ (3%).
+-   Si una compañía es fantasma, el test la marca con probabilidad $P(T \mid F) = 0{,}98$.
+-   Si una compañía es legítima, el test la descarta con probabilidad $P(T^{*} \mid F^{*}) = 0{,}92$ (equivalentemente, **8% de falsos positivos**).
+
+El equipo aplica el test a las 300 compañías del registro.
+
+Se pide:
+
+a)  Calcula $P(T)$, la probabilidad global de que una compañía cualquiera sea marcada por el test.
+b)  De las **300 compañías** del registro, ¿cuántas se espera que marque el test: (i) por ser realmente fantasmas y (ii) por ser **falsos positivos**?
+c)  Aplica el teorema de Bayes para calcular $P(F \mid T)$: la probabilidad de que una compañía marcada sea realmente fantasma.
+d)  La ARTI plantea abrir una investigación exhaustiva contra **todas** las compañías marcadas. ¿Es razonable la decisión? ¿Qué proporción de investigaciones serían "en vano"?
+e)  El equipo propone repetir el test una segunda vez de forma independiente sobre las compañías ya marcadas. Si el segundo test también da **positivo**, ¿cuál es la nueva $P(F \mid T_1 \cap T_2)$? (Sugerencia: usa *odds* y *likelihood ratio*.)
+f)  Redacta la **recomendación operativa** que Mara elevaría al director de la ARTI: ¿un solo test, dos, o hace falta otro criterio? Justifica.
+
+## Soluciones a los problemas propuestos. {#soluciones-cap07}
+
+### Solución al Problema 7.1.
+
+a)  $K \cup A$ representa *"el carguero es de KORRIGAN o de ARCTURUS"*. Su complementario es $(K \cup A)^{*} = S$, es decir, *"el carguero es de SELENE"*, porque los tres astilleros forman una partición del espacio muestral.
+
+b)  $(K \cup A) \cap P$ significa *"el carguero es de KORRIGAN o de ARCTURUS, y además es pesado"*. En lenguaje natural: es un carguero pesado no fabricado por SELENE.
+
+c)  Aplicando la ley de De Morgan $(A_1 \cup A_2)^{*} = A_1^{*} \cap A_2^{*}$ con $A_1 = P^{*}$ y $A_2 = V^{*}$:
+
+    $$(P^{*} \cup V^{*})^{*} \;=\; (P^{*})^{*} \cap (V^{*})^{*} \;=\; P \cap V.$$
+
+    Es decir, *"el carguero es pesado y veterano a la vez"*.
+
+d)  Sí. Para formar una partición se requiere: (i) que los sucesos sean **disjuntos dos a dos** (cada carguero pertenece a **un solo** astillero, así que $K \cap S = K \cap A = S \cap A = \emptyset$); y (ii) que su unión cubra todo $E$ ($K \cup S \cup A = E$: todo carguero de la flota está construido por alguno de los tres astilleros, no hay más). Ambas condiciones se cumplen, luego $\{K, S, A\}$ es una partición.
+
+### Solución al Problema 7.2.
+
+a)  $P(S) = 22/48 \approx \mathbf{0{,}4583}$.
+
+b)  $P(P^{*}) = 22/48 \approx \mathbf{0{,}4583}$ (los 22 ligeros).
+
+c)  Como $K$ y $S$ son **disjuntos** (un carguero no puede ser simultáneamente de dos astilleros), aplicamos la propiedad del tercer axioma en su versión finita:
+
+    $$P(K \cup S) \;=\; P(K) + P(S) \;=\; \dfrac{16}{48} + \dfrac{22}{48} \;=\; \dfrac{38}{48} \;\approx\; \mathbf{0{,}7917}.$$
+
+d)  Verificación: $16/48 + 22/48 + 10/48 = 48/48 = \mathbf{1}$. Se confirma la propiedad de que la suma de las probabilidades de los sucesos de una **partición** vale 1. Esto implica —lo que ya sabíamos por el apartado (d) del problema anterior— que $\{K, S, A\}$ es una partición del espacio muestral: los tres sucesos son disjuntos y agotan todas las posibilidades.
+
+### Solución al Problema 7.3.
+
+a)  $P(K) = 16/48 \approx 0{,}3333$; $P(P) = 26/48 \approx 0{,}5417$; $P(K \cap P) = 16/48 \approx 0{,}3333$ (los 16 KORRIGAN son todos pesados).
+
+b)  Aplicando inclusión-exclusión:
+
+    $$P(K \cup P) \;=\; P(K) + P(P) - P(K \cap P) \;=\; \dfrac{16}{48} + \dfrac{26}{48} - \dfrac{16}{48} \;=\; \dfrac{26}{48} \;\approx\; \mathbf{0{,}5417}.$$
+
+c)  $P(K \cup P) = P(P)$. La igualdad surge porque **todos los KORRIGAN son pesados**: $K \subset P$. Cuando un conjunto está incluido en otro, la unión coincide con el mayor, y por eso "ser de KORRIGAN o ser pesado" es exactamente lo mismo que "ser pesado". Es un caso extremo perfectamente consistente con la regla de la unión.
+
+d)  $P(S \cap P) = 1/48$ (solo 1 carguero de SELENE es pesado, según la tabla). Por tanto:
+
+    $$P(S \cup P) \;=\; P(S) + P(P) - P(S \cap P) \;=\; \dfrac{22}{48} + \dfrac{26}{48} - \dfrac{1}{48} \;=\; \dfrac{47}{48} \;\approx\; \mathbf{0{,}9792}.$$
+
+    Aunque $K$ y $S$ tienen tamaños similares (16 y 22 cargueros), sus uniones con $P$ son radicalmente distintas. La razón es la **intersección**: $K \cap P = K$ (todos los KORRIGAN están dentro de $P$) mientras que $S \cap P$ es un único carguero. Cuando la intersección es grande, la unión no crece mucho respecto de $P$; cuando la intersección es pequeña, la unión suma casi toda la aportación del segundo suceso.
+
+### Solución al Problema 7.4.
+
+a)  Aplicando inclusión-exclusión:
+
+    $$P(F \cup C) \;=\; P(F) + P(C) - P(F \cap C) \;=\; 0{,}40 + 0{,}30 - 0{,}15 \;=\; \mathbf{0{,}55}.$$
+
+    El 55% de las compañías tiene al menos uno de los dos contratos.
+
+b)  *"No tener ninguno de los dos"* es el complementario de *"tener al menos uno"*, es decir, $(F \cup C)^{*}$:
+
+    $$P((F \cup C)^{*}) \;=\; 1 - P(F \cup C) \;=\; 1 - 0{,}55 \;=\; \mathbf{0{,}45}.$$
+
+c)  Aplicando la primera ley de De Morgan: $(F \cup C)^{*} = F^{*} \cap C^{*}$. Es decir, "no tener ninguno" equivale a "**no tener** contrato con la Federación **y no tener** contrato con el Consorcio". La probabilidad es la misma que en el apartado (b) —$P(F^{*} \cap C^{*}) = 0{,}45$—, obtenida por dos rutas equivalentes. La ley de De Morgan permite pasar de una formulación a otra sin cambiar el resultado.
+
+d)  "**Exactamente uno**" significa "estar en la unión pero **no en la intersección**":
+
+    $$P(\text{exactamente uno}) \;=\; P(F \cup C) - P(F \cap C) \;=\; 0{,}55 - 0{,}15 \;=\; \mathbf{0{,}40}.$$
+
+    Alternativamente, sumando "solo F" más "solo C": $[P(F) - P(F \cap C)] + [P(C) - P(F \cap C)] = 0{,}25 + 0{,}15 = 0{,}40$ ✓.
+
+### Solución al Problema 7.5.
+
+a)  **Clásico** (Laplace). Los 300 asistentes son casos igualmente probables (sorteo justo), y hay un solo caso favorable. $P = 1/300 \approx 0{,}0033$.
+
+b)  **Frecuentista** (Von Mises). Hay un histórico amplio y estable (5 000 vuelos) para calcular la frecuencia relativa de incidencias. La estimación resultante es una aproximación razonable de la probabilidad verdadera. La Ley de los Grandes Números respalda el procedimiento.
+
+c)  **Subjetivo** (bayesiano). Es un suceso **único**, sin frecuencia histórica ni casos equiprobables comparables. La probabilidad se asigna como grado de creencia racional del analista, revisable a la luz de nueva información (declaraciones de los CEOs, aprobación regulatoria, etc.).
+
+d)  **Clásico**. Se conocen los casos posibles y son equiprobables (elegir al azar entre 4 opciones en 10 preguntas). El cálculo se hace por combinatoria (véase el próximo capítulo, con la distribución binomial). Es el escenario canónico de Laplace.
+
+e)  **Frecuentista**. La aseguradora dispone de un histórico masivo (20 años de siniestralidad) y estable, del que puede estimar la tasa de siniestros de cargueros de esa antigüedad. Es la lógica actuarial estándar.
+
+### Solución al Problema 7.6.
+
+a)  Por definición de probabilidad condicionada:
+
+    $$P(R \mid A) \;=\; \dfrac{P(R \cap A)}{P(A)} \;=\; \dfrac{60/500}{120/500} \;=\; \dfrac{60}{120} \;=\; \mathbf{0{,}50}.$$
+
+b)  Análogamente:
+
+    $$P(A \mid R) \;=\; \dfrac{P(A \cap R)}{P(R)} \;=\; \dfrac{60/500}{150/500} \;=\; \dfrac{60}{150} \;=\; \mathbf{0{,}40}.$$
+
+c)  Aunque el numerador es común (60 compañías cumplen ambas condiciones), los **denominadores son distintos**: al condicionar por $A$ dividimos entre las 120 compañías con sede en Andrómeda; al condicionar por $R$, entre las 150 con flota renovada. Como los grupos condicionantes tienen tamaños distintos, las proporciones internas también lo son. Es exactamente la asimetría que el capítulo 4 destacaba entre las dos direcciones de una condicionada.
+
+d)  **No** es válida. El directivo comete dos errores clásicos:
+
+    -   Confunde **correlación** (o dependencia estadística) con **causalidad**. Que "sede en Andrómeda" y "flota renovada" aparezcan juntas no implica que una cause la otra.
+    -   Ha confundido implícitamente $P(R \mid A)$ con $P(A \mid R)$ al leer la cifra, lo que el capítulo llama *confusion of the inverse*.
+
+    Podría haber, por ejemplo, una tercera variable (subvenciones específicas del Consejo de Andrómeda, mayor prosperidad económica en esa galaxia) que impulse simultáneamente ambas cosas. La probabilidad condicionada describe una **asociación**, no una explicación.
+
+### Solución al Problema 7.7.
+
+a)  Aplicando la regla de multiplicación para extracciones sin reemplazamiento:
+
+    $$P(A_1 \cap A_2 \cap A_3) \;=\; \dfrac{8}{12}\cdot \dfrac{7}{11}\cdot \dfrac{6}{10} \;=\; \dfrac{336}{1\,320} \;\approx\; \mathbf{0{,}2545}.$$
+
+    Aproximadamente el 25,45%.
+
+b)  Análogamente para los tres con parada:
+
+    $$P(M_1 \cap M_2 \cap M_3) \;=\; \dfrac{4}{12}\cdot \dfrac{3}{11}\cdot \dfrac{2}{10} \;=\; \dfrac{24}{1\,320} \;\approx\; \mathbf{0{,}0182}.$$
+
+    Un 1,82%: mucho más raro, coherente con que los "con parada" son minoría.
+
+c)  El primero apto, el segundo y el tercero necesitan parada:
+
+    $$P(A_1 \cap M_2 \cap M_3) \;=\; \dfrac{8}{12}\cdot \dfrac{4}{11}\cdot \dfrac{3}{10} \;=\; \dfrac{96}{1\,320} \;\approx\; \mathbf{0{,}0727}.$$
+
+d)  Con reemplazamiento, cada extracción es **independiente** de las anteriores, y la probabilidad de que cada carguero sea apto es siempre 8/12:
+
+    $$P(A_1 \cap A_2 \cap A_3)_{\text{c/rep}} \;=\; \left(\dfrac{8}{12}\right)^3 \;=\; \dfrac{512}{1\,728} \;\approx\; \mathbf{0{,}2963}.$$
+
+    La diferencia (0,2545 sin reemplazamiento frente a 0,2963 con reemplazamiento) refleja que al sacar aptos sin devolverlos, la proporción de aptos en el lote **disminuye** y por tanto la probabilidad de que el siguiente también sea apto baja. Con lotes muy grandes, ambas cifras se aproximan: sacar un solo carguero apto de un lote de 10 000 apenas altera el resto.
+
+### Solución al Problema 7.8.
+
+a)  Diagrama de árbol:
+
+    ```
+    Reactor ── P(A)=0,50 ──── A ── P(F|A)=0,02 ──── F
+              └ P(B)=0,30 ──── B ── P(F|A)=0,05 ──── F
+              └ P(C)=0,20 ──── C ── P(F|C)=0,08 ──── F
+    ```
+
+    (Con la rama complementaria $F^{*}$ desde cada proveedor, no dibujada por brevedad.)
+
+b)  Aplicando el teorema de la probabilidad total:
+
+    $$P(F) \;=\; P(F \mid A)\, P(A) + P(F \mid B)\, P(B) + P(F \mid C)\, P(C) \;=\; 0{,}02\cdot 0{,}50 + 0{,}05\cdot 0{,}30 + 0{,}08\cdot 0{,}20$$
+    $$\;=\; 0{,}010 + 0{,}015 + 0{,}016 \;=\; \mathbf{0{,}041}.$$
+
+    Un 4,1% de tasa global de fallo en el primer año.
+
+c)  Sí es coherente: es una **media ponderada** de las tres tasas individuales (2%, 5%, 8%), y por tanto está necesariamente entre la mínima (2%) y la máxima (8%). Queda más cerca de las tasas bajas porque el proveedor $A$, con la tasa más baja, tiene también la mayor cuota (50%) y por tanto pesa más en el promedio.
+
+d)  Recalculando con la nueva tasa de C:
+
+    $$P(F)_{\text{nueva}} \;=\; 0{,}02\cdot 0{,}50 + 0{,}05\cdot 0{,}30 + 0{,}04\cdot 0{,}20 \;=\; 0{,}010 + 0{,}015 + 0{,}008 \;=\; \mathbf{0{,}033}.$$
+
+    La probabilidad global pasa de 0,041 a 0,033, una **reducción de 0,008** (aproximadamente **20% menos** en términos relativos). La mejora es sensible aunque C sea solo el 20% del suministro: reducir a la mitad la tasa del proveedor más deficiente tiene un impacto medible en la fiabilidad agregada.
+
+### Solución al Problema 7.9.
+
+a)  Aplicando Bayes con $P(F) = 0{,}041$ (calculada en el problema anterior):
+
+    $$P(A \mid F) \;=\; \dfrac{P(F \mid A)\, P(A)}{P(F)} \;=\; \dfrac{0{,}02\cdot 0{,}50}{0{,}041} \;=\; \dfrac{0{,}010}{0{,}041} \;\approx\; \mathbf{0{,}2439}.$$
+
+    $$P(B \mid F) \;=\; \dfrac{0{,}05\cdot 0{,}30}{0{,}041} \;=\; \dfrac{0{,}015}{0{,}041} \;\approx\; \mathbf{0{,}3659}.$$
+
+    $$P(C \mid F) \;=\; \dfrac{0{,}08\cdot 0{,}20}{0{,}041} \;=\; \dfrac{0{,}016}{0{,}041} \;\approx\; \mathbf{0{,}3902}.$$
+
+b)  Más probable: el proveedor **C** ($\approx 39{,}0\%$). Sorprendentemente, **no coincide** con el proveedor mayoritario en suministro (A, con el 50% de cuota). Aunque C solo suministra el 20% de los reactores, su alta tasa de fallo (8%) hace que, cuando ocurre un fallo, la probabilidad *a posteriori* de que proceda de C sea la mayor.
+
+c)  Suma: $0{,}2439 + 0{,}3659 + 0{,}3902 = \mathbf{1{,}0000}$ ✓. Debe cumplirse porque los tres proveedores forman una **partición**: cualquier reactor fabricado —incluido el averiado— proviene de exactamente uno de los tres. Al condicionar por $F$, la partición del espacio muestral original se traduce en una distribución de probabilidad condicionada que también debe sumar 1.
+
+d)  La conclusión del directivo es correcta en dirección, pero incorrecta en el razonamiento. Es cierto que $C$ tiene la mayor $P(C \mid F)$, pero el directivo lo justifica mal: dice *"tiene la tasa de fallo más alta, así que seguro es de C"*. Le falta multiplicar la tasa de fallo por la **cuota de suministro** (por la $P(C)$ *a priori*). Si $C$ tuviera un 1% de cuota en vez del 20%, con la misma tasa del 8%, la aportación al numerador ($0{,}01 \cdot 0{,}08 = 0{,}0008$) sería mucho menor y la conclusión cambiaría radicalmente. Bayes no es solo "el que tiene tasa más alta"; es "el que combina alta tasa con presencia relevante".
+
+### Solución al Problema 7.10.
+
+a)  Probabilidad total del marcador:
+
+    $$P(D) \;=\; P(D \mid F)\, P(F) + P(D \mid F^{*})\, P(F^{*}) \;=\; 0{,}95\cdot 0{,}02 + 0{,}05\cdot 0{,}98 \;=\; 0{,}019 + 0{,}049 \;=\; 0{,}068.$$
+
+    Por Bayes:
+
+    $$P(F \mid D) \;=\; \dfrac{P(D \mid F)\, P(F)}{P(D)} \;=\; \dfrac{0{,}019}{0{,}068} \;\approx\; \mathbf{0{,}2794}.$$
+
+    Solo un **27,94%**: bastante lejos del 95% que uno podría suponer al leer la sensibilidad.
+
+b)  La diferencia (95% de sensibilidad vs. 27,94% de probabilidad *a posteriori*) es la manifestación clásica de la **paradoja de la tasa base**. La sensibilidad describe la calidad del test **cuando se aplica a un fraudulento**; la $P(F \mid D)$ describe la probabilidad de que **un marcado sea fraudulento** en una población donde el fraude es muy raro. Como los legítimos son casi 50 veces más numerosos que los fraudulentos, el 5% de falsos positivos entre 98% de legítimos ($0{,}049$) supera con creces el 95% de verdaderos positivos entre solo 2% de fraudulentos ($0{,}019$).
+
+c)  Falsos positivos entre los marcados:
+
+    $$P(F^{*} \mid D) \;=\; 1 - P(F \mid D) \;=\; 1 - 0{,}2794 \;\approx\; \mathbf{0{,}7206}.$$
+
+    El **72,06%** de los rechazos automáticos serían injustos. Rechazar sin más una alerta es, con estas cifras, una política enormemente injusta.
+
+d)  Con sensibilidad y especificidad del 99%:
+
+    $$P(D)_{\text{nueva}} \;=\; 0{,}99\cdot 0{,}02 + 0{,}01\cdot 0{,}98 \;=\; 0{,}0198 + 0{,}0098 \;=\; 0{,}0296,$$
+
+    $$P(F \mid D)_{\text{nueva}} \;=\; \dfrac{0{,}0198}{0{,}0296} \;\approx\; \mathbf{0{,}6689}.$$
+
+    La mejora es notable: de 27,94% a 66,89%. Aun así, un tercio de las alertas siguen siendo falsos positivos. Incluso un test **casi perfecto** no elimina el problema de la tasa base cuando la prevalencia es baja: la única salida realista es combinar el test con otro criterio independiente (véase el problema 7.13).
+
+### Solución al Problema 7.11.
+
+a)  *Odds* a priori y cociente de verosimilitudes:
+
+    $$\text{odds}(M) \;=\; \dfrac{P(M)}{P(M^{*})} \;=\; \dfrac{0{,}05}{0{,}95} \;\approx\; 0{,}0526 \qquad (\text{aprox. } 1:19).$$
+
+    $$LR \;=\; \dfrac{P(D \mid M)}{P(D \mid M^{*})} \;=\; \dfrac{0{,}90}{0{,}10} \;=\; 9.$$
+
+    Cada test positivo multiplica las *odds* por 9.
+
+b)  Tras el primer positivo:
+
+    $$\text{odds}(M \mid D_1) \;=\; 0{,}0526 \cdot 9 \;\approx\; 0{,}4737.$$
+
+    Convertido a probabilidad:
+
+    $$P(M \mid D_1) \;=\; \dfrac{0{,}4737}{1 + 0{,}4737} \;\approx\; \mathbf{0{,}3214}.$$
+
+    Coincide, salvo redondeo, con la cifra del capítulo ($\approx 0{,}32$) ✓.
+
+c)  Tras el segundo positivo, aplicando de nuevo el $LR$:
+
+    $$\text{odds}(M \mid D_1 \cap D_2) \;=\; 0{,}4737 \cdot 9 \;\approx\; 4{,}2632.$$
+
+    $$P(M \mid D_1 \cap D_2) \;=\; \dfrac{4{,}2632}{1 + 4{,}2632} \;\approx\; \mathbf{0{,}8100}.$$
+
+d)  La probabilidad pasa de 0,3214 (tras un test) a 0,8100 (tras dos tests independientes). El **salto es enorme**: la evidencia acumulada de dos tests concordantes eleva las creencias del 32% al 81%. Desde el punto de vista de gestión, aplicar sistemáticamente un segundo test tiene todo el sentido siempre que sea **razonablemente barato** y **razonablemente independiente** del primero. Como los tests actúan multiplicativamente sobre las *odds*, dos tests con $LR = 9$ equivalen a un solo test con $LR = 81$. Esta es la lógica que rige el diseño de **cribados en dos etapas** en medicina, banca, seguridad y control de calidad.
+
+### Solución al Problema 7.12.
+
+a)  De la tabla:
+
+    -   $P(R) = 62/300 \approx \mathbf{0{,}2067}$.
+    -   $P(D_{\text{alto}}) = 150/300 = \mathbf{0{,}5000}$.
+    -   $P(R \cap D_{\text{alto}}) = 62/300 \approx \mathbf{0{,}2067}$ (todas las compañías con flota renovada tienen digitalización alta).
+
+b)  Producto de las marginales: $P(R) \cdot P(D_{\text{alto}}) = 0{,}2067 \cdot 0{,}5000 \approx 0{,}1033$.
+
+    Como $P(R \cap D_{\text{alto}}) = 0{,}2067 \neq 0{,}1033$, los dos sucesos **no son independientes**. La probabilidad conjunta observada duplica la que produciría la independencia.
+
+c)  Probabilidad condicionada:
+
+    $$P(R \mid D_{\text{alto}}) \;=\; \dfrac{P(R \cap D_{\text{alto}})}{P(D_{\text{alto}})} \;=\; \dfrac{62/300}{150/300} \;=\; \dfrac{62}{150} \;\approx\; \mathbf{0{,}4133}.$$
+
+    Frente a $P(R) = 0{,}2067$, la información sobre la digitalización **duplica** la probabilidad de que la flota sea renovada. Es exactamente el tipo de dependencia que el capítulo señala: *"la información sobre un suceso modifica sensiblemente la probabilidad del otro"*, tanto que aquí la dependencia raya en un extremo (todas las flotas renovadas están asociadas a digitalización alta).
+
+d)  Económicamente, la asociación tiene una lectura razonable: las compañías que **han modernizado su flota** tienden a haber modernizado también su gestión digital. Ambas cosas son manifestaciones de un mismo esfuerzo transformador. Ahora bien, no cabe hablar de **causalidad**: no se sabe si digitalizar impulsa la renovación de flota, si renovar la flota exige mayor digitalización, o si ambas responden a una tercera variable (calidad de gestión, capacidad financiera, apetito por la innovación). El capítulo 4 dedicó una sección entera a este mismo aviso; la dependencia estadística es descripción, no explicación.
+
+### Solución al Problema 7.13.
+
+a)  Probabilidad global del marcador:
+
+    $$P(T) \;=\; P(T \mid F)\, P(F) + P(T \mid F^{*})\, P(F^{*}) \;=\; 0{,}98\cdot 0{,}03 + 0{,}08\cdot 0{,}97 \;=\; 0{,}0294 + 0{,}0776 \;=\; \mathbf{0{,}1070}.$$
+
+    El 10,7% de las compañías serán marcadas por el test.
+
+b)  Descomposición de las marcadas sobre las 300 compañías:
+
+    -   **Fantasmas** reales: $300 \cdot 0{,}03 = 9$ compañías. Marcadas correctamente: $9 \cdot 0{,}98 \approx \mathbf{8{,}82 \approx 9}$ compañías (verdaderos positivos).
+    -   **Legítimas**: $300 - 9 = 291$. Marcadas incorrectamente: $291 \cdot 0{,}08 \approx \mathbf{23{,}28 \approx 23}$ compañías (falsos positivos).
+    -   **Total marcadas**: $\approx 9 + 23 = 32$ compañías (verifica $300 \cdot 0{,}1070 = 32{,}1$ ✓).
+
+c)  Aplicando Bayes:
+
+    $$P(F \mid T) \;=\; \dfrac{P(T \mid F)\, P(F)}{P(T)} \;=\; \dfrac{0{,}0294}{0{,}1070} \;\approx\; \mathbf{0{,}2748}.$$
+
+    Solo un **27,48%** de las compañías marcadas son realmente fantasmas. Coincide, salvo redondeo, con el ratio del apartado (b): $9/32 \approx 0{,}28$.
+
+d)  **No** es razonable investigar exhaustivamente a las 32 compañías marcadas. El **72,52%** de las investigaciones (unas 23 de 32) recaerían sobre compañías **legítimas**: coste operativo enorme, desgaste institucional y perjuicio potencial a compañías inocentes. Es la paradoja de la tasa base aplicada al ámbito regulatorio.
+
+e)  Actualización con *odds*:
+
+    -   $\text{odds}(F) = 0{,}03/0{,}97 \approx 0{,}0309$.
+    -   $LR = 0{,}98/0{,}08 = 12{,}25$.
+    -   Tras primer positivo: $\text{odds}(F \mid T_1) = 0{,}0309 \cdot 12{,}25 \approx 0{,}3789 \Rightarrow P \approx 0{,}2748$ ✓.
+    -   Tras segundo positivo: $\text{odds}(F \mid T_1 \cap T_2) = 0{,}3789 \cdot 12{,}25 \approx 4{,}6415 \Rightarrow P \approx \mathbf{0{,}8228}$.
+
+    La probabilidad sube del 27,5% al **82,3%** tras dos tests independientes concordantes: mejora radical.
+
+f)  **Recomendación operativa de Mara Qyà**:
+
+    > *"Un solo test es insuficiente como base para investigación exhaustiva: casi tres de cada cuatro compañías marcadas serían inocentes, lo que haría inasumible el coste operativo y el impacto reputacional. Propongo un cribado en **dos etapas**: aplicar el test a todo el registro (300 compañías); repetir un segundo test independiente sobre las 32 marcadas la primera vez; y abrir investigación exhaustiva únicamente sobre las que salgan positivas en ambos pases (probabilidad a posteriori del 82%). El coste marginal del segundo test es despreciable frente al ahorro en investigaciones fallidas, y la calidad estadística del filtro pasa de cuestionable a razonablemente sólida. Este esquema de cribado en cascada es análogo al que ya utilizan las agencias tributarias y las autoridades de supervisión financiera de la Federación."*
+
+    La lección de fondo del capítulo es exactamente esta: cuando el suceso buscado es raro, un solo test **nunca** es suficiente por bueno que parezca, y la solución honesta pasa por acumular evidencia. La probabilidad no es un veredicto: es un instrumento para tomar decisiones proporcionadas al nivel de incertidumbre.
