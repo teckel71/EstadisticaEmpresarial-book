@@ -930,11 +930,6 @@ El siguiente extracto corresponde a la distribución de frecuencias del **númer
 |       4       |  30   |       |       |       |
 |       5       |  20   |       |       |       |
 
-::: {style="text-align: center;"}
-**Tabla 1.8**
-:::
-
-
 Se pide:
 
 a)  Completa los huecos de la tabla.
@@ -952,11 +947,6 @@ Un directivo de *Kaiju Haulage Co.* solicita al equipo de estudios *"las frecuen
 |  Miranda  |  12   |  20   | 0,15  | 0,25  |
 | Mustafar  |  40   |  60   | 0,50  | 0,75  |
 | Tatooine  |  20   |  80   | 0,25  | 1,00  |
-
-::: {style="text-align: center;"}
-**Tabla 1.9**
-:::
-
 
 El directivo lee la última fila y afirma que *"el 75% de la plantilla es como mucho de Mustafar"*.
 
@@ -976,11 +966,6 @@ c)  Propón una lectura que sí sería correcta a partir de las columnas legíti
 |         (15, 20]          |  15   |   5   | 17,5  |  3,0  |
 |         (20, 30]          |  18   |  10   | 25,0  |  1,8  |
 |         (30, 50]          |   6   |  20   | 40,0  |  0,3  |
-
-::: {style="text-align: center;"}
-**Tabla 1.10**
-:::
-
 
 Un miembro del equipo directivo, al ver la tabla, se queja: *"El intervalo (20, 30] es el que concentra a más gente, así que ahí está el salario típico de la compañía."*
 
@@ -1013,11 +998,6 @@ La siguiente tabla resume el **margen operativo (en %)** de las 300 compañías 
 |  (60, 80]  |  90   | 0,300 | 0,900 |
 | (80, 100]  |  30   | 0,100 | 1,000 |
 
-::: {style="text-align: center;"}
-**Tabla 1.11**
-:::
-
-
 Se pide:
 
 a)  ¿En qué intervalo se sitúa la mayor concentración de compañías?
@@ -1042,11 +1022,6 @@ d)  Sagan Olbers propone considerar *"empresas de alto rendimiento"* a las que s
 |  C-09   |          15           |
 |  C-10   |          12           |
 
-::: {style="text-align: center;"}
-**Tabla 1.12**
-:::
-
-
 Se pide:
 
 a)  Construye una tabla con la facturación acumulada y su porcentaje sobre el total.
@@ -1070,11 +1045,6 @@ Un extracto del cuadro de mando trimestral de *Hyperdrive Express* recoge la fac
 | 2208 | 140 | 158 | 172 | 195 |
 | 2209 | 152 | 170 | 185 | 210 |
 | 2210 | 168 | 188 | 205 | 232 |
-
-::: {style="text-align: center;"}
-**Tabla 1.13**
-:::
-
 
 Se pide:
 
@@ -1101,11 +1071,6 @@ b)  Reformulación compatible: *"La Estadística es el instrumento sin el cual n
 | iii   | Pilotos de largo recorrido de las 5 galaxias        | Un piloto    | Nivel de satisfacción     | Atributo  | Ordinal   |
 | iv    | Los tres grandes astilleros                         | Un astillero | Cuota de mercado (Tm)     | Variable  | Métrica   |
 | v     | Compañías con sede en la Gran Nube de Magallanes    | Una compañía | Estado financiero (S/V/D) | Atributo  | Ordinal   |
-
-::: {style="text-align: center;"}
-**Tabla 1.14**
-:::
-
 
 **Comentarios.** En (iv), la interpretación más frecuente en un informe sectorial es la que hemos elegido (los astilleros como individuos y la cuota como variable). También cabría entender como individuo cada tonelada transportada y como característica el astillero constructor (que pasaría a ser atributo nominal); ambas son legítimas, pero responden a preguntas distintas. En (iii), la escala es **ordinal** y no métrica: un "Muy satisfecho" no es "el doble" de un "Poco satisfecho".
 
@@ -1137,11 +1102,6 @@ e)  **Descriptiva.** Se caracteriza el conjunto observado (plantilla completa).
 | Antigüedad de la flota         | Variable | Métrica  | Sí                |
 | Astillero constructor          | Atributo | Nominal  | No                |
 | Índice de digitalización       | Variable | Métrica  | Sí                |
-
-::: {style="text-align: center;"}
-**Tabla 1.15**
-:::
-
 
 **Comentario sobre el estado financiero.** En la práctica se ven "índices" que recodifican Saneado = 1, En Vigilancia = 2, En *Distress* = 3 y calculan medias. Esto es *técnicamente* posible, pero conceptualmente resbaladizo: el promedio entre "Saneado" y "En Vigilancia" (1,5) no es una categoría reconocible. La distancia entre categorías ordinales no está garantizada; por eso la escala ordinal admite orden pero no operaciones aritméticas.
 

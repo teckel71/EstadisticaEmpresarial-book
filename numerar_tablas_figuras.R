@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 # =====================================================================
-# numerar_tablas_figuras.R  (v3)
+# numerar_tablas_figuras.R  (v4)
 # ---------------------------------------------------------------------
 # Cambios de v2 a v3:
 #   1. La cabecera del chunk admite llaves internas. Con LaTeX en
@@ -20,6 +20,11 @@
 #   6. Los captions se desescapan al extraerlos del código R. En el
 #      fuente "$\\xi$" es la cadena `$\xi$`; volcar las dos barras al
 #      markdown metía un salto de línea de LaTeX y partía la fórmula.
+#   8. Las tablas e imagenes que aparecen a partir del titular de
+#      "Problemas propuestos" (enunciados y soluciones) quedan fuera de
+#      la serie numerada: son material de apoyo del ejercicio, no
+#      elementos expositivos. Se controla con `numerar_problemas` y
+#      `patron_seccion_final`.
 #   7. Cada pie lleva un ancla Pandoc y las referencias cruzadas
 #      `\@ref(fig:...)` / `\@ref(tab:...)` se sustituyen por un enlace
 #      con el número que asigna este script (bookdown ya no puede
@@ -61,6 +66,9 @@ procesar_rmd <- function(ruta_entrada,
                         incluir_caption_tabla = TRUE,
                         incluir_alt_figura    = TRUE,
                         resolver_referencias  = TRUE,
+                        numerar_problemas     = FALSE,
+                        patron_seccion_final  =
+                          "\\{#(problemas|soluciones)-cap",
                         envolver_alt_simple   = TRUE,
                         verbose = TRUE) {
 
@@ -1194,6 +1202,13 @@ procesar_rmd <- function(ruta_entrada,
   mapa_fig <- list()
   mapa_tab <- list()
   chunk_etiqueta <- NA_character_
+  # A partir del titular de "Problemas propuestos" empiezan los
+  # enunciados y sus soluciones. Sus tablas e imagenes son material de
+  # apoyo del ejercicio, no elementos expositivos del capitulo, y por
+  # defecto quedan fuera de la serie numerada. Se les sigue quitando el
+  # caption para que bookdown tampoco los autonumere por su cuenta.
+  zona_final <- FALSE
+  n_omitidos <- 0L
 
   push <- function(...) salida <<- c(salida, ...)
 
@@ -1218,6 +1233,11 @@ procesar_rmd <- function(ruta_entrada,
     linea <- lineas[i]
 
     if (estado == "texto") {
+      if (!zona_final && !numerar_problemas &&
+          grepl("^#{1,6}\\s", linea, perl = TRUE) &&
+          grepl(patron_seccion_final, linea, perl = TRUE)) {
+        zona_final <- TRUE
+      }
       if (es_chunk_inicio(linea)) {
         estado <- "chunk"
         info_hdr <- extraer_fig_cap_header(linea)
@@ -1230,6 +1250,12 @@ procesar_rmd <- function(ruta_entrada,
       }
       td <- detectar_tabla_md(lineas, i)
       if (isTRUE(td$es_tabla)) {
+        if (zona_final) {
+          for (k in i:td$fin) push(lineas[k])
+          n_omitidos <- n_omitidos + 1L
+          i <- td$fin + 1L
+          next
+        }
         cont_tabla <- cont_tabla + 1L
         for (k in i:td$fin) push(lineas[k])
         desc <- if (incluir_caption_tabla && !is.na(td$caption)) td$caption else NULL
@@ -1244,6 +1270,13 @@ procesar_rmd <- function(ruta_entrada,
       }
       if (grepl("!\\[", linea, perl = TRUE)) {
         res <- procesar_linea_imagen(linea)
+        if (isTRUE(res$contado) && zona_final) {
+          # Se deja la linea intacta (con su texto alternativo).
+          push(linea)
+          n_omitidos <- n_omitidos + 1L
+          i <- i + 1L
+          next
+        }
         if (isTRUE(res$contado)) {
           cont_figura <- cont_figura + 1L
           push(res$linea)
@@ -1287,6 +1320,13 @@ procesar_rmd <- function(ruta_entrada,
         if (skip) {
           # Chunk eval=FALSE: dejar tal cual, no se renderiza.
           push(chunk_header); push(chunk_buffer); push(linea)
+        } else if (zona_final) {
+          # Enunciados y soluciones: se limpian los captions (para que
+          # bookdown no autonumere) pero no se emite bloque de
+          # numeracion.
+          chunk_limpio <- quitar_todos_captions(chunk_buffer)
+          push(chunk_header); push(chunk_limpio); push(linea)
+          n_omitidos <- n_omitidos + length(info$secuencia)
         } else if (length(info$secuencia) == 0L) {
           # Chunk eval=TRUE pero sin tablas/figuras directas detectadas.
           # PUEDE contener definiciones de funciones cuyos kables se
@@ -1450,6 +1490,10 @@ procesar_rmd <- function(ruta_entrada,
                 basename(ruta_entrada), basename(ruta_salida)))
     cat(sprintf("     Capítulo %d. Tablas: %d. Figuras: %d.\n",
                 num_capitulo, cont_tabla, cont_figura))
+    if (!numerar_problemas && n_omitidos > 0L) {
+      cat(sprintf("     Sin numerar por estar en enunciados/soluciones: %d.\n",
+                  n_omitidos))
+    }
     if (isTRUE(resolver_referencias)) {
       cat(sprintf("     Referencias cruzadas resueltas: %d.%s\n", refs_ok,
           if (length(refs_sin_resolver))
@@ -1468,6 +1512,7 @@ procesar_rmd <- function(ruta_entrada,
     capitulo  = num_capitulo,
     n_tablas  = cont_tabla,
     n_figuras = cont_figura,
+    n_omitidos        = n_omitidos,
     refs_resueltas    = refs_ok,
     refs_sin_resolver = unique(refs_sin_resolver),
     registro  = registro

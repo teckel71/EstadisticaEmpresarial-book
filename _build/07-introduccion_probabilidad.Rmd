@@ -892,11 +892,6 @@ La tabla de contingencia astillero × tonelaje sobre la flota es:
 | ARCTURUS     |   1    |    9   |  10   |
 | **Total**    |  22    |   26   |  48   |
 
-::: {style="text-align: center;"}
-**Tabla 7.5**
-:::
-
-
 Se pide:
 
 a)  Calcula $P(K)$, $P(P)$ y $P(K \cap P)$.
@@ -1021,11 +1016,6 @@ Sobre las 300 compañías del sector R-Stars, la siguiente tabla cruza el **esta
 | Flota MADURA   |    50     |    40     |  90   |
 | Flota ANTIGUA  |    38     |   110     | 148   |
 | **Total**      |   150     |   150     | 300   |
-
-::: {style="text-align: center;"}
-**Tabla 7.6**
-:::
-
 
 Se pide:
 

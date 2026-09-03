@@ -1106,11 +1106,6 @@ La AITM publica esta tabla de doble entrada que cruza el **estado de la flota** 
 | Renovada       |    40      |    45     |    25     |  7  |  3  |   120     |
 | **Marg. $Y$**  |   100      |    90     |    60     | 30  | 20  |   300     |
 
-::: {style="text-align: center;"}
-**Tabla 4.15**
-:::
-
-
 Se pide:
 
 a)  ¿Qué proporción de compañías tiene su sede en la **Vía Láctea**?
@@ -1127,11 +1122,6 @@ Sobre una muestra de 200 empleados de *Kaiju Haulage Co.*, se ha cruzado el **tu
 | Diurno    |   30   |    20    |   50   |  100  |
 | Nocturno  |   50   |    40    |   10   |  100  |
 | Marg.     |   80   |    60    |   60   |  200  |
-
-::: {style="text-align: center;"}
-**Tabla 4.16**
-:::
-
 
 Se pide:
 
@@ -1150,11 +1140,6 @@ Se dispone del siguiente cruce de dos atributos $X$ (P / Q) e $Y$ (A / B) en una
 | **Q**   |  28 |  42 |   70  |
 | Marg.   |  40 |  60 |  100  |
 
-::: {style="text-align: center;"}
-**Tabla 4.17**
-:::
-
-
 Se pide:
 
 a)  Calcula las frecuencias relativas conjuntas $f_{ij}$ y las marginales $f_{i\bullet}$ y $f_{\bullet j}$.
@@ -1172,11 +1157,6 @@ Se conocen únicamente las **frecuencias marginales** del cruce forma jurídica 
 | SAG     |         |        |          |   120     |
 | SLG     |         |        |          |    90     |
 | Marg. $Y$ |   60   |  120  |   120    |   300     |
-
-::: {style="text-align: center;"}
-**Tabla 4.18**
-:::
-
 
 Se pide:
 
@@ -1205,11 +1185,6 @@ Al comparar la **rentabilidad media** de las Sociedades Anónimas Galácticas (S
 | SAG            |          62            |
 | SLG            |          55            |
 
-::: {style="text-align: center;"}
-**Tabla 4.19**
-:::
-
-
 Parece que las SAG rinden más. Pero al desagregar por **sector operativo**, los datos son:
 
 |            | SAG (rent. media) | SLG (rent. media) |
@@ -1217,11 +1192,6 @@ Parece que las SAG rinden más. Pero al desagregar por **sector operativo**, los
 | Carga      |        45%        |        50%        |
 | Pasajeros  |        68%        |        70%        |
 | Servicios  |        78%        |        80%        |
-
-::: {style="text-align: center;"}
-**Tabla 4.20**
-:::
-
 
 Se pide:
 
@@ -1241,11 +1211,6 @@ Sobre las 300 compañías R-Stars se han calculado las siguientes covarianzas en
 | Rentabilidad × Índice de digitalización            |      $+8{,}4$       |
 | Gasto en cantina × Distancia al sistema Klendathu  |     $-0{,}03$       |
 
-::: {style="text-align: center;"}
-**Tabla 4.21**
-:::
-
-
 Se pide, para cada uno de los cuatro cruces:
 
 a)  Interpreta el **signo** de la covarianza: ¿qué tipo de relación estadística (directa, inversa, prácticamente nula) sugiere?
@@ -1264,11 +1229,6 @@ d)  ¿Qué medida del **capítulo siguiente** hará mucho más fácil comparar l
 |    3     |      8       |        3        |
 |    4     |     12       |        4        |
 |    5     |     15       |        5        |
-
-::: {style="text-align: center;"}
-**Tabla 4.22**
-:::
-
 
 Se pide:
 
@@ -1298,11 +1258,6 @@ Un estudio piloto de la ARTI cruza el **estado de mantenimiento** de 200 carguer
 | Mant. retraso  |       40      |       60      |  100  |
 | Marg.          |       50      |      150      |  200  |
 
-::: {style="text-align: center;"}
-**Tabla 4.23**
-:::
-
-
 Se pide:
 
 a)  Calcula las frecuencias esperadas $n^{*}_{ij}$ bajo independencia para las cuatro celdas.
@@ -1319,11 +1274,6 @@ Un informe de la AITM presenta tres cruces distintos con los siguientes indicado
 | Forma jurídica × Estado de la flota         | $3\times 3$  | 300  |   3,86     |
 | Sector operativo × Galaxia de sede          | $4\times 5$  | 300  |  75,00     |
 | Astillero × Nivel de digitalización         | $3\times 4$  |  48  |  12,20     |
-
-::: {style="text-align: center;"}
-**Tabla 4.24**
-:::
-
 
 Se pide:
 
@@ -1342,11 +1292,6 @@ En un cruce del *Informe Bluebird* entre **tamaño de la compañía** (Small / M
 | **Medium**   | -0,50  | +1,20   | -0,60  |
 | **Large**    | -2,60  | -1,30   | +3,90  |
 
-::: {style="text-align: center;"}
-**Tabla 4.25**
-:::
-
-
 Se pide:
 
 a)  Identifica las dos celdas con **mayor residuo positivo** y las dos con **mayor residuo negativo**. ¿Qué te dicen sobre la asociación entre tamaño y digitalización?
@@ -1364,11 +1309,6 @@ d)  Si fueras responsable de estrategia en una compañía **Small**, ¿qué **de
 | Pasajeros    | 30  | 30  | 30  |   90  |
 | Servicios    | 40  | 30  | 20  |   90  |
 | Marg.        | 90  | 120 | 90  |  300  |
-
-::: {style="text-align: center;"}
-**Tabla 4.26**
-:::
-
 
 Se pide:
 

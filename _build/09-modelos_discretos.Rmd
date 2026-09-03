@@ -1029,11 +1029,6 @@ Sobre tres muestras distintas de datos de conteo, se han calculado los siguiente
 |   B     | Nº de reclamaciones anuales por cliente en un ecommerce galáctico          | 3,20  | 15,40 |     ?     |
 |   C     | Nº de llegadas de clientes por hora en una sucursal bancaria               | 8,50  | 8,70  |     ?     |
 
-::: {style="text-align: center;"}
-**Tabla 9.5**
-:::
-
-
 Se pide:
 
 a)  Completa la columna del ratio $s^2/\bar x$ para cada muestra.

@@ -941,11 +941,6 @@ Las plantillas de dos compañías galácticas de tamaño operativo similar prese
 | Salario mínimo          | 8                        | 17                     |
 | Salario máximo          | 42                       | 24                     |
 
-::: {style="text-align: center;"}
-**Tabla 3.7**
-:::
-
-
 Se pide:
 
 a)  Calcula el coeficiente de variación de Pearson para cada compañía.
@@ -963,11 +958,6 @@ La **Autoridad Interestelar del Transporte de Mercancías (AITM)** ha publicado 
 |  (40, 60]  |  80   |
 |  (60, 80]  |  60   |
 | (80, 100]  |  15   |
-
-::: {style="text-align: center;"}
-**Tabla 3.8**
-:::
-
 
 Se pide:
 
@@ -999,11 +989,6 @@ Se comparan las plantillas de dos compañías galácticas del mismo sector:
 | Salario medio (c.PAVOs)| 22,0             | 15,0              |
 | Desviación típica     | 8,0               | 4,5               |
 
-::: {style="text-align: center;"}
-**Tabla 3.9**
-:::
-
-
 Se pide:
 
 a)  Calcula el coeficiente de variación de Pearson para cada compañía.
@@ -1019,11 +1004,6 @@ Sobre las 300 compañías R-Stars se han calculado los siguientes descriptivos:
 | Salario medio (c. PAVOs)        | 17,2   |  5,96             |
 | Rentabilidad neta (%)           | 60,16  | 12,3              |
 | Tamaño de flota (nº de naves)   | 42     | 18                |
-
-::: {style="text-align: center;"}
-**Tabla 3.10**
-:::
-
 
 Un directivo mira las tres desviaciones típicas y concluye: *"El salario es la variable menos dispersa del sector, con diferencia."* Se pide:
 
@@ -1047,11 +1027,6 @@ c)  ¿Cuál es la variable con **mayor dispersión relativa** y cuál con **meno
 | Coef. asimetría $g_1$          |      0,55        |      5,03        |
 | Coef. curtosis $g_2$           |     $-0{,}37$    |     31,20        |
 | Índice de Gini                 |     0,193        |     0,245        |
-
-::: {style="text-align: center;"}
-**Tabla 3.11**
-:::
-
 
 Se pide:
 
@@ -1100,11 +1075,6 @@ Dos activos financieros del **hipermercado bursátil de Corellia** presentan los
 | Desviación típica       |   4,0    |   4,0    |
 | Coef. de asimetría $g_1$|   0,00   |   0,00   |
 | Coef. de curtosis $g_2$ |   0,00   |   5,00   |
-
-::: {style="text-align: center;"}
-**Tabla 3.12**
-:::
-
 
 Se pide:
 
@@ -1157,11 +1127,6 @@ e)  Dibuja un esquema **a mano alzada** de cómo esperarías que fuera el histog
 | Primer cuartil $Q_1$   |  18    |
 | Tercer cuartil $Q_3$   |  25    |
 | Desviación típica $S$  |   3    |
-
-::: {style="text-align: center;"}
-**Tabla 3.13**
-:::
-
 
 A los pocos segundos de leer el cuadro, Mara escribe al equipo de Kaiju: *"Alguna de estas cifras está mal. Revísenlas antes de que la ARTI acepte el informe."* Se pide:
 

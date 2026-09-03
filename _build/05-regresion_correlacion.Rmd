@@ -1090,11 +1090,6 @@ d)  Un consultor sugiere aplicar la recta para estimar la facturación esperada 
 |   C-04   |   8   |  60   |
 |   C-05   |  10   |  70   |
 
-::: {style="text-align: center;"}
-**Tabla 5.5**
-:::
-
-
 Se pide:
 
 a)  Calcula las medias $\overline{x}$ y $\overline{y}$.
@@ -1128,11 +1123,6 @@ Un analista ha ajustado una recta sobre 30 cargueros de una serie regular de *Se
 | $R^{2}$                |     0,83      |     0,26      |
 | Correlación $R$        |     0,91      |     0,51      |
 
-::: {style="text-align: center;"}
-**Tabla 5.6**
-:::
-
-
 Se pide:
 
 a)  ¿Qué coeficientes se han visto más afectados por la incorporación del prototipo? ¿Cómo interpretas ese cambio?
@@ -1151,11 +1141,6 @@ Sobre 60 cargueros de un cierto sector se ha construido una tabla de correlació
 | (10, 15]             |   12,5      |      18        |            25                 |
 | (15, 20]             |   17,5      |      10        |            40                 |
 | (20, 30]             |   25        |       5        |            70                 |
-
-::: {style="text-align: center;"}
-**Tabla 5.7**
-:::
-
 
 Sobre los mismos datos se ha ajustado, por MCO, la recta $\hat{y} = 5 + 2{,}0\cdot x$ con $R^{2} = 0{,}48$.
 
@@ -1190,11 +1175,6 @@ d)  Si un directivo pregunta *"¿qué proporción de la variabilidad de $Y$ qued
 | Índice de digitalización                |  0,45   | +0,67  |
 | Antigüedad media de la flota            |  0,12   | -0,35  |
 | Tamaño de la flota (nº de cargueros)    |  0,03   | +0,17  |
-
-::: {style="text-align: center;"}
-**Tabla 5.8**
-:::
-
 
 Se pide:
 
@@ -1251,11 +1231,6 @@ La AITM ha calculado los siguientes coeficientes de correlación lineal $R$ entr
 | Nº de rutas × Nº de tripulantes                      | +0,88  |
 | Gasto en cantina × Distancia al sistema Klendathu    | -0,03  |
 
-::: {style="text-align: center;"}
-**Tabla 5.9**
-:::
-
-
 Se pide:
 
 a)  Clasifica cada relación por **intensidad** y **signo**, según la escala del capítulo.
@@ -1283,11 +1258,6 @@ Un aprendiz de piloto en la escuela de *Enterprise Logistics* cronometra el tiem
 | Operaciones acumuladas ($x_i$) |  1  |  2  |  4  |  8  | 16  |
 |:------------------------------:|:---:|:---:|:---:|:---:|:---:|
 | Tiempo por maniobra ($y_i$, min) |  60 |  42 |  30 |  21 |  15 |
-
-::: {style="text-align: center;"}
-**Tabla 5.10**
-:::
-
 
 Un ajuste directo por MCO da $\hat{y} = 46{,}2 - 2{,}1\cdot x$ con $R^{2} = 0{,}70$: modesto, y con residuos que muestran patrón sistemático (curvatura no capturada).
 

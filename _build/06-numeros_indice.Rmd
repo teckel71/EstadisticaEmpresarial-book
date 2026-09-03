@@ -62,13 +62,9 @@ rstars <- read_excel("data/interestelar_300.xlsx", sheet = "Datos")
 ![](figuras/05_moneda.jpg){.portada-img width="100%"}
 
 ::: {style="text-align: center;"}
-**Figura 6.1**
+**Figura 6.1.** [Cuando las magnitudes cambian con el tiempo (y con la sospecha]{.smallcaps}
 :::
 
-
-::: {style="text-align: center;"}
-**[Cuando las magnitudes cambian con el tiempo (y con la sospecha).]{.smallcaps}**
-:::
 
 Un aviso, para empezar, dirigido a quien haya llegado hasta aquí esperando series de datos, muestras y distribuciones de frecuencias como en los capítulos anteriores. Este es un capítulo raro: no hay muestras, ni histogramas, ni casi ecuaciones con letras griegas. Solo hay **cocientes**. Cocientes entre magnitudes económicas medidas en distintos momentos del tiempo, y una insistencia bastante persistente en que esos cocientes se interpreten con cabeza.
 
@@ -747,11 +743,6 @@ Este capítulo es, como su propio texto reconoce, el más *operativo* del libro:
 | 2212 |          30             |           1.000               |        30.000          |
 | 2213 |          40             |           1.100               |        44.000          |
 
-::: {style="text-align: center;"}
-**Tabla 6.13**
-:::
-
-
 Se pide, tomando **2210 como período base**:
 
 a)  Calcula los índices simples de **precios** $p_{0}^{t}$ para los cuatro años. Expresa el resultado en escala porcentual (base 2210 = 100).
@@ -834,11 +825,6 @@ Se dispone del siguiente índice de precios de un conjunto de bienes del *Sistem
 | 2220 |    —      |   130     |
 | 2225 |    —      |   170     |
 
-::: {style="text-align: center;"}
-**Tabla 6.14**
-:::
-
-
 Se pide:
 
 a)  Enlaza toda la serie tomando **2215** como nueva base común (2215 = 100). Calcula los valores para los cinco años.
@@ -858,11 +844,6 @@ La AITM publica la serie del **gasto anual del sector transporte** del *Sistema 
 | 2213 |         3\,900          |           120,0               |
 | 2214 |         4\,200          |           128,0               |
 
-::: {style="text-align: center;"}
-**Tabla 6.15**
-:::
-
-
 Se pide:
 
 a)  Deflacta la serie nominal y calcula el **gasto real** de cada año, expresado en millones de PAVOs de 2210.
@@ -879,11 +860,6 @@ d)  Compara ambas tasas e interpreta la diferencia. ¿Qué parte del crecimiento
 | 2205 |          1\,000               |         100           |          —            |
 | 2210 |          1\,500               |         130           |         100           |
 | 2215 |          2\,500               |          —            |         140           |
-
-::: {style="text-align: center;"}
-**Tabla 6.16**
-:::
-
 
 Se pide:
 
@@ -914,11 +890,6 @@ Sobre dos bienes de la cesta de un pequeño planeta se dispone de los siguientes
 | 2210 |  10   |  100  |  20   |  50   |
 | 2211 |  15   |   80  |  22   |  60   |
 | 2212 |  20   |   60  |  25   |  80   |
-
-::: {style="text-align: center;"}
-**Tabla 6.17**
-:::
-
 
 Se pide:
 

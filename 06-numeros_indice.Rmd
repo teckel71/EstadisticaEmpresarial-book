@@ -59,11 +59,7 @@ fmt <- function(x, d = 2) {
 rstars <- read_excel("data/interestelar_300.xlsx", sheet = "Datos")
 ```
 
-![](figuras/05_moneda.jpg){.portada-img width="100%"}
-
-::: {style="text-align: center;"}
-**[Cuando las magnitudes cambian con el tiempo (y con la sospecha).]{.smallcaps}**
-:::
+![Cuando las magnitudes cambian con el tiempo (y con la sospecha](figuras/05_moneda.jpg){.portada-img width="100%"}
 
 Un aviso, para empezar, dirigido a quien haya llegado hasta aquí esperando series de datos, muestras y distribuciones de frecuencias como en los capítulos anteriores. Este es un capítulo raro: no hay muestras, ni histogramas, ni casi ecuaciones con letras griegas. Solo hay **cocientes**. Cocientes entre magnitudes económicas medidas en distintos momentos del tiempo, y una insistencia bastante persistente en que esos cocientes se interpreten con cabeza.
 

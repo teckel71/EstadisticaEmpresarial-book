@@ -831,11 +831,6 @@ Los ejercicios que siguen combinan **cálculo controlado** —sumas de cuantías
 |:-----:|:---:|:---:|:---:|:---:|:---:|
 | $p_i$ | 0,10 | 0,20 | 0,40 | $k$ | 0,05 |
 
-::: {style="text-align: center;"}
-**Tabla 8.4**
-:::
-
-
 Se pide:
 
 a)  Calcula el valor de $k$ para que $\xi$ sea una variable aleatoria válida.
@@ -945,11 +940,6 @@ Se conocen los siguientes datos sobre la rentabilidad anual (%) de dos compañí
 | Rentabilidad esperada | 15%              | 8%                  |
 | Desviación típica     | 4%               | 1,5%                |
 
-::: {style="text-align: center;"}
-**Tabla 8.5**
-:::
-
-
 En el último trimestre, *Arrakis Freight* obtuvo un **22% de rentabilidad** y *Shuttlepod Movers* obtuvo un **11%**. Se pide:
 
 a)  Calcula el valor tipificado ($z$-score) de la rentabilidad observada en cada compañía.
@@ -968,11 +958,6 @@ La AITM ha calculado los coeficientes de **asimetría** ($\gamma_1$) y de **exce
 | c) Precio diario de la especia arrakiana                    |    +0,05   |     0,1    |
 | d) Tiempo de descarga en la grúa KORRIGAN                   |    -0,8    |    -0,5    |
 | e) Nº de averías graves acumuladas (IIG) en los cargueros   |    +3,5    |    12,0    |
-
-::: {style="text-align: center;"}
-**Tabla 8.6**
-:::
-
 
 Para cada variable, se pide:
 
@@ -1000,11 +985,6 @@ d)  Si supiéramos que la variable sigue una distribución **normal**, ¿la cota
 | **B** — Andrómeda regular         |   140    |    40    |      1\,600         |
 | **C** — Klendathu (alto riesgo)   |   180    |    80    |      6\,400         |
 
-::: {style="text-align: center;"}
-**Tabla 8.7**
-:::
-
-
 Se pide:
 
 a)  ¿Qué ruta elegiría un decisor **neutral al riesgo** (que sólo mira la esperanza)? Justifica.
@@ -1023,11 +1003,6 @@ Sobre las 300 compañías RStars se han estimado las siguientes probabilidades c
 |      **2**      | 0,10 | 0,15 | 0,05 |
 |      **3**      | 0,20 | 0,10 | 0,10 |
 
-::: {style="text-align: center;"}
-**Tabla 8.8**
-:::
-
-
 Se pide:
 
 a)  Calcula las distribuciones **marginales** de $X$ y de $Y$.
@@ -1043,11 +1018,6 @@ e)  Calcula el **coeficiente de correlación** $\rho_{XY}$ e interpreta el signo
 | $x_i$ | 0 | 1 | 2 | 3 |
 |:-----:|:---:|:---:|:---:|:---:|
 | $p_i$ | 0,60 | 0,25 | 0,10 | 0,05 |
-
-::: {style="text-align: center;"}
-**Tabla 8.9**
-:::
-
 
 Cada unidad instalada genera un coste de reparación proporcional al **cuadrado** del número de averías (porque las reparaciones se acumulan de forma no lineal por complejidad técnica): $C = 500 \cdot \xi^2$ PAVOs.
 
