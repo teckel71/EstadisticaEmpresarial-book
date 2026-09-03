@@ -62,7 +62,7 @@ rstars <- read_excel("data/interestelar_300.xlsx", sheet = "Datos")
 ![](figuras/05_moneda.jpg){.portada-img width="100%"}
 
 ::: {style="text-align: center;"}
-**Figura 6.1.** [Cuando las magnitudes cambian con el tiempo (y con la sospecha]{.smallcaps}
+**Figura 6.1.** [Cuando las magnitudes cambian con el tiempo (y con la sospecha).]{.smallcaps}
 :::
 
 
