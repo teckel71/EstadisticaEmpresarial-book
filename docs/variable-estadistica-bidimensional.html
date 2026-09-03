@@ -291,6 +291,9 @@ Gestión Interna
 </tr>
 </tbody>
 </table></div>
+<div style="text-align: center;">
+<p><span id="tab:shuttlepod-head"></span><strong>Tabla 4.2.</strong> Primeros casos del fichero de empleados de Shuttlepod Movers.</p>
+</div>
 <p>Como el salario toma bastantes valores distintos —tantos como niveles retributivos hay en la compañía—, empezamos por una versión <strong>agrupada</strong> en tres intervalos salariales cómodos, que facilitan la vista sin distorsionar la estructura:</p>
 <ul>
 <li>Salario <strong>Bajo</strong>: <span class="math inline">\(\le 12\)</span> cientos de PAVOs.</li>
@@ -387,7 +390,7 @@ Alto (&gt; 20)
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.2.</strong> Salario (<span class="math inline">\(X\)</span>) y nivel de estudios (<span class="math inline">\(Y\)</span>) en la plantilla de Shuttlepod Movers. Frecuencias absolutas conjuntas y marginales.</p>
+<p><span id="tab:shuttlepod-tabla-abs"></span><strong>Tabla 4.3.</strong> Salario (<span class="math inline">\(X\)</span>) y nivel de estudios (<span class="math inline">\(Y\)</span>) en la plantilla de Shuttlepod Movers. Frecuencias absolutas conjuntas y marginales.</p>
 </div>
 <p>La estructura de la tabla salta a la vista. Los <span class="math inline">\(49\)</span> empleados se reparten en <span class="math inline">\(3\times 3 = 9\)</span> celdas conjuntas; las <strong>marginales de <span class="math inline">\(X\)</span></strong> (última columna) dicen cuántos empleados hay en cada tramo salarial, con independencia de sus estudios; las <strong>marginales de <span class="math inline">\(Y\)</span></strong> (última fila) cuentan cuántos empleados hay en cada nivel formativo, con independencia del salario que perciban.</p>
 </div>
@@ -496,7 +499,7 @@ Alto (&gt; 20)
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.3.</strong> Frecuencias relativas conjuntas y marginales en Shuttlepod Movers.</p>
+<p><span id="tab:shuttlepod-tabla-rel"></span><strong>Tabla 4.4.</strong> Frecuencias relativas conjuntas y marginales en Shuttlepod Movers.</p>
 </div>
 <p>Lectura: aproximadamente el <span class="math inline">\(20{,}4\,\%\)</span> de la plantilla (proporción <span class="math inline">\(0{,}2041\)</span>) cobra un salario medio y tiene estudios universitarios; algo más del <span class="math inline">\(46\,\%\)</span> tiene estudios universitarios y el <span class="math inline">\(16\,\%\)</span> estudios básicos, con independencia del salario. Etcétera.</p>
 </div>
@@ -580,7 +583,7 @@ Alto (&gt; 20)
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.4.</strong> Distribución del salario condicionada al nivel de estudios (cada columna suma 1).</p>
+<p><span id="tab:shuttlepod-tabla-cond"></span><strong>Tabla 4.5.</strong> Distribución del salario condicionada al nivel de estudios (cada columna suma 1).</p>
 </div>
 <p>La lectura es reveladora: entre los empleados con estudios <strong>básicos</strong>, el <span class="math inline">\(75\,\%\)</span> está en el tramo salarial bajo y ninguno en el tramo alto; entre los <strong>universitarios</strong>, ninguno está en el tramo bajo y prácticamente la mitad en el alto. Las tres columnas —los tres perfiles retributivos condicionados al nivel de estudios— son <strong>distintas entre sí</strong> y también distintas de la marginal de salario. Esa desigualdad de perfiles es lo que enseguida caracterizaremos formalmente como <strong>dependencia estadística</strong>.</p>
 <p>Antes de dar ese paso conviene detenerse un momento en un matiz importante. La misma tabla admite ser leída <strong>en la dirección contraria</strong>: en lugar de preguntarnos cómo se distribuye el salario dentro de cada nivel de estudios, podríamos preguntarnos cómo se distribuyen los niveles de estudios dentro de cada tramo salarial. En términos formales, pasamos de condicionar a <span class="math inline">\(Y\)</span> (los estudios) a condicionar a <span class="math inline">\(X\)</span> (el salario), y las frecuencias son ahora <span class="math inline">\(f_{Y = y_j \mid X = x_i} = n_{ij}/n_{i\bullet}\)</span>: las filas —no las columnas— suman uno.</p>
@@ -645,14 +648,14 @@ Alto (&gt; 20)
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.5.</strong> Distribución del nivel de estudios condicionada al tramo salarial (cada fila suma 1).</p>
+<p><span id="tab:shuttlepod-tabla-cond-yx"></span><strong>Tabla 4.6.</strong> Distribución del nivel de estudios condicionada al tramo salarial (cada fila suma 1).</p>
 </div>
 <p>La foto que emerge es distinta —y muy expresiva—. Entre los empleados de salario <strong>bajo</strong>, la mayoría (<span class="math inline">\(58\,\%\)</span>) tiene estudios medios y una parte considerable (<span class="math inline">\(32\,\%\)</span>) solo estudios básicos; los universitarios son minoría (<span class="math inline">\(11\,\%\)</span>). Entre los de salario <strong>alto</strong>, en cambio, <strong>el <span class="math inline">\(100\,\%\)</span> son universitarios</strong>: en la plantilla no hay un solo empleado que gane más de <span class="math inline">\(20\)</span> cientos de PAVOs sin titulación universitaria. Es la misma información que la tabla anterior, reorganizada al servicio de otra pregunta.</p>
 <p>Que ambas lecturas tengan interés no es una casualidad conceptual: cada una responde a una pregunta distinta que un analista real puede plantear. La condicional <span class="math inline">\(f_{X \mid Y}\)</span> contesta al <strong>asesor de carrera</strong> (“si eres universitario, ¿qué ingresos puedes esperar?”); la condicional <span class="math inline">\(f_{Y \mid X}\)</span> contesta al departamento de <strong>recursos humanos</strong> que analiza el perfil formativo de cada banda salarial (“¿qué formación tienen los que hoy están en el tramo alto?”). En el capítulo siguiente descubriremos que esta doble perspectiva reaparece con toda su fuerza en el análisis de regresión, donde a un mismo cruce le corresponden dos rectas distintas —la de <span class="math inline">\(Y\)</span> sobre <span class="math inline">\(X\)</span> y la de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(Y\)</span>—, ambas legítimas y con lecturas complementarias.</p>
 <p>Un gráfico de <strong>barras apiladas al <span class="math inline">\(100\,\%\)</span></strong> compara las dos perspectivas de un solo golpe de vista y hace visible cómo cada dirección de condicionalidad ilumina una faceta distinta del mismo cruce:</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/shuttlepod-condicionadas-barras-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 4.2</strong></p>
+<p><span id="fig:shuttlepod-condicionadas-barras"></span><strong>Figura 4.2</strong></p>
 </div>
 <p>Dos preguntas, un solo cruce, dos gráficos: la asimetría interpretativa aparece a plena luz. En la barra de la derecha, “salario alto” es una torre monocolor —todo universitarios—; en la de la izquierda, “universitarios” reparte casi por igual entre los tres tramos salariales. La relación existe, pero <strong>cómo la nombramos depende de la dirección desde la que la miremos</strong>.</p>
 </div>
@@ -786,7 +789,7 @@ Marg. <span class="math inline">\(X\)</span>
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.6.</strong> Salario (<span class="math inline">\(X\)</span>) y gasto mensual en la cantina corporativa (<span class="math inline">\(Y\)</span>) en la plantilla combinada de Corellian Freightworks.</p>
+<p><span id="tab:ejemplo-indep-abs"></span><strong>Tabla 4.7.</strong> Salario (<span class="math inline">\(X\)</span>) y gasto mensual en la cantina corporativa (<span class="math inline">\(Y\)</span>) en la plantilla combinada de Corellian Freightworks.</p>
 </div>
 <p>¿Cumple la tabla la condición de independencia? Comprobemos la primera celda:</p>
 <p><span class="math display">\[
@@ -856,7 +859,7 @@ Salario
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.7.</strong> Distribución del salario (<span class="math inline">\(X\)</span>) condicionada al gasto en cantina (<span class="math inline">\(Y\)</span>) en Corellian Freightworks. Todas las columnas son idénticas.</p>
+<p><span id="tab:ejemplo-indep-cond"></span><strong>Tabla 4.8.</strong> Distribución del salario (<span class="math inline">\(X\)</span>) condicionada al gasto en cantina (<span class="math inline">\(Y\)</span>) en Corellian Freightworks. Todas las columnas son idénticas.</p>
 </div>
 <p>Todas las columnas son <strong>iguales entre sí</strong> y coinciden con la marginal de <span class="math inline">\(X\)</span> (<span class="math inline">\(0{,}2703;\ 0{,}4054;\ 0{,}3243\)</span>). Es la traducción visual exacta de la independencia: el perfil salarial no cambia entre los tres grupos de consumo cantinero. La directora financiera de Corellian, a la vista de los números, ha tenido que revisar sus premisas: en su plantilla, la propensión a fundirse el sueldo en la cantina parece ser una constante universal, insensible al importe de la nómina. El ajuste retributivo tendrá que buscar otra justificación.</p>
 </div>
@@ -1040,7 +1043,7 @@ Universitarios
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.8.</strong> Frecuencias observadas (<span class="math inline">\(n_{ij}\)</span>) frente a esperadas bajo independencia (<span class="math inline">\(n^{*}_{ij}\)</span>) en Shuttlepod Movers.</p>
+<p><span id="tab:shuttlepod-esperadas"></span><strong>Tabla 4.9.</strong> Frecuencias observadas (<span class="math inline">\(n_{ij}\)</span>) frente a esperadas bajo independencia (<span class="math inline">\(n^{*}_{ij}\)</span>) en Shuttlepod Movers.</p>
 </div>
 <p>La lectura es contundente. Bajo independencia, en el cruce de “salario bajo” y “estudios universitarios” deberíamos observar unas <span class="math inline">\(8{,}92\)</span> personas; observamos <span class="math inline">\(2\)</span>. En el cruce de “salario alto” y “estudios universitarios” esperaríamos <span class="math inline">\(5{,}16\)</span>; observamos <span class="math inline">\(11\)</span>. Las diferencias entre lo observado y lo esperado son <strong>sistemáticas</strong>: sobran universitarios en salarios altos, sobran empleados con estudios básicos en salarios bajos, y faltan casos en las combinaciones “cruzadas”. No es lo que produciría una asignación aleatoria en la que salario y estudios fueran independientes.</p>
 <p>Diremos entonces que salario y nivel de estudios en <em>Shuttlepod Movers</em> presentan <strong>dependencia estadística</strong>.</p>
@@ -1286,6 +1289,9 @@ Marg. <span class="math inline">\(X\)</span>
 </tr>
 </tbody>
 </table></div>
+<div style="text-align: center;">
+<p><span id="tab:astilleros-tabla-abs"></span><strong>Tabla 4.10.</strong> Antigüedad (<span class="math inline">\(X\)</span>, años) y tonelaje (<span class="math inline">\(Y\)</span>, miles de toneladas) de los 48 cargueros. Frecuencias absolutas.</p>
+</div>
 <p>Usando las marcas de clase <span class="math inline">\(x_i \in \{2{,}5;\ 7{,}5;\ 12{,}5;\ 17{,}5;\ 25\}\)</span> e <span class="math inline">\(y_j \in \{575;\ 700;\ 800;\ 900\}\)</span>, los momentos respecto al origen sobre la tabla agrupada se calculan de forma directa:</p>
 <p>Los momentos respecto al origen que necesitamos son:</p>
 <p><span class="math display">\[
@@ -1307,7 +1313,7 @@ S_{xy}   &amp;\;=\; a_{11} - a_{10}\cdot a_{01} \;=\; 380,13\ \text{años}\cdot\
 <p>Podemos visualizar la relación con una nube de puntos, la representación gráfica canónica de una distribución bidimensional cuando ambas variables son cuantitativas:</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/astilleros-scatter-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 4.3</strong></p>
+<p><span id="fig:astilleros-scatter"></span><strong>Figura 4.3</strong></p>
 </div>
 <p>El <strong>diagrama de dispersión</strong> —o <em>nube de puntos</em>, o <em>scatter plot</em>— será el compañero inseparable de la próxima etapa. Por ahora nos basta con constatar que la nube dibuja una tendencia ascendente coherente con el signo positivo de la covarianza.</p>
 </div>
@@ -1328,7 +1334,7 @@ S_{xy}   &amp;\;=\; a_{11} - a_{10}\cdot a_{01} \;=\; 380,13\ \text{años}\cdot\
 <p>Un pequeño cuarteto de nubes de puntos ficticias termina de aclarar la idea. En los cuatro paneles siguientes la covarianza toma exactamente el mismo valor —nulo— pero la estructura de relación entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> es radicalmente distinta:</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/cuarteto-covarianza-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 4.4</strong></p>
+<p><span id="fig:cuarteto-covarianza"></span><strong>Figura 4.4</strong></p>
 </div>
 <p>Solo el primer panel corresponde a variables genuinamente independientes. En el segundo hay una relación cuadrática nítida —la clásica curva en <span class="math inline">\(U\)</span>— que un ojo humano identifica al instante y que, sin embargo, la covarianza no ve. En el tercero coexisten dos regímenes opuestos que se anulan mutuamente en el promedio. En el cuarto, los puntos dibujan un círculo perfecto: conocer <span class="math inline">\(X\)</span> restringe fuertemente los valores posibles de <span class="math inline">\(Y\)</span> y viceversa, pero los desvíos se cancelan por simetría. La lección es clara: <strong>una covarianza nula descarta la relación lineal, no la relación</strong>. Cuando uno mide la relación entre dos variables, mirar la nube de puntos es siempre parte del trabajo, no una decoración.</p>
 </div>
@@ -1484,7 +1490,7 @@ SLG
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.9.</strong> Forma jurídica y estado de la flota en las 300 compañías R-Stars. Frecuencias observadas.</p>
+<p><span id="tab:rstars-fjur-eflo-obs"></span><strong>Tabla 4.11.</strong> Forma jurídica y estado de la flota en las 300 compañías R-Stars. Frecuencias observadas.</p>
 </div>
 <p>Calculamos las frecuencias esperadas bajo independencia y el estadístico:</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -1584,7 +1590,7 @@ SLG
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.10.</strong> Frecuencias observadas y esperadas bajo independencia para el cruce FJUR × EFLO.</p>
+<p><span id="tab:rstars-esperadas"></span><strong>Tabla 4.12.</strong> Frecuencias observadas y esperadas bajo independencia para el cruce FJUR × EFLO.</p>
 </div>
 <p>Las diferencias entre observadas y esperadas son pequeñas, del orden de tres o cuatro casos por celda a lo sumo. Al aplicar la fórmula de Pearson,</p>
 <p><span class="math display">\[
@@ -1609,7 +1615,7 @@ r_{ij} \;=\; \frac{n_{ij} - n^{*}_{ij}}{\sqrt{n^{*}_{ij}}},
 <p>de modo que su cuadrado es exactamente la contribución de la celda <span class="math inline">\((i,j)\)</span> al <span class="math inline">\(\chi^{2}\)</span> total. Un residuo próximo a cero indica que la celda se comporta como bajo independencia; un residuo grande y positivo, que hay <strong>más</strong> casos de los esperados en esa combinación; uno grande y negativo, que hay <strong>menos</strong>. Visualmente, los residuos revelan de un vistazo dónde vive la asociación:</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/shuttlepod-residuos-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 4.5</strong></p>
+<p><span id="fig:shuttlepod-residuos"></span><strong>Figura 4.5</strong></p>
 </div>
 <p>La lectura es inmediata. Las casillas con residuo positivo grande —“bajo × básicos” y, sobre todo, “alto × universitarios”— son las que sostienen la asociación: allí hay muchos más casos de los que produciría la independencia. Las casillas con residuo negativo grande —“bajo × universitarios” y “alto × medios”— indican combinaciones sistemáticamente <strong>infrarrepresentadas</strong>: celdas que “deberían” estar más pobladas y que apenas contienen empleados. La asociación no es homogénea; tiene una estructura diagonal (los universitarios se concentran en el tramo alto, los estudios básicos y medios en los tramos bajo y medio) que el <span class="math inline">\(\chi^{2}\)</span> resume en un único número, pero que el mapa hace visible a golpe de vista.</p>
 </div>
@@ -1715,7 +1721,7 @@ SELENE
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.11.</strong> Astillero constructor × sede base (fragmento representativo). Cada astillero opera desde un conjunto disjunto de sedes.</p>
+<p><span id="tab:astill-sede-tabla"></span><strong>Tabla 4.13.</strong> Astillero constructor × sede base (fragmento representativo). Cada astillero opera desde un conjunto disjunto de sedes.</p>
 </div>
 <p>Aquí la estructura es diametralmente opuesta: cada astillero opera <strong>exclusivamente</strong> desde un conjunto propio de sedes. KORRIGAN construye sus cargueros y los estaciona en Klendathu, Mustafar, Hoth y Romulus; SELENE, en Coruscant, Fhloston, Risa y Pandora; ARCTURUS, en Arrakis, Tatooine, Vulcano y Qo’noS. Bajo independencia, cada celda debería contener aproximadamente <span class="math inline">\(16 \cdot 4 / 48 \approx 1{,}33\)</span> cargueros; observamos, en cada casilla, o bien <span class="math inline">\(4\)</span> o bien <span class="math inline">\(0\)</span>. El estadístico de Pearson se dispara:</p>
 <p><span class="math display">\[
@@ -1769,7 +1775,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.12</strong></p>
+<p><strong>Tabla 4.14</strong></p>
 </div>
 <p>Repárese en un detalle importante: comparar los <span class="math inline">\(\chi^{2}\)</span> crudos (<span class="math inline">\(3{,}86\)</span>, <span class="math inline">\(23{,}35\)</span> y <span class="math inline">\(96\)</span>) sugiere una escala aproximadamente proporcional al grado de asociación, pero eso es un accidente afortunado de estos tres ejemplos. La V de Cramér —<span class="math inline">\(0{,}080\)</span>, <span class="math inline">\(0{,}488\)</span> y <span class="math inline">\(1{,}000\)</span>— es la escala que en general funciona: la primera tabla, con <span class="math inline">\(300\)</span> casos, tiene un <span class="math inline">\(\chi^{2}\)</span> superior a <span class="math inline">\(3\)</span> pero es esencialmente ruido; la segunda, con solo <span class="math inline">\(49\)</span> casos, muestra ya una asociación seria; y la tercera es máxima.</p>
 </div>
@@ -1868,7 +1874,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.13</strong></p>
+<p><strong>Tabla 4.15</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1916,7 +1922,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.14</strong></p>
+<p><strong>Tabla 4.16</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1960,7 +1966,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.15</strong></p>
+<p><strong>Tabla 4.17</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -2017,7 +2023,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.16</strong></p>
+<p><strong>Tabla 4.18</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -2062,7 +2068,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.17</strong></p>
+<p><strong>Tabla 4.19</strong></p>
 </div>
 <p>Parece que las SAG rinden más. Pero al desagregar por <strong>sector operativo</strong>, los datos son:</p>
 <div class="inline-table"><table class="table table-sm">
@@ -2090,7 +2096,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.18</strong></p>
+<p><strong>Tabla 4.20</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -2135,7 +2141,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.19</strong></p>
+<p><strong>Tabla 4.21</strong></p>
 </div>
 <p>Se pide, para cada uno de los cuatro cruces:</p>
 <ol style="list-style-type: lower-alpha">
@@ -2188,7 +2194,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.20</strong></p>
+<p><strong>Tabla 4.22</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -2245,7 +2251,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.21</strong></p>
+<p><strong>Tabla 4.23</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -2295,7 +2301,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.22</strong></p>
+<p><strong>Tabla 4.24</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -2339,7 +2345,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.23</strong></p>
+<p><strong>Tabla 4.25</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -2394,7 +2400,7 @@ V \;=\; 1,000.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 4.24</strong></p>
+<p><strong>Tabla 4.26</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -2966,7 +2972,7 @@ V \;=\; 1,000.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-25.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-09-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

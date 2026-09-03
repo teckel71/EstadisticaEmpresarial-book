@@ -127,7 +127,7 @@ Los sucesos se combinan entre sí mediante tres operaciones básicas, que a esta
 -   **Intersección** ($S_1 \cap S_2$): suceso formado por los elementos que están simultáneamente en $S_1$ y en $S_2$. Ocurre cuando ocurren **los dos a la vez** («y»).
 -   **Complementario** ($S^{*}$, también escrito $\bar S$ o $S^{c}$): suceso formado por los elementos del espacio muestral que **no** están en $S$. Ocurre precisamente cuando $S$ no ocurre.
 
-Estas tres operaciones se pueden combinar y encadenar tanto como se quiera, y el resultado sigue siendo un suceso. Los tres paneles de la Figura \@ref(fig:venn) resumen las tres operaciones básicas mediante diagramas de Venn, que serán a partir de aquí una herramienta visual constante.
+Estas tres operaciones se pueden combinar y encadenar tanto como se quiera, y el resultado sigue siendo un suceso. Los tres paneles de la Figura [7.2](#fig:venn) resumen las tres operaciones básicas mediante diagramas de Venn, que serán a partir de aquí una herramienta visual constante.
 
 ```{r venn, fig.width=7.5, fig.height=2.8}
 # Círculos como polígonos regulares (32 vértices).
@@ -192,9 +192,14 @@ p3 <- base("A\u1D9C (complementario de A)") +
 p1 + p2 + p3
 ```
 
+::: {style="text-align: center;"}
+[]{#fig:venn}**Figura 7.2.** Las tres operaciones básicas con sucesos. De izquierda a derecha: intersección (área común), unión (todo lo cubierto por A o B) y complementario de A (todo lo que queda fuera de A dentro del espacio muestral).
+:::
+
+
 Un par de casos particulares merecen nombre propio. Si $S_1 \cap S_2 = \emptyset$, los sucesos son **disjuntos** (o incompatibles): no pueden ocurrir a la vez. Y si tenemos $n$ sucesos disjuntos dos a dos ($S_i \cap S_j = \emptyset$ para todo $i \neq j$) cuya unión es el espacio muestral entero ($\bigcup_{i=1}^n S_i = E$), decimos que forman una **partición** de $E$: cada resultado del experimento cae en uno, y solo uno, de los sucesos. En nuestra flota galáctica, los tres sucesos $K$, $S$ y $A$ (los astilleros) forman una partición: cada carguero está construido por exactamente uno de los tres astilleros. Y también forman una partición el par $\{P, P^*\}$ (pesado y ligero), como cualquier suceso con su complementario.
 
-Sobre los cargueros del universo R-Stars podemos construir tablas de contingencia como las del capítulo 3 y leerlas ya con ojo probabilístico. La Tabla \@ref(tab:cross-astillero-peso) muestra el reparto simultáneo de los $`r fmtint(nrow(astilleros))`$ cargueros según astillero y tonelaje. Cada casilla de la tabla es, exactamente, un suceso: la casilla $(K, P)$ recoge los cargueros que **son de KORRIGAN y son pesados a la vez**; y así con el resto.
+Sobre los cargueros del universo R-Stars podemos construir tablas de contingencia como las del capítulo 3 y leerlas ya con ojo probabilístico. La Tabla [7.1](#tab:cross-astillero-peso) muestra el reparto simultáneo de los $`r fmtint(nrow(astilleros))`$ cargueros según astillero y tonelaje. Cada casilla de la tabla es, exactamente, un suceso: la casilla $(K, P)$ recoge los cargueros que **son de KORRIGAN y son pesados a la vez**; y así con el resto.
 
 ```{r cross-astillero-peso}
 tab_cross <- astilleros |>
@@ -229,7 +234,7 @@ tab_cross |>
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 7.1.** Cruce de astillero y tonelaje en la flota galáctica.
+[]{#tab:cross-astillero-peso}**Tabla 7.1.** Cruce de astillero y tonelaje en la flota galáctica.
 :::
 
 
@@ -272,7 +277,7 @@ $$
 P(A) \;=\; \frac{\text{número de casos favorables a } A}{\text{número de casos posibles}}.
 $$
 
-Bajo el supuesto de equiprobabilidad, calcular una probabilidad se reduce a **contar**. En la flota galáctica de $`r fmtint(nrow(astilleros))`$ cargueros, si suponemos que la elección al azar hace equiprobables a todos los cargueros, podemos calcular directamente las probabilidades básicas de los sucesos definidos en la sección anterior. La Tabla \@ref(tab:laplace-basicos) las recoge.
+Bajo el supuesto de equiprobabilidad, calcular una probabilidad se reduce a **contar**. En la flota galáctica de $`r fmtint(nrow(astilleros))`$ cargueros, si suponemos que la elección al azar hace equiprobables a todos los cargueros, podemos calcular directamente las probabilidades básicas de los sucesos definidos en la sección anterior. La Tabla [7.2](#tab:laplace-basicos) las recoge.
 
 ```{r laplace-basicos}
 n_tot <- nrow(astilleros)
@@ -315,7 +320,7 @@ tibble(
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 7.2.** Probabilidades básicas de los sucesos definidos sobre la flota, calculadas por la regla de Laplace.
+[]{#tab:laplace-basicos}**Tabla 7.2.** Probabilidades básicas de los sucesos definidos sobre la flota, calculadas por la regla de Laplace.
 :::
 
 
@@ -353,7 +358,7 @@ $$
 f_{\text{inc}} \;=\; \frac{42}{300} \;=\; `r fmt(42/300,4)`.
 $$
 
-Si la ruta se ha operado bajo condiciones estables, esa frecuencia es una **estimación** razonable de la probabilidad de incidencia en dicha ruta. Podemos representar cómo se comportaría esa estimación si la compañía continuara recopilando datos: al principio, la frecuencia relativa oscila mucho, dependiendo de cuántos vuelos hayan salido bien o mal en las primeras jornadas; a medida que el número de vuelos crece, se calma. La Figura \@ref(fig:frecuentista) lo simula para una probabilidad verdadera del $14\,\%$.
+Si la ruta se ha operado bajo condiciones estables, esa frecuencia es una **estimación** razonable de la probabilidad de incidencia en dicha ruta. Podemos representar cómo se comportaría esa estimación si la compañía continuara recopilando datos: al principio, la frecuencia relativa oscila mucho, dependiendo de cuántos vuelos hayan salido bien o mal en las primeras jornadas; a medida que el número de vuelos crece, se calma. La Figura [7.3](#fig:frecuentista) lo simula para una probabilidad verdadera del $14\,\%$.
 
 ```{r frecuentista, fig.width=6.8, fig.height=3.6}
 set.seed(6)
@@ -383,7 +388,7 @@ ggplot(df_frec, aes(x = vuelo, y = f_relativa)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 7.2.** Simulación de la estabilización de la frecuencia relativa de un suceso (incidencia menor en una ruta de Arrakis Freight) conforme aumenta el número de vuelos observados. La probabilidad verdadera del suceso se ha fijado en 0,14 y aparece como línea horizontal discontinua.
+[]{#fig:frecuentista}**Figura 7.3.** Simulación de la estabilización de la frecuencia relativa de un suceso (incidencia menor en una ruta de Arrakis Freight) conforme aumenta el número de vuelos observados. La probabilidad verdadera del suceso se ha fijado en 0,14 y aparece como línea horizontal discontinua.
 :::
 
 
@@ -455,7 +460,7 @@ Así es como piensa hoy un motor de scoring de crédito, un filtro antispam, un 
 
 ### Cómo elegir el enfoque. Un mapa comparativo. {#mapa-enfoques}
 
-Los cuatro enfoques que hemos visto no son alternativas rivales sino **herramientas complementarias**. Cada uno funciona mejor en un tipo de problema. La Tabla \@ref(tab:enfoques) los resume.
+Los cuatro enfoques que hemos visto no son alternativas rivales sino **herramientas complementarias**. Cada uno funciona mejor en un tipo de problema. La Tabla [7.3](#tab:enfoques) los resume.
 
 ```{r enfoques}
 tibble(
@@ -491,7 +496,7 @@ tibble(
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 7.3.** Los cuatro enfoques del concepto de probabilidad.
+[]{#tab:enfoques}**Tabla 7.3.** Los cuatro enfoques del concepto de probabilidad.
 :::
 
 
@@ -557,7 +562,7 @@ Es decir, cerca de un $`r fmt((16/48)*(15/47)*(14/46)*100,1)`\,\%$: bajo, pero n
 
 Antes de entrar en los dos grandes teoremas que quedan por ver, conviene presentar una herramienta visual que hará el resto del capítulo mucho más digerible: el **diagrama de árbol**. Un árbol de probabilidad organiza gráficamente una sucesión de sucesos, poniendo en cada rama la **probabilidad condicionada** correspondiente. La regla de la multiplicación se convierte entonces en una simple recorrido: para calcular la probabilidad conjunta de un camino, se multiplican las probabilidades que hay a lo largo de él.
 
-Anticipemos el escenario que usaremos también en las dos secciones siguientes. El Consejo Estelar de Ingeniería ha emitido un informe de fiabilidad sobre los tres astilleros galácticos. Cada astillero coloca en el mercado el mismo número de naves, de forma que la probabilidad *a priori* de que una nave nueva provenga de un astillero cualquiera es $P(K) = P(S) = P(A) = 1/3$. La probabilidad de que una nave sufra un **fallo grave durante su primer año de servicio** varía según el astillero de origen: $0{,}10$ para KORRIGAN, $0{,}02$ para SELENE y $0{,}06$ para ARCTURUS. La Figura \@ref(fig:arbol) representa este experimento como un árbol.
+Anticipemos el escenario que usaremos también en las dos secciones siguientes. El Consejo Estelar de Ingeniería ha emitido un informe de fiabilidad sobre los tres astilleros galácticos. Cada astillero coloca en el mercado el mismo número de naves, de forma que la probabilidad *a priori* de que una nave nueva provenga de un astillero cualquiera es $P(K) = P(S) = P(A) = 1/3$. La probabilidad de que una nave sufra un **fallo grave durante su primer año de servicio** varía según el astillero de origen: $0{,}10$ para KORRIGAN, $0{,}02$ para SELENE y $0{,}06$ para ARCTURUS. La Figura [7.4](#fig:arbol) representa este experimento como un árbol.
 
 ```{r arbol, fig.width=7.5, fig.height=4.2}
 # Nodo raíz en (0,0). Ramas de nivel 1 hacia (1, +1), (1, 0), (1, -1).
@@ -616,7 +621,7 @@ ggplot() +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 7.3.** Diagrama de árbol para el experimento «elegir al azar una nave del mercado y observar si sufre un fallo grave durante el primer año». En cada rama se anota la probabilidad condicionada correspondiente. Los productos de las ramas de cada camino dan las seis probabilidades conjuntas del cuadro derecho.
+[]{#fig:arbol}**Figura 7.4.** Diagrama de árbol para el experimento «elegir al azar una nave del mercado y observar si sufre un fallo grave durante el primer año». En cada rama se anota la probabilidad condicionada correspondiente. Los productos de las ramas de cada camino dan las seis probabilidades conjuntas del cuadro derecho.
 :::
 
 
@@ -783,7 +788,7 @@ $$
 
 Pero la intersección real es $P(A_r \cap P) = 9/48 = `r fmt(9/48,4)`$. Los dos números no coinciden exactamente, pero se parecen bastante. De hecho, $P(A_r \mid P) = 9/26 = `r fmt(9/26,4)`$ está bastante cerca de $P(A_r) = `r fmt(16/48,4)`$: lo que ARCTURUS hace en tonelaje se parece a lo que hace el conjunto de la flota. La independencia sería aquí una aproximación aceptable.
 
-**Escenario 2 (dependencia fortísima).** Cambiemos ahora al fichero de las $`r fmtint(300)`$ compañías del universo R-Stars. Consideremos dos sucesos: $R$ = «la compañía tiene flota RENOVADA» y $D_{\text{alto}}$ = «la compañía tiene índice de digitalización por encima de la mediana». La Tabla \@ref(tab:crosseflodig) recoge el cruce.
+**Escenario 2 (dependencia fortísima).** Cambiemos ahora al fichero de las $`r fmtint(300)`$ compañías del universo R-Stars. Consideremos dos sucesos: $R$ = «la compañía tiene flota RENOVADA» y $D_{\text{alto}}$ = «la compañía tiene índice de digitalización por encima de la mediana». La Tabla [7.4](#tab:crosseflodig) recoge el cruce.
 
 ```{r crosseflodig}
 umb_idig <- median(rstars$IDIG)
@@ -820,7 +825,7 @@ tab_ed |>
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 7.4.** Cruce entre estado de la flota (EFLO) e índice de digitalización (IDIG) en las 300 compañías R-Stars. Se ha dicotomizado IDIG por su mediana.
+[]{#tab:crosseflodig}**Tabla 7.4.** Cruce entre estado de la flota (EFLO) e índice de digitalización (IDIG) en las 300 compañías R-Stars. Se ha dicotomizado IDIG por su mediana.
 :::
 
 

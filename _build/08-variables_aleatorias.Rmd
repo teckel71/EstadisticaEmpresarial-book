@@ -105,7 +105,7 @@ kable(tab_arrakis, escape = FALSE, align = "lcc",
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 8.1.** Variable aleatoria $\\xi$: número de cargueros que llegan a Giedi Prime.
+[]{#tab:tabla-arrakis-va}**Tabla 8.1.** Variable aleatoria $\xi$: número de cargueros que llegan a Giedi Prime.
 :::
 
 
@@ -155,7 +155,7 @@ ggplot(interestelar, aes(x = FLOTA)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 8.2.** Distribución empírica del número de cargueros por empresa en `interestelar_300`. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria 'flota de una empresa cualquiera'.
+[]{#fig:fig-frecuentismo-flota}**Figura 8.2.** Distribución empírica del número de cargueros por empresa en `interestelar_300`. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria 'flota de una empresa cualquiera'.
 :::
 
 
@@ -239,7 +239,7 @@ kable(va_arrakis, escape = FALSE, align = "ccc",
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 8.2.** Función de cuantía y de distribución de $\\xi$ = número de cargueros a tiempo.
+[]{#tab:tabla-cuantia-arrakis}**Tabla 8.2.** Función de cuantía y de distribución de $\xi$ = número de cargueros a tiempo.
 :::
 
 
@@ -285,7 +285,7 @@ g1 + g2
 ```
 
 ::: {style="text-align: center;"}
-**Figura 8.3.** Función de cuantía (izquierda) y función de distribución (derecha) de $\\xi$: número de cargueros a tiempo en *arrakis freight*.
+[]{#fig:fig-arrakis-discreta}**Figura 8.3.** Función de cuantía (izquierda) y función de distribución (derecha) de $\xi$: número de cargueros a tiempo en *arrakis freight*.
 :::
 
 
@@ -377,7 +377,7 @@ ggplot(dens, aes(x = x, y = f)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 8.4.** Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es $P(1 < \\xi < 2) = 3/16$.
+[]{#fig:fig-densidad-grua}**Figura 8.4.** Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es $P(1 < \xi < 2) = 3/16$.
 :::
 
 
@@ -562,7 +562,7 @@ ggplot(astilleros, aes(x = IIG)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 8.5.** Distribución empírica del número de averías graves acumuladas (IIG) por las 48 naves del fichero de astilleros. Fuerte asimetría a la derecha y presencia de valores extremos: un caso paradigmático de distribución con cola pesada.
+[]{#fig:fig-asimetria-iig}**Figura 8.5.** Distribución empírica del número de averías graves acumuladas (IIG) por las 48 naves del fichero de astilleros. Fuerte asimetría a la derecha y presencia de valores extremos: un caso paradigmático de distribución con cola pesada.
 :::
 
 
@@ -632,7 +632,7 @@ ggplot(dfn, aes(x, f)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 8.6.** Anatomía de una variable aleatoria continua: la esperanza $\\mu$ señala el centro; la desviación típica $\\sigma$, cómo de ancha es la distribución. El área sombreada cubre el intervalo $[\\mu - \\sigma,\\ \\mu + \\sigma]$.
+[]{#fig:fig-anatomia}**Figura 8.6.** Anatomía de una variable aleatoria continua: la esperanza $\mu$ señala el centro; la desviación típica $\sigma$, cómo de ancha es la distribución. El área sombreada cubre el intervalo $[\mu - \sigma,\ \mu + \sigma]$.
 :::
 
 
@@ -717,7 +717,7 @@ kable(conj, escape = FALSE, align = "lcccc",
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 8.3.** Función de cuantía conjunta de $(\\xi, \\eta)$ para las empresas auditadas por la CIT. Las marginales se leen en los márgenes derecho e inferior.
+[]{#tab:tabla-conjunta-cit}**Tabla 8.3.** Función de cuantía conjunta de $(\xi, \eta)$ para las empresas auditadas por la CIT. Las marginales se leen en los márgenes derecho e inferior.
 :::
 
 
@@ -793,7 +793,7 @@ ggplot(comparacion, aes(x = factor(x), y = prob, fill = tipo)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 8.7.** Comparación entre la distribución teórica de $\\xi$ (barras claras) y la distribución empírica obtenida simulando 10.000 noches (barras oscuras). Con tantas repeticiones, ambas se solapan casi perfectamente: Ley de los Grandes Números en acción.
+[]{#fig:simulacion-arrakis}**Figura 8.7.** Comparación entre la distribución teórica de $\xi$ (barras claras) y la distribución empírica obtenida simulando 10.000 noches (barras oscuras). Con tantas repeticiones, ambas se solapan casi perfectamente: Ley de los Grandes Números en acción.
 :::
 
 

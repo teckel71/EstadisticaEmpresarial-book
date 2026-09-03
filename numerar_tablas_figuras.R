@@ -1,6 +1,29 @@
 #!/usr/bin/env Rscript
 # =====================================================================
-# numerar_tablas_figuras.R  (v2)
+# numerar_tablas_figuras.R  (v3)
+# ---------------------------------------------------------------------
+# Cambios de v2 a v3:
+#   1. La cabecera del chunk admite llaves internas. Con LaTeX en
+#      `fig.cap` (`0{,}85`, `\mathrm{Po}`, `\bar{\xi}_{n}`) el chunk no
+#      llegaba a reconocerse y bookdown acababa autonumerando.
+#   2. El balance de paréntesis y llaves ignora literales de cadena y
+#      comentarios. Etiquetas como "(10,15]" dejaban abierta para
+#      siempre la asignación multilínea, que se tragaba el kable().
+#   3. Un `nombre = valor` indentado ya no se confunde con una
+#      asignación: es un argumento con nombre.
+#   4. Un bucle solo descalifica el chunk si la llamada a tabla o figura
+#      está DENTRO de su cuerpo. Un `sapply` de cómputo o un `for` que
+#      rellena una matriz ya no impiden numerar el kable() posterior.
+#   5. Se reconocen las funciones auxiliares definidas en el propio
+#      chunk cuyo cuerpo produce un gráfico: `p1 <- mi_grafico(...)`
+#      cuenta ahora como figura.
+#   6. Los captions se desescapan al extraerlos del código R. En el
+#      fuente "$\\xi$" es la cadena `$\xi$`; volcar las dos barras al
+#      markdown metía un salto de línea de LaTeX y partía la fórmula.
+#   7. Cada pie lleva un ancla Pandoc y las referencias cruzadas
+#      `\@ref(fig:...)` / `\@ref(tab:...)` se sustituyen por un enlace
+#      con el número que asigna este script (bookdown ya no puede
+#      resolverlas, porque le hemos quitado los caption).
 # ---------------------------------------------------------------------
 # Postprocesador de ficheros .Rmd para numerar tablas y figuras
 # manualmente y de forma consistente.
@@ -37,6 +60,7 @@ procesar_rmd <- function(ruta_entrada,
                         num_capitulo = NULL,
                         incluir_caption_tabla = TRUE,
                         incluir_alt_figura    = TRUE,
+                        resolver_referencias  = TRUE,
                         envolver_alt_simple   = TRUE,
                         verbose = TRUE) {
 
@@ -150,7 +174,11 @@ procesar_rmd <- function(ruta_entrada,
     "\\bwalk[a-z_]*\\s*\\(",
     sep = "|")
 
-  re_chunk_inicio <- "^```\\s*\\{r[^}]*\\}\\s*$"
+  # La cabecera puede contener llaves internas procedentes de LaTeX en
+  # `fig.cap` (p.ej. `0{,}85`, `\\mathrm{Po}`, `\\bar{\\xi}_{n}`). El
+  # patrón antiguo `\\{r[^}]*\\}` fallaba en ese caso y el chunk no se
+  # reconocía como tal, con lo que bookdown acababa autonumerando.
+  re_chunk_inicio <- "^```\\s*\\{r(?:[ ,][^\n]*)?\\}\\s*$"
   re_chunk_fin    <- "^```\\s*$"
   re_heading      <- "^#"
 
@@ -166,11 +194,83 @@ procesar_rmd <- function(ruta_entrada,
   # ===================================================================
   # 3. Helpers
   # ===================================================================
-  bloque_numeracion <- function(tipo, n_cap, n, descripcion = NULL) {
+  # Los captions se leen del CÓDIGO FUENTE, donde las barras invertidas
+  # van duplicadas (`"$\\xi$"` en el .Rmd es la cadena `$\xi$` en R). Si
+  # se vuelcan tal cual al markdown, MathJax interpreta `\\` como salto
+  # de línea y parte la fórmula. Aquí se deshace el escapado de R.
+  # Debe recorrerse de izquierda a derecha consumiendo la secuencia
+  # completa: tratar `\\t` o `\\n` por separado rompería `\\to`, donde
+  # la `t` forma parte del comando LaTeX y no de un tabulador.
+  desescapar_r <- function(txt) {
+    if (is.null(txt) || length(txt) == 0L || is.na(txt)) return(txt)
+    chs <- strsplit(txt, "", fixed = TRUE)[[1]]
+    n   <- length(chs)
+    out <- character(n)
+    k <- 0L; i <- 1L
+    while (i <= n) {
+      if (chs[i] == "\\" && i < n) {
+        sig <- chs[i + 1L]
+        k <- k + 1L
+        out[k] <- if (sig %in% c("n", "t", "r")) " " else sig
+        i <- i + 2L
+      } else {
+        k <- k + 1L
+        out[k] <- chs[i]
+        i <- i + 1L
+      }
+    }
+    txt <- paste(out[seq_len(k)], collapse = "")
+    trimws(gsub("[ ]{2,}", " ", txt, perl = TRUE))
+  }
+
+  # Devuelve la línea con el contenido de las cadenas literales, los
+  # nombres entre acentos graves y los comentarios sustituidos por
+  # espacios. Sirve para contar paréntesis y llaves sin que los
+  # caracteres que viven DENTRO de un literal —p.ej. las etiquetas de
+  # intervalo "(10,15]" o "(500, 650]"— descuadren el contador.
+  codigo_sin_literales <- function(linea) {
+    if (is.na(linea) || !nzchar(linea)) return(linea)
+    chs <- strsplit(linea, "", fixed = TRUE)[[1]]
+    out <- chs
+    delim <- ""
+    i <- 1L
+    n <- length(chs)
+    while (i <= n) {
+      ch <- chs[i]
+      if (!nzchar(delim)) {
+        if (ch == "#") {                       # comentario hasta fin
+          out[i:n] <- " "
+          break
+        }
+        if (ch %in% c("\"", "'", "`")) {
+          delim <- ch
+          out[i] <- " "
+        }
+      } else {
+        out[i] <- " "
+        if (ch == "\\") {                      # escape: saltar siguiente
+          if (i < n) out[i + 1L] <- " "
+          i <- i + 2L
+          next
+        }
+        if (ch == delim) delim <- ""
+      }
+      i <- i + 1L
+    }
+    paste(out, collapse = "")
+  }
+
+  bloque_numeracion <- function(tipo, n_cap, n, descripcion = NULL,
+                                ancla = NULL) {
     etiqueta <- if (tipo == "tabla") "Tabla" else "Figura"
-    cabecera <- paste0("**", etiqueta, " ", n_cap, ".", n, "**")
+    # Ancla Pandoc (`[]{#fig:etiqueta}`) para que las referencias
+    # cruzadas del texto puedan enlazar aquí. Se emplea span vacío en
+    # lugar de HTML crudo para que funcione también en salida LaTeX.
+    pref <- if (!is.null(ancla) && nzchar(ancla))
+              paste0("[]{#", ancla, "}") else ""
+    cabecera <- paste0(pref, "**", etiqueta, " ", n_cap, ".", n, "**")
     if (!is.null(descripcion) && nzchar(trimws(descripcion))) {
-      cabecera <- paste0("**", etiqueta, " ", n_cap, ".", n, ".** ",
+      cabecera <- paste0(pref, "**", etiqueta, " ", n_cap, ".", n, ".** ",
                          trimws(descripcion))
     }
     c("",
@@ -201,6 +301,15 @@ procesar_rmd <- function(ruta_entrada,
     cuerpo_abierto <- FALSE
     nivel_llaves   <- 0L
     tiene_bucle    <- FALSE
+    nivel_bucle    <- 0L       # profundidad de llaves dentro de un bucle
+    bucle_pendiente <- FALSE   # bucle sin llaves: el cuerpo es la línea
+                               # siguiente
+    # Funciones definidas por el usuario en el propio documento cuyo
+    # cuerpo produce una figura o una tabla. Permite reconocer como
+    # figura una llamada del tipo `p1 <- mi_grafico(...)`.
+    func_actual    <- NA_character_
+    func_tipo      <- NA_character_
+    funcs_usuario  <- list()
 
     seq_tipo      <- character(0)
     seq_cap       <- character(0)
@@ -262,11 +371,18 @@ procesar_rmd <- function(ruta_entrada,
     # Acepta paréntesis de agrupación: (g1 | g2) / (g3 | g4)
     re_patchwork_inline <- "^[\\s()A-Za-z_.0-9+/|]+$"
     # Una línea "continúa" si termina con %>%, +, |, ,, o paréntesis abierto
-    re_continua      <- "(?:%>%|\\+|\\||,)\\s*$"
+    re_continua      <- "(?:%>%|\\|>|\\+|\\||,)\\s*$"
 
-    # Helper: cuenta caracteres específicos en una cadena
+    # Helper: cuenta caracteres específicos en una cadena, ignorando lo
+    # que haya dentro de literales o comentarios. Sin esto, etiquetas
+    # como "(10,15]" o "(500, 650]" descuadran el balance de paréntesis
+    # y la asignación multi-línea no se cierra nunca.
     contar_ch <- function(txt, ch) {
-      sum(strsplit(txt, "", fixed = TRUE)[[1]] == ch)
+      sum(strsplit(codigo_sin_literales(txt), "", fixed = TRUE)[[1]] == ch)
+    }
+    # Lo mismo para decidir si una línea continúa en la siguiente.
+    continua_linea <- function(txt) {
+      grepl(re_continua, codigo_sin_literales(txt), perl = TRUE)
     }
 
     for (i in seq_along(buffer)) {
@@ -280,6 +396,22 @@ procesar_rmd <- function(ruta_entrada,
         en_kable       <- FALSE
         asig_multi_var   <- NA_character_
         asig_multi_paren <- 0L
+        m_fn <- regexec("^\\s*([A-Za-z_.][A-Za-z_.0-9]*)\\s*<-\\s*function",
+                        linea, perl = TRUE)
+        r_fn <- regmatches(linea, m_fn)[[1]]
+        func_actual <- if (length(r_fn) >= 2) r_fn[2] else NA_character_
+        func_tipo   <- NA_character_
+      }
+
+      if (en_def) {
+        # Anotar si el cuerpo de la función produce figura o tabla.
+        if (is.na(func_tipo)) {
+          if (grepl(re_func_figura, linea, perl = TRUE)) {
+            func_tipo <- "figura"
+          } else if (grepl(re_func_tabla, linea, perl = TRUE)) {
+            func_tipo <- "tabla"
+          }
+        }
       }
 
       if (en_def) {
@@ -303,10 +435,49 @@ procesar_rmd <- function(ruta_entrada,
             nivel_llaves   <- 0L
           }
         }
+        if (!en_def && !is.na(func_actual) && !is.na(func_tipo)) {
+          funcs_usuario[[func_actual]] <- func_tipo
+          func_actual <- NA_character_
+          func_tipo   <- NA_character_
+        }
         next
       }
 
-      if (grepl(re_func_bucle, linea, perl = TRUE)) tiene_bucle <- TRUE
+      # ¿Es esta línea una llamada a tabla o figura? (Incluye funciones
+      # definidas por el usuario en el propio documento.)
+      es_salida <- function(l) {
+        if (grepl(re_func_tabla, l, perl = TRUE) ||
+            grepl(re_func_figura, l, perl = TRUE)) return(TRUE)
+        if (length(funcs_usuario) == 0L) return(FALSE)
+        any(vapply(names(funcs_usuario), function(fn)
+          grepl(paste0("\\b", fn, "\\s*\\("), l, perl = TRUE),
+          logical(1)))
+      }
+
+      # Un bucle solo descalifica el chunk si REALMENTE genera la salida,
+      # es decir, si la llamada a tabla o figura vive dentro de su
+      # cuerpo. Un `for` que se limita a rellenar una matriz, o un
+      # `sapply` usado como cómputo vectorizado dentro de un argumento,
+      # no deben impedir que se numere el `kable()` que viene después.
+      cod_linea <- codigo_sin_literales(linea)
+      if (bucle_pendiente && nzchar(trimws(cod_linea))) {
+        if (es_salida(linea)) tiene_bucle <- TRUE
+        bucle_pendiente <- FALSE
+      }
+      if (nivel_bucle > 0L && es_salida(linea)) tiene_bucle <- TRUE
+      if (grepl(re_func_bucle, cod_linea, perl = TRUE)) {
+        if (es_salida(linea)) tiene_bucle <- TRUE
+        n_ll <- contar_ch(linea, "{") - contar_ch(linea, "}")
+        if (n_ll > 0L) {
+          nivel_bucle <- nivel_bucle + n_ll
+        } else if (nivel_bucle == 0L) {
+          bucle_pendiente <- TRUE
+        }
+      } else if (nivel_bucle > 0L) {
+        nivel_bucle <- nivel_bucle + contar_ch(linea, "{") -
+                       contar_ch(linea, "}")
+        if (nivel_bucle < 0L) nivel_bucle <- 0L
+      }
 
       tiene_terminal <- grepl(re_terminal, linea, perl = TRUE)
 
@@ -326,7 +497,7 @@ procesar_rmd <- function(ruta_entrada,
                             contar_ch(linea, "(") - contar_ch(linea, ")")
         # ¿Termina la asignación?
         if (asig_multi_paren <= 0L &&
-            !grepl(re_continua, linea, perl = TRUE)) {
+            !continua_linea(linea)) {
           # Si no se detectó ningún tipo conocido en la cadena
           # multi-línea Y la primera función llamada no está en la
           # lista negra de funciones triviales, marcamos como
@@ -501,7 +672,7 @@ procesar_rmd <- function(ruta_entrada,
         } else if (grepl(re_func_figura, linea, perl = TRUE) ||
                    grepl(re_terminal, linea, perl = TRUE)) {
           contenedores[[var_name]] <- "figura"
-        } else if (grepl(re_continua, linea, perl = TRUE) ||
+        } else if (continua_linea(linea) ||
                    (contar_ch(linea, "(") - contar_ch(linea, ")")) > 0L) {
           # asignación a lista multi-línea (el kable vendrá más abajo)
           asig_multi_var <- var_name
@@ -514,11 +685,34 @@ procesar_rmd <- function(ruta_entrada,
       # 5) Asignación normal: var <- algo
       m_asig <- regexec(re_asig_inicio, linea, perl = TRUE)
       r_asig <- regmatches(linea, m_asig)[[1]]
-      es_asignacion <- length(r_asig) >= 2
+      # Un `nombre = valor` INDENTADO es casi siempre un argumento con
+      # nombre dentro de una llamada multi-línea (`Salario = SALARIO,`),
+      # no una asignación. Tomarlo por asignación abría un falso modo
+      # multi-línea que se tragaba el `kable()` posterior. Las
+      # asignaciones reales con `=` van a inicio de línea; las indentadas
+      # usan `<-`.
+      es_asignacion <- length(r_asig) >= 2 &&
+        !(length(r_asig) >= 3 && r_asig[3] == "=" &&
+          grepl("^\\s", linea, perl = TRUE))
       var_name <- if (es_asignacion) r_asig[2] else NA_character_
 
       hay_tabla  <- grepl(re_func_tabla,  linea, perl = TRUE)
       hay_figura <- grepl(re_func_figura, linea, perl = TRUE)
+
+      # Llamadas a funciones auxiliares definidas antes en el documento
+      # cuyo cuerpo genera un gráfico o una tabla (p.ej. `base()` en el
+      # chunk de los diagramas de Venn). Sin esto la asignación
+      # `p1 <- base(...)` no se reconocía como figura y el patchwork
+      # `p1 + p2 + p3` posterior tampoco.
+      if (!hay_tabla && !hay_figura && length(funcs_usuario) > 0L) {
+        for (fn in names(funcs_usuario)) {
+          if (grepl(paste0("\\b", fn, "\\s*\\("), linea, perl = TRUE)) {
+            if (funcs_usuario[[fn]] == "figura") hay_figura <- TRUE
+            else hay_tabla <- TRUE
+            break
+          }
+        }
+      }
 
       if (tiene_terminal && es_asignacion) {
         diferidos[[var_name]] <- "figura"
@@ -547,7 +741,7 @@ procesar_rmd <- function(ruta_entrada,
           if (length(r_pf) >= 2) {
             primera_func <- sub("^.*::", "", r_pf[2])  # quitar namespace
           }
-          if (grepl(re_continua, linea, perl = TRUE) ||
+          if (continua_linea(linea) ||
               n_p_abre > n_p_cierr) {
             asig_multi_var   <- var_name
             asig_multi_paren <- n_p_abre - n_p_cierr
@@ -589,7 +783,7 @@ procesar_rmd <- function(ruta_entrada,
         m_c <- regmatches(linea, regexec(re_cap_lit, linea, perl = TRUE))[[1]]
         if (length(m_c) >= 2) {
           idx <- tail(which(seq_tipo == "tabla" & is.na(seq_cap)), 1L)
-          if (length(idx) > 0L) seq_cap[idx] <- m_c[2]
+          if (length(idx) > 0L) seq_cap[idx] <- desescapar_r(m_c[2])
         }
       }
     }
@@ -777,13 +971,27 @@ procesar_rmd <- function(ruta_entrada,
   # texto y header queda saneada (sin fig.cap, sin comas huérfanas y sin
   # `{r ,` malformado). Se soporta cita doble; comillas simples son raras
   # en cabeceras de chunk y no se contemplan por seguridad.
+  # -------------------------------------------------------------------
+  # 3.4b. Etiqueta de un chunk: `{r mi-etiqueta, opt=...}` -> "mi-etiqueta"
+  # -------------------------------------------------------------------
+  # Devuelve NA si el chunk es anónimo (`{r}`) o si el primer campo es
+  # ya una opción (`{r echo=FALSE}`).
+  extraer_etiqueta_chunk <- function(header) {
+    m <- regexec("^```\\s*\\{r[ ,]\\s*([^,}=\\s]+)", header, perl = TRUE)
+    r <- regmatches(header, m)[[1]]
+    if (length(r) < 2) return(NA_character_)
+    et <- trimws(r[2])
+    if (!nzchar(et)) return(NA_character_)
+    et
+  }
+
   extraer_fig_cap_header <- function(header) {
     m <- regexec(re_fig_cap_hdr, header, perl = TRUE)
     r <- regmatches(header, m)[[1]]
     if (length(r) < 2) {
       return(list(header = header, caption = NA_character_))
     }
-    caption_txt   <- r[2]
+    caption_txt   <- desescapar_r(r[2])
     header_limpio <- sub(re_fig_cap_hdr, "", header, perl = TRUE)
     # Saneado: colapsar comas dobles, coma antes de `}`, y `{r ,` -> `{r `
     header_limpio <- gsub(",\\s*,", ",", header_limpio, perl = TRUE)
@@ -945,7 +1153,7 @@ procesar_rmd <- function(ruta_entrada,
 
     # Verificación de balance de delimitadores
     contar_char <- function(txt, ch) {
-      sum(strsplit(txt, "", fixed = TRUE)[[1]] == ch)
+      sum(strsplit(codigo_sin_literales(txt), "", fixed = TRUE)[[1]] == ch)
     }
     for (b in bloques) {
       txt <- paste(b$buffer, collapse = "\n")
@@ -979,8 +1187,30 @@ procesar_rmd <- function(ruta_entrada,
   # chunk N+1).
   contenedores_globales <- list()
   tentativos_globales   <- list()
+  # Mapa etiqueta-de-chunk -> numero asignado, para poder resolver las
+  # referencias cruzadas `\\@ref(fig:...)` / `\\@ref(tab:...)` del texto.
+  # Como el script suprime los `caption`/`fig.cap`, bookdown ya no
+  # registra esas etiquetas y las referencias saldrian como "??".
+  mapa_fig <- list()
+  mapa_tab <- list()
+  chunk_etiqueta <- NA_character_
 
   push <- function(...) salida <<- c(salida, ...)
+
+  # Registra el numero recien asignado bajo la etiqueta del chunk y
+  # devuelve el identificador del ancla que debe emitirse (o NULL). Solo
+  # el PRIMER elemento de cada tipo dentro de un chunk se queda con la
+  # etiqueta, que es el criterio de bookdown.
+  registrar_ancla <- function(tipo, n) {
+    if (is.na(chunk_etiqueta)) return(NULL)
+    pre <- if (tipo == "tabla") "tab" else "fig"
+    mapa <- if (tipo == "tabla") mapa_tab else mapa_fig
+    if (!is.null(mapa[[chunk_etiqueta]])) return(NULL)
+    valor <- paste0(num_capitulo, ".", n)
+    if (tipo == "tabla") mapa_tab[[chunk_etiqueta]] <<- valor
+    else                 mapa_fig[[chunk_etiqueta]] <<- valor
+    paste0(pre, ":", chunk_etiqueta)
+  }
 
   i <- 1L
   n_lineas <- length(lineas)
@@ -993,6 +1223,7 @@ procesar_rmd <- function(ruta_entrada,
         info_hdr <- extraer_fig_cap_header(linea)
         chunk_header  <- info_hdr$header
         chunk_fig_cap <- info_hdr$caption
+        chunk_etiqueta <- extraer_etiqueta_chunk(chunk_header)
         chunk_buffer  <- character(0)
         i <- i + 1L
         next
@@ -1098,7 +1329,8 @@ procesar_rmd <- function(ruta_entrada,
                   desc <- if (incluir_caption_tabla && !is.na(b$elem_caption))
                             b$elem_caption else NULL
                   push(bloque_numeracion("tabla", num_capitulo,
-                                        cont_tabla, desc))
+                                        cont_tabla, desc,
+                                        registrar_ancla("tabla", cont_tabla)))
                   registro <- c(registro, sprintf(
                     "  Tabla  %d.%d  (sub-chunk de mixto)%s",
                     num_capitulo, cont_tabla,
@@ -1109,7 +1341,8 @@ procesar_rmd <- function(ruta_entrada,
                   desc <- if (incluir_alt_figura && !is.na(chunk_fig_cap))
                             chunk_fig_cap else NULL
                   push(bloque_numeracion("figura", num_capitulo,
-                                        cont_figura, desc))
+                                        cont_figura, desc,
+                                        registrar_ancla("figura", cont_figura)))
                   registro <- c(registro, sprintf(
                     "  Figura %d.%d  (sub-chunk de mixto)%s",
                     num_capitulo, cont_figura,
@@ -1129,7 +1362,9 @@ procesar_rmd <- function(ruta_entrada,
               if (tipo == "tabla") {
                 cont_tabla <- cont_tabla + 1L
                 desc <- if (incluir_caption_tabla && !is.na(cap)) cap else NULL
-                push(bloque_numeracion("tabla", num_capitulo, cont_tabla, desc))
+                push(bloque_numeracion("tabla", num_capitulo, cont_tabla,
+                                       desc,
+                                       registrar_ancla("tabla", cont_tabla)))
                 registro <- c(registro, sprintf(
                   "  Tabla  %d.%d  (chunk linea %d)%s",
                   num_capitulo, cont_tabla,
@@ -1140,7 +1375,8 @@ procesar_rmd <- function(ruta_entrada,
                 desc <- if (incluir_alt_figura && !is.na(chunk_fig_cap))
                           chunk_fig_cap else NULL
                 push(bloque_numeracion("figura", num_capitulo,
-                                      cont_figura, desc))
+                                      cont_figura, desc,
+                                      registrar_ancla("figura", cont_figura)))
                 registro <- c(registro, sprintf(
                   "  Figura %d.%d  (chunk linea %d)%s",
                   num_capitulo, cont_figura,
@@ -1165,6 +1401,44 @@ procesar_rmd <- function(ruta_entrada,
   }
 
   # ===================================================================
+  # 4b. Resolucion de las referencias cruzadas
+  # ===================================================================
+  # bookdown solo sabe numerar lo que el mismo etiqueta, y aqui le hemos
+  # quitado los `caption`/`fig.cap`. Sustituimos por tanto cada
+  # `\@ref(fig:etiqueta)` por un enlace al ancla emitida en el pie,
+  # con el numero que ha asignado este script. Se respetan los bloques
+  # de codigo: dentro de un chunk no se toca nada.
+  refs_ok <- 0L
+  refs_sin_resolver <- character(0)
+  if (isTRUE(resolver_referencias)) {
+    re_ref <- "\\\\@ref\\((fig|tab):([^)]+)\\)"
+    en_chunk_sal <- FALSE
+    for (k in seq_along(salida)) {
+      if (grepl("^```", salida[k], perl = TRUE)) {
+        en_chunk_sal <- !en_chunk_sal
+        next
+      }
+      if (en_chunk_sal) next
+      if (!grepl(re_ref, salida[k], perl = TRUE)) next
+      m <- gregexpr(re_ref, salida[k], perl = TRUE)[[1]]
+      trozos <- regmatches(salida[k], gregexpr(re_ref, salida[k],
+                                               perl = TRUE))[[1]]
+      for (tr in trozos) {
+        pr  <- sub(re_ref, "\\1", tr, perl = TRUE)
+        lbl <- sub(re_ref, "\\2", tr, perl = TRUE)
+        val <- if (pr == "tab") mapa_tab[[lbl]] else mapa_fig[[lbl]]
+        if (is.null(val)) {
+          refs_sin_resolver <- c(refs_sin_resolver, paste0(pr, ":", lbl))
+        } else {
+          salida[k] <- sub(tr, paste0("[", val, "](#", pr, ":", lbl, ")"),
+                           salida[k], fixed = TRUE)
+          refs_ok <- refs_ok + 1L
+        }
+      }
+    }
+  }
+
+  # ===================================================================
   # 5. Volcado
   # ===================================================================
   con <- file(ruta_salida, "wb")
@@ -1176,6 +1450,12 @@ procesar_rmd <- function(ruta_entrada,
                 basename(ruta_entrada), basename(ruta_salida)))
     cat(sprintf("     Capítulo %d. Tablas: %d. Figuras: %d.\n",
                 num_capitulo, cont_tabla, cont_figura))
+    if (isTRUE(resolver_referencias)) {
+      cat(sprintf("     Referencias cruzadas resueltas: %d.%s\n", refs_ok,
+          if (length(refs_sin_resolver))
+            sprintf(" SIN RESOLVER: %s",
+                    paste(unique(refs_sin_resolver), collapse = ", ")) else ""))
+    }
     if (length(registro) > 0) {
       cat("     Detalle:\n")
       cat(paste0("    ", registro, "\n"), sep = "")
@@ -1188,6 +1468,8 @@ procesar_rmd <- function(ruta_entrada,
     capitulo  = num_capitulo,
     n_tablas  = cont_tabla,
     n_figuras = cont_figura,
+    refs_resueltas    = refs_ok,
+    refs_sin_resolver = unique(refs_sin_resolver),
     registro  = registro
   ))
 }

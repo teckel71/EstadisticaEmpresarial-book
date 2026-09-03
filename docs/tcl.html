@@ -188,14 +188,12 @@
 <p>Empecemos por el fenómeno antes que por el enunciado. Consideremos la variable <code>COSTOP</code> del fichero <code>interestelar_300.xlsx</code>, que en el capítulo anterior identificamos como log-normal: muy asimétrica, con la mayoría de empresas concentradas en costes bajos y una cola larga hacia la derecha. Nada más lejano a una campana normal.</p>
 <p>Ahora hagamos un experimento mental (y en un momento, real). Tomemos <span class="math inline">\(n\)</span> empresas al azar, calculemos el <strong>coste operativo medio</strong> de esas <span class="math inline">\(n\)</span>, y anotemos ese número. Repitamos la operación miles de veces, cambiando cada vez las empresas seleccionadas. Obtendremos miles de valores de la media muestral <span class="math inline">\(\bar{\xi}_{n}\)</span>. La pregunta es: <strong>¿qué distribución sigue esta nueva variable <span class="math inline">\(\bar{\xi}_{n}\)</span>?</strong></p>
 <p>La respuesta la anticipa el TCL: <strong>conforme <span class="math inline">\(n\)</span> crece, la distribución de <span class="math inline">\(\bar{\xi}_{n}\)</span> se vuelve normal</strong>, con independencia de que la variable original no lo fuera en absoluto. La asimetría se disuelve, las colas se reducen, y la campana emerge sola.</p>
-<p>La figura <a href="tcl.html#fig:fig-tcl-costop">11.1</a> hace visible este fenómeno. En el primer panel se muestra la distribución empírica de <code>COSTOP</code> sobre las 300 empresas: fuertemente asimétrica. En los paneles siguientes se muestra la distribución de la media muestral <span class="math inline">\(\bar{\xi}_{n}\)</span> para tamaños <span class="math inline">\(n = 3, 10, 30\)</span> y <span class="math inline">\(100\)</span>, obtenida remuestreando 5000 veces sobre la población. El progreso hacia la campana es visible y sistemático: cuanto mayor es <span class="math inline">\(n\)</span>, más simétrica, más concentrada y más <em>normal</em> es la distribución de la media.</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:fig-tcl-costop"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/fig-tcl-costop-1.png" alt="Ilustración empírica del TCL. En el panel etiquetado como $n = 1$ se muestra la distribución original de la variable `COSTOP` (costes operativos, en miles de PAVOs) sobre las 300 empresas del fichero `interestelar_300.xlsx`: fuertemente asimétrica, muy lejos de una normal. En los paneles restantes se muestra la distribución de la media muestral $\bar{\xi}_{n}$ para tamaños $n = 3, 10, 30, 100$, obtenida remuestreando 5000 veces con reemplazamiento. La curva roja superpone en cada caso la normal $N(\mu;\, \sigma/\sqrt{n})$ predicha por el TCL. La convergencia a la campana es sistemática, aun cuando la distribución de partida no lo es en absoluto." width="85%"><p class="caption">
-Figure 11.1: Ilustración empírica del TCL. En el panel etiquetado como <span class="math inline">\(n = 1\)</span> se muestra la distribución original de la variable <code>COSTOP</code> (costes operativos, en miles de PAVOs) sobre las 300 empresas del fichero <code>interestelar_300.xlsx</code>: fuertemente asimétrica, muy lejos de una normal. En los paneles restantes se muestra la distribución de la media muestral <span class="math inline">\(\bar{\xi}_{n}\)</span> para tamaños <span class="math inline">\(n = 3, 10, 30, 100\)</span>, obtenida remuestreando 5000 veces con reemplazamiento. La curva roja superpone en cada caso la normal <span class="math inline">\(N(\mu;\, \sigma/\sqrt{n})\)</span> predicha por el TCL. La convergencia a la campana es sistemática, aun cuando la distribución de partida no lo es en absoluto.
-</p>
+<p>La figura <a href="tcl.html#fig:fig-tcl-costop">11.2</a> hace visible este fenómeno. En el primer panel se muestra la distribución empírica de <code>COSTOP</code> sobre las 300 empresas: fuertemente asimétrica. En los paneles siguientes se muestra la distribución de la media muestral <span class="math inline">\(\bar{\xi}_{n}\)</span> para tamaños <span class="math inline">\(n = 3, 10, 30\)</span> y <span class="math inline">\(100\)</span>, obtenida remuestreando 5000 veces sobre la población. El progreso hacia la campana es visible y sistemático: cuanto mayor es <span class="math inline">\(n\)</span>, más simétrica, más concentrada y más <em>normal</em> es la distribución de la media.</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-tcl-costop-1.png" alt="" width="85%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><span id="fig:fig-tcl-costop"></span><strong>Figura 11.2.</strong> Ilustración empírica del TCL. En el panel etiquetado como <span class="math inline">\(n = 1\)</span> se muestra la distribución original de la variable <code>COSTOP</code> (costes operativos, en miles de PAVOs) sobre las 300 empresas del fichero <code>interestelar_300.xlsx</code>: fuertemente asimétrica, muy lejos de una normal. En los paneles restantes se muestra la distribución de la media muestral <span class="math inline">\(\bar{\xi}_{n}\)</span> para tamaños <span class="math inline">\(n = 3, 10, 30, 100\)</span>, obtenida remuestreando 5000 veces con reemplazamiento. La curva roja superpone en cada caso la normal <span class="math inline">\(N(\mu;\, \sigma/\sqrt{n})\)</span> predicha por el TCL. La convergencia a la campana es sistemática, aun cuando la distribución de partida no lo es en absoluto.</p>
 </div>
-<p>La tabla <a href="#tab:tab-tcl-costop"><strong>??</strong></a> resume el fenómeno cuantitativamente. La media de las medias se mantiene prácticamente constante en torno a <span class="math inline">\(\mu \approx 97,8\)</span> miles de PAVOs (como anticipa la LGN), pero la desviación típica de <span class="math inline">\(\bar{\xi}_{n}\)</span> <strong>decrece con</strong> <span class="math inline">\(\sqrt{n}\)</span>: al pasar de <span class="math inline">\(n = 3\)</span> a <span class="math inline">\(n = 100\)</span>, la dispersión se divide aproximadamente por <span class="math inline">\(\sqrt{100/3} \approx 5{,}77\)</span>. Este comportamiento —la desviación típica de la media muestral es <span class="math inline">\(\sigma / \sqrt{n}\)</span>— es el sello del TCL.</p>
+<p>La tabla <a href="tcl.html#tab:tab-tcl-costop">11.1</a> resume el fenómeno cuantitativamente. La media de las medias se mantiene prácticamente constante en torno a <span class="math inline">\(\mu \approx 97,8\)</span> miles de PAVOs (como anticipa la LGN), pero la desviación típica de <span class="math inline">\(\bar{\xi}_{n}\)</span> <strong>decrece con</strong> <span class="math inline">\(\sqrt{n}\)</span>: al pasar de <span class="math inline">\(n = 3\)</span> a <span class="math inline">\(n = 100\)</span>, la dispersión se divide aproximadamente por <span class="math inline">\(\sqrt{100/3} \approx 5{,}77\)</span>. Este comportamiento —la desviación típica de la media muestral es <span class="math inline">\(\sigma / \sqrt{n}\)</span>— es el sello del TCL.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:center;">
@@ -285,7 +283,7 @@ SD teórica <span class="math inline">\(\sigma / \sqrt{n}\)</span>
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 11.1</strong></p>
+<p><span id="tab:tab-tcl-costop"></span><strong>Tabla 11.1.</strong> Media y desviación típica de la media muestral <span class="math inline">\(\bar{\xi}_{n}\)</span> obtenidas por simulación (5000 réplicas) sobre la variable <code>COSTOP</code> para distintos tamaños <span class="math inline">\(n\)</span>. La media se mantiene estable (LGN); la desviación típica decrece con <span class="math inline">\(\sqrt{n}\)</span> (TCL), y coincide muy de cerca con la predicción teórica <span class="math inline">\(\sigma / \sqrt{n}\)</span>.</p>
 </div>
 <p>Con la intuición asentada, pasamos al enunciado formal.</p>
 </div>
@@ -321,7 +319,7 @@ SD teórica <span class="math inline">\(\sigma / \sqrt{n}\)</span>
 <span class="math inline">\(\sigma / \sqrt{n}\)</span> es la <strong>variabilidad de la media muestral</strong>. Sí depende de <span class="math inline">\(n\)</span>: al aumentar el tamaño muestral, cae como <span class="math inline">\(1/\sqrt{n}\)</span>.</li>
 </ul>
 <p>Toda la inferencia estadística del próximo bloque se moverá entre estos dos conceptos. Diremos “el error estándar” muchísimas veces; conviene tenerlo instalado desde ya.</p>
-<p>Con el error estándar en la mano, el TCL admite cuatro aplicaciones canónicas que aparecen sistemáticamente en la práctica del analista. La tabla <a href="#tab:tab-tcl-usos"><strong>??</strong></a> las resume.</p>
+<p>Con el error estándar en la mano, el TCL admite cuatro aplicaciones canónicas que aparecen sistemáticamente en la práctica del analista. La tabla <a href="tcl.html#tab:tab-tcl-usos">11.2</a> las resume.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -382,7 +380,7 @@ Comparar dos grupos: test A/B, dos sucursales, dos periodos.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 11.2</strong></p>
+<p><span id="tab:tab-tcl-usos"></span><strong>Tabla 11.2.</strong> Las cuatro aplicaciones canónicas del TCL. Todas comparten la misma raíz: la suma o el promedio de variables aleatorias independientes es aproximadamente normal para <span class="math inline">\(n\)</span> grande. Las tres últimas líneas serán la base operativa de la inferencia estadística del próximo bloque.</p>
 </div>
 <p>Los tres últimos casos son la base operativa de casi cualquier análisis empresarial que involucre datos: encuestas, tests A/B para comparar dos versiones de una web, estudios de impacto para comparar dos periodos, control de calidad, gestión de riesgos… En cada uno de ellos, la estrategia es siempre la misma: identificar el estimador, calcular su error estándar, tipificar y consultar la normal.</p>
 </div>
@@ -528,7 +526,7 @@ P(\eta \geq 150) \;\approx\; 0,0614.
 P(\eta \geq 150) \;\approx\; P\!\left( N \geq 149{,}5 \right) \;=\; 0,0713,
 \]</span></p>
 <p>frente al <span class="math inline">\(0,0614\)</span> sin corrección. La probabilidad <strong>exacta</strong> binomial, calculable en R con <code>pbinom(149, 200, 0.7, lower.tail = FALSE)</code>, es <span class="math inline">\(0,0695\)</span>. La corrección se acerca ligeramente más al valor exacto, como cabía esperar.</p>
-<p>La tabla <a href="#tab:tab-continuidad"><strong>??</strong></a> resume la comparación en las tres probabilidades del ejemplo.</p>
+<p>La tabla <a href="tcl.html#tab:tab-continuidad">11.3</a> resume la comparación en las tres probabilidades del ejemplo.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -576,7 +574,7 @@ Aproximación normal (con corrección)
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 11.3</strong></p>
+<p><span id="tab:tab-continuidad"></span><strong>Tabla 11.3.</strong> Ejemplo <em>arrakis freight</em>: comparación entre la probabilidad exacta binomial y las dos aproximaciones normales, con y sin corrección por continuidad. Las diferencias entre métodos son inferiores a un punto porcentual; la corrección por continuidad reduce el error residual y acerca la aproximación normal al valor exacto, sin eliminarlo por completo.</p>
 </div>
 <p>En la práctica: para <span class="math inline">\(n\)</span> moderado (digamos <span class="math inline">\(n &lt; 100\)</span>) la corrección por continuidad merece la pena; para <span class="math inline">\(n\)</span> grande el efecto es despreciable y suele omitirse. En este manual seguiremos la convención del material docente y <strong>no aplicaremos</strong> la corrección por defecto, aunque conviene tenerla presente y aplicarla si se pide expresamente o si el resultado va a compararse con probabilidades exactas.</p>
 </div>
@@ -644,10 +642,10 @@ P(\eta &gt; 35) \;\approx\; 0,0124.
 <h2>
 <span class="header-section-number">11.6</span> El esquema completo de aproximaciones<a class="anchor" aria-label="anchor" href="#esquema"><i class="fas fa-link"></i></a>
 </h2>
-<p>Recogemos ahora todas las aproximaciones vistas hasta aquí, incluidas las del capítulo 9 (binomial → Poisson), en un solo mapa. La figura <a href="#fig:fig-esquema-aprox"><strong>??</strong></a> es el resumen visual, y la tabla <a href="#tab:tab-esquema"><strong>??</strong></a> da los criterios operativos.</p>
+<p>Recogemos ahora todas las aproximaciones vistas hasta aquí, incluidas las del capítulo 9 (binomial → Poisson), en un solo mapa. La figura <a href="tcl.html#fig:fig-esquema-aprox">11.3</a> es el resumen visual, y la tabla <a href="tcl.html#tab:tab-esquema">11.4</a> da los criterios operativos.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-esquema-aprox-1.png" alt="" width="85%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 11.2.</strong> Esquema de las aproximaciones entre modelos discretos y normal. La binomial admite dos rutas de aproximación: hacia Poisson (cuando <span class="math inline">\(p\)</span> es pequeño y <span class="math inline">\(n\)</span> es moderado o grande) y hacia normal (cuando ni <span class="math inline">\(p\)</span> ni <span class="math inline">\(q\)</span> son extremos). La Poisson, a su vez, se aproxima por normal cuando <span class="math inline">\(\\lambda\)</span> es grande. La normal es el destino común de todas las trayectorias: es el atractor probabilístico universal.</p>
+<p><span id="fig:fig-esquema-aprox"></span><strong>Figura 11.3.</strong> Esquema de las aproximaciones entre modelos discretos y normal. La binomial admite dos rutas de aproximación: hacia Poisson (cuando <span class="math inline">\(p\)</span> es pequeño y <span class="math inline">\(n\)</span> es moderado o grande) y hacia normal (cuando ni <span class="math inline">\(p\)</span> ni <span class="math inline">\(q\)</span> son extremos). La Poisson, a su vez, se aproxima por normal cuando <span class="math inline">\(\lambda\)</span> es grande. La normal es el destino común de todas las trayectorias: es el atractor probabilístico universal.</p>
 </div>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
@@ -710,7 +708,7 @@ TCL: una Poisson de parámetro grande es suma de muchas Poisson pequeñas.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 11.4</strong></p>
+<p><span id="tab:tab-esquema"></span><strong>Tabla 11.4.</strong> Esquema de aproximaciones. Los tres puentes que conectan la binomial, la Poisson y la normal son consecuencia directa o indirecta del teorema central del límite. Los criterios operativos son heurísticos: cuanto más holgadamente se cumplan, mejor será la aproximación.</p>
 </div>
 <div id="esquema-ejemplo" class="section level3" number="11.6.1">
 <h3>
@@ -727,7 +725,7 @@ TCL: una Poisson de parámetro grande es suma de muchas Poisson pequeñas.
 <li>
 <strong>Binomial → Normal directamente.</strong> <span class="math inline">\(n p = 12 \geq 5\)</span> y <span class="math inline">\(n q = 388 \geq 5\)</span>. Sí. Aproximamos <span class="math inline">\(\eta \approx N(12;\, \sqrt{n p q}) = N(12;\, 3,412)\)</span>.</li>
 </ul>
-<p>Las dos rutas hacia la normal —vía Poisson intermedia y directa— <strong>convergen prácticamente al mismo resultado</strong>: la desviación típica <span class="math inline">\(\sqrt{n p q} = 3,412\)</span> solo difiere de <span class="math inline">\(\sqrt{\lambda} = 3,464\)</span> en el factor <span class="math inline">\(\sqrt{q} = \sqrt{0{,}97} \approx 0{,}985\)</span>, que es despreciable en la práctica. La tabla <a href="#tab:tab-motores"><strong>??</strong></a> verifica esta convergencia calculando la misma probabilidad —que fallen <span class="math inline">\(15\)</span> o más motores— por los cuatro caminos.</p>
+<p>Las dos rutas hacia la normal —vía Poisson intermedia y directa— <strong>convergen prácticamente al mismo resultado</strong>: la desviación típica <span class="math inline">\(\sqrt{n p q} = 3,412\)</span> solo difiere de <span class="math inline">\(\sqrt{\lambda} = 3,464\)</span> en el factor <span class="math inline">\(\sqrt{q} = \sqrt{0{,}97} \approx 0{,}985\)</span>, que es despreciable en la práctica. La tabla <a href="tcl.html#tab:tab-motores">11.5</a> verifica esta convergencia calculando la misma probabilidad —que fallen <span class="math inline">\(15\)</span> o más motores— por los cuatro caminos.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -773,7 +771,7 @@ Normal desde Poisson
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 11.5</strong></p>
+<p><span id="tab:tab-motores"></span><strong>Tabla 11.5.</strong> Astillero SELENE: probabilidad de que <span class="math inline">\(15\)</span> o más motores fallen en las pruebas, calculada por los cuatro caminos posibles. Las dos rutas exactas (binomial y Poisson) coinciden hasta el segundo decimal; las dos rutas normales, entre sí, también. La brecha residual de unos <span class="math inline">\(3\)</span> puntos porcentuales entre las exactas y las aproximaciones normales es la firma característica del salto de lo discreto a lo continuo, y desaparece prácticamente al aplicar la corrección por continuidad.</p>
 </div>
 <p>La lectura práctica es que, <strong>para el rango de parámetros en el que ambas condiciones se cumplen holgadamente, cualquiera de las aproximaciones ordena bien las probabilidades</strong>. En términos de comodidad de cálculo, la normal es la más rápida (una sola tipificación); en términos de exactitud, la Poisson exacta queda notablemente más cerca del valor binomial que las normales, sobre todo en las colas. La brecha de unos tres puntos porcentuales entre las exactas y las normales se debe al desajuste entre lo discreto y lo continuo, y desaparece con la corrección por continuidad —comprobación que se deja como ejercicio para el lector curioso.</p>
 <div class="callout-tip">
@@ -797,12 +795,10 @@ Normal desde Poisson
 <li>La <strong>rentabilidad esperada</strong> de la cartera es la misma que la de un contrato individual: <span class="math inline">\(E(\bar\xi_{n}) = \mu\)</span>. Diversificar no cambia el retorno esperado.</li>
 <li>El <strong>riesgo</strong> de la cartera —medido como desviación típica— es el error estándar: <span class="math inline">\(\sigma_{\bar\xi_{n}} = \sigma / \sqrt{n}\)</span>. Diversificar sí reduce el riesgo, y lo hace a razón de <span class="math inline">\(1/\sqrt{n}\)</span>.</li>
 </ul>
-<p>En cifras: con un solo contrato (<span class="math inline">\(n = 1\)</span>), el riesgo es <span class="math inline">\(\sigma\)</span>. Con cuatro contratos, cae a <span class="math inline">\(\sigma / 2\)</span>. Con cien, a <span class="math inline">\(\sigma / 10\)</span>. Con diez mil, a <span class="math inline">\(\sigma / 100\)</span>. Y el fenómeno <strong>no depende de la forma</strong> de la distribución individual: pueden ser exponenciales, log-normales o cualquier otra cosa. El TCL, además, garantiza que para <span class="math inline">\(n\)</span> grande la rentabilidad total se distribuya aproximadamente como una normal, aunque cada contrato individual no lo fuera. La figura <a href="tcl.html#fig:fig-diversificacion">11.2</a> lo ilustra.</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:fig-diversificacion"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/fig-diversificacion-1.png" alt="Reducción del riesgo por diversificación. Manteniendo constante la rentabilidad esperada, el riesgo de una cartera de $n$ activos independientes cae como $\sigma/\sqrt{n}$. Con solo $10$ activos, el riesgo se reduce en más del $65\,\%$ respecto al del activo individual; con $100$, en un $90\,\%$. La marginalidad del beneficio de añadir activos disminuye rápidamente: es la ley de rendimientos decrecientes de la diversificación." width="85%"><p class="caption">
-Figure 11.2: Reducción del riesgo por diversificación. Manteniendo constante la rentabilidad esperada, el riesgo de una cartera de <span class="math inline">\(n\)</span> activos independientes cae como <span class="math inline">\(\sigma/\sqrt{n}\)</span>. Con solo <span class="math inline">\(10\)</span> activos, el riesgo se reduce en más del <span class="math inline">\(65\,\%\)</span> respecto al del activo individual; con <span class="math inline">\(100\)</span>, en un <span class="math inline">\(90\,\%\)</span>. La marginalidad del beneficio de añadir activos disminuye rápidamente: es la ley de rendimientos decrecientes de la diversificación.
-</p>
+<p>En cifras: con un solo contrato (<span class="math inline">\(n = 1\)</span>), el riesgo es <span class="math inline">\(\sigma\)</span>. Con cuatro contratos, cae a <span class="math inline">\(\sigma / 2\)</span>. Con cien, a <span class="math inline">\(\sigma / 10\)</span>. Con diez mil, a <span class="math inline">\(\sigma / 100\)</span>. Y el fenómeno <strong>no depende de la forma</strong> de la distribución individual: pueden ser exponenciales, log-normales o cualquier otra cosa. El TCL, además, garantiza que para <span class="math inline">\(n\)</span> grande la rentabilidad total se distribuya aproximadamente como una normal, aunque cada contrato individual no lo fuera. La figura <a href="tcl.html#fig:fig-diversificacion">11.4</a> lo ilustra.</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-diversificacion-1.png" alt="" width="85%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><span id="fig:fig-diversificacion"></span><strong>Figura 11.4.</strong> Reducción del riesgo por diversificación. Manteniendo constante la rentabilidad esperada, el riesgo de una cartera de <span class="math inline">\(n\)</span> activos independientes cae como <span class="math inline">\(\sigma/\sqrt{n}\)</span>. Con solo <span class="math inline">\(10\)</span> activos, el riesgo se reduce en más del <span class="math inline">\(65\,\%\)</span> respecto al del activo individual; con <span class="math inline">\(100\)</span>, en un <span class="math inline">\(90\,\%\)</span>. La marginalidad del beneficio de añadir activos disminuye rápidamente: es la ley de rendimientos decrecientes de la diversificación.</p>
 </div>
 <p>Esta ley de <span class="math inline">\(1/\sqrt{n}\)</span> es la razón matemática por la que las carteras diversificadas dominan a las concentradas, por la que un fondo indexado en 500 empresas es menos volátil que una empresa individual, y por la que los seguros pueden ofrecer coberturas por primas relativamente bajas. Es también la razón por la que <strong>añadir el activo número 100 a una cartera de 99 reduce muy poco el riesgo</strong>: la caída marginal es proporcional a <span class="math inline">\(1/\sqrt{n+1} - 1/\sqrt{n}\)</span>, cada vez más pequeña. Hay rendimientos decrecientes también en la diversificación.</p>
 </div>
@@ -840,11 +836,9 @@ Figure 11.2: Reducción del riesgo por diversificación. Manteniendo constante l
 <span>  <span class="fu">theme_libro</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">g1</span> <span class="op">+</span> <span class="va">g2</span></span></code></pre></div>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:sim-tcl-live"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/sim-tcl-live-1.png" alt="Simulación en vivo del TCL. La distribución individual (panel izquierdo) es una exponencial de tasa 1: asimétrica, con moda en 0 y una cola larga hacia la derecha. La distribución de la media muestral de $n = 30$ observaciones (panel derecho), sobre 5.000 réplicas simuladas, es visiblemente una campana. La curva roja es la normal $N(\mu;\, \sigma/\sqrt{n})$ predicha por el TCL, con $\mu = 1$ y $\sigma = 1$." width="90%"><p class="caption">
-Figure 11.3: Simulación en vivo del TCL. La distribución individual (panel izquierdo) es una exponencial de tasa 1: asimétrica, con moda en 0 y una cola larga hacia la derecha. La distribución de la media muestral de <span class="math inline">\(n = 30\)</span> observaciones (panel derecho), sobre 5.000 réplicas simuladas, es visiblemente una campana. La curva roja es la normal <span class="math inline">\(N(\mu;\, \sigma/\sqrt{n})\)</span> predicha por el TCL, con <span class="math inline">\(\mu = 1\)</span> y <span class="math inline">\(\sigma = 1\)</span>.
-</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/sim-tcl-live-1.png" alt="" width="90%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><span id="fig:sim-tcl-live"></span><strong>Figura 11.5.</strong> Simulación en vivo del TCL. La distribución individual (panel izquierdo) es una exponencial de tasa 1: asimétrica, con moda en 0 y una cola larga hacia la derecha. La distribución de la media muestral de <span class="math inline">\(n = 30\)</span> observaciones (panel derecho), sobre 5.000 réplicas simuladas, es visiblemente una campana. La curva roja es la normal <span class="math inline">\(N(\mu;\, \sigma/\sqrt{n})\)</span> predicha por el TCL, con <span class="math inline">\(\mu = 1\)</span> y <span class="math inline">\(\sigma = 1\)</span>.</p>
 </div>
 <p>En pocas líneas se ha condensado toda la mecánica: <code>rexp(n, lam)</code> genera muestras de la variable no normal; <code>replicate(..., mean(...))</code> calcula miles de medias muestrales; el histograma resultante es prácticamente una campana. Cambiando <code>rexp</code> por <code>runif</code>, <code>rlnorm</code>, <code>rpois</code> o cualquier otra función de simulación, el fenómeno se reproduce con la misma limpieza. <strong>Esta es la manera moderna —simple, rápida y persuasiva— de entender el TCL</strong>: por observación empírica del fenómeno, antes que por manipulación algebraica del enunciado.</p>
 </div>
@@ -1765,7 +1759,7 @@ Figure 11.3: Simulación en vivo del TCL. La distribución individual (panel izq
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-25.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-09-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

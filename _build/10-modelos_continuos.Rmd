@@ -142,9 +142,9 @@ Preguntas concretas:
   P(6 \leq \xi \leq 14) = \frac{14 - 6}{20} = 0{,}40.
   $$
 
-La figura \@ref(fig:fig-unif-klendathu) muestra la densidad completa y sombrea la probabilidad correspondiente al intervalo central. La visualización deja claro lo que la fórmula anuncia: **calcular probabilidades en una uniforme es medir rectángulos**.
+La figura [10.2](#fig:fig-unif-klendathu) muestra la densidad completa y sombrea la probabilidad correspondiente al intervalo central. La visualización deja claro lo que la fórmula anuncia: **calcular probabilidades en una uniforme es medir rectángulos**.
 
-```{r fig-unif-klendathu, fig.cap="Función de densidad de $\\xi \\to U(0;\\, 20)$: instante de aterrizaje dentro de la ventana asignada a un carguero de *arrakis freight* en el astropuerto de Klendathu. El área sombreada corresponde a $P(6 \\leq \\xi \\leq 14) = 0{,}40$.", fig.height=3.2}
+```{r fig-unif-klendathu, fig.height=3.2}
 df_unif <- tibble(x = c(-2, 0, 0, 20, 20, 22),
                   y = c(0, 0, 0.05, 0.05, 0, 0))
 
@@ -163,6 +163,11 @@ ggplot() +
        y = expression(f(x))) +
   theme_libro()
 ```
+
+::: {style="text-align: center;"}
+[]{#fig:fig-unif-klendathu}**Figura 10.2.** Función de densidad de $\xi \to U(0;\, 20)$: instante de aterrizaje dentro de la ventana asignada a un carguero de *arrakis freight* en el astropuerto de Klendathu. El área sombreada corresponde a $P(6 \leq \xi \leq 14) = 0{,}40$.
+:::
+
 
 ### Cuándo (y cuándo no) es razonable la uniforme {#uniforme-avisos}
 
@@ -274,9 +279,9 @@ p_entre_3_9     <- exp(-q_exp * 0.25) - exp(-q_exp * 0.75)
   P(0{,}25 \leq \xi \leq 0{,}75) = e^{-1{,}8 \cdot 0{,}25} - e^{-1{,}8 \cdot 0{,}75} \approx `r fmt(p_entre_3_9)`.
   $$
 
-La figura \@ref(fig:fig-exp-korrigan) muestra la densidad y la probabilidad asociada al intervalo $[0{,}25;\, 0{,}75]$. Nótese la forma inconfundible: densidad máxima en el origen y decaimiento exponencial, que es lo que da nombre al modelo.
+La figura [10.3](#fig:fig-exp-korrigan) muestra la densidad y la probabilidad asociada al intervalo $[0{,}25;\, 0{,}75]$. Nótese la forma inconfundible: densidad máxima en el origen y decaimiento exponencial, que es lo que da nombre al modelo.
 
-```{r fig-exp-korrigan, fig.cap="Función de densidad de $\\xi \\to \\mathrm{Exp}(1{,}8)$: tiempo, en años, hasta la próxima avería grave de la nave *iron sovereign* (astillero KORRIGAN). El área sombreada corresponde a $P(0{,}25 \\leq \\xi \\leq 0{,}75)$.", fig.height=3.2}
+```{r fig-exp-korrigan, fig.height=3.2}
 xs <- seq(0, 3, length.out = 400)
 df_exp <- tibble(x = xs, y = 1.8 * exp(-1.8 * xs))
 df_shade <- df_exp |> filter(x >= 0.25, x <= 0.75)
@@ -298,6 +303,11 @@ ggplot(df_exp, aes(x = x, y = y)) +
        y = expression(f(x))) +
   theme_libro()
 ```
+
+::: {style="text-align: center;"}
+[]{#fig:fig-exp-korrigan}**Figura 10.3.** Función de densidad de $\xi \to \mathrm{Exp}(1{,}8)$: tiempo, en años, hasta la próxima avería grave de la nave *iron sovereign* (astillero KORRIGAN). El área sombreada corresponde a $P(0{,}25 \leq \xi \leq 0{,}75)$.
+:::
+
 
 Y la propiedad de pérdida de memoria, en este contexto, dice algo incómodo pero cierto: si la *iron sovereign* lleva ya ocho meses sin averías, la probabilidad de que aguante seis meses más es la misma que la que tenía al terminar la última revisión: alrededor del $41$ %. La nave, en el modelo, no "sabe" cuánto tiempo lleva sin averiarse; nosotros sí lo sabemos, pero ese conocimiento no cambia el pronóstico. Anakin Falco lo tiene asumido, aunque en el fondo prefiera no pensar en ello.
 
@@ -381,9 +391,9 @@ Para consolidar la mecánica, veamos —sin necesidad de datos aún— cómo se 
 - $P(1{,}64 \leq \xi^{*} \leq 1{,}96) = P(\xi^{*} \geq 1{,}64) - P(\xi^{*} \geq 1{,}96) = 0{,}0505 - 0{,}025 = 0{,}0255$.
 - $P(-1{,}64 \leq \xi^{*} \leq 1{,}96) = 1 - 0{,}0505 - 0{,}025 = 0{,}9245$.
 
-La figura \@ref(fig:fig-normal-estandar) ilustra los tres cálculos más habituales sobre la campana estándar.
+La figura [10.4](#fig:fig-normal-estandar) ilustra los tres cálculos más habituales sobre la campana estándar.
 
-```{r fig-normal-estandar, fig.cap="Función de densidad de la normal estándar $\\xi^{*} \\to N(0; 1)$ con tres áreas de referencia: cola derecha en $z = 1{,}96$, intervalo central $[-1{,}96;\\, 1{,}96]$ y cola izquierda en $z = -1{,}96$. Los tres cálculos se basan en la misma tabla de una sola cola, usando complementarios y simetría.", fig.height=3.4}
+```{r fig-normal-estandar, fig.height=3.4}
 xs <- seq(-4, 4, length.out = 400)
 df_n <- tibble(x = xs, y = dnorm(xs))
 
@@ -408,6 +418,11 @@ ggplot(df_n, aes(x = x, y = y)) +
        y = expression(varphi(x))) +
   theme_libro()
 ```
+
+::: {style="text-align: center;"}
+[]{#fig:fig-normal-estandar}**Figura 10.4.** Función de densidad de la normal estándar $\xi^{*} \to N(0; 1)$ con tres áreas de referencia: cola derecha en $z = 1{,}96$, intervalo central $[-1{,}96;\, 1{,}96]$ y cola izquierda en $z = -1{,}96$. Los tres cálculos se basan en la misma tabla de una sola cola, usando complementarios y simetría.
+:::
+
 
 ### Ejemplo 1: rendimiento energético de las naves KORRIGAN {#normal-ejemplo1}
 
@@ -441,9 +456,9 @@ Preguntas concretas del ingeniero de mantenimiento:
 
   Es decir, un $90$ % de las naves tiene un IRE entre $62{,}5$ y $89{,}5$ aproximadamente.
 
-La figura \@ref(fig:fig-normal-ire) muestra la campana con los tres puntos de referencia. El resto es geometría.
+La figura [10.5](#fig:fig-normal-ire) muestra la campana con los tres puntos de referencia. El resto es geometría.
 
-```{r fig-normal-ire, fig.cap="Función de densidad de $\\xi \\to N(76{,}0;\\, 8{,}2)$: IRE de una nave KORRIGAN elegida al azar. La franja sombreada corresponde al 90 % central; las áreas oscuras a las colas por debajo de 70 y por encima de 85.", fig.height=3.4}
+```{r fig-normal-ire, fig.height=3.4}
 mu_ire <- 76; sd_ire <- 8.2
 xs <- seq(mu_ire - 4*sd_ire, mu_ire + 4*sd_ire, length.out = 400)
 df_ire <- tibble(x = xs, y = dnorm(xs, mu_ire, sd_ire))
@@ -466,6 +481,11 @@ ggplot(df_ire, aes(x = x, y = y)) +
        y = expression(f(x))) +
   theme_libro()
 ```
+
+::: {style="text-align: center;"}
+[]{#fig:fig-normal-ire}**Figura 10.5.** Función de densidad de $\xi \to N(76{,}0;\, 8{,}2)$: IRE de una nave KORRIGAN elegida al azar. La franja sombreada corresponde al 90 % central; las áreas oscuras a las colas por debajo de 70 y por encima de 85.
+:::
+
 
 ### Ejemplo 2: tonelaje total de una flota (propiedad reproductiva) {#normal-ejemplo2}
 
@@ -520,9 +540,9 @@ $$
 - **VaR al 95 %:** $\mathrm{VaR}_{0{,}95} = -0{,}01 + 1{,}645 \cdot 0{,}15 \approx `r fmt(-0.01 + 1.645 * 0.15, 3)`$ millones de PAVOs. En días normales, no se espera perder más de unos $237$ mil PAVOs.
 - **VaR al 99 %:** $\mathrm{VaR}_{0{,}99} = -0{,}01 + 2{,}326 \cdot 0{,}15 \approx `r fmt(-0.01 + 2.326 * 0.15, 3)`$ millones. Ampliando el nivel de confianza, la reserva prudencial sube a $339$ mil PAVOs.
 
-La figura \@ref(fig:fig-var-normal) visualiza el concepto sobre la distribución de pérdidas. El VaR es el punto que deja a su derecha la probabilidad $1 - \alpha$: **el umbral que separa los días "normales" de los días "malos"**.
+La figura [10.6](#fig:fig-var-normal) visualiza el concepto sobre la distribución de pérdidas. El VaR es el punto que deja a su derecha la probabilidad $1 - \alpha$: **el umbral que separa los días "normales" de los días "malos"**.
 
-```{r fig-var-normal, fig.cap="Distribución de pérdidas diarias de una cartera modelada como normal $L \\to N(-0{,}01;\\, 0{,}15)$ (millones de PAVOs). El VaR al 95 % ($\\approx 237$ mil PAVOs) y al 99 % ($\\approx 339$ mil PAVOs) son los cuantiles de nivel $0{,}95$ y $0{,}99$ de esta distribución: los umbrales que las pérdidas no superan salvo, respectivamente, en el 5 % y el 1 % de los días.", fig.height=3.4}
+```{r fig-var-normal, fig.height=3.4}
 mu_L <- -0.01; sd_L <- 0.15
 xs <- seq(mu_L - 4*sd_L, mu_L + 4*sd_L, length.out = 400)
 df_L <- tibble(x = xs, y = dnorm(xs, mu_L, sd_L))
@@ -548,6 +568,11 @@ ggplot(df_L, aes(x = x, y = y)) +
   theme_libro()
 ```
 
+::: {style="text-align: center;"}
+[]{#fig:fig-var-normal}**Figura 10.6.** Distribución de pérdidas diarias de una cartera modelada como normal $L \to N(-0{,}01;\, 0{,}15)$ (millones de PAVOs). El VaR al 95 % ($\approx 237$ mil PAVOs) y al 99 % ($\approx 339$ mil PAVOs) son los cuantiles de nivel $0{,}95$ y $0{,}99$ de esta distribución: los umbrales que las pérdidas no superan salvo, respectivamente, en el 5 % y el 1 % de los días.
+:::
+
+
 ::: {.callout-note}
 **Un aviso sobre el VaR.** El VaR paramétrico normal es cómodo y muy usado, pero descansa sobre una hipótesis crítica: que las rentabilidades sean normales. Las rentabilidades reales de los activos financieros suelen tener **colas más gruesas** que la normal, y también asimetría. Cuando ocurre un "cisne negro" —una caída de mercado extrema como la de octubre de 2008—, el VaR calculado con la normal subestima gravemente el riesgo. Por eso los reguladores exigen, además, complementarlo con medidas como el *Expected Shortfall* (o *CVaR*): la pérdida media condicionada a que se supere el VaR. La normal es una primera aproximación, no la última palabra.
 :::
@@ -559,9 +584,9 @@ En el capítulo 9 vimos que la binomial se aproximaba a la Poisson bajo ciertas 
 - **Binomial → Normal (De Moivre–Laplace).** Si $\xi \to B(n; p)$ con $n$ grande y $p$ no demasiado próximo a $0$ ni a $1$ —criterio práctico: $n p \geq 5$ y $n q \geq 5$—, entonces $\xi \approx N(n p;\, \sqrt{n p q})$.
 - **Poisson → Normal.** Si $\xi \to \mathrm{Po}(\lambda)$ con $\lambda \geq 10$ (algunos textos exigen $\lambda \geq 5$), entonces $\xi \approx N(\lambda;\, \sqrt{\lambda})$.
 
-Ambas aproximaciones se justifican por el mismo teorema central del límite. La binomial es una suma de $n$ Bernoullis independientes, y para $n$ grande esa suma tiende a ser normal. La Poisson es un límite de binomiales, con lo que hereda la aproximación por transitividad. La figura \@ref(fig:fig-aprox-normal) ilustra la calidad de la aproximación en un caso concreto: una binomial $B(50;\, 0{,}4)$ (barras) frente a la $N(20;\, \sqrt{12})$ correspondiente (curva). El ajuste es prácticamente perfecto salvo en las colas más extremas.
+Ambas aproximaciones se justifican por el mismo teorema central del límite. La binomial es una suma de $n$ Bernoullis independientes, y para $n$ grande esa suma tiende a ser normal. La Poisson es un límite de binomiales, con lo que hereda la aproximación por transitividad. La figura [10.7](#fig:fig-aprox-normal) ilustra la calidad de la aproximación en un caso concreto: una binomial $B(50;\, 0{,}4)$ (barras) frente a la $N(20;\, \sqrt{12})$ correspondiente (curva). El ajuste es prácticamente perfecto salvo en las colas más extremas.
 
-```{r fig-aprox-normal, fig.cap="Comparación entre las probabilidades exactas de una binomial $B(50;\\, 0{,}4)$ (barras) y su aproximación normal $N(20;\\, \\sqrt{12})$ (curva). Con $n p = 20$ y $n q = 30$ ambos claramente por encima de 5, la aproximación es muy buena en toda la masa de la distribución.", fig.height=3.4}
+```{r fig-aprox-normal, fig.height=3.4}
 n <- 50; p <- 0.4
 df_bin <- tibble(x = 0:n, prob = dbinom(0:n, size = n, prob = p))
 mu_bin <- n * p; sd_bin <- sqrt(n * p * (1 - p))
@@ -579,6 +604,11 @@ ggplot() +
        y = "Probabilidad / densidad") +
   theme_libro()
 ```
+
+::: {style="text-align: center;"}
+[]{#fig:fig-aprox-normal}**Figura 10.7.** Comparación entre las probabilidades exactas de una binomial $B(50;\, 0{,}4)$ (barras) y su aproximación normal $N(20;\, \sqrt{12})$ (curva). Con $n p = 20$ y $n q = 30$ ambos claramente por encima de 5, la aproximación es muy buena en toda la masa de la distribución.
+:::
+
 
 **Corrección por continuidad.** Al aproximar una variable discreta por una continua se pierde inevitablemente un poco de precisión al identificar qué punto de la continua corresponde a qué valor entero de la discreta. Una técnica sencilla y muy eficaz para reducir ese error es la **corrección por continuidad**: al calcular $P(\xi \leq k)$ con la aproximación normal, se sustituye por $P(Y \leq k + 0{,}5)$, donde $Y$ es la normal aproximante; análogamente $P(\xi \geq k) \approx P(Y \geq k - 0{,}5)$. La intuición es que el valor discreto $k$ "ocupa" un rectángulo de anchura $1$ centrado en $k$, así que hay que capturar sus extremos.
 
@@ -646,7 +676,7 @@ Los parámetros estimados son $\mu \approx `r fmt(mu_ln, 3)`$ y $\sigma \approx 
 - $P(10 \leq \xi \leq 100) \approx `r fmt(p_entre)`$: en torno al $`r fmt(p_entre*100, 1)`$ % son operadores de tamaño medio, que constituyen el grueso del sector.
 - $P(\xi > 200) \approx `r fmt(p_mas_200)`$: alrededor de un $`r fmt(p_mas_200*100, 1)`$ % son grandes compañías con costes elevados.
 
-La figura \@ref(fig:fig-ln-costop) contrasta el histograma empírico de los costes operativos con el ajuste log-normal (curva). El acuerdo es prácticamente perfecto en toda la extensión de la distribución: modelo y datos difieren en menos de un punto porcentual para cualquier umbral razonable. Una normal sobre estos mismos datos daría, en cambio, un ajuste catastrófico.
+La figura [10.8](#fig:fig-ln-costop) contrasta el histograma empírico de los costes operativos con el ajuste log-normal (curva). El acuerdo es prácticamente perfecto en toda la extensión de la distribución: modelo y datos difieren en menos de un punto porcentual para cualquier umbral razonable. Una normal sobre estos mismos datos daría, en cambio, un ajuste catastrófico.
 
 ```{r fig-ln-costop, fig.height=3.4}
 df_cop <- tibble(cop = costop)
@@ -666,11 +696,11 @@ ggplot() +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 10.2.** Distribución de los costes operativos (`COSTOP`, miles de PAVOs) de las 300 empresas del fichero `interestelar_300.xlsx` con el ajuste log-normal superpuesto. El acuerdo es prácticamente perfecto: la log-normal reproduce con precisión la asimetría y el decaimiento de la cola derecha.
+[]{#fig:fig-ln-costop}**Figura 10.8.** Distribución de los costes operativos (`COSTOP`, miles de PAVOs) de las 300 empresas del fichero `interestelar_300.xlsx` con el ajuste log-normal superpuesto. El acuerdo es prácticamente perfecto: la log-normal reproduce con precisión la asimetría y el decaimiento de la cola derecha.
 :::
 
 
-Para hacer visible la calidad del ajuste desde otro ángulo, la tabla \@ref(tab:tab-ln-ajuste) compara, para varios umbrales, la proporción real de empresas por debajo del umbral (calculada directamente sobre los datos) con la probabilidad que asigna el modelo log-normal. Las diferencias son inferiores a un punto porcentual en todos los casos.
+Para hacer visible la calidad del ajuste desde otro ángulo, la tabla [10.1](#tab:tab-ln-ajuste) compara, para varios umbrales, la proporción real de empresas por debajo del umbral (calculada directamente sobre los datos) con la probabilidad que asigna el modelo log-normal. Las diferencias son inferiores a un punto porcentual en todos los casos.
 
 ```{r tab-ln-ajuste}
 umbrales <- c(5, 10, 20, 50, 100, 200)
@@ -701,13 +731,18 @@ kable(comp,
   )
 ```
 
+::: {style="text-align: center;"}
+[]{#tab:tab-ln-ajuste}**Tabla 10.1.** Comparación entre las probabilidades empíricas (proporción real de empresas con costes por debajo del umbral) y las que asigna el modelo log-normal ajustado. Las diferencias son inferiores a $0{,}011$ en todos los umbrales considerados.
+:::
+
+
 ::: {.callout-note}
 **Log-normal y desigualdad.** No es casualidad que las distribuciones de renta y riqueza sean aproximadamente log-normales, aunque con una cola aún más gruesa en el extremo superior —los muy ricos— que la log-normal no captura del todo. Para ese extremo se emplean las **distribuciones de Pareto** (o *leyes de potencia*), en las que la densidad decae como $x^{-\alpha}$ y los valores extremos son mucho más frecuentes que en cualquier distribución con cola exponencial. La regla informal "el $80$ % de la riqueza está en manos del $20$ % de la población" (el famoso principio de Pareto) es una manifestación de este patrón. El mecanismo multiplicativo que produce la log-normal —cada año, un porcentaje aleatorio de crecimiento— es también el mecanismo económico que produce desigualdad: pequeñas ventajas iniciales, compuestas durante décadas, generan brechas enormes. La log-normal es el retrato estadístico de esa asimetría acumulativa.
 :::
 
 ## Simulación de modelos continuos con R {#sim-continuos}
 
-Todas las distribuciones vistas en este capítulo están implementadas en R con las cuatro funciones estándar `d*`, `p*`, `q*` y `r*` (densidad, distribución acumulada, cuantiles y simulación). La tabla \@ref(tab:tab-r-cont) resume las llamadas para los cuatro modelos.
+Todas las distribuciones vistas en este capítulo están implementadas en R con las cuatro funciones estándar `d*`, `p*`, `q*` y `r*` (densidad, distribución acumulada, cuantiles y simulación). La tabla [10.2](#tab:tab-r-cont) resume las llamadas para los cuatro modelos.
 
 ```{r tab-r-cont}
 tribble(
@@ -724,7 +759,7 @@ tribble(
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 10.1.** Funciones de R para simular los modelos continuos del capítulo. Cambiando la letra `r` inicial por `d`, `p` o `q` se accede, respectivamente, a la densidad, la función de distribución acumulada y los cuantiles.
+[]{#tab:tab-r-cont}**Tabla 10.2.** Funciones de R para simular los modelos continuos del capítulo. Cambiando la letra `r` inicial por `d`, `p` o `q` se accede, respectivamente, a la densidad, la función de distribución acumulada y los cuantiles.
 :::
 
 
@@ -759,7 +794,7 @@ ggplot(tibble(L = perdidas), aes(x = L)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 10.3.** Distribución simulada de pérdidas diarias de la cartera (10.000 simulaciones bajo el modelo normal). Las líneas verticales rojas marcan los VaR al 95 % y al 99 % estimados como cuantiles empíricos. El resultado coincide, salvo la variabilidad Monte Carlo, con el cálculo analítico de la sección anterior.
+[]{#fig:sim-var}**Figura 10.9.** Distribución simulada de pérdidas diarias de la cartera (10.000 simulaciones bajo el modelo normal). Las líneas verticales rojas marcan los VaR al 95 % y al 99 % estimados como cuantiles empíricos. El resultado coincide, salvo la variabilidad Monte Carlo, con el cálculo analítico de la sección anterior.
 :::
 
 
@@ -767,7 +802,7 @@ Los VaR estimados por simulación coinciden, salvo la propia variabilidad de la 
 
 ## Guía rápida de decisión {#guia-continuas}
 
-Con cuatro modelos continuos sobre la mesa, la pregunta operativa vuelve a ser: **"¿qué modelo aplico?"**. La tabla \@ref(tab:tab-decision-cont) resume el criterio.
+Con cuatro modelos continuos sobre la mesa, la pregunta operativa vuelve a ser: **"¿qué modelo aplico?"**. La tabla [10.3](#tab:tab-decision-cont) resume el criterio.
 
 ```{r tab-decision-cont}
 guia <- tribble(
@@ -799,7 +834,7 @@ kable(guia,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 10.2**
+[]{#tab:tab-decision-cont}**Tabla 10.3.** Guía de decisión: qué modelo continuo aplicar según la naturaleza del fenómeno.
 :::
 
 

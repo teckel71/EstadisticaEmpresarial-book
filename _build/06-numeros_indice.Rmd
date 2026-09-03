@@ -205,7 +205,7 @@ ggplot(df_arrakis, aes(Anio, Indice, color = Serie)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 6.2.** Índices simples de precios, cantidades y valor de la ruta Arrakis–Coruscant (base 2210 = 100).
+[]{#fig:fig-indices-simples-cap06}**Figura 6.2.** Índices simples de precios, cantidades y valor de la ruta Arrakis–Coruscant (base 2210 = 100).
 :::
 
 
@@ -688,7 +688,7 @@ ggplot(df_defla, aes(Anio, Millones, color = Serie)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 6.3.** Gasto en consumo final del Sistema Astolat: series nominal y real, con base 2210 = 100.
+[]{#fig:fig-deflactacion-cap06}**Figura 6.3.** Gasto en consumo final del Sistema Astolat: series nominal y real, con base 2210 = 100.
 :::
 
 

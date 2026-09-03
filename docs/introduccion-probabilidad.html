@@ -164,10 +164,13 @@ E = \{ \text{iron sovereign}, \text{goliath hauler}, \text{crestfall prime}, \ld
 <li>
 <strong>Complementario</strong> (<span class="math inline">\(S^{*}\)</span>, también escrito <span class="math inline">\(\bar S\)</span> o <span class="math inline">\(S^{c}\)</span>): suceso formado por los elementos del espacio muestral que <strong>no</strong> están en <span class="math inline">\(S\)</span>. Ocurre precisamente cuando <span class="math inline">\(S\)</span> no ocurre.</li>
 </ul>
-<p>Estas tres operaciones se pueden combinar y encadenar tanto como se quiera, y el resultado sigue siendo un suceso. Los tres paneles de la Figura <a href="#fig:venn"><strong>??</strong></a> resumen las tres operaciones básicas mediante diagramas de Venn, que serán a partir de aquí una herramienta visual constante.</p>
+<p>Estas tres operaciones se pueden combinar y encadenar tanto como se quiera, y el resultado sigue siendo un suceso. Los tres paneles de la Figura <a href="introduccion-probabilidad.html#fig:venn">7.2</a> resumen las tres operaciones básicas mediante diagramas de Venn, que serán a partir de aquí una herramienta visual constante.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/venn-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><span id="fig:venn"></span><strong>Figura 7.2.</strong> Las tres operaciones básicas con sucesos. De izquierda a derecha: intersección (área común), unión (todo lo cubierto por A o B) y complementario de A (todo lo que queda fuera de A dentro del espacio muestral).</p>
+</div>
 <p>Un par de casos particulares merecen nombre propio. Si <span class="math inline">\(S_1 \cap S_2 = \emptyset\)</span>, los sucesos son <strong>disjuntos</strong> (o incompatibles): no pueden ocurrir a la vez. Y si tenemos <span class="math inline">\(n\)</span> sucesos disjuntos dos a dos (<span class="math inline">\(S_i \cap S_j = \emptyset\)</span> para todo <span class="math inline">\(i \neq j\)</span>) cuya unión es el espacio muestral entero (<span class="math inline">\(\bigcup_{i=1}^n S_i = E\)</span>), decimos que forman una <strong>partición</strong> de <span class="math inline">\(E\)</span>: cada resultado del experimento cae en uno, y solo uno, de los sucesos. En nuestra flota galáctica, los tres sucesos <span class="math inline">\(K\)</span>, <span class="math inline">\(S\)</span> y <span class="math inline">\(A\)</span> (los astilleros) forman una partición: cada carguero está construido por exactamente uno de los tres astilleros. Y también forman una partición el par <span class="math inline">\(\{P, P^*\}\)</span> (pesado y ligero), como cualquier suceso con su complementario.</p>
-<p>Sobre los cargueros del universo R-Stars podemos construir tablas de contingencia como las del capítulo 3 y leerlas ya con ojo probabilístico. La Tabla <a href="#tab:cross-astillero-peso"><strong>??</strong></a> muestra el reparto simultáneo de los <span class="math inline">\(48\)</span> cargueros según astillero y tonelaje. Cada casilla de la tabla es, exactamente, un suceso: la casilla <span class="math inline">\((K, P)\)</span> recoge los cargueros que <strong>son de KORRIGAN y son pesados a la vez</strong>; y así con el resto.</p>
+<p>Sobre los cargueros del universo R-Stars podemos construir tablas de contingencia como las del capítulo 3 y leerlas ya con ojo probabilístico. La Tabla <a href="introduccion-probabilidad.html#tab:cross-astillero-peso">7.1</a> muestra el reparto simultáneo de los <span class="math inline">\(48\)</span> cargueros según astillero y tonelaje. Cada casilla de la tabla es, exactamente, un suceso: la casilla <span class="math inline">\((K, P)\)</span> recoge los cargueros que <strong>son de KORRIGAN y son pesados a la vez</strong>; y así con el resto.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -243,7 +246,7 @@ Total
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 7.1.</strong> Cruce de astillero y tonelaje en la flota galáctica.</p>
+<p><span id="tab:cross-astillero-peso"></span><strong>Tabla 7.1.</strong> Cruce de astillero y tonelaje en la flota galáctica.</p>
 </div>
 <p>Vale la pena detenerse un momento en la tabla. Los <span class="math inline">\(16\)</span> cargueros de KORRIGAN son <strong>todos</strong> pesados. Los de SELENE son casi todos ligeros —solo uno supera las <span class="math inline">\(700\)</span> mil toneladas—. Los de ARCTURUS son una mezcla, con ligera preferencia por el peso. Este simple hecho, que puede parecer una curiosidad descriptiva, tendrá dentro de nada consecuencias probabilísticas relevantes.</p>
 </div>
@@ -286,7 +289,7 @@ P: \Omega \longrightarrow [0,1], \qquad P(S) = \text{«medida de la certidumbre 
 <p><span class="math display">\[
 P(A) \;=\; \frac{\text{número de casos favorables a } A}{\text{número de casos posibles}}.
 \]</span></p>
-<p>Bajo el supuesto de equiprobabilidad, calcular una probabilidad se reduce a <strong>contar</strong>. En la flota galáctica de <span class="math inline">\(48\)</span> cargueros, si suponemos que la elección al azar hace equiprobables a todos los cargueros, podemos calcular directamente las probabilidades básicas de los sucesos definidos en la sección anterior. La Tabla <a href="#tab:laplace-basicos"><strong>??</strong></a> las recoge.</p>
+<p>Bajo el supuesto de equiprobabilidad, calcular una probabilidad se reduce a <strong>contar</strong>. En la flota galáctica de <span class="math inline">\(48\)</span> cargueros, si suponemos que la elección al azar hace equiprobables a todos los cargueros, podemos calcular directamente las probabilidades básicas de los sucesos definidos en la sección anterior. La Tabla <a href="introduccion-probabilidad.html#tab:laplace-basicos">7.2</a> las recoge.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -404,7 +407,7 @@ Probabilidad
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 7.2.</strong> Probabilidades básicas de los sucesos definidos sobre la flota, calculadas por la regla de Laplace.</p>
+<p><span id="tab:laplace-basicos"></span><strong>Tabla 7.2.</strong> Probabilidades básicas de los sucesos definidos sobre la flota, calculadas por la regla de Laplace.</p>
 </div>
 <p>La lectura de la tabla es directa. La probabilidad de que un carguero elegido al azar sea de KORRIGAN es <span class="math inline">\(P(K) = 16/48 = 0,3333\)</span>, la de que sea pesado es <span class="math inline">\(P(P) = 0,5417\)</span>, y así sucesivamente. Fíjese cómo la probabilidad de un suceso y la de su complementario suman exactamente <span class="math inline">\(1\)</span>: <span class="math inline">\(P(P) + P(P^{*}) = 0,5417 + 0,4583 = 1\)</span>. No hay magia; es aritmética elemental sobre la que enseguida volveremos.</p>
 <p>Ahora una advertencia didáctica, para que nadie se lleve sorpresas más tarde. La probabilidad de la <strong>unión</strong> de dos sucesos no es, en general, la suma de las probabilidades. Uno podría verse tentado a decir:</p>
@@ -431,10 +434,10 @@ P(A) \;=\; \lim_{N \to \infty} \frac{n_A}{N},
 <p><span class="math display">\[
 f_{\text{inc}} \;=\; \frac{42}{300} \;=\; 0,1400.
 \]</span></p>
-<p>Si la ruta se ha operado bajo condiciones estables, esa frecuencia es una <strong>estimación</strong> razonable de la probabilidad de incidencia en dicha ruta. Podemos representar cómo se comportaría esa estimación si la compañía continuara recopilando datos: al principio, la frecuencia relativa oscila mucho, dependiendo de cuántos vuelos hayan salido bien o mal en las primeras jornadas; a medida que el número de vuelos crece, se calma. La Figura <a href="#fig:frecuentista"><strong>??</strong></a> lo simula para una probabilidad verdadera del <span class="math inline">\(14\,\%\)</span>.</p>
+<p>Si la ruta se ha operado bajo condiciones estables, esa frecuencia es una <strong>estimación</strong> razonable de la probabilidad de incidencia en dicha ruta. Podemos representar cómo se comportaría esa estimación si la compañía continuara recopilando datos: al principio, la frecuencia relativa oscila mucho, dependiendo de cuántos vuelos hayan salido bien o mal en las primeras jornadas; a medida que el número de vuelos crece, se calma. La Figura <a href="introduccion-probabilidad.html#fig:frecuentista">7.3</a> lo simula para una probabilidad verdadera del <span class="math inline">\(14\,\%\)</span>.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/frecuentista-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 7.2.</strong> Simulación de la estabilización de la frecuencia relativa de un suceso (incidencia menor en una ruta de Arrakis Freight) conforme aumenta el número de vuelos observados. La probabilidad verdadera del suceso se ha fijado en 0,14 y aparece como línea horizontal discontinua.</p>
+<p><span id="fig:frecuentista"></span><strong>Figura 7.3.</strong> Simulación de la estabilización de la frecuencia relativa de un suceso (incidencia menor en una ruta de Arrakis Freight) conforme aumenta el número de vuelos observados. La probabilidad verdadera del suceso se ha fijado en 0,14 y aparece como línea horizontal discontinua.</p>
 </div>
 <p>Ese comportamiento —la frecuencia relativa se calma en torno a un valor a medida que crece el número de repeticiones— tiene nombre propio en probabilidad: se llama <strong>Ley de los Grandes Números</strong>, y es uno de los resultados más importantes de todo el edificio probabilístico. La estudiaremos con detalle en el capítulo dedicado a la inferencia; por ahora, basta con saber que el gráfico anterior no es una casualidad ni un sesgo del generador aleatorio: es la manifestación empírica de un teorema que, sin él, buena parte de la estadística no tendría sentido.</p>
 <div class="callout-tip">
@@ -503,7 +506,7 @@ P(K \cup V) \;=\; P(K) + P(V) - P(K \cap V) \;=\; \tfrac{16}{48} + \tfrac{26}{48
 <h3>
 <span class="header-section-number">7.2.5</span> Cómo elegir el enfoque. Un mapa comparativo.<a class="anchor" aria-label="anchor" href="#mapa-enfoques"><i class="fas fa-link"></i></a>
 </h3>
-<p>Los cuatro enfoques que hemos visto no son alternativas rivales sino <strong>herramientas complementarias</strong>. Cada uno funciona mejor en un tipo de problema. La Tabla <a href="#tab:enfoques"><strong>??</strong></a> los resume.</p>
+<p>Los cuatro enfoques que hemos visto no son alternativas rivales sino <strong>herramientas complementarias</strong>. Cada uno funciona mejor en un tipo de problema. La Tabla <a href="introduccion-probabilidad.html#tab:enfoques">7.3</a> los resume.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -579,7 +582,7 @@ Fusiones, riesgos únicos, machine learning bayesiano.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 7.3.</strong> Los cuatro enfoques del concepto de probabilidad.</p>
+<p><span id="tab:enfoques"></span><strong>Tabla 7.3.</strong> Los cuatro enfoques del concepto de probabilidad.</p>
 </div>
 <p>Un consejo práctico: <strong>no elija un enfoque, elija el mejor enfoque para su problema</strong>. Si está calculando el pago esperado de un juego con dados o barajando muestras aleatorias, Laplace. Si tiene registros históricos abundantes y estables, frecuentista. Si necesita demostrar propiedades matemáticas, Kolmogorov. Si el suceso es único y sin frecuencia histórica, subjetivo/bayesiano. Todos son legítimos, y la mayoría de análisis reales combina varios sin darse cuenta.</p>
 <p>En el resto del libro, siguiendo la tradición de la estadística inferencial que se enseña en los cursos introductorios, adoptaremos preferentemente los enfoques <strong>clásico</strong> y <strong>frecuentista</strong>. Pero conviene tener en mente que existe una vía alternativa muy potente, que es la que rige buena parte del análisis de datos moderno.</p>
@@ -633,10 +636,10 @@ P(K_1 \cap K_2 \cap K_3) \;=\; P(K_1)\, P(K_2 \mid K_1)\, P(K_3 \mid K_1 \cap K_
 <span class="header-section-number">7.3.3</span> Diagramas de árbol.<a class="anchor" aria-label="anchor" href="#diagramas-arbol"><i class="fas fa-link"></i></a>
 </h3>
 <p>Antes de entrar en los dos grandes teoremas que quedan por ver, conviene presentar una herramienta visual que hará el resto del capítulo mucho más digerible: el <strong>diagrama de árbol</strong>. Un árbol de probabilidad organiza gráficamente una sucesión de sucesos, poniendo en cada rama la <strong>probabilidad condicionada</strong> correspondiente. La regla de la multiplicación se convierte entonces en una simple recorrido: para calcular la probabilidad conjunta de un camino, se multiplican las probabilidades que hay a lo largo de él.</p>
-<p>Anticipemos el escenario que usaremos también en las dos secciones siguientes. El Consejo Estelar de Ingeniería ha emitido un informe de fiabilidad sobre los tres astilleros galácticos. Cada astillero coloca en el mercado el mismo número de naves, de forma que la probabilidad <em>a priori</em> de que una nave nueva provenga de un astillero cualquiera es <span class="math inline">\(P(K) = P(S) = P(A) = 1/3\)</span>. La probabilidad de que una nave sufra un <strong>fallo grave durante su primer año de servicio</strong> varía según el astillero de origen: <span class="math inline">\(0{,}10\)</span> para KORRIGAN, <span class="math inline">\(0{,}02\)</span> para SELENE y <span class="math inline">\(0{,}06\)</span> para ARCTURUS. La Figura <a href="#fig:arbol"><strong>??</strong></a> representa este experimento como un árbol.</p>
+<p>Anticipemos el escenario que usaremos también en las dos secciones siguientes. El Consejo Estelar de Ingeniería ha emitido un informe de fiabilidad sobre los tres astilleros galácticos. Cada astillero coloca en el mercado el mismo número de naves, de forma que la probabilidad <em>a priori</em> de que una nave nueva provenga de un astillero cualquiera es <span class="math inline">\(P(K) = P(S) = P(A) = 1/3\)</span>. La probabilidad de que una nave sufra un <strong>fallo grave durante su primer año de servicio</strong> varía según el astillero de origen: <span class="math inline">\(0{,}10\)</span> para KORRIGAN, <span class="math inline">\(0{,}02\)</span> para SELENE y <span class="math inline">\(0{,}06\)</span> para ARCTURUS. La Figura <a href="introduccion-probabilidad.html#fig:arbol">7.4</a> representa este experimento como un árbol.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/arbol-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 7.3.</strong> Diagrama de árbol para el experimento «elegir al azar una nave del mercado y observar si sufre un fallo grave durante el primer año». En cada rama se anota la probabilidad condicionada correspondiente. Los productos de las ramas de cada camino dan las seis probabilidades conjuntas del cuadro derecho.</p>
+<p><span id="fig:arbol"></span><strong>Figura 7.4.</strong> Diagrama de árbol para el experimento «elegir al azar una nave del mercado y observar si sufre un fallo grave durante el primer año». En cada rama se anota la probabilidad condicionada correspondiente. Los productos de las ramas de cada camino dan las seis probabilidades conjuntas del cuadro derecho.</p>
 </div>
 <p>Fíjese cómo cada uno de los seis caminos posibles termina en una probabilidad conjunta <span class="math inline">\(P(\text{astillero} \cap \text{efecto})\)</span>, obtenida multiplicando las probabilidades del camino. Los seis números suman <span class="math inline">\(1\)</span> (compruebe usted mismo), como debe ocurrir con cualquier partición del espacio muestral. Y observará también que, aunque las tres «cuotas» de mercado son iguales (<span class="math inline">\(1/3\)</span>), las probabilidades conjuntas no lo son en absoluto: <span class="math inline">\(P(K \cap F) = 0,0333\)</span> es cinco veces mayor que <span class="math inline">\(P(S \cap F) = 0,0067\)</span>. Toda esta información está encerrada en el árbol de forma visual, y va a ser la puerta natural a los dos grandes teoremas que vienen a continuación.</p>
 </div>
@@ -772,7 +775,7 @@ P\!\left(\bigcap_{i=1}^{n} S_i\right) \;=\; \prod_{i=1}^{n} P(S_i),
 P(A_r) \cdot P(P) \;=\; 0,3333 \cdot 0,5417 \;=\; 0,1806.
 \]</span></p>
 <p>Pero la intersección real es <span class="math inline">\(P(A_r \cap P) = 9/48 = 0,1875\)</span>. Los dos números no coinciden exactamente, pero se parecen bastante. De hecho, <span class="math inline">\(P(A_r \mid P) = 9/26 = 0,3462\)</span> está bastante cerca de <span class="math inline">\(P(A_r) = 0,3333\)</span>: lo que ARCTURUS hace en tonelaje se parece a lo que hace el conjunto de la flota. La independencia sería aquí una aproximación aceptable.</p>
-<p><strong>Escenario 2 (dependencia fortísima).</strong> Cambiemos ahora al fichero de las <span class="math inline">\(300\)</span> compañías del universo R-Stars. Consideremos dos sucesos: <span class="math inline">\(R\)</span> = «la compañía tiene flota RENOVADA» y <span class="math inline">\(D_{\text{alto}}\)</span> = «la compañía tiene índice de digitalización por encima de la mediana». La Tabla <a href="#tab:crosseflodig"><strong>??</strong></a> recoge el cruce.</p>
+<p><strong>Escenario 2 (dependencia fortísima).</strong> Cambiemos ahora al fichero de las <span class="math inline">\(300\)</span> compañías del universo R-Stars. Consideremos dos sucesos: <span class="math inline">\(R\)</span> = «la compañía tiene flota RENOVADA» y <span class="math inline">\(D_{\text{alto}}\)</span> = «la compañía tiene índice de digitalización por encima de la mediana». La Tabla <a href="introduccion-probabilidad.html#tab:crosseflodig">7.4</a> recoge el cruce.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -848,7 +851,7 @@ Total
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 7.4.</strong> Cruce entre estado de la flota (EFLO) e índice de digitalización (IDIG) en las 300 compañías R-Stars. Se ha dicotomizado IDIG por su mediana.</p>
+<p><span id="tab:crosseflodig"></span><strong>Tabla 7.4.</strong> Cruce entre estado de la flota (EFLO) e índice de digitalización (IDIG) en las 300 compañías R-Stars. Se ha dicotomizado IDIG por su mediana.</p>
 </div>
 <p>De la tabla se lee que <span class="math inline">\(P(R) = 62/300 = 0,2067\)</span> y <span class="math inline">\(P(D_{\text{alto}}) = 150/300 = 0,5000\)</span>. Si los sucesos fueran independientes, <span class="math inline">\(P(R \cap D_{\text{alto}})\)</span> debería valer <span class="math inline">\(0,1033\)</span>. Pero la intersección real es <span class="math inline">\(P(R \cap D_{\text{alto}}) = 62/300 = 0,2067\)</span> (¡las <span class="math inline">\(62\)</span> compañías con flota renovada tienen <strong>todas</strong> digitalización alta!). Y, más aún, <span class="math inline">\(P(R \mid D_{\text{alto}}) = 62/150 = 0,4133\)</span> frente a <span class="math inline">\(P(R) = 0,2067\)</span>: la información sobre la digitalización <strong>duplica</strong> la probabilidad de que la flota sea renovada. La independencia aquí ni por asomo.</p>
 <p>La lección conjunta de los dos escenarios: la independencia es una <strong>hipótesis</strong>, no una descripción. Se cumple exactamente en muy pocos casos reales; se cumple <em>aproximadamente</em> en muchos, lo suficiente para que los cálculos sigan dando resultados útiles; y no se cumple en absoluto cuando las variables comparten mecanismo generador (una compañía moderna tiende a modernizarse en todos los frentes a la vez).</p>
@@ -1564,7 +1567,7 @@ Total
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-25.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-09-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

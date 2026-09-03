@@ -141,7 +141,7 @@
 </ul>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/poblacion-muestra-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 1.2</strong></p>
+<p><span id="fig:poblacion-muestra"></span><strong>Figura 1.2</strong></p>
 </div>
 <blockquote>
 <p><strong>Ejemplo.</strong> El <em>Consejo Galáctico de Comercio</em> quiere estudiar la satisfacción laboral del personal de pilotaje en el sector del transporte interestelar. La <strong>población</strong> son todos los pilotos registrados en activo; cada <strong>individuo</strong> es uno de esos pilotos. Como entrevistar a todos sería inviable (sin entrar en que muchos pasan media vida en hiperespacio), se selecciona una <strong>muestra</strong> de, pongamos, 2.500 pilotos, repartida proporcionalmente por sector galáctico, antigüedad de la flota y tipo de ruta, de modo que reproduzca a pequeña escala la estructura de la población.</p>
@@ -306,7 +306,7 @@ Gestión Clientes
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 1.1.</strong> Primeros casos del fichero de empleados de Hyperdrive Express.</p>
+<p><span id="tab:empresa-head"></span><strong>Tabla 1.1.</strong> Primeros casos del fichero de empleados de Hyperdrive Express.</p>
 </div>
 <p>A partir de este pequeño conjunto de datos vamos a ir introduciendo, sección a sección, los conceptos del capítulo.</p>
 </div>
@@ -578,7 +578,7 @@ Gestión Clientes
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 1.3.</strong> Distribución de frecuencias del salario en Hyperdrive Express (cientos de PAVOs).</p>
+<p><span id="tab:frec-salario"></span><strong>Tabla 1.3.</strong> Distribución de frecuencias del salario en Hyperdrive Express (cientos de PAVOs).</p>
 </div>
 <p>Lectura: la columna <span class="math inline">\(n_i\)</span> indica cuántos empleados cobran exactamente <span class="math inline">\(x_i\)</span> cientos de PAVOs; <span class="math inline">\(N_i\)</span>, cuántos cobran como máximo esa cantidad; <span class="math inline">\(f_i\)</span> y <span class="math inline">\(F_i\)</span> son las versiones relativas. De <span class="math inline">\(F_i\)</span> se obtiene, por ejemplo, el porcentaje de la plantilla que cobra como mucho cada salario.</p>
 </div>
@@ -659,7 +659,7 @@ Universitarios
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 1.4.</strong> Distribución de frecuencias del nivel de estudios de la plantilla.</p>
+<p><span id="tab:frec-estudios"></span><strong>Tabla 1.4.</strong> Distribución de frecuencias del nivel de estudios de la plantilla.</p>
 </div>
 <p>Aquí las frecuencias acumuladas sí tienen sentido porque las categorías están <strong>ordenadas</strong> (Básicos → Medios → Universitarios). Podemos leer, por ejemplo, qué proporción de la plantilla tiene como mucho estudios medios.</p>
 </div>
@@ -760,7 +760,7 @@ Coordinación
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 1.5.</strong> Distribución de frecuencias del departamento.</p>
+<p><span id="tab:frec-departamento"></span><strong>Tabla 1.5.</strong> Distribución de frecuencias del departamento.</p>
 </div>
 <p>En este caso <strong>no</strong> se han incluido <span class="math inline">\(N_i\)</span> ni <span class="math inline">\(F_i\)</span>: dado que <em>Departamento</em> es un atributo nominal, no existe un orden natural entre sus categorías y acumular pierde significado (¿qué querría decir “porcentaje acumulado hasta <em>Marketing</em>”?).</p>
 </div>
@@ -945,7 +945,7 @@ Intervalo
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 1.6.</strong> Distribución agrupada del salario en intervalos de 5 cientos de PAVOs.</p>
+<p><span id="tab:frec-salario-intervalos"></span><strong>Tabla 1.6.</strong> Distribución agrupada del salario en intervalos de 5 cientos de PAVOs.</p>
 </div>
 <blockquote>
 <p><strong>Por qué importa la densidad.</strong> Cuando todos los intervalos tienen la misma amplitud, <span class="math inline">\(n_i\)</span> y <span class="math inline">\(d_i\)</span> se diferencian solo en un factor común y dan la misma idea visual. Pero cuando las amplitudes son <strong>distintas</strong>, comparar frecuencias absolutas resulta engañoso: un intervalo muy ancho puede contener muchos casos simplemente por ser ancho. La densidad <span class="math inline">\(d_i\)</span> corrige este efecto y permite comparar de forma honesta intervalos heterogéneos. Volveremos sobre esto al construir el histograma.</p>
@@ -983,12 +983,12 @@ Intervalo
 <p>Para los atributos los tres gráficos clásicos son el <strong>diagrama de barras</strong>, el <strong>gráfico de sectores</strong> y el <strong>diagrama de Pareto</strong>.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/grafico-barras-sectores-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 1.3</strong></p>
+<p><span id="fig:grafico-barras-sectores"></span><strong>Figura 1.3</strong></p>
 </div>
 <p>El <strong>diagrama de Pareto</strong> ordena las categorías de mayor a menor frecuencia y superpone la frecuencia relativa acumulada. Es habitual en gestión empresarial (análisis ABC de inventarios, control de calidad), porque permite identificar de un vistazo qué categorías concentran la mayor parte del fenómeno (la conocida regla “80-20”):</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/grafico-pareto-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 1.4</strong></p>
+<p><span id="fig:grafico-pareto"></span><strong>Figura 1.4</strong></p>
 </div>
 </div>
 <div id="variables-agrupadas-el-histograma." class="section level3" number="1.8.2">
@@ -1007,7 +1007,7 @@ Intervalo
 </h4>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/histograma-igual-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 1.5</strong></p>
+<p><span id="fig:histograma-igual"></span><strong>Figura 1.5</strong></p>
 </div>
 <p>Como todos los intervalos tienen la misma amplitud (<span class="math inline">\(c_i = 5\)</span> cientos de PAVOs), las alturas <span class="math inline">\(n_i\)</span> y las densidades <span class="math inline">\(d_i\)</span> son proporcionales y la lectura del gráfico es directa.</p>
 </div>
@@ -1123,12 +1123,12 @@ Intervalo
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 1.7.</strong> Importe anual de contratos con clientes corporativos (miles de PAVOs). Intervalos de distinta amplitud.</p>
+<p><span id="tab:ventas-datos"></span><strong>Tabla 1.7.</strong> Importe anual de contratos con clientes corporativos (miles de PAVOs). Intervalos de distinta amplitud.</p>
 </div>
 <p>Si dibujamos el histograma usando como altura la <strong>frecuencia absoluta</strong> <span class="math inline">\(n_i\)</span>, los intervalos anchos parecen “ganar” simplemente porque acumulan más casos por ser más amplios. Si en cambio usamos la <strong>densidad</strong> <span class="math inline">\(d_i\)</span>, estamos comparando manzanas con manzanas (o, dado el contexto, cargueros con cargueros):</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/histograma-desigual-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 1.6</strong></p>
+<p><span id="fig:histograma-desigual"></span><strong>Figura 1.6</strong></p>
 </div>
 <p>La comparación visual es elocuente: el intervalo más ancho deja de dominar el gráfico en cuanto pasamos a la versión basada en densidad, que es la única conceptualmente correcta cuando los intervalos no son homogéneos.</p>
 </div>
@@ -1145,7 +1145,7 @@ Intervalo
 <p>El <strong>diagrama de puntos</strong> (o <em>dot plot</em>) representa cada observación como un punto sobre el eje horizontal. Cuando varios casos comparten valor, los puntos se apilan. Es especialmente útil con <strong>muestras pequeñas</strong> —como nuestra plantilla de 60 empleados—, porque muestra la distribución sin ocultar la información individual detrás de rectángulos agregados.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/dot-plot-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 1.7</strong></p>
+<p><span id="fig:dot-plot"></span><strong>Figura 1.7</strong></p>
 </div>
 <p>Con <span class="math inline">\(N\)</span> pequeño (unas decenas) el diagrama de puntos suele contar más que un histograma; con <span class="math inline">\(N\)</span> grande, en cambio, se satura y conviene volver al histograma.</p>
 </div>
@@ -1156,7 +1156,7 @@ Intervalo
 <p>El <strong>polígono de frecuencias</strong> se obtiene uniendo con segmentos rectos los puntos <span class="math inline">\((x_i, n_i)\)</span>, donde <span class="math inline">\(x_i\)</span> es la marca de clase de cada intervalo. Superpuesto al histograma —o en sustitución de él— tiene dos virtudes: sugiere la <strong>forma continua</strong> de la distribución subyacente y, sobre todo, permite <strong>comparar dos o más distribuciones</strong> en un mismo gráfico sin que las barras se pisen entre sí.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/poligono-frecuencias-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 1.8</strong></p>
+<p><span id="fig:poligono-frecuencias"></span><strong>Figura 1.8</strong></p>
 </div>
 </div>
 <div id="ojiva-o-polígono-de-frecuencias-acumuladas." class="section level4" number="1.8.3.3">
@@ -1166,7 +1166,7 @@ Intervalo
 <p>Si en el eje vertical representamos la frecuencia relativa <strong>acumulada</strong> <span class="math inline">\(F_i\)</span> frente al extremo superior <span class="math inline">\(L_i\)</span> de cada intervalo, obtenemos el llamado <strong>polígono de frecuencias acumuladas</strong> u <strong>ojiva</strong>. Es una curva monótona no decreciente que va de <span class="math inline">\(0\)</span> (por debajo del mínimo) a <span class="math inline">\(1\)</span> (por encima del máximo).</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/ojiva-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 1.9</strong></p>
+<p><span id="fig:ojiva"></span><strong>Figura 1.9</strong></p>
 </div>
 <p>La ojiva permite <strong>leer percentiles directamente sobre el gráfico</strong>: la línea horizontal discontinua marca el 50 %, y el valor de <span class="math inline">\(x\)</span> donde corta a la curva es una aproximación gráfica a la <strong>mediana</strong>. El mismo procedimiento sirve para cualquier otro cuantil (Q1, Q3, deciles…), como veremos en el capítulo siguiente.</p>
 </div>
@@ -1178,7 +1178,7 @@ Intervalo
 <p>Cuando el eje horizontal es el <strong>tiempo</strong> —meses, trimestres, años—, el gráfico natural es el <strong>gráfico de líneas</strong>. No es un gráfico nuevo desde el punto de vista técnico, pero sí una de las herramientas más utilizadas en Economía: permite apreciar de un vistazo <strong>tendencia</strong>, <strong>estacionalidad</strong> y <strong>variaciones puntuales</strong> en variables como el PIB, el IPC, la cotización de un activo o —en nuestro caso— la facturación mensual de una compañía galáctica.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/series-temporales-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 1.10</strong></p>
+<p><span id="fig:series-temporales"></span><strong>Figura 1.10</strong></p>
 </div>
 <p>En este ejemplo se aprecia con claridad una <strong>tendencia</strong> creciente (la compañía factura cada año más), una <strong>estacionalidad</strong> anual (los picos y valles se repiten con periodicidad de doce meses) y un componente residual <strong>irregular</strong> (pequeñas oscilaciones no atribuibles a las dos anteriores). La descomposición formal de una serie temporal en tendencia, ciclo, estacionalidad y componente irregular es materia de otros cursos, pero el punto de partida —“pintar la serie y mirarla”— es siempre el mismo.</p>
 </div>
@@ -1219,7 +1219,7 @@ Intervalo
 <p>La diferencia entre “mostrar datos” y “contar una historia con datos” se aprecia mejor con un ejemplo. Recuperemos el gráfico de departamentos con el que abríamos la sección de representaciones gráficas, y comparemos la versión <strong>neutra</strong> con una versión <strong>narrativa</strong>:</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/storytelling-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 1.11</strong></p>
+<p><span id="fig:storytelling"></span><strong>Figura 1.11</strong></p>
 </div>
 <p>Los dos gráficos representan <strong>exactamente los mismos datos</strong>. El de la izquierda los expone; el de la derecha los <strong>cuenta</strong>. La barra destacada, el título que ya lleva el mensaje y las etiquetas sobre las columnas guían al lector hacia la conclusión que interesa transmitir, sin que ello suponga la más mínima manipulación de la información.</p>
 <p>El <em>storytelling con datos</em> será un compañero silencioso a lo largo del resto del libro: siempre que produzcamos un gráfico, conviene preguntarse no solo si es <strong>correcto</strong>, sino también qué <strong>historia</strong> cuenta. Para profundizar en el enfoque, además del citado libro de Knaflic, son referencias muy recomendables <em>The Visual Display of Quantitative Information</em> de Edward Tufte, <em>The Truthful Art</em> de Alberto Cairo y <em>Fundamentals of Data Visualization</em> de Claus O. Wilke.</p>
@@ -2198,7 +2198,7 @@ Intervalo
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-25.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-09-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -223,9 +223,9 @@ p_a_lo_sumo_8 <- sum(dbinom(0:8,   size = 12, prob = 0.85))
 
   Alrededor de una madrugada de cada once. Poco frecuente; y cuando ocurre, en la oficina se abre la investigación.
 
-La figura \@ref(fig:fig-binom-arrakis) muestra la forma completa de la distribución. Concentrada en torno a la media $10{,}2$, con colas rápidamente amortiguadas, es el retrato típico de una binomial con $p$ alta.
+La figura [9.2](#fig:fig-binom-arrakis) muestra la forma completa de la distribución. Concentrada en torno a la media $10{,}2$, con colas rápidamente amortiguadas, es el retrato típico de una binomial con $p$ alta.
 
-```{r fig-binom-arrakis, fig.cap="Función de cuantía de la variable $\\xi \\to B(12; 0{,}85)$: número de cargueros (de 12) de *arrakis freight* que llegan a tiempo. La probabilidad se concentra en la zona alta del rango porque los cargueros suelen cumplir la ventana.", fig.height=3.6}
+```{r fig-binom-arrakis, fig.height=3.6}
 df_bin <- tibble(
   x = 0:12,
   p = dbinom(0:12, size = 12, prob = 0.85)
@@ -241,6 +241,11 @@ ggplot(df_bin, aes(x = x, y = p)) +
        y = expression(P(xi==x))) +
   theme_libro()
 ```
+
+::: {style="text-align: center;"}
+[]{#fig:fig-binom-arrakis}**Figura 9.2.** Función de cuantía de la variable $\xi \to B(12; 0{,}85)$: número de cargueros (de 12) de *arrakis freight* que llegan a tiempo. La probabilidad se concentra en la zona alta del rango porque los cargueros suelen cumplir la ventana.
+:::
+
 
 ### Un aviso importante sobre la independencia {#binomial-aviso}
 
@@ -308,9 +313,9 @@ p_al_menos_3 <- 1 - ppois(2, lambda = 2.3)
 
   Alrededor del 40 % de las semanas hay tres o más avistamientos: llamar a esto "raro" es cuestión de perspectiva.
 
-La figura \@ref(fig:fig-poisson-piratas) muestra la cuantía completa. Nótese la asimetría a la derecha, típica de las Poisson con $\lambda$ pequeño o moderado: es más difícil bajar de la media (limitada por el cero) que subir por encima.
+La figura [9.3](#fig:fig-poisson-piratas) muestra la cuantía completa. Nótese la asimetría a la derecha, típica de las Poisson con $\lambda$ pequeño o moderado: es más difícil bajar de la media (limitada por el cero) que subir por encima.
 
-```{r fig-poisson-piratas, fig.cap="Función de cuantía de $\\xi \\to \\mathrm{Po}(2{,}3)$: avistamientos de piratas por semana en el corredor Coruscant–Naboo. La media coincide con la varianza; ambas valen $2{,}3$.", fig.height=3.6}
+```{r fig-poisson-piratas, fig.height=3.6}
 df_poi <- tibble(
   x = 0:10,
   p = dpois(0:10, lambda = 2.3)
@@ -329,6 +334,11 @@ ggplot(df_poi, aes(x = x, y = p)) +
        y = expression(P(xi==x))) +
   theme_libro()
 ```
+
+::: {style="text-align: center;"}
+[]{#fig:fig-poisson-piratas}**Figura 9.3.** Función de cuantía de $\xi \to \mathrm{Po}(2{,}3)$: avistamientos de piratas por semana en el corredor Coruscant–Naboo. La media coincide con la varianza; ambas valen $2{,}3$.
+:::
+
 
 ### Ejemplo 2: la Poisson como aproximación de la binomial {#poisson-ejemplo-aprox}
 
@@ -393,7 +403,7 @@ tibble(
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 9.1.** Media y varianza empíricas de la variable `IIG` (averías graves acumuladas por nave). El ratio, muy superior a 1, es un indicador claro de sobredispersión.
+[]{#tab:poisson-iig}**Tabla 9.1.** Media y varianza empíricas de la variable `IIG` (averías graves acumuladas por nave). El ratio, muy superior a 1, es un indicador claro de sobredispersión.
 :::
 
 
@@ -459,9 +469,9 @@ $$
 P(\xi = 2) = \binom{2 + 3 - 1}{2} \cdot 0{,}8^{3} \cdot 0{,}2^{2} = 6 \cdot 0{,}512 \cdot 0{,}04 \approx `r fmt(dnbinom(2, size = 3, prob = 0.8))`.
 $$
 
-La figura \@ref(fig:fig-bn-corellian) ilustra la distribución completa. La probabilidad se concentra en valores muy bajos (0 o 1 fracasos), coherente con una $p$ alta.
+La figura [9.4](#fig:fig-bn-corellian) ilustra la distribución completa. La probabilidad se concentra en valores muy bajos (0 o 1 fracasos), coherente con una $p$ alta.
 
-```{r fig-bn-corellian, fig.cap="Función de cuantía de $\\xi \\to \\mathrm{BN}(3;\\, 0{,}8)$: número de reactores defectuosos apartados antes del tercer reactor válido en la fábrica de *corellian freightworks*.", fig.height=3.6}
+```{r fig-bn-corellian, fig.height=3.6}
 df_bn <- tibble(
   x = 0:10,
   p = dnbinom(0:10, size = 3, prob = 0.8)
@@ -477,6 +487,11 @@ ggplot(df_bn, aes(x = x, y = p)) +
        y = expression(P(xi==x))) +
   theme_libro()
 ```
+
+::: {style="text-align: center;"}
+[]{#fig:fig-bn-corellian}**Figura 9.4.** Función de cuantía de $\xi \to \mathrm{BN}(3;\, 0{,}8)$: número de reactores defectuosos apartados antes del tercer reactor válido en la fábrica de *corellian freightworks*.
+:::
+
 
 ### Caso particular: la distribución geométrica {#geometrica}
 
@@ -516,7 +531,7 @@ Al margen de su interpretación clásica —"cuántos fracasos antes del $r$-és
 
 Recuperemos el ejemplo de la variable `IIG` (averías graves acumuladas). La Poisson, con media y varianza forzadas a coincidir, fracasa: no sabe reproducir la cola larga de las naves problemáticas. La binomial negativa, con su parámetro extra, sí puede: su varianza $\sigma^{2} = r q / p^{2}$ es siempre mayor que su media $\mu = r q / p$, y ajustando adecuadamente los parámetros $r$ y $p$ podemos hacer que reproduzca el nivel de sobredispersión observado en los datos.
 
-La figura \@ref(fig:fig-poisson-bn-iig) compara las tres cosas: la distribución empírica de `IIG`, el ajuste Poisson (deficiente) y el ajuste binomial negativa (bastante mejor).
+La figura [9.5](#fig:fig-poisson-bn-iig) compara las tres cosas: la distribución empírica de `IIG`, el ajuste Poisson (deficiente) y el ajuste binomial negativa (bastante mejor).
 
 ```{r fig-poisson-bn-iig, fig.height=3.8}
 mu_iig  <- mean(astilleros$IIG)
@@ -551,7 +566,7 @@ ggplot(df_ajuste, aes(x = x, y = prob, fill = modelo)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 9.2.** Distribución empírica del número de averías graves acumuladas (`IIG`) por las 48 naves de la flota galáctica, comparada con dos ajustes teóricos. La Poisson (rojo) infraestima gravemente la cola larga; la binomial negativa (verde), calibrada para reproducir la sobredispersión observada, se ajusta bastante mejor.
+[]{#fig:fig-poisson-bn-iig}**Figura 9.5.** Distribución empírica del número de averías graves acumuladas (`IIG`) por las 48 naves de la flota galáctica, comparada con dos ajustes teóricos. La Poisson (rojo) infraestima gravemente la cola larga; la binomial negativa (verde), calibrada para reproducir la sobredispersión observada, se ajusta bastante mejor.
 :::
 
 
@@ -619,7 +634,7 @@ p_al_menos_3 <- 1 - phyper(2, m = 62, n = 300 - 62, k = 10)
 - $P(\xi = 2) \approx `r fmt(p2)`$: el resultado más probable.
 - $P(\xi \geq 3) \approx `r fmt(p_al_menos_3)`$: probabilidad de encontrar tres o más empresas con flota renovada, alrededor del 34 %.
 
-La figura \@ref(fig:fig-hyper-audit) muestra la distribución completa. Es asimétrica a la derecha porque la proporción de éxitos en la población, $p \approx 0{,}21$, es baja.
+La figura [9.6](#fig:fig-hyper-audit) muestra la distribución completa. Es asimétrica a la derecha porque la proporción de éxitos en la población, $p \approx 0{,}21$, es baja.
 
 ```{r fig-hyper-audit, fig.height=3.6}
 df_hyp <- tibble(
@@ -639,7 +654,7 @@ ggplot(df_hyp, aes(x = x, y = p)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 9.3.** Función de cuantía de $\\xi \\to H(300;\\, 10;\\, 62/300)$: número de empresas con flota renovada en una muestra aleatoria de 10 empresas auditadas.
+[]{#fig:fig-hyper-audit}**Figura 9.6.** Función de cuantía de $\xi \to H(300;\, 10;\, 62/300)$: número de empresas con flota renovada en una muestra aleatoria de 10 empresas auditadas.
 :::
 
 
@@ -657,7 +672,7 @@ $$
 H(N;\, n;\, p) \;\xrightarrow[\;p \text{ pequeño}\;]{}\; B(n;\, p).
 $$
 
-En la práctica se suele aceptar esta aproximación cuando $p = N_1 / N < 0{,}1$; un criterio alternativo, también habitual, es exigir que la muestra represente menos del 5–10 % de la población, esto es, $n / N < 0{,}1$. La tabla \@ref(tab:tab-hyp-vs-bin) lo hace evidente en nuestro caso de la auditoría: con $p \approx 0{,}21$ (algo alto para la aproximación), las diferencias entre las probabilidades hipergeométricas exactas y las binomiales aproximadas son moderadas pero perceptibles.
+En la práctica se suele aceptar esta aproximación cuando $p = N_1 / N < 0{,}1$; un criterio alternativo, también habitual, es exigir que la muestra represente menos del 5–10 % de la población, esto es, $n / N < 0{,}1$. La tabla [9.2](#tab:tab-hyp-vs-bin) lo hace evidente en nuestro caso de la auditoría: con $p \approx 0{,}21$ (algo alto para la aproximación), las diferencias entre las probabilidades hipergeométricas exactas y las binomiales aproximadas son moderadas pero perceptibles.
 
 ```{r tab-hyp-vs-bin}
 comp <- tibble(
@@ -688,7 +703,7 @@ kable(comp,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 9.2**
+[]{#tab:tab-hyp-vs-bin}**Tabla 9.2.** Comparación entre las probabilidades exactas hipergeométricas y su aproximación binomial en el ejemplo de la auditoría de flotas. Con $p \approx 0{,}21$ las diferencias son pequeñas pero visibles; para $p<0{,}1$ serían despreciables.
 :::
 
 
@@ -696,7 +711,7 @@ Cuando la aproximación es válida, se prefiere la binomial por dos motivos: la 
 
 ## Simulación de modelos discretos con R {#sim-discretos}
 
-Todas las distribuciones vistas están implementadas en R con las cuatro funciones estándar `d*`, `p*`, `q*` y `r*`. Cerramos el capítulo con una vuelta práctica: la letra `r` corresponde a la simulación, y permite generar realizaciones aleatorias de cualquiera de los modelos con una sola línea de código. La tabla \@ref(tab:tab-r-funciones) resume las llamadas para las distribuciones de este capítulo.
+Todas las distribuciones vistas están implementadas en R con las cuatro funciones estándar `d*`, `p*`, `q*` y `r*`. Cerramos el capítulo con una vuelta práctica: la letra `r` corresponde a la simulación, y permite generar realizaciones aleatorias de cualquiera de los modelos con una sola línea de código. La tabla [9.3](#tab:tab-r-funciones) resume las llamadas para las distribuciones de este capítulo.
 
 ```{r tab-r-funciones}
 tribble(
@@ -716,11 +731,11 @@ tribble(
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 9.3.** Funciones de R para simular los modelos discretos del capítulo. Cambiando la letra `r` inicial por `d`, `p` o `q` se accede, respectivamente, a la función de cuantía, la de distribución acumulada y los cuantiles.
+[]{#tab:tab-r-funciones}**Tabla 9.3.** Funciones de R para simular los modelos discretos del capítulo. Cambiando la letra `r` inicial por `d`, `p` o `q` se accede, respectivamente, a la función de cuantía, la de distribución acumulada y los cuantiles.
 :::
 
 
-La figura \@ref(fig:fig-sim-cuatro) simula 5.000 realizaciones de cada uno de los cuatro modelos "de conteo" más importantes del capítulo, aplicados a los escenarios que hemos ido presentando, y compara el histograma empírico con las probabilidades teóricas. La coincidencia es —como debe— casi perfecta.
+La figura [9.7](#fig:fig-sim-cuatro) simula 5.000 realizaciones de cada uno de los cuatro modelos "de conteo" más importantes del capítulo, aplicados a los escenarios que hemos ido presentando, y compara el histograma empírico con las probabilidades teóricas. La coincidencia es —como debe— casi perfecta.
 
 ```{r fig-sim-cuatro, echo=TRUE, fig.height=5.5, out.width="90%"}
 set.seed(9)
@@ -767,7 +782,7 @@ ggplot(sim_all, aes(x = x)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 9.4.** Simulación de 5.000 realizaciones de cada uno de los cuatro modelos discretos principales del capítulo. La línea roja muestra la probabilidad teórica; las barras azules, la frecuencia relativa observada. La Ley de los Grandes Números en pleno funcionamiento.
+[]{#fig:fig-sim-cuatro}**Figura 9.7.** Simulación de 5.000 realizaciones de cada uno de los cuatro modelos discretos principales del capítulo. La línea roja muestra la probabilidad teórica; las barras azules, la frecuencia relativa observada. La Ley de los Grandes Números en pleno funcionamiento.
 :::
 
 
@@ -775,7 +790,7 @@ Este ejercicio es más que decorativo: es la manera en que un analista moderno v
 
 ## Guía rápida de decisión {#guia-rapida}
 
-Con seis modelos sobre la mesa, la pregunta operativa que un lector debe hacerse cuando se enfrenta a un problema real es: **"¿qué modelo aplico?"**. La tabla \@ref(tab:tab-decision) responde a esta pregunta con un pequeño árbol de decisión textual.
+Con seis modelos sobre la mesa, la pregunta operativa que un lector debe hacerse cuando se enfrenta a un problema real es: **"¿qué modelo aplico?"**. La tabla [9.4](#tab:tab-decision) responde a esta pregunta con un pequeño árbol de decisión textual.
 
 ```{r tab-decision}
 guia <- tribble(
@@ -819,7 +834,7 @@ kable(guia,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 9.4**
+[]{#tab:tab-decision}**Tabla 9.4.** Guía de decisión: qué modelo discreto aplicar según la naturaleza del experimento.
 :::
 
 

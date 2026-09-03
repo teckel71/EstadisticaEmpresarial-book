@@ -462,6 +462,9 @@ e_{ij} \;=\; y_j - \hat{y}_i \;\;\Longleftrightarrow\;\; y_j \;=\; \hat{y}_i + e
 </tr>
 </tbody>
 </table></div>
+<div style="text-align: center;">
+<p><span id="tab:astilleros-tabla-reg"></span><strong>Tabla 5.1.</strong> Tabla de correlación de antigüedad (<span class="math inline">\(X\)</span>) y tonelaje (<span class="math inline">\(Y\)</span>) con las columnas y filas auxiliares para el cálculo directo de los momentos.</p>
+</div>
 <p>Con las marcas de clase <span class="math inline">\(x_i \in \{2{,}5;\ 7{,}5;\ 12{,}5;\ 17{,}5;\ 25\}\)</span> e <span class="math inline">\(y_j \in \{575;\ 700;\ 800;\ 900\}\)</span>, los momentos respecto al origen son los que ya calculamos en el capítulo 3, cuando obtuvimos la covarianza:</p>
 <p><span class="math display">\[
 a_{10} \;=\; 9,0104, \qquad
@@ -493,7 +496,7 @@ S_{xy}   \;=\; a_{11} - a_{10}\cdot a_{01} \;=\; 380,1270.
 <p>Podemos comprobar visualmente el ajuste sobre la nube de puntos original (los <span class="math inline">\(48\)</span> cargueros sin agrupar):</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/astilleros-scatter-reg-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 5.2.</strong> Diagrama de dispersión de la flota y recta ajustada por mínimos cuadrados.</p>
+<p><span id="fig:astilleros-scatter-reg"></span><strong>Figura 5.2.</strong> Diagrama de dispersión de la flota y recta ajustada por mínimos cuadrados.</p>
 </div>
 <p>La recta atraviesa la nube con obediencia razonable, pero es evidente que la dispersión alrededor de ella no es despreciable: hay cargueros viejos y ligeros, cargueros nuevos y pesados. La nube tiene una tendencia clara, sí; pero también un ruido considerable. Cuantificar cuán bien —o cuán mal— la recta representa a la nube es la tarea de la sección siguiente.</p>
 <p>Antes de eso, un pequeño paréntesis muy útil en la práctica moderna: todo lo que hemos calculado a mano cabe en dos líneas de <code>R</code>. La función <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> (por <em>linear model</em>) ajusta la recta y guarda todos los resultados en un objeto que después puede consultarse con <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, <code><a href="https://rdrr.io/r/stats/coef.html">coef()</a></code>, <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> y compañía:</p>
@@ -579,11 +582,14 @@ S_{xy}   \;=\; a_{11} - a_{10}\cdot a_{01} \;=\; 380,1270.
 </tr>
 </tbody>
 </table></div>
+<div style="text-align: center;">
+<p><span id="tab:astilleros-tipo1"></span><strong>Tabla 5.2.</strong> Regresión de tipo I sobre la flota: medias condicionadas del tonelaje para cada intervalo de antigüedad.</p>
+</div>
 <p>Los cinco puntos <span class="math inline">\((2{,}5;\ 626{,}79)\)</span>, <span class="math inline">\((7{,}5;\ 743{,}75)\)</span>, <span class="math inline">\((12{,}5;\ 811{,}11)\)</span>, <span class="math inline">\((17{,}5;\ 787{,}50)\)</span>, <span class="math inline">\((25;\ 900)\)</span> <strong>son</strong> la regresión de tipo I: no imponemos ninguna forma funcional, las medias condicionadas hablan por sí solas. Se lee que el tonelaje típico crece con la antigüedad, pero no de forma perfectamente monótona (el cuarto intervalo se aparta ligeramente hacia abajo) y con un último punto —la solitaria nave de <span class="math inline">\(25\)</span> años— que arrastra la tendencia al alza. Es lo que la nube de puntos condicionada nos dice de verdad, sin la simplificación de una recta.</p>
 <p>Comparemos gráficamente ambas regresiones sobre los mismos datos:</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/astilleros-tipo1-tipo2-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 5.3.</strong> Regresión de tipo I (puntos oscuros: medias condicionadas del tonelaje por intervalo de antigüedad, con tamaño proporcional a la frecuencia) frente a regresión de tipo II (recta mínimo-cuadrática) sobre la flota.</p>
+<p><span id="fig:astilleros-tipo1-tipo2"></span><strong>Figura 5.3.</strong> Regresión de tipo I (puntos oscuros: medias condicionadas del tonelaje por intervalo de antigüedad, con tamaño proporcional a la frecuencia) frente a regresión de tipo II (recta mínimo-cuadrática) sobre la flota.</p>
 </div>
 <p>Y aquí una comprobación numérica que ilustra la propiedad de equivalencia: si ajustamos por mínimos cuadrados una recta a los <strong>cinco puntos de las medias condicionadas</strong> ponderándolos por sus frecuencias <span class="math inline">\(n_{i\bullet}\)</span>, obtenemos exactamente los mismos coeficientes que ajustar la recta a los <span class="math inline">\(48\)</span> cargueros originales. La regresión de tipo II es —literalmente— la traducción analítica lineal de la regresión de tipo I.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -618,11 +624,9 @@ S_{xy}   \;=\; a_{11} - a_{10}\cdot a_{01} \;=\; 380,1270.
 </h3>
 <p>Un aspecto que la fórmula <span class="math inline">\(\hat{b} = S_{xy}/S_x^{\,2}\)</span> oculta pero que aparece con toda su virulencia en cuanto uno tiene datos reales entre las manos: la regresión mínimo-cuadrática <strong>es muy sensible a los valores atípicos</strong>. Basta con un solo punto lo bastante alejado del patrón general para que la recta gire de forma llamativa y el <span class="math inline">\(R^{2}\)</span> se venga abajo.</p>
 <p>Ilustrémoslo con un experimento controlado. Simulamos una nube “limpia” de <span class="math inline">\(30\)</span> observaciones que siguen una relación aproximadamente lineal —piénsese en una flota nueva, bien gestionada— y añadimos después un solo carguero anómalo: uno de los prototipos de emergencia de <em>Wraith Industries</em>, extremadamente ligero pese a llevar años en servicio, que quedaría fuera del comportamiento habitual del sector:</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:outlier-demo"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/outlier-demo-1.png" alt="Efecto de un único valor atípico sobre la recta de regresión. Comparen la línea negra continua (con el atípico) con la discontinua ámbar (sin él): el ajuste cambia sustancialmente y el $R^{2}$ se hunde." width="100%"><p class="caption">
-Figure 5.1: Efecto de un único valor atípico sobre la recta de regresión. Comparen la línea negra continua (con el atípico) con la discontinua ámbar (sin él): el ajuste cambia sustancialmente y el <span class="math inline">\(R^{2}\)</span> se hunde.
-</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/outlier-demo-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><span id="fig:outlier-demo"></span><strong>Figura 5.4.</strong> Efecto de un único valor atípico sobre la recta de regresión. Comparen la línea negra continua (con el atípico) con la discontinua ámbar (sin él): el ajuste cambia sustancialmente y el <span class="math inline">\(R^{2}\)</span> se hunde.</p>
 </div>
 <p>La caída del <span class="math inline">\(R^{2}\)</span> es brutal —del <span class="math inline">\(83\,\%\)</span> al <span class="math inline">\(26\,\%\)</span>— y la pendiente y la ordenada se distorsionan aunque solo hayamos añadido <strong>una</strong> observación al conjunto original de treinta. Ese es el precio de haber elegido el criterio de mínimos cuadrados: penalizar el residuo al cuadrado hace que un solo caso muy alejado tenga una fuerza desproporcionada. Alternativas más robustas —regresión mediana, regresión con función de pérdida de Huber, mínimos absolutos— existen y forman parte del arsenal de la estadística moderna; en un curso introductorio nos basta con haber visto el peligro y saber <strong>mirar la nube de puntos</strong> antes de dejarnos guiar por los coeficientes.</p>
 </div>
@@ -683,7 +687,7 @@ R^{2} \;=\; \dfrac{S_{xy}^{\,2}}{S_x^{\,2}\cdot S_y^{\,2}} \;=\;
 <p>En el caso de la flota, un gráfico de <strong>residuos frente a valores ajustados</strong>, coloreado por astillero, revela con toda claridad la fuente del <span class="math inline">\(R^{2}\)</span> modesto:</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/astilleros-residuos-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 5.4.</strong> Residuos frente a valores ajustados en la flota, por astillero. La estructura del color muestra que la antigüedad, por sí sola, no capta la segmentación por constructor.</p>
+<p><span id="fig:astilleros-residuos"></span><strong>Figura 5.5.</strong> Residuos frente a valores ajustados en la flota, por astillero. La estructura del color muestra que la antigüedad, por sí sola, no capta la segmentación por constructor.</p>
 </div>
 <p>La lectura es inequívoca. Los residuos <strong>no</strong> están mezclados al azar: KORRIGAN aparece sistemáticamente por encima del cero (sus cargueros son consistentemente más pesados de lo que la antigüedad sola predice), ARCTURUS ocupa la banda inferior (más ligeros de lo esperado) y SELENE se sitúa en la zona intermedia. La antigüedad, tomada aislada, mezcla tres poblaciones que se comportan diferente. <strong>El diagnóstico de residuos ha detectado con precisión qué le falta al modelo</strong>, y sugiere la corrección natural: incluir la identidad del astillero como segunda variable explicativa. Volveremos a esta idea al final del capítulo, en la sección de regresión múltiple.</p>
 </div>
@@ -762,7 +766,7 @@ R \;=\; \pm\sqrt{R^{2}} \;=\; \pm\sqrt{\,1 - \dfrac{S_e^{\,2}}{S_y^{\,2}}\,},
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 5.1.</strong> Escala orientativa para <span class="math inline">\(|R|\)</span> en el análisis descriptivo.</p>
+<p><strong>Tabla 5.3.</strong> Escala orientativa para <span class="math inline">\(|R|\)</span> en el análisis descriptivo.</p>
 </div>
 <div id="R-astilleros" class="section level3" number="5.4.1">
 <h3>
@@ -809,11 +813,9 @@ R \;=\; \dfrac{S_{xy}}{S_x \cdot S_y} \;=\;
 <li>Cuando <span class="math inline">\(R^{2}\)</span> es intermedio, las dos rectas forman una “tijera” alrededor del centro de gravedad de la nube, cuya apertura se estrecha a medida que <span class="math inline">\(R^{2}\)</span> crece hacia <span class="math inline">\(1\)</span>.</li>
 </ul>
 <p>Un gráfico lo hace evidente:</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:dos-rectas-plot"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/dos-rectas-plot-1.png" alt="Las dos rectas de regresión sobre la flota. Se cruzan en el centro de gravedad $(\overline{x},\ \overline{y})$ y su apertura mide indirectamente la dispersión de la nube." width="100%"><p class="caption">
-Figure 5.2: Las dos rectas de regresión sobre la flota. Se cruzan en el centro de gravedad <span class="math inline">\((\overline{x},\ \overline{y})\)</span> y su apertura mide indirectamente la dispersión de la nube.
-</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/dos-rectas-plot-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><span id="fig:dos-rectas-plot"></span><strong>Figura 5.6.</strong> Las dos rectas de regresión sobre la flota. Se cruzan en el centro de gravedad <span class="math inline">\((\overline{x},\ \overline{y})\)</span> y su apertura mide indirectamente la dispersión de la nube.</p>
 </div>
 <p>Las dos rectas se abren en abanico desde el punto <span class="math inline">\((\overline{x},\ \overline{y})\)</span> señalado con la cruz ámbar. Si el <span class="math inline">\(R^{2}\)</span> hubiese sido más alto, las dos rectas estarían más cerca la una de la otra; si hubiese sido más bajo, se abrirían aún más hasta acercarse a la perpendicularidad. <strong>La apertura del abanico es, literalmente, una lectura visual de <span class="math inline">\(R^{2}\)</span></strong>.</p>
 </div>
@@ -824,7 +826,7 @@ Figure 5.2: Las dos rectas de regresión sobre la flota. Se cruzan en el centro 
 <p>Un <span class="math inline">\(R^{2}\)</span> moderado como el de la flota puede dejarnos con dudas legítimas sobre si la regresión “vale la pena”. Para calibrar, echemos un vistazo a un cruce en el que la relación lineal es contundente. Sobre las <span class="math inline">\(N = 300\)</span> compañías del sector R-Stars, dispongamos en un lado los <strong>ingresos</strong> de cada compañía (<code>ING</code>, en miles de PAVOs) y en el otro sus <strong>costos operativos</strong> (<code>COSTOP</code>, también en miles de PAVOs). La intuición económica es clara —a mayor volumen de actividad, mayores costes de operación— y los datos, esta vez, no van a discutirle nada al intuición.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/rstars-ing-costop-scatter-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 5.5.</strong> Nube de puntos y recta de regresión sobre las 300 compañías de la muestra R-Stars.</p>
+<p><span id="fig:rstars-ing-costop-scatter"></span><strong>Figura 5.7.</strong> Nube de puntos y recta de regresión sobre las 300 compañías de la muestra R-Stars.</p>
 </div>
 <p>Los coeficientes de la recta ajustada son</p>
 <p><span class="math display">\[
@@ -848,11 +850,9 @@ R \;=\; 0,9470,
 </h3>
 <p>Antes de dar por buena la lectura del <span class="math inline">\(R\)</span> y del <span class="math inline">\(R^{2}\)</span> como resumen de una relación, conviene detenerse en uno de los ejemplos más citados —y más aleccionadores— de la historia de la estadística. En <span class="math inline">\(1973\)</span>, el estadístico británico Francis Anscombe publicó un pequeño artículo con cuatro conjuntos de datos que compartían <strong>exactamente</strong> las mismas medias, las mismas varianzas, la misma covarianza, la misma recta ajustada y <strong>el mismo <span class="math inline">\(R^{2}\)</span></strong> (con cuatro decimales de precisión), y que sin embargo, al dibujar la nube, se comportaban de formas radicalmente distintas.</p>
 <p>Es el llamado <strong>cuarteto de Anscombe</strong>, que forma parte del propio <code>R</code> como <code><a href="https://rdrr.io/r/datasets/anscombe.html">datasets::anscombe</a></code>. Reproducirlo lleva quince líneas:</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:anscombe"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/anscombe-1.png" alt="El cuarteto de Anscombe. Los cuatro conjuntos comparten media, varianza, covarianza, coeficientes de la recta ajustada y $R^{2}$ hasta la segunda cifra decimal. Solo el conjunto (I) responde a un ajuste lineal genuino." width="100%"><p class="caption">
-Figure 5.3: El cuarteto de Anscombe. Los cuatro conjuntos comparten media, varianza, covarianza, coeficientes de la recta ajustada y <span class="math inline">\(R^{2}\)</span> hasta la segunda cifra decimal. Solo el conjunto (I) responde a un ajuste lineal genuino.
-</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/anscombe-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><span id="fig:anscombe"></span><strong>Figura 5.8.</strong> El cuarteto de Anscombe. Los cuatro conjuntos comparten media, varianza, covarianza, coeficientes de la recta ajustada y <span class="math inline">\(R^{2}\)</span> hasta la segunda cifra decimal. Solo el conjunto (I) responde a un ajuste lineal genuino.</p>
 </div>
 <p>Las cuatro fotografías son un manifiesto pedagógico. En el panel (I), la recta ajusta un patrón lineal auténtico, y el <span class="math inline">\(R^{2} \approx 0{,}67\)</span> tiene el sentido natural que le asignamos. En (II), la relación es claramente <strong>cuadrática</strong>: la recta lineal es una respuesta equivocada a la pregunta correcta, y el <span class="math inline">\(R^{2}\)</span> solo la refleja porque la parábola es aproximadamente lineal en un rango. En (III), hay una relación lineal <strong>perfecta</strong> en todos los puntos menos uno; ese único <strong>outlier</strong> tira de la recta hacia sí y contamina el resumen. En (IV), el <span class="math inline">\(R^{2}\)</span> y la recta están <strong>dictados por un solo punto</strong> situado muy lejos de los demás: retirarlo dejaría al modelo sin nada que decir, porque los diez restantes tienen todos <span class="math inline">\(x=8\)</span> y no informan sobre la pendiente. Es lo que en la jerga se llama un <strong>punto de alta palanca</strong> (o <em>leverage</em>).</p>
 <p>La moraleja se enuncia con toda sencillez: <strong>el <span class="math inline">\(R^{2}\)</span> y los coeficientes de la recta son resúmenes, no diagnósticos</strong>. Nunca deberían leerse sin dibujar la nube. En 2013, los estadísticos Justin Matejka y George Fitzmaurice llevaron la idea al extremo con el <strong>Datasaurus Dozen</strong>, doce conjuntos de puntos con los mismos estadísticos hasta la segunda cifra decimal que dibujan, según el caso, un dinosaurio, una estrella o dos círculos concéntricos. Si Anscombe fue un aviso, el Datasaurus es una carcajada; ambos apuntan al mismo consejo profesional: <strong>mira la nube antes de creerte el número</strong>.</p>
@@ -986,7 +986,7 @@ Tiempo por revisión (<span class="math inline">\(y_j\)</span>, min)
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 5.2.</strong> Curva de aprendizaje de un tripulante en el módulo de revisión de motores de Hyperdrive Express.</p>
+<p><span id="tab:curva-aprendizaje-datos"></span><strong>Tabla 5.4.</strong> Curva de aprendizaje de un tripulante en el módulo de revisión de motores de Hyperdrive Express.</p>
 </div>
 <p>La lectura intuitiva es la de siempre en estos casos: al principio se aprende mucho por cada operación (la caída inicial es abrupta) y, con el tiempo, la mejora se vuelve marginal. La nube de puntos, en efecto, dibuja una curva de descenso rápido que luego se aplana. Ajustar una recta directamente da un <span class="math inline">\(R^{2}\)</span> modesto y unos residuos con patrón sistemático:</p>
 <p><span class="math display">\[
@@ -1005,7 +1005,7 @@ Tiempo por revisión (<span class="math inline">\(y_j\)</span>, min)
 <p>Comparemos gráficamente ambos ajustes:</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/curva-scatter-1.png" alt="" width="100%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 5.6.</strong> Datos de la tabla anterior con dos ajustes: lineal (gris, discontinuo) y potencial (negro, continuo).</p>
+<p><span id="fig:curva-scatter"></span><strong>Figura 5.9.</strong> Datos de la tabla anterior con dos ajustes: lineal (gris, discontinuo) y potencial (negro, continuo).</p>
 </div>
 <p>La lección que sacamos es doble. Primera: <strong>no toda relación estadística es lineal</strong>, y forzar una recta cuando la nube pide una curva penaliza el ajuste. Segunda: <strong>muchas relaciones no lineales son linealizables</strong>, y basta con transformar las variables (típicamente con logaritmos) para volver al terreno confortable de la regresión lineal. La forma final del modelo es no lineal —<span class="math inline">\(\hat{y} = a\cdot x^{b}\)</span>— pero la estimación se ha hecho con la misma maquinaria mínimo-cuadrática que veníamos utilizando.</p>
 </div>
@@ -1140,7 +1140,7 @@ R^{2}_{\text{aj}} \;=\; 1 \;-\; (1 - R^{2})\cdot \dfrac{N-1}{N-p-1},
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 5.3</strong></p>
+<p><strong>Tabla 5.5</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1203,7 +1203,7 @@ R^{2}_{\text{aj}} \;=\; 1 \;-\; (1 - R^{2})\cdot \dfrac{N-1}{N-p-1},
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 5.4</strong></p>
+<p><strong>Tabla 5.6</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1266,7 +1266,7 @@ R^{2}_{\text{aj}} \;=\; 1 \;-\; (1 - R^{2})\cdot \dfrac{N-1}{N-p-1},
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 5.5</strong></p>
+<p><strong>Tabla 5.7</strong></p>
 </div>
 <p>Sobre los mismos datos se ha ajustado, por MCO, la recta <span class="math inline">\(\hat{y} = 5 + 2{,}0\cdot x\)</span> con <span class="math inline">\(R^{2} = 0{,}48\)</span>.</p>
 <p>Se pide:</p>
@@ -1329,7 +1329,7 @@ R^{2}_{\text{aj}} \;=\; 1 \;-\; (1 - R^{2})\cdot \dfrac{N-1}{N-p-1},
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 5.6</strong></p>
+<p><strong>Tabla 5.8</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1423,7 +1423,7 @@ R^{2}_{\text{aj}} \;=\; 1 \;-\; (1 - R^{2})\cdot \dfrac{N-1}{N-p-1},
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 5.7</strong></p>
+<p><strong>Tabla 5.9</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1473,7 +1473,7 @@ R^{2}_{\text{aj}} \;=\; 1 \;-\; (1 - R^{2})\cdot \dfrac{N-1}{N-p-1},
 </tr></tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 5.8</strong></p>
+<p><strong>Tabla 5.10</strong></p>
 </div>
 <p>Un ajuste directo por MCO da <span class="math inline">\(\hat{y} = 46{,}2 - 2{,}1\cdot x\)</span> con <span class="math inline">\(R^{2} = 0{,}70\)</span>: modesto, y con residuos que muestran patrón sistemático (curvatura no capturada).</p>
 <p>Se propone entonces una regresión potencial <span class="math inline">\(\hat{y} = a\cdot x^{b}\)</span>. Tras aplicar logaritmos naturales a ambas variables se han calculado:</p>
@@ -1928,7 +1928,7 @@ R^{2}_{\text{aj}} \;=\; 1 \;-\; (1 - R^{2})\cdot \dfrac{N-1}{N-p-1},
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-25.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-09-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

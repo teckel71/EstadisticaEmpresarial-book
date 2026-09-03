@@ -142,9 +142,9 @@ Ahora hagamos un experimento mental (y en un momento, real). Tomemos $n$ empresa
 
 La respuesta la anticipa el TCL: **conforme $n$ crece, la distribución de $\bar{\xi}_{n}$ se vuelve normal**, con independencia de que la variable original no lo fuera en absoluto. La asimetría se disuelve, las colas se reducen, y la campana emerge sola.
 
-La figura \@ref(fig:fig-tcl-costop) hace visible este fenómeno. En el primer panel se muestra la distribución empírica de `COSTOP` sobre las 300 empresas: fuertemente asimétrica. En los paneles siguientes se muestra la distribución de la media muestral $\bar{\xi}_{n}$ para tamaños $n = 3, 10, 30$ y $100$, obtenida remuestreando 5000 veces sobre la población. El progreso hacia la campana es visible y sistemático: cuanto mayor es $n$, más simétrica, más concentrada y más *normal* es la distribución de la media.
+La figura [11.2](#fig:fig-tcl-costop) hace visible este fenómeno. En el primer panel se muestra la distribución empírica de `COSTOP` sobre las 300 empresas: fuertemente asimétrica. En los paneles siguientes se muestra la distribución de la media muestral $\bar{\xi}_{n}$ para tamaños $n = 3, 10, 30$ y $100$, obtenida remuestreando 5000 veces sobre la población. El progreso hacia la campana es visible y sistemático: cuanto mayor es $n$, más simétrica, más concentrada y más *normal* es la distribución de la media.
 
-```{r fig-tcl-costop, fig.cap="Ilustración empírica del TCL. En el panel etiquetado como $n = 1$ se muestra la distribución original de la variable `COSTOP` (costes operativos, en miles de PAVOs) sobre las 300 empresas del fichero `interestelar_300.xlsx`: fuertemente asimétrica, muy lejos de una normal. En los paneles restantes se muestra la distribución de la media muestral $\\bar{\\xi}_{n}$ para tamaños $n = 3, 10, 30, 100$, obtenida remuestreando 5000 veces con reemplazamiento. La curva roja superpone en cada caso la normal $N(\\mu;\\, \\sigma/\\sqrt{n})$ predicha por el TCL. La convergencia a la campana es sistemática, aun cuando la distribución de partida no lo es en absoluto.", fig.height=5.2}
+```{r fig-tcl-costop, fig.height=5.2}
 costop <- interestelar |> pull(COSTOP)
 
 mu_pop <- mean(costop)
@@ -194,7 +194,12 @@ ggplot(sim_plot, aes(x = media)) +
   theme_libro()
 ```
 
-La tabla \@ref(tab:tab-tcl-costop) resume el fenómeno cuantitativamente. La media de las medias se mantiene prácticamente constante en torno a $\mu \approx `r fmt(mu_pop, 1)`$ miles de PAVOs (como anticipa la LGN), pero la desviación típica de $\bar{\xi}_{n}$ **decrece con** $\sqrt{n}$: al pasar de $n = 3$ a $n = 100$, la dispersión se divide aproximadamente por $\sqrt{100/3} \approx 5{,}77$. Este comportamiento —la desviación típica de la media muestral es $\sigma / \sqrt{n}$— es el sello del TCL.
+::: {style="text-align: center;"}
+[]{#fig:fig-tcl-costop}**Figura 11.2.** Ilustración empírica del TCL. En el panel etiquetado como $n = 1$ se muestra la distribución original de la variable `COSTOP` (costes operativos, en miles de PAVOs) sobre las 300 empresas del fichero `interestelar_300.xlsx`: fuertemente asimétrica, muy lejos de una normal. En los paneles restantes se muestra la distribución de la media muestral $\bar{\xi}_{n}$ para tamaños $n = 3, 10, 30, 100$, obtenida remuestreando 5000 veces con reemplazamiento. La curva roja superpone en cada caso la normal $N(\mu;\, \sigma/\sqrt{n})$ predicha por el TCL. La convergencia a la campana es sistemática, aun cuando la distribución de partida no lo es en absoluto.
+:::
+
+
+La tabla [11.1](#tab:tab-tcl-costop) resume el fenómeno cuantitativamente. La media de las medias se mantiene prácticamente constante en torno a $\mu \approx `r fmt(mu_pop, 1)`$ miles de PAVOs (como anticipa la LGN), pero la desviación típica de $\bar{\xi}_{n}$ **decrece con** $\sqrt{n}$: al pasar de $n = 3$ a $n = 100$, la dispersión se divide aproximadamente por $\sqrt{100/3} \approx 5{,}77$. Este comportamiento —la desviación típica de la media muestral es $\sigma / \sqrt{n}$— es el sello del TCL.
 
 ```{r tab-tcl-costop}
 tabla_tcl <- sim_df |>
@@ -230,7 +235,7 @@ kable(tabla_tcl,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 11.1**
+[]{#tab:tab-tcl-costop}**Tabla 11.1.** Media y desviación típica de la media muestral $\bar{\xi}_{n}$ obtenidas por simulación (5000 réplicas) sobre la variable `COSTOP` para distintos tamaños $n$. La media se mantiene estable (LGN); la desviación típica decrece con $\sqrt{n}$ (TCL), y coincide muy de cerca con la predicción teórica $\sigma / \sqrt{n}$.
 :::
 
 
@@ -271,7 +276,7 @@ Es imprescindible distinguir bien los dos conceptos:
 
 Toda la inferencia estadística del próximo bloque se moverá entre estos dos conceptos. Diremos "el error estándar" muchísimas veces; conviene tenerlo instalado desde ya.
 
-Con el error estándar en la mano, el TCL admite cuatro aplicaciones canónicas que aparecen sistemáticamente en la práctica del analista. La tabla \@ref(tab:tab-tcl-usos) las resume.
+Con el error estándar en la mano, el TCL admite cuatro aplicaciones canónicas que aparecen sistemáticamente en la práctica del analista. La tabla [11.2](#tab:tab-tcl-usos) las resume.
 
 ```{r tab-tcl-usos}
 tibble(
@@ -302,7 +307,7 @@ tibble(
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 11.2**
+[]{#tab:tab-tcl-usos}**Tabla 11.2.** Las cuatro aplicaciones canónicas del TCL. Todas comparten la misma raíz: la suma o el promedio de variables aleatorias independientes es aproximadamente normal para $n$ grande. Las tres últimas líneas serán la base operativa de la inferencia estadística del próximo bloque.
 :::
 
 
@@ -498,7 +503,7 @@ $$
 
 frente al $`r fmt(p_150_o_mas_sc)`$ sin corrección. La probabilidad **exacta** binomial, calculable en R con `pbinom(149, 200, 0.7, lower.tail = FALSE)`, es $`r fmt(p_150_o_mas_ex)`$. La corrección se acerca ligeramente más al valor exacto, como cabía esperar.
 
-La tabla \@ref(tab:tab-continuidad) resume la comparación en las tres probabilidades del ejemplo.
+La tabla [11.3](#tab:tab-continuidad) resume la comparación en las tres probabilidades del ejemplo.
 
 ```{r tab-continuidad}
 tab_cc <- tibble(
@@ -530,7 +535,7 @@ kable(tab_cc,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 11.3**
+[]{#tab:tab-continuidad}**Tabla 11.3.** Ejemplo *arrakis freight*: comparación entre la probabilidad exacta binomial y las dos aproximaciones normales, con y sin corrección por continuidad. Las diferencias entre métodos son inferiores a un punto porcentual; la corrección por continuidad reduce el error residual y acerca la aproximación normal al valor exacto, sin eliminarlo por completo.
 :::
 
 
@@ -613,7 +618,7 @@ Preguntas de Anakin Falco al preparar el presupuesto de mantenimiento:
 
 ## El esquema completo de aproximaciones {#esquema}
 
-Recogemos ahora todas las aproximaciones vistas hasta aquí, incluidas las del capítulo 9 (binomial → Poisson), en un solo mapa. La figura \@ref(fig:fig-esquema-aprox) es el resumen visual, y la tabla \@ref(tab:tab-esquema) da los criterios operativos.
+Recogemos ahora todas las aproximaciones vistas hasta aquí, incluidas las del capítulo 9 (binomial → Poisson), en un solo mapa. La figura [11.3](#fig:fig-esquema-aprox) es el resumen visual, y la tabla [11.4](#tab:tab-esquema) da los criterios operativos.
 
 ```{r fig-esquema-aprox, fig.height=3.6}
 df_nodes <- tibble(
@@ -656,7 +661,7 @@ ggplot() +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 11.2.** Esquema de las aproximaciones entre modelos discretos y normal. La binomial admite dos rutas de aproximación: hacia Poisson (cuando $p$ es pequeño y $n$ es moderado o grande) y hacia normal (cuando ni $p$ ni $q$ son extremos). La Poisson, a su vez, se aproxima por normal cuando $\\lambda$ es grande. La normal es el destino común de todas las trayectorias: es el atractor probabilístico universal.
+[]{#fig:fig-esquema-aprox}**Figura 11.3.** Esquema de las aproximaciones entre modelos discretos y normal. La binomial admite dos rutas de aproximación: hacia Poisson (cuando $p$ es pequeño y $n$ es moderado o grande) y hacia normal (cuando ni $p$ ni $q$ son extremos). La Poisson, a su vez, se aproxima por normal cuando $\lambda$ es grande. La normal es el destino común de todas las trayectorias: es el atractor probabilístico universal.
 :::
 
 
@@ -689,7 +694,7 @@ kable(tab_esq,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 11.4**
+[]{#tab:tab-esquema}**Tabla 11.4.** Esquema de aproximaciones. Los tres puentes que conectan la binomial, la Poisson y la normal son consecuencia directa o indirecta del teorema central del límite. Los criterios operativos son heurísticos: cuanto más holgadamente se cumplan, mejor será la aproximación.
 :::
 
 
@@ -705,7 +710,7 @@ Comprobamos qué aproximaciones son aplicables:
 - **Poisson → Normal.** $\lambda = 12 \geq 10$. Sí. Aproximamos $\eta \approx N(12;\, \sqrt{12}) = N(12;\, `r fmt(sqrt(12), 3)`)$.
 - **Binomial → Normal directamente.** $n p = 12 \geq 5$ y $n q = 388 \geq 5$. Sí. Aproximamos $\eta \approx N(12;\, \sqrt{n p q}) = N(12;\, `r fmt(sqrt(400*0.03*0.97), 3)`)$.
 
-Las dos rutas hacia la normal —vía Poisson intermedia y directa— **convergen prácticamente al mismo resultado**: la desviación típica $\sqrt{n p q} = `r fmt(sqrt(400*0.03*0.97), 3)`$ solo difiere de $\sqrt{\lambda} = `r fmt(sqrt(12), 3)`$ en el factor $\sqrt{q} = \sqrt{0{,}97} \approx 0{,}985$, que es despreciable en la práctica. La tabla \@ref(tab:tab-motores) verifica esta convergencia calculando la misma probabilidad —que fallen $15$ o más motores— por los cuatro caminos.
+Las dos rutas hacia la normal —vía Poisson intermedia y directa— **convergen prácticamente al mismo resultado**: la desviación típica $\sqrt{n p q} = `r fmt(sqrt(400*0.03*0.97), 3)`$ solo difiere de $\sqrt{\lambda} = `r fmt(sqrt(12), 3)`$ en el factor $\sqrt{q} = \sqrt{0{,}97} \approx 0{,}985$, que es despreciable en la práctica. La tabla [11.5](#tab:tab-motores) verifica esta convergencia calculando la misma probabilidad —que fallen $15$ o más motores— por los cuatro caminos.
 
 ```{r tab-motores}
 n_m <- 400; p_m <- 0.03; k_m <- 15
@@ -741,7 +746,7 @@ kable(tab_mot,
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 11.5**
+[]{#tab:tab-motores}**Tabla 11.5.** Astillero SELENE: probabilidad de que $15$ o más motores fallen en las pruebas, calculada por los cuatro caminos posibles. Las dos rutas exactas (binomial y Poisson) coinciden hasta el segundo decimal; las dos rutas normales, entre sí, también. La brecha residual de unos $3$ puntos porcentuales entre las exactas y las aproximaciones normales es la firma característica del salto de lo discreto a lo continuo, y desaparece prácticamente al aplicar la corrección por continuidad.
 :::
 
 
@@ -768,9 +773,9 @@ Supongamos que la analista Ripley Strix está diseñando una cartera para *kaiju
 - La **rentabilidad esperada** de la cartera es la misma que la de un contrato individual: $E(\bar\xi_{n}) = \mu$. Diversificar no cambia el retorno esperado.
 - El **riesgo** de la cartera —medido como desviación típica— es el error estándar: $\sigma_{\bar\xi_{n}} = \sigma / \sqrt{n}$. Diversificar sí reduce el riesgo, y lo hace a razón de $1/\sqrt{n}$.
 
-En cifras: con un solo contrato ($n = 1$), el riesgo es $\sigma$. Con cuatro contratos, cae a $\sigma / 2$. Con cien, a $\sigma / 10$. Con diez mil, a $\sigma / 100$. Y el fenómeno **no depende de la forma** de la distribución individual: pueden ser exponenciales, log-normales o cualquier otra cosa. El TCL, además, garantiza que para $n$ grande la rentabilidad total se distribuya aproximadamente como una normal, aunque cada contrato individual no lo fuera. La figura \@ref(fig:fig-diversificacion) lo ilustra.
+En cifras: con un solo contrato ($n = 1$), el riesgo es $\sigma$. Con cuatro contratos, cae a $\sigma / 2$. Con cien, a $\sigma / 10$. Con diez mil, a $\sigma / 100$. Y el fenómeno **no depende de la forma** de la distribución individual: pueden ser exponenciales, log-normales o cualquier otra cosa. El TCL, además, garantiza que para $n$ grande la rentabilidad total se distribuya aproximadamente como una normal, aunque cada contrato individual no lo fuera. La figura [11.4](#fig:fig-diversificacion) lo ilustra.
 
-```{r fig-diversificacion, fig.cap="Reducción del riesgo por diversificación. Manteniendo constante la rentabilidad esperada, el riesgo de una cartera de $n$ activos independientes cae como $\\sigma/\\sqrt{n}$. Con solo $10$ activos, el riesgo se reduce en más del $65\\,\\%$ respecto al del activo individual; con $100$, en un $90\\,\\%$. La marginalidad del beneficio de añadir activos disminuye rápidamente: es la ley de rendimientos decrecientes de la diversificación.", fig.height=3.4}
+```{r fig-diversificacion, fig.height=3.4}
 sigma_ind <- 1
 df_div <- tibble(
   n = 1:200,
@@ -795,13 +800,18 @@ ggplot(df_div, aes(x = n, y = riesgo)) +
   theme_libro()
 ```
 
+::: {style="text-align: center;"}
+[]{#fig:fig-diversificacion}**Figura 11.4.** Reducción del riesgo por diversificación. Manteniendo constante la rentabilidad esperada, el riesgo de una cartera de $n$ activos independientes cae como $\sigma/\sqrt{n}$. Con solo $10$ activos, el riesgo se reduce en más del $65\,\%$ respecto al del activo individual; con $100$, en un $90\,\%$. La marginalidad del beneficio de añadir activos disminuye rápidamente: es la ley de rendimientos decrecientes de la diversificación.
+:::
+
+
 Esta ley de $1/\sqrt{n}$ es la razón matemática por la que las carteras diversificadas dominan a las concentradas, por la que un fondo indexado en 500 empresas es menos volátil que una empresa individual, y por la que los seguros pueden ofrecer coberturas por primas relativamente bajas. Es también la razón por la que **añadir el activo número 100 a una cartera de 99 reduce muy poco el riesgo**: la caída marginal es proporcional a $1/\sqrt{n+1} - 1/\sqrt{n}$, cada vez más pequeña. Hay rendimientos decrecientes también en la diversificación.
 
 ## Simulación del TCL con R {#sim-tcl}
 
 Todo el capítulo se puede *ver funcionar en vivo* con unas pocas líneas de código. El chunk siguiente, con `echo = TRUE`, replica el fenómeno central del TCL: tomamos una variable ferozmente no normal —la exponencial— y comprobamos que su media muestral, incluso con $n$ modesto, ya se comporta como una campana.
 
-```{r sim-tcl-live, echo=TRUE, fig.cap="Simulación en vivo del TCL. La distribución individual (panel izquierdo) es una exponencial de tasa 1: asimétrica, con moda en 0 y una cola larga hacia la derecha. La distribución de la media muestral de $n = 30$ observaciones (panel derecho), sobre 5.000 réplicas simuladas, es visiblemente una campana. La curva roja es la normal $N(\\mu;\\, \\sigma/\\sqrt{n})$ predicha por el TCL, con $\\mu = 1$ y $\\sigma = 1$.", fig.height=3.4, out.width="90%"}
+```{r sim-tcl-live, echo=TRUE, fig.height=3.4, out.width="90%"}
 set.seed(11)
 n     <- 30       # tamaño de cada muestra
 reps  <- 5000     # número de réplicas simuladas
@@ -831,6 +841,11 @@ g2 <- ggplot(tibble(x = medias), aes(x)) +
 
 g1 + g2
 ```
+
+::: {style="text-align: center;"}
+[]{#fig:sim-tcl-live}**Figura 11.5.** Simulación en vivo del TCL. La distribución individual (panel izquierdo) es una exponencial de tasa 1: asimétrica, con moda en 0 y una cola larga hacia la derecha. La distribución de la media muestral de $n = 30$ observaciones (panel derecho), sobre 5.000 réplicas simuladas, es visiblemente una campana. La curva roja es la normal $N(\mu;\, \sigma/\sqrt{n})$ predicha por el TCL, con $\mu = 1$ y $\sigma = 1$.
+:::
+
 
 En pocas líneas se ha condensado toda la mecánica: `rexp(n, lam)` genera muestras de la variable no normal; `replicate(..., mean(...))` calcula miles de medias muestrales; el histograma resultante es prácticamente una campana. Cambiando `rexp` por `runif`, `rlnorm`, `rpois` o cualquier otra función de simulación, el fenómeno se reproduce con la misma limpieza. **Esta es la manera moderna —simple, rápida y persuasiva— de entender el TCL**: por observación empírica del fenómeno, antes que por manipulación algebraica del enunciado.
 

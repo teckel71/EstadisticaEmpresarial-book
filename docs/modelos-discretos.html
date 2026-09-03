@@ -265,12 +265,10 @@ P(\xi \leq 8) \approx 0,0922.
 <p>Alrededor de una madrugada de cada once. Poco frecuente; y cuando ocurre, en la oficina se abre la investigación.</p>
 </li>
 </ul>
-<p>La figura <a href="modelos-discretos.html#fig:fig-binom-arrakis">9.1</a> muestra la forma completa de la distribución. Concentrada en torno a la media <span class="math inline">\(10{,}2\)</span>, con colas rápidamente amortiguadas, es el retrato típico de una binomial con <span class="math inline">\(p\)</span> alta.</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:fig-binom-arrakis"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/fig-binom-arrakis-1.png" alt="Función de cuantía de la variable $\xi \to B(12; 0{,}85)$: número de cargueros (de 12) de *arrakis freight* que llegan a tiempo. La probabilidad se concentra en la zona alta del rango porque los cargueros suelen cumplir la ventana." width="85%"><p class="caption">
-Figure 9.1: Función de cuantía de la variable <span class="math inline">\(\xi \to B(12; 0{,}85)\)</span>: número de cargueros (de 12) de <em>arrakis freight</em> que llegan a tiempo. La probabilidad se concentra en la zona alta del rango porque los cargueros suelen cumplir la ventana.
-</p>
+<p>La figura <a href="modelos-discretos.html#fig:fig-binom-arrakis">9.2</a> muestra la forma completa de la distribución. Concentrada en torno a la media <span class="math inline">\(10{,}2\)</span>, con colas rápidamente amortiguadas, es el retrato típico de una binomial con <span class="math inline">\(p\)</span> alta.</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-binom-arrakis-1.png" alt="" width="85%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><span id="fig:fig-binom-arrakis"></span><strong>Figura 9.2.</strong> Función de cuantía de la variable <span class="math inline">\(\xi \to B(12; 0{,}85)\)</span>: número de cargueros (de 12) de <em>arrakis freight</em> que llegan a tiempo. La probabilidad se concentra en la zona alta del rango porque los cargueros suelen cumplir la ventana.</p>
 </div>
 </div>
 <div id="binomial-aviso" class="section level3" number="9.4.4">
@@ -334,12 +332,10 @@ P(\xi \geq 3) = 1 - P(\xi \leq 2) \approx 0,4040.
 <p>Alrededor del 40 % de las semanas hay tres o más avistamientos: llamar a esto “raro” es cuestión de perspectiva.</p>
 </li>
 </ul>
-<p>La figura <a href="modelos-discretos.html#fig:fig-poisson-piratas">9.2</a> muestra la cuantía completa. Nótese la asimetría a la derecha, típica de las Poisson con <span class="math inline">\(\lambda\)</span> pequeño o moderado: es más difícil bajar de la media (limitada por el cero) que subir por encima.</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:fig-poisson-piratas"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/fig-poisson-piratas-1.png" alt="Función de cuantía de $\xi \to \mathrm{Po}(2{,}3)$: avistamientos de piratas por semana en el corredor Coruscant–Naboo. La media coincide con la varianza; ambas valen $2{,}3$." width="85%"><p class="caption">
-Figure 9.2: Función de cuantía de <span class="math inline">\(\xi \to \mathrm{Po}(2{,}3)\)</span>: avistamientos de piratas por semana en el corredor Coruscant–Naboo. La media coincide con la varianza; ambas valen <span class="math inline">\(2{,}3\)</span>.
-</p>
+<p>La figura <a href="modelos-discretos.html#fig:fig-poisson-piratas">9.3</a> muestra la cuantía completa. Nótese la asimetría a la derecha, típica de las Poisson con <span class="math inline">\(\lambda\)</span> pequeño o moderado: es más difícil bajar de la media (limitada por el cero) que subir por encima.</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-poisson-piratas-1.png" alt="" width="85%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><span id="fig:fig-poisson-piratas"></span><strong>Figura 9.3.</strong> Función de cuantía de <span class="math inline">\(\xi \to \mathrm{Po}(2{,}3)\)</span>: avistamientos de piratas por semana en el corredor Coruscant–Naboo. La media coincide con la varianza; ambas valen <span class="math inline">\(2{,}3\)</span>.</p>
 </div>
 </div>
 <div id="poisson-ejemplo-aprox" class="section level3" number="9.5.4">
@@ -425,7 +421,7 @@ Ratio <span class="math inline">\(s^2 / \bar x\)</span>
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 9.1.</strong> Media y varianza empíricas de la variable <code>IIG</code> (averías graves acumuladas por nave). El ratio, muy superior a 1, es un indicador claro de sobredispersión.</p>
+<p><span id="tab:poisson-iig"></span><strong>Tabla 9.1.</strong> Media y varianza empíricas de la variable <code>IIG</code> (averías graves acumuladas por nave). El ratio, muy superior a 1, es un indicador claro de sobredispersión.</p>
 </div>
 <p>Con un ratio varianza/media de más de <span class="math inline">\(9\)</span>, la variable <code>IIG</code> está <strong>muy lejos</strong> de comportarse como una Poisson. La razón es empíricamente evidente: la mayor parte de las naves acumulan pocas averías, pero un pequeño número de ellas —dos o tres unidades problemáticas— arrastran valores muy altos (<span class="math inline">\(16\)</span> y <span class="math inline">\(35\)</span> averías) que hinchan la varianza sin afectar demasiado a la media. En el capítulo anterior ya vimos este patrón: es una distribución con <strong>cola pesada</strong>.</p>
 <div class="callout-note">
@@ -481,12 +477,10 @@ P(\xi = x) \;=\; \binom{x + r - 1}{x} \, p^{r} \, q^{x}, \qquad x = 0, 1, 2, 3, 
 <p><span class="math display">\[
 P(\xi = 2) = \binom{2 + 3 - 1}{2} \cdot 0{,}8^{3} \cdot 0{,}2^{2} = 6 \cdot 0{,}512 \cdot 0{,}04 \approx 0,1229.
 \]</span></p>
-<p>La figura <a href="modelos-discretos.html#fig:fig-bn-corellian">9.3</a> ilustra la distribución completa. La probabilidad se concentra en valores muy bajos (0 o 1 fracasos), coherente con una <span class="math inline">\(p\)</span> alta.</p>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:fig-bn-corellian"></span>
-<img src="EstadisticaEmpresarial_files/figure-html/fig-bn-corellian-1.png" alt="Función de cuantía de $\xi \to \mathrm{BN}(3;\, 0{,}8)$: número de reactores defectuosos apartados antes del tercer reactor válido en la fábrica de *corellian freightworks*." width="85%"><p class="caption">
-Figure 9.3: Función de cuantía de <span class="math inline">\(\xi \to \mathrm{BN}(3;\, 0{,}8)\)</span>: número de reactores defectuosos apartados antes del tercer reactor válido en la fábrica de <em>corellian freightworks</em>.
-</p>
+<p>La figura <a href="modelos-discretos.html#fig:fig-bn-corellian">9.4</a> ilustra la distribución completa. La probabilidad se concentra en valores muy bajos (0 o 1 fracasos), coherente con una <span class="math inline">\(p\)</span> alta.</p>
+<div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-bn-corellian-1.png" alt="" width="85%" style="display: block; margin: auto;"></div>
+<div style="text-align: center;">
+<p><span id="fig:fig-bn-corellian"></span><strong>Figura 9.4.</strong> Función de cuantía de <span class="math inline">\(\xi \to \mathrm{BN}(3;\, 0{,}8)\)</span>: número de reactores defectuosos apartados antes del tercer reactor válido en la fábrica de <em>corellian freightworks</em>.</p>
 </div>
 </div>
 <div id="geometrica" class="section level3" number="9.6.4">
@@ -520,10 +514,10 @@ P(\xi = 2) = 0{,}6 \cdot 0{,}4^{2} = 0{,}0960.
 </h3>
 <p>Al margen de su interpretación clásica —“cuántos fracasos antes del <span class="math inline">\(r\)</span>-ésimo éxito”—, la distribución binomial negativa tiene hoy en día un papel de primerísima línea en la <strong>econometría de recuentos</strong>: es el modelo de referencia para variables de conteo que presentan sobredispersión, es decir, casi todas las variables de conteo con las que se topa un economista.</p>
 <p>Recuperemos el ejemplo de la variable <code>IIG</code> (averías graves acumuladas). La Poisson, con media y varianza forzadas a coincidir, fracasa: no sabe reproducir la cola larga de las naves problemáticas. La binomial negativa, con su parámetro extra, sí puede: su varianza <span class="math inline">\(\sigma^{2} = r q / p^{2}\)</span> es siempre mayor que su media <span class="math inline">\(\mu = r q / p\)</span>, y ajustando adecuadamente los parámetros <span class="math inline">\(r\)</span> y <span class="math inline">\(p\)</span> podemos hacer que reproduzca el nivel de sobredispersión observado en los datos.</p>
-<p>La figura <a href="#fig:fig-poisson-bn-iig"><strong>??</strong></a> compara las tres cosas: la distribución empírica de <code>IIG</code>, el ajuste Poisson (deficiente) y el ajuste binomial negativa (bastante mejor).</p>
+<p>La figura <a href="modelos-discretos.html#fig:fig-poisson-bn-iig">9.5</a> compara las tres cosas: la distribución empírica de <code>IIG</code>, el ajuste Poisson (deficiente) y el ajuste binomial negativa (bastante mejor).</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-poisson-bn-iig-1.png" alt="" width="85%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 9.2.</strong> Distribución empírica del número de averías graves acumuladas (<code>IIG</code>) por las 48 naves de la flota galáctica, comparada con dos ajustes teóricos. La Poisson (rojo) infraestima gravemente la cola larga; la binomial negativa (verde), calibrada para reproducir la sobredispersión observada, se ajusta bastante mejor.</p>
+<p><span id="fig:fig-poisson-bn-iig"></span><strong>Figura 9.5.</strong> Distribución empírica del número de averías graves acumuladas (<code>IIG</code>) por las 48 naves de la flota galáctica, comparada con dos ajustes teóricos. La Poisson (rojo) infraestima gravemente la cola larga; la binomial negativa (verde), calibrada para reproducir la sobredispersión observada, se ajusta bastante mejor.</p>
 </div>
 <p>Este uso moderno de la BN —como Poisson “flexible” que admite sobredispersión— es el que aparece cuando un banco modela el número anual de reclamaciones por cliente, cuando una aseguradora modela el número de siniestros por póliza, o cuando un ecommerce modela el número de compras por usuario. Su versatilidad la ha convertido en una herramienta habitual de la caja de herramientas del analista económico.</p>
 </div>
@@ -580,10 +574,10 @@ P(\xi = x) \;=\; \frac{\dbinom{N_1}{x} \cdot \dbinom{N - N_1}{n - x}}{\dbinom{N}
 <li>
 <span class="math inline">\(P(\xi \geq 3) \approx 0,3417\)</span>: probabilidad de encontrar tres o más empresas con flota renovada, alrededor del 34 %.</li>
 </ul>
-<p>La figura <a href="#fig:fig-hyper-audit"><strong>??</strong></a> muestra la distribución completa. Es asimétrica a la derecha porque la proporción de éxitos en la población, <span class="math inline">\(p \approx 0{,}21\)</span>, es baja.</p>
+<p>La figura <a href="modelos-discretos.html#fig:fig-hyper-audit">9.6</a> muestra la distribución completa. Es asimétrica a la derecha porque la proporción de éxitos en la población, <span class="math inline">\(p \approx 0{,}21\)</span>, es baja.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-hyper-audit-1.png" alt="" width="85%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 9.3.</strong> Función de cuantía de <span class="math inline">\(\\xi \\to H(300;\\, 10;\\, 62/300)\)</span>: número de empresas con flota renovada en una muestra aleatoria de 10 empresas auditadas.</p>
+<p><span id="fig:fig-hyper-audit"></span><strong>Figura 9.6.</strong> Función de cuantía de <span class="math inline">\(\xi \to H(300;\, 10;\, 62/300)\)</span>: número de empresas con flota renovada en una muestra aleatoria de 10 empresas auditadas.</p>
 </div>
 </div>
 <div id="binomial-vs-hyper" class="section level3" number="9.7.4">
@@ -598,7 +592,7 @@ P(\xi = x) \;=\; \frac{\dbinom{N_1}{x} \cdot \dbinom{N - N_1}{n - x}}{\dbinom{N}
 <p><span class="math display">\[
 H(N;\, n;\, p) \;\xrightarrow[\;p \text{ pequeño}\;]{}\; B(n;\, p).
 \]</span></p>
-<p>En la práctica se suele aceptar esta aproximación cuando <span class="math inline">\(p = N_1 / N &lt; 0{,}1\)</span>; un criterio alternativo, también habitual, es exigir que la muestra represente menos del 5–10 % de la población, esto es, <span class="math inline">\(n / N &lt; 0{,}1\)</span>. La tabla <a href="#tab:tab-hyp-vs-bin"><strong>??</strong></a> lo hace evidente en nuestro caso de la auditoría: con <span class="math inline">\(p \approx 0{,}21\)</span> (algo alto para la aproximación), las diferencias entre las probabilidades hipergeométricas exactas y las binomiales aproximadas son moderadas pero perceptibles.</p>
+<p>En la práctica se suele aceptar esta aproximación cuando <span class="math inline">\(p = N_1 / N &lt; 0{,}1\)</span>; un criterio alternativo, también habitual, es exigir que la muestra represente menos del 5–10 % de la población, esto es, <span class="math inline">\(n / N &lt; 0{,}1\)</span>. La tabla <a href="modelos-discretos.html#tab:tab-hyp-vs-bin">9.2</a> lo hace evidente en nuestro caso de la auditoría: con <span class="math inline">\(p \approx 0{,}21\)</span> (algo alto para la aproximación), las diferencias entre las probabilidades hipergeométricas exactas y las binomiales aproximadas son moderadas pero perceptibles.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:center;">
@@ -702,7 +696,7 @@ Diferencia
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 9.2</strong></p>
+<p><span id="tab:tab-hyp-vs-bin"></span><strong>Tabla 9.2.</strong> Comparación entre las probabilidades exactas hipergeométricas y su aproximación binomial en el ejemplo de la auditoría de flotas. Con <span class="math inline">\(p \approx 0{,}21\)</span> las diferencias son pequeñas pero visibles; para <span class="math inline">\(p&lt;0{,}1\)</span> serían despreciables.</p>
 </div>
 <p>Cuando la aproximación es válida, se prefiere la binomial por dos motivos: la fórmula es más sencilla y no requiere conocer el tamaño de la población <span class="math inline">\(N\)</span>, solo la proporción de éxitos.</p>
 </div>
@@ -711,7 +705,7 @@ Diferencia
 <h2>
 <span class="header-section-number">9.8</span> Simulación de modelos discretos con R<a class="anchor" aria-label="anchor" href="#sim-discretos"><i class="fas fa-link"></i></a>
 </h2>
-<p>Todas las distribuciones vistas están implementadas en R con las cuatro funciones estándar <code>d*</code>, <code>p*</code>, <code>q*</code> y <code>r*</code>. Cerramos el capítulo con una vuelta práctica: la letra <code>r</code> corresponde a la simulación, y permite generar realizaciones aleatorias de cualquiera de los modelos con una sola línea de código. La tabla <a href="#tab:tab-r-funciones"><strong>??</strong></a> resume las llamadas para las distribuciones de este capítulo.</p>
+<p>Todas las distribuciones vistas están implementadas en R con las cuatro funciones estándar <code>d*</code>, <code>p*</code>, <code>q*</code> y <code>r*</code>. Cerramos el capítulo con una vuelta práctica: la letra <code>r</code> corresponde a la simulación, y permite generar realizaciones aleatorias de cualquiera de los modelos con una sola línea de código. La tabla <a href="modelos-discretos.html#tab:tab-r-funciones">9.3</a> resume las llamadas para las distribuciones de este capítulo.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -805,9 +799,9 @@ Hipergeométrica
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 9.3.</strong> Funciones de R para simular los modelos discretos del capítulo. Cambiando la letra <code>r</code> inicial por <code>d</code>, <code>p</code> o <code>q</code> se accede, respectivamente, a la función de cuantía, la de distribución acumulada y los cuantiles.</p>
+<p><span id="tab:tab-r-funciones"></span><strong>Tabla 9.3.</strong> Funciones de R para simular los modelos discretos del capítulo. Cambiando la letra <code>r</code> inicial por <code>d</code>, <code>p</code> o <code>q</code> se accede, respectivamente, a la función de cuantía, la de distribución acumulada y los cuantiles.</p>
 </div>
-<p>La figura <a href="#fig:fig-sim-cuatro"><strong>??</strong></a> simula 5.000 realizaciones de cada uno de los cuatro modelos “de conteo” más importantes del capítulo, aplicados a los escenarios que hemos ido presentando, y compara el histograma empírico con las probabilidades teóricas. La coincidencia es —como debe— casi perfecta.</p>
+<p>La figura <a href="modelos-discretos.html#fig:fig-sim-cuatro">9.7</a> simula 5.000 realizaciones de cada uno de los cuatro modelos “de conteo” más importantes del capítulo, aplicados a los escenarios que hemos ido presentando, y compara el histograma empírico con las probabilidades teóricas. La coincidencia es —como debe— casi perfecta.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span></span>
 <span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">5000</span></span>
@@ -852,7 +846,7 @@ Hipergeométrica
 <span>  <span class="fu">theme_libro</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-sim-cuatro-1.png" alt="" width="90%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 9.4.</strong> Simulación de 5.000 realizaciones de cada uno de los cuatro modelos discretos principales del capítulo. La línea roja muestra la probabilidad teórica; las barras azules, la frecuencia relativa observada. La Ley de los Grandes Números en pleno funcionamiento.</p>
+<p><span id="fig:fig-sim-cuatro"></span><strong>Figura 9.7.</strong> Simulación de 5.000 realizaciones de cada uno de los cuatro modelos discretos principales del capítulo. La línea roja muestra la probabilidad teórica; las barras azules, la frecuencia relativa observada. La Ley de los Grandes Números en pleno funcionamiento.</p>
 </div>
 <p>Este ejercicio es más que decorativo: es la manera en que un analista moderno verifica que ha identificado el modelo correcto (los histogramas empíricos deben parecerse a las probabilidades teóricas) y es también la puerta a la <strong>simulación de Monte Carlo</strong>, que en el capítulo anterior mencionamos como herramienta para estimar cualquier probabilidad, por complicada que sea, sin fórmulas cerradas. Con estas siete funciones y un ordenador, el analista tiene ya casi todo lo necesario para modelar procesos aleatorios discretos en el ámbito empresarial.</p>
 </div>
@@ -860,7 +854,7 @@ Hipergeométrica
 <h2>
 <span class="header-section-number">9.9</span> Guía rápida de decisión<a class="anchor" aria-label="anchor" href="#guia-rapida"><i class="fas fa-link"></i></a>
 </h2>
-<p>Con seis modelos sobre la mesa, la pregunta operativa que un lector debe hacerse cuando se enfrenta a un problema real es: <strong>“¿qué modelo aplico?”</strong>. La tabla <a href="#tab:tab-decision"><strong>??</strong></a> responde a esta pregunta con un pequeño árbol de decisión textual.</p>
+<p>Con seis modelos sobre la mesa, la pregunta operativa que un lector debe hacerse cuando se enfrenta a un problema real es: <strong>“¿qué modelo aplico?”</strong>. La tabla <a href="modelos-discretos.html#tab:tab-decision">9.4</a> responde a esta pregunta con un pequeño árbol de decisión textual.</p>
 <div class="inline-table"><table class="table table-hover table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
@@ -965,7 +959,7 @@ Empresas RENOVADA en una auditoría de 10 sobre 300.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 9.4</strong></p>
+<p><span id="tab:tab-decision"></span><strong>Tabla 9.4.</strong> Guía de decisión: qué modelo discreto aplicar según la naturaleza del experimento.</p>
 </div>
 <p>Y las relaciones-puente entre modelos, que conviene tener en la cabeza:</p>
 <ul>
@@ -1901,7 +1895,7 @@ B(n; p) \;\xrightarrow[n \text{ grande}]{}\; N\!\left(n p,\; \sqrt{n p q}\right)
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-25.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-09-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

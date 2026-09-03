@@ -304,6 +304,11 @@ kable(as.data.frame(tabla_reg),
                 font_size = 12)
 ```
 
+::: {style="text-align: center;"}
+[]{#tab:astilleros-tabla-reg}**Tabla 5.1.** Tabla de correlación de antigüedad ($X$) y tonelaje ($Y$) con las columnas y filas auxiliares para el cálculo directo de los momentos.
+:::
+
+
 Con las marcas de clase $x_i \in \{2{,}5;\ 7{,}5;\ 12{,}5;\ 17{,}5;\ 25\}$ e $y_j \in \{575;\ 700;\ 800;\ 900\}$, los momentos respecto al origen son los que ya calculamos en el capítulo 3, cuando obtuvimos la covarianza:
 
 $$
@@ -361,7 +366,7 @@ ggplot(astilleros, aes(ANTIG, TONELAJE)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 5.2.** Diagrama de dispersión de la flota y recta ajustada por mínimos cuadrados.
+[]{#fig:astilleros-scatter-reg}**Figura 5.2.** Diagrama de dispersión de la flota y recta ajustada por mínimos cuadrados.
 :::
 
 
@@ -407,6 +412,11 @@ tabla_tipo1 %>%
                 font_size = 13)
 ```
 
+::: {style="text-align: center;"}
+[]{#tab:astilleros-tipo1}**Tabla 5.2.** Regresión de tipo I sobre la flota: medias condicionadas del tonelaje para cada intervalo de antigüedad.
+:::
+
+
 Los cinco puntos $(2{,}5;\ 626{,}79)$, $(7{,}5;\ 743{,}75)$, $(12{,}5;\ 811{,}11)$, $(17{,}5;\ 787{,}50)$, $(25;\ 900)$ **son** la regresión de tipo I: no imponemos ninguna forma funcional, las medias condicionadas hablan por sí solas. Se lee que el tonelaje típico crece con la antigüedad, pero no de forma perfectamente monótona (el cuarto intervalo se aparta ligeramente hacia abajo) y con un último punto —la solitaria nave de $25$ años— que arrastra la tendencia al alza. Es lo que la nube de puntos condicionada nos dice de verdad, sin la simplificación de una recta.
 
 Comparemos gráficamente ambas regresiones sobre los mismos datos:
@@ -431,7 +441,7 @@ ggplot(astilleros, aes(ANTIG, TONELAJE)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 5.3.** Regresión de tipo I (puntos oscuros: medias condicionadas del tonelaje por intervalo de antigüedad, con tamaño proporcional a la frecuencia) frente a regresión de tipo II (recta mínimo-cuadrática) sobre la flota.
+[]{#fig:astilleros-tipo1-tipo2}**Figura 5.3.** Regresión de tipo I (puntos oscuros: medias condicionadas del tonelaje por intervalo de antigüedad, con tamaño proporcional a la frecuencia) frente a regresión de tipo II (recta mínimo-cuadrática) sobre la flota.
 :::
 
 
@@ -468,7 +478,7 @@ Un aspecto que la fórmula $\hat{b} = S_{xy}/S_x^{\,2}$ oculta pero que aparece 
 
 Ilustrémoslo con un experimento controlado. Simulamos una nube "limpia" de $30$ observaciones que siguen una relación aproximadamente lineal —piénsese en una flota nueva, bien gestionada— y añadimos después un solo carguero anómalo: uno de los prototipos de emergencia de *Wraith Industries*, extremadamente ligero pese a llevar años en servicio, que quedaría fuera del comportamiento habitual del sector:
 
-```{r outlier-demo, fig.width=7.5, fig.height=3.8, fig.cap="Efecto de un único valor atípico sobre la recta de regresión. Comparen la línea negra continua (con el atípico) con la discontinua ámbar (sin él): el ajuste cambia sustancialmente y el $R^{2}$ se hunde."}
+```{r outlier-demo, fig.width=7.5, fig.height=3.8}
 set.seed(42)
 n_norm <- 30
 x_norm <- runif(n_norm, 5, 25)
@@ -506,6 +516,11 @@ ggplot(df_out, aes(x, y)) +
        color = NULL, size = NULL, shape = NULL) +
   theme_libro()
 ```
+
+::: {style="text-align: center;"}
+[]{#fig:outlier-demo}**Figura 5.4.** Efecto de un único valor atípico sobre la recta de regresión. Comparen la línea negra continua (con el atípico) con la discontinua ámbar (sin él): el ajuste cambia sustancialmente y el $R^{2}$ se hunde.
+:::
+
 
 La caída del $R^{2}$ es brutal —del $83\,\%$ al $26\,\%$— y la pendiente y la ordenada se distorsionan aunque solo hayamos añadido **una** observación al conjunto original de treinta. Ese es el precio de haber elegido el criterio de mínimos cuadrados: penalizar el residuo al cuadrado hace que un solo caso muy alejado tenga una fuerza desproporcionada. Alternativas más robustas —regresión mediana, regresión con función de pérdida de Huber, mínimos absolutos— existen y forman parte del arsenal de la estadística moderna; en un curso introductorio nos basta con haber visto el peligro y saber **mirar la nube de puntos** antes de dejarnos guiar por los coeficientes.
 
@@ -591,7 +606,7 @@ ggplot(astilleros, aes(y_hat, resid, color = ASTILLERO)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 5.4.** Residuos frente a valores ajustados en la flota, por astillero. La estructura del color muestra que la antigüedad, por sí sola, no capta la segmentación por constructor.
+[]{#fig:astilleros-residuos}**Figura 5.5.** Residuos frente a valores ajustados en la flota, por astillero. La estructura del color muestra que la antigüedad, por sí sola, no capta la segmentación por constructor.
 :::
 
 
@@ -637,7 +652,7 @@ Una escala orientativa —no un tribunal universal— que suele emplearse para c
 Table: Escala orientativa para $|R|$ en el análisis descriptivo.
 
 ::: {style="text-align: center;"}
-**Tabla 5.1.** Escala orientativa para $|R|$ en el análisis descriptivo.
+**Tabla 5.3.** Escala orientativa para $|R|$ en el análisis descriptivo.
 :::
 
 
@@ -703,7 +718,7 @@ Y esa fórmula nos dice también qué relación geométrica hay entre las dos re
 
 Un gráfico lo hace evidente:
 
-```{r dos-rectas-plot, fig.width=6.5, fig.height=4, fig.cap="Las dos rectas de regresión sobre la flota. Se cruzan en el centro de gravedad $(\\overline{x},\\ \\overline{y})$ y su apertura mide indirectamente la dispersión de la nube."}
+```{r dos-rectas-plot, fig.width=6.5, fig.height=4}
 grid_x <- seq(0, 30, length.out = 100)
 grid_y <- seq(500, 950, length.out = 100)
 
@@ -734,6 +749,11 @@ ggplot(astilleros, aes(ANTIG, TONELAJE)) +
        color    = "Recta", linetype = "Recta") +
   theme_libro()
 ```
+
+::: {style="text-align: center;"}
+[]{#fig:dos-rectas-plot}**Figura 5.6.** Las dos rectas de regresión sobre la flota. Se cruzan en el centro de gravedad $(\overline{x},\ \overline{y})$ y su apertura mide indirectamente la dispersión de la nube.
+:::
+
 
 Las dos rectas se abren en abanico desde el punto $(\overline{x},\ \overline{y})$ señalado con la cruz ámbar. Si el $R^{2}$ hubiese sido más alto, las dos rectas estarían más cerca la una de la otra; si hubiese sido más bajo, se abrirían aún más hasta acercarse a la perpendicularidad. **La apertura del abanico es, literalmente, una lectura visual de $R^{2}$**.
 
@@ -767,7 +787,7 @@ ggplot(rstars, aes(ING, COSTOP)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 5.5.** Nube de puntos y recta de regresión sobre las 300 compañías de la muestra R-Stars.
+[]{#fig:rstars-ing-costop-scatter}**Figura 5.7.** Nube de puntos y recta de regresión sobre las 300 compañías de la muestra R-Stars.
 :::
 
 
@@ -799,7 +819,7 @@ Antes de dar por buena la lectura del $R$ y del $R^{2}$ como resumen de una rela
 
 Es el llamado **cuarteto de Anscombe**, que forma parte del propio `R` como `datasets::anscombe`. Reproducirlo lleva quince líneas:
 
-```{r anscombe, fig.width=7.5, fig.height=5.5, fig.cap="El cuarteto de Anscombe. Los cuatro conjuntos comparten media, varianza, covarianza, coeficientes de la recta ajustada y $R^{2}$ hasta la segunda cifra decimal. Solo el conjunto (I) responde a un ajuste lineal genuino."}
+```{r anscombe, fig.width=7.5, fig.height=5.5}
 df_a <- tibble(
   x = c(anscombe$x1, anscombe$x2, anscombe$x3, anscombe$x4),
   y = c(anscombe$y1, anscombe$y2, anscombe$y3, anscombe$y4),
@@ -826,6 +846,11 @@ ggplot(df_a, aes(x, y)) +
   theme_libro() +
   theme(strip.text = element_text(color = "#1e293b", face = "bold"))
 ```
+
+::: {style="text-align: center;"}
+[]{#fig:anscombe}**Figura 5.8.** El cuarteto de Anscombe. Los cuatro conjuntos comparten media, varianza, covarianza, coeficientes de la recta ajustada y $R^{2}$ hasta la segunda cifra decimal. Solo el conjunto (I) responde a un ajuste lineal genuino.
+:::
+
 
 Las cuatro fotografías son un manifiesto pedagógico. En el panel (I), la recta ajusta un patrón lineal auténtico, y el $R^{2} \approx 0{,}67$ tiene el sentido natural que le asignamos. En (II), la relación es claramente **cuadrática**: la recta lineal es una respuesta equivocada a la pregunta correcta, y el $R^{2}$ solo la refleja porque la parábola es aproximadamente lineal en un rango. En (III), hay una relación lineal **perfecta** en todos los puntos menos uno; ese único **outlier** tira de la recta hacia sí y contamina el resumen. En (IV), el $R^{2}$ y la recta están **dictados por un solo punto** situado muy lejos de los demás: retirarlo dejaría al modelo sin nada que decir, porque los diez restantes tienen todos $x=8$ y no informan sobre la pendiente. Es lo que en la jerga se llama un **punto de alta palanca** (o *leverage*).
 
@@ -876,7 +901,7 @@ data.frame(Operaciones = xs, Tiempo = ys) %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 5.2.** Curva de aprendizaje de un tripulante en el módulo de revisión de motores de Hyperdrive Express.
+[]{#tab:curva-aprendizaje-datos}**Tabla 5.4.** Curva de aprendizaje de un tripulante en el módulo de revisión de motores de Hyperdrive Express.
 :::
 
 
@@ -957,7 +982,7 @@ ggplot() +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 5.6.** Datos de la tabla anterior con dos ajustes: lineal (gris, discontinuo) y potencial (negro, continuo).
+[]{#fig:curva-scatter}**Figura 5.9.** Datos de la tabla anterior con dos ajustes: lineal (gris, discontinuo) y potencial (negro, continuo).
 :::
 
 
@@ -1066,7 +1091,7 @@ d)  Un consultor sugiere aplicar la recta para estimar la facturación esperada 
 |   C-05   |  10   |  70   |
 
 ::: {style="text-align: center;"}
-**Tabla 5.3**
+**Tabla 5.5**
 :::
 
 
@@ -1104,7 +1129,7 @@ Un analista ha ajustado una recta sobre 30 cargueros de una serie regular de *Se
 | Correlación $R$        |     0,91      |     0,51      |
 
 ::: {style="text-align: center;"}
-**Tabla 5.4**
+**Tabla 5.6**
 :::
 
 
@@ -1128,7 +1153,7 @@ Sobre 60 cargueros de un cierto sector se ha construido una tabla de correlació
 | (20, 30]             |   25        |       5        |            70                 |
 
 ::: {style="text-align: center;"}
-**Tabla 5.5**
+**Tabla 5.7**
 :::
 
 
@@ -1167,7 +1192,7 @@ d)  Si un directivo pregunta *"¿qué proporción de la variabilidad de $Y$ qued
 | Tamaño de la flota (nº de cargueros)    |  0,03   | +0,17  |
 
 ::: {style="text-align: center;"}
-**Tabla 5.6**
+**Tabla 5.8**
 :::
 
 
@@ -1227,7 +1252,7 @@ La AITM ha calculado los siguientes coeficientes de correlación lineal $R$ entr
 | Gasto en cantina × Distancia al sistema Klendathu    | -0,03  |
 
 ::: {style="text-align: center;"}
-**Tabla 5.7**
+**Tabla 5.9**
 :::
 
 
@@ -1260,7 +1285,7 @@ Un aprendiz de piloto en la escuela de *Enterprise Logistics* cronometra el tiem
 | Tiempo por maniobra ($y_i$, min) |  60 |  42 |  30 |  21 |  15 |
 
 ::: {style="text-align: center;"}
-**Tabla 5.8**
+**Tabla 5.10**
 :::
 
 

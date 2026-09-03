@@ -178,7 +178,7 @@ Coeficientes de asimetría y de curtosis de Fisher.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 3.1.</strong> Los cuatro grandes bloques de medidas para una variable.</p>
+<p><span id="tab:bloques-medidas"></span><strong>Tabla 3.1.</strong> Los cuatro grandes bloques de medidas para una variable.</p>
 </div>
 <p>La mayor parte de estas medidas solo tienen sentido para <strong>variables</strong> en escala métrica. Algunas —como la mediana o la moda— pueden aplicarse también a <strong>atributos</strong> ordinales o nominales, con las adaptaciones oportunas. A lo largo del capítulo iremos indicando en cada caso el alcance.</p>
 <p>Antes de calcular la primera media conviene recordar que ninguna medida sobrevive a un fichero mal depurado. En el capítulo 2 dedicamos la sección 2.6 a los dos problemas recurrentes —<strong>valores perdidos</strong> y <strong>casos atípicos</strong>— con sus tipologías (MCAR, MAR, MNAR), estrategias de tratamiento y reglas de detección. Damos por hecho todo aquello y, a partir de aquí, trabajamos sobre datos ya depurados. Volveremos, eso sí, sobre los <em>outliers</em> en 3.3.2, cuando dispongamos de cuartiles para concretar la regla operativa del box-plot; y sobre su efecto en las medidas de forma en 3.6, donde media, varianza y coeficientes de Fisher pondrán en evidencia hasta qué punto un único caso extremo puede reescribir todo un resumen. La CEO de <em>Hyperdrive Express</em>, con su salario de 100 cientos de PAVOs, nos hará ese servicio.</p>
@@ -370,6 +370,9 @@ Intervalo
 </tr>
 </tbody>
 </table></div>
+<div style="text-align: center;">
+<p><span id="tab:datos-agrupados"></span><strong>Tabla 3.2.</strong> Cálculo de la media agrupada de los salarios de <em>Hyperdrive Express</em>.</p>
+</div>
 <p>De aquí se obtiene la media agrupada</p>
 <p><span class="math display">\[
 \overline{x}_{\text{agr}} = \frac{935{,}0}{60} = 15{,}58 \text{ cientos de PAVOs}.
@@ -454,7 +457,7 @@ El 75 % cobra 20,5 o menos.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 3.2.</strong> Cuartiles del salario en <em>Hyperdrive Express</em>.</p>
+<p><span id="tab:cuartiles-hyperdrive"></span><strong>Tabla 3.3.</strong> Cuartiles del salario en <em>Hyperdrive Express</em>.</p>
 </div>
 <p>Una medida derivada muy útil es el <strong>recorrido intercuartílico</strong> o <em>interquartile range</em> (IQR):</p>
 <p><span class="math display">\[
@@ -581,12 +584,12 @@ El 75 % cobra 20,5 o menos.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 3.3.</strong> Distribución de frecuencias del salario incluyendo a la CEO (<span class="math inline">\(N = 61\)</span>).</p>
+<p><span id="tab:frecuencias-ceo"></span><strong>Tabla 3.4.</strong> Distribución de frecuencias del salario incluyendo a la CEO (<span class="math inline">\(N = 61\)</span>).</p>
 </div>
 <p>Con la CEO dentro, <span class="math inline">\(N = 61\)</span>, <span class="math inline">\(Q_1 = 12\)</span>, <span class="math inline">\(Q_3 = 22\)</span>, IQR <span class="math inline">\(= 10\)</span> y el límite superior de la regla de Tukey pasa a ser 37. Un salario de 100 cientos de PAVOs queda muy por encima: la CEO <strong>es formalmente un outlier</strong>, tal como el sentido común anticipaba. El box-plot lo señalará con un punto solitario muy por encima de la caja, exactamente como una boya alertando de bajos fondos.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/box-plot-hyperdrive-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 3.2</strong></p>
+<p><span id="fig:box-plot-hyperdrive"></span><strong>Figura 3.2</strong></p>
 </div>
 <p>A la izquierda, la plantilla de 60 empleados; a la derecha, incluyendo a la CEO. La caja apenas se mueve; el bigote se estira ligeramente; pero el <em>outlier</em> que aparece en solitario en el segundo gráfico es toda la información visual que necesitábamos.</p>
 </div>
@@ -598,7 +601,7 @@ El 75 % cobra 20,5 o menos.
 <p>El <strong>gráfico de violín</strong>, propuesto por Hintze y Nelson (1998), combina lo mejor del box-plot con la lectura visual de un histograma suavizado. Sobre cada categoría se dibuja, en vertical, la densidad de la distribución (la “silueta” del violín), y suele incorporarse un box-plot fino en su interior. El resultado revela de un vistazo tanto la posición y la dispersión como la forma: simetría, asimetría, unimodalidad o bimodalidad.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/violin-hyperdrive-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 3.3</strong></p>
+<p><span id="fig:violin-hyperdrive"></span><strong>Figura 3.3</strong></p>
 </div>
 <p>El violín añade al box-plot una lectura de forma: la plantilla muestra una silueta claramente asimétrica —el cuerpo es ancho en torno a los 15 y adelgaza hacia arriba— que un simple box-plot no haría igual de evidente. Al incorporar a la CEO, la silueta apenas cambia; el punto rojo aislado sigue haciendo el trabajo de alerta.</p>
 <p>En términos didácticos, box-plot y violín son complementarios: el primero sigue siendo insustituible para detectar <em>outliers</em> de un vistazo; el segundo aporta información sobre la <strong>forma</strong> que anticipa lo que veremos en las medidas de asimetría y curtosis. En la práctica profesional, cuando el tamaño muestral lo permite —y en 60 casos ya lo permite—, muchos analistas prefieren directamente el violín.</p>
@@ -720,7 +723,7 @@ Valor
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 3.4.</strong> Momentos respecto al origen del salario en <em>Hyperdrive Express</em>.</p>
+<p><span id="tab:momentos-hyperdrive"></span><strong>Tabla 3.5.</strong> Momentos respecto al origen del salario en <em>Hyperdrive Express</em>.</p>
 </div>
 <p>De donde se sigue <span class="math inline">\(m_2 = 331{,}37 - 17{,}20^{2} = 35{,}53\)</span>, <span class="math inline">\(m_3 = 117{,}28\)</span> y <span class="math inline">\(m_4 = 3\,313{,}22\)</span>. Los usaremos enseguida.</p>
 </div>
@@ -732,7 +735,7 @@ Valor
 <p>Consideremos dos plantillas hipotéticas, ambas con <strong>media salarial de 17,20 cientos de PAVOs</strong>. En la primera —<em>Hyperdrive Express</em>— los salarios se reparten entre 8 y 30, con una desviación típica de 5,96. En la segunda —una compañía imaginaria en la que casi todos cobran cerca de la media— la desviación típica es de apenas 1,5. La media es idéntica; la fotografía, muy distinta.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/dispersion-representatividad-1.png" alt="" width="95%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 3.4</strong></p>
+<p><span id="fig:dispersion-representatividad"></span><strong>Figura 3.4</strong></p>
 </div>
 <p>En la plantilla de la derecha, la media describe con precisión lo que le ocurre a cada empleado. En la de la izquierda, la media es solo una referencia: muchos casos están lejos de ese valor, y ninguna decisión razonable sobre política salarial debería basarse solo en él.</p>
 <p>La media es un dato incompleto: <strong>caracteriza dónde se sitúa la distribución, pero no cuánto se aparta cada individuo de esa posición</strong>. Las medidas de dispersión completan la fotografía, cuantificando <strong>cuán representativa</strong> es la medida central. Si la dispersión es baja, los valores están concentrados en torno a la media y esta la representa bien. Si es alta, los valores están muy repartidos y la media, aunque exista, describe pobremente lo que le ocurre a cada individuo.</p>
@@ -773,7 +776,7 @@ La única diferencia con la varianza es dividir entre <span class="math inline">
 <p>Detrás de la varianza hay una idea más profunda que el mero cálculo: la <strong>capacidad de una variable para diferenciar unos casos de otros</strong>. Imaginemos tres variables medidas sobre las mismas 30 compañías R-Stars. En la primera, todas las empresas registran el mismo valor: no aporta ninguna información, porque no permite distinguir una empresa de otra. En la segunda, hay cierta diferencia entre compañías pero pequeña: nos permite hacer alguna distinción, pero con esfuerzo. En la tercera, los valores se reparten sobre un abanico amplio: cada empresa es fácilmente distinguible del resto.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/varianza-info-1.png" alt="" width="95%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 3.5</strong></p>
+<p><span id="fig:varianza-info"></span><strong>Figura 3.5</strong></p>
 </div>
 <p>La variable A no permite distinguir empresas entre sí; la B las distingue con cierta dificultad; la C las diferencia con claridad.</p>
 <p>Cuanto mayor es la dispersión de una variable, mayor es su <strong>contenido informativo</strong> sobre los casos. La varianza —y la desviación típica— son, en ese sentido, medidas de la “cantidad de información” que la variable aporta sobre el grupo estudiado. Esta intuición está en la base de técnicas mucho más potentes que veremos en cursos avanzados, como el <strong>análisis de componentes principales</strong>, cuyo objetivo es precisamente conservar la mayor cantidad posible de varianza —de información— reduciendo el número de variables.</p>
@@ -855,7 +858,7 @@ Compañía
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 3.5.</strong> Comparación salarial de dos compañías R-Stars.</p>
+<p><span id="tab:comparacion-companias"></span><strong>Tabla 3.6.</strong> Comparación salarial de dos compañías R-Stars.</p>
 </div>
 <p>En términos absolutos, <em>Hyperdrive Express</em> tiene una desviación típica mayor. Pero también una media mayor. El coeficiente de variación de ambas compañías es prácticamente idéntico: sus <strong>estructuras salariales relativas</strong> son gemelas, aunque los euros —perdón, los PAVOs— absolutos no lo sean. Este tipo de conclusión es el que hace del CV una medida imprescindible cuando queremos comparar la representatividad de la media entre distribuciones.</p>
 </div>
@@ -867,7 +870,7 @@ Compañía
 <p>La <strong>curva de Lorenz</strong>, propuesta por Max O. Lorenz en 1905, formaliza esta idea. Se ordenan los individuos de menor a mayor valor de la variable, y para cada porcentaje acumulado de individuos (eje horizontal) se representa el porcentaje acumulado de la masa total (eje vertical). Si la distribución es perfectamente igualitaria, la curva coincide con la diagonal (<strong>recta de equidistribución</strong>): al 50 % de los individuos corresponde el 50 % de la masa. Si la distribución es desigual, la curva se curva por debajo: al 50 % más pobre corresponde una fracción menor del 50 % del total.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/lorenz-hyperdrive-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 3.6</strong></p>
+<p><span id="fig:lorenz-hyperdrive"></span><strong>Figura 3.6</strong></p>
 </div>
 <p>En <em>Hyperdrive Express</em> sin la CEO (curva azul), el 50 % de la plantilla con menores salarios acumula solo el <strong>36,2 %</strong> de la masa salarial, y el 10 % con salarios más altos concentra el 17,0 %. La curva se separa moderadamente de la diagonal: la plantilla es desigual, pero razonablemente equilibrada. Al incorporar a la CEO (curva naranja), la curva se hunde: ahora el 50 % con menores salarios acumula solo el <strong>33,0 %</strong> del total, mientras que el 10 % con salarios más altos concentra el <strong>22,1 %</strong>. Un solo caso extremo desplaza sensiblemente la concentración.</p>
 <p>El área comprendida entre la diagonal y la curva de Lorenz mide, gráficamente, cuánta desigualdad hay. Corrado Gini propuso en 1912 una medida sintética de esa área, el <strong>índice de Gini</strong>:</p>
@@ -924,7 +927,7 @@ z_i = \frac{x_i - \overline{x}}{S},
 </ul>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/asimetria-tipos-1.png" alt="" width="95%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 3.7</strong></p>
+<p><span id="fig:asimetria-tipos"></span><strong>Figura 3.7</strong></p>
 </div>
 <p>La asimétrica positiva tiene la cola larga hacia la derecha; la negativa, hacia la izquierda.</p>
 <p>Para cuantificarla, Fisher observó que el momento central de orden 3, <span class="math inline">\(m_3\)</span>, tiene precisamente esa propiedad: es cero si la distribución es simétrica, positivo si tiene cola a la derecha y negativo si la tiene a la izquierda. Pero <span class="math inline">\(m_3\)</span> tiene unidades (las de la variable al cubo) y no permite comparar distribuciones medidas en escalas distintas. Fisher lo normalizó dividiendo por <span class="math inline">\(S^{\,3}\)</span>, obteniendo el <strong>coeficiente de asimetría de Fisher</strong>:</p>
@@ -967,7 +970,7 @@ g_1 = \frac{m_3}{S^{\,3}} = \frac{117{,}28}{5{,}96^{3}} = 0{,}55.
 </ul>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/curtosis-tipos-1.png" alt="" width="95%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 3.8</strong></p>
+<p><span id="fig:curtosis-tipos"></span><strong>Figura 3.8</strong></p>
 </div>
 <p>La platicúrtica tiene el pico más aplanado y las colas más ligeras que la normal; la leptocúrtica, el pico más alto y las colas más pesadas.</p>
 <p>Fisher se dio cuenta de que, para una distribución normal, se cumple <span class="math inline">\(m_4 = 3 S^{4}\)</span>, lo que sugiere construir la medida</p>
@@ -1078,7 +1081,7 @@ g_2 = \frac{m_4}{S^{\,4}} - 3 = \frac{3\,313{,}22}{5{,}96^{4}} - 3 = -0{,}37.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 3.6</strong></p>
+<p><strong>Tabla 3.7</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1121,7 +1124,7 @@ g_2 = \frac{m_4}{S^{\,4}} - 3 = \frac{3\,313{,}22}{5{,}96^{4}} - 3 = -0{,}37.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 3.7</strong></p>
+<p><strong>Tabla 3.8</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1175,7 +1178,7 @@ g_2 = \frac{m_4}{S^{\,4}} - 3 = \frac{3\,313{,}22}{5{,}96^{4}} - 3 = -0{,}37.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 3.8</strong></p>
+<p><strong>Tabla 3.9</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1214,7 +1217,7 @@ g_2 = \frac{m_4}{S^{\,4}} - 3 = \frac{3\,313{,}22}{5{,}96^{4}} - 3 = -0{,}37.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 3.9</strong></p>
+<p><strong>Tabla 3.10</strong></p>
 </div>
 <p>Un directivo mira las tres desviaciones típicas y concluye: <em>“El salario es la variable menos dispersa del sector, con diferencia.”</em> Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1294,7 +1297,7 @@ g_2 = \frac{m_4}{S^{\,4}} - 3 = \frac{3\,313{,}22}{5{,}96^{4}} - 3 = -0{,}37.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 3.10</strong></p>
+<p><strong>Tabla 3.11</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1379,7 +1382,7 @@ g_2 = \frac{m_4}{S^{\,4}} - 3 = \frac{3\,313{,}22}{5{,}96^{4}} - 3 = -0{,}37.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 3.11</strong></p>
+<p><strong>Tabla 3.12</strong></p>
 </div>
 <p>Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1472,7 +1475,7 @@ g_2 = \frac{m_4}{S^{\,4}} - 3 = \frac{3\,313{,}22}{5{,}96^{4}} - 3 = -0{,}37.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 3.12</strong></p>
+<p><strong>Tabla 3.13</strong></p>
 </div>
 <p>A los pocos segundos de leer el cuadro, Mara escribe al equipo de Kaiju: <em>“Alguna de estas cifras está mal. Revísenlas antes de que la ARTI acepte el informe.”</em> Se pide:</p>
 <ol style="list-style-type: lower-alpha">
@@ -1911,7 +1914,7 @@ g_2 = \frac{m_4}{S^{\,4}} - 3 = \frac{3\,313{,}22}{5{,}96^{4}} - 3 = -0{,}37.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-25.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-09-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

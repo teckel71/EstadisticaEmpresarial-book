@@ -87,7 +87,7 @@ trabajadores |>
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 2.1.** Primeras filas del fichero `trabajadores.xlsx`: cada fila es un individuo (empleado), cada columna una característica.
+[]{#tab:trabajadores-preview}**Tabla 2.1.** Primeras filas del fichero `trabajadores.xlsx`: cada fila es un individuo (empleado), cada columna una característica.
 :::
 
 
@@ -142,7 +142,7 @@ comparacion |>
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 2.2.** Fuentes primarias frente a fuentes secundarias: ventajas e inconvenientes.
+[]{#tab:fuentes-comparacion}**Tabla 2.2.** Fuentes primarias frente a fuentes secundarias: ventajas e inconvenientes.
 :::
 
 
@@ -246,7 +246,7 @@ formatos |>
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 2.3.** Formatos habituales de intercambio de datos.
+[]{#tab:formatos-tabla}**Tabla 2.3.** Formatos habituales de intercambio de datos.
 :::
 
 
@@ -373,7 +373,7 @@ ggplot() +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 2.2**
+[]{#fig:wald-bombardero}**Figura 2.2**
 :::
 
 
@@ -438,7 +438,7 @@ muestreos |>
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 2.4.** Principales tipos de muestreo, familia a la que pertenecen y uso recomendado.
+[]{#tab:muestreos-tabla}**Tabla 2.4.** Principales tipos de muestreo, familia a la que pertenecen y uso recomendado.
 :::
 
 
@@ -466,7 +466,7 @@ tibble(
 ```
 
 ::: {style="text-align: center;"}
-**Figura 2.3**
+[]{#fig:tamano-muestra-fig}**Figura 2.3**
 :::
 
 
@@ -569,7 +569,7 @@ bd_comp |>
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 2.5.** Bases de datos relacionales frente a NoSQL: comparación resumida.
+[]{#tab:bd-comparacion}**Tabla 2.5.** Bases de datos relacionales frente a NoSQL: comparación resumida.
 :::
 
 
@@ -601,7 +601,7 @@ variables_astilleros |>
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 2.6.** Diccionario de datos del fichero `astilleros_48.xlsx` (hoja *Variables*).
+[]{#tab:diccionario-astilleros}**Tabla 2.6.** Diccionario de datos del fichero `astilleros_48.xlsx` (hoja *Variables*).
 :::
 
 
@@ -643,7 +643,7 @@ trabaj_sucio |>
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 2.7.** Extracto de un fichero recibido de RR.HH.: los huecos se han codificado como cadena vacía, como texto `n.d.` y como `999`. Todos son en realidad valores perdidos.
+[]{#tab:missing-simulacion}**Tabla 2.7.** Extracto de un fichero recibido de RR.HH.: los huecos se han codificado como cadena vacía, como texto `n.d.` y como `999`. Todos son en realidad valores perdidos.
 :::
 
 
@@ -689,7 +689,7 @@ missing_tab |>
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 2.8.** Estrategias para el tratamiento de valores perdidos, con sus ventajas, inconvenientes y usos típicos.
+[]{#tab:missing-tabla}**Tabla 2.8.** Estrategias para el tratamiento de valores perdidos, con sus ventajas, inconvenientes y usos típicos.
 :::
 
 
@@ -745,7 +745,7 @@ ggplot(astilleros, aes(x = "", y = IIG)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 2.4**
+[]{#fig:outliers-astilleros}**Figura 2.4**
 :::
 
 

@@ -204,7 +204,7 @@ Suceso
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 8.1.</strong> Variable aleatoria <span class="math inline">\(\\xi\)</span>: número de cargueros que llegan a Giedi Prime.</p>
+<p><span id="tab:tabla-arrakis-va"></span><strong>Tabla 8.1.</strong> Variable aleatoria <span class="math inline">\(\xi\)</span>: número de cargueros que llegan a Giedi Prime.</p>
 </div>
 <p>El <strong>campo de variación</strong> de <span class="math inline">\(\xi\)</span> es <span class="math inline">\(\{0, 1, 2, 3\}\)</span>. La <strong>distribución de probabilidad</strong> es la lista de probabilidades asignadas a cada uno de esos valores. Con ese par de piezas ya podemos calcular cualquier cosa: la probabilidad de que lleguen al menos dos, la probabilidad de que no llegue ninguno (mala noche para las bonificaciones del gerente), etc.</p>
 </div>
@@ -251,7 +251,7 @@ Suceso
 <p>Ilustrémoslo. Tomemos la variable <code>FLOTA</code> de las 300 empresas de la base <code>interestelar_300</code>. Ese histograma es una <strong>fotografía descriptiva</strong>. Pero si pensamos que esas 300 empresas son una muestra de una “población interestelar” enorme, y que la flota de una empresa cualquiera es una variable aleatoria <span class="math inline">\(\xi\)</span>, entonces el histograma es una <strong>aproximación empírica</strong> a la distribución de probabilidad de <span class="math inline">\(\xi\)</span>.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-frecuentismo-flota-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 8.2.</strong> Distribución empírica del número de cargueros por empresa en <code>interestelar_300</code>. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria ‘flota de una empresa cualquiera’.</p>
+<p><span id="fig:fig-frecuentismo-flota"></span><strong>Figura 8.2.</strong> Distribución empírica del número de cargueros por empresa en <code>interestelar_300</code>. Bajo el enfoque frecuentista, este histograma es una aproximación a la distribución de probabilidad de la variable aleatoria ‘flota de una empresa cualquiera’.</p>
 </div>
 <p>La barra que muestra “hay tantas empresas con flotas entre 20 y 24 cargueros” es un dato descriptivo. Pero si dividimos su altura por el total y por la anchura del intervalo, empieza a parecerse mucho a un valor de probabilidad. <strong>Ese es el puente</strong>: la estadística descriptiva y la teoría de la probabilidad se dan la mano en el límite, cuando la muestra crece.</p>
 <div class="rmdimportant">
@@ -383,12 +383,12 @@ F(x) = P(\xi \le x) = \sum_{x_i \le x} p_i.
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 8.2.</strong> Función de cuantía y de distribución de <span class="math inline">\(\\xi\)</span> = número de cargueros a tiempo.</p>
+<p><span id="tab:tabla-cuantia-arrakis"></span><strong>Tabla 8.2.</strong> Función de cuantía y de distribución de <span class="math inline">\(\xi\)</span> = número de cargueros a tiempo.</p>
 </div>
 <p>Y así se ve la cosa:</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-arrakis-discreta-1.png" alt="" width="95%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 8.3.</strong> Función de cuantía (izquierda) y función de distribución (derecha) de <span class="math inline">\(\\xi\)</span>: número de cargueros a tiempo en <em>arrakis freight</em>.</p>
+<p><span id="fig:fig-arrakis-discreta"></span><strong>Figura 8.3.</strong> Función de cuantía (izquierda) y función de distribución (derecha) de <span class="math inline">\(\xi\)</span>: número de cargueros a tiempo en <em>arrakis freight</em>.</p>
 </div>
 <p>Los saltos de la función de distribución tienen exactamente la altura de las cuantías: <span class="math inline">\(1/8\)</span>, <span class="math inline">\(3/8\)</span>, <span class="math inline">\(3/8\)</span>, <span class="math inline">\(1/8\)</span>. La probabilidad no se pierde en ningún tramo horizontal: sólo se acumula en los saltos.</p>
 </div>
@@ -456,7 +456,7 @@ P(1 &lt; \xi &lt; 2) = \int_1^2 \frac{1}{8} x\, dx = \frac{1}{8} \cdot \left[\fr
 <p>Geométricamente:</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-densidad-grua-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 8.4.</strong> Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es <span class="math inline">\(P(1 &lt; \\xi &lt; 2) = 3/16\)</span>.</p>
+<p><span id="fig:fig-densidad-grua"></span><strong>Figura 8.4.</strong> Función de densidad del tiempo de descarga (horas) en la nueva grúa KORRIGAN. El área sombreada es <span class="math inline">\(P(1 &lt; \xi &lt; 2) = 3/16\)</span>.</p>
 </div>
 </div>
 <div id="la-lectura-visual-área-bajo-la-curva" class="section level3" number="8.6.4">
@@ -638,7 +638,7 @@ Z \;=\; \frac{\xi - \mu}{\sigma}.
 <p>Nada de esto es abstracto en el mundo económico. La distribución de la variable <code>IIG</code> (número de averías graves acumuladas por una nave) del fichero <code>astilleros_48</code> es un ejemplo perfecto de asimetría positiva con colas gruesas: la mayoría de las naves acumulan pocas averías, pero una tiene 35 y otra 16.</p>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-asimetria-iig-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 8.5.</strong> Distribución empírica del número de averías graves acumuladas (IIG) por las 48 naves del fichero de astilleros. Fuerte asimetría a la derecha y presencia de valores extremos: un caso paradigmático de distribución con cola pesada.</p>
+<p><span id="fig:fig-asimetria-iig"></span><strong>Figura 8.5.</strong> Distribución empírica del número de averías graves acumuladas (IIG) por las 48 naves del fichero de astilleros. Fuerte asimetría a la derecha y presencia de valores extremos: un caso paradigmático de distribución con cola pesada.</p>
 </div>
 <p>Este patrón es, precisamente, el que interesa vigilar en gestión de riesgos: no importa tanto la nave “media” como esa <strong>cola larga</strong> que agrupa las poquísimas naves problemáticas que, sin embargo, concentran el grueso de los costes de mantenimiento. En finanzas se emplea la misma idea: los retornos de un activo pueden tener media y varianza dignas, pero si su curtosis es alta —colas gruesas—, quedan expuestos a <strong>eventos raros pero catastróficos</strong>. Es la lección de los “cisnes negros” de Nassim Taleb, y su descubrimiento tardío por parte de algunos gestores bancarios costó, allá por 2008, muy caro.</p>
 </div>
@@ -682,7 +682,7 @@ P\!\left(|\xi - \mu| \ge k \sigma \right) \;\le\; \frac{1}{k^2}.
 </h3>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/fig-anatomia-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 8.6.</strong> Anatomía de una variable aleatoria continua: la esperanza <span class="math inline">\(\\mu\)</span> señala el centro; la desviación típica <span class="math inline">\(\\sigma\)</span>, cómo de ancha es la distribución. El área sombreada cubre el intervalo <span class="math inline">\([\\mu - \\sigma,\\ \\mu + \\sigma]\)</span>.</p>
+<p><span id="fig:fig-anatomia"></span><strong>Figura 8.6.</strong> Anatomía de una variable aleatoria continua: la esperanza <span class="math inline">\(\mu\)</span> señala el centro; la desviación típica <span class="math inline">\(\sigma\)</span>, cómo de ancha es la distribución. El área sombreada cubre el intervalo <span class="math inline">\([\mu - \sigma,\ \mu + \sigma]\)</span>.</p>
 </div>
 </div>
 </div>
@@ -845,7 +845,7 @@ ANTIGUA
 </tbody>
 </table></div>
 <div style="text-align: center;">
-<p><strong>Tabla 8.3.</strong> Función de cuantía conjunta de <span class="math inline">\((\\xi, \\eta)\)</span> para las empresas auditadas por la CIT. Las marginales se leen en los márgenes derecho e inferior.</p>
+<p><span id="tab:tabla-conjunta-cit"></span><strong>Tabla 8.3.</strong> Función de cuantía conjunta de <span class="math inline">\((\xi, \eta)\)</span> para las empresas auditadas por la CIT. Las marginales se leen en los márgenes derecho e inferior.</p>
 </div>
 <p>De aquí se lee, por ejemplo, que la probabilidad de que la empresa auditada opere en 2 galaxias y tenga flota MADURA es <span class="math inline">\(0{,}15\)</span>. Que opere en 3 galaxias, sea cual sea su flota, es <span class="math inline">\(0{,}22\)</span> (la marginal de <span class="math inline">\(\xi\)</span> para el valor 3). Y así con todo.</p>
 </div>
@@ -922,7 +922,7 @@ ANTIGUA
 <span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="EstadisticaEmpresarial_files/figure-html/simulacion-arrakis-1.png" alt="" width="80%" style="display: block; margin: auto;"></div>
 <div style="text-align: center;">
-<p><strong>Figura 8.7.</strong> Comparación entre la distribución teórica de <span class="math inline">\(\\xi\)</span> (barras claras) y la distribución empírica obtenida simulando 10.000 noches (barras oscuras). Con tantas repeticiones, ambas se solapan casi perfectamente: Ley de los Grandes Números en acción.</p>
+<p><span id="fig:simulacion-arrakis"></span><strong>Figura 8.7.</strong> Comparación entre la distribución teórica de <span class="math inline">\(\xi\)</span> (barras claras) y la distribución empírica obtenida simulando 10.000 noches (barras oscuras). Con tantas repeticiones, ambas se solapan casi perfectamente: Ley de los Grandes Números en acción.</p>
 </div>
 <p>Cuatro líneas de código y hemos verificado empíricamente lo que la teoría nos dice. Este enfoque —<strong>simulación de Monte Carlo</strong>, ya mencionado en el capítulo anterior— es la herramienta cotidiana del analista de riesgos financieros, del actuario, del ingeniero de fiabilidad y del científico de datos. Cuando una variable aleatoria es demasiado complicada para calcular sus propiedades analíticamente, simulamos miles (o millones) de realizaciones y aproximamos lo que queramos: esperanzas, varianzas, cuantiles, probabilidades de sucesos raros. Un salto conceptual enorme respecto a la estadística de hace medio siglo.</p>
 </div>
@@ -1868,7 +1868,7 @@ E(XY) &amp;= (1)(1)(0{,}05) + (1)(2)(0{,}10) + (1)(3)(0{,}15) \\
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-08-25.</p>
+    <p>"<strong>Estadística Empresarial</strong>" was written by Miguel Ángel Tarancón Morán. It was last built on 2026-09-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

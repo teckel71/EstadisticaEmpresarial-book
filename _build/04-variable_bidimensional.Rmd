@@ -147,6 +147,11 @@ shuttlepod %>%
                 font_size = 13)
 ```
 
+::: {style="text-align: center;"}
+[]{#tab:shuttlepod-head}**Tabla 4.2.** Primeros casos del fichero de empleados de Shuttlepod Movers.
+:::
+
+
 Como el salario toma bastantes valores distintos —tantos como niveles retributivos hay en la compañía—, empezamos por una versión **agrupada** en tres intervalos salariales cómodos, que facilitan la vista sin distorsionar la estructura:
 
 - Salario **Bajo**: $\le 12$ cientos de PAVOs.
@@ -190,7 +195,7 @@ tabla_sh_df %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 4.2.** Salario ($X$) y nivel de estudios ($Y$) en la plantilla de Shuttlepod Movers. Frecuencias absolutas conjuntas y marginales.
+[]{#tab:shuttlepod-tabla-abs}**Tabla 4.3.** Salario ($X$) y nivel de estudios ($Y$) en la plantilla de Shuttlepod Movers. Frecuencias absolutas conjuntas y marginales.
 :::
 
 
@@ -240,7 +245,7 @@ rel_sh_df %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 4.3.** Frecuencias relativas conjuntas y marginales en Shuttlepod Movers.
+[]{#tab:shuttlepod-tabla-rel}**Tabla 4.4.** Frecuencias relativas conjuntas y marginales en Shuttlepod Movers.
 :::
 
 
@@ -290,7 +295,7 @@ tabla_cond %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 4.4.** Distribución del salario condicionada al nivel de estudios (cada columna suma 1).
+[]{#tab:shuttlepod-tabla-cond}**Tabla 4.5.** Distribución del salario condicionada al nivel de estudios (cada columna suma 1).
 :::
 
 
@@ -317,7 +322,7 @@ tabla_cond_yx %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 4.5.** Distribución del nivel de estudios condicionada al tramo salarial (cada fila suma 1).
+[]{#tab:shuttlepod-tabla-cond-yx}**Tabla 4.6.** Distribución del nivel de estudios condicionada al tramo salarial (cada fila suma 1).
 :::
 
 
@@ -367,7 +372,7 @@ g_XY + g_YX
 ```
 
 ::: {style="text-align: center;"}
-**Figura 4.2**
+[]{#fig:shuttlepod-condicionadas-barras}**Figura 4.2**
 :::
 
 
@@ -451,7 +456,7 @@ tabla_indep_df %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 4.6.** Salario ($X$) y gasto mensual en la cantina corporativa ($Y$) en la plantilla combinada de Corellian Freightworks.
+[]{#tab:ejemplo-indep-abs}**Tabla 4.7.** Salario ($X$) y gasto mensual en la cantina corporativa ($Y$) en la plantilla combinada de Corellian Freightworks.
 :::
 
 
@@ -484,7 +489,7 @@ cond_indep %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 4.7.** Distribución del salario ($X$) condicionada al gasto en cantina ($Y$) en Corellian Freightworks. Todas las columnas son idénticas.
+[]{#tab:ejemplo-indep-cond}**Tabla 4.8.** Distribución del salario ($X$) condicionada al gasto en cantina ($Y$) en Corellian Freightworks. Todas las columnas son idénticas.
 :::
 
 
@@ -522,7 +527,7 @@ tabla_esp %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 4.8.** Frecuencias observadas ($n_{ij}$) frente a esperadas bajo independencia ($n^{*}_{ij}$) en Shuttlepod Movers.
+[]{#tab:shuttlepod-esperadas}**Tabla 4.9.** Frecuencias observadas ($n_{ij}$) frente a esperadas bajo independencia ($n^{*}_{ij}$) en Shuttlepod Movers.
 :::
 
 
@@ -653,6 +658,11 @@ tabla_ast_df %>%
                 font_size = 13)
 ```
 
+::: {style="text-align: center;"}
+[]{#tab:astilleros-tabla-abs}**Tabla 4.10.** Antigüedad ($X$, años) y tonelaje ($Y$, miles de toneladas) de los 48 cargueros. Frecuencias absolutas.
+:::
+
+
 Usando las marcas de clase $x_i \in \{2{,}5;\ 7{,}5;\ 12{,}5;\ 17{,}5;\ 25\}$ e $y_j \in \{575;\ 700;\ 800;\ 900\}$, los momentos respecto al origen sobre la tabla agrupada se calculan de forma directa:
 
 ```{r astilleros-covar}
@@ -720,7 +730,7 @@ ggplot(astilleros, aes(ANTIG, TONELAJE)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 4.3**
+[]{#fig:astilleros-scatter}**Figura 4.3**
 :::
 
 
@@ -792,7 +802,7 @@ ggplot(df_cuarteto, aes(x, y)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 4.4**
+[]{#fig:cuarteto-covarianza}**Figura 4.4**
 :::
 
 
@@ -887,7 +897,7 @@ tabla_rs_df %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 4.9.** Forma jurídica y estado de la flota en las 300 compañías R-Stars. Frecuencias observadas.
+[]{#tab:rstars-fjur-eflo-obs}**Tabla 4.11.** Forma jurídica y estado de la flota en las 300 compañías R-Stars. Frecuencias observadas.
 :::
 
 
@@ -927,7 +937,7 @@ tabla_esp_rs %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 4.10.** Frecuencias observadas y esperadas bajo independencia para el cruce FJUR × EFLO.
+[]{#tab:rstars-esperadas}**Tabla 4.12.** Frecuencias observadas y esperadas bajo independencia para el cruce FJUR × EFLO.
 :::
 
 
@@ -991,7 +1001,7 @@ ggplot(df_resid, aes(x = Estudios, y = Salario, fill = Residuo)) +
 ```
 
 ::: {style="text-align: center;"}
-**Figura 4.5**
+[]{#fig:shuttlepod-residuos}**Figura 4.5**
 :::
 
 
@@ -1023,7 +1033,7 @@ tabla_show %>%
 ```
 
 ::: {style="text-align: center;"}
-**Tabla 4.11.** Astillero constructor × sede base (fragmento representativo). Cada astillero opera desde un conjunto disjunto de sedes.
+[]{#tab:astill-sede-tabla}**Tabla 4.13.** Astillero constructor × sede base (fragmento representativo). Cada astillero opera desde un conjunto disjunto de sedes.
 :::
 
 
@@ -1054,7 +1064,7 @@ Los tres ejemplos, resumidos, componen una escala clara:
 | Astillero × sede          | $3\times 12$    | $48$  | $`r fmt(chi2_as, 0)`$   | $`r fmt(V_as, 3)`$      | Asociación absoluta            |
 
 ::: {style="text-align: center;"}
-**Tabla 4.12**
+**Tabla 4.14**
 :::
 
 
@@ -1097,7 +1107,7 @@ La AITM publica esta tabla de doble entrada que cruza el **estado de la flota** 
 | **Marg. $Y$**  |   100      |    90     |    60     | 30  | 20  |   300     |
 
 ::: {style="text-align: center;"}
-**Tabla 4.13**
+**Tabla 4.15**
 :::
 
 
@@ -1119,7 +1129,7 @@ Sobre una muestra de 200 empleados de *Kaiju Haulage Co.*, se ha cruzado el **tu
 | Marg.     |   80   |    60    |   60   |  200  |
 
 ::: {style="text-align: center;"}
-**Tabla 4.14**
+**Tabla 4.16**
 :::
 
 
@@ -1141,7 +1151,7 @@ Se dispone del siguiente cruce de dos atributos $X$ (P / Q) e $Y$ (A / B) en una
 | Marg.   |  40 |  60 |  100  |
 
 ::: {style="text-align: center;"}
-**Tabla 4.15**
+**Tabla 4.17**
 :::
 
 
@@ -1164,7 +1174,7 @@ Se conocen únicamente las **frecuencias marginales** del cruce forma jurídica 
 | Marg. $Y$ |   60   |  120  |   120    |   300     |
 
 ::: {style="text-align: center;"}
-**Tabla 4.16**
+**Tabla 4.18**
 :::
 
 
@@ -1196,7 +1206,7 @@ Al comparar la **rentabilidad media** de las Sociedades Anónimas Galácticas (S
 | SLG            |          55            |
 
 ::: {style="text-align: center;"}
-**Tabla 4.17**
+**Tabla 4.19**
 :::
 
 
@@ -1209,7 +1219,7 @@ Parece que las SAG rinden más. Pero al desagregar por **sector operativo**, los
 | Servicios  |        78%        |        80%        |
 
 ::: {style="text-align: center;"}
-**Tabla 4.18**
+**Tabla 4.20**
 :::
 
 
@@ -1232,7 +1242,7 @@ Sobre las 300 compañías R-Stars se han calculado las siguientes covarianzas en
 | Gasto en cantina × Distancia al sistema Klendathu  |     $-0{,}03$       |
 
 ::: {style="text-align: center;"}
-**Tabla 4.19**
+**Tabla 4.21**
 :::
 
 
@@ -1256,7 +1266,7 @@ d)  ¿Qué medida del **capítulo siguiente** hará mucho más fácil comparar l
 |    5     |     15       |        5        |
 
 ::: {style="text-align: center;"}
-**Tabla 4.20**
+**Tabla 4.22**
 :::
 
 
@@ -1289,7 +1299,7 @@ Un estudio piloto de la ARTI cruza el **estado de mantenimiento** de 200 carguer
 | Marg.          |       50      |      150      |  200  |
 
 ::: {style="text-align: center;"}
-**Tabla 4.21**
+**Tabla 4.23**
 :::
 
 
@@ -1311,7 +1321,7 @@ Un informe de la AITM presenta tres cruces distintos con los siguientes indicado
 | Astillero × Nivel de digitalización         | $3\times 4$  |  48  |  12,20     |
 
 ::: {style="text-align: center;"}
-**Tabla 4.22**
+**Tabla 4.24**
 :::
 
 
@@ -1333,7 +1343,7 @@ En un cruce del *Informe Bluebird* entre **tamaño de la compañía** (Small / M
 | **Large**    | -2,60  | -1,30   | +3,90  |
 
 ::: {style="text-align: center;"}
-**Tabla 4.23**
+**Tabla 4.25**
 :::
 
 
@@ -1356,7 +1366,7 @@ d)  Si fueras responsable de estrategia en una compañía **Small**, ¿qué **de
 | Marg.        | 90  | 120 | 90  |  300  |
 
 ::: {style="text-align: center;"}
-**Tabla 4.24**
+**Tabla 4.26**
 :::
 
 
